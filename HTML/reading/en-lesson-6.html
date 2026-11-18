@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Forms part 1 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">The &lt;form&gt; tag: action and method</a><a href="#section-5">&lt;label&gt; and the for/id association</a><a href="#section-8">Input types pt.1: text, email, password</a><a href="#section-12">Input types pt.2: number, date</a><a href="#section-16">checkbox and radio</a><a href="#section-21">Mini-task</a><a href="#section-22">placeholder vs value, and required</a><a href="#section-28">A form submit control</a><a href="#section-29">Lesson summary</a><a href="#section-30">Independent practice</a></details></aside><article><h1 id="section-1">Forms part 1</h1>
+<p><a href="index.html">Contents</a> | <a href="en-lesson-5.html">Previous</a> | <a href="en-lesson-7.html">Next</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Practice: example</a></p>
+<blockquote>
+<p><strong>Connection with the previous lesson:</strong> in the last lesson we learned to present data using tables. Today we move on to forms - the only way in plain HTML to collect information <strong>from</strong> the user (previously the page only displayed information; now it can also receive it).</p>
+</blockquote>
+<hr>
+<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<ul>
+<li>Create a form with the <code>&lt;form&gt;</code> tag and understand the <code>action</code> and <code>method</code> attributes.</li>
+<li>Use the main <code>input</code> types: text, email, password, number, date, checkbox, radio.</li>
+<li>Properly associate a <code>label</code> with a field using <code>for</code>/<code>id</code>.</li>
+<li>Understand the difference between <code>placeholder</code> and <code>value</code>.</li>
+<li>Make fields required using <code>required</code>.</li>
+</ul>
+<hr>
+<h2 id="section-3">Lesson plan</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The form tag: action, method</td>
+<td>Why forms are needed, where data goes</td>
+</tr>
+<tr>
+<td>label and for/id</td>
+<td>Label-field association - the basis of form accessibility</td>
+</tr>
+<tr>
+<td>Input types pt.1: text, email, password</td>
+<td>Text fields</td>
+</tr>
+<tr>
+<td>Input types pt.2: number, date</td>
+<td>Numbers and dates</td>
+</tr>
+<tr>
+<td>checkbox and radio</td>
+<td>The difference between &quot;choose several&quot; and &quot;choose one&quot;</td>
+</tr>
+<tr>
+<td>Mini-task</td>
+<td>Build a field independently</td>
+</tr>
+<tr>
+<td>placeholder vs value, required</td>
+<td>A common beginner confusion</td>
+</tr>
+<tr>
+<td>Summary and practical task</td>
+<td>Reinforcement - building a feedback form</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">The <code>&lt;form&gt;</code> tag: action and method</h2>
+<p><strong>In simple terms:</strong> imagine a paper form that you fill out and then bring to a specific office. An HTML form works the same way: the user fills in the fields, and upon submission the browser &quot;takes&quot; that data to a specific address (usually a server that processes it further).</p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;!-- form fields will go here --&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li><strong><code>action</code></strong> — the request destination. In the practice example omitting <code>action</code> targets the current page. This course does not provide a working form handler.</li>
+<li><strong><code>method</code></strong> - how to send the data. Two main values:
+<ul>
+<li><strong><code>get</code></strong> - data is appended directly to the browser's address bar (visible in the URL), suitable for search forms where there's no sensitive data.</li>
+<li><strong><code>post</code></strong> — data travels in the request body. It is often used for registration and messages, but does not encrypt data by itself. In this lesson we use <code>get</code> with fictional data to observe submission.</li>
+</ul>
+</li>
+</ul>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-6-1.svg" alt="Diagram 1: Forms part 1"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-6-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Follow the validation branch first: invalid input stops submission. Valid input is packaged into name=value pairs and placed in the URL for GET or request body for POST; neither branch represents encryption.</p>
+<p><strong>Submission and security.</strong> POST places data in the request body; it does not encrypt it. HTTPS protects data in transit. Even without a working handler the browser attempts a request to <code>action</code>; the server may return an error, and data will not be processed or saved. HTML on static hosting does not save submissions by itself. In these examples, omitting <code>action</code> targets the current page: do not submit real passwords or personal data.</p>
+<hr>
+<h2 id="section-5"><code>&lt;label&gt;</code> and the <code>for</code>/<code>id</code> association</h2>
+<p>This is perhaps the most important topic of today's lesson - many beginners skip it, and that's a mistake.</p>
+<p><strong>In simple terms:</strong> <code>&lt;label&gt;</code> is the caption for a form field, like &quot;Name:&quot; next to the name input field. But simply placing text near the field isn't enough. You need to <strong>explicitly associate</strong> the label with the specific field.</p>
+<pre><code class="language-html">&lt;label for=&quot;username&quot;&gt;Username:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot;&gt;
+</code></pre>
+<p>Let's break down the association:</p>
+<ul>
+<li><code>&lt;label&gt;</code> has a <code>for</code> attribute with the value <code>&quot;username&quot;</code>.</li>
+<li><code>&lt;input&gt;</code> has an <code>id</code> attribute with the <strong>exact same</strong> value - <code>&quot;username&quot;</code>.</li>
+</ul>
+<p>It's the matching of these values that binds the label to the field.</p>
+<p><strong>Why this matters even when it's visually clear which field the label belongs to:</strong></p>
+<ol>
+<li><strong>Clicking the label focuses the field.</strong> Try it - if the association is set up correctly, clicking the text &quot;Username:&quot; will place the cursor in the input field itself. This is especially useful for small elements like checkboxes (see the checkbox section) - clicking the nearby text is much easier than aiming precisely for a small square.</li>
+<li><strong>Screen readers use exactly this association.</strong> Without it, a visually impaired user landing in the input field won't understand what it means - the screen reader will simply say &quot;text field&quot; with no context.</li>
+</ol>
+<h3 id="section-6">Alternative approach - wrapping input inside the label</h3>
+<pre><code class="language-html">&lt;label&gt;
+    Username:
+    &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+&lt;/label&gt;
+</code></pre>
+<p>Here <code>id</code>/<code>for</code> aren't needed - the nesting itself creates the association. Both approaches are correct, but the explicit <code>for</code>/<code>id</code> approach (the first variant) is considered more common and predictable for complex layouts - in this course we'll primarily use it.</p>
+<p><strong>The <code>name</code> attribute on <code>&lt;input&gt;</code>:</strong> note that besides <code>id</code>, a field also has a <code>name</code> attribute - this is <strong>not the same thing</strong> as <code>id</code>. <code>name</code> is the field's name, under which data is sent to the server when the form is submitted (server-side processing reads data by <code>name</code>). <code>id</code> is used for association with <code>&lt;label&gt;</code> and for styling/scripting. Our examples with explicit labels and submission need <strong>both</strong> attributes, and they may (but don't have to) have the same value.</p>
+<hr>
+<h3 id="section-7">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writing <code>&lt;label&gt;</code> next to <code>&lt;input&gt;</code> without <code>for</code>/<code>id</code></td>
+<td>Always explicitly associate: <code>for=&quot;name&quot;</code> on <code>label</code> and <code>id=&quot;name&quot;</code> on <code>input</code> with the same value</td>
+</tr>
+<tr>
+<td>Confusing <code>id</code> and <code>name</code>, using only one of them</td>
+<td>For explicit labels and submission use both: <code>id</code> for association with label, <code>name</code> for sending data to the server</td>
+</tr>
+<tr>
+<td>Using the same <code>id</code> for multiple different fields</td>
+<td>As we learned in lesson 3, <code>id</code> must be unique across the entire page</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-8">Input types pt.1: text, email, password</h2>
+<p>The <code>&lt;input&gt;</code> tag is void, like <code>&lt;img&gt;</code> from lesson 4. Its behavior changes completely depending on the <code>type</code> attribute.</p>
+<h3 id="section-9"><code>type=&quot;text&quot;</code> - a regular single-line text field</h3>
+<pre><code class="language-html">&lt;label for=&quot;fullname&quot;&gt;Full name:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;fullname&quot; name=&quot;fullname&quot;&gt;
+</code></pre>
+<p>The basic type - simply a rectangular field for entering any text on a single line.</p>
+<h3 id="section-10"><code>type=&quot;email&quot;</code> - an email field</h3>
+<pre><code class="language-html">&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;
+</code></pre>
+<p>Visually it looks like a regular text field, but the browser <strong>automatically checks</strong> that the entered text resembles an email (contains <code>@</code> and address structure) - when trying to submit a form with an invalid email, the browser will show a warning on its own, without a single line of JavaScript. On mobile devices, focusing on this field often brings up a special keyboard with quick access to <code>@</code> and <code>.com</code>.</p>
+<h3 id="section-11"><code>type=&quot;password&quot;</code> - a password field</h3>
+<pre><code class="language-html">&lt;label for=&quot;password&quot;&gt;Password:&lt;/label&gt;
+&lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot;&gt;
+</code></pre>
+<p>The characters the user types are displayed as dots or asterisks (••••••) - the actual password text is hidden from prying eyes looking over your shoulder.</p>
+<hr>
+<h2 id="section-12">Input types pt.2: number, date</h2>
+<h3 id="section-13"><code>type=&quot;number&quot;</code> - a number field</h3>
+<pre><code class="language-html">&lt;label for=&quot;age&quot;&gt;Age:&lt;/label&gt;
+&lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot;&gt;
+</code></pre>
+<p>This control is intended for numeric values. Spinner controls and intermediate input depend on the browser: a minus sign or exponential notation may be accepted while typing. It is not a way to allow “digits only”. The next lesson covers range constraints.</p>
+<h3 id="section-14"><code>type=&quot;date&quot;</code> - a date picker field</h3>
+<pre><code class="language-html">&lt;label for=&quot;birthday&quot;&gt;Date of birth:&lt;/label&gt;
+&lt;input type=&quot;date&quot; id=&quot;birthday&quot; name=&quot;birthday&quot;&gt;
+</code></pre>
+<p>The browser displays a convenient visual calendar for choosing a date - without a single line of additional code. The date format sent to the server is always standardized (<code>YYYY-MM-DD</code>), even though visually different countries display calendars differently.</p>
+<hr>
+<h3 id="section-15">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using <code>type=&quot;text&quot;</code> for email/numbers instead of specialized types</td>
+<td>Use <code>type=&quot;email&quot;</code>, <code>type=&quot;number&quot;</code>, <code>type=&quot;date&quot;</code> - they provide built-in validation and a convenient input interface without extra code</td>
+</tr>
+<tr>
+<td>Expecting <code>type=&quot;email&quot;</code> to &quot;send&quot; an email by itself</td>
+<td>This is just a text format check - submission only happens through form/server logic</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16"><code>checkbox</code> and <code>radio</code></h2>
+<p>These are two similar but fundamentally different field types - confusing them is one of the most common beginner mistakes.</p>
+<h3 id="section-17"><code>type=&quot;checkbox&quot;</code> - choose several (or none)</h3>
+<pre><code class="language-html">&lt;p&gt;Select the topics you're interested in:&lt;/p&gt;
+
+&lt;input type=&quot;checkbox&quot; id=&quot;html&quot; name=&quot;topics&quot; value=&quot;html&quot;&gt;
+&lt;label for=&quot;html&quot;&gt;HTML&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;checkbox&quot; id=&quot;css&quot; name=&quot;topics&quot; value=&quot;css&quot;&gt;
+&lt;label for=&quot;css&quot;&gt;CSS&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;checkbox&quot; id=&quot;js&quot; name=&quot;topics&quot; value=&quot;js&quot;&gt;
+&lt;label for=&quot;js&quot;&gt;JavaScript&lt;/label&gt;
+</code></pre>
+<p>Each checkbox is independent of the others. The user can mark as many options as they like, including none.</p>
+<h3 id="section-18"><code>type=&quot;radio&quot;</code> - choose only one option from a group</h3>
+<pre><code class="language-html">&lt;p&gt;Select your skill level:&lt;/p&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt;
+&lt;label for=&quot;beginner&quot;&gt;Beginner&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;intermediate&quot; name=&quot;level&quot; value=&quot;intermediate&quot;&gt;
+&lt;label for=&quot;intermediate&quot;&gt;Intermediate&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;advanced&quot; name=&quot;level&quot; value=&quot;advanced&quot;&gt;
+&lt;label for=&quot;advanced&quot;&gt;Advanced&lt;/label&gt;
+</code></pre>
+<p><strong>The key point that makes radio buttons a group:</strong> all options have <strong>the same <code>name</code> attribute</strong> (in this example, <code>name=&quot;level&quot;</code>). It's the matching <code>name</code> that tells the browser &quot;these are options for the same question - selecting one automatically deselects the others.&quot; Meanwhile, the <code>id</code> for each option is <strong>different</strong> (otherwise the association with <code>label</code> would break).</p>
+<h3 id="section-19">The <code>value</code> attribute on checkbox/radio</h3>
+<p>The <code>value</code> attribute determines which specific value will be sent to the server if this option is selected. The text visible to the user is set through <code>&lt;label&gt;</code>, not through <code>value</code> - these are different things.</p>
+<hr>
+<h3 id="section-20">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using <code>radio</code> instead of <code>checkbox</code> for &quot;select all that apply&quot; questions</td>
+<td>For multiple selections use <code>checkbox</code>, for a single selection use <code>radio</code></td>
+</tr>
+<tr>
+<td>Giving radio buttons in the same group different <code>name</code> values</td>
+<td>All radio buttons in a group must have the <strong>same</strong> <code>name</code> - otherwise they won't work as a group</td>
+</tr>
+<tr>
+<td>Giving checkbox fields the same <code>id</code></td>
+<td>Each field must have its own unique <code>id</code>, even if <code>name</code> matches (as in the <code>topics</code> example)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-21">Mini-task</h2>
+<p>On your own, without peeking at the examples, create a group of three radio buttons for the question &quot;Your favorite drink&quot; with options &quot;Tea,&quot; &quot;Coffee,&quot; &quot;Juice&quot; - with correct <code>label</code>/<code>id</code> associations and a shared <code>name</code>.</p>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-html">&lt;p&gt;Your favorite drink:&lt;/p&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;tea&quot; name=&quot;drink&quot; value=&quot;tea&quot;&gt;
+&lt;label for=&quot;tea&quot;&gt;Tea&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;coffee&quot; name=&quot;drink&quot; value=&quot;coffee&quot;&gt;
+&lt;label for=&quot;coffee&quot;&gt;Coffee&lt;/label&gt;&lt;br&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;juice&quot; name=&quot;drink&quot; value=&quot;juice&quot;&gt;
+&lt;label for=&quot;juice&quot;&gt;Juice&lt;/label&gt;
+</code></pre>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-6-2.svg" alt="Diagram 2: Forms part 1"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-6-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Branches classify input types and their main purpose. The labels summarize typical browser behavior; radio exclusivity depends on a shared name.</p>
+<hr>
+<h2 id="section-22"><code>placeholder</code> vs <code>value</code>, and <code>required</code></h2>
+<p>This is another common confusion among beginners - two attributes that both show text inside a field but work completely differently.</p>
+<h3 id="section-23"><code>placeholder</code> - a hint example, disappears when typing</h3>
+<pre><code class="language-html">&lt;label for=&quot;search&quot;&gt;Search:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;search&quot; name=&quot;search&quot; placeholder=&quot;e.g., HTML course&quot;&gt;
+</code></pre>
+<p>The <code>placeholder</code> text is displayed <strong>in gray inside an empty field</strong> as a format hint - and <strong>automatically disappears</strong> as soon as the user starts typing. If the user hasn't entered anything, it is <strong>not sent</strong> to the server - the field is considered empty in that case.</p>
+<h3 id="section-24"><code>value</code> - the actual field value, remains on submission</h3>
+<pre><code class="language-html">&lt;label for=&quot;city&quot;&gt;City:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;city&quot; name=&quot;city&quot; value=&quot;Tashkent&quot;&gt;
+</code></pre>
+<p>Submission depends on whether a control contributes form data: it needs <code>name</code>; unchecked checkboxes and radio buttons are omitted. A regular text field with <code>name</code> contributes its current value, even if the user kept the prefilled value.</p>
+<h3 id="section-25">Practical comparison</h3>
+<pre><code class="language-html">&lt;!-- placeholder: format hint, disappears on typing, not sent if field is empty --&gt;
+&lt;label for=&quot;hint-name&quot;&gt;Name&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;hint-name&quot; name=&quot;hint_name&quot; placeholder=&quot;Enter your name&quot;&gt;
+
+&lt;!-- value: actual pre-filled value, will be sent as-is if not changed --&gt;
+&lt;label for=&quot;default-name&quot;&gt;Name&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;default-name&quot; name=&quot;default_name&quot; value=&quot;Guest&quot;&gt;
+</code></pre>
+<h3 id="section-26"><code>required</code> - mandatory field</h3>
+<pre><code class="language-html">&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
+</code></pre>
+<p>The <code>required</code> attribute (written without a value) makes a field mandatory - when trying to submit a form with an empty required field, the browser will show a warning and won't allow submission, again without a single line of JavaScript.</p>
+<hr>
+<h3 id="section-27">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using <code>placeholder</code> instead of <code>label</code> as the sole field caption</td>
+<td><code>placeholder</code> is a format hint, not a replacement for <code>label</code>; a field caption should always use <code>&lt;label&gt;</code></td>
+</tr>
+<tr>
+<td>Confusing <code>placeholder</code> and <code>value</code> - expecting placeholder to be sent with the form</td>
+<td>Remember: <code>placeholder</code> disappears and is not sent; <code>value</code> is the actual content that will be sent</td>
+</tr>
+<tr>
+<td>Forgetting <code>required</code> for fields that are truly mandatory (e.g., email during registration)</td>
+<td>Add <code>required</code> where the field logically cannot be empty</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-28">A form submit control</h2>
+<p>Inside <code>form</code>, add <code>&lt;input type=&quot;submit&quot; value=&quot;Submit practice form&quot;&gt;</code>. This creates a button: <code>type=&quot;submit&quot;</code> starts validation and submission, while <code>value</code> supplies its visible caption. This control does not need a separate <code>label</code>. The next lesson compares it with <code>button</code>.</p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;label for=&quot;demo-name&quot;&gt;Practice name&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;demo-name&quot; name=&quot;student&quot; required&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Submit practice form&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Use fictional data: the request targets the current page and parameters appear in the URL. This example does not process or save an application.</p>
+<hr>
+<h2 id="section-29">Lesson summary</h2>
+<p>Today you learned:</p>
+<ul>
+<li><code>&lt;form&gt;</code> with <code>action</code> (where to send) and <code>method</code> (<code>get</code>/<code>post</code>, how to send) attributes - a container for all fields.</li>
+<li><code>&lt;label&gt;</code> is associated via <code>for</code>/<code>id</code> or by wrapping its control - this affects both click convenience and screen reader accessibility.</li>
+<li>Specialized <code>input</code> types: <code>text</code>, <code>email</code> (format validation), <code>password</code> (hidden text), <code>number</code> (numeric input), <code>date</code> (visual calendar).</li>
+<li><code>checkbox</code> - multiple options can be selected (independent fields), <code>radio</code> - only one from a group (unified by the same <code>name</code>).</li>
+<li><code>placeholder</code> - a disappearing hint, not sent with the form; <code>value</code> - the actual field content, sent when the named control contributes form data.</li>
+<li><code>required</code> makes a field mandatory without a single line of JavaScript.</li>
+</ul>
+<h2 id="section-30">Independent practice</h2>
+<p>Build a practice course registration form: name, email, start date, two independent checkboxes and a radio group with two options. Associate every control with a label; assign <code>name</code> and option values. Make name and email required. Use fictional data only. For this experiment use <code>method=&quot;get&quot;</code> and omit <code>action</code>; submit from a local HTTP server and find the <code>name=value</code> pairs in the address.</p>
+<h3 id="section-31">Completion criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Clicking each label activates its control; ids are unique.</label></li>
+<li class="check"><label><input type="checkbox"> Only one radio option can be selected; checkboxes are independent.</label></li>
+<li class="check"><label><input type="checkbox"> Empty required fields prevent submission; selected values appear in the URL.</label></li>
+</ul>
+<h3 id="section-32">Check your understanding</h3>
+<ol>
+<li>How does name differ from id?</li>
+<li>Why does POST without HTTPS not protect data?</li>
+<li>What happens when a form is submitted without a working handler?</li>
+</ol>
+<hr>
+<p><a href="index.html">Contents</a> | <a href="en-lesson-5.html">Previous</a> | <a href="en-lesson-7.html">Next</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Practice: example</a></p>
+</article></main><footer><a href="../Lesson-6/en/Forms%20part%201.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

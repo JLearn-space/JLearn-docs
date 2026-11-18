@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Formalar: 2-qism · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxiriga qadar nimalarni o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">select, option, optgroup</a><a href="#section-9">&lt;textarea&gt; - ko&#x27;p qatorli matn</a><a href="#section-11">&lt;fieldset&gt; va &lt;legend&gt; - forma maydonlarini guruhlash</a><a href="#section-13">Mini-vazifa</a><a href="#section-14">button vs input type=&quot;submit&quot;</a><a href="#section-19">Ichki tekshiruv: min, max, pattern, maxlength</a><a href="#section-24">Dars xulosalari</a><a href="#section-25">Mustaqil mashq</a></details></aside><article><h1 id="section-1">Formalar: 2-qism</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-6.html">Oldingi dars</a> · <a href="uz-lesson-8.html">Keyingi dars</a> · <a href="../Lesson-7/practice.html">Amaliyot</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+<blockquote>
+<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darsda biz asosiy forma maydonlarini (text, email, password, number, date, checkbox, radio) va <code>label</code>/<code>for</code>/<code>id</code> bog'lanishini o'rgandik. Bugun qolgan forma elementlarini tugallab, maydonlarni guruhlash va JavaScript ishlatmasdan kiritishni tekshirishni o'rganamiz.</p>
+</blockquote>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-7-1.svg" alt="Chizma 1: Formatlar qism-2"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-7-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Avval maydonning vazifasini aniqlang: bitta satr, ko‘p satr yoki variant tanlash. fieldset va legend maydon turini almashtirmaydi; bir-biriga bog‘liq maydonlarni ma’noli guruhga birlashtiradi.</p>
+<hr>
+<h2 id="section-2">Dars oxiriga qadar nimalarni o'rganasiz</h2>
+<ul>
+<li><code>select</code>/<code>option</code> orqali ochiladigan ro'yxatlar yaratish, <code>optgroup</code> orqali variantlarni guruhlash.</li>
+<li>Ko'p qatorli matn uchun <code>textarea</code> ishlatish.</li>
+<li><code>fieldset</code>/<code>legend</code> orqali bog'liq forma maydonlarini guruhlash.</li>
+<li><code>button</code> va <code>input type=&quot;submit&quot;</code> orasidagi farqni tushunish.</li>
+<li>Ichki tekshiruvni sozlash: <code>min</code>, <code>max</code>, <code>pattern</code>, <code>maxlength</code>.</li>
+</ul>
+<hr>
+<h2 id="section-3">Dars rejasi</h2>
+<table>
+<thead>
+<tr>
+<th>Bo‘lim</th>
+<th>Mazmuni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>select, option, optgroup</td>
+<td>Ochiladigan ro'yxatlar</td>
+</tr>
+<tr>
+<td>textarea</td>
+<td>Ko'p qatorli matn</td>
+</tr>
+<tr>
+<td>fieldset va legend</td>
+<td>Forma maydonlarini guruhlash</td>
+</tr>
+<tr>
+<td>Mini-vazifa</td>
+<td>Selectni mustaqil yig'ish</td>
+</tr>
+<tr>
+<td>button vs input type=&quot;submit&quot;</td>
+<td>Forma yuborish, yondashuv farqi</td>
+</tr>
+<tr>
+<td>Tekshiruv: min/max/pattern/maxlength</td>
+<td>Ichki ma'lumot tekshiruvi</td>
+</tr>
+<tr>
+<td>Xulosalar va amaliy vazifa</td>
+<td>To'liq ro'yxatdan o'tish formasini yig'ish</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4"><code>select</code>, <code>option</code>, <code>optgroup</code></h2>
+<p><strong>Oddiy qilib aytganda:</strong> agar o'tgan darsdagi <code>radio</code> tugmalari 2-4 ta variant uchun yaxshi bo'lsa, variantlar ko'p bo'lganda (masalan, mamlakatlar yoki shaharlar ro'yxati) radio tugmalar ekranda juda ko'p joy egallaydi. Bunday holat uchun ochiladigan ro'yxat mavjud - faqat bosilganda ochiladigan ixcham ro'yxat.</p>
+<pre><code class="language-html">&lt;label for=&quot;city&quot;&gt;Shahar:&lt;/label&gt;
+&lt;select id=&quot;city&quot; name=&quot;city&quot;&gt;
+    &lt;option value=&quot;tashkent&quot;&gt;Toshkent&lt;/option&gt;
+    &lt;option value=&quot;almalyk&quot;&gt;Almalyk&lt;/option&gt;
+    &lt;option value=&quot;samarkand&quot;&gt;Samarqand&lt;/option&gt;
+    &lt;option value=&quot;bukhara&quot;&gt;Buxoro&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<p>Teglarni tahlil qilamiz:</p>
+<ul>
+<li><strong><code>&lt;select&gt;</code></strong> variantlar ro‘yxati. <code>name</code> yuboriladigan qiymat nomi; <code>id</code> esa tashqi <code>label</code> ni <code>for</code> orqali bog‘laydi.</li>
+<li><strong><code>&lt;option&gt;</code></strong> - ro'yxat ichidagi har bir alohida variant. <code>value</code> atributi - serverga yuboriladigan narsa, teglar orasidagi ko'rinadigan matn - foydalanuvchi ko'radigan narsa.</li>
+</ul>
+<h3 id="section-5"><code>selected</code> orqali boshqa qiymat belgilash</h3>
+<pre><code class="language-html">&lt;select id=&quot;city&quot; name=&quot;city&quot;&gt;
+    &lt;option value=&quot;tashkent&quot;&gt;Toshkent&lt;/option&gt;
+    &lt;option value=&quot;almalyk&quot; selected&gt;Almalyk&lt;/option&gt;
+    &lt;option value=&quot;samarkand&quot;&gt;Samarqand&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<p><code>selected</code> atributi (qiymatsiz, o'tgan darsdagi <code>required</code> kabi) sahifa yuklanganda foydalanuvchi bosmasdan ko'rsatiladigan variantni belgilaydi.</p>
+<h3 id="section-6"><code>multiple</code> orqali bir nechta tanlash</h3>
+<pre><code class="language-html">&lt;label for=&quot;subjects&quot;&gt;Fanlarni tanlang (bir nechta bo'lishi mumkin):&lt;/label&gt;
+&lt;select id=&quot;subjects&quot; name=&quot;subjects&quot; multiple&gt;
+    &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
+    &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
+    &lt;option value=&quot;js&quot;&gt;JavaScript&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<p><code>multiple</code> atributi foydalanuvchiga bir vaqtda bir nechta variantni tanlashga imkon beradi (odatda bosishda Ctrl/Cmd ni ushlab turadi). Bu kamdan-kam uchraydigan, lekin foydali holat - aslida, checkboxlar guruhi uchun vizual alternativa.</p>
+<h3 id="section-7"><code>&lt;optgroup&gt;</code> - variantlarni guruhlash</h3>
+<p>Variantlar juda ko'p bo'lganda, ularni nomlangan guruhlarga ajratish mumkin:</p>
+<pre><code class="language-html">&lt;label for=&quot;course&quot;&gt;Kursni tanlang:&lt;/label&gt;
+&lt;select id=&quot;course&quot; name=&quot;course&quot;&gt;
+    &lt;optgroup label=&quot;Frontend&quot;&gt;
+        &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
+        &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
+        &lt;option value=&quot;js&quot;&gt;JavaScript&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label=&quot;Backend&quot;&gt;
+        &lt;option value=&quot;php&quot;&gt;PHP&lt;/option&gt;
+        &lt;option value=&quot;mysql&quot;&gt;MySQL&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+</code></pre>
+<p><code>&lt;optgroup&gt;</code> mustaqil tanlanadigan variant emas - bu ochiladigan ro'yxat ichidagi vizual sarlavha-ajratgich (qalin, o'zini bosish mumkin emas), <code>label</code> atributi ushbu sarlavha matnini belgilaydi.</p>
+<p><strong>O'xshatish:</strong> ko'p <code>&lt;optgroup&gt;</code> bilan <code>&lt;select&gt;</code> bu restoran menyusiga o'xshaydi, &quot;Sho'rvalar&quot;, &quot;Issiq taomlar&quot;, &quot;Shirinliklar&quot; bo'limlariga bo'lingan - bo‘limlarni tanlab bo'lmaydi, ular faqat ko'p taomlar orasida yo‘l topishga yordam beradi.</p>
+<hr>
+<h3 id="section-8">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;option&gt;</code> da <code>value</code> ni unutish</td>
+<td><code>value</code> bo'lmasa, serverga variantning ko'rinadigan matni yuboriladi - bu ba'zan noqulay (masalan, uzoq matn uchun); <code>value</code> ni ongli belgilang</td>
+</tr>
+<tr>
+<td><code>multiple</code> berilmagan <code>&lt;select&gt;</code> da bir nechta <code>selected</code> ishlatish</td>
+<td><code>multiple</code> bo'lmasa, faqat bitta <code>&lt;option&gt;</code> ga <code>selected</code> qo'yish mumkin</td>
+</tr>
+<tr>
+<td><code>&lt;optgroup&gt;</code> ni oddiy <code>&lt;option&gt;</code> bilan adashtirish, uni bosiladigan variantga aylantirishga harakat qilish</td>
+<td><code>&lt;optgroup&gt;</code> vizual va semantik guruhlash, o'zi tanlanmaydi</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-9"><code>&lt;textarea&gt;</code> - ko'p qatorli matn</h2>
+<p>O'tgan darsdagi oddiy <code>&lt;input type=&quot;text&quot;&gt;</code> - bitta qatorli maydon. Uzoq matn kiritish kerak bo'lganda (izoh, xabar, fikr) - <code>&lt;textarea&gt;</code> ishlatiladi.</p>
+<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;message&quot;&gt;Xabar:&lt;/label&gt; &lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;5&quot; cols=&quot;40&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+</code></pre>
+<p><code>&lt;input&gt;</code> dan muhim farqi: <strong><code>&lt;textarea&gt;</code> - juft teg</strong>, juft emas. Boshlang'ich matn (kerak bo'lsa) ochuvchi va yopuvchi teglar orasiga joylashtiriladi, <code>value</code> atributiga emas (<code>textarea</code> da umuman <code>value</code> atributi yo'q):</p>
+<pre><code class="language-html">&lt;textarea id=&quot;bio&quot; name=&quot;bio&quot; rows=&quot;4&quot; cols=&quot;40&quot;&gt;O'zingiz haqida biroz gapiring...&lt;/textarea&gt;
+</code></pre>
+<p><strong>Diqqat:</strong> agar siz aynan kiritishda yo'qoladigan maslahat-pleysxolder (o'tgan darsda tushuntirgandek) istasangiz, teg ichidagi matn emas, <code>placeholder</code> atributini ishlating:</p>
+<pre><code class="language-html">&lt;textarea id=&quot;bio&quot; name=&quot;bio&quot; rows=&quot;4&quot; cols=&quot;40&quot; placeholder=&quot;O'zingiz haqida biroz gapiring...&quot;&gt;&lt;/textarea&gt;
+</code></pre>
+<ul>
+<li><strong><code>rows</code></strong> - maydonning qatorlardagi taxminiy balandligi.</li>
+<li><strong><code>cols</code></strong> - maydonning belgilardagi taxminiy kengligi.</li>
+</ul>
+<p>Har ikki atribut <strong>dastlabki</strong> o'lchamni belgilaydi - ko'p brauzerlarda foydalanuvchi <code>textarea</code> ni o'ng pastki burchakdagi tutqich orqali qo'lda kengaytirishi mumkin.</p>
+<hr>
+<h3 id="section-10">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boshlang'ich matnni <code>value=&quot;...&quot;</code> orqali belgilashga harakat qilish</td>
+<td><code>&lt;textarea&gt;</code> da <code>value</code> atributi yo'q - matn ochuvchi va yopuvchi teglar orasiga yoziladi</td>
+</tr>
+<tr>
+<td>Matn-mazmunini (yuborishda qoladi) va <code>placeholder</code> (yo'qoladi) ni adashtirish</td>
+<td>Maslahat formati kerak bo'lsa - <code>placeholder</code> ishlating; haqiqiy oldindan to'ldirilgan qiymat kerak bo'lsa - uni teglar orasiga yozing</td>
+</tr>
+<tr>
+<td>Yopuvchi teg <code>&lt;/textarea&gt;</code> ni unutish</td>
+<td><code>textarea</code> - juft teg, maydon dastlab bo'sh bo'lsa ham yopuvchi tegini unutmang</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-11"><code>&lt;fieldset&gt;</code> va <code>&lt;legend&gt;</code> - forma maydonlarini guruhlash</h2>
+<p>Forma katta bo'lganda (masalan, bir nechta mantiqiy bo'limli ro'yxatdan o'tish: &quot;Shaxsiy ma'lumotlar&quot;, &quot;Aloqa ma'lumotlari&quot;, &quot;Parol&quot;), bog'liq maydonlarni vizual va semantik jihatdan birlashtirish foydali.</p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Shaxsiy ma'lumotlar&lt;/legend&gt;
+
+    &lt;p&gt;&lt;label for=&quot;firstname&quot;&gt;Ism:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;firstname&quot; name=&quot;firstname&quot;&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;label for=&quot;lastname&quot;&gt;Familiya:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;lastname&quot; name=&quot;lastname&quot;&gt;&lt;/p&gt;
+&lt;/fieldset&gt;
+
+&lt;fieldset&gt;
+    &lt;legend&gt;Aloqa ma'lumotlari&lt;/legend&gt;
+
+    &lt;p&gt;&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt; &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;label for=&quot;phone&quot;&gt;Telefon:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;phone&quot; name=&quot;phone&quot;&gt;&lt;/p&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<ul>
+<li><strong><code>&lt;fieldset&gt;</code></strong> - bog'liq maydonlar guruhining qobig'i, brauzer buni odatda guruh atrofida ramka bilan ko'rsatadi.</li>
+<li><strong><code>&lt;legend&gt;</code></strong> - ushbu guruhning yorlig'i/sarlavhasi, to'g'ridan-to'g'ri <code>fieldset</code> &quot;ramkasi&quot; &quot;ustida&quot; ko'rsatiladi (vizual yuqori chegaraga kiradi).</li>
+</ul>
+<p><strong>Radio guruhlari uchun juda foydali:</strong> bir nechta radio tugma semantik jihatdan bitta &quot;savol&quot; bo'lgani uchun, ularni <code>fieldset</code> va <code>legend</code> (o'zini savolni belgilovchi) bilan o'rab olish mantiqiy:</p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Tayyorgarlik darajangiz&lt;/legend&gt;
+
+    &lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt; &lt;label for=&quot;beginner&quot;&gt;Boshlang'ich&lt;/label&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;intermediate&quot; name=&quot;level&quot; value=&quot;intermediate&quot;&gt; &lt;label for=&quot;intermediate&quot;&gt;O'rtacha&lt;/label&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;advanced&quot; name=&quot;level&quot; value=&quot;advanced&quot;&gt; &lt;label for=&quot;advanced&quot;&gt;Yuqori&lt;/label&gt;&lt;/p&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<p><strong>Nima uchun bu oddiy vizual ramkadan muhimroq:</strong> ekran o'quvchisi <code>fieldset</code> va <code>legend</code> ichidagi radio tugmani o'qiganida, <code>legend</code> matnini ham, aniq variantning yorlig'ini ham talaffuz qiladi - masalan, &quot;Tayyorgarlik darajangiz, Boshlang'ich&quot; - bu foydalanuvchiga to'liq kontekst beradi, yolg'iz &quot;Boshlang'ich&quot; so'zi emas, qaysi savolga javob ekanini tushunmasdan.</p>
+<hr>
+<h3 id="section-12">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>legend</code> ishlatmasdan <code>fieldset</code> ishlatish</td>
+<td><code>legend</code> guruhga tushunarli nom beradi; mashqda uni qo‘shing</td>
+</tr>
+<tr>
+<td><code>legend</code> ni <code>fieldset</code> ichida birinchi element qilmash</td>
+<td><code>legend</code> ochuvchi <code>&lt;fieldset&gt;</code> tegidan darhol keyin kelishi kerak</td>
+</tr>
+<tr>
+<td>Butun formani mantiqiy guruhlarni ajtmasdan <code>fieldset</code> bilan o'rab olish</td>
+<td><code>fieldset</code> ni faqat mantiqiy maydon bloklari uchun ishlating, &quot;chiroy uchun&quot; emas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-13">Mini-vazifa</h2>
+<p>O'zingiz &quot;Mamlakatni tanlang&quot; ochiladigan ro'yxatini yig'ing, uchta variant bilan (O'zbekiston, Qozog'iston, Qirg'iziston), O'zbekiston boshlang'ich tanlangan bo'lsin.</p>
+<p><strong>Yechim:</strong></p>
+<pre><code class="language-html">&lt;label for=&quot;country&quot;&gt;Mamlakat:&lt;/label&gt;
+&lt;select id=&quot;country&quot; name=&quot;country&quot;&gt;
+    &lt;option value=&quot;uz&quot; selected&gt;O'zbekiston&lt;/option&gt;
+    &lt;option value=&quot;kz&quot;&gt;Qozog'iston&lt;/option&gt;
+    &lt;option value=&quot;kg&quot;&gt;Qirg'iziston&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<hr>
+<h2 id="section-14"><code>button</code> vs <code>input type=&quot;submit&quot;</code></h2>
+<p>Har ikki element forma yuborishi mumkin, lekin ular orasida muhim farqlar bor.</p>
+<h3 id="section-15"><code>&lt;input type=&quot;submit&quot;&gt;</code></h3>
+<pre><code class="language-html">&lt;input type=&quot;submit&quot; value=&quot;Formani yuborish&quot;&gt;
+</code></pre>
+<p>Tugmadagi matn <code>value</code> atributi orqali belgilanadi (oddiy maydonlarda ko'rgandek). Bu juft teg - ichiga masalan, ikonka boshqa HTML belgilarini qo'yib bo'lmaydi, faqat <code>value</code> orqali oddiy matn.</p>
+<h3 id="section-16"><code>&lt;button&gt;</code></h3>
+<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Formani yuborish&lt;/button&gt;
+</code></pre>
+<p><code>&lt;button&gt;</code> - <strong>juft</strong> teg, matn (yoki hatto murakkabroq mazmun - ikonka, ichki teglar) ochuvchi va yopuvchi teglar orasiga joylashtiriladi:</p>
+<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;
+    &lt;strong&gt;Yuborish&lt;/strong&gt; formasi
+&lt;/button&gt;
+</code></pre>
+<h3 id="section-17"><code>&lt;button&gt;</code> dagi <code>type</code> atributi - muhim tafsilot</h3>
+<p><code>&lt;button&gt;</code> da uchta mumkin bo'lgan <code>type</code> qiymati bor va bu xatolarning ko'p uchraydigan manbai:</p>
+<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Yuborish&lt;/button&gt;
+&lt;button type=&quot;reset&quot;&gt;Formani tozalash&lt;/button&gt;
+&lt;button type=&quot;button&quot;&gt;Oddiy tugma (o'zi hech narsa qilmaydi)&lt;/button&gt;
+</code></pre>
+<ul>
+<li><strong><code>type=&quot;submit&quot;</code></strong> - formani yuboradi (agar <code>type</code> aniq ko'rsatilmasa, boshqa qiymat).</li>
+<li><strong><code>type=&quot;reset&quot;</code></strong> - barcha forma maydonlarini dastlabki qiymatlariga qaytaradi.</li>
+<li><strong><code>type=&quot;button&quot;</code></strong> - ichki xulqiga ega bo'lmagan oddiy tugma; tugmaning xulqini keyinroq JavaScript orqali qo'shish kerak bo'lganda ishlatiladi (bu kursda biz bunday tugmalarni faol ishlatmaymiz, chunki JavaScript kurs dasturiga kirmaydi, lekin bu qiymatning mavjudligini bilish muhim).</li>
+</ul>
+<p><strong>Muhim ogohlantirish:</strong> agar <code>&lt;button&gt;</code> <code>&lt;form&gt;</code> ichida va siz <code>type</code> ni <strong>aniq ko'rsatmagan bo'lsangiz</strong> - brauzer uni odatda <code>type=&quot;submit&quot;</code> deb hisoblaydi. Bu kutilmagan forma yuborishiga olib kelishi mumkin, agar siz oddiy &quot;boshqa narsa uchun tugma&quot; qilmoqchi bo'lsangiz. <strong>Qoida: doimo <code>&lt;button&gt;</code> da <code>type</code> ni aniq ko'rsating.</strong></p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-7-2.svg" alt="Chizma 2: Formatlar qism-2"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-7-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Uch shox button turining uch xil xatti-harakatini ko‘rsatadi. submit tekshirish va yuborishni boshlaydi, reset asl qiymatlarni qaytaradi, button esa o‘z-o‘zidan forma yubormaydi.</p>
+<hr>
+<h3 id="section-18">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;button&gt;</code> da <code>type</code> ko'rsatmaslik, &quot;oddiy tugma&quot; deb kutish</td>
+<td>Doimo <code>type=&quot;submit&quot;</code>, <code>type=&quot;reset&quot;</code> yoki <code>type=&quot;button&quot;</code> ni aniq ko'rsating</td>
+</tr>
+<tr>
+<td><code>input type=&quot;submit&quot;</code> ichiga HTML qo'yishga harakat qilish</td>
+<td>Murakkab mazmunli tugma kerak bo'lsa - <code>&lt;button&gt;</code> ishlating</td>
+</tr>
+<tr>
+<td>Aniq kerak bo'lmasdan <code>type=&quot;reset&quot;</code> ishlatish - foydalanuvchilar ko'p tasodifan bosib, kiritilgan butun matnni yo'qotadi</td>
+<td><code>reset</code> ni ehtiyotkorlik bilan ishlating, faqat haqiqatdan kerak bo'lsa</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-19">Ichki tekshiruv: <code>min</code>, <code>max</code>, <code>pattern</code>, <code>maxlength</code></h2>
+<p>6-darsda <code>required</code> va maxsus input turlarini o‘rgandik. <code>min</code> va <code>max</code> chegaralarini birinchi marta shu darsda o‘rganamiz; keyin <code>maxlength</code> va <code>pattern</code> bilan tekshiruvni kengaytiramiz.</p>
+<h3 id="section-20"><code>min</code> va <code>max</code> - sonlar va sanalar uchun</h3>
+<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;age&quot;&gt;Yosh:&lt;/label&gt; &lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot; min=&quot;16&quot; max=&quot;99&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;event-date&quot;&gt;Tadbir sanasi:&lt;/label&gt; &lt;input type=&quot;date&quot; id=&quot;event-date&quot; name=&quot;event-date&quot; min=&quot;2026-01-01&quot; max=&quot;2026-12-31&quot;&gt;&lt;/p&gt;
+</code></pre>
+<p>Brauzer qiymat ko'rsatilgan chegaralardan tashqariga chiqsa, formani yuborishga ruxsat bermaydi va foydalanuvchiga suzuvchi ogohlantirish ko'rsatadi.</p>
+<h3 id="section-21"><code>maxlength</code> - matn uzunligini cheklash</h3>
+<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;username&quot;&gt;Foydalanuvchi nomi (maks. 20 ta belgi):&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; maxlength=&quot;20&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;label for=&quot;comment&quot;&gt;Izoh (maks. 500 ta belgi):&lt;/label&gt; &lt;textarea id=&quot;comment&quot; name=&quot;comment&quot; maxlength=&quot;500&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+</code></pre>
+<p><code>maxlength</code> matnning ruxsat etilgan eng katta uzunligini belgilaydi. Brauzer odatda qo‘lda kiritishni shu chegarada to‘xtatadi, ammo HTML tekshiruvi serverdagi tekshiruv o‘rnini bosmaydi.</p>
+<h3 id="section-22"><code>pattern</code> - shablon bo'yicha tekshirish (muntazam ifoda)</h3>
+<p><code>pattern</code> - eng quvvatli, lekin eng murakkab tekshiruv vositasi. U <strong>muntazam ifodalarni</strong> ishlatadi - matn shablonlarini tasvirlovchi maxsus til. Biz bu kursda muntazam ifodalar sintaksisiga chuqur kirmaymiz (bu alohida katta mavzu), lekin bir nechta amaliy misollarni ko'rib chiqamiz.</p>
+<p><strong>Misol: faqat raqamlar, aniq 7 ta belgi (talaba guvohnomasining shartli raqam formati):</strong></p>
+<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;student-id&quot;&gt;Talaba guvohnoma raqami (7 ta raqam):&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;student-id&quot; name=&quot;student-id&quot; pattern=&quot;[0-9]{7}&quot; title=&quot;Aniq 7 ta raqam kiriting&quot;&gt;&lt;/p&gt;
+</code></pre>
+<p><code>[0-9]{7}</code> shablonini tahlil qilish: <code>[0-9]</code> &quot;0 dan 9 gacha istalgan raqam&quot; degan ma'noni anglatadi, <code>{7}</code> &quot;ketma-ket aniq 7 marta&quot; degan ma'noni anglatadi.</p>
+<p><strong>Misol: ism uchun faqat kirill harflari (raqamlar va lotin harflarisiz):</strong></p>
+<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;study-code&quot;&gt;ID: aynan 7 raqam&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;study-code&quot; name=&quot;study-code&quot; pattern=&quot;[0-9]{7}&quot; required&gt;&lt;/p&gt;
+</code></pre>
+<p>Brauzer tekshiruv xabarida title dan foydalanishi mumkin; ko‘rsatish usuli farq qiladi. Talabni maydon yonida ko‘rinadigan matn bilan yozing.</p>
+<p><strong>Yangi boshlovchilar uchun muhim eslatma:</strong> muntazam ifodalarni chuqur yozish - bu ilg'or ko'nikma, amaliyotda ko'pincha alohida o'rganish yoki tayyor shablonlarni qidirishni talab qiladi (masalan, ma'lum mamlakatning telefon raqamini tekshirish). Bu darsda <code>pattern</code> ning asosiy <strong>tamoyilni</strong> tushunish muhim, barcha mumkin bo'lgan shablonlarni yod olish emas.</p>
+<hr>
+<h3 id="section-23">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pattern uchun ko‘rinadigan yo‘riqnoma yo‘q</td>
+<td>Talabni maydon yonida yozing; title ixtiyoriy va yo‘riqnomani almashtirmaydi</td>
+</tr>
+<tr>
+<td><code>min</code>/<code>max</code>/<code>pattern</code>/<code>required</code> ma'lumotlarni 100% himoya qiladi deb kutish (masalan, zararli kiritishdan)</td>
+<td>Ichki HTML tekshiruvi - bu foydalanuvchi qulayligi haqida, xavfsizlik haqida emas; haqiqiy ma'lumotlar himoyasi doimo server tomonida ham takrorlanishi kerak (bu kelajak kurslar mavzusi, toza HTML dasturiga kirmaydi)</td>
+</tr>
+<tr>
+<td><code>maxlength</code> ni haqiqiy ma'lumotlar uchun juda kichik qo'yish (masalan, ism uchun <code>maxlength=&quot;5&quot;</code>)</td>
+<td>Turli misol ma'lumotlar bilan sinab ko'rib, real cheklovlarni ishlab chiqing</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-24">Dars xulosalari</h2>
+<p>Bugun siz quyidagilarni bilib oldingiz:</p>
+<ul>
+<li><code>&lt;select&gt;</code>/<code>&lt;option&gt;</code> ochiladigan ro'yxat yaratadi, <code>&lt;optgroup&gt;</code> variantlarni guruhlaydi, <code>selected</code> boshqa qiymatni belgilaydi, <code>multiple</code> bir nechta variantni tanlashga ruxsat beradi.</li>
+<li><code>&lt;textarea&gt;</code> - ko'p qatorli matn uchun juft teg; boshlang'ich matn teglar orasiga yoziladi, <code>value</code> orqali emas.</li>
+<li><code>&lt;fieldset&gt;</code>/<code>&lt;legend&gt;</code> bog'liq forma maydonlarini semantik jihatdan guruhlaydi - radio guruhlari uchun juda foydali.</li>
+<li><code>&lt;button&gt;</code> <code>&lt;input type=&quot;submit&quot;&gt;</code> dan moslashuvchanroq - ichki mazmuni qo'llab-quvvatlaydi, lekin <code>type</code> ni aniq ko'rsatishni talab qiladi.</li>
+<li><code>min</code>/<code>max</code> sonlar va sanalar diapazonini cheklaydi, <code>maxlength</code> matn uzunligini cheklaydi, <code>pattern</code> shablon bo'yicha tekshiradi (ko‘rinadigan yo‘riqnoma va ixtiyoriy <code>title</code> bilan).</li>
+</ul>
+<h2 id="section-25">Mustaqil mashq</h2>
+<p>Aniq type=&quot;submit&quot; va type=&quot;reset&quot; tugmalarini qo‘shing; reset sinovidan oldin boshlang‘ich qiymatlarni o‘zgartiring.</p>
+<p>Guruhlangan select variantlari, textarea, fieldset/legend va majburiy yetti raqamli ID bilan ishtirokchi formasini yarating.</p>
+<h3 id="section-26">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Har bir <code>input</code> (yuborish tugmasidan tashqari), <code>select</code> va <code>textarea</code> uchun bog‘langan <code>label</code> bor; id lar takrorlanmaydi, for ularga mos. <code>button</code> nomi uning ko‘rinadigan matnidan olinadi; alohida label kerak emas.</label></li>
+<li class="check"><label><input type="checkbox"> Select ichida optgroup va mazmunli value bor.</label></li>
+<li class="check"><label><input type="checkbox"> Textarea boshlang‘ich matni teglar orasida.</label></li>
+<li class="check"><label><input type="checkbox"> Bog‘liq maydonlar fieldset va legend bilan guruhlangan.</label></li>
+<li class="check"><label><input type="checkbox"> Majburiy ID bo‘sh qiymat, 6 raqam va harflarni rad etadi; 7 raqamni qabul qiladi.</label></li>
+<li class="check"><label><input type="checkbox"> O‘zgartirishdan keyin reset dastlabki qiymatlarni qaytaradi.</label></li>
+</ul>
+<h3 id="section-27">O‘zini tekshirish savollari</h3>
+<p>Reset tozalashdan qanday farq qiladi? Bo‘sh maydon qachon pattern tekshiruvidan o‘tadi? Nega title ko‘rinadigan yo‘riqnomani almashtirmaydi?</p>
+<hr>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-6.html">Oldingi dars</a> · <a href="uz-lesson-8.html">Keyingi dars</a> · <a href="../Lesson-7/practice.html">Amaliyot</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-7/uz/Formatlar%20qism-2.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

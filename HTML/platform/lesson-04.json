@@ -1,0 +1,275 @@
+{
+  "lesson": 4,
+  "lesson_title": "Изображения и медиа",
+  "task": {
+    "title": "Мои увлечения",
+    "language": "html",
+    "description": "Сделайте страницу «Мои увлечения»: favicon в head, один h1, минимум три img (src, alt, width), одна - в figure с figcaption, одна декоративная с alt=\"\", видео video с controls и source. Без autoplay.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <!-- иконка сайта -->\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Расскажите о себе.</p>\n        <!-- figure: картинка с alt и width + figcaption -->\n        <!-- декоративная картинка с alt=\"\" -->\n        <!-- ещё одна картинка с alt и width -->\n        <!-- video с controls и source -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "rel=\"icon\"",
+        "<figure",
+        "<figcaption",
+        "alt=\"\"",
+        "<video",
+        "controls",
+        "<source"
+      ],
+      "forbidden": [
+        "autoplay",
+        "alt=\"картинка\"",
+        "alt=\"изображение\"",
+        "alt=\"фото\"",
+        "alt=\"image\"",
+        "alt=\"img"
+      ],
+      "tags": {
+        "img": 3,
+        "figure": 1,
+        "figcaption": 1,
+        "video": 1,
+        "source": 1
+      },
+      "attrs": {
+        "img": [
+          "src",
+          "alt",
+          "width"
+        ],
+        "source": [
+          "src"
+        ],
+        "link": [
+          "href"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Иконка: <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\"> внутри <head>.",
+      "Картинка с подписью: <figure><img ...><figcaption>...</figcaption></figure>.",
+      "Декоративная картинка: alt=\"\".",
+      "Видео: <video controls><source src=\"video/....mp4\" type=\"video/mp4\"></video>.",
+      "Не используйте autoplay и пустые описания вроде alt=\"картинка\"."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет favicon",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет figcaption",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "две картинки",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет декоративного alt=\"\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"Разделитель\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "alt=\"картинка\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"картинка\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет controls",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "autoplay",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls autoplay width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет source",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет видео",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Мои увлечения</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Мои увлечения</h1>\n        <p>Я люблю горы и фотографию.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Заснеженные вершины Чимгана на рассвете\" width=\"600\" height=\"400\">\n            <figcaption>Чимган, прошлой зимой</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Мой фотоаппарат на штативе\" width=\"300\" loading=\"lazy\">\n        <p><a href=\"video/hike.mp4\">Скачать видео</a></p>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какой атрибут <img> указывает путь к файлу?",
+        "options": [
+          "href",
+          "src",
+          "alt",
+          "path"
+        ],
+        "answer": 1,
+        "explanation": "src - source, источник картинки."
+      },
+      {
+        "type": "single",
+        "question": "Какой alt нужен узору-разделителю, который ничего не сообщает?",
+        "options": [
+          "alt=\"узор\"",
+          "alt=\"\"",
+          "alt не нужен совсем",
+          "alt=\"decorative-line.png\""
+        ],
+        "answer": 1,
+        "explanation": "Пустой alt=\"\" - скринридер пропустит картинку. Без alt он может прочитать имя файла."
+      },
+      {
+        "type": "single",
+        "question": "Какой формат лучше подходит для простого логотипа, который должен быть чётким при любом размере?",
+        "options": [
+          "JPEG",
+          "SVG",
+          "MP4",
+          "MP3"
+        ],
+        "answer": 1,
+        "explanation": "SVG - векторный, не теряет качество при увеличении."
+      },
+      {
+        "type": "single",
+        "question": "Что будет, если у <video> нет атрибута controls?",
+        "options": [
+          "Видео запустится само",
+          "Не будет кнопок управления",
+          "Видео не загрузится",
+          "Появятся субтитры"
+        ],
+        "answer": 1,
+        "explanation": "controls показывает кнопки play, громкость и перемотку."
+      },
+      {
+        "type": "multiple",
+        "question": "Зачем нужен атрибут alt?",
+        "options": [
+          "Его читает скринридер",
+          "Показывается, если картинка не загрузилась",
+          "Увеличивает картинку",
+          "Помогает поисковикам понять изображение"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "alt - текстовая замена изображения."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие форматы подходят для фотографий?",
+        "options": [
+          "JPEG",
+          "WebP",
+          "SVG",
+          "MP3"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Фото - JPEG или WebP. SVG - для векторной графики."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про width и height у <img>?",
+        "options": [
+          "Браузер заранее резервирует место",
+          "Неверная пропорция исказит картинку",
+          "Без них картинка не покажется",
+          "Можно указать только width"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Размеры убирают «прыжки» текста; одна сторона - пропорция сохранится."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте атрибут и его назначение.",
+        "pairs": [
+          [
+            "poster",
+            "Обложка видео до запуска"
+          ],
+          [
+            "loading=\"lazy\"",
+            "Загрузить, когда долистали"
+          ],
+          [
+            "muted",
+            "Без звука"
+          ],
+          [
+            "controls",
+            "Кнопки управления"
+          ]
+        ],
+        "explanation": "Атрибуты медиа управляют загрузкой и воспроизведением."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте тег и роль.",
+        "pairs": [
+          [
+            "<figure>",
+            "Блок «иллюстрация + подпись»"
+          ],
+          [
+            "<figcaption>",
+            "Подпись, которую видят все"
+          ],
+          [
+            "<source>",
+            "Файл внутри audio или video"
+          ],
+          [
+            "<iframe>",
+            "Встроенная чужая страница, например видео YouTube"
+          ]
+        ],
+        "explanation": "figure объединяет картинку и подпись, source задаёт файл медиа."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут у ссылки link подключает иконку сайта? Введите запись целиком, например rel=\"...\".",
+        "answers": [
+          "rel=\"icon\"",
+          "rel='icon'",
+          "rel=icon"
+        ],
+        "case_sensitive": false,
+        "explanation": "<link rel=\"icon\" href=\"favicon.png\"> в <head>."
+      },
+      {
+        "type": "input",
+        "question": "Каким тегом встраивают видео с YouTube? Введите имя тега без скобок.",
+        "answers": [
+          "iframe"
+        ],
+        "case_sensitive": false,
+        "explanation": "iframe - окно в другую страницу. Не забудьте title."
+      },
+      {
+        "type": "input",
+        "question": "Как называется пустой элемент для вставки картинки? Введите имя тега без скобок.",
+        "answers": [
+          "img"
+        ],
+        "case_sensitive": false,
+        "explanation": "img - пустой элемент без закрывающего тега."
+      }
+    ]
+  }
+}

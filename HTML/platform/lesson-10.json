@@ -1,0 +1,289 @@
+{
+  "lesson": 10,
+  "lesson_title": "Итоговый проект",
+  "task": {
+    "title": "Страница контактов своего сайта",
+    "language": "html",
+    "description": "Сделайте contact.html своего клуба, кружка или библиотеки (не портфолио Азиза): полный head с viewport и description; ссылка #main и main id=\"main\"; header с меню на index.html, about.html, projects.html, contact.html; один h1; таблица с caption и scope col/row; форма method=\"get\" с fieldset, legend, двумя полями с label (одно email) и button type=\"submit\"; footer.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <!-- viewport, title, description -->\n</head>\n<body>\n    <!-- ссылка «Перейти к основному содержимому» -->\n    <!-- header с меню: index.html, about.html, projects.html, contact.html -->\n    <!-- main id=\"main\": h1, таблица (caption, scope col и row), форма (fieldset, legend, 2 поля с label, одно email, button submit) -->\n    <!-- footer -->\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "name=\"viewport\"",
+        "name=\"description\"",
+        "<title>",
+        "<header",
+        "<nav",
+        "<footer",
+        "id=\"main\"",
+        "<caption",
+        "<fieldset",
+        "<legend",
+        "method=\"get\""
+      ],
+      "forbidden": [
+        "<div",
+        "role=\"button\"",
+        "tabindex=\"1\"",
+        "tabindex=\"2\"",
+        "tabindex=\"3\"",
+        "href=\"c:",
+        "Азиз",
+        "aziz"
+      ],
+      "tags": {
+        "table": 1,
+        "th": 3,
+        "label": 2,
+        "input": 2,
+        "li": 4
+      },
+      "href_targets": [
+        "#main",
+        "index.html",
+        "about.html",
+        "projects.html",
+        "contact.html"
+      ],
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "input_types": [
+        "email"
+      ],
+      "for_id_pairs": true,
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "В head: charset, viewport, свой title и description.",
+      "Первая строка body: <a href=\"#main\">Перейти к основному содержимому</a>; у main - id=\"main\".",
+      "Меню на 4 страницы: index.html, about.html, projects.html, contact.html.",
+      "Таблица: caption, th scope=\"col\" в шапке, th scope=\"row\" в начале строк.",
+      "Форма: method=\"get\", fieldset + legend, label for = id, type=\"email\", <button type=\"submit\">.",
+      "Тема - своя: клуб, кружок, библиотека. Текст образца не копируйте."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "копия образца",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Портфолио Азиза</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Портфолио Азиза</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Портфолио Азиза</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет ссылки пропуска",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет description",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет caption",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет scope=\"row\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th>Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th>Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет legend",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет пункта меню",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "div вместо header",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <div>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </div>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет email",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"text\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет кнопки submit",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Запись на пробное занятие</h2>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"button\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "два h1",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Контакты - Шахматный клуб «Ладья»</title>\n    <meta name=\"description\" content=\"Как связаться с шахматным клубом «Ладья»: часы работы, телефон и форма записи на пробное занятие.\">\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Шахматный клуб «Ладья»</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"about.html\">О клубе</a></li>\n                <li><a href=\"projects.html\">Турниры</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Контакты</h1>\n        <table>\n            <caption>Часы работы клуба</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Вторник</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Суббота</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h1>Запись на пробное занятие</h1>\n            <p>Учебная форма: данные появятся в адресе страницы и никуда не отправляются.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ваши данные</legend>\n                    <p>\n                        <label for=\"name\">Имя</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Почта</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Записаться</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Шахматный клуб «Ладья»</small></p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что делают первым при создании сайта?",
+        "options": [
+          "Пишут CSS",
+          "Составляют карту сайта и план страниц",
+          "Публикуют на GitHub",
+          "Выбирают шрифты"
+        ],
+        "answer": 1,
+        "explanation": "План дешевле исправить на бумаге, чем в коде."
+      },
+      {
+        "type": "single",
+        "question": "Сколько переходов меню нужно проверить на сайте из 4 страниц с одинаковым меню из 4 ссылок?",
+        "options": [
+          "4",
+          "8",
+          "12",
+          "16"
+        ],
+        "answer": 3,
+        "explanation": "4 страницы × 4 ссылки = 16."
+      },
+      {
+        "type": "single",
+        "question": "Как должна называться главная страница для GitHub Pages?",
+        "options": [
+          "home.html",
+          "main.html",
+          "index.html",
+          "start.html"
+        ],
+        "answer": 2,
+        "explanation": "GitHub Pages открывает index.html по умолчанию."
+      },
+      {
+        "type": "single",
+        "question": "Локально картинка видна, а после публикации - нет. Самая вероятная причина?",
+        "options": [
+          "Медленный интернет",
+          "Регистр букв в имени файла не совпадает с src",
+          "GitHub не поддерживает картинки",
+          "Нет CSS"
+        ],
+        "answer": 1,
+        "explanation": "На сервере Photo.jpg и photo.jpg - разные файлы."
+      },
+      {
+        "type": "multiple",
+        "question": "Что сдаётся на итоговом экзамене?",
+        "options": [
+          "Исходники сайта",
+          "Публичная ссылка",
+          "Журнал проверок",
+          "Пароль от GitHub"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Пароль никому не передают."
+      },
+      {
+        "type": "multiple",
+        "question": "Что должно быть разным на каждой странице сайта?",
+        "options": [
+          "title",
+          "meta description",
+          "h1",
+          "Меню nav"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Меню одинаковое, а заголовок и описание - свои."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие ошибки ломают публикацию на GitHub Pages?",
+        "options": [
+          "Приватный репозиторий на бесплатном тарифе",
+          "index.html во вложенной папке",
+          "Пути C:\\Users\\...",
+          "Относительные пути"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Относительные пути - правильно."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте шаг сборки и что на нём добавляют.",
+        "pairs": [
+          [
+            "Скелет",
+            "header, nav, main, footer"
+          ],
+          [
+            "Медиа",
+            "img с alt, figure, favicon"
+          ],
+          [
+            "Метатеги",
+            "viewport, description, CSS, JS"
+          ],
+          [
+            "Доступность",
+            "Ссылка пропуска, aria-label"
+          ]
+        ],
+        "explanation": "Сайт собирают слоями: от структуры к деталям."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте документ проекта и назначение.",
+        "pairs": [
+          [
+            "PLAN.md",
+            "Карта сайта и план страниц"
+          ],
+          [
+            "CHECKLIST.md",
+            "Список проверок перед публикацией"
+          ],
+          [
+            "JOURNAL.md",
+            "Запись проведённых проверок и исправлений"
+          ]
+        ],
+        "explanation": "Документы показывают ход работы."
+      },
+      {
+        "type": "input",
+        "question": "Сколько баллов из 100 нужно для зачёта по итоговому экзамену? Введите число.",
+        "answers": [
+          "80"
+        ],
+        "case_sensitive": false,
+        "explanation": "Зачёт от 80 баллов."
+      },
+      {
+        "type": "input",
+        "question": "Как называется бесплатный хостинг GitHub для статических сайтов? Введите название.",
+        "answers": [
+          "GitHub Pages",
+          "github pages",
+          "Pages"
+        ],
+        "case_sensitive": false,
+        "explanation": "Settings → Pages."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут формы не пишут в учебном проекте, чтобы данные ушли на текущую страницу? Введите имя атрибута.",
+        "answers": [
+          "action"
+        ],
+        "case_sensitive": false,
+        "explanation": "Без action форма отправляется на текущий адрес."
+      }
+    ]
+  }
+}

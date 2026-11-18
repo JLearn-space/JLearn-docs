@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Rasmlar va media · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxiriga qadar nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">&lt;img&gt; tegi: src, alt, width, height</a><a href="#section-9">Rasm formatlari: JPEG, PNG, SVG, WebP</a><a href="#section-16">figure va figcaption - rasmlar yorliqlari</a><a href="#section-17">Mahalliy media fayllarni tayyorlash</a><a href="#section-18">Kichik topshiriq</a><a href="#section-19">&lt;audio&gt; va &lt;video&gt; - media joylashtirish</a><a href="#section-23">Favicon - sayt belgasi</a><a href="#section-24">Dars xulosalari</a><a href="#section-25">Mustaqil ish</a></details></aside><article><h1 id="section-1">Rasmlar va media</h1>
+<p><a href="index.html">Mundarija</a> | <a href="uz-lesson-3.html">Oldingi dars</a> | <a href="uz-lesson-5.html">Keyingi dars</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Amaliyot: namuna</a></p>
+<blockquote>
+<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darsda biz sahifalarni havolalar bilan bog'lashni o'rgandik va ko'p sahifali saytni oddiy matndan yig'dik. Bugun sahifalarga rasmlar, tovush va video qo'shamiz - sayt &quot;faqat matn&quot; bo'lishdan to'xtaydi.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Dars oxiriga qadar nimani o'rganasiz</h2>
+<ul>
+<li><code>&lt;img&gt;</code> tegini orqali rasmlarni joylashtirish va <code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code> atributlarini to'g'ri ishlatish.</li>
+<li>JPEG, PNG, SVG, WebP rasm formatlarini farqlash va qaysi holatda qaysi formatni qo'llashni tushunish.</li>
+<li>Rasmlarni <code>figure</code>/<code>figcaption</code> yordamiga yozish.</li>
+<li><code>audio</code>/<code>video</code> teglari orqali bir yoki bir nechta <code>source</code> manbalar bilan audio va video joylashtirish.</li>
+<li>Favicon - brauzer tabidagi sayt belgasi qo'shish.</li>
+</ul>
+<hr>
+<h2 id="section-3">Dars rejasi</h2>
+<table>
+<thead>
+<tr>
+<th>Bo‘lim</th>
+<th>Mazmuni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>img tegi: src, alt, width, height</td>
+<td>Asosiy sintaksis, alt ning muhimligi</td>
+</tr>
+<tr>
+<td>Rasm formatlari</td>
+<td>JPEG/PNG/SVG/WebP - qachon qaysi ishlatiladi</td>
+</tr>
+<tr>
+<td>figure va figcaption</td>
+<td>Rasmlar yorliqlari</td>
+</tr>
+<tr>
+<td>Kichik topshiriq</td>
+<td>Rasmni mustaqil joylashtirish</td>
+</tr>
+<tr>
+<td>audio va video</td>
+<td>Media joylashtirish, bir nechta source</td>
+</tr>
+<tr>
+<td>Favicon</td>
+<td>Sayt belgasi</td>
+</tr>
+<tr>
+<td>Xulosalar va amaliy topshiriq</td>
+<td>Mustahkamlash</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4"><code>&lt;img&gt;</code> tegi: src, alt, width, height</h2>
+<p><strong>Oddiy qilib aytganda:</strong> agar <code>&lt;a&gt;</code> havolasi bu boshqa sahifaga eshik bo'lsa, <code>&lt;img&gt;</code> - bu sizning sahifangizga &quot;kiritiladigan&quot; rasm uchun oyna, rasm fizik jihatdan alohida faylda saqlanadi.</p>
+<p><code>&lt;img&gt;</code> tegi - <strong>juftlikka kirmaydigan</strong>, 2-darsdagi <code>&lt;br&gt;</code> va <code>&lt;hr&gt;</code> kabi. Unda tarkibiy qism va yopuvchi teg yo'q - barcha ma'lumotlar atributlar orqali uzatiladi.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Sochli mushuk derazada o'tiribdi&quot;&gt;
+</code></pre>
+<p>Attributlarni ketma-ket ko'rib chiqamiz.</p>
+<h3 id="section-5"><code>src</code> (source) - rasm qayerdan olinadi</h3>
+<p><strong>Majburiy</strong> atribut - rasm faylining yo'li. Uchlik 3-darsda ko'rgan yo'l qoidalari bo'yicha ishlaydi: o'z fayllaringiz uchun nisbiy yo'l, tashqi saytlardagi rasmlar uchun mutlaqo yo'l.</p>
+<pre><code class="language-html">&lt;img src=&quot;images/cat.jpg&quot; alt=&quot;Mushuk&quot;&gt;
+</code></pre>
+<pre><code class="language-html">&lt;img src=&quot;https://example.com/images/cat.jpg&quot; alt=&quot;Mushuk&quot;&gt;
+</code></pre>
+<h3 id="section-6"><code>alt</code> (alternative text) - muqobil matn</h3>
+<p><strong>Majburiy</strong> atribut, garchi rasmiy jihatdan brauzer beshiz ishlashdan bosh tortmasa ham. Bu rasmning matnli tavsifi bo'lib, quyidagilarda ko'rsatiladi:</p>
+<ul>
+<li>Agar rasm yuklanmagan bo'lsa (buzilgan havola, internet muammolari);</li>
+<li>Ekran o'quvchisi - ko'zi ojiz foydalanuvchi rasm o'rniga ana shu matnni eshitadi;</li>
+<li>Qidiruv tizimlari — <code>alt</code> rasmning qo‘shimcha matnli tavsifini beradi va uning sahifa mazmuniga aloqasini tushunishga yordam beradi. Uni kalit so‘zlar ro‘yxati sifatida emas, avvalo rasmni ko‘ra olmaydigan odamlar uchun yozing.</li>
+</ul>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Sochli mushuk derazada o'tiribdi va tashqariga qarayapti&quot;&gt;
+</code></pre>
+<p><strong>Yaxshi <code>alt</code> qanday yoziladi:</strong> tasvirlangan narsani qisqacha va mazmunli tavsiflang - go'yo telefonda rasmini kimga tushuntiryotgandek. Faqat &quot;rasm&quot; yoki &quot;rasm1&quot; deb yozmang - bu foydasiz.</p>
+<p><strong>Maxsus holat - bezak rasmlari:</strong> agar rasm faqat bezak maqsadida bo'lsa va ma'noli axborot o'tkazmasa (masalan, ajratuvchi naqsh), <code>alt</code> <strong>bo'sh</strong> qoldiriladi, lekin butunlay olib tashlanmaydi:</p>
+<pre><code class="language-html">&lt;img src=&quot;decorative-line.png&quot; alt=&quot;&quot;&gt;
+</code></pre>
+<p>Bo'sh <code>alt=&quot;&quot;</code> ekran o'quvchisiga &quot;bu rasmni o'tkazib yuborish mumkin, u axborot o'tkazmaydi&quot; degan signal beradi - bu ongli qaror, unutilgan atribut emas.</p>
+<h3 id="section-7"><code>width</code> va <code>height</code> - rasm o'lchamlari</h3>
+<p>Eni va bo'yi piksellarda belgilanadi.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Derazada o'tirgan sochli mushuk&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;
+</code></pre>
+<p><strong>Agar rasmni CSS orqali cho'zish mumkin bo'lsa, o'lchamlarni nima uchun ko'rsatish kerak:</strong> brauzer rasm hali yuklanayotganda, sahifada to'g'ri o'lchovda joy ajratadi. Buning uchun atrofdagi matn rasm yuklanib o'z o'rnini egallagan paytda &quot;sakrab tushadi&quot; - bu hodisa CLS (sahifa joylashuvining siljishi) deb ataladi va saytning qabul qilinishini yomonlashtiradi.</p>
+<p><strong>Proportsiya haqida muhim:</strong> agar siz rasmning haqiqiy en-boyiga mos kelmaydigan <code>width</code> va <code>height</code> ko'rsatsangiz, rasm buziladi (g'ayritabiiy cho'ziladi yoki siqiladi). Ikkala qiymatni to'g'ri proporsiyada ko'rsating yoki faqat bittasini - brauzer ikkinchisini proporsiyani saqlab hisoblaydi.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Derazada o'tirgan sochli mushuk&quot; width=&quot;400&quot;&gt;
+</code></pre>
+<hr>
+<h3 id="section-8">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xatolik</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alt</code> ni butunlay unutish</td>
+<td>Har doim <code>alt</code> ko'rsating - tavsif bilan yoki bezak rasmlari uchun bo'sh <code>alt=&quot;&quot;</code></td>
+</tr>
+<tr>
+<td><code>alt</code> da foydasiz matn yozish: <code>alt=&quot;rasm&quot;</code>, <code>alt=&quot;img1&quot;</code></td>
+<td>Rasm tarkibini mazmunli tavsiflang: <code>alt=&quot;Derazada o'tirgan sochli mushuk&quot;</code></td>
+</tr>
+<tr>
+<td><code>width</code>/<code>height</code> noto'g'ri proporsiyada ko'rsatish - rasm buziladi</td>
+<td>Haqiqiy en-boy nisbatini saqlang yoki faqat bitta o'lchamni ko'rsating</td>
+</tr>
+<tr>
+<td><code>&lt;img&gt;</code> ni <code>&lt;a&gt;</code> o'rnida ishlatish (sahifaga o'tish uchun <code>onclick</code> yozish)</td>
+<td>Agar rasm havola sifatida bosilishi kerak bo'lsa - <code>&lt;img&gt;</code> ni <code>&lt;a&gt;</code> tegiga o'rab qo'ying (pastdagi misol)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rasm-havola:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;about.html&quot;&gt;
+    &lt;img src=&quot;logo.png&quot; alt=&quot;Kompaniya logotipi - Biz haqimizda sahifasiga o'tish&quot; width=&quot;150&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<hr>
+<h2 id="section-9">Rasm formatlari: JPEG, PNG, SVG, WebP</h2>
+<p>Turli fayl formatlari turli xil rasm turlariga mos kelishini tushunish muhim - &quot;noto'g'ri&quot; formatni ishlatish yoki fayl hajmini oshiradi yoki sifatni yo'qotadi.</p>
+<h3 id="section-10">JPEG (.jpg, .jpeg)</h3>
+<p><strong>Fotografiyalar</strong> uchun mos - silliq rang o'tishlari bor murakkab rasmlar (quyosh botishi, portretlar, manzaralar). Sifat yo'qotilgan siqishdan foydalanadi - fayl qanchalik kuchli siqilsa, shunchalik yengil bo'ladi, lekin kamchiliklar shunchalik ko'rinadi.</p>
+<pre><code class="language-html">&lt;img src=&quot;sunset-photo.jpg&quot; alt=&quot;Tog'lar ustidagi quyosh botishi&quot;&gt;
+</code></pre>
+<p><strong>Mos kelmaydi:</strong> matnga, aniq chiziqli logotip va yagona rangli hududlarga - JPEG siqilganda keskin chegaralarda &quot;kirlanish&quot; effektlari paydo bo'ladi.</p>
+<h3 id="section-11">PNG (.png)</h3>
+<p><strong>Shaffof fonli rasmlar</strong> va <strong>aniq chiziqli grafika</strong> uchun mos - logotip, belgilar, interfeys skrinshotlari. Sifat yo'qotilmasdan siqiladi, lekin shu evaziga fayl bir xil fotosurtdan JPEG dan og'irroq bo'ladi.</p>
+<pre><code class="language-html">&lt;img src=&quot;logo-transparent.png&quot; alt=&quot;Shaffof fonli kompaniya logotipi&quot;&gt;
+</code></pre>
+<h3 id="section-12">SVG (.svg)</h3>
+<p><strong>Vektorli</strong> format - JPEG/PNG dan farqli o'laroq (ularni piksel tarmog'ida saqlaydi), SVG shakllarning matematik tavsifini saqlaydi. Shu sababli SVG <strong>sifat yo'qotmasdan</strong> istalgan o'lchamga moslashadi - kichik va katta ekranlarda ham ko'rsatiladigan logotip va belgilar uchun ideal.</p>
+<pre><code class="language-html">&lt;img src=&quot;icon-star.svg&quot; alt=&quot;Yulduz belgisi&quot;&gt;
+</code></pre>
+<p><strong>Xususiyati:</strong> SVG fayli aslida matnli XML fayli bo'lib, uni ochib kodni ko'rish mumkin. Bu oddiy grafika uchun fayllarni juda yengil qiladi.</p>
+<h3 id="section-13">WebP (.webp)</h3>
+<p>Google tomonidan yaratilgan zamonaviy format bo'lib, JPEG va PNG ning afzalliklarini birlashtiradi - fotosuratlarni yaxshi siqish <strong>va</strong> shaffoflikni qo'llab-quvvatlash, shu bilan birga odatda JPEG yoki PNG dan yengilroq. Barcha zamonaviy brauzerlar tomonidan qo'llab-quvvatlanadi.</p>
+<pre><code class="language-html">&lt;img src=&quot;photo.webp&quot; alt=&quot;Shahar manzarasining fotosurati&quot;&gt;
+</code></pre>
+<h3 id="section-14">Taqqoslash jadvali</h3>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Eng yaxshi ishlatilishi</th>
+<th>Shaffoflik</th>
+<th>Fayl hajmi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JPEG</td>
+<td>Fotosuratlar</td>
+<td>Yo'q</td>
+<td>O'rtacha/kichik (sifat yo'qotilgan holda)</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>Logotip, skrinshotlar, shaffof grafika</td>
+<td>Ha</td>
+<td>JPEG dan kattaroq</td>
+</tr>
+<tr>
+<td>SVG</td>
+<td>Belgilar, logotip (vektorli grafika)</td>
+<td>Ha</td>
+<td>Oddiy grafika uchun juda kichik</td>
+</tr>
+<tr>
+<td>WebP</td>
+<td>Universal - foto va grafika</td>
+<td>Ha</td>
+<td>Odatda JPEG/PNG dan kichikroq</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-4-1.svg" alt="Chizma 1: Rasmlar va media"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-4-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Savol tugunidan Ha yoki Yo‘q yo‘nalishini tanlab boring. Oddiy vektor belgi uchun SVG mos; boshqa rasmda foto yoki grafika ekaniga qarab format tanlab, sifat va hajmni taqqoslang.</p>
+<hr>
+<h3 id="section-15">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xatolik</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fotosuratlar uchun PNG ishlatish</td>
+<td>Foto uchun JPEG yoki WebP ishlating - fayl sezilarli darajada yengil bo'ladi</td>
+</tr>
+<tr>
+<td>Shaffof fonli logotip uchun JPEG ishlatish</td>
+<td>JPEG shaffoflikni qo'llab-quvvatlamaydi - PNG yoki SVG ishlating</td>
+</tr>
+<tr>
+<td>Kameradan olingan katta fotolarni o'zgartirmasdan joylashtirish (bir nechta MB)</td>
+<td>Saytga ishlatishdan oldin rasmlarni siqing - katta hajm sahifaning yuklanishini sekinlashtiradi</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16"><code>figure</code> va <code>figcaption</code> - rasmlar yorliqlari</h2>
+<p>Rasimga yorliq kerak bo'lganda (kitob yoki jurnaldagi kabi - &quot;1-rasm. Uning ishlash sxemasi&quot;), <code>&lt;figure&gt;</code> va <code>&lt;figcaption&gt;</code> teglari juftligi ishlatiladi.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;chart.png&quot; alt=&quot;2025-yil sotish o'sishi grafiki&quot; width=&quot;500&quot;&gt;
+    &lt;figcaption&gt;1-rasm. Kompaniya sotishining 2025-yildagi o'sishi&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><code>&lt;figure&gt;</code> - bu &quot;mustaqil kontent bloki&quot; (rasm, grafik, kod va h.k.) degan ma'noni anglatuvchi semantik qobiq, <code>&lt;figcaption&gt;</code> - uning yorlig'i, <code>&lt;figure&gt;</code> ichida birinchi yoki oxirgi farzand element bo‘lishi mumkin.</p>
+<p><strong>Nima uchun oddiy <code>&lt;img&gt;</code> + <code>&lt;p&gt;</code> emas:</strong> <code>&lt;figure&gt;</code>/<code>&lt;figcaption&gt;</code> rasmni va yorliqni semantik jihatdan bir butunlik sifatida bog'laydi - bu ekran o'quvchilari va hujjat tuzilishining aniqligi uchun muhim, faqat vizual jihatdan yonma-yon turgan ikki mustaqil elementdan farqli o'laroq.</p>
+<hr>
+<h2 id="section-17">Mahalliy media fayllarni tayyorlash</h2>
+<p><code>Lesson-4/images</code> va <code>Lesson-4/audio</code> papkalaridagi tayyor fayllardan foydalanishingiz mumkin: kerakli fayllarni o‘z HTML sahifangiz yonidagi <code>images</code> va <code>audio</code> papkalariga ko‘chiring. Bular o‘quv chizmalari. Alt yozishdan oldin rasmni oching: fayl nomi uning mazmunini kafolatlamaydi. O‘zingizning foydalanishga ruxsat etilgan mediangiz ham mos keladi. Rasm chizish yoki media formatini o‘zgartirish topshiriqqa kirmaydi.</p>
+<h2 id="section-18">Kichik topshiriq</h2>
+<p>Tayyor <code>images/logo.png</code> o‘quv rasmini 200 piksel kenglikda, mos alt matni va &quot;Saytimizning o‘quv rasmi&quot; izohi bilan joylashtiring. Boshqa rasm tanlasangiz, aynan o‘sha rasmni tasvirlang.</p>
+<p><strong>Yechim:</strong></p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/logo.png&quot; alt=&quot;O‘quv sahifa maketi: sarlavha va uchta gorizontal mazmun bloki&quot; width=&quot;200&quot;&gt;
+    &lt;figcaption&gt;Saytimizning o‘quv rasmi&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<hr>
+<h2 id="section-19"><code>&lt;audio&gt;</code> va <code>&lt;video&gt;</code> - media joylashtirish</h2>
+<h3 id="section-20"><code>&lt;audio&gt;</code> - sahifada audio</h3>
+<pre><code class="language-html">&lt;audio controls&gt;
+    &lt;source src=&quot;music.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+    &lt;source src=&quot;music.ogg&quot; type=&quot;audio/ogg&quot;&gt;
+    Sizning brauzeringiz audio ijrosini qo'llab-quvvatlamaydi.
+&lt;/audio&gt;
+</code></pre>
+<p>Tushuntiramiz:</p>
+<ul>
+<li><code>controls</code> - qiymatsiz atribut bo'lib, ko'rinadigan boshqaruv panelini (play/pause, balandlik, surish) yoqadi. Usiz audio yuklanadi, lekin foydalanuvchida ko'rinadigan boshqaruv tugmalari bo'lmaydi.</li>
+<li><code>&lt;audio&gt;</code> ichidagi juftlikka kirmaydigan <code>&lt;source&gt;</code> tegi faylni ko'rsatadi. Turli formatlarda bir nechta <code>&lt;source&gt;</code> ko'rsatish mumkin - brauzer birinchi qo'llab-quvvatlanadigan formatni tanlaydi. Bu shuning uchun zarurki, barcha brauzerlar barcha audio formatlarni bir xil qo'llab-quvvatlamaydi.</li>
+<li><code>Sizning brauzeringiz qo'llab-quvvatlamaydi...</code> matni - bu <strong>zaxira variant (fallback)</strong>, faqat <code>&lt;audio&gt;</code> tegini umuman tushunmaydigan juda eski brauzerlarda ko'rsatiladi.</li>
+</ul>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-4-2.svg" alt="Chizma 2: Rasmlar va media"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-4-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Brauzer manbalarni yozilgan tartibda ko‘rib, mosini yuklashga urinadi. Mos manba bo‘lmasa, audio ijro etilmaydi; shuning uchun faylga oddiy havolani media elementi tashqarisida ham berish foydali.</p>
+<h3 id="section-21"><code>&lt;video&gt;</code> - sahifada video</h3>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot;&gt;
+    &lt;source src=&quot;lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;source src=&quot;lesson.webm&quot; type=&quot;video/webm&quot;&gt;
+    Sizning brauzeringiz video ijrosini qo'llab-quvvatlamaydi.
+&lt;/video&gt;
+</code></pre>
+<p>Printip <code>&lt;audio&gt;</code> bilan to'liq bir xil, qo'shimcha foydali atributlar mavjud:</p>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot; poster=&quot;preview.jpg&quot; muted loop&gt;
+    &lt;source src=&quot;lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+&lt;/video&gt;
+</code></pre>
+<ul>
+<li><code>poster</code> - ijro boshlanishidan <strong>oldin</strong> ko'rsatiladigan almashtiruvchi rasm (YouTube dagi video muqovalariga o'xshaydi).</li>
+<li><code>muted</code> - video ovozsiz boshlanadi.</li>
+<li><code>loop</code> - video tugagandan keyin qayta boshlanadi.</li>
+<li><code>autoplay</code> - sahifa yuklanganda avtomatik boshlash (<strong>ehtiyotkorlik bilan ishlating</strong>: aksariyat brauzerlar foydalanuvchining aniq harakatisiz ovozli avtomatik ijroni bloklaydi - bu saytlar foydalanuvchini to'satdan &quot;qichqirib&quot; yubormaslik uchun qilingan).</li>
+</ul>
+<p><strong>Muhim qoida:</strong> agar video muhim nutq/suhbatni o'z ichiga olasa, yaxshisi subtitrlarni ko'rish kerak (<code>&lt;track&gt;</code> tegi, bu kirish darsining doirasidan tashqari, lekin bunday imkoniyat mavjudligini bilish foydali).</p>
+<hr>
+<h3 id="section-22">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xatolik</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>controls</code> atributini unutish</td>
+<td>Usiz foydalanuvchida ijro boshqaruv paneli bo'lmaydi</td>
+</tr>
+<tr>
+<td>Ijro etiladigan mos manba yo‘q</td>
+<td>Bitta qo‘llab-quvvatlanadigan manba yetarli; zarur bo‘lsa moslik uchun boshqa formatni ham qo‘shing (masalan, mp4 va webm)</td>
+</tr>
+<tr>
+<td>Kerak bo'lmagan holatda ovozli <code>autoplay</code> ishlatish</td>
+<td>Aksariyat brauzerlar buni baribir bloklaydi - haqiqatan kerak bo'lsa <code>autoplay</code> ni <code>muted</code> bilan birga ishlating</td>
+</tr>
+<tr>
+<td>Katta videofayllarni to'g'ridan-to'g'ri saytga joylashtirish</td>
+<td>Haqiqiy loyihalar uchun YouTube kabi xizmatlarni <code>&lt;iframe&gt;</code> bilan islatgan ma'qul (bu mavzu hozirgi dars doirasidan tashqari - zarurat bo'lganda alohida ko'rib chiqamiz)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Favicon - sayt belgasi</h2>
+<p>Favicon - brauzer tabida <code>&lt;title&gt;</code> yonida, shuningdek xatcho‘plar va tashrif tarixida ko'rsatiladigan kichik belgi.</p>
+<p><code>&lt;head&gt;</code> ichidagi <code>&lt;link&gt;</code> tegi orqali ulanadi (<code>&lt;link&gt;</code> tegining o'zi 9-darsda batafsil ko'rib chiqiladi - hozir faqat favicon uchun ishlatamiz):</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Mening saytim&lt;/title&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<ul>
+<li><code>rel=&quot;icon&quot;</code> - brauzerga bu sayt belgisi ekanini bildiradi.</li>
+<li><code>type=&quot;image/png&quot;</code> - fayl formati (<code>.ico</code>, <code>.svg</code> ham bo'lishi mumkin).</li>
+<li><code>href</code> - belgi faylining yo'li (odatiy kichik kvadrat rasm - 32×32 yoki 16×16 piksel).</li>
+</ul>
+<p><strong>An'anaviy variant:</strong> sayt ildizidagi <code>favicon.ico</code> fayli - ko'pchilik brauzerlar uni hatto aniq <code>&lt;link&gt;</code> tegisiz ham avtomatik topadi, lekin aniq ko'rsatish ishonchliroq va zamonaviyroq amaliyot.</p>
+<hr>
+<h2 id="section-24">Dars xulosalari</h2>
+<p>Bugun siz o'rgandingiz:</p>
+<ul>
+<li><code>&lt;img&gt;</code> - rasmlarni joylashtirish uchun juftlikka kirmaydigan teg, <code>src</code> va <code>alt</code> majburiy atributlar bilan, shuningdek sahifada joy ajratish uchun ixtiyoriy <code>width</code>/<code>height</code> bilan.</li>
+<li>To'rtta rasm formati: JPEG (foto), PNG (shaffof grafika), SVG (vektorli grafika, belgilar/logotip), WebP (universal zamonaviy format).</li>
+<li><code>&lt;figure&gt;</code>/<code>figcaption</code> - rasmni uning yorlig'i bilan bog'laydigan semantik juftlik.</li>
+<li><code>&lt;audio&gt;</code> va <code>&lt;video&gt;</code> bir yoki bir nechta <code>&lt;source&gt;</code> orqali media joylashtiradi, boshqaruv paneli uchun <code>controls</code> atributi bilan.</li>
+<li>Favicon <code>&lt;head&gt;</code> ichidagi <code>&lt;link rel=&quot;icon&quot;&gt;</code> orqali ulanadi va brauzer tabida ko'rsatiladi.</li>
+</ul>
+<h2 id="section-25">Mustaqil ish</h2>
+<p>“Mening qiziqishlarim” sahifasini yarating: sarlavha, tavsif va ikkita rasm. Bir rasmni <code>figure</code> va <code>figcaption</code> bilan joylashtiring. O‘zingizga tegishli yoki foydalanishga ruxsat berilgan audio yoki videoni <code>controls</code> bilan qo‘shing. Rasmlar o‘lchamini va mazmunli <code>alt</code> matnini yozing; faqat bezak uchun rasmga <code>alt=&quot;&quot;</code> bering.</p>
+<h3 id="section-26">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Barcha mediafayllar mavjud; butun papka ko‘chirilganda yo‘llar ishlaydi.</label></li>
+<li class="check"><label><input type="checkbox"> Rasmlarda mos alt bor; figcaption alt o‘rnini bosmaydi.</label></li>
+<li class="check"><label><input type="checkbox"> Mediani foydalanuvchi ishga tushiradi; sahifa mediasiz ham tushunarli.</label></li>
+</ul>
+<h3 id="section-27">Bilimingizni tekshiring</h3>
+<ol>
+<li>Qachon alt bo‘sh bo‘lishi kerak?</li>
+<li>figcaption va alt nimasi bilan farq qiladi?</li>
+<li>Nima uchun SVG oddiy logotipga mos?</li>
+</ol>
+<hr>
+<p><a href="index.html">Mundarija</a> | <a href="uz-lesson-3.html">Oldingi dars</a> | <a href="uz-lesson-5.html">Keyingi dars</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Amaliyot: namuna</a></p>
+</article></main><footer><a href="../Lesson-4/uz/Rasmlar%20va%20media.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

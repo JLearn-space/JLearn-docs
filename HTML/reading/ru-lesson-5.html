@@ -1,0 +1,641 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Таблицы · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из урока 4</a><a href="#section-5">План урока</a><a href="#section-6">Когда нужна таблица</a><a href="#section-7">Устройство таблицы</a><a href="#section-10">Части таблицы: thead, tbody, tfoot</a><a href="#section-12">Мини-задание 1</a><a href="#section-13">Название и заголовки: caption и scope</a><a href="#section-16">Объединение ячеек: colspan и rowspan</a><a href="#section-21">Мини-задание 2</a><a href="#section-22">Итоги урока: шпаргалка</a><a href="#section-23">Самостоятельная работа</a><a href="#section-27">Вопросы для самопроверки</a><a href="#section-28">Что дальше</a><a href="#section-29">Ответы</a></details></aside><article><h1 id="section-1">Таблицы</h1>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-4.html">Назад</a> | <a href="ru-lesson-6.html">Вперёд</a> | <a href="ru-lesson-5.html">RU</a> | <a href="en-lesson-5.html">EN</a> | <a href="uz-lesson-5.html">UZ</a> | <a href="../Lesson-5/practice.html">Практика: пример</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 4 вы добавили на страницы картинки и видео. Сегодня научимся показывать данные: расписание, оценки, сравнение.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Расписание занятий, оценки за семестр, сравнение тарифов - такие данные удобно читать в виде таблицы: строка - объект, столбец - свойство.</p>
+<p>Зрячий пользователь видит, какой заголовок над какой ячейкой. А незрячий слышит ячейки по одной. Сегодня научимся строить таблицу так, чтобы скринридер называл заголовок каждой ячейки.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Строить таблицу из <code>table</code>, <code>tr</code>, <code>th</code>, <code>td</code>.</li>
+<li>Делить её на части: <code>thead</code>, <code>tbody</code>, <code>tfoot</code>.</li>
+<li>Давать таблице название через <code>caption</code>.</li>
+<li>Связывать заголовки с данными через <code>scope</code>.</li>
+<li>Объединять ячейки: <code>colspan</code> по горизонтали и <code>rowspan</code> по вертикали.</li>
+<li>Понимать, когда таблица <strong>не нужна</strong>.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из урока 4</h2>
+<ol>
+<li>Какой атрибут обязателен у <code>&lt;img&gt;</code>, кроме <code>src</code>?</li>
+<li>Чем <code>figcaption</code> отличается от <code>alt</code>?</li>
+<li>Что делает атрибут <code>controls</code>?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Когда нужна таблица</td>
+<td>Данные, а не раскладка</td>
+</tr>
+<tr>
+<td>Устройство таблицы</td>
+<td>Лист в клетку</td>
+</tr>
+<tr>
+<td>Части таблицы</td>
+<td>Шапка, тело, итог</td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Таблица 3 × 3</td>
+</tr>
+<tr>
+<td>Название и заголовки</td>
+<td><code>caption</code> и <code>scope</code></td>
+</tr>
+<tr>
+<td>Объединение ячеек</td>
+<td><code>colspan</code> и <code>rowspan</code> по шагам</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Таблица с объединением</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и расписание</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Когда нужна таблица</h2>
+<p><strong>Таблица - для данных</strong>, у которых есть строки и столбцы: расписание, прайс, оценки, сравнение.</p>
+<p><strong>Таблица - НЕ для раскладки страницы.</strong> Раньше сайты собирали таблицами: меню в одной ячейке, текст в другой. Сейчас это ошибка: скринридер читает такую страницу как «таблица, 3 столбца, строка 1...». Расположение блоков задают через CSS.</p>
+<p><strong>Проверка:</strong> можно ли назвать столбцы? «День, Время, Тема» - да, это таблица. «Левая колонка, правая колонка» - нет, это раскладка.</p>
+<hr>
+<h2 id="section-7">Устройство таблицы</h2>
+<p><strong>Простыми словами:</strong> таблица - лист в клетку. Вы рисуете его <strong>строка за строкой</strong>, слева направо.</p>
+<table>
+<thead>
+<tr>
+<th>Тег</th>
+<th>Что значит</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;table&gt;</code></td>
+<td>Вся таблица</td>
+<td>Лист</td>
+</tr>
+<tr>
+<td><code>&lt;tr&gt;</code></td>
+<td>Строка (table row)</td>
+<td>Одна строка клеток</td>
+</tr>
+<tr>
+<td><code>&lt;th&gt;</code></td>
+<td>Ячейка-заголовок (table header)</td>
+<td>Подписанная клетка</td>
+</tr>
+<tr>
+<td><code>&lt;td&gt;</code></td>
+<td>Ячейка с данными (table data)</td>
+<td>Обычная клетка</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;День&lt;/th&gt;
+        &lt;th&gt;Время&lt;/th&gt;
+        &lt;th&gt;Тема&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Понедельник&lt;/td&gt;
+        &lt;td&gt;15:00&lt;/td&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Среда&lt;/td&gt;
+        &lt;td&gt;15:00&lt;/td&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Что увидите:</strong></p>
+<table>
+<thead>
+<tr>
+<th>День</th>
+<th>Время</th>
+<th>Тема</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Понедельник</td>
+<td>15:00</td>
+<td>HTML</td>
+</tr>
+<tr>
+<td>Среда</td>
+<td>15:00</td>
+<td>CSS</td>
+</tr>
+</tbody>
+</table>
+<p>Без CSS у таблицы нет рамок - только выровненный текст. Заголовки <code>th</code> браузер показывает жирными и по центру.</p>
+<p><strong>Главное правило:</strong> в каждой строке одинаковое число ячеек. Три столбца - значит три ячейки в каждом <code>&lt;tr&gt;</code>.</p>
+<h3 id="section-8">Заголовок может быть и слева</h3>
+<p><code>&lt;th&gt;</code> бывает не только сверху. Если строка описывает один объект, его название - тоже заголовок:</p>
+<pre><code class="language-html">&lt;tr&gt;
+    &lt;th&gt;Азиз&lt;/th&gt;
+    &lt;td&gt;5&lt;/td&gt;
+    &lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+<h3 id="section-9">Попробуйте сломать</h3>
+<p>Удалите одну <code>&lt;td&gt;</code> во второй строке. Что стало с таблицей? Ячейки «съехали» влево, и время оказалось под заголовком «День».</p>
+<hr>
+<h2 id="section-10">Части таблицы: <code>thead</code>, <code>tbody</code>, <code>tfoot</code></h2>
+<p>Большую таблицу делят на три части:</p>
+<table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Что внутри</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;thead&gt;</code></td>
+<td>Строка заголовков</td>
+<td>Шапка ведомости</td>
+</tr>
+<tr>
+<td><code>&lt;tbody&gt;</code></td>
+<td>Строки данных</td>
+<td>Сами записи</td>
+</tr>
+<tr>
+<td><code>&lt;tfoot&gt;</code></td>
+<td>Итоги</td>
+<td>Строка «Итого»</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Товар&lt;/th&gt;
+            &lt;th&gt;Цена, сум&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Тетрадь&lt;/td&gt;
+            &lt;td&gt;5 000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Ручка&lt;/td&gt;
+            &lt;td&gt;3 000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Итого&lt;/td&gt;
+            &lt;td&gt;8 000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Порядок в коде:</strong> <code>thead</code> → <code>tbody</code> → <code>tfoot</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-5-1.svg" alt="Схема 1: Таблицы"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-5-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Таблица делится на три части. В каждой части - строки <code>tr</code>, в строках - ячейки. В шапке обычно <code>th</code>, в теле и итоге - <code>td</code>.</p>
+<h3 id="section-11">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Таблица для раскладки страницы</td>
+<td>Таблица - только для данных</td>
+</tr>
+<tr>
+<td>Разное число ячеек в строках</td>
+<td>В каждой строке столько ячеек, сколько столбцов</td>
+</tr>
+<tr>
+<td><code>&lt;td&gt;</code> вне <code>&lt;tr&gt;</code></td>
+<td>Ячейка всегда внутри строки</td>
+</tr>
+<tr>
+<td>Заголовки через <code>&lt;td&gt;&lt;strong&gt;</code></td>
+<td>Заголовок - <code>&lt;th&gt;</code></td>
+</tr>
+<tr>
+<td><code>tfoot</code> перед <code>tbody</code></td>
+<td>Порядок: <code>thead</code>, <code>tbody</code>, <code>tfoot</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-12">Мини-задание 1</h2>
+<p>Без подглядывания соберите таблицу оценок: шапка «Студент, HTML, CSS» и две строки с данными. Используйте <code>thead</code> и <code>tbody</code>. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-13">Название и заголовки: <code>caption</code> и <code>scope</code></h2>
+<h3 id="section-14"><code>&lt;caption&gt;</code> - название таблицы</h3>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Расписание кружка на неделю&lt;/caption&gt;
+    ...
+&lt;/table&gt;
+</code></pre>
+<p><code>caption</code> пишется <strong>сразу после</strong> <code>&lt;table&gt;</code>. Его видят все, а скринридер объявляет его перед таблицей: «Таблица: Расписание кружка на неделю».</p>
+<h3 id="section-15"><code>scope</code> - чей это заголовок</h3>
+<p><strong>Простыми словами:</strong> незрячий пользователь слышит ячейку «15:00». Чтобы понять, что это, ему нужен заголовок: «Время, 15:00». <code>scope</code> подсказывает скринридеру, к чему относится заголовок.</p>
+<table>
+<thead>
+<tr>
+<th>Значение</th>
+<th>Заголовок для</th>
+<th>Где стоит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scope=&quot;col&quot;</code></td>
+<td>Всего <strong>столбца</strong> под ним</td>
+<td>В шапке</td>
+</tr>
+<tr>
+<td><code>scope=&quot;row&quot;</code></td>
+<td>Всей <strong>строки</strong> справа</td>
+<td>В начале строки</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Оценки за семестр&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Студент&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;HTML&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;CSS&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Азиз&lt;/th&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Мадина&lt;/th&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Что услышит незрячий</strong> на ячейке «4»: «Азиз, CSS, 4». Без <code>scope</code> в сложной таблице он может услышать просто «4».</p>
+<hr>
+<h2 id="section-16">Объединение ячеек: <code>colspan</code> и <code>rowspan</code></h2>
+<p><strong>Простыми словами:</strong> на листе в клетку вы стираете границу между соседними клетками и пишете один текст на двух.</p>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Направление</th>
+<th>Запомнить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>colspan=&quot;2&quot;</code></td>
+<td>Вширь, на 2 столбца</td>
+<td><strong>col</strong>umn - столбец</td>
+</tr>
+<tr>
+<td><code>rowspan=&quot;2&quot;</code></td>
+<td>Вниз, на 2 строки</td>
+<td><strong>row</strong> - строка</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-17"><code>colspan</code> по шагам</h3>
+<p>Хотим общий заголовок над двумя столбцами.</p>
+<p><strong>До:</strong> 2 строки × 2 столбца.</p>
+<pre><code class="language-html">&lt;tr&gt;
+    &lt;th&gt;Почта&lt;/th&gt;
+    &lt;th&gt;Телефон&lt;/th&gt;
+&lt;/tr&gt;
+</code></pre>
+<p><strong>После:</strong> добавляем строку сверху с одной ячейкой на 2 столбца.</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th colspan=&quot;2&quot;&gt;Контакты&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Почта&lt;/th&gt;
+        &lt;th&gt;Телефон&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;club@example.com&lt;/td&gt;
+        &lt;td&gt;+998 90 111-22-33&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Считаем ячейки:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Строка</th>
+<th>Ячеек в коде</th>
+<th>Мест занято</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1 (с <code>colspan=&quot;2&quot;</code>)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><code>colspan</code> влияет <strong>только на свою строку</strong>.</p>
+<h3 id="section-18"><code>rowspan</code> по шагам</h3>
+<p>Студент сдавал два предмета. Имя пишем один раз на две строки.</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Студент&lt;/th&gt;
+        &lt;th&gt;Предмет&lt;/th&gt;
+        &lt;th&gt;Оценка&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td rowspan=&quot;2&quot;&gt;Азиз&lt;/td&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
+        &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
+        &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Что увидите:</strong></p>
+<pre><code>┌──────────┬──────────┬──────────┐
+│ Студент  │ Предмет  │ Оценка   │
+├──────────┼──────────┼──────────┤
+│          │ HTML     │ 5        │
+│  Азиз    ├──────────┼──────────┤
+│          │ CSS      │ 4        │
+└──────────┴──────────┴──────────┘
+</code></pre>
+<p><strong>Считаем ячейки:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Строка</th>
+<th>Ячеек в коде</th>
+<th>Почему</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>Шапка</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>«Азиз» занимает место и в строке 3</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>2</strong></td>
+<td>Первое место уже занято «Азизом» сверху</td>
+</tr>
+</tbody>
+</table>
+<p><code>rowspan</code> влияет <strong>на следующие строки</strong>: в них ячеек меньше.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-5-2.svg" alt="Схема 2: Таблицы"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-5-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> <code>colspan</code> экономит ячейки в своей строке, <code>rowspan</code> - в следующих строках. Занятое место не заполняют второй ячейкой.</p>
+<h3 id="section-19">Попробуйте сломать</h3>
+<p>В примере с <code>rowspan</code> добавьте в третью строку лишнюю <code>&lt;td&gt;Лишняя&lt;/td&gt;</code>. Что произошло? Ячейка вылезла за правый край таблицы.</p>
+<h3 id="section-20">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>После <code>rowspan</code> в следующей строке полное число ячеек</td>
+<td>Уберите столько ячеек, сколько мест уже занято сверху</td>
+</tr>
+<tr>
+<td>Путают <code>colspan</code> и <code>rowspan</code></td>
+<td>col - столбец (вширь), row - строка (вниз)</td>
+</tr>
+<tr>
+<td>Объединяют всё подряд</td>
+<td>Объединяйте, только если это упрощает чтение</td>
+</tr>
+<tr>
+<td>Нет <code>caption</code></td>
+<td>Дайте таблице название</td>
+</tr>
+<tr>
+<td>Нет <code>scope</code> у заголовков</td>
+<td><code>scope=&quot;col&quot;</code> в шапке, <code>scope=&quot;row&quot;</code> в начале строки</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-21">Мини-задание 2</h2>
+<p>Сделайте таблицу «Расписание на день»: столбцы «Время» и «Занятие». В 10:00 - «HTML», в 11:00 - «HTML» (то же занятие продолжается), в 12:00 - «Обед». Занятие HTML запишите <strong>одной ячейкой</strong> на две строки. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-22">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Таблица / строка</td>
+<td><code>&lt;table&gt;</code> / <code>&lt;tr&gt;</code></td>
+</tr>
+<tr>
+<td>Заголовок / данные</td>
+<td><code>&lt;th&gt;</code> / <code>&lt;td&gt;</code></td>
+</tr>
+<tr>
+<td>Шапка / тело / итог</td>
+<td><code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code> / <code>&lt;tfoot&gt;</code></td>
+</tr>
+<tr>
+<td>Название таблицы</td>
+<td><code>&lt;caption&gt;</code> сразу после <code>&lt;table&gt;</code></td>
+</tr>
+<tr>
+<td>Заголовок столбца</td>
+<td><code>&lt;th scope=&quot;col&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Заголовок строки</td>
+<td><code>&lt;th scope=&quot;row&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>На 2 столбца</td>
+<td><code>colspan=&quot;2&quot;</code>, в строке на 1 ячейку меньше</td>
+</tr>
+<tr>
+<td>На 2 строки</td>
+<td><code>rowspan=&quot;2&quot;</code>, в следующей строке на 1 ячейку меньше</td>
+</tr>
+<tr>
+<td>Раскладка страницы</td>
+<td>Не таблица, а CSS</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Самостоятельная работа</h2>
+<h3 id="section-24">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте страницу <strong>«Расписание кружка»</strong>:</p>
+<ol>
+<li>Полный документ и один <code>&lt;h1&gt;</code>.</li>
+<li>Таблица с <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code> и <code>&lt;tbody&gt;</code>.</li>
+<li>В шапке три заголовка <code>&lt;th scope=&quot;col&quot;&gt;</code>: день, время, тема.</li>
+<li>В теле <strong>минимум три</strong> строки. Первая ячейка каждой строки - <code>&lt;th scope=&quot;row&quot;&gt;</code> с днём недели.</li>
+<li>Вторая таблица - «Длинное занятие»: одна ячейка с <code>rowspan=&quot;2&quot;</code>.</li>
+</ol>
+<p>Что проверяет платформа: скелет документа, один <code>h1</code>, минимум две таблицы, <code>caption</code>, <code>thead</code>, <code>tbody</code>, минимум четыре строки <code>tr</code>, заголовки со <code>scope=&quot;col&quot;</code> и <code>scope=&quot;row&quot;</code>, наличие <code>rowspan</code>.</p>
+<h3 id="section-25">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Добавьте страницу <code>schedule.html</code> в сайт кружка из урока 3 - теперь расписание таблицей.</li>
+<li>Пересчитайте ячейки в каждой строке таблицы с объединением.</li>
+<li>Откройте страницу и убедитесь, что ни одна ячейка не вылезла за край.</li>
+</ol>
+<h3 id="section-26">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Таблица описывает данные, а не раскладку страницы.</label></li>
+<li class="check"><label><input type="checkbox"> Есть <code>caption</code>, <code>thead</code>, <code>tbody</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Заголовки - <code>th</code> со <code>scope</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Число ячеек в каждой строке сходится с учётом объединений.</label></li>
+<li class="check"><label><input type="checkbox"> Можете объяснить, сколько ячеек в строке после <code>rowspan</code> и почему.</label></li>
+</ul>
+<hr>
+<h2 id="section-27">Вопросы для самопроверки</h2>
+<ol>
+<li>Почему таблицами больше не делают раскладку страницы?</li>
+<li>Чем <code>&lt;th&gt;</code> отличается от <code>&lt;td&gt;</code>?</li>
+<li>В каком порядке идут <code>thead</code>, <code>tbody</code>, <code>tfoot</code>?</li>
+<li>Где пишется <code>&lt;caption&gt;</code>?</li>
+<li>Когда <code>scope=&quot;col&quot;</code>, а когда <code>scope=&quot;row&quot;</code>?</li>
+<li>Что услышит незрячий без <code>scope</code> в сложной таблице?</li>
+<li>Что делает <code>colspan=&quot;3&quot;</code>?</li>
+<li>Таблица из 3 столбцов, в первой строке ячейка с <code>rowspan=&quot;2&quot;</code>. Сколько ячеек писать во второй строке?</li>
+<li>Таблица из 4 столбцов, в строке ячейка с <code>colspan=&quot;2&quot;</code>. Сколько всего ячеек в этой строке?</li>
+<li>Что будет, если в строке окажется лишняя ячейка?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-28">Что дальше</h2>
+<p>Таблица показывает данные. В уроке 6 научимся их <strong>собирать</strong>: формы с полями, подписями, флажками и кнопкой отправки.</p>
+<hr>
+<h2 id="section-29">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li><code>alt</code>.</li>
+<li><code>alt</code> - замена картинки для тех, кто её не видит. <code>figcaption</code> - подпись для всех.</li>
+<li>Показывает кнопки управления плеером.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Студент&lt;/th&gt;
+            &lt;th&gt;HTML&lt;/th&gt;
+            &lt;th&gt;CSS&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Азиз&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Мадина&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Расписание на день&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Время&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Занятие&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;10:00&lt;/td&gt;
+            &lt;td rowspan=&quot;2&quot;&gt;HTML&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;11:00&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;12:00&lt;/td&gt;
+            &lt;td&gt;Обед&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Во второй строке одна ячейка: место «Занятия» занято ячейкой HTML сверху.</p>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>Скринридер читает такую страницу как таблицу с данными и путает пользователя. Раскладку делают CSS.</li>
+<li><code>&lt;th&gt;</code> - заголовок, <code>&lt;td&gt;</code> - данные.</li>
+<li><code>thead</code>, <code>tbody</code>, <code>tfoot</code>.</li>
+<li>Сразу после открывающего <code>&lt;table&gt;</code>.</li>
+<li><code>col</code> - заголовок столбца (в шапке), <code>row</code> - заголовок строки (в начале строки).</li>
+<li>Просто значение ячейки, без заголовка - непонятно, что это.</li>
+<li>Ячейка занимает три столбца по ширине.</li>
+<li>Две.</li>
+<li>Три: одна объединённая и две обычные.</li>
+<li>Она вылезет за край таблицы, столбцы перестанут совпадать.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-4.html">Назад</a> | <a href="ru-lesson-6.html">Вперёд</a> | <a href="ru-lesson-5.html">RU</a> | <a href="en-lesson-5.html">EN</a> | <a href="uz-lesson-5.html">UZ</a> | <a href="../Lesson-5/practice.html">Практика: пример</a></p>
+</article></main><footer><a href="../Lesson-5/ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

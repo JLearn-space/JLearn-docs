@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Yakuniy loyiha: rejalashtirishdan nashr etishgacha · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxiriga qadar nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">O‘qituvchi bilan namuna tahlili</a><a href="#section-5">Kod yozishdan oldin rejalashtirish</a><a href="#section-9">Bosqichma-bosqich yig&#x27;ish: semantika (har bir sahifaning skeleti)</a><a href="#section-10">Bosqichma-bosqich yig&#x27;ish: kontent (matn, sarlavhalar, ro&#x27;yxatlar)</a><a href="#section-11">Bosqichma-bosqich yig&#x27;ish: media (rasmlar)</a><a href="#section-12">Bosqichma-bosqich yig&#x27;ish: jadval</a><a href="#section-13">Bosqichma-bosqich yig&#x27;ish: forma</a><a href="#section-14">Bosqichma-bosqich yig&#x27;ish: meta-teglar</a><a href="#section-15">Bosqichma-bosqich yig&#x27;ish: foydalanish qulayligi</a><a href="#section-16">Yakuniy sifat tekshiruv ro&#x27;yxati</a><a href="#section-17">GitHub Pages&#x27;da nashr etish</a><a href="#section-23">Kurs yakunlari</a><a href="#section-24">Mustaqil yakuniy sinov</a></details></aside><article><h1 id="section-1">Yakuniy loyiha: rejalashtirishdan nashr etishgacha</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-9.html">Oldingi dars</a> · <a href="../Lesson-10/index.html">Amaliyot</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+<blockquote>
+<p><strong>Oldingi dars bilan bog'lanish:</strong> biz birinchi <code>&lt;!DOCTYPE html&gt;</code> dan meta-teglar va loyiha tuzilmasigacha bo'lgan yo'lni bosib o'tdik. Bugun - yangi emas, balki <strong>butun kursni amalda qo'llash</strong>: noldan boshlab haqiqiy sayt-vizitkani rejalashtiramiz, yig'amiz va nashr etamiz.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Dars oxiriga qadar nimani o'rganasiz</h2>
+<ul>
+<li>Birinchi kod yozilmasidan oldin sayt tuzilmasini rejalashtirish.</li>
+<li>To'g'ri tartibda to'liq sahifani yig'ish: semantika → kontent → media → jadval → forma → meta-teglar → foydalanish qulayligi.</li>
+<li>Yakuniy sifat tekshiruv ro'yxatidan o'tish va o'z kodingizdagi zaif tomonlarni topish.</li>
+<li>Tayyor saytni GitHub Pages orqali nashr etish bosqichlarini bajarish va natijani tekshirish.</li>
+</ul>
+<hr>
+<h2 id="section-3">Dars rejasi</h2>
+<table>
+<thead>
+<tr>
+<th>Bo‘lim</th>
+<th>Kontent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loyiha rejalashtirish</td>
+<td>Qanday sayt, nechta sahifa, har birida nima</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: semantika</td>
+<td>Sahifa skeleti, header/nav/main/footer</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: kontent</td>
+<td>Sarlavhalar, matn, ro'yxatlar</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: media</td>
+<td>Rasmlar, figure</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: jadval</td>
+<td>Agar loyihaga mos bo'lsa</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: forma</td>
+<td>Fikr-mulohaza formasi</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: meta-teglar</td>
+<td>head to'liq</td>
+</tr>
+<tr>
+<td>Bosqichma-bosqich yig'ish: foydalanish qulayligi</td>
+<td>Yakuniy aria/alt/scope tekshiruvi</td>
+</tr>
+<tr>
+<td>Yakuniy sifat tekshiruv ro'yxati</td>
+<td>To'liq o'z-o'zini tekshirish</td>
+</tr>
+<tr>
+<td>GitHub Pages'da nashr etish</td>
+<td>Bosqichma-bosqich ko'rsatma</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">O‘qituvchi bilan namuna tahlili</h2>
+<p>method=&quot;get&quot; bo‘lgan forma xabar yetkazishni emas, belgilashni namoyish etadi: brauzer o‘quv qiymatlarini GET orqali joriy manzilga yuboradi, statik hosting esa xabarni qayta ishlamaydi. POST ma’lumotni shifrlamaydi; uzatishni HTTPS himoyalaydi. Mashqda o‘ylab topilgan ma’lumotlardan foydalaning. Ishlatilgan rasm va favicon fayllarini qo‘shing, alt haqiqiy rasmga mos bo‘lsin. Qulaylikni boshidan rejalang va nashrdan oldin qayta tekshiring. Fayllarni repozitoriyga saqlashning o‘zi Pages ni sozlamaydi.</p>
+<p>Keyingi bo‘limlar o‘quv portfoliosini yig‘ishni ko‘rsatadi. Alohida baholanadigan mustaqil sinov dars oxirida berilgan.</p>
+<h2 id="section-5">Kod yozishdan oldin rejalashtirish</h2>
+<p><strong>Oddiy qilib aytganda:</strong> uy qurishdan oldin arxitektor qog'ozga rejani chizadi - nechta xona, qayerda nima joylashgan, ular orqasida qanday harakat qilish kerak. Sayt bilan ham xuddi shunday: agar plansiz kod yozishga o'tirsangiz, hamma narsani doimiy qayta ishlash xavfi juda katta.</p>
+<h3 id="section-6">1-qadam. Loyiha mavzusini tanlang</h3>
+<p>Yakuniy loyiha - bu oddiy ko'p sahifali sayt-vizitka. O'quv loyihasi uchun yaxshi mavzular misollari:</p>
+<ul>
+<li>Shaxsiy portfolioning (o'zingiz haqida, loyihalar, kontaktlar).</li>
+<li>Kichik mahalliy biznes sayti (kafetereya, repetitorlik, ustaxona).</li>
+<li>O'quv kursi yoki qiziqishlar klubi sayt-vizitkasi.</li>
+</ul>
+<p><strong>Muhim:</strong> o'zingiz haqida haqiqatan aytadigan narsangiz bor mavzuni tanlang - bu sahifalarni mazmunli kontent bilan to'ldirish osonroq bo'ladi, &quot;ko'z uchun&quot; yozilgan matn emas.</p>
+<h3 id="section-7">2-qadam. Sahifalar tuzilmasini aniqlang (sayt xaritasi)</h3>
+<p>Qog'ozda yoki matn faylida sahifalar ro'yxatini va har birida nima bo'lishini yozing:</p>
+<p><strong>Shaxsiy portfolio uchun sayt xaritasi misoli:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Sahifa</th>
+<th>Fayl</th>
+<th>Mazmuni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bosh sahifa</td>
+<td><code>index.html</code></td>
+<td>Salomlashish, qisqacha &quot;o'zim haqimda&quot;, qolgan bo'limlarga havolalar</td>
+</tr>
+<tr>
+<td>O'zim haqimda</td>
+<td><code>about.html</code></td>
+<td>Batafsil hikoya, foto, ko'nikmalar ro'yxati</td>
+</tr>
+<tr>
+<td>Loyihalar</td>
+<td><code>projects.html</code></td>
+<td>Ishlar ro'yxati oldindan ko'rish rasmlari bilan</td>
+</tr>
+<tr>
+<td>Kontaktlar</td>
+<td><code>contact.html</code></td>
+<td>Fikr-mulohaza formasi, bog'lanish usullari jadvali</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-8">3-qadam. Har bir sahifa uchun kontent rejasini tuzing</h3>
+<p>Har bir sahifa uchuni qisqacha, kursdagi qaysi HTML vositalarini ishlatishingizni yozing. Masalan, <code>contact.html</code> uchun:</p>
+<ul>
+<li><code>&lt;header&gt;</code> umumiy menyu <code>&lt;nav&gt;</code> bilan</li>
+<li><code>&lt;main&gt;</code> sarlavha <code>&lt;h1&gt;Kontaktlar&lt;/h1&gt;</code></li>
+<li><code>&lt;table&gt;</code> <code>scope</code> bilan - bog'lanish usullari va ish vaqti</li>
+<li><code>&lt;form&gt;</code> <code>fieldset</code>/<code>legend</code> bilan - fikr-mulohaza formasi</li>
+<li><code>&lt;footer&gt;</code> <code>aria-label</code> orqali ijtimoiy tarmoqlarga havolalar</li>
+</ul>
+<p><strong>Bu rejalashtirish shunchaki rasmiy emas.</strong> Aynan shu qadamda odatda nomuvofiqliklarni sezasiz: masalan, bosh sahifada siz yangi gaplashgan sahifaga havola yo'q ekanligini - buni qog'ozda tuzish kod to'rt sahifa yozilgandan keyin tuzishdan ancha oson.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-10-1.svg" alt="Chizma 1: Yakuniy loyiha rejalashtirishdan nashr etishgacha"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-10-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> O‘qlar loyiha ishining ketma-ketligini bildiradi: reja, HTML, kerakli mazmun, tekshiruv va nashr. Tekshiruvda xato topilsa, tegishli avvalgi bosqichga qaytib tuzatish kerak; nashr yangi xatolarni tekshirish o‘rnini bosmaydi.</p>
+<hr>
+<h2 id="section-9">Bosqichma-bosqich yig'ish: semantika (har bir sahifaning skeleti)</h2>
+<p>Yig'ishni semantik skeletdan boshlaymiz - bu 2-darsda muhokama qilgan narsa. Buni haqiqiy kontent bilan to'ldirishdan <strong>oldin</strong> qilinadi - avval tuzilma, keyin ichiga kontent.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;uz&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;!-- Meta-teglar bo‘limida to‘ldiramiz --&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;!-- umumiy menyu --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;!-- sahifaning asosiy kontenti --&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;!-- pastki qism --&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Buni loyihangizning har bir sahifasi uchun bir xil qiling</strong> - barcha sahifalarda bir xil <code>&lt;header&gt;</code>/<code>&lt;nav&gt;</code>/<code>&lt;footer&gt;</code> bilan yagona skelet, faqat <code>&lt;main&gt;</code> kontenti farq qiladi - aynan shunday biz 3-darsda ko'p sahifali sayt qilganmiz.</p>
+<hr>
+<h2 id="section-10">Bosqichma-bosqich yig'ish: kontent (matn, sarlavhalar, ro'yxatlar)</h2>
+<p>Endi <code>&lt;main&gt;</code> ni haqiqiy matn bilan to'ldiramiz, to'g'ri sarlavhalar ierarxiyasidan foydalanib (2-dars) - sahifada yagona <code>&lt;h1&gt;</code>, darajalarni o'tkazib yubormasdan.</p>
+<p><strong><code>about.html</code> uchun misol:</strong></p>
+<pre><code class="language-html">&lt;main&gt;
+    &lt;h1&gt;Men haqimda&lt;/h1&gt;
+
+    &lt;p&gt;Mening ismim Aziz, men bir yildan ortiq vaqtdan beri &lt;strong&gt;veb-dasturlashga qiziqaman&lt;/strong&gt;. HTMLdan boshladim - va endi bilimlarimni tartibga solish uchun shu kursdan o'tmoqdaman.&lt;/p&gt;
+
+    &lt;h2&gt;Mening ko'nikmalarim&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;HTML5 - semantik kodlash&lt;/li&gt;
+        &lt;li&gt;CSSning asoslari&lt;/li&gt;
+        &lt;li&gt;JavaScriptni o'rganmoqdaman&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h2&gt;Mening yo'lim&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;Veb-dasturlashni mustaqil o'rganishni boshladim&lt;/li&gt;
+        &lt;li&gt;&quot;HTML: A dan Ya gacha&quot; kursidan o'tdim&lt;/li&gt;
+        &lt;li&gt;Davom etishni rejalashtiraman - CSS va JavaScriptga&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/main&gt;
+</code></pre>
+<p><code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> ni faqat matn haqiqatan ma'noviy urg'u talab qilgan joyda ishlating - bezak uchun emas, mazmun uchun (2-darsda muhokama qilganimizdek).</p>
+<hr>
+<h2 id="section-11">Bosqichma-bosqich yig'ish: media (rasmlar)</h2>
+<p>Rasmlarni o'rinli joylarga qo'shing - profil fotosurati, loyihalarning oldindan ko'rish rasmlari, tasvirlar. <code>alt</code> (4-dars) va rasmga izohli yozuv kerak bo'lsa <code>figure</code>/<code>figcaption</code> ni unutmang.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/profile-photo.jpg&quot; alt=&quot;Aziz ochiq kodli noutbuk oldida jilmayapti&quot; width=&quot;300&quot;&gt;
+    &lt;figcaption&gt;Mening ish joyim&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><strong>Agar loyiha uchun o'z rasmlaringiz bo'lmasa</strong> - erkin foydalanish mumkin bo'lgan zaxira rasmlardan foydalaning (muhim: har doim rasmda haqiqatan nima tasvirlanganiga mos mazmunli <code>alt</code> yozing, ixtiro qilingan matn emas).</p>
+<hr>
+<h2 id="section-12">Bosqichma-bosqich yig'ish: jadval</h2>
+<p>Jadvalni loyihada haqiqatan jadval ma'lumotlari bo'lgan joylarga qo'shing (5-dars) - qoidani unutmang: jadval faqat ma'lumotlar uchun, maket kodlash uchun emas.</p>
+<p><strong><code>contact.html</code> uchun misol - bog'lanish usullari jadvali:</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Bog'lanish usullari&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Usul&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Kontakt&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Javob vaqti&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Email&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;info@saydullayev.fun&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Kun ichida&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Telegram&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;https://t.me/example&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;@example&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Bir necha soat&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Agar loyiha mavzuingiz uchun jadval mos kelmasa</strong> (masalan, faqat rasmlardan iborat, taqqoslanadigan ma’lumotlari yo‘q portfolio) - bu normal, tegni sun'iy ravishda ishlatish uchun qo'shmang. O'z muhandislik bahongizni ishlating: teg haqiqiy vazifani hal qiladigan joyda paydo bo'lishi kerak.</p>
+<hr>
+<h2 id="section-13">Bosqichma-bosqich yig'ish: forma</h2>
+<p>Fikr-mulohaza formasini qo'shing (6-7-dars), to'g'ri <code>label</code>/<code>for</code>/<code>id</code> bog'lanishi, <code>fieldset</code>/<code>legend</code> orqali guruhlash va kamida minimal tekshirish bilan.</p>
+<p>O‘quv formasi <code>method=&quot;get&quot;</code> ishlatadi: brauzer qiymatlarni joriy sahifa URL manziliga qo‘shadi. Faqat o‘ylab topilgan ma’lumot kiriting. Qayta ishlovchi yo‘q, xabar yetkazilmaydi. GET yuborilgan qiymatlarni ko‘rsatadi; POST o‘zi ma’lumotni shifrlamaydi.</p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Menga murojaat qiling&lt;/legend&gt;
+
+        &lt;p&gt;&lt;label for=&quot;name&quot;&gt;Ism:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required maxlength=&quot;50&quot;&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt; &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;label for=&quot;message&quot;&gt;Xabar:&lt;/label&gt; &lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;5&quot; cols=&quot;40&quot; placeholder=&quot;Savolingizni yozing...&quot; required&gt;&lt;/textarea&gt;&lt;/p&gt;
+    &lt;/fieldset&gt;
+
+    &lt;button type=&quot;submit&quot;&gt;Yuborish&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<hr>
+<h2 id="section-14">Bosqichma-bosqich yig'ish: meta-teglar</h2>
+<p>Har bir sahifaning <code>&lt;head&gt;</code> qismini to'ldiring (9-dars) - endi kontent tayyor bo'lgach, mazmunli <code>description</code> yozish oson.</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;Men haqimda - Aziz, yangi boshlagan veb-dasturchi, HTML, CSS va JavaScriptni o'rganmoqda.&quot;&gt;
+    &lt;title&gt;Men haqimda - Azizning portfoliosi&lt;/title&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Har bir sahifada tekshiring:</strong> yagona <code>&lt;title&gt;</code> (barcha sahifalarda bir xil emas!), ma'lum sahifaning kontentini aks ettiruvchi yagona <code>description</code>.</p>
+<hr>
+<h2 id="section-15">Bosqichma-bosqich yig'ish: foydalanish qulayligi</h2>
+<p>8-dars vositalari bo'yicha har bir sahifaning yakuniy tekshiruvi:</p>
+<ul>
+<li>Barcha <code>&lt;img&gt;</code> ma'noli <code>alt</code> ga ega (yoki bezak rasmlar uchun bo'sh <code>alt=&quot;&quot;</code>).</li>
+<li>Matnsiz havola belgilari <code>aria-label</code> ga ega.</li>
+<li>Sarlavhalar ierarxiyasida bo'sh joylar yo'q va sahifada yagona <code>&lt;h1&gt;</code> mavjud.</li>
+<li>Tab-navigatsiyani tekshiring - har bir interaktiv elementga sichqonchadan foydalanmasdan yeting.</li>
+</ul>
+<hr>
+<h2 id="section-16">Yakuniy sifat tekshiruv ro'yxati</h2>
+<p>Loyihangizning <strong>har bir</strong> sahifasi uchun ushbu ro'yxatdan o'ting - qog'ozda yoki eslatmalarda belgilang:</p>
+<ul>
+<li class="check"><label><input type="checkbox"> Sahifada yagona <code>&lt;h1&gt;</code></label></li>
+<li class="check"><label><input type="checkbox"> Semantika div-shorbasining o'rniga (<code>header</code>/<code>nav</code>/<code>main</code>/<code>footer</code> o'z maqsadida ishlatilgan)</label></li>
+<li class="check"><label><input type="checkbox"> Barcha <code>&lt;img&gt;</code> da <code>alt</code></label></li>
+<li class="check"><label><input type="checkbox"> Barcha forma maydonlarida <code>label</code></label></li>
+<li class="check"><label><input type="checkbox"> Havolalarning ma'noli matni (&quot;bosing&quot; emas, aniq tavsif - masalan, &quot;Loyiha haqida batafsil o'qing&quot;)</label></li>
+<li class="check"><label><input type="checkbox"> <code>meta charset</code> va <code>meta viewport</code> o'rnida</label></li>
+<li class="check"><label><input type="checkbox"> Kod W3C-tekshiruvidan xatosiz o'tadi</label></li>
+<li class="check"><label><input type="checkbox"> Sahifa mobil ekranda o'qilishi mumkin (DevTools orqali tekshirishingiz mumkin - qurilma rejimi, yuqori paneldagi telefon/planshet belgisi)</label></li>
+</ul>
+<p><strong>Hozir tayyor sahifalarinizdan biri bo'yicha shu tekshiruv ro'yxatidan o'ting</strong> - ehtimol, tuzatish kerak bo'lgan kamida bitta band topiladi. Bu normal va foydali - aynan shunday nashr etishdan oldin haqiqiy sifat tekshiruvi ko'rinishadi.</p>
+<hr>
+<h2 id="section-17">GitHub Pages'da nashr etish</h2>
+<p>Kursning yakuniy qadami - saytingizni real havola orqali butun dunyoga ochiq qilish, faqat o'z kompyuteringizda emas.</p>
+<h3 id="section-18">GitHub Pages nima</h3>
+<p>GitHub - kod saqlash xizmati (biz oldingi darslarda uni portfolio uchun maydon sifatida eslatganmiz). <strong>GitHub Pages</strong> - GitHubning bepul funksiyasi, bu sizning statik HTML/CSS/JS saytingizni to'g'ridan-to'g'ri repozitoriyangizdan <code>username.github.io/repository-name</code> ko'rinishidagi manzilda nashr etishga imkon beradi.</p>
+<h3 id="section-19">Bosqichma-bosqich ko'rsatma</h3>
+<p><strong>1-qadam.</strong> Agar hali GitHub'da akkauntingiz bo'lmasa - github.com'da ro'yxatdan o'ting.</p>
+<p><strong>2-qadam.</strong> Yangi repozitoriya yarating:</p>
+<ul>
+<li>&quot;New repository&quot; tugmasini bosing.</li>
+<li>Nom bering, masalan <code>my-portfolio</code>.</li>
+<li>&quot;Public&quot; ni tanlang (repozitoriya bepul GitHub Pages uchun ochiq bo'lishi kerak).</li>
+<li>&quot;Create repository&quot; tugmasini bosing.</li>
+</ul>
+<p><strong>3-qadam.</strong> Fayllarni ikki usuldan biri bilan yuklang:</p>
+<p><em>A usuli - veb-interfeys orqali (yangi boshlaganlar uchun osonroq):</em></p>
+<ul>
+<li>Repozitoriya sahifasida &quot;uploading an existing file&quot; tugmasini bosing.</li>
+<li>Loyihangizning barcha fayllari va papkalarini tortib tashlang (<code>index.html</code>, <code>css/</code>, <code>js/</code>, <code>images/</code> va boshqalar).</li>
+<li>Pastda &quot;Commit changes&quot; tugmasini bosing.</li>
+</ul>
+<p><em>B usuli - terminal orqali Git bilan (agar Git bilan tanish bo'lsangiz):</em></p>
+<pre><code class="language-bash">git init
+git add .
+git commit -m &quot;Saytning birinchi nashri&quot;
+git branch -M main
+git remote add origin https://github.com/your-username/my-portfolio.git
+git push -u origin main
+</code></pre>
+<p><strong>4-qadam.</strong> GitHub Pages'ni yoqing:</p>
+<ul>
+<li>Repozitoriyangizdagi &quot;Settings&quot; varaqlarini oching.</li>
+<li>Yon menyuda &quot;Pages&quot; bo'limini toping.</li>
+<li>&quot;Build and deployment&quot; bo‘limida &quot;Source&quot; uchun &quot;Deploy from a branch&quot; ni tanlang. So‘ng &quot;Branch&quot; da <code>main</code> va <code>/ (root)</code> ni tanlang.</li>
+<li>&quot;Save&quot; tugmasini bosing.</li>
+</ul>
+<p><strong>5-qadam.</strong> Nashr tugashini kuting; bu bir necha daqiqa olishi mumkin - GitHub saytingizni yig'adi va nashr etadi. &quot;Pages&quot; sozlamalar sahifasini yangilang - havola paydo bo'ladi:</p>
+<pre><code>https://your-username.github.io/my-portfolio/
+</code></pre>
+<p><strong>6-qadam.</strong> Shu havolani brauzerda oching - saytingiz endi internetdagi har qanday odam uchun mavjud.</p>
+<h3 id="section-20">Muhim amaliy nuqta: asosiy fayl nomi</h3>
+<p>GitHub Pages repozitoriyaning ildiz manziliga kirilganda avtomatik ravishda <code>index.html</code> faylini ochadi - shuning uchun bosh sahifangiz aynan <code>index.html</code> deb atalishi muhim (masalan, <code>home.html</code> yoki <code>main.html</code> emas), aks holda qisqa havola orqali avtomatik ochilmaydi.</p>
+<h3 id="section-21">Saytni kelajakda yangilash</h3>
+<p>Agar keyinchalik nimadir o'zgartirishni istasangiz - yangilangan fayllarni shu usul bilan yuklang (veb-interfeysda &quot;Add file&quot; → &quot;Upload files&quot; yoki terminal orqali ishlasangiz <code>git push</code>) - GitHub Pages yangi nashr muvaffaqiyatli tugagach sayt versiyasini yangilaydi.</p>
+<hr>
+<h3 id="section-22">Nashr etishda tez-tez uchraydigan xatolar</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repozitoriya maxfiy (Private) yaratilgan</td>
+<td>Bepul GitHub Pages uchun repozitoriya ochiq bo'lishi kerak</td>
+</tr>
+<tr>
+<td>Bosh sahifa <code>index.html</code> deb nomlanmagan</td>
+<td>Bosh sahifa faylini aynan <code>index.html</code> deb qayta nomlang</td>
+</tr>
+<tr>
+<td>CSS/JS/rasmlarga yo'llar nashr etishdan keyin sinadi</td>
+<td>Nisbiy yo'llardan foydalaning (3-dars), faqat o'z kompyuteringizda ishlaydigan <code>C:\Users\...</code> ko'rinishidagi mutlaq yo'llar emas</td>
+</tr>
+<tr>
+<td>Pages funksiyasi sozlamalarda yoqilmagan</td>
+<td>Settings → Pages ga kirib, nashr tarmog‘ini aniq tanlashni unutmang</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Kurs yakunlari</h2>
+<p>Tabriklaymiz - siz birinchi <code>&lt;!DOCTYPE html&gt;</code> dan to'liq nashr etilgan ko'p sahifali saytgacha bo'lgan yo'lni bosib o'tdingiz! 10 ta dars davomida siz o'zlashtirdingiz:</p>
+<ul>
+<li>HTML hujjatining tuzilmasi va asosiy vositalar (1-2-darslar).</li>
+<li>Havolalar va sahifalar orasidagi navigatsiya (3-dars).</li>
+<li>Rasmlar va media bilan ishlash (4-dars).</li>
+<li>Jadval ma'lumotlari uchun jadvallar (5-dars).</li>
+<li>Formalar - oddiy maydonlardan tekshirishgacha, ikki qiyinlik darajasi (6-7-darslar).</li>
+<li>Foydalanish qulayligi tamoyili sifatida, alohida &quot;ficha&quot; emas (8-dars).</li>
+<li>Meta-teglar, SEO asoslari va CSS/JS bilan bog'lanish (9-dars).</li>
+<li>To'liq tsikl: loyiha rejalashtirishdan ochiq nashr etishgacha (10-dars).</li>
+</ul>
+<p><strong>Keyingisi nima:</strong> HTML - bu faqat &quot;skelet&quot; (birinchi darsdan beri aytganimizdek). Yo‘lingizning mantiqiy davomi - <strong>CSS</strong> (dizayn, ranglar, bo'sh joylar, turli ekranlar uchun moslashuvchan kodlash) va keyin <strong>JavaScript</strong> (interaktivlik, formalar bilan haqiqatan ishlash, sahifaning dinamik xulq-atvori). Bugun nashr etilgan saytingiz kelajakda yangi bilimlaringizni amalda qo'llash uchun ajoyib &quot;ish maydoni&quot; bo'ladi.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-10-2.svg" alt="Chizma 2: Yakuniy loyiha rejalashtirishdan nashr etishgacha"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-10-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Markazdagi kursdan chiqqan shoxlar bilimlarning qaysi darslarda o‘rganilganini jamlaydi. Yakuniy loyiha bu mavzularni bitta maqsadli saytda birlashtiradi; barcha teglarni sababsiz qo‘shishni talab qilmaydi.</p>
+<h2 id="section-24">Mustaqil yakuniy sinov</h2>
+<p>Yuqoridagi bosqichli yig‘ish — o‘quv namunasi. Tayyor portfolioni takrorlash mustaqil ko‘nikmani tasdiqlamaydi.</p>
+<p>Namunani ko‘chirmasdan klub, kutubxona yoki to‘garak uchun to‘rtta bog‘langan sahifadan iborat sayt yarating. Mazmunli sarlavha va ro‘yxatlar, ruxsat etilgan rasmlar va mos alt, caption va sarlavhali jadval, label, fieldset/legend va tekshiruvli forma qo‘shing. Forma namuna ekanini yozing. Noyob metama’lumot qo‘shib, nashr eting. Manba fayllari, ochiq havola va tekshiruv qaydini topshiring.</p>
+<table>
+<thead>
+<tr>
+<th>Mezon</th>
+<th style="text-align:right">Ball</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tuzilma va navigatsiya</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Semantika va mazmun</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Rasmlar va jadval</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Forma va tekshiruv</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Qulaylik va klaviatura tekshiruvi</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Metama’lumot, nashr va tekshiruv qaydi</td>
+<td style="text-align:right">10</td>
+</tr>
+</tbody>
+</table>
+<p>O‘tish: kamida 80/100; to‘rtta sahifa ochiladi, navigatsiya ishlaydi va forma maydonlarida tushunarli yorliq bor. Buzilgan havola va yo‘q yorliqlar tuzatilishi shart. To‘liq ball: bajarilgan va tekshirilgan; yarmi: qisman; nol: yo‘q. Teg tanlovi, forma xatti-harakati va bajarilgan ikkita tekshiruv va topilgan muammolarni (bo‘lsa) tushuntiring.</p>
+<hr>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-9.html">Oldingi dars</a> · <a href="../Lesson-10/index.html">Amaliyot</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-10/uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

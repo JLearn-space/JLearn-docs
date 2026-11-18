@@ -1,0 +1,247 @@
+{
+  "lesson": 1,
+  "lesson_title": "Введение в HTML. Структура документа",
+  "task": {
+    "title": "Страница знакомства",
+    "language": "html",
+    "description": "Соберите с нуля HTML-документ: DOCTYPE, html с языком, head с кодировкой UTF-8 и вкладкой «Знакомство», body с одним главным заголовком и двумя абзацами о себе.",
+    "starter_code": "<!-- Урок 1. Страница знакомства -->\n<!-- 1. DOCTYPE и html с языком -->\n<!-- 2. head: кодировка UTF-8 и вкладка «Знакомство» -->\n<!-- 3. body: один h1 и два абзаца -->\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<head>",
+        "</head>",
+        "<body>",
+        "</body>",
+        "</html>",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "</title>",
+        "Знакомство"
+      ],
+      "attrs": {
+        "html": [
+          "lang"
+        ],
+        "meta": [
+          "charset"
+        ]
+      },
+      "h1_exact": 1,
+      "tags": {
+        "p": 2
+      }
+    },
+    "hints": [
+      "Первая строка - <!DOCTYPE html>.",
+      "У <html> должен быть атрибут lang, например lang=\"ru\".",
+      "В <head> нужны <meta charset=\"UTF-8\"> и <title>Знакомство</title>.",
+      "В <body> ровно один <h1> и минимум два <p>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет DOCTYPE",
+        "code": "<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет lang",
+        "code": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет charset",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет title",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "два h1",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <h1>Я студент первого курса и живу в Алмалыке.</h1>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "один абзац",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет body",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n\n</html>"
+      },
+      {
+        "mistake": "DOCTYPE в тексте вместо декларации",
+        "code": "<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>&lt;!DOCTYPE html&gt; Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое HTML?",
+        "options": [
+          "Язык программирования",
+          "Язык разметки",
+          "Язык стилей",
+          "База данных"
+        ],
+        "answer": 1,
+        "explanation": "HTML размечает содержимое: в нём нет условий, циклов и вычислений."
+      },
+      {
+        "type": "single",
+        "question": "Где должен стоять <!DOCTYPE html>?",
+        "options": [
+          "В конце файла",
+          "Внутри <head>",
+          "Первой строкой файла",
+          "Внутри <body>"
+        ],
+        "answer": 2,
+        "explanation": "Декларация пишется первой строкой, перед <html>."
+      },
+      {
+        "type": "single",
+        "question": "Где пользователь видит текст из <title>?",
+        "options": [
+          "Крупным заголовком на странице",
+          "На вкладке браузера",
+          "Внизу страницы",
+          "Нигде"
+        ],
+        "answer": 1,
+        "explanation": "<title> задаёт название вкладки. Заголовок на странице - это <h1>."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт после правки текста в DevTools и обновления страницы (F5)?",
+        "options": [
+          "Изменение сохранится в файле",
+          "Изменение пропадёт",
+          "Браузер покажет ошибку",
+          "Файл удалится"
+        ],
+        "answer": 1,
+        "explanation": "DevTools меняет только открытую в браузере копию, а не файл."
+      },
+      {
+        "type": "multiple",
+        "question": "Что размещают внутри <head>?",
+        "options": [
+          "<meta charset=\"UTF-8\">",
+          "<title>",
+          "<h1>",
+          "<p>"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "В head - служебная информация. Видимые заголовок и абзацы - в body."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи - закрывающие теги?",
+        "options": [
+          "</p>",
+          "<p/>",
+          "</h1>",
+          "<body>"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Закрывающий тег начинается с </. Запись <p/> не закрывает абзац."
+      },
+      {
+        "type": "multiple",
+        "question": "Зачем указывать lang у <html>?",
+        "options": [
+          "Скринридер выберет произношение",
+          "Браузер предложит перевод",
+          "Текст станет крупнее",
+          "Страница загрузится быстрее"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "lang сообщает язык текста программам: скринридеру, переводчику, поисковику."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте технологию и её задачу.",
+        "pairs": [
+          [
+            "HTML",
+            "Структура и смысл"
+          ],
+          [
+            "CSS",
+            "Оформление"
+          ],
+          [
+            "JavaScript",
+            "Поведение"
+          ]
+        ],
+        "explanation": "HTML - каркас, CSS - отделка, JavaScript - электрика и автоматика."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте часть записи <p class=\"intro\">Текст</p> и её название.",
+        "pairs": [
+          [
+            "<p class=\"intro\">",
+            "Открывающий тег"
+          ],
+          [
+            "class=\"intro\"",
+            "Атрибут"
+          ],
+          [
+            "</p>",
+            "Закрывающий тег"
+          ],
+          [
+            "Вся запись",
+            "Элемент"
+          ]
+        ],
+        "explanation": "Элемент = открывающий тег + атрибуты + содержимое + закрывающий тег."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение атрибута charset используют в курсе? Введите только значение.",
+        "answers": [
+          "UTF-8",
+          "utf-8",
+          "utf8"
+        ],
+        "case_sensitive": false,
+        "explanation": "UTF-8 поддерживает почти все языки мира, включая кириллицу и узбекскую латиницу."
+      },
+      {
+        "type": "input",
+        "question": "Как называется файл главной страницы сайта? Введите имя файла.",
+        "answers": [
+          "index.html"
+        ],
+        "case_sensitive": false,
+        "explanation": "Сервер открывает index.html по умолчанию."
+      },
+      {
+        "type": "input",
+        "question": "Каким тегом закрывают элемент body? Введите тег целиком.",
+        "answers": [
+          "</body>"
+        ],
+        "case_sensitive": false,
+        "explanation": "Закрывающий тег - имя элемента со слэшем: </body>."
+      }
+    ]
+  }
+}

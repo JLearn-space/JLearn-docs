@@ -1,0 +1,250 @@
+{
+  "lesson": 5,
+  "lesson_title": "Таблицы",
+  "task": {
+    "title": "Расписание кружка",
+    "language": "html",
+    "description": "Сделайте две таблицы. Первая: caption, thead с тремя th scope=\"col\", tbody минимум с тремя строками, первая ячейка строки - th scope=\"row\". Вторая: «Длинное занятие» с одной ячейкой rowspan=\"2\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <!-- Таблица 1: caption, thead (3 th scope=\"col\"), tbody (3 строки, первая ячейка th scope=\"row\") -->\n\n        <!-- Таблица 2: «Длинное занятие», одна ячейка с rowspan=\"2\" -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "<caption",
+        "<thead",
+        "<tbody",
+        "rowspan=\""
+      ],
+      "forbidden": [
+        "<td><strong>",
+        "<td><b>"
+      ],
+      "tags": {
+        "table": 2,
+        "caption": 1,
+        "tr": 7,
+        "th": 6,
+        "td": 6
+      },
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Название таблицы: <caption> сразу после <table>.",
+      "Шапка: <thead><tr><th scope=\"col\">День</th>...</tr></thead>.",
+      "Строка данных: <tr><th scope=\"row\">Понедельник</th><td>15:00</td><td>HTML</td></tr>.",
+      "Вторая таблица: одна ячейка <td rowspan=\"2\">, в следующей строке на одну ячейку меньше.",
+      "Заголовок - это <th>, а не <td><strong>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет caption",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет scope=\"row\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th>Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th>Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th>Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет scope=\"col\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th>День</th>\n                    <th>Время</th>\n                    <th>Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th>Время</th>\n                <th>Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет thead",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет rowspan",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td>Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "одна таблица",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "заголовки через td strong",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <td><strong>День</th>\n                    <td><strong>Время</th>\n                    <td><strong>Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td><strong>Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <td><strong>Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n                <tr>\n                    <td><strong>Пятница</th>\n                    <td>16:00</td>\n                    <td>Формы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <td><strong>Время</th>\n                <td><strong>Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "всего две строки данных",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Расписание кружка</title>\n</head>\n<body>\n    <main>\n        <h1>Расписание кружка</h1>\n        <table>\n            <caption>Занятия на неделю</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">День</th>\n                    <th scope=\"col\">Время</th>\n                    <th scope=\"col\">Тема</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Понедельник</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Среда</th>\n                    <td>15:00</td>\n                    <td>Таблицы</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Длинное занятие</caption>\n            <tr>\n                <th scope=\"col\">Время</th>\n                <th scope=\"col\">Занятие</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Проект</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какой тег создаёт строку таблицы?",
+        "options": [
+          "<td>",
+          "<tr>",
+          "<th>",
+          "<row>"
+        ],
+        "answer": 1,
+        "explanation": "tr - table row."
+      },
+      {
+        "type": "single",
+        "question": "Где пишется <caption>?",
+        "options": [
+          "В конце таблицы",
+          "Сразу после <table>",
+          "Внутри <thead>",
+          "В <head> документа"
+        ],
+        "answer": 1,
+        "explanation": "caption - первым внутри table."
+      },
+      {
+        "type": "single",
+        "question": "Таблица из 3 столбцов. В первой строке данных ячейка с rowspan=\"2\". Сколько ячеек во второй строке данных?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": 1,
+        "explanation": "Одно место занято ячейкой сверху: 3 - 1 = 2."
+      },
+      {
+        "type": "single",
+        "question": "Для чего таблицы НЕ используют?",
+        "options": [
+          "Расписание",
+          "Сравнение тарифов",
+          "Раскладка блоков страницы",
+          "Оценки студентов"
+        ],
+        "answer": 2,
+        "explanation": "Раскладку делают CSS, таблицы - только для данных."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие теги - части таблицы?",
+        "options": [
+          "<thead>",
+          "<tbody>",
+          "<tfoot>",
+          "<theader>"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Тега <theader> нет."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про scope?",
+        "options": [
+          "scope=\"col\" - заголовок столбца",
+          "scope=\"row\" - заголовок строки",
+          "scope ставят у <td>",
+          "Помогает скринридеру назвать заголовок ячейки"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "scope ставят у th."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие ошибки в таблицах?",
+        "options": [
+          "Разное число ячеек в строках без объединения",
+          "<td> вне <tr>",
+          "<caption> сразу после <table>",
+          "Заголовки через <td><strong>"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "caption сразу после table - это правильно."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте тег и его роль.",
+        "pairs": [
+          [
+            "<th>",
+            "Ячейка-заголовок"
+          ],
+          [
+            "<td>",
+            "Ячейка с данными"
+          ],
+          [
+            "<tr>",
+            "Строка"
+          ],
+          [
+            "<caption>",
+            "Название таблицы"
+          ]
+        ],
+        "explanation": "Таблица строится строками tr из ячеек th и td."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте атрибут и направление объединения.",
+        "pairs": [
+          [
+            "colspan",
+            "Вширь, на несколько столбцов"
+          ],
+          [
+            "rowspan",
+            "Вниз, на несколько строк"
+          ],
+          [
+            "scope=\"col\"",
+            "Заголовок для всего столбца"
+          ]
+        ],
+        "explanation": "col - column (столбец), row - строка."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут объединяет ячейки по горизонтали? Введите имя атрибута.",
+        "answers": [
+          "colspan"
+        ],
+        "case_sensitive": false,
+        "explanation": "colspan - column span."
+      },
+      {
+        "type": "input",
+        "question": "Таблица из 4 столбцов. В строке одна ячейка с colspan=\"2\". Сколько всего ячеек в этой строке? Введите число.",
+        "answers": [
+          "3"
+        ],
+        "case_sensitive": false,
+        "explanation": "1 объединённая + 2 обычные = 4 места."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение scope у заголовка в начале строки? Введите только значение.",
+        "answers": [
+          "row"
+        ],
+        "case_sensitive": false,
+        "explanation": "scope=\"row\" - заголовок для строки справа."
+      }
+    ]
+  }
+}

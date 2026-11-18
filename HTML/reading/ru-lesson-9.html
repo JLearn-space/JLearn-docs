@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Мета-теги, SEO, связь с CSS, JS · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из уроков 1, 3 и 4</a><a href="#section-5">План урока</a><a href="#section-6">Метатеги</a><a href="#section-11">Open Graph: карточка для соцсетей</a><a href="#section-12">Подключение CSS</a><a href="#section-13">Подключение JavaScript</a><a href="#section-16">Мини-задание 1</a><a href="#section-17">Папки проекта</a><a href="#section-20">Проверка кода</a><a href="#section-23">Мини-задание 2</a><a href="#section-24">Итоги урока: шпаргалка</a><a href="#section-25">Самостоятельная работа</a><a href="#section-29">Вопросы для самопроверки</a><a href="#section-30">Что дальше</a><a href="#section-31">Ответы</a></details></aside><article><h1 id="section-1">Мета-теги, SEO, связь с CSS, JS</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-8.html">Назад</a> · <a href="ru-lesson-10.html">Вперёд</a> · <a href="../Lesson-9/practice.html">Практика</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 8 вы сделали страницу понятной людям. Сегодня сделаем её понятной <strong>поисковикам, телефонам и соцсетям</strong>, подключим готовые файлы оформления и скрипта и проверим код валидатором.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Вы отправили ссылку на свой сайт другу в Telegram. Что он увидит: голую ссылку или карточку с названием, описанием и картинкой? Ваш сайт нашёлся в Google - что написано под заголовком? На телефоне страница открылась крошечной, и её приходится увеличивать пальцами?</p>
+<p>Всё это решают несколько строк в <code>&lt;head&gt;</code>. Сегодня вы допишете «техпаспорт» страницы до конца.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Писать описание страницы для поисковиков: <code>meta name=&quot;description&quot;</code>.</li>
+<li>Включать нормальный вид на телефоне: <code>meta name=&quot;viewport&quot;</code>.</li>
+<li>Делать карточку для соцсетей: Open Graph.</li>
+<li>Подключать готовый файл стилей: <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code>.</li>
+<li>Подключать готовый скрипт: <code>&lt;script src defer&gt;</code>.</li>
+<li>Раскладывать файлы проекта по папкам.</li>
+<li>Проверять код валидатором и Lighthouse.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из уроков 1, 3 и 4</h2>
+<ol>
+<li>Что находится в <code>&lt;head&gt;</code>: видимое или служебное?</li>
+<li>Как сослаться на файл <code>style.css</code> в папке <code>css</code>, если HTML лежит рядом с этой папкой?</li>
+<li>Каким тегом подключали иконку сайта?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Метатеги</td>
+<td>Техпаспорт страницы</td>
+</tr>
+<tr>
+<td>Описание и viewport</td>
+<td>Для Google и телефонов</td>
+</tr>
+<tr>
+<td>Open Graph</td>
+<td>Карточка в мессенджерах</td>
+</tr>
+<tr>
+<td>Подключение CSS</td>
+<td>Одежда для каркаса</td>
+</tr>
+<tr>
+<td>Подключение JS</td>
+<td>Электрика, <code>defer</code> и <code>async</code></td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Полный <code>&lt;head&gt;</code></td>
+</tr>
+<tr>
+<td>Папки проекта</td>
+<td>Порядок в файлах</td>
+</tr>
+<tr>
+<td>Проверка кода</td>
+<td>Валидатор и Lighthouse</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Найти ошибки валидатором</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и две страницы</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Метатеги</h2>
+<p><strong>Простыми словами:</strong> в уроке 1 мы назвали <code>&lt;head&gt;</code> техпаспортом дома. Метатеги - строки этого паспорта: кодировка, описание, правила показа на экране.</p>
+<p>Метатег - пустой элемент <code>&lt;meta&gt;</code> в <code>&lt;head&gt;</code>. На странице он не виден.</p>
+<h3 id="section-7">Кодировка (повторение)</h3>
+<pre><code class="language-html">&lt;meta charset=&quot;UTF-8&quot;&gt;
+</code></pre>
+<p>Пишется первой строкой в <code>&lt;head&gt;</code>.</p>
+<h3 id="section-8">Описание: <code>description</code></h3>
+<pre><code class="language-html">&lt;meta name=&quot;description&quot; content=&quot;Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.&quot;&gt;
+</code></pre>
+<p><strong>Где его видно:</strong> в результатах поиска под синим заголовком. Поисковик может взять ваш текст или составить свой, но хорошее описание повышает шанс, что возьмут ваше.</p>
+<p><strong>Как писать:</strong></p>
+<ul>
+<li>1–2 предложения, примерно до 160 символов;</li>
+<li><strong>своё</strong> для каждой страницы;</li>
+<li>о чём страница и зачем на неё переходить.</li>
+</ul>
+<h3 id="section-9">Экран телефона: <code>viewport</code></h3>
+<pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+</code></pre>
+<p><strong>Простыми словами:</strong> без этой строки телефон думает, что страница сделана для компьютера, и показывает её уменьшенной копией. С ней - говорит: «Ширина страницы = ширине экрана, масштаб 1:1».</p>
+<p><strong>Попробуйте:</strong> откройте страницу в DevTools → значок телефона (Toggle device toolbar). Удалите <code>viewport</code> и обновите. Текст стал мелким. Верните строку.</p>
+<p><code>viewport</code> не делает вёрстку адаптивной сам по себе - для этого нужен CSS. Но без <code>viewport</code> адаптивный CSS на телефоне не заработает.</p>
+<h3 id="section-10">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Одинаковый <code>description</code> на всех страницах</td>
+<td>Своё описание для каждой</td>
+</tr>
+<tr>
+<td>Описание на 500 символов</td>
+<td>1–2 предложения</td>
+</tr>
+<tr>
+<td>Нет <code>viewport</code></td>
+<td>Добавляйте в каждый документ</td>
+</tr>
+<tr>
+<td><code>&lt;meta&gt;</code> в <code>&lt;body&gt;</code></td>
+<td>Только в <code>&lt;head&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-11">Open Graph: карточка для соцсетей</h2>
+<p>Когда ссылку вставляют в Telegram или Facebook, они ищут специальные метатеги Open Graph:</p>
+<pre><code class="language-html">&lt;meta property=&quot;og:title&quot; content=&quot;Кружок веб-разработки&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Учим HTML с нуля. Занятия по средам.&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://example.com/images/preview.jpg&quot;&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Тег</th>
+<th>Что в карточке</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>og:title</code></td>
+<td>Заголовок</td>
+</tr>
+<tr>
+<td><code>og:description</code></td>
+<td>Описание</td>
+</tr>
+<tr>
+<td><code>og:image</code></td>
+<td>Картинка. Нужен <strong>полный</strong> адрес с <code>https://</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Обратите внимание:</strong> здесь <code>property</code>, а не <code>name</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-9-1.svg" alt="Схема 1: Мета-теги, SEO, связь с CSS, JS"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-9-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Всё, что может лежать в <code>&lt;head&gt;</code>. Обязательны <code>charset</code>, <code>viewport</code>, <code>title</code> и <code>description</code>. Остальное - по задаче.</p>
+<hr>
+<h2 id="section-12">Подключение CSS</h2>
+<p><strong>Простыми словами:</strong> HTML - каркас, CSS - одежда. Одежду шьют отдельно и «надевают» на каркас одной строкой:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что значит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rel=&quot;stylesheet&quot;</code></td>
+<td>«Это файл стилей»</td>
+</tr>
+<tr>
+<td><code>href</code></td>
+<td>Путь к файлу - по правилам из урока 3</td>
+</tr>
+</tbody>
+</table>
+<p>Пишется в <code>&lt;head&gt;</code>.</p>
+<p><strong>Что увидите:</strong> страница сразу меняет шрифт, отступы и ширину - так, как написано в файле. <strong>Писать CSS в этом курсе не нужно:</strong> файл <code>Lesson-9/css/style.css</code> уже готов, его достаточно скопировать.</p>
+<hr>
+<h2 id="section-13">Подключение JavaScript</h2>
+<p><strong>Простыми словами:</strong> JavaScript - электрика дома. Подключается тегом <code>&lt;script&gt;</code>:</p>
+<pre><code class="language-html">&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+</code></pre>
+<p><code>&lt;script&gt;</code> - <strong>парный</strong> тег, даже если внутри пусто. Пишите <code>&lt;/script&gt;</code>.</p>
+<h3 id="section-14">Где ставить и зачем <code>defer</code></h3>
+<p>Браузер читает HTML сверху вниз. Встретив обычный <code>&lt;script&gt;</code>, он <strong>останавливается</strong>, загружает и выполняет скрипт, и только потом читает дальше. Страница появляется с задержкой.</p>
+<table>
+<thead>
+<tr>
+<th>Запись</th>
+<th>Как работает</th>
+<th>Когда использовать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;script src&gt;</code></td>
+<td>Остановить чтение страницы, загрузить, выполнить</td>
+<td>Старый способ</td>
+</tr>
+<tr>
+<td><code>&lt;script src defer&gt;</code></td>
+<td>Загружать параллельно, выполнить после чтения всей страницы, по порядку</td>
+<td><strong>Почти всегда</strong></td>
+</tr>
+<tr>
+<td><code>&lt;script src async&gt;</code></td>
+<td>Загружать параллельно, выполнить сразу по готовности</td>
+<td>Независимые скрипты: счётчики, аналитика</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Правило курса:</strong> <code>&lt;script src=&quot;...&quot; defer&gt;</code> в <code>&lt;head&gt;</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-9-2.svg" alt="Схема 2: Мета-теги, SEO, связь с CSS, JS"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-9-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Три варианта подключения скрипта. <code>defer</code> не тормозит страницу и сохраняет порядок скриптов.</p>
+<p><strong>Как проверить, что скрипт сработал:</strong> готовый <code>main.js</code> пишет сообщение в консоль. Откройте DevTools → вкладка <strong>Console</strong>. Увидите «Lesson 9: the deferred script loaded.» - скрипт подключён.</p>
+<h3 id="section-15">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;script src=&quot;...&quot; /&gt;</code> без закрывающего тега</td>
+<td>Всегда <code>&lt;/script&gt;</code></td>
+</tr>
+<tr>
+<td>Путь <code>../css/style.css</code> для файла рядом</td>
+<td>Путь от HTML-файла: <code>css/style.css</code></td>
+</tr>
+<tr>
+<td><code>&lt;link&gt;</code> для стилей в <code>&lt;body&gt;</code></td>
+<td>В <code>&lt;head&gt;</code></td>
+</tr>
+<tr>
+<td><code>rel=&quot;style&quot;</code></td>
+<td>Правильно: <code>rel=&quot;stylesheet&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16">Мини-задание 1</h2>
+<p>Без подглядывания напишите полный <code>&lt;head&gt;</code> страницы «Контакты кружка»: кодировка, viewport, название вкладки, описание, иконка, стили <code>css/style.css</code>, скрипт <code>js/main.js</code> с <code>defer</code>. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-17">Папки проекта</h2>
+<p><strong>Простыми словами:</strong> в шкафу одежда разложена по полкам: рубашки отдельно, носки отдельно. В проекте так же.</p>
+<pre><code>my-website/
+├── index.html
+├── about.html
+├── contact.html
+├── css/
+│   └── style.css
+├── js/
+│   └── main.js
+├── images/
+│   ├── logo.png
+│   ├── hero-photo.jpg
+│   └── icons/
+│       └── github.svg
+└── favicon.ico
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Где</th>
+<th>Что</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Корень</td>
+<td>HTML-страницы и иконка сайта</td>
+</tr>
+<tr>
+<td><code>css/</code></td>
+<td>Файлы стилей</td>
+</tr>
+<tr>
+<td><code>js/</code></td>
+<td>Скрипты</td>
+</tr>
+<tr>
+<td><code>images/</code></td>
+<td>Картинки</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Имена файлов:</strong> латиница, строчные буквы, без пробелов, слова через дефис: <code>hero-photo.jpg</code>, а не <code>Моё фото 1.JPG</code>.</p>
+<h3 id="section-18">Как проверить, что файлы подключились</h3>
+<ol>
+<li>Откройте страницу через Live Server.</li>
+<li>DevTools → вкладка <strong>Network</strong> → обновите страницу.</li>
+<li>Найдите <code>style.css</code> и <code>main.js</code> в столбце <strong>Status</strong>:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Статус</th>
+<th>Значит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Загружен</td>
+</tr>
+<tr>
+<td>304</td>
+<td>Взят из кэша - тоже нормально</td>
+</tr>
+<tr>
+<td>404</td>
+<td><strong>Не найден</strong> - проверьте путь и имя файла</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-19">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Все файлы в одной папке</td>
+<td>Разложите: <code>css/</code>, <code>js/</code>, <code>images/</code></td>
+</tr>
+<tr>
+<td>Пробелы и кириллица в именах</td>
+<td><code>my-photo.jpg</code></td>
+</tr>
+<tr>
+<td>Переименовали папку, забыли пути</td>
+<td>Обновите все <code>href</code> и <code>src</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-20">Проверка кода</h2>
+<h3 id="section-21">Валидатор Nu HTML Checker</h3>
+<p>Браузер «прощает» ошибки и угадывает, что вы имели в виду. Другой браузер или скринридер может угадать иначе. Валидатор находит ошибки, которые глазом не видно.</p>
+<ol>
+<li>Откройте <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>.</li>
+<li>Выберите <strong>Text Input</strong> (вставить код) или <strong>File Upload</strong> (загрузить файл).</li>
+<li>Нажмите <strong>Check</strong>.</li>
+</ol>
+<p><strong>Что он находит:</strong> незакрытые теги, повторяющиеся <code>id</code>, <code>&lt;img&gt;</code> без <code>alt</code>, <code>&lt;p&gt;</code> внутри <code>&lt;p&gt;</code>, несуществующие атрибуты.</p>
+<p><strong>Цель:</strong> надпись «Document checking completed. No errors or warnings to show.»</p>
+<h3 id="section-22">Lighthouse - общая оценка страницы</h3>
+<p>Lighthouse встроен в Chrome:</p>
+<ol>
+<li>Откройте страницу через Live Server.</li>
+<li>DevTools → вкладка <strong>Lighthouse</strong>.</li>
+<li>Отметьте <strong>Accessibility</strong> и <strong>SEO</strong>, нажмите <strong>Analyze page load</strong>.</li>
+</ol>
+<p>Через несколько секунд получите оценку от 0 до 100 и список того, что улучшить: нет <code>description</code>, мало контраста, нет <code>alt</code>.</p>
+<p><strong>Валидатор и Lighthouse не заменяют проверку руками.</strong> Пройдите страницу клавиатурой, как в уроке 8.</p>
+<hr>
+<h2 id="section-23">Мини-задание 2</h2>
+<p>Проверьте в валидаторе этот код. Сколько ошибок он найдёт и каких?</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Проверка&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 id=&quot;top&quot;&gt;Заголовок&lt;/h1&gt;
+    &lt;p id=&quot;top&quot;&gt;Абзац &lt;p&gt;вложенный абзац&lt;/p&gt;&lt;/p&gt;
+    &lt;img src=&quot;photo.jpg&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Ответ - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-24">Итоги урока: шпаргалка</h2>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Название страницы - Название сайта&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;1–2 предложения о странице.&quot;&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;Название для карточки&quot;&gt;
+    &lt;meta property=&quot;og:description&quot; content=&quot;Описание для карточки&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    &lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Описание для поиска</td>
+<td><code>&lt;meta name=&quot;description&quot; content=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Нормальный вид на телефоне</td>
+<td><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Карточка в мессенджерах</td>
+<td><code>&lt;meta property=&quot;og:...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Стили</td>
+<td><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Скрипт</td>
+<td><code>&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;</code></td>
+</tr>
+<tr>
+<td>Проверка</td>
+<td>Nu HTML Checker, Lighthouse</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-25">Самостоятельная работа</h2>
+<h3 id="section-26">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте <strong>главную страницу кружка</strong> с полным <code>&lt;head&gt;</code>:</p>
+<ol>
+<li><code>charset</code>, <code>viewport</code> и <code>title</code>.</li>
+<li><code>description</code> - своё описание страницы.</li>
+<li><code>og:title</code> и <code>og:description</code>.</li>
+<li>Иконка сайта <code>&lt;link rel=&quot;icon&quot;&gt;</code>.</li>
+<li>Стили: <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code>.</li>
+<li>Скрипт: <code>&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;</code>.</li>
+<li>В <code>&lt;body&gt;</code> - <code>header</code>, <code>main</code> с одним <code>h1</code> и абзацем, <code>footer</code>.</li>
+</ol>
+<p>Стили и скрипты пишите только подключением файлов: тег <code>&lt;style&gt;</code> не используйте.</p>
+<p>Что проверяет платформа: скелет документа, <code>viewport</code> с <code>width=device-width</code>, <code>description</code>, <code>og:title</code>, иконку, подключение <code>css/style.css</code> и <code>js/main.js</code> с <code>defer</code>, закрытый <code>&lt;/script&gt;</code>, один <code>h1</code>, отсутствие <code>&lt;style&gt;</code>.</p>
+<h3 id="section-27">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Скопируйте <code>Lesson-9/css/style.css</code> и <code>Lesson-9/js/main.js</code> в папки <code>css</code> и <code>js</code> своего проекта.</li>
+<li>Сделайте две страницы - <code>index.html</code> и <code>about.html</code> - со своими <code>title</code> и <code>description</code>.</li>
+<li>Откройте через Live Server. Проверьте в Network: оба файла - 200 или 304.</li>
+<li>Проверьте обе страницы в Nu HTML Checker - без ошибок.</li>
+<li>Запустите Lighthouse и запишите оценки Accessibility и SEO.</li>
+</ol>
+<h3 id="section-28">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> У каждой страницы свои <code>title</code> и <code>description</code>.</label></li>
+<li class="check"><label><input type="checkbox"> <code>viewport</code> есть на обеих страницах.</label></li>
+<li class="check"><label><input type="checkbox"> CSS и JS загружаются без 404.</label></li>
+<li class="check"><label><input type="checkbox"> В консоли видно сообщение скрипта.</label></li>
+<li class="check"><label><input type="checkbox"> Валидатор не нашёл ошибок.</label></li>
+<li class="check"><label><input type="checkbox"> Файлы разложены по папкам, имена латиницей без пробелов.</label></li>
+</ul>
+<hr>
+<h2 id="section-29">Вопросы для самопроверки</h2>
+<ol>
+<li>Где виден <code>description</code>?</li>
+<li>Почему у каждой страницы своё описание?</li>
+<li>Что будет на телефоне без <code>viewport</code>?</li>
+<li>Чем <code>og:title</code> отличается от <code>&lt;title&gt;</code>?</li>
+<li>Почему у <code>og:image</code> нужен полный адрес?</li>
+<li>Как подключить файл стилей?</li>
+<li>Почему у <code>&lt;script&gt;</code> всегда пишут закрывающий тег?</li>
+<li>Чем <code>defer</code> отличается от <code>async</code>?</li>
+<li>Что значит статус 404 в Network?</li>
+<li>Зачем валидатор, если страница и так нормально выглядит?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-30">Что дальше</h2>
+<p>Вы знаете всё, чтобы сделать настоящий сайт. В уроке 10 соберёте его от плана до публикации в интернете, и у сайта появится адрес, который можно отправить друзьям.</p>
+<hr>
+<h2 id="section-31">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li>Служебное.</li>
+<li><code>css/style.css</code>.</li>
+<li><code>&lt;link rel=&quot;icon&quot; href=&quot;favicon.png&quot;&gt;</code>.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Контакты - Кружок веб-разработки&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;Как связаться с кружком веб-разработки: почта, телефон и форма записи.&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    &lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Мини-задание 2.</strong> Валидатор найдёт:</p>
+<ol>
+<li>Повторяющийся <code>id=&quot;top&quot;</code>.</li>
+<li>Абзац внутри абзаца: браузер закроет первый <code>&lt;p&gt;</code> раньше, а лишний <code>&lt;/p&gt;</code> останется без пары.</li>
+<li>У <code>&lt;img&gt;</code> нет <code>alt</code>.</li>
+</ol>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>В результатах поиска под заголовком.</li>
+<li>Иначе поисковик покажет одно и то же для разных страниц, и человек не поймёт разницу.</li>
+<li>Страница покажется уменьшенной копией компьютерной версии.</li>
+<li><code>og:title</code> - заголовок карточки в соцсетях, <code>&lt;title&gt;</code> - название вкладки и результата поиска.</li>
+<li>Соцсеть загружает картинку со своего сервера, относительный путь ей ничего не скажет.</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code> в <code>&lt;head&gt;</code>.</li>
+<li>Это парный тег: без <code>&lt;/script&gt;</code> браузер посчитает скриптом весь код ниже.</li>
+<li><code>defer</code> выполняет скрипты после чтения страницы и по порядку, <code>async</code> - сразу по готовности, без порядка.</li>
+<li>Файл не найден: ошибка в пути или имени.</li>
+<li>Другой браузер или скринридер может понять ошибочный код иначе.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-8.html">Назад</a> · <a href="ru-lesson-10.html">Вперёд</a> · <a href="../Lesson-9/practice.html">Практика</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-9/ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

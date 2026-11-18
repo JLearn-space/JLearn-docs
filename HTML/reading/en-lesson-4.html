@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Images and media · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">The &lt;img&gt; tag: src, alt, width, height</a><a href="#section-9">Image formats: JPEG, PNG, SVG, WebP</a><a href="#section-16">figure and figcaption - image captions</a><a href="#section-17">Prepare local resources</a><a href="#section-18">Mini-task</a><a href="#section-19">&lt;audio&gt; and &lt;video&gt; - embedding media</a><a href="#section-23">Favicon - site icon</a><a href="#section-24">Lesson summary</a><a href="#section-25">Independent practice</a></details></aside><article><h1 id="section-1">Images and media</h1>
+<p><a href="index.html">Contents</a> | <a href="en-lesson-3.html">Previous</a> | <a href="en-lesson-5.html">Next</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Practice: example</a></p>
+<blockquote>
+<p><strong>Connection with the previous lesson:</strong> in the last lesson we learned to link pages together and built a multi-page site from plain text. Today we add images, sound, and video to pages - the site stops being &quot;text-only.&quot;</p>
+</blockquote>
+<hr>
+<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<ul>
+<li>Insert images with the <code>&lt;img&gt;</code> tag and correctly use the <code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code> attributes.</li>
+<li>Distinguish between image formats JPEG, PNG, SVG, WebP and understand when to use which.</li>
+<li>Caption images using <code>figure</code>/<code>figcaption</code>.</li>
+<li>Insert audio and video with <code>audio</code>/<code>video</code> tags using multiple sources via <code>source</code>.</li>
+<li>Add a favicon - the site icon on the browser tab.</li>
+</ul>
+<hr>
+<h2 id="section-3">Lesson plan</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>img tag: src, alt, width, height</td>
+<td>Basic syntax, importance of alt</td>
+</tr>
+<tr>
+<td>Image formats</td>
+<td>JPEG/PNG/SVG/WebP - when to use which</td>
+</tr>
+<tr>
+<td>figure and figcaption</td>
+<td>Image captions</td>
+</tr>
+<tr>
+<td>Mini-task</td>
+<td>Insert an image independently</td>
+</tr>
+<tr>
+<td>audio and video</td>
+<td>Embedding media, multiple sources</td>
+</tr>
+<tr>
+<td>Favicon</td>
+<td>Site icon</td>
+</tr>
+<tr>
+<td>Summary and practical task</td>
+<td>Reinforcement</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">The <code>&lt;img&gt;</code> tag: src, alt, width, height</h2>
+<p><strong>In simple terms:</strong> if the <code>&lt;a&gt;</code> link is a door to another page, then <code>&lt;img&gt;</code> is a window through which an image is &quot;inserted&quot; into your page - the image is physically stored as a separate file.</p>
+<p>The <code>&lt;img&gt;</code> tag is <strong>void (self-closing)</strong>, like <code>&lt;br&gt;</code> and <code>&lt;hr&gt;</code> from lesson 2. It has no content and no closing tag - all information is conveyed through attributes.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;A ginger cat sitting on the windowsill&quot;&gt;
+</code></pre>
+<p>Let's go through the attributes one by one.</p>
+<h3 id="section-5"><code>src</code> (source) - where to get the image</h3>
+<p><strong>Required</strong> attribute - the path to the image file. It follows the same path rules we covered in lesson 3: relative paths for your own files, absolute paths for images from external sites.</p>
+<pre><code class="language-html">&lt;img src=&quot;images/cat.jpg&quot; alt=&quot;Cat&quot;&gt;
+</code></pre>
+<pre><code class="language-html">&lt;img src=&quot;https://example.com/images/cat.jpg&quot; alt=&quot;Cat&quot;&gt;
+</code></pre>
+<h3 id="section-6"><code>alt</code> (alternative text) - alternative text</h3>
+<p><strong>Required</strong> attribute, even though the browser technically won't refuse to work without it. This is a textual description of the image that is displayed:</p>
+<ul>
+<li>If the image failed to load (broken link, internet issues);</li>
+<li>By a screen reader - a visually impaired user will hear this text instead of the image;</li>
+<li>By search engines — <code>alt</code> provides an additional text description and helps establish the image’s relationship to page content. Write it primarily for people who cannot access the image, rather than as a list of keywords.</li>
+</ul>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;A ginger cat sitting on the windowsill looking out the window&quot;&gt;
+</code></pre>
+<p><strong>How to write good <code>alt</code>:</strong> describe what is depicted briefly and to the point - as if explaining the picture to someone over the phone. Don't just write &quot;image&quot; or &quot;img1&quot; - that's useless.</p>
+<p><strong>Special case - decorative images:</strong> if the image is purely decorative and carries no meaningful information (e.g., an ornamental divider), <code>alt</code> is left <strong>empty</strong> but not removed entirely:</p>
+<pre><code class="language-html">&lt;img src=&quot;decorative-line.png&quot; alt=&quot;&quot;&gt;
+</code></pre>
+<p>An empty <code>alt=&quot;&quot;</code> tells the screen reader &quot;this image can be skipped, it carries no information&quot; - this is a deliberate decision, not a forgotten attribute.</p>
+<h3 id="section-7"><code>width</code> and <code>height</code> - image dimensions</h3>
+<p>Set the width and height in pixels.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;A ginger cat on the windowsill&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;
+</code></pre>
+<p><strong>Why specify dimensions if the image can be resized via CSS anyway:</strong> while the image is still loading, the browser reserves space on the page of the correct size in advance. Without this, the text around the image will &quot;jump&quot; when the image finally loads and takes its place - this effect is called CLS (Cumulative Layout Shift), and it degrades the site experience.</p>
+<p><strong>Important note on proportions:</strong> if you specify <code>width</code> and <code>height</code> that don't match the image's actual aspect ratio, the image will be distorted (unnaturally stretched or compressed). Specify both values in the correct proportion, or just one - then the browser will calculate the second while preserving proportions.</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;A ginger cat on the windowsill&quot; width=&quot;400&quot;&gt;
+</code></pre>
+<hr>
+<h3 id="section-8">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forgetting <code>alt</code> entirely</td>
+<td>Always include <code>alt</code> - with a description, or <code>alt=&quot;&quot;</code> for decorative images</td>
+</tr>
+<tr>
+<td>Writing useless text in <code>alt</code>: <code>alt=&quot;image&quot;</code>, <code>alt=&quot;img1&quot;</code></td>
+<td>Describe the image content concisely: <code>alt=&quot;A ginger cat on the windowsill&quot;</code></td>
+</tr>
+<tr>
+<td>Specifying <code>width</code>/<code>height</code> in wrong proportions - image gets distorted</td>
+<td>Preserve the actual aspect ratio, or specify only one dimension</td>
+</tr>
+<tr>
+<td>Using <code>&lt;img&gt;</code> as a replacement for <code>&lt;a&gt;</code> to navigate to another page (writing <code>onclick</code>)</td>
+<td>If the image should be clickable as a link - wrap <code>&lt;img&gt;</code> in an <code>&lt;a&gt;</code> tag (see example below)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Image as a link:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;about.html&quot;&gt;
+    &lt;img src=&quot;logo.png&quot; alt=&quot;Company logo - go to the About page&quot; width=&quot;150&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<hr>
+<h2 id="section-9">Image formats: JPEG, PNG, SVG, WebP</h2>
+<p>It's important to understand that different file formats are suited for different types of images - using the &quot;wrong&quot; format leads to either bloated file size or loss of quality.</p>
+<h3 id="section-10">JPEG (.jpg, .jpeg)</h3>
+<p>Best suited for <strong>photographs</strong> - complex images with smooth color transitions (sunsets, portraits, landscapes). Uses lossy compression - the more compressed the file, the smaller it is, but the more visible the artifacts become.</p>
+<pre><code class="language-html">&lt;img src=&quot;sunset-photo.jpg&quot; alt=&quot;Sunset over mountains&quot;&gt;
+</code></pre>
+<p><strong>Not suitable for:</strong> text, logos with sharp lines and solid areas - JPEG compression produces &quot;dirty&quot; artifact spots on sharp edges.</p>
+<h3 id="section-11">PNG (.png)</h3>
+<p>Best suited for <strong>images with transparent backgrounds</strong> and <strong>graphics with crisp edges</strong> - logos, icons, interface screenshots. Lossless compression, but the file weighs more than a JPEG of the same photograph.</p>
+<pre><code class="language-html">&lt;img src=&quot;logo-transparent.png&quot; alt=&quot;Company logo on a transparent background&quot;&gt;
+</code></pre>
+<h3 id="section-12">SVG (.svg)</h3>
+<p><strong>Vector</strong> format - unlike JPEG/PNG (which store images as a grid of pixels), SVG stores mathematical descriptions of shapes. This allows SVG to <strong>scale without quality loss</strong> to any size - ideal for logos and icons that may appear both tiny and full-screen.</p>
+<pre><code class="language-html">&lt;img src=&quot;icon-star.svg&quot; alt=&quot;Star icon&quot;&gt;
+</code></pre>
+<p><strong>Key feature:</strong> an SVG file is essentially a text-based XML file that you can open and view the source code of. This makes SVG files very lightweight for simple graphics.</p>
+<h3 id="section-13">WebP (.webp)</h3>
+<p>A modern format from Google that combines the advantages of JPEG and PNG - good photo compression <strong>and</strong> transparency support, while usually weighing less than an equivalent JPEG or PNG. Supported by all modern browsers.</p>
+<pre><code class="language-html">&lt;img src=&quot;photo.webp&quot; alt=&quot;Urban landscape photograph&quot;&gt;
+</code></pre>
+<h3 id="section-14">Comparison table</h3>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Best for</th>
+<th>Transparency</th>
+<th>File size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JPEG</td>
+<td>Photographs</td>
+<td>No</td>
+<td>Medium/small (lossy compression)</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>Logos, screenshots, transparent graphics</td>
+<td>Yes</td>
+<td>Larger than JPEG</td>
+</tr>
+<tr>
+<td>SVG</td>
+<td>Icons, logos (vector graphics)</td>
+<td>Yes</td>
+<td>Very small for simple graphics</td>
+</tr>
+<tr>
+<td>WebP</td>
+<td>Universal - photos and graphics</td>
+<td>Yes</td>
+<td>Usually smaller than JPEG/PNG</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-4-1.svg" alt="Diagram 1: Images and media"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-4-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Start with the image purpose and follow the yes/no branches. These are practical format choices; compare actual quality and file size rather than treating the result as an absolute rule.</p>
+<hr>
+<h3 id="section-15">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using PNG for photographs</td>
+<td>Use JPEG or WebP for photos - the file will be significantly smaller</td>
+</tr>
+<tr>
+<td>Using JPEG for a logo with a transparent background</td>
+<td>JPEG doesn't support transparency - use PNG or SVG</td>
+</tr>
+<tr>
+<td>Inserting huge camera photos &quot;as is&quot; (several MB)</td>
+<td>Compress images before using them on a site - large file sizes slow down page loading</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16"><code>figure</code> and <code>figcaption</code> - image captions</h2>
+<p>When an image needs a caption (like in a book or magazine - &quot;Fig. 1. Device diagram&quot;), the tag pair <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> is used.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;chart.png&quot; alt=&quot;Sales growth chart for 2025&quot; width=&quot;500&quot;&gt;
+    &lt;figcaption&gt;Fig. 1. Company sales growth in 2025&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><code>&lt;figure&gt;</code> is a semantic wrapper meaning &quot;this is a self-contained block of illustrative content&quot; (image, diagram, code, etc.), and <code>&lt;figcaption&gt;</code> is its caption, which can be placed before or after the content of <code>&lt;figure&gt;</code>.</p>
+<p><strong>Why not just <code>&lt;img&gt;</code> + <code>&lt;p&gt;</code> side by side:</strong> <code>&lt;figure&gt;</code>/<code>&lt;figcaption&gt;</code> semantically binds the image and caption together as a single unit - this is important for screen readers and for the structural clarity of the document, as opposed to two independent elements that happen to stand next to each other visually.</p>
+<hr>
+<h2 id="section-17">Prepare local resources</h2>
+<p>You may use the files in <code>Lesson-4/images</code> and <code>Lesson-4/audio</code>: copy the files you need into <code>images</code> and <code>audio</code> folders next to your own HTML page. These are teaching illustrations. Open an image before writing its alt text: a file name does not guarantee what it contains. You may also use your own permitted media. Creating or converting media is not part of the assignment.</p>
+<h2 id="section-18">Mini-task</h2>
+<p>Insert the supplied teaching image <code>images/logo.png</code>, 200 pixels wide, with suitable alt text and the caption &quot;Our site teaching illustration&quot;. If you choose a different image, describe that actual image instead.</p>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/logo.png&quot; alt=&quot;Teaching page layout: a heading and three horizontal content blocks&quot; width=&quot;200&quot;&gt;
+    &lt;figcaption&gt;Our site teaching illustration&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<hr>
+<h2 id="section-19"><code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> - embedding media</h2>
+<h3 id="section-20"><code>&lt;audio&gt;</code> - audio on the page</h3>
+<pre><code class="language-html">&lt;audio controls&gt;
+    &lt;source src=&quot;music.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+    &lt;source src=&quot;music.ogg&quot; type=&quot;audio/ogg&quot;&gt;
+    Your browser does not support audio playback.
+&lt;/audio&gt;
+</code></pre>
+<p>Let's break it down:</p>
+<ul>
+<li><code>controls</code> - an attribute (without a value) that enables a visible control panel (play/pause, volume, seeking). Without it, the audio will load, but the user won't have visible playback controls.</li>
+<li><code>&lt;source&gt;</code> - a void tag inside <code>&lt;audio&gt;</code> pointing to a file. You can specify <strong>multiple</strong> <code>&lt;source&gt;</code> elements with different formats - the browser will pick the first supported format. This is necessary because not all browsers support all audio formats equally.</li>
+<li>The text <code>Your browser does not support...</code> is a <strong>fallback</strong> that will only appear in very old browsers that don't understand the <code>&lt;audio&gt;</code> tag at all.</li>
+</ul>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-4-2.svg" alt="Diagram 2: Images and media"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-4-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> The browser evaluates source candidates for support. A playable source allows user-controlled playback; failure means the separate download link is important.</p>
+<h3 id="section-21"><code>&lt;video&gt;</code> - video on the page</h3>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot;&gt;
+    &lt;source src=&quot;lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;source src=&quot;lesson.webm&quot; type=&quot;video/webm&quot;&gt;
+    Your browser does not support video playback.
+&lt;/video&gt;
+</code></pre>
+<p>The principle is fully analogous to <code>&lt;audio&gt;</code>, plus there are additional useful attributes:</p>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot; poster=&quot;preview.jpg&quot; muted loop&gt;
+    &lt;source src=&quot;lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+&lt;/video&gt;
+</code></pre>
+<ul>
+<li><code>poster</code> - a placeholder image shown <strong>before</strong> playback begins (similar to a YouTube video thumbnail).</li>
+<li><code>muted</code> - video starts without sound.</li>
+<li><code>loop</code> - video loops after finishing.</li>
+<li><code>autoplay</code> - automatic start when the page loads (use <strong>with caution</strong>: most browsers block autoplay with sound without explicit user interaction - this is intentional to prevent sites from &quot;yelling&quot; at users unexpectedly).</li>
+</ul>
+<p><strong>Important accessibility rule:</strong> if the video contains important speech/dialogue, it's best to provide subtitles (the <code>&lt;track&gt;</code> tag, which goes beyond the scope of this introductory lesson, but it's useful to know this option exists).</p>
+<hr>
+<h3 id="section-22">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forgetting the <code>controls</code> attribute</td>
+<td>Without it, the user will have no visible playback control panel</td>
+</tr>
+<tr>
+<td>A media file does not play in a target browser</td>
+<td>One supported source is enough. Add alternative formats only when needed and provide a visible download link.</td>
+</tr>
+<tr>
+<td>Using <code>autoplay</code> with sound without a strong need</td>
+<td>Most browsers will block it anyway - use <code>autoplay</code> together with <code>muted</code> if you truly need autoplay</td>
+</tr>
+<tr>
+<td>Inserting huge video files directly on the site</td>
+<td>For real projects, it's better to use services like YouTube with <code>&lt;iframe&gt;</code> embedding (this topic goes beyond the current lesson - we'll cover it separately if needed)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Favicon - site icon</h2>
+<p>A favicon is a small icon displayed on the browser tab next to <code>&lt;title&gt;</code>, as well as in bookmarks and browsing history.</p>
+<p>It's connected via the <code>&lt;link&gt;</code> tag inside <code>&lt;head&gt;</code> (we'll examine the <code>&lt;link&gt;</code> tag itself in more detail in lesson 9 - for now we just use it for the favicon):</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;My site&lt;/title&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<ul>
+<li><code>rel=&quot;icon&quot;</code> - tells the browser this is the site icon.</li>
+<li><code>type=&quot;image/png&quot;</code> - file format (can also be <code>.ico</code>, <code>.svg</code>).</li>
+<li><code>href</code> - path to the icon file (usually a small square image - 32×32 or 16×16 pixels).</li>
+</ul>
+<p><strong>Classic approach:</strong> a <code>favicon.ico</code> file in the site root - many browsers find it automatically even without an explicit <code>&lt;link&gt;</code> tag, but explicit declaration is a more reliable and modern practice.</p>
+<hr>
+<h2 id="section-24">Lesson summary</h2>
+<p>Today you learned:</p>
+<ul>
+<li><code>&lt;img&gt;</code> - a void tag for inserting images, with required <code>src</code> and <code>alt</code> attributes, and optional <code>width</code>/<code>height</code> for reserving space on the page.</li>
+<li>Four image formats: JPEG (photos), PNG (graphics with transparency), SVG (vector graphics, icons/logos), WebP (universal modern format).</li>
+<li><code>&lt;figure&gt;</code>/<code>&lt;figcaption&gt;</code> - a semantic pair that binds an image to its caption.</li>
+<li><code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> embed media through one or more <code>&lt;source&gt;</code> elements, with the <code>controls</code> attribute for the playback control panel.</li>
+<li>A favicon is connected via <code>&lt;link rel=&quot;icon&quot;&gt;</code> inside <code>&lt;head&gt;</code> and appears on the browser tab.</li>
+</ul>
+<h2 id="section-25">Independent practice</h2>
+<p>Create a “My hobbies” page with a heading, description and two images. Wrap one image in <code>figure</code> with <code>figcaption</code>. Add audio or video with <code>controls</code>, using a file you own or have permission to use. Specify image dimensions and meaningful <code>alt</code>; use <code>alt=&quot;&quot;</code> for a purely decorative image.</p>
+<h3 id="section-26">Completion criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> All media files exist; paths work when the entire folder is moved.</label></li>
+<li class="check"><label><input type="checkbox"> Images have suitable alt text; captions do not replace alt.</label></li>
+<li class="check"><label><input type="checkbox"> Playback starts on user action; the page remains understandable without playback.</label></li>
+</ul>
+<h3 id="section-27">Check your understanding</h3>
+<ol>
+<li>When should alt be empty?</li>
+<li>How does figcaption differ from alt?</li>
+<li>Why is SVG suitable for a simple logo?</li>
+</ol>
+<hr>
+<p><a href="index.html">Contents</a> | <a href="en-lesson-3.html">Previous</a> | <a href="en-lesson-5.html">Next</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Practice: example</a></p>
+</article></main><footer><a href="../Lesson-4/en/Images%20and%20media.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

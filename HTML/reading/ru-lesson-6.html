@@ -1,0 +1,542 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Формы ч-1 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из уроков 3 и 5</a><a href="#section-5">План урока</a><a href="#section-6">Тег &lt;form&gt;</a><a href="#section-7">Подпись поля: label, for, id</a><a href="#section-11">Имя поля: name</a><a href="#section-12">Типы полей</a><a href="#section-13">Флажки и переключатели</a><a href="#section-18">Мини-задание 1</a><a href="#section-19">Подсказки и обязательность</a><a href="#section-23">Отправка: &lt;input type=&quot;submit&quot;&gt;</a><a href="#section-25">Мини-задание 2</a><a href="#section-26">Итоги урока: шпаргалка</a><a href="#section-27">Самостоятельная работа</a><a href="#section-31">Вопросы для самопроверки</a><a href="#section-32">Что дальше</a><a href="#section-33">Ответы</a></details></aside><article><h1 id="section-1">Формы ч-1</h1>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-5.html">Назад</a> | <a href="ru-lesson-7.html">Вперёд</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Практика: пример</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 5 вы показывали данные в таблицах. Сегодня научимся данные <strong>собирать</strong>: поля ввода, подписи, флажки, переключатели и кнопка отправки.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Запись на курс, регистрация, поиск, заказ в магазине - всё это формы. Без форм сайт только показывает информацию, а с формой он начинает её принимать.</p>
+<p>Сегодня вы соберёте форму записи в кружок и увидите, какие данные браузер отправляет при нажатии кнопки.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Создавать форму тегом <code>&lt;form&gt;</code> и выбирать метод <code>get</code> или <code>post</code>.</li>
+<li>Связывать подпись с полем: <code>&lt;label for&gt;</code> и <code>id</code>.</li>
+<li>Давать полям имена <code>name</code>, по которым данные уходят на сервер.</li>
+<li>Использовать типы полей: <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code>, <code>tel</code>.</li>
+<li>Делать флажки (<code>checkbox</code>) и переключатели (<code>radio</code>) со значениями <code>value</code>.</li>
+<li>Отличать <code>placeholder</code> от <code>value</code>, делать поле обязательным (<code>required</code>).</li>
+<li>Подсказывать браузеру автозаполнение (<code>autocomplete</code>).</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из уроков 3 и 5</h2>
+<ol>
+<li>Каким атрибутом задают уникальное имя элемента?</li>
+<li>Может ли быть два элемента с одинаковым <code>id</code> на странице?</li>
+<li>Для чего таблицы использовать нельзя?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тег <code>&lt;form&gt;</code></td>
+<td>Бумажная анкета</td>
+</tr>
+<tr>
+<td>Подпись поля</td>
+<td><code>label</code>, <code>for</code>, <code>id</code></td>
+</tr>
+<tr>
+<td>Имя поля</td>
+<td><code>name</code></td>
+</tr>
+<tr>
+<td>Типы полей</td>
+<td>text, email, password, number, date, tel</td>
+</tr>
+<tr>
+<td>Флажки и переключатели</td>
+<td>checkbox и radio</td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Группа radio</td>
+</tr>
+<tr>
+<td>Подсказки и обязательность</td>
+<td><code>placeholder</code>, <code>value</code>, <code>required</code>, <code>autocomplete</code></td>
+</tr>
+<tr>
+<td>Отправка</td>
+<td><code>input type=&quot;submit&quot;</code> и что видно в адресе</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Форма поиска</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и запись в кружок</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Тег <code>&lt;form&gt;</code></h2>
+<p><strong>Простыми словами:</strong> форма - бумажная анкета. Вы заполняете поля и относите анкету в нужный кабинет. В HTML браузер «относит» данные по адресу.</p>
+<pre><code class="language-html">&lt;form action=&quot;/register&quot; method=&quot;get&quot;&gt;
+    &lt;!-- поля --&gt;
+&lt;/form&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что значит</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action</code></td>
+<td>Куда отправить</td>
+<td>Номер кабинета</td>
+</tr>
+<tr>
+<td><code>method=&quot;get&quot;</code></td>
+<td>Данные в адресе страницы</td>
+<td>Записка на конверте: видно всем</td>
+</tr>
+<tr>
+<td><code>method=&quot;post&quot;</code></td>
+<td>Данные внутри запроса</td>
+<td>Записка в конверте</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Важно про безопасность:</strong> <code>post</code> прячет данные из адреса, но <strong>не шифрует</strong> их. Защищает передачу только <code>https://</code> в адресе сайта.</p>
+<p><strong>В учебных формах курса</strong> мы пишем <code>method=&quot;get&quot;</code> и не пишем <code>action</code>: тогда форма отправляется на ту же страницу, и после нажатия кнопки вы увидите отправленные данные прямо в адресной строке. Никуда они не сохраняются - это учебный пример. Вводите только вымышленные данные.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-6-1.svg" alt="Схема 1: Формы ч-1"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-6-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Сначала браузер проверяет поля. Если всё верно - собирает пары <code>name=value</code> и отправляет их: при GET - в адресе, при POST - внутри запроса.</p>
+<hr>
+<h2 id="section-7">Подпись поля: <code>label</code>, <code>for</code>, <code>id</code></h2>
+<p><strong>Простыми словами:</strong> у каждого поля анкеты есть надпись: «Фамилия», «Телефон». В HTML надпись - <code>&lt;label&gt;</code>. Её нужно <strong>привязать</strong> к полю.</p>
+<pre><code class="language-html">&lt;label for=&quot;name&quot;&gt;Имя&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot;&gt;
+</code></pre>
+<p>Связь: <code>for</code> у подписи = <code>id</code> у поля. Буква в букву.</p>
+<p><strong>Что это даёт:</strong></p>
+<ol>
+<li><strong>Клик по подписи ставит курсор в поле.</strong> Особенно удобно для маленьких флажков.</li>
+<li><strong>Скринридер читает подпись:</strong> «Имя, поле ввода». Без связи он скажет только «поле ввода».</li>
+</ol>
+<h3 id="section-8">Попробуйте сломать</h3>
+<ol>
+<li>Нажмите на слово «Имя» - курсор прыгнул в поле.</li>
+<li>Измените <code>for=&quot;name&quot;</code> на <code>for=&quot;nam&quot;</code>. Снова нажмите на подпись. Курсор больше не прыгает: связь потеряна.</li>
+</ol>
+<h3 id="section-9">Второй способ: поле внутри подписи</h3>
+<pre><code class="language-html">&lt;label&gt;
+    Имя
+    &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
+&lt;/label&gt;
+</code></pre>
+<p>Работает так же. В курсе используем первый способ с <code>for</code> и <code>id</code>: он понятнее для проверки.</p>
+<h3 id="section-10">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Подпись просто текстом <code>&lt;p&gt;Имя&lt;/p&gt;</code></td>
+<td>Используйте <code>&lt;label for&gt;</code></td>
+</tr>
+<tr>
+<td><code>for</code> не совпадает с <code>id</code></td>
+<td>Буква в букву</td>
+</tr>
+<tr>
+<td>Два поля с одним <code>id</code></td>
+<td><code>id</code> уникален на странице</td>
+</tr>
+<tr>
+<td><code>placeholder</code> вместо подписи</td>
+<td>Подпись нужна всегда, <code>placeholder</code> исчезает при вводе</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-11">Имя поля: <code>name</code></h2>
+<p><strong><code>id</code> и <code>name</code> - разные вещи:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Для чего</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Связь с подписью на странице</td>
+<td>Номер места в зале</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Имя, под которым значение уйдёт на сервер</td>
+<td>Подпись на графе анкеты для секретаря</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Поле без <code>name</code> не отправляется.</strong> Браузер просто пропустит его.</p>
+<p>После отправки формы с <code>method=&quot;get&quot;</code> в адресе появится:</p>
+<pre><code>?name=Aziz&amp;email=aziz%40example.com
+</code></pre>
+<p>Это пары <code>name=значение</code>, разделённые <code>&amp;</code>. Символ <code>@</code> браузер записал как <code>%40</code> - так кодируются особые символы в адресе.</p>
+<hr>
+<h2 id="section-12">Типы полей</h2>
+<p>Поле ввода - пустой элемент <code>&lt;input&gt;</code>. Тип задаёт атрибут <code>type</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Для чего</th>
+<th>Что делает браузер</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>Обычный текст</td>
+<td>Ничего особенного</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>Почта</td>
+<td>Проверяет, есть ли <code>@</code>; на телефоне - клавиатура с <code>@</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Пароль</td>
+<td>Прячет символы точками</td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>Число</td>
+<td>Стрелки вверх-вниз; не даёт ввести буквы</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>Дата</td>
+<td>Показывает календарь</td>
+</tr>
+<tr>
+<td><code>tel</code></td>
+<td>Телефон</td>
+<td>На телефоне - цифровая клавиатура</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;label for=&quot;email&quot;&gt;Почта&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;
+
+&lt;label for=&quot;age&quot;&gt;Возраст&lt;/label&gt;
+&lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot;&gt;
+
+&lt;label for=&quot;start&quot;&gt;Дата начала&lt;/label&gt;
+&lt;input type=&quot;date&quot; id=&quot;start&quot; name=&quot;start&quot;&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> у поля даты - значок календаря. В поле возраста - стрелки. Попробуйте ввести в почту «abc» и отправить форму: браузер покажет подсказку об ошибке.</p>
+<p><strong><code>password</code> прячет символы только на экране.</strong> Без <code>https://</code> пароль передаётся открыто.</p>
+<hr>
+<h2 id="section-13">Флажки и переключатели</h2>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Сколько можно выбрать</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checkbox</code></td>
+<td>Сколько угодно или ничего</td>
+<td>Галочки в анкете «интересы»</td>
+</tr>
+<tr>
+<td><code>radio</code></td>
+<td>Ровно <strong>один</strong> из группы</td>
+<td>Кнопки на старом радио: нажал одну - другая отжалась</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-14"><code>checkbox</code> - независимые флажки</h3>
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; id=&quot;html&quot; name=&quot;topics&quot; value=&quot;html&quot;&gt;
+&lt;label for=&quot;html&quot;&gt;HTML&lt;/label&gt;
+
+&lt;input type=&quot;checkbox&quot; id=&quot;css&quot; name=&quot;topics&quot; value=&quot;css&quot;&gt;
+&lt;label for=&quot;css&quot;&gt;CSS&lt;/label&gt;
+</code></pre>
+<h3 id="section-15"><code>radio</code> - один из группы</h3>
+<pre><code class="language-html">&lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+&lt;label for=&quot;morning&quot;&gt;Утро&lt;/label&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+&lt;label for=&quot;evening&quot;&gt;Вечер&lt;/label&gt;
+</code></pre>
+<p><strong>Группу radio объединяет одинаковый <code>name</code>.</strong> Если <code>name</code> разные - можно выбрать оба, и группа сломана.</p>
+<p><strong><code>value</code></strong> - что уйдёт на сервер. Без <code>value</code> браузер отправит непонятное <code>on</code>. С <code>value</code> - <code>time=evening</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-6-2.svg" alt="Схема 2: Формы ч-1"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-6-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Каждая ветвь - тип поля и его назначение. Схема не задаёт порядок полей в форме.</p>
+<h3 id="section-16">Попробуйте сломать</h3>
+<p>Дайте двум переключателям разные <code>name</code>: <code>name=&quot;time1&quot;</code> и <code>name=&quot;time2&quot;</code>. Теперь можно выбрать оба сразу. Верните одинаковое имя.</p>
+<h3 id="section-17">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>У radio разные <code>name</code></td>
+<td>Одна группа - один <code>name</code></td>
+</tr>
+<tr>
+<td>Нет <code>value</code> у radio и checkbox</td>
+<td>Отправится <code>on</code>. Задайте <code>value</code></td>
+</tr>
+<tr>
+<td>Checkbox там, где нужен один вариант</td>
+<td>Один из нескольких - <code>radio</code></td>
+</tr>
+<tr>
+<td>Нет <code>name</code> у поля</td>
+<td>Поле не отправится</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-18">Мини-задание 1</h2>
+<p>Сделайте группу переключателей «Уровень»: «Новичок» и «Есть опыт». Выбрать можно только один. На сервер должно уйти <code>level=beginner</code> или <code>level=experienced</code>. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-19">Подсказки и обязательность</h2>
+<h3 id="section-20"><code>placeholder</code> и <code>value</code></h3>
+<pre><code class="language-html">&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; placeholder=&quot;name@example.com&quot;&gt;
+&lt;input type=&quot;text&quot; id=&quot;city&quot; name=&quot;city&quot; value=&quot;Алмалык&quot;&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>placeholder</code></th>
+<th><code>value</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что это</td>
+<td>Серая подсказка-пример</td>
+<td>Настоящее значение в поле</td>
+</tr>
+<tr>
+<td>При вводе</td>
+<td>Исчезает</td>
+<td>Можно стереть и заменить</td>
+</tr>
+<tr>
+<td>Отправляется?</td>
+<td>Нет</td>
+<td>Да</td>
+</tr>
+</tbody>
+</table>
+<p><code>placeholder</code> <strong>не заменяет</strong> <code>&lt;label&gt;</code>: подсказка пропадает, как только человек начал печатать, и он забывает, что за поле.</p>
+<h3 id="section-21"><code>required</code> - обязательное поле</h3>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required&gt;
+</code></pre>
+<p><code>required</code> - атрибут <strong>без значения</strong>. Если поле пустое, браузер не отправит форму и покажет подсказку.</p>
+<h3 id="section-22"><code>autocomplete</code> - помощь с автозаполнением</h3>
+<pre><code class="language-html">&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot;&gt;
+&lt;input type=&quot;tel&quot; id=&quot;phone&quot; name=&quot;phone&quot; autocomplete=&quot;tel&quot;&gt;
+</code></pre>
+<p>Браузер предложит подставить сохранённую почту или телефон. Пользователю не нужно печатать.</p>
+<hr>
+<h2 id="section-23">Отправка: <code>&lt;input type=&quot;submit&quot;&gt;</code></h2>
+<pre><code class="language-html">&lt;input type=&quot;submit&quot; value=&quot;Записаться&quot;&gt;
+</code></pre>
+<p><code>value</code> у кнопки - это надпись на ней. Тег <code>&lt;button&gt;</code> разберём в уроке 7.</p>
+<h3 id="section-24">Форма целиком</h3>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;name&quot;&gt;Имя&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; autocomplete=&quot;name&quot; required&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;email&quot;&gt;Почта&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+        &lt;label for=&quot;morning&quot;&gt;Утро&lt;/label&gt;
+        &lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+        &lt;label for=&quot;evening&quot;&gt;Вечер&lt;/label&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Записаться&quot;&gt;
+    &lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Каждое поле обёрнуто в <code>&lt;p&gt;</code> - так поля встают друг под другом.</p>
+<p><strong>Проверка:</strong></p>
+<ol>
+<li>Нажмите «Записаться» с пустыми полями. Браузер не отправит форму и покажет подсказку у первого обязательного поля.</li>
+<li>Заполните вымышленными данными и отправьте. Посмотрите в адресную строку: <code>?name=Aziz&amp;email=aziz%40example.com&amp;time=evening</code>.</li>
+</ol>
+<hr>
+<h2 id="section-25">Мини-задание 2</h2>
+<p>Сделайте форму поиска: одно обязательное поле с подписью «Что ищем?», имя поля <code>q</code>, кнопка «Найти». Метод <code>get</code>. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-26">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Форма</td>
+<td><code>&lt;form method=&quot;get&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Подпись</td>
+<td><code>&lt;label for=&quot;x&quot;&gt;</code> + <code>&lt;input id=&quot;x&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Имя для отправки</td>
+<td><code>name=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Почта / число / дата / телефон</td>
+<td><code>type=&quot;email&quot;</code> / <code>&quot;number&quot;</code> / <code>&quot;date&quot;</code> / <code>&quot;tel&quot;</code></td>
+</tr>
+<tr>
+<td>Несколько вариантов</td>
+<td><code>type=&quot;checkbox&quot;</code></td>
+</tr>
+<tr>
+<td>Один из группы</td>
+<td><code>type=&quot;radio&quot;</code> с одним <code>name</code></td>
+</tr>
+<tr>
+<td>Что отправить</td>
+<td><code>value=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Подсказка-пример</td>
+<td><code>placeholder=&quot;...&quot;</code> (не вместо <code>label</code>)</td>
+</tr>
+<tr>
+<td>Обязательно</td>
+<td><code>required</code></td>
+</tr>
+<tr>
+<td>Автозаполнение</td>
+<td><code>autocomplete=&quot;email&quot;</code></td>
+</tr>
+<tr>
+<td>Кнопка</td>
+<td><code>&lt;input type=&quot;submit&quot; value=&quot;Надпись&quot;&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-27">Самостоятельная работа</h2>
+<h3 id="section-28">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте форму <strong>«Запись в кружок»</strong> с <code>method=&quot;get&quot;</code>:</p>
+<ol>
+<li>Имя - <code>text</code>, обязательное.</li>
+<li>Почта - <code>email</code>, обязательная.</li>
+<li>Дата начала - <code>date</code>.</li>
+<li>Два независимых флажка <code>checkbox</code> - интересующие темы.</li>
+<li>Группа из двух <code>radio</code> - удобное время. Один <code>name</code> на группу.</li>
+<li>У <strong>каждого</strong> поля - <code>&lt;label for&gt;</code>, у каждого поля - <code>id</code> и <code>name</code>, у флажков и переключателей - <code>value</code>.</li>
+<li>Кнопка <code>&lt;input type=&quot;submit&quot;&gt;</code>.</li>
+</ol>
+<p>Тег <code>&lt;button&gt;</code> пока не используйте - он из урока 7.</p>
+<p>Что проверяет платформа: форму с <code>method=&quot;get&quot;</code>, связь каждого <code>label for</code> с существующим <code>id</code>, типы <code>text</code>, <code>email</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, <code>submit</code>, минимум семь подписей, <code>required</code>, атрибуты <code>name</code> и <code>value</code>, отсутствие <code>&lt;button&gt;</code>.</p>
+<h3 id="section-29">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Добавьте форму на страницу контактов сайта кружка.</li>
+<li>Откройте страницу через Live Server и отправьте форму пустой - браузер должен остановить отправку.</li>
+<li>Отправьте с вымышленными данными и найдите пары <code>name=value</code> в адресе.</li>
+</ol>
+<h3 id="section-30">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Клик по каждой подписи ставит курсор в своё поле или отмечает флажок.</label></li>
+<li class="check"><label><input type="checkbox"> Все <code>id</code> уникальны.</label></li>
+<li class="check"><label><input type="checkbox"> В группе radio выбирается только один вариант, флажки независимы.</label></li>
+<li class="check"><label><input type="checkbox"> Пустые обязательные поля не дают отправить форму.</label></li>
+<li class="check"><label><input type="checkbox"> Отправленные значения видны в адресе.</label></li>
+</ul>
+<hr>
+<h2 id="section-31">Вопросы для самопроверки</h2>
+<ol>
+<li>Чем <code>method=&quot;get&quot;</code> отличается от <code>method=&quot;post&quot;</code>?</li>
+<li>Защищает ли <code>post</code> данные сам по себе?</li>
+<li>Как связать подпись с полем?</li>
+<li>Чем <code>id</code> отличается от <code>name</code>?</li>
+<li>Что будет с полем без <code>name</code> при отправке?</li>
+<li>Чем <code>checkbox</code> отличается от <code>radio</code>?</li>
+<li>Как сделать так, чтобы в группе radio выбирался только один вариант?</li>
+<li>Зачем <code>value</code> у переключателей?</li>
+<li>Почему <code>placeholder</code> не заменяет <code>label</code>?</li>
+<li>Что делает <code>required</code>?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-32">Что дальше</h2>
+<p>Форма работает, но в ней пока простые поля. В уроке 7 добавим выпадающие списки, многострочный текст, группы полей, кнопки <code>&lt;button&gt;</code> и проверку формата ввода.</p>
+<hr>
+<h2 id="section-33">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li><code>id</code>.</li>
+<li>Нет, <code>id</code> уникален.</li>
+<li>Для раскладки страницы.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt;
+&lt;label for=&quot;beginner&quot;&gt;Новичок&lt;/label&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;experienced&quot; name=&quot;level&quot; value=&quot;experienced&quot;&gt;
+&lt;label for=&quot;experienced&quot;&gt;Есть опыт&lt;/label&gt;
+</code></pre>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;label for=&quot;q&quot;&gt;Что ищем?&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;q&quot; name=&quot;q&quot; required&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Найти&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>GET кладёт данные в адрес страницы, POST - внутрь запроса.</li>
+<li>Нет. Защищает передачу только HTTPS.</li>
+<li><code>for</code> у <code>&lt;label&gt;</code> равен <code>id</code> у поля.</li>
+<li><code>id</code> связывает с подписью на странице, <code>name</code> - имя значения при отправке.</li>
+<li>Оно не отправится.</li>
+<li>Checkbox - сколько угодно вариантов, radio - ровно один из группы.</li>
+<li>Дать всем переключателям группы одинаковый <code>name</code>.</li>
+<li>Чтобы на сервер ушло понятное значение, а не <code>on</code>.</li>
+<li>Подсказка исчезает при вводе, а скринридер может её не прочитать как подпись.</li>
+<li>Не даёт отправить форму, пока поле пустое.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-5.html">Назад</a> | <a href="ru-lesson-7.html">Вперёд</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Практика: пример</a></p>
+</article></main><footer><a href="../Lesson-6/ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-1.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

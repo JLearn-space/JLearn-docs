@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "description": "Optional local course diagram tooling; not student assignments",
+  "dependencies": {
+    "mermaid": "11.12.1",
+    "playwright": "1.62.1"
+  }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uz">
+    <head>
+        <meta charset="UTF-8">
+        <title>Kursga o‘quv yoziluvi</title>
+    </head>
+    <body>
+        <h1>Kursga yozilish</h1>
+        <p>O‘quv namunasi. Faqat o‘ylab topilgan ma’lumotlarni kiriting. Xabar saqlanmaydi.</p>
+        <form method="get">
+            <p>
+                <label for="full-name">Ism (majburiy):</label>
+                <input type="text" id="full-name" name="student" required placeholder="Masalan: Dilnoza">
+            </p>
+            <p>
+                <label for="email">Email (majburiy):</label>
+                <input type="email" id="email" name="email" required>
+            </p>
+            <p>
+                <label for="start-date">Boshlanish sanasi:</label>
+                <input type="date" id="start-date" name="start_date">
+            </p>
+            <p>Qiziqishlar: <input type="checkbox" id="reading" name="topic" value="reading">
+                <label for="reading">Kitob o‘qish</label>
+                <input type="checkbox" id="writing" name="topic" value="writing">
+                <label for="writing">Hikoya yozish</label>
+            </p>
+            <p>Ishtirok usuli: <input type="radio" id="online" name="mode" value="online">
+                <label for="online">Masofadan</label>
+                <input type="radio" id="onsite" name="mode" value="onsite">
+                <label for="onsite">Kutubxonada</label>
+            </p>
+            <input type="submit" value="O‘quv formasini yuborish">
+        </form>
+    </body>
+</html>

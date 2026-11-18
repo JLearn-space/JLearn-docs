@@ -1,0 +1,538 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Формы ч-2 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из урока 6</a><a href="#section-5">План урока</a><a href="#section-6">Выпадающий список: select</a><a href="#section-9">Подсказки в поле: datalist</a><a href="#section-10">Многострочный текст: textarea</a><a href="#section-11">Группы полей: fieldset и legend</a><a href="#section-13">Мини-задание 1</a><a href="#section-14">Кнопки: button</a><a href="#section-17">Проверка ввода</a><a href="#section-20">Мини-задание 2</a><a href="#section-21">Итоги урока: шпаргалка</a><a href="#section-22">Самостоятельная работа</a><a href="#section-26">Вопросы для самопроверки</a><a href="#section-27">Что дальше</a><a href="#section-28">Ответы</a></details></aside><article><h1 id="section-1">Формы ч-2</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-6.html">Назад</a> · <a href="ru-lesson-8.html">Вперёд</a> · <a href="../Lesson-7/practice.html">Практика</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 6 вы собрали форму из полей <code>input</code>, подписей и переключателей. Сегодня добавим выпадающие списки, многострочный текст, группы полей, настоящие кнопки и проверку формата ввода.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Анкета «Расскажите о себе» в одну строку не помещается. Выбор города из 14 областей - это не 14 переключателей подряд. А номер студенческого билета должен быть ровно из 7 цифр, а не «abc».</p>
+<p>Сегодня вы соберёте полную анкету участника, которая сама проверяет, что ввёл пользователь.</p>
+<hr>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-7-1.svg" alt="Схема 1: Формы ч-2"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-7-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Выбирайте элемент по типу ответа: одна строка, несколько строк или выбор из готовых вариантов. Группировка <code>fieldset</code> + <code>legend</code> сочетается с любыми полями.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Делать выпадающий список <code>select</code> с вариантами <code>option</code>, группами <code>optgroup</code> и выбором по умолчанию.</li>
+<li>Подсказывать варианты в обычном поле через <code>datalist</code>.</li>
+<li>Принимать длинный текст через <code>textarea</code>.</li>
+<li>Группировать поля: <code>fieldset</code> и <code>legend</code>.</li>
+<li>Выбирать кнопку: <code>button</code> с типом <code>submit</code>, <code>reset</code> или <code>button</code>.</li>
+<li>Проверять ввод: <code>min</code>, <code>max</code>, <code>maxlength</code>, <code>pattern</code>.</li>
+<li>Делать ползунок <code>type=&quot;range&quot;</code>.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из урока 6</h2>
+<ol>
+<li>Как связать подпись с полем?</li>
+<li>Что общего должно быть у переключателей одной группы?</li>
+<li>Что делает атрибут <code>required</code>?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Выпадающий список</td>
+<td><code>select</code>, <code>option</code>, <code>optgroup</code></td>
+</tr>
+<tr>
+<td>Подсказки в поле</td>
+<td><code>datalist</code></td>
+</tr>
+<tr>
+<td>Многострочный текст</td>
+<td><code>textarea</code></td>
+</tr>
+<tr>
+<td>Группы полей</td>
+<td><code>fieldset</code> и <code>legend</code></td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Группа «Контакты»</td>
+</tr>
+<tr>
+<td>Кнопки</td>
+<td><code>button</code> и три типа</td>
+</tr>
+<tr>
+<td>Проверка ввода</td>
+<td><code>min</code>, <code>max</code>, <code>maxlength</code>, <code>pattern</code>, <code>range</code></td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Поле ID из 7 цифр</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и анкета участника</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Выпадающий список: <code>select</code></h2>
+<p><strong>Простыми словами:</strong> <code>select</code> - меню в кафе. Варианты уже напечатаны, вы выбираете, а не пишете своё.</p>
+<pre><code class="language-html">&lt;label for=&quot;city&quot;&gt;Город&lt;/label&gt;
+&lt;select id=&quot;city&quot; name=&quot;city&quot;&gt;
+    &lt;option value=&quot;&quot;&gt;- Выберите город -&lt;/option&gt;
+    &lt;option value=&quot;tashkent&quot;&gt;Ташкент&lt;/option&gt;
+    &lt;option value=&quot;almalyk&quot; selected&gt;Алмалык&lt;/option&gt;
+    &lt;option value=&quot;samarkand&quot;&gt;Самарканд&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>Сам список. <code>id</code> - для подписи, <code>name</code> - для отправки</td>
+</tr>
+<tr>
+<td><code>&lt;option value&gt;</code></td>
+<td>Вариант. Пользователь видит текст, на сервер уходит <code>value</code></td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td>Вариант, выбранный заранее</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Что увидите:</strong> поле со стрелкой, в нём уже выбран «Алмалык». Клик - раскрывается список.</p>
+<h3 id="section-7">Группы вариантов: <code>optgroup</code></h3>
+<pre><code class="language-html">&lt;label for=&quot;course&quot;&gt;Направление&lt;/label&gt;
+&lt;select id=&quot;course&quot; name=&quot;course&quot;&gt;
+    &lt;optgroup label=&quot;Фронтенд&quot;&gt;
+        &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
+        &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label=&quot;Бэкенд&quot;&gt;
+        &lt;option value=&quot;php&quot;&gt;PHP&lt;/option&gt;
+        &lt;option value=&quot;sql&quot;&gt;SQL&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> в раскрытом списке - серые заголовки «Фронтенд» и «Бэкенд», под ними варианты. Заголовок группы выбрать нельзя.</p>
+<h3 id="section-8">Несколько вариантов: <code>multiple</code></h3>
+<pre><code class="language-html">&lt;select id=&quot;days&quot; name=&quot;days&quot; multiple&gt;
+</code></pre>
+<p>Теперь можно выбрать несколько вариантов: удерживайте Ctrl (на macOS - Cmd). Новичкам это неудобно - если вариантов мало, лучше флажки <code>checkbox</code>.</p>
+<p><strong><code>select</code> или <code>radio</code>?</strong> 2–5 вариантов - <code>radio</code>: все видны сразу. Больше - <code>select</code>: не занимает место.</p>
+<hr>
+<h2 id="section-9">Подсказки в поле: <code>datalist</code></h2>
+<p>Пользователь может ввести своё, но вы подсказываете популярные варианты:</p>
+<pre><code class="language-html">&lt;label for=&quot;lang&quot;&gt;Любимый язык&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;lang&quot; name=&quot;lang&quot; list=&quot;langs&quot;&gt;
+&lt;datalist id=&quot;langs&quot;&gt;
+    &lt;option value=&quot;JavaScript&quot;&gt;
+    &lt;option value=&quot;Python&quot;&gt;
+    &lt;option value=&quot;PHP&quot;&gt;
+&lt;/datalist&gt;
+</code></pre>
+<p>Связь: <code>list</code> у поля = <code>id</code> у <code>datalist</code>.</p>
+<p><strong>Отличие от <code>select</code>:</strong> в <code>select</code> только готовые варианты, в <code>datalist</code> - подсказки, но можно написать своё.</p>
+<hr>
+<h2 id="section-10">Многострочный текст: <code>textarea</code></h2>
+<pre><code class="language-html">&lt;label for=&quot;about&quot;&gt;О себе&lt;/label&gt;
+&lt;textarea id=&quot;about&quot; name=&quot;about&quot; rows=&quot;4&quot; cols=&quot;40&quot; maxlength=&quot;300&quot;&gt;Учусь на первом курсе.&lt;/textarea&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rows</code></td>
+<td>Высота в строках</td>
+</tr>
+<tr>
+<td><code>cols</code></td>
+<td>Ширина в символах</td>
+</tr>
+<tr>
+<td><code>maxlength</code></td>
+<td>Не больше N символов</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>textarea</code> - парный тег.</strong> Начальный текст пишется <strong>между тегами</strong>, а не в <code>value</code>:</p>
+<pre><code class="language-html">&lt;!-- Неправильно --&gt;
+&lt;textarea value=&quot;Текст&quot;&gt;&lt;/textarea&gt;
+
+&lt;!-- Правильно --&gt;
+&lt;textarea&gt;Текст&lt;/textarea&gt;
+</code></pre>
+<hr>
+<h2 id="section-11">Группы полей: <code>fieldset</code> и <code>legend</code></h2>
+<p><strong>Простыми словами:</strong> на бумажной анкете поля обведены рамками с заголовками: «Личные данные», «Контакты». В HTML рамка - <code>&lt;fieldset&gt;</code>, заголовок рамки - <code>&lt;legend&gt;</code>.</p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Удобное время&lt;/legend&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+    &lt;label for=&quot;morning&quot;&gt;Утро&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+    &lt;label for=&quot;evening&quot;&gt;Вечер&lt;/label&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> рамку вокруг полей с заголовком «Удобное время» в верхней линии.</p>
+<p><strong>Что услышит незрячий:</strong> «Удобное время, группа. Утро, переключатель». Без <code>legend</code> он услышит только «Утро» - но утро чего?</p>
+<p><strong><code>legend</code> - первым</strong> внутри <code>fieldset</code>.</p>
+<h3 id="section-12">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>textarea value=&quot;...&quot;</code></td>
+<td>Текст между тегами</td>
+</tr>
+<tr>
+<td><code>select</code> без подписи</td>
+<td><code>&lt;label for&gt;</code> нужен и списку</td>
+</tr>
+<tr>
+<td>Группа radio без <code>fieldset</code></td>
+<td>Оберните, дайте <code>legend</code>-вопрос</td>
+</tr>
+<tr>
+<td><code>legend</code> не первым</td>
+<td>Первым внутри <code>fieldset</code></td>
+</tr>
+<tr>
+<td><code>select</code> на 2 варианта</td>
+<td>Лучше <code>radio</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-13">Мини-задание 1</h2>
+<p>Сделайте группу «Контакты» с рамкой и заголовком: поле почты и поле телефона, оба с подписями. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-14">Кнопки: <code>button</code></h2>
+<p>В уроке 6 вы использовали <code>&lt;input type=&quot;submit&quot;&gt;</code>. Есть тег гибче - <code>&lt;button&gt;</code>:</p>
+<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Отправить анкету&lt;/button&gt;
+</code></pre>
+<p><strong>Чем <code>&lt;button&gt;</code> удобнее:</strong> это парный тег, внутри можно писать текст с другими тегами, например <code>&lt;strong&gt;</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type=&quot;submit&quot;</code></td>
+<td>Проверяет форму и отправляет</td>
+</tr>
+<tr>
+<td><code>type=&quot;reset&quot;</code></td>
+<td>Возвращает <strong>начальные</strong> значения всех полей</td>
+</tr>
+<tr>
+<td><code>type=&quot;button&quot;</code></td>
+<td>Ничего не делает сам - для JavaScript</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-7-2.svg" alt="Схема 2: Формы ч-2"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-7-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Три разных значения <code>type</code>, а не три шага.</p>
+<p><strong>Всегда пишите <code>type</code>.</strong> Кнопка без <code>type</code> внутри формы ведёт себя как <code>submit</code> - и форма отправится там, где вы этого не ждали.</p>
+<p><strong><code>reset</code> возвращает начальные значения, а не очищает поля.</strong> Если в <code>textarea</code> изначально было «Учусь на первом курсе», после <code>reset</code> вернётся именно этот текст.</p>
+<h3 id="section-15">Попробуйте сломать</h3>
+<p>Добавьте в форму <code>&lt;button&gt;Подсказка&lt;/button&gt;</code> без <code>type</code>. Нажмите её. Форма отправилась, хотя вы хотели просто кнопку.</p>
+<h3 id="section-16">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;button&gt;</code> без <code>type</code></td>
+<td>Всегда <code>type=&quot;submit&quot;</code>, <code>&quot;reset&quot;</code> или <code>&quot;button&quot;</code></td>
+</tr>
+<tr>
+<td>Ожидают, что <code>reset</code> очистит поля</td>
+<td>Он вернёт начальные значения</td>
+</tr>
+<tr>
+<td><code>&lt;div&gt;</code> вместо кнопки</td>
+<td>Только <code>&lt;button&gt;</code> - подробно в уроке 8</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-17">Проверка ввода</h2>
+<p>Браузер может сам проверить поле перед отправкой:</p>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Для каких полей</th>
+<th>Пример</th>
+<th>Что проверяет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min</code>, <code>max</code></td>
+<td><code>number</code>, <code>date</code>, <code>range</code></td>
+<td><code>min=&quot;16&quot; max=&quot;60&quot;</code></td>
+<td>Границы значения</td>
+</tr>
+<tr>
+<td><code>maxlength</code></td>
+<td><code>text</code>, <code>textarea</code></td>
+<td><code>maxlength=&quot;50&quot;</code></td>
+<td>Не больше 50 символов</td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td><code>text</code>, <code>tel</code></td>
+<td><code>pattern=&quot;[0-9]{7}&quot;</code></td>
+<td>Формат по шаблону</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-18"><code>pattern</code> - шаблон формата</h3>
+<p><code>pattern</code> - это регулярное выражение, мини-язык шаблонов. Достаточно знать несколько записей:</p>
+<table>
+<thead>
+<tr>
+<th>Шаблон</th>
+<th>Значит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[0-9]</code></td>
+<td>Одна цифра</td>
+</tr>
+<tr>
+<td><code>[0-9]{7}</code></td>
+<td>Ровно 7 цифр</td>
+</tr>
+<tr>
+<td><code>[A-Z]{2}</code></td>
+<td>Две заглавные латинские буквы</td>
+</tr>
+<tr>
+<td><code>[A-Z]{2}[0-9]{7}</code></td>
+<td>Две буквы, затем 7 цифр, например <code>AB1234567</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;label for=&quot;student-id&quot;&gt;Номер студенческого билета (7 цифр)&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;student-id&quot; name=&quot;student-id&quot; pattern=&quot;[0-9]{7}&quot; inputmode=&quot;numeric&quot; required&gt;
+</code></pre>
+<p><code>inputmode=&quot;numeric&quot;</code> откроет на телефоне цифровую клавиатуру. Подскажите формат в подписи: «7 цифр» - так человек сразу знает, что вводить.</p>
+<p><strong>Проверьте поле:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ввод</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>пусто</td>
+<td>Ошибка: поле обязательное</td>
+</tr>
+<tr>
+<td><code>123456</code></td>
+<td>Ошибка: 6 цифр</td>
+</tr>
+<tr>
+<td><code>abcdefg</code></td>
+<td>Ошибка: буквы</td>
+</tr>
+<tr>
+<td><code>1234567</code></td>
+<td>Принято</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-19">Ползунок: <code>type=&quot;range&quot;</code></h3>
+<pre><code class="language-html">&lt;label for=&quot;level&quot;&gt;Уровень знаний (0–10)&lt;/label&gt;
+&lt;input type=&quot;range&quot; id=&quot;level&quot; name=&quot;level&quot; min=&quot;0&quot; max=&quot;10&quot; value=&quot;5&quot;&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> ползунок. По умолчанию стоит на 5.</p>
+<p><strong>Важно:</strong> проверка в браузере - помощь пользователю, а не защита. Настоящий сервер всё равно проверяет данные ещё раз.</p>
+<hr>
+<h2 id="section-20">Мини-задание 2</h2>
+<p>Сделайте обязательное поле «Код группы» в формате: две заглавные латинские буквы, дефис, две цифры. Пример: <code>IT-25</code>. Подсказку формата напишите в подписи. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-21">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Выпадающий список</td>
+<td><code>&lt;select&gt;</code> + <code>&lt;option value&gt;</code></td>
+</tr>
+<tr>
+<td>Выбрано заранее</td>
+<td><code>selected</code></td>
+</tr>
+<tr>
+<td>Группы вариантов</td>
+<td><code>&lt;optgroup label=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Подсказки в поле</td>
+<td><code>list</code> + <code>&lt;datalist id&gt;</code></td>
+</tr>
+<tr>
+<td>Длинный текст</td>
+<td><code>&lt;textarea&gt;текст&lt;/textarea&gt;</code></td>
+</tr>
+<tr>
+<td>Рамка с заголовком</td>
+<td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> первым</td>
+</tr>
+<tr>
+<td>Кнопка отправки</td>
+<td><code>&lt;button type=&quot;submit&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Вернуть начальные значения</td>
+<td><code>&lt;button type=&quot;reset&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Границы числа</td>
+<td><code>min</code>, <code>max</code></td>
+</tr>
+<tr>
+<td>Длина текста</td>
+<td><code>maxlength</code></td>
+</tr>
+<tr>
+<td>Формат</td>
+<td><code>pattern=&quot;[0-9]{7}&quot;</code></td>
+</tr>
+<tr>
+<td>Ползунок</td>
+<td><code>type=&quot;range&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-22">Самостоятельная работа</h2>
+<h3 id="section-23">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте <strong>анкету участника</strong> с <code>method=&quot;get&quot;</code>:</p>
+<ol>
+<li>Первая группа <code>fieldset</code> с <code>legend</code> «Личные данные»:
+<ul>
+<li>номер билета - обязательный, ровно 7 цифр (<code>pattern</code>);</li>
+<li>поле «О себе» - <code>textarea</code> с начальным текстом.</li>
+</ul>
+</li>
+<li>Вторая группа <code>fieldset</code> с <code>legend</code> «Направление»:
+<ul>
+<li><code>select</code> с двумя <code>optgroup</code> и заранее выбранным вариантом (<code>selected</code>).</li>
+</ul>
+</li>
+<li>У каждого поля - <code>&lt;label for&gt;</code> и уникальный <code>id</code>.</li>
+<li>Кнопки <code>&lt;button type=&quot;submit&quot;&gt;</code> и <code>&lt;button type=&quot;reset&quot;&gt;</code>.</li>
+</ol>
+<p>Что проверяет платформа: форму, два <code>fieldset</code> и два <code>legend</code>, <code>select</code> с <code>optgroup</code> и <code>selected</code>, <code>textarea</code>, <code>pattern</code> с <code>{7}</code>, <code>required</code>, связь каждой подписи с полем, кнопку <code>type=&quot;submit&quot;</code> и кнопку <code>type=&quot;reset&quot;</code>.</p>
+<h3 id="section-24">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Сохраните анкету как <code>profile.html</code>.</li>
+<li>Проверьте поле билета: пусто, 6 цифр, буквы, 7 цифр.</li>
+<li>Измените выбор в списке и текст «О себе», нажмите «Сбросить». Вернулись начальные значения?</li>
+</ol>
+<h3 id="section-25">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Каждое поле, список и <code>textarea</code> имеют подпись; <code>for</code> совпадает с <code>id</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Кнопки имеют понятный текст и явный <code>type</code>.</label></li>
+<li class="check"><label><input type="checkbox"> В <code>select</code> есть <code>optgroup</code> и понятные <code>value</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Начальный текст <code>textarea</code> - между тегами.</label></li>
+<li class="check"><label><input type="checkbox"> Поле билета отклоняет пустоту, 6 цифр и буквы; принимает 7 цифр.</label></li>
+<li class="check"><label><input type="checkbox"> <code>reset</code> возвращает начальные значения.</label></li>
+</ul>
+<hr>
+<h2 id="section-26">Вопросы для самопроверки</h2>
+<ol>
+<li>Когда лучше <code>select</code>, а когда <code>radio</code>?</li>
+<li>Что видит пользователь и что уходит на сервер у <code>&lt;option&gt;</code>?</li>
+<li>Чем <code>datalist</code> отличается от <code>select</code>?</li>
+<li>Где пишется начальный текст <code>textarea</code>?</li>
+<li>Зачем <code>legend</code> в группе переключателей?</li>
+<li>Чем <code>&lt;button&gt;</code> удобнее <code>&lt;input type=&quot;submit&quot;&gt;</code>?</li>
+<li>Что произойдёт при нажатии <code>&lt;button&gt;</code> без <code>type</code> внутри формы?</li>
+<li>Что делает <code>reset</code>: очищает поля или что-то другое?</li>
+<li>Что означает <code>pattern=&quot;[0-9]{7}&quot;</code>?</li>
+<li>Почему проверка в браузере не заменяет проверку на сервере?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-27">Что дальше</h2>
+<p>Анкета готова. В уроке 8 проверим её глазами разных людей: без мыши, без зрения, на ярком солнце - и исправим то, что мешает.</p>
+<hr>
+<h2 id="section-28">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li><code>for</code> у <code>&lt;label&gt;</code> равен <code>id</code> у поля.</li>
+<li>Одинаковый <code>name</code>.</li>
+<li>Не даёт отправить форму, пока поле пустое.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Контакты&lt;/legend&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;email&quot;&gt;Почта&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;phone&quot;&gt;Телефон&lt;/label&gt;
+        &lt;input type=&quot;tel&quot; id=&quot;phone&quot; name=&quot;phone&quot;&gt;
+    &lt;/p&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;label for=&quot;group&quot;&gt;Код группы (например, IT-25)&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;group&quot; name=&quot;group&quot; pattern=&quot;[A-Z]{2}-[0-9]{2}&quot; required&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>2–5 вариантов - <code>radio</code>, все видны сразу. Больше - <code>select</code>.</li>
+<li>Видит текст между тегами, на сервер уходит <code>value</code>.</li>
+<li>В <code>select</code> только готовые варианты, в <code>datalist</code> - подсказки и можно ввести своё.</li>
+<li>Между тегами <code>&lt;textarea&gt;</code> и <code>&lt;/textarea&gt;</code>.</li>
+<li>Это общий вопрос группы: скринридер прочитает его перед вариантами.</li>
+<li>Внутри можно писать текст с другими тегами, это парный тег.</li>
+<li>Форма отправится: без <code>type</code> кнопка работает как <code>submit</code>.</li>
+<li>Возвращает начальные значения полей.</li>
+<li>Ровно 7 цифр.</li>
+<li>Проверку в браузере можно обойти. Сервер обязан проверять данные сам.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-6.html">Назад</a> · <a href="ru-lesson-8.html">Вперёд</a> · <a href="../Lesson-7/practice.html">Практика</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-7/ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-2.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

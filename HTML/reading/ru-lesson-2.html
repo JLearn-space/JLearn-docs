@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Текст и семантика · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из урока 1</a><a href="#section-5">План урока</a><a href="#section-6">Часть А. Текст</a><a href="#section-7">Заголовки h1–h6</a><a href="#section-8">Абзацы и переносы: p, br, hr</a><a href="#section-10">Акценты: strong, em, mark, small</a><a href="#section-12">Списки: ul, ol, dl</a><a href="#section-15">Цитаты, код и спецсимволы</a><a href="#section-19">Мини-задание 1</a><a href="#section-20">Часть Б. Страница</a><a href="#section-21">Семантические блоки</a><a href="#section-24">Мини-задание 2</a><a href="#section-25">Итоги урока: шпаргалка</a><a href="#section-26">Самостоятельная работа</a><a href="#section-30">Вопросы для самопроверки</a><a href="#section-31">Что дальше</a><a href="#section-32">Ответы</a></details></aside><article><h1 id="section-1">Текст и семантика</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-1.html">← Назад</a> · <a href="ru-lesson-3.html">Вперёд →</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a> · <a href="../Lesson-2/practice.html">Практика</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 1 вы собрали скелет документа и добавили <code>&lt;h1&gt;</code> и <code>&lt;p&gt;</code>. Сегодня наполним <code>&lt;body&gt;</code> настоящим текстом и разобьём страницу на смысловые блоки.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Сравните две страницы. На первой сплошной текст без заголовков и списков. На второй тот же текст, но с разделами, пунктами и шагами. Какую вы дочитаете?</p>
+<p>HTML-теги этого урока делают текст удобным для чтения. А заодно понятным для поисковиков и программ, которые читают страницу вслух.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Строить иерархию заголовков <code>h1</code>–<code>h6</code> без пропуска уровней.</li>
+<li>Разделять текст на абзацы <code>p</code> и правильно использовать <code>br</code> и <code>hr</code>.</li>
+<li>Выделять важное (<code>strong</code>) и ударное (<code>em</code>), подсвечивать (<code>mark</code>), писать примечания (<code>small</code>).</li>
+<li>Выбирать нужный список: <code>ul</code>, <code>ol</code> или <code>dl</code>.</li>
+<li>Показывать цитаты и код: <code>blockquote</code>, <code>code</code>, спецсимволы <code>&amp;lt;</code> и <code>&amp;copy;</code>.</li>
+<li>Делить страницу на блоки: <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из урока 1</h2>
+<ol>
+<li>Где пишется видимый текст: в <code>&lt;head&gt;</code> или в <code>&lt;body&gt;</code>?</li>
+<li>Чем <code>&lt;title&gt;</code> отличается от <code>&lt;h1&gt;</code>?</li>
+<li>Как выглядит закрывающий тег абзаца?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<p>Урок состоит из двух частей.</p>
+<table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>А. Текст</td>
+<td>Заголовки</td>
+<td>Оглавление книги</td>
+</tr>
+<tr>
+<td></td>
+<td>Абзацы, <code>br</code>, <code>hr</code></td>
+<td>Абзац или перенос строки</td>
+</tr>
+<tr>
+<td></td>
+<td>Акценты</td>
+<td><code>strong</code>, <code>em</code>, <code>mark</code>, <code>small</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Списки</td>
+<td>Покупки, рецепт, словарь</td>
+</tr>
+<tr>
+<td></td>
+<td>Цитаты и код</td>
+<td><code>blockquote</code>, <code>code</code>, спецсимволы</td>
+</tr>
+<tr>
+<td></td>
+<td>Мини-задание 1</td>
+<td>Список из трёх шагов</td>
+</tr>
+<tr>
+<td>Б. Страница</td>
+<td>Семантические блоки</td>
+<td>Комнаты в доме</td>
+</tr>
+<tr>
+<td></td>
+<td>Мини-задание 2</td>
+<td>Разметить страницу блоками</td>
+</tr>
+<tr>
+<td></td>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и памятка</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Часть А. Текст</h2>
+<h2 id="section-7">Заголовки <code>h1</code>–<code>h6</code></h2>
+<p><strong>Простыми словами:</strong> у книги есть название, главы, разделы и подразделы. Заголовки HTML - то же оглавление. Это не «крупный жирный текст», а <strong>иерархия смысла</strong>.</p>
+<pre><code class="language-html">&lt;h1&gt;Название страницы&lt;/h1&gt;
+&lt;h2&gt;Раздел&lt;/h2&gt;
+&lt;h3&gt;Подраздел&lt;/h3&gt;
+&lt;h4&gt;Подподраздел&lt;/h4&gt;
+</code></pre>
+<p>Есть шесть уровней: от <code>&lt;h1&gt;</code> до <code>&lt;h6&gt;</code>. Обычно хватает трёх.</p>
+<p><strong>Три правила курса:</strong></p>
+<ol>
+<li>На странице <strong>один</strong> <code>&lt;h1&gt;</code> - главная тема.</li>
+<li>Уровни идут <strong>по порядку</strong>: после <code>h2</code> идёт <code>h3</code>, а не <code>h4</code>.</li>
+<li>Вернуться вверх можно всегда: после <code>h3</code> снова <code>h2</code> - это новый раздел.</li>
+</ol>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-2-1.svg" alt="Схема 1: Текст и семантика"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-2-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> У «Маршрута» два подраздела. «Советы» стоят на одном уровне с «Маршрутом». Все шесть уровней использовать не нужно.</p>
+<p><strong>Почему это важно:</strong> незрячий пользователь открывает список заголовков и прыгает к нужному разделу. Если взять <code>&lt;h3&gt;</code> только потому, что «нужен текст поменьше», оглавление сломается. Размер текста задают через CSS.</p>
+<hr>
+<h2 id="section-8">Абзацы и переносы: <code>p</code>, <code>br</code>, <code>hr</code></h2>
+<table>
+<thead>
+<tr>
+<th>Тег</th>
+<th>Что делает</th>
+<th>Когда использовать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;p&gt;</code></td>
+<td>Абзац. Браузер сам добавит отступ</td>
+<td>Каждая отдельная мысль</td>
+</tr>
+<tr>
+<td><code>&lt;br&gt;</code></td>
+<td>Перенос строки <strong>внутри</strong> абзаца</td>
+<td>Адрес, стихи</td>
+</tr>
+<tr>
+<td><code>&lt;hr&gt;</code></td>
+<td>Смена темы</td>
+<td>Переход к новой части текста</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p&gt;Наш кружок собирается по средам.&lt;/p&gt;
+&lt;p&gt;
+    ул. Амира Темура, 10&lt;br&gt;
+    г. Алмалык
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Новая тема: правила участия.&lt;/p&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> два абзаца с отступом, адрес на двух строках, горизонтальная линия, ещё один абзац.</p>
+<p><code>&lt;br&gt;</code> и <code>&lt;hr&gt;</code> - пустые элементы, закрывающего тега у них нет.</p>
+<h3 id="section-9">Попробуйте сломать</h3>
+<p>Замените два абзаца на один, а между ними поставьте <code>&lt;br&gt;&lt;br&gt;&lt;br&gt;</code>. Внешне похоже? Но для браузера и скринридера это теперь <strong>один</strong> абзац. Верните <code>&lt;p&gt;</code>.</p>
+<hr>
+<h2 id="section-10">Акценты: <code>strong</code>, <code>em</code>, <code>mark</code>, <code>small</code></h2>
+<p><strong>Главный принцип:</strong> HTML описывает <strong>смысл</strong>, а не внешний вид.</p>
+<table>
+<thead>
+<tr>
+<th>Тег</th>
+<th>Смысл</th>
+<th>Как выглядит по умолчанию</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;strong&gt;</code></td>
+<td>Важно, не пропусти</td>
+<td>Жирный</td>
+<td><strong>Внимание:</strong> сохраните файл</td>
+</tr>
+<tr>
+<td><code>&lt;em&gt;</code></td>
+<td>Ударение голосом</td>
+<td>Курсив</td>
+<td>Я <em>действительно</em> успею</td>
+</tr>
+<tr>
+<td><code>&lt;mark&gt;</code></td>
+<td>Подсветка, как маркером</td>
+<td>Жёлтый фон</td>
+<td>Найдено: три ошибки</td>
+</tr>
+<tr>
+<td><code>&lt;small&gt;</code></td>
+<td>Примечание, сноска</td>
+<td>Мелкий</td>
+<td>Цена может измениться</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p&gt;&lt;strong&gt;Внимание:&lt;/strong&gt; перед началом работы сохраните файл.&lt;/p&gt;
+&lt;p&gt;Я &lt;em&gt;действительно&lt;/em&gt; закончу проект сегодня.&lt;/p&gt;
+&lt;p&gt;В отчёте нашли &lt;mark&gt;три ошибки&lt;/mark&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;Расписание может измениться.&lt;/small&gt;&lt;/p&gt;
+</code></pre>
+<p><strong>А <code>&lt;b&gt;</code> и <code>&lt;i&gt;</code>?</strong> Они не устарели, но означают другое:</p>
+<ul>
+<li><code>&lt;b&gt;</code> - привлечь внимание без «важности», например ключевое слово в описании;</li>
+<li><code>&lt;i&gt;</code> - другой голос: термин, иностранное слово, мысль героя.</li>
+</ul>
+<p>Если нужно только сделать текст жирным для красоты - это задача CSS.</p>
+<h3 id="section-11">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Весь абзац в <code>&lt;strong&gt;</code></td>
+<td>Выделяйте только важные слова</td>
+</tr>
+<tr>
+<td><code>&lt;br&gt;&lt;br&gt;</code> вместо нового абзаца</td>
+<td>Новая мысль - новый <code>&lt;p&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;h3&gt;</code> ради мелкого шрифта</td>
+<td>Уровень - по структуре, размер - CSS</td>
+</tr>
+<tr>
+<td>Пропуск уровня <code>h2</code> → <code>h4</code></td>
+<td>Идите по порядку</td>
+</tr>
+<tr>
+<td><code>&lt;mark&gt;</code> для важности</td>
+<td>Важность - <code>&lt;strong&gt;</code>, <code>&lt;mark&gt;</code> - подсветка</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-12">Списки: <code>ul</code>, <code>ol</code>, <code>dl</code></h2>
+<p><strong>Простыми словами:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Список</th>
+<th>Аналогия</th>
+<th>Когда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;ul&gt;</code></td>
+<td>Список покупок</td>
+<td>Порядок не важен</td>
+</tr>
+<tr>
+<td><code>&lt;ol&gt;</code></td>
+<td>Рецепт</td>
+<td>Порядок важен</td>
+</tr>
+<tr>
+<td><code>&lt;dl&gt;</code></td>
+<td>Словарь</td>
+<td>Термин и его описание</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Блокнот&lt;/li&gt;
+    &lt;li&gt;Ручка&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+    &lt;li&gt;Открыть VS Code&lt;/li&gt;
+    &lt;li&gt;Создать index.html&lt;/li&gt;
+    &lt;li&gt;Сохранить и открыть в браузере&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Язык разметки страниц&lt;/dd&gt;
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Язык оформления&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> точки перед пунктами <code>ul</code>, номера 1-2-3 у <code>ol</code>, термины <code>dt</code> и описания <code>dd</code> с отступом.</p>
+<p>Каждый пункт <code>ul</code> и <code>ol</code> - это <code>&lt;li&gt;</code>. Он живёт <strong>только</strong> внутри <code>&lt;ul&gt;</code> или <code>&lt;ol&gt;</code>.</p>
+<h3 id="section-13">Вложенный список</h3>
+<p>Вложенный список ставится <strong>внутрь</strong> <code>&lt;li&gt;</code>, до <code>&lt;/li&gt;</code>:</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Frontend
+        &lt;ul&gt;
+            &lt;li&gt;HTML&lt;/li&gt;
+            &lt;li&gt;CSS&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Backend&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h3 id="section-14">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;li&gt;</code> без <code>&lt;ul&gt;</code> или <code>&lt;ol&gt;</code></td>
+<td>Оберните в список</td>
+</tr>
+<tr>
+<td><code>&lt;ol&gt;</code> для списка покупок</td>
+<td>Порядок не важен - <code>&lt;ul&gt;</code></td>
+</tr>
+<tr>
+<td>Вложенный список после <code>&lt;/li&gt;</code></td>
+<td>Ставьте внутрь <code>&lt;li&gt;</code></td>
+</tr>
+<tr>
+<td>Текст прямо в <code>&lt;ul&gt;</code> без <code>&lt;li&gt;</code></td>
+<td>Каждый пункт - <code>&lt;li&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-15">Цитаты, код и спецсимволы</h2>
+<h3 id="section-16"><code>&lt;blockquote&gt;</code> - цитата</h3>
+<pre><code class="language-html">&lt;blockquote&gt;
+    &lt;p&gt;Лучший способ научиться - начать делать.&lt;/p&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> абзац с отступом слева.</p>
+<h3 id="section-17"><code>&lt;code&gt;</code> - фрагмент кода</h3>
+<pre><code class="language-html">&lt;p&gt;Абзац создаётся тегом &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> «Абзац создаётся тегом <code>&lt;p&gt;</code>.» - тег показан моноширинным шрифтом.</p>
+<h3 id="section-18">Спецсимволы (HTML-сущности)</h3>
+<p>Почему в примере выше <code>&amp;lt;p&amp;gt;</code>, а не <code>&lt;p&gt;</code>? Если написать <code>&lt;p&gt;</code>, браузер решит, что это настоящий тег. Чтобы <strong>показать</strong> угловые скобки, их заменяют сущностями:</p>
+<table>
+<thead>
+<tr>
+<th>Пишем</th>
+<th>Видим</th>
+<th>Зачем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;lt;</code></td>
+<td><code>&lt;</code></td>
+<td>Показать «меньше» или начало тега</td>
+</tr>
+<tr>
+<td><code>&amp;gt;</code></td>
+<td><code>&gt;</code></td>
+<td>Показать «больше» или конец тега</td>
+</tr>
+<tr>
+<td><code>&amp;amp;</code></td>
+<td><code>&amp;</code></td>
+<td>Показать амперсанд</td>
+</tr>
+<tr>
+<td><code>&amp;copy;</code></td>
+<td>©</td>
+<td>Знак копирайта в подвале</td>
+</tr>
+<tr>
+<td><code>&amp;nbsp;</code></td>
+<td>неразрывный пробел</td>
+<td>Не разрывать «10 км»</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-19">Мини-задание 1</h2>
+<p>Без подглядывания соберите нумерованный список из трёх шагов «Как заварить чай». Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-20">Часть Б. Страница</h2>
+<h2 id="section-21">Семантические блоки</h2>
+<p><strong>Простыми словами:</strong> в доме есть прихожая, гостиная, кухня, кладовка. У каждой комнаты своё назначение. Страница тоже делится на «комнаты» - <strong>семантические блоки</strong>.</p>
+<p>Раньше страницы собирали из одинаковых <code>&lt;div&gt;</code> - «безликих коробок». Это называют «div-супом»: ни браузер, ни скринридер не понимают, где меню, а где подвал. Семантические теги называют блок по смыслу.</p>
+<table>
+<thead>
+<tr>
+<th>Тег</th>
+<th>Комната</th>
+<th>Что внутри</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>Прихожая</td>
+<td>Название сайта, логотип, иногда меню</td>
+</tr>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>Указатели на стенах</td>
+<td>Главное меню, содержание</td>
+</tr>
+<tr>
+<td><code>&lt;main&gt;</code></td>
+<td>Гостиная</td>
+<td>Основное содержимое. <strong>Один</strong> на странице</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code></td>
+<td>Зона в комнате</td>
+<td>Раздел на одну тему, обычно с заголовком</td>
+</tr>
+<tr>
+<td><code>&lt;article&gt;</code></td>
+<td>Книга на полке</td>
+<td>Самостоятельный материал: новость, пост, отзыв</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>Тумбочка сбоку</td>
+<td>Дополнительное: «Похожие статьи»</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>Кладовка у выхода</td>
+<td>Копирайт, контакты</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>section</code> или <code>article</code>?</strong> Задайте вопрос: «Есть ли смысл у блока, если вырезать его и опубликовать отдельно?» Да - это <code>&lt;article&gt;</code> (новость, пост). Нет - <code>&lt;section&gt;</code> (раздел «О нас» на главной).</p>
+<p><strong>А <code>&lt;div&gt;</code>?</strong> Он остаётся для случаев, когда ни один смысловой тег не подходит, например обёртка для оформления.</p>
+<h3 id="section-22">Собираем страницу</h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Блог о путешествиях&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;!-- меню: ссылки изучим в уроке 3 --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Поездка в Самарканд&lt;/h2&gt;
+            &lt;p&gt;В прошлом месяце я побывал в Самарканде.&lt;/p&gt;
+        &lt;/article&gt;
+
+        &lt;aside&gt;
+            &lt;h2&gt;Похожие записи&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Поездка в Бухару&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Блог о путешествиях&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> внешне - обычный текст сверху вниз. Блоки невидимы, пока нет CSS. Но откройте DevTools → Elements: структура страницы видна сразу.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-2-2.svg" alt="Схема 2: Текст и семантика"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-2-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Стрелки показывают вложенность примера. <code>header</code>, <code>main</code> и <code>footer</code> - соседи внутри <code>body</code>. <code>article</code> и <code>aside</code> - соседи внутри <code>main</code>. Ссылки в <code>nav</code> появятся в уроке 3.</p>
+<h3 id="section-23">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Два <code>&lt;main&gt;</code> на странице</td>
+<td>Только один</td>
+</tr>
+<tr>
+<td><code>&lt;div class=&quot;header&quot;&gt;</code> вместо <code>&lt;header&gt;</code></td>
+<td>Есть смысловой тег - берите его</td>
+</tr>
+<tr>
+<td><code>&lt;header&gt;</code> внутри <code>&lt;main&gt;</code> для шапки сайта</td>
+<td>Шапка сайта - снаружи <code>main</code></td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code> без заголовка</td>
+<td>Дайте разделу <code>h2</code> или используйте <code>div</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-24">Мини-задание 2</h2>
+<p>Разметьте блоками страницу кружка: название кружка в шапке, два раздела в основной части («О кружке», «Расписание»), копирайт в подвале. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-25">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Тег</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Главная тема страницы</td>
+<td><code>&lt;h1&gt;</code> - один</td>
+</tr>
+<tr>
+<td>Разделы и подразделы</td>
+<td><code>&lt;h2&gt;</code> → <code>&lt;h3&gt;</code> по порядку</td>
+</tr>
+<tr>
+<td>Абзац / перенос / смена темы</td>
+<td><code>&lt;p&gt;</code> / <code>&lt;br&gt;</code> / <code>&lt;hr&gt;</code></td>
+</tr>
+<tr>
+<td>Важно / ударение / подсветка / примечание</td>
+<td><code>&lt;strong&gt;</code> / <code>&lt;em&gt;</code> / <code>&lt;mark&gt;</code> / <code>&lt;small&gt;</code></td>
+</tr>
+<tr>
+<td>Без порядка / по порядку / термины</td>
+<td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> / <code>&lt;dl&gt;</code></td>
+</tr>
+<tr>
+<td>Цитата / код</td>
+<td><code>&lt;blockquote&gt;</code> / <code>&lt;code&gt;</code></td>
+</tr>
+<tr>
+<td>Показать <code>&lt;</code> и ©</td>
+<td><code>&amp;lt;</code> и <code>&amp;copy;</code></td>
+</tr>
+<tr>
+<td>Шапка / меню / основное / подвал</td>
+<td><code>&lt;header&gt;</code> / <code>&lt;nav&gt;</code> / <code>&lt;main&gt;</code> / <code>&lt;footer&gt;</code></td>
+</tr>
+<tr>
+<td>Раздел / самостоятельный материал / дополнение</td>
+<td><code>&lt;section&gt;</code> / <code>&lt;article&gt;</code> / <code>&lt;aside&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-26">Самостоятельная работа</h2>
+<h3 id="section-27">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Соберите <strong>памятку</strong> на знакомую тему: подготовка к поездке, уход за растением, организация учебного дня.</p>
+<ol>
+<li>Полный документ: DOCTYPE, <code>lang</code>, UTF-8, название вкладки.</li>
+<li><code>&lt;header&gt;</code> с одним <code>&lt;h1&gt;</code> - темой памятки.</li>
+<li>Один <code>&lt;main&gt;</code> и в нём два <code>&lt;section&gt;</code>, у каждого <code>&lt;h2&gt;</code>:
+<ul>
+<li>первый раздел - список нужных вещей (<code>&lt;ul&gt;</code>);</li>
+<li>второй - порядок действий (<code>&lt;ol&gt;</code>).</li>
+</ul>
+</li>
+<li>В одном из абзацев выделите важное через <code>&lt;strong&gt;</code>.</li>
+<li><code>&lt;footer&gt;</code> с примечанием в <code>&lt;small&gt;</code>.</li>
+</ol>
+<p>Ссылки, картинки и <code>&lt;div&gt;</code> в этом задании не используйте.</p>
+<p>Что проверяет платформа: скелет документа, <code>header</code>, <code>main</code>, <code>footer</code>, два <code>section</code>, один <code>h1</code>, минимум два <code>h2</code>, <code>ul</code>, <code>ol</code>, не меньше пяти <code>li</code>, <code>strong</code>, <code>small</code>, отсутствие <code>&lt;div&gt;</code> и <code>&lt;br&gt;&lt;br&gt;</code>.</p>
+<h3 id="section-28">Часть 2. Проект на компьютере</h3>
+<p>Сохраните памятку как <code>guide.html</code> в папке <code>my-html-site</code>. Откройте в браузере и в DevTools. Устно объясните, почему для каждого блока выбран именно этот тег.</p>
+<h3 id="section-29">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Один <code>&lt;h1&gt;</code> и два <code>&lt;h2&gt;</code>; уровни выбраны по структуре.</label></li>
+<li class="check"><label><input type="checkbox"> Один <code>&lt;main&gt;</code>; каждый <code>&lt;section&gt;</code> начинается с заголовка.</label></li>
+<li class="check"><label><input type="checkbox"> <code>&lt;ul&gt;</code> там, где порядок не важен, <code>&lt;ol&gt;</code> - где важен.</label></li>
+<li class="check"><label><input type="checkbox"> Каждый пункт - <code>&lt;li&gt;</code> внутри списка.</label></li>
+<li class="check"><label><input type="checkbox"> <code>&lt;strong&gt;</code> выделяет только действительно важное.</label></li>
+<li class="check"><label><input type="checkbox"> Можете объяснить выбор каждого блока.</label></li>
+</ul>
+<hr>
+<h2 id="section-30">Вопросы для самопроверки</h2>
+<ol>
+<li>Сколько <code>&lt;h1&gt;</code> должно быть на странице по правилам курса?</li>
+<li>Почему нельзя ставить <code>&lt;h4&gt;</code> сразу после <code>&lt;h2&gt;</code>?</li>
+<li>Чем <code>&lt;br&gt;</code> отличается от нового <code>&lt;p&gt;</code>?</li>
+<li>Чем <code>&lt;strong&gt;</code> отличается от <code>&lt;b&gt;</code>?</li>
+<li>Когда нужен <code>&lt;ol&gt;</code>, а когда <code>&lt;ul&gt;</code>?</li>
+<li>Где ставится вложенный список?</li>
+<li>Как показать на странице текст <code>&lt;p&gt;</code>, чтобы браузер не принял его за тег?</li>
+<li>Чем <code>&lt;article&gt;</code> отличается от <code>&lt;section&gt;</code>?</li>
+<li>Сколько <code>&lt;main&gt;</code> может быть на странице?</li>
+<li>Когда всё ещё нужен <code>&lt;div&gt;</code>?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-31">Что дальше</h2>
+<p>Страница стала структурной, но она одна. В уроке 3 свяжем несколько страниц ссылками, сделаем общее меню и научимся прыгать к нужному разделу.</p>
+<hr>
+<h2 id="section-32">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li>В <code>&lt;body&gt;</code>.</li>
+<li><code>&lt;title&gt;</code> - название вкладки, <code>&lt;h1&gt;</code> - заголовок на странице.</li>
+<li><code>&lt;/p&gt;</code>.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Вскипятить воду&lt;/li&gt;
+    &lt;li&gt;Положить чай в чашку&lt;/li&gt;
+    &lt;li&gt;Залить кипятком и подождать 3 минуты&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Кружок веб-разработки&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;О кружке&lt;/h2&gt;
+            &lt;p&gt;Учимся делать сайты с нуля.&lt;/p&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Расписание&lt;/h2&gt;
+            &lt;p&gt;Каждую среду в 15:00.&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Кружок веб-разработки&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>Один.</li>
+<li>Пропуск уровня путает оглавление: где подраздел <code>h3</code>?</li>
+<li><code>&lt;br&gt;</code> переносит строку внутри того же абзаца, <code>&lt;p&gt;</code> начинает новую мысль.</li>
+<li><code>&lt;strong&gt;</code> - важность, <code>&lt;b&gt;</code> - привлечение внимания без важности.</li>
+<li><code>&lt;ol&gt;</code> - порядок важен (инструкция), <code>&lt;ul&gt;</code> - не важен (покупки).</li>
+<li>Внутрь <code>&lt;li&gt;</code>, до <code>&lt;/li&gt;</code>.</li>
+<li>Через сущности: <code>&amp;lt;p&amp;gt;</code>.</li>
+<li><code>&lt;article&gt;</code> имеет смысл отдельно от страницы, <code>&lt;section&gt;</code> - часть страницы.</li>
+<li>Один.</li>
+<li>Когда ни один смысловой тег не подходит, например обёртка для оформления.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-1.html">Назад</a> · <a href="ru-lesson-3.html">Вперёд</a> · <a href="../Lesson-2/practice.html">Практика</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-2/ru/%D0%A2%D0%B5%D0%BA%D1%81%D1%82%20%D0%B8%20%D1%81%D0%B5%D0%BC%D0%B0%D0%BD%D1%82%D0%B8%D0%BA%D0%B0.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uz">
+    <head>
+        <meta charset="UTF-8">
+        <title>O‘quv anketasi</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Klubga yozilish formasining namunasini sinab ko‘ring.">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">Bosh sahifa</a>
+                    </li>
+                    <li>
+                        <a href="about.html">Klub haqida</a>
+                    </li>
+                    <li>
+                        <a href="schedule.html">Uchrashuvlar</a>
+                    </li>
+                    <li>
+                        <a href="join.html">Ishtirok etish</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>O‘quv anketasi</h1>
+            <p>Klubga yozilish formasining namunasini sinab ko‘ring.</p>
+            <p>Bu o‘quv formasi. Haqiqiy shaxsiy ma’lumot kiritmang; ariza saqlanmaydi.</p>
+            <form method="get">
+                <fieldset>
+                    <legend>Ishtirokchi ma’lumotlari</legend>
+                    <p>
+                        <label for="member-id">Ishtirokchi IDsi (aynan 7 ta raqam, majburiy):</label>
+                        <input type="text" id="member-id" name="member_id" pattern="[0-9]{7}" required>
+                    </p>
+                    <p>
+                        <label for="group">Mashg‘ulot yo‘nalishi:</label>
+                        <select id="group" name="group">
+                            <optgroup label="O‘qish">
+                                <option value="story" selected>Hikoya tahlili</option>
+                                <option value="poetry">She’r o‘qish</option>
+                            </optgroup>
+                            <optgroup label="Yozish">
+                                <option value="essay">Esse yozish</option>
+                            </optgroup>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="note">Kutayotgan natijangiz:</label>
+                        <textarea id="note" name="note" rows="4" cols="30" maxlength="300">Yangi kitoblar bilan tanishmoqchiman.</textarea>
+                    </p>
+                </fieldset>
+                <button type="submit">O‘quv anketasini yuborish</button>
+                <button type="reset">Dastlabki qiymatlarga qaytarish</button>
+            </form>
+        </main>
+        <footer>
+            <p>
+                <small>Kitob do‘stlari — o‘quv loyihasi. Nashr etilmagan.</small>
+            </p>
+        </footer>
+    </body>
+</html>

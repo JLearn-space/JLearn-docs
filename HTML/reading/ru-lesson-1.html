@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Введение в HTML структура документа · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">План урока</a><a href="#section-5">Что такое HTML</a><a href="#section-6">Инструменты</a><a href="#section-9">Тег, атрибут, элемент</a><a href="#section-14">Скелет HTML-документа</a><a href="#section-16">Мини-задание 1</a><a href="#section-17">Первая страница</a><a href="#section-19">Мини-задание 2</a><a href="#section-20">Итоги урока: шпаргалка</a><a href="#section-21">Самостоятельная работа</a><a href="#section-25">Вопросы для самопроверки</a><a href="#section-26">Что дальше</a><a href="#section-27">Ответы</a></details></aside><article><h1 id="section-1">Введение в HTML структура документа</h1>
+<p><a href="index.html">Содержание</a> · <a href="index.html">← Назад</a> · <a href="ru-lesson-2.html">Вперёд →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Практика</a></p>
+<blockquote>
+<p><strong>Первый урок курса.</strong> Сегодня вы создадите свою первую веб-страницу и откроете её в браузере. Знания программирования не нужны: достаточно уметь создавать папки и сохранять файлы.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Откройте любой сайт: новости, магазин, страницу университета. За каждым из них стоит обычный текстовый файл с HTML-разметкой. Браузер читает этот файл и превращает его в страницу.</p>
+<p>Через час у вас будет такой же файл. Вы напишете его сами, откроете в браузере и увидите свою страницу.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Объяснять, что такое HTML и чем он отличается от CSS и JavaScript.</li>
+<li>Различать тег, атрибут и элемент.</li>
+<li>Писать скелет любого HTML-документа: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</li>
+<li>Создавать файл <code>index.html</code>, сохранять его и открывать в браузере.</li>
+<li>Смотреть разметку любого сайта через DevTools.</li>
+</ul>
+<hr>
+<h2 id="section-4">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что такое HTML</td>
+<td>Каркас дома и его отделка</td>
+</tr>
+<tr>
+<td>Инструменты</td>
+<td>VS Code, Live Server, DevTools</td>
+</tr>
+<tr>
+<td>Тег, атрибут, элемент</td>
+<td>Разбираем на примере посылки</td>
+</tr>
+<tr>
+<td>Скелет документа</td>
+<td>DOCTYPE, html, head, body построчно</td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Собрать скелет без подсказок</td>
+</tr>
+<tr>
+<td>Первая страница</td>
+<td>Пишем, сохраняем, открываем</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Изменить страницу и увидеть результат</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и страница знакомства</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-5">Что такое HTML</h2>
+<p><strong>Простыми словами:</strong> чтобы построить дом, сначала ставят каркас: стены, перекрытия, лестницы. Без каркаса не на что повесить шторы и провести свет.</p>
+<p><strong>HTML</strong> (HyperText Markup Language, язык гипертекстовой разметки) - это каркас веб-страницы. Он описывает, <strong>что</strong> на странице: где заголовок, где абзац, где картинка.</p>
+<p>У каркаса есть два помощника:</p>
+<table>
+<thead>
+<tr>
+<th>Технология</th>
+<th>Роль в доме</th>
+<th>Что делает на сайте</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTML</strong></td>
+<td>Каркас</td>
+<td>Структура и смысл: заголовки, абзацы, списки</td>
+</tr>
+<tr>
+<td><strong>CSS</strong></td>
+<td>Дизайнер интерьера</td>
+<td>Цвета, шрифты, расположение</td>
+</tr>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>Электрика и автоматика</td>
+<td>Поведение: реакция на клики, изменение страницы</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-1-1.svg" alt="Схема 1: Введение в HTML структура документа"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-1-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Три ветви - три разные задачи. В этом курсе вы пишете HTML. CSS и JavaScript показаны, чтобы вы понимали, где граница.</p>
+<p><strong>Важно:</strong> HTML - <strong>язык разметки</strong>, а не программирования. В нём нет условий, циклов и вычислений. Он только размечает текст: «это заголовок», «это абзац».</p>
+<hr>
+<h2 id="section-6">Инструменты</h2>
+<h3 id="section-7">VS Code - редактор кода</h3>
+<ol>
+<li>Скачайте бесплатный редактор с сайта <a href="https://code.visualstudio.com">code.visualstudio.com</a>.</li>
+<li>Установите и откройте его.</li>
+<li>Слева нажмите значок <strong>Extensions</strong> (четыре квадратика).</li>
+<li>Найдите <strong>Live Server</strong> (автор Ritwick Dey) и нажмите <strong>Install</strong>.</li>
+</ol>
+<p><strong>Зачем Live Server:</strong> он сам обновляет страницу в браузере каждый раз, когда вы сохраняете файл. Без него нужно нажимать F5 вручную.</p>
+<p><strong>Полезный приём - Emmet.</strong> В пустом файле <code>.html</code> наберите <code>!</code> и нажмите Tab. VS Code сам вставит скелет документа. Но сначала научитесь писать скелет руками: на проверке в IDE подсказок не будет.</p>
+<h3 id="section-8">DevTools - инструменты разработчика</h3>
+<p>DevTools встроены в каждый браузер. Они показывают, из каких элементов состоит открытая страница.</p>
+<p><strong>Как открыть:</strong> правый клик по странице → <strong>Просмотреть код</strong> (Inspect). Или F12. На macOS: Cmd+Option+I.</p>
+<p><strong>Попробуйте сейчас:</strong> откройте DevTools на любом сайте. Во вкладке <strong>Elements</strong> найдите тег <code>&lt;h1&gt;</code> и кликните по нему. На странице подсветится главный заголовок.</p>
+<p><strong>Запомните:</strong> изменения в DevTools живут только до обновления страницы. Файл на диске они не меняют.</p>
+<hr>
+<h2 id="section-9">Тег, атрибут, элемент</h2>
+<p>Новички почти всегда путают эти три слова. Разберём на примере посылки.</p>
+<table>
+<thead>
+<tr>
+<th>Термин</th>
+<th>В посылке</th>
+<th>В HTML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Тег</strong></td>
+<td>Крышка и дно коробки</td>
+<td><code>&lt;p&gt;</code> открывает, <code>&lt;/p&gt;</code> закрывает</td>
+</tr>
+<tr>
+<td><strong>Атрибут</strong></td>
+<td>Наклейка «Хрупкое»</td>
+<td><code>class=&quot;intro&quot;</code> внутри открывающего тега</td>
+</tr>
+<tr>
+<td><strong>Элемент</strong></td>
+<td>Вся посылка целиком</td>
+<td>Теги + атрибуты + содержимое</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Добро пожаловать!&lt;/p&gt;
+</code></pre>
+<ul>
+<li><code>&lt;p class=&quot;intro&quot;&gt;</code> - открывающий тег с атрибутом;</li>
+<li><code>Добро пожаловать!</code> - содержимое;</li>
+<li><code>&lt;/p&gt;</code> - закрывающий тег (со слэшем <code>/</code>);</li>
+<li>вся строка целиком - <strong>элемент</strong> «абзац».</li>
+</ul>
+<h3 id="section-10">Парные и пустые элементы</h3>
+<p>Большинство элементов <strong>парные</strong>: есть открывающий и закрывающий тег, между ними содержимое.</p>
+<p>Некоторые элементы <strong>пустые</strong>: у них нет содержимого и закрывающего тега.</p>
+<pre><code class="language-html">&lt;br&gt;
+&lt;img src=&quot;cat.jpg&quot; alt=&quot;Рыжий кот&quot;&gt;
+</code></pre>
+<p>Их разберём в следующих уроках. Сейчас важно увидеть разницу в записи.</p>
+<h3 id="section-11">Атрибуты</h3>
+<p>Атрибут пишется <strong>только в открывающем теге</strong> в форме <code>имя=&quot;значение&quot;</code>. Несколько атрибутов разделяются пробелом:</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Рыжий кот на подоконнике&quot; width=&quot;300&quot;&gt;
+</code></pre>
+<h3 id="section-12">Комментарии</h3>
+<p>Заметку для себя можно оставить в комментарии. Браузер его не покажет:</p>
+<pre><code class="language-html">&lt;!-- Это комментарий: его видно только в коде --&gt;
+</code></pre>
+<h3 id="section-13">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Не закрыли <code>&lt;p&gt;</code></td>
+<td>Закрывайте парные элементы: <code>&lt;p&gt;...&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>Написали <code>&lt;p/&gt;</code> вместо <code>&lt;/p&gt;</code></td>
+<td>Слэш ставится <strong>перед</strong> именем: <code>&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>Атрибут в закрывающем теге: <code>&lt;/p class=&quot;intro&quot;&gt;</code></td>
+<td>Атрибуты - только в открывающем теге</td>
+</tr>
+<tr>
+<td>Значение без кавычек</td>
+<td>В курсе всегда пишем кавычки: <code>class=&quot;intro&quot;</code></td>
+</tr>
+<tr>
+<td>Неверный порядок вложения: <code>&lt;p&gt;&lt;strong&gt;текст&lt;/p&gt;&lt;/strong&gt;</code></td>
+<td>Сначала закрываем внутренний: <code>&lt;/strong&gt;&lt;/p&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-14">Скелет HTML-документа</h2>
+<p>Каждая HTML-страница начинается с одного и того же скелета:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Моя первая страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Разберём построчно.</p>
+<table>
+<thead>
+<tr>
+<th>Строка</th>
+<th>Что значит</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;!DOCTYPE html&gt;</code></td>
+<td>«Это современный HTML». Включает стандартный режим браузера</td>
+<td>Штамп «проект утверждён»</td>
+</tr>
+<tr>
+<td><code>&lt;html lang=&quot;ru&quot;&gt;</code></td>
+<td>Корень документа. <code>lang</code> - язык текста</td>
+<td>Весь дом с табличкой «здесь говорят по-русски»</td>
+</tr>
+<tr>
+<td><code>&lt;head&gt;</code></td>
+<td>Служебная информация. На странице не видна</td>
+<td>Техпаспорт дома</td>
+</tr>
+<tr>
+<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Кодировка. Без неё кириллица может превратиться в «кракозябры»</td>
+<td>Язык, на котором заполнен паспорт</td>
+</tr>
+<tr>
+<td><code>&lt;title&gt;</code></td>
+<td>Название вкладки браузера</td>
+<td>Табличка с адресом на воротах</td>
+</tr>
+<tr>
+<td><code>&lt;body&gt;</code></td>
+<td>Всё, что видит пользователь</td>
+<td>Комнаты, где живут</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Почему важен <code>lang</code>:</strong> скринридер (программа, которая читает страницу вслух) выбирает по нему произношение. Браузер по нему предлагает перевод.</p>
+<p><strong>Почему важна кодировка:</strong> без <code>charset</code> слово «привет» может выглядеть как <code>Ð¿Ñ€Ð¸Ð²ÐµÑ‚</code>.</p>
+<p><strong><code>&lt;title&gt;</code> и <code>&lt;h1&gt;</code> - разные вещи:</strong> <code>title</code> виден на вкладке, а <code>h1</code> - на самой странице, крупным шрифтом.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-1-2.svg" alt="Схема 2: Введение в HTML структура документа"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-1-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Стрелка ведёт от родителя к вложенному элементу. DOCTYPE стоит перед <code>html</code>, а не внутри него. <code>head</code> и <code>body</code> лежат внутри <code>html</code> рядом друг с другом.</p>
+<h3 id="section-15">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нет <code>&lt;!DOCTYPE html&gt;</code></td>
+<td>Пишите первой строкой файла</td>
+</tr>
+<tr>
+<td>Текст прямо в <code>&lt;html&gt;</code> или в <code>&lt;head&gt;</code></td>
+<td>Видимый текст - только в <code>&lt;body&gt;</code></td>
+</tr>
+<tr>
+<td>Нет <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Добавляйте в <code>&lt;head&gt;</code> в каждом файле</td>
+</tr>
+<tr>
+<td>Путают <code>&lt;title&gt;</code> и <code>&lt;h1&gt;</code></td>
+<td><code>title</code> - вкладка, <code>h1</code> - заголовок на странице</td>
+</tr>
+<tr>
+<td>Два <code>&lt;body&gt;</code> или <code>&lt;head&gt;</code></td>
+<td>В документе по одному</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16">Мини-задание 1</h2>
+<p>Соберите скелет документа <strong>без подглядывания</strong>:</p>
+<ol>
+<li>Декларация типа документа.</li>
+<li>Корневой элемент с русским языком.</li>
+<li>Служебная часть: кодировка UTF-8 и вкладка «Урок 1».</li>
+<li>Пустая видимая часть.</li>
+</ol>
+<p>Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-17">Первая страница</h2>
+<p><strong>Шаг 1.</strong> Создайте папку <code>my-html-site</code>. В VS Code: <strong>File → Open Folder</strong> и выберите её.</p>
+<p><strong>Шаг 2.</strong> Создайте файл <code>index.html</code>. Это стандартное имя главной страницы сайта. Убедитесь, что файл не называется <code>index.html.txt</code>.</p>
+<p><strong>Шаг 3.</strong> Вставьте код:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Моя первая страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+    &lt;p&gt;Это моя первая HTML-страница.&lt;/p&gt;
+    &lt;p&gt;Я изучаю HTML на платформе JLearn.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Здесь два новых элемента: <code>&lt;h1&gt;</code> - главный заголовок страницы, <code>&lt;p&gt;</code> - абзац. Подробно о них - в уроке 2.</p>
+<p><strong>Шаг 4.</strong> Сохраните: Ctrl+S (на macOS: Cmd+S).</p>
+<p><strong>Шаг 5.</strong> Откройте в браузере: правый клик по файлу в VS Code → <strong>Open with Live Server</strong>. Или дважды кликните по файлу в папке.</p>
+<p><strong>Что увидите:</strong> на вкладке - «Моя первая страница». На странице - крупный заголовок «Привет, мир!» и под ним два абзаца с отступом между ними.</p>
+<h3 id="section-18">Попробуйте сломать</h3>
+<ol>
+<li>Удалите <code>&lt;/h1&gt;</code> и сохраните. Что стало с абзацами? (Подсказка: браузер не знает, где кончается заголовок.)</li>
+<li>Верните <code>&lt;/h1&gt;</code>. Теперь удалите <code>&lt;/title&gt;</code> и сохраните. Что видно на странице и на вкладке?</li>
+<li>Верните всё назад. Страница снова в порядке?</li>
+</ol>
+<p>Так вы на практике увидите, зачем закрывать теги.</p>
+<hr>
+<h2 id="section-19">Мини-задание 2</h2>
+<ol>
+<li>Измените текст второго абзаца в редакторе.</li>
+<li>Сохраните файл.</li>
+<li>Посмотрите в браузер: изменение появилось?</li>
+<li>Теперь измените текст заголовка <strong>в DevTools</strong> (двойной клик по тексту во вкладке Elements). Обновите страницу F5. Что произошло с изменением?</li>
+</ol>
+<p>Ответ - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-20">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Что</th>
+<th>Запись</th>
+<th>Запомнить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тип документа</td>
+<td><code>&lt;!DOCTYPE html&gt;</code></td>
+<td>Первая строка файла</td>
+</tr>
+<tr>
+<td>Корень и язык</td>
+<td><code>&lt;html lang=&quot;ru&quot;&gt;</code></td>
+<td>Язык - по тексту страницы</td>
+</tr>
+<tr>
+<td>Служебная часть</td>
+<td><code>&lt;head&gt;...&lt;/head&gt;</code></td>
+<td>Не видна на странице</td>
+</tr>
+<tr>
+<td>Кодировка</td>
+<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Иначе «кракозябры»</td>
+</tr>
+<tr>
+<td>Вкладка</td>
+<td><code>&lt;title&gt;...&lt;/title&gt;</code></td>
+<td>Не путать с <code>h1</code></td>
+</tr>
+<tr>
+<td>Видимая часть</td>
+<td><code>&lt;body&gt;...&lt;/body&gt;</code></td>
+<td>Весь контент - здесь</td>
+</tr>
+<tr>
+<td>Заголовок и абзац</td>
+<td><code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code></td>
+<td>Подробно - в уроке 2</td>
+</tr>
+<tr>
+<td>Комментарий</td>
+<td><code>&lt;!-- ... --&gt;</code></td>
+<td>Браузер его не показывает</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-21">Самостоятельная работа</h2>
+<h3 id="section-22">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Под уроком откройте редактор и соберите <strong>страницу знакомства</strong> с нуля:</p>
+<ol>
+<li>Скелет документа: DOCTYPE, <code>html</code> с языком, <code>head</code>, <code>body</code>.</li>
+<li>В <code>head</code>: кодировка UTF-8 и название вкладки «Знакомство».</li>
+<li>В <code>body</code>: <strong>один</strong> главный заголовок и <strong>два</strong> абзаца - о себе и о том, зачем вы изучаете HTML.</li>
+</ol>
+<p>Нажмите <strong>«Проверить»</strong>. Если проверка не прошла, под редактором появится список того, чего не хватает. Исправьте и проверьте снова.</p>
+<p><strong>Как увидеть результат:</strong> скопируйте код в файл <code>index.html</code> на компьютере и откройте в браузере.</p>
+<p>Что проверяет платформа: DOCTYPE, <code>lang</code>, <code>charset</code>, наличие <code>head</code>, <code>body</code> и <code>title</code>, ровно один <code>h1</code> и не меньше двух <code>p</code>.</p>
+<h3 id="section-23">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Создайте папку <code>my-html-site</code> и в ней <code>index.html</code> с той же страницей знакомства.</li>
+<li>Откройте её в браузере.</li>
+<li>Измените второй абзац в редакторе, сохраните, проверьте, что изменение появилось.</li>
+</ol>
+<h3 id="section-24">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Файл называется <code>index.html</code>, а не <code>index.html.txt</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Есть DOCTYPE, <code>html</code>, <code>head</code>, <code>body</code>; все парные теги закрыты.</label></li>
+<li class="check"><label><input type="checkbox"> Язык совпадает с языком текста, кодировка - UTF-8.</label></li>
+<li class="check"><label><input type="checkbox"> Название вкладки и заголовок на странице - разные элементы.</label></li>
+<li class="check"><label><input type="checkbox"> Один <code>&lt;h1&gt;</code> и два <code>&lt;p&gt;</code> видны в браузере.</label></li>
+<li class="check"><label><input type="checkbox"> Изменение, сохранённое в редакторе, появилось после обновления.</label></li>
+</ul>
+<hr>
+<h2 id="section-25">Вопросы для самопроверки</h2>
+<ol>
+<li>Чем HTML отличается от языка программирования?</li>
+<li>За что отвечают HTML, CSS и JavaScript?</li>
+<li>Чем элемент отличается от тега?</li>
+<li>Где пишется атрибут: в открывающем или закрывающем теге?</li>
+<li>Что произойдёт, если не указать <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>?</li>
+<li>Зачем атрибут <code>lang</code>?</li>
+<li>Где виден <code>&lt;title&gt;</code>, а где <code>&lt;h1&gt;</code>?</li>
+<li>Что попадает в <code>&lt;head&gt;</code>, а что в <code>&lt;body&gt;</code>?</li>
+<li>Почему изменение в DevTools не сохраняется в файле?</li>
+<li>Почему главную страницу называют <code>index.html</code>?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, для зачёта нужно 70%. Урок засчитывается, когда сдан и тест, и задание в IDE.</p>
+<hr>
+<h2 id="section-26">Что дальше</h2>
+<p>Скелет готов. В уроке 2 наполним его смыслом: заголовки разных уровней, абзацы, списки и семантические блоки страницы - шапка, навигация, основная часть, подвал.</p>
+<hr>
+<h2 id="section-27">Ответы</h2>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Урок 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Мини-задание 2.</strong> Изменение из редактора появилось, потому что вы сохранили файл. Изменение из DevTools пропало после F5: DevTools меняет только то, что сейчас открыто в браузере, а файл на диске остаётся прежним.</p>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>В HTML нет условий, циклов и вычислений. Он только размечает содержимое.</li>
+<li>HTML - структура и смысл, CSS - оформление, JavaScript - поведение.</li>
+<li>Тег - это запись <code>&lt;p&gt;</code> или <code>&lt;/p&gt;</code>. Элемент - всё целиком: теги, атрибуты и содержимое.</li>
+<li>Только в открывающем.</li>
+<li>Кириллица может отобразиться нечитаемыми символами.</li>
+<li>Чтобы скринридер выбрал правильное произношение, а браузер - перевод.</li>
+<li><code>title</code> - на вкладке браузера, <code>h1</code> - на самой странице.</li>
+<li>В <code>head</code> - служебное: кодировка, название вкладки. В <code>body</code> - всё видимое.</li>
+<li>DevTools меняет открытую копию страницы в браузере, а не файл.</li>
+<li>Сервер открывает <code>index.html</code> по умолчанию, когда в адресе не указан файл.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="index.html">← Назад</a> · <a href="ru-lesson-2.html">Вперёд →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Практика</a></p>
+</article></main><footer><a href="../Lesson-1/ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20HTML%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lesson 6 — Forms. Part 1</title>
+    </head>
+    <body>
+        <h1>Forms: Input Basics</h1>
+        <h2>Example: Registration Form</h2>
+        <p>Learning demo: use fictional data only. Submitting validates the fields and reloads this page with named values in the URL. No message is delivered or saved by an application.</p>
+        <form method="get">
+            <p>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+            </p>
+            <p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </p>
+            <p>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </p>
+            <p>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age">
+            </p>
+            <p>
+                <label for="birthday">Date of Birth:</label>
+                <input type="date" id="birthday" name="birthday">
+            </p>
+            <p>Topics of interest:</p>
+            <p>
+                <input type="checkbox" id="html" name="topics" value="html">
+                <label for="html">HTML</label>
+            </p>
+            <p>
+                <input type="checkbox" id="css" name="topics" value="css">
+                <label for="css">CSS</label>
+            </p>
+            <p>
+                <input type="checkbox" id="js" name="topics" value="js">
+                <label for="js">JavaScript</label>
+            </p>
+            <p>Skill level:</p>
+            <p>
+                <input type="radio" id="beginner" name="level" value="beginner">
+                <label for="beginner">Beginner</label>
+            </p>
+            <p>
+                <input type="radio" id="intermediate" name="level" value="intermediate">
+                <label for="intermediate">Intermediate</label>
+            </p>
+            <p>
+                <input type="radio" id="advanced" name="level" value="advanced">
+                <label for="advanced">Advanced</label>
+            </p>
+            <p>
+                <label for="search">Search:</label>
+                <input type="text" id="search" name="search" placeholder="e.g. HTML course">
+            </p>
+            <p>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" value="Tashkent">
+            </p>
+            <p>
+                <label for="required-email">Required email:</label>
+                <input type="email" id="required-email" name="required-email" required>
+            </p>
+            <input type="submit" value="Check demo form">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Итоговый проект от планирования до публикации · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из уроков 3, 8 и 9</a><a href="#section-5">План урока</a><a href="#section-6">Исходный код проекта</a><a href="#section-7">Планирование</a><a href="#section-11">Шаг 1. Скелет</a><a href="#section-12">Шаг 2. Контент</a><a href="#section-13">Шаг 3. Медиа</a><a href="#section-14">Шаг 4. Таблица</a><a href="#section-15">Шаг 5. Форма</a><a href="#section-16">Шаг 6. Метатеги, CSS и JS</a><a href="#section-17">Шаг 7. Доступность</a><a href="#section-18">Чек-лист и журнал</a><a href="#section-19">Публикация на GitHub Pages</a><a href="#section-26">Итоги курса</a><a href="#section-27">Самостоятельная работа</a><a href="#section-29">Независимый итоговый экзамен</a><a href="#section-30">Вопросы для самопроверки</a><a href="#section-31">Ответы</a></details></aside><article><h1 id="section-1">Итоговый проект от планирования до публикации</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-9.html">Назад</a> · <a href="../final-project/README.md">Исходный код проекта</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+<blockquote>
+<p><strong>Связь с прошлыми уроками:</strong> новых тегов сегодня не будет. Вы соберёте всё, что изучили в уроках 1–9, в один сайт и опубликуете его в интернете.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>До сих пор ваши страницы жили только на вашем компьютере. Сегодня у сайта появится настоящий адрес вида <code>ваше-имя.github.io/my-site</code>. Его можно отправить другу, преподавателю или вставить в резюме.</p>
+<p>Готовый сайт из четырёх страниц - ваше первое портфолио.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Планировать сайт до первой строки кода: карта страниц и план содержимого.</li>
+<li>Собирать сайт по шагам: скелет → контент → медиа → таблица → форма → метатеги → доступность.</li>
+<li>Проверять сайт по чек-листу и записывать проверки в журнал.</li>
+<li>Публиковать сайт на GitHub Pages и проверять публичную ссылку.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из уроков 3, 8 и 9</h2>
+<ol>
+<li>Почему пути в проекте должны быть относительными?</li>
+<li>Зачем ссылка «Перейти к основному содержимому»?</li>
+<li>Какие два метатега обязательны на каждой странице, кроме <code>charset</code>?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Исходный код проекта</td>
+<td>Где лежит образец и как им пользоваться</td>
+</tr>
+<tr>
+<td>Планирование</td>
+<td>Чертёж дома до стройки</td>
+</tr>
+<tr>
+<td>Шаги 1–7</td>
+<td>Собираем сайт по слоям</td>
+</tr>
+<tr>
+<td>Чек-лист и журнал</td>
+<td>Приёмка перед сдачей</td>
+</tr>
+<tr>
+<td>Публикация</td>
+<td>GitHub Pages</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE</td>
+</tr>
+<tr>
+<td>Независимый итоговый экзамен</td>
+<td>Свой сайт с нуля</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Исходный код проекта</h2>
+<p>Образец - портфолио Азиза из четырёх страниц - лежит в отдельной папке <a href="../final-project/README.md">final-project</a>:</p>
+<pre><code>final-project/
+├── starter/          ← пустые заготовки 4 страниц
+├── steps/
+│   ├── 01-skeleton/  ← после шага 1
+│   ├── 02-content/
+│   ├── 03-media/
+│   ├── 04-table/
+│   ├── 05-form/
+│   ├── 06-meta/
+│   └── 07-a11y/      ← после шага 7
+├── final/            ← готовый сайт
+└── docs/             ← план, чек-лист, журнал
+</code></pre>
+<p><strong>Как пользоваться:</strong> делаете шаг урока на <strong>своём</strong> сайте, а потом сравниваете с папкой этого шага. Каждая папка шага - рабочий сайт: откройте её через Live Server.</p>
+<p><strong>Не копируйте образец.</strong> Сравнивайте и объясняйте разницу. На экзамене нужен свой сайт на другую тему.</p>
+<hr>
+<h2 id="section-7">Планирование</h2>
+<p><strong>Простыми словами:</strong> дом не строят без чертежа. Сначала рисуют, сколько комнат и где двери. Ошибку на бумаге исправить за минуту, а в готовом доме - неделю.</p>
+<h3 id="section-8">Шаг А. Тема</h3>
+<p>Выберите тему, о которой вам есть что рассказать:</p>
+<ul>
+<li>личное портфолио;</li>
+<li>клуб или кружок;</li>
+<li>небольшое кафе, мастерская, репетитор.</li>
+</ul>
+<h3 id="section-9">Шаг Б. Карта сайта</h3>
+<table>
+<thead>
+<tr>
+<th>Страница</th>
+<th>Файл</th>
+<th>Что на ней</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Главная</td>
+<td><code>index.html</code></td>
+<td>Приветствие, фото, ссылки на разделы</td>
+</tr>
+<tr>
+<td>Обо мне</td>
+<td><code>about.html</code></td>
+<td>Рассказ, навыки, путь</td>
+</tr>
+<tr>
+<td>Проекты</td>
+<td><code>projects.html</code></td>
+<td>Работы с картинками</td>
+</tr>
+<tr>
+<td>Контакты</td>
+<td><code>contact.html</code></td>
+<td>Способы связи, форма</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-10">Шаг В. План каждой страницы</h3>
+<p>Для каждой страницы запишите, какие теги понадобятся. Например, <code>contact.html</code>:</p>
+<ul>
+<li><code>header</code> с меню на 4 страницы;</li>
+<li><code>main</code> с <code>h1</code> «Контакты»;</li>
+<li>таблица способов связи с <code>caption</code> и <code>scope</code>;</li>
+<li>форма с <code>fieldset</code>, <code>legend</code> и подписями;</li>
+<li><code>footer</code> с иконкой-ссылкой с <code>aria-label</code>.</li>
+</ul>
+<p>Образец плана - <a href="../final-project/docs/PLAN.md">docs/PLAN.md</a>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-10-1.svg" alt="Схема 1: Итоговый проект от планирования до публикации"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-10-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Это рабочий цикл от плана до проверки опубликованного сайта. Нашли ошибку при проверке - вернитесь к нужному шагу и исправьте.</p>
+<hr>
+<h2 id="section-11">Шаг 1. Скелет</h2>
+<p>Одинаковый скелет на всех четырёх страницах. Отличается только <code>title</code>.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Контакты - Портфолио Азиза&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Главная&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;Обо мне&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;projects.html&quot;&gt;Проекты&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Контакты&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;!-- содержимое страницы: шаг 2 --&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Проверка:</strong> с каждой страницы нажмите каждый пункт меню: 4 × 4 = 16 переходов.</p>
+<p>Сравните: <code>steps/01-skeleton</code>.</p>
+<hr>
+<h2 id="section-12">Шаг 2. Контент</h2>
+<p>Наполняем <code>main</code> текстом. Один <code>h1</code>, уровни без пропусков, списки по смыслу.</p>
+<pre><code class="language-html">&lt;main&gt;
+    &lt;h1&gt;Обо мне&lt;/h1&gt;
+    &lt;p&gt;Меня зовут Азиз. Я &lt;strong&gt;увлекаюсь веб-разработкой&lt;/strong&gt; уже год и прошёл курс «HTML за 10 уроков», чтобы привести знания в порядок.&lt;/p&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Мои навыки&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Семантическая разметка HTML&lt;/li&gt;
+            &lt;li&gt;Таблицы и формы&lt;/li&gt;
+            &lt;li&gt;Доступность страниц&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Мой путь&lt;/h2&gt;
+        &lt;ol&gt;
+            &lt;li&gt;Начал изучать вёрстку самостоятельно&lt;/li&gt;
+            &lt;li&gt;Прошёл курс «HTML за 10 уроков»&lt;/li&gt;
+            &lt;li&gt;Дальше - CSS и JavaScript&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Сравните: <code>steps/02-content</code>.</p>
+<hr>
+<h2 id="section-13">Шаг 3. Медиа</h2>
+<p>Картинки с <code>alt</code>, подписи <code>figure</code>, иконка сайта.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/profile.jpg&quot; alt=&quot;Иллюстрация: Азиз сидит за ноутбуком&quot; width=&quot;300&quot; height=&quot;300&quot;&gt;
+    &lt;figcaption&gt;Так я провожу вечера после учёбы&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><strong>Главное правило шага:</strong> откройте каждую картинку и напишите <code>alt</code> <strong>по тому, что на ней</strong>. Четыре разные картинки - четыре разных <code>alt</code>. В образце на странице проектов у каждого макета своё описание.</p>
+<p>В <code>&lt;head&gt;</code> добавьте иконку:</p>
+<pre><code class="language-html">&lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+</code></pre>
+<p>Сравните: <code>steps/03-media</code>.</p>
+<hr>
+<h2 id="section-14">Шаг 4. Таблица</h2>
+<p>Таблица - только там, где есть табличные данные. В образце это время ответа на странице контактов:</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Когда я отвечаю&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Способ&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Контакт&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Время ответа&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Почта&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;mailto:aziz@example.com&quot;&gt;aziz@example.com&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;В течение суток&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Telegram&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;https://t.me/example&quot;&gt;@example&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Несколько часов&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Нет табличных данных на вашей теме? Не добавляйте таблицу ради галочки. Но на экзамене таблица обязательна: найдите для неё настоящую задачу, например расписание.</p>
+<p>Сравните: <code>steps/04-table</code>.</p>
+<hr>
+<h2 id="section-15">Шаг 5. Форма</h2>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Обратная связь&lt;/legend&gt;
+        &lt;p&gt;
+            &lt;label for=&quot;name&quot;&gt;Имя&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; autocomplete=&quot;name&quot; maxlength=&quot;50&quot; required&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;label for=&quot;email&quot;&gt;Почта&lt;/label&gt;
+            &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;label for=&quot;message&quot;&gt;Сообщение&lt;/label&gt;
+            &lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;5&quot; maxlength=&quot;500&quot; required&gt;&lt;/textarea&gt;
+        &lt;/p&gt;
+    &lt;/fieldset&gt;
+    &lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Отправить&lt;/button&gt;&lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Над формой напишите, что она учебная: данные появятся в адресе страницы и никуда не доставляются. Вводите только вымышленные данные.</p>
+<p>Сравните: <code>steps/05-form</code>.</p>
+<hr>
+<h2 id="section-16">Шаг 6. Метатеги, CSS и JS</h2>
+<p>Теперь, когда текст готов, легко написать описание каждой страницы:</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Обо мне - Портфолио Азиза&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;Азиз рассказывает, как начал изучать веб-разработку, какие навыки уже освоил и что планирует дальше.&quot;&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;Обо мне - Портфолио Азиза&quot;&gt;
+    &lt;meta property=&quot;og:description&quot; content=&quot;Азиз рассказывает, как начал изучать веб-разработку, какие навыки уже освоил и что планирует дальше.&quot;&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    &lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Свои <code>title</code> и <code>description</code> на каждой странице.</strong> Файлы <code>css/style.css</code> и <code>js/main.js</code> - готовые из урока 9.</p>
+<p>Сравните: <code>steps/06-meta</code>.</p>
+<hr>
+<h2 id="section-17">Шаг 7. Доступность</h2>
+<p>Первой строкой в <code>body</code> - ссылка пропуска меню, у <code>main</code> - <code>id</code>:</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;a href=&quot;#main&quot;&gt;Перейти к основному содержимому&lt;/a&gt;
+    &lt;header&gt;...&lt;/header&gt;
+    &lt;main id=&quot;main&quot;&gt;
+</code></pre>
+<p>Иконка-ссылка в подвале получает имя:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://t.me/example&quot; aria-label=&quot;Telegram Азиза&quot;&gt;
+    &lt;img src=&quot;images/telegram.svg&quot; alt=&quot;&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Затем пройдите каждую страницу клавиатурой, как в уроке 8.</p>
+<p>Сравните: <code>steps/07-a11y</code> - это и есть готовый сайт.</p>
+<hr>
+<h2 id="section-18">Чек-лист и журнал</h2>
+<p>Перед публикацией пройдите <a href="../final-project/docs/CHECKLIST.md">чек-лист</a> для каждой страницы. Каждую проверку запишите в <a href="../final-project/docs/JOURNAL.md">журнал</a>: что проверяли, что ожидали, что получилось, что исправили.</p>
+<p>Главные пункты:</p>
+<ul>
+<li class="check"><label><input type="checkbox"> Один <code>h1</code>, уровни без пропусков.</label></li>
+<li class="check"><label><input type="checkbox"> 16 переходов меню работают.</label></li>
+<li class="check"><label><input type="checkbox"> У каждой картинки свой <code>alt</code> по её содержанию.</label></li>
+<li class="check"><label><input type="checkbox"> Таблица с <code>caption</code> и <code>scope</code>.</label></li>
+<li class="check"><label><input type="checkbox"> У каждого поля связанная подпись.</label></li>
+<li class="check"><label><input type="checkbox"> Свои <code>title</code> и <code>description</code> на каждой странице.</label></li>
+<li class="check"><label><input type="checkbox"> Вся страница проходится клавиатурой.</label></li>
+<li class="check"><label><input type="checkbox"> Nu HTML Checker - без ошибок.</label></li>
+</ul>
+<hr>
+<h2 id="section-19">Публикация на GitHub Pages</h2>
+<p><strong>GitHub Pages</strong> - бесплатный хостинг для сайтов из HTML, CSS и JS. Адрес будет таким: <code>https://ваш-логин.github.io/название-репозитория/</code>.</p>
+<h3 id="section-20">Шаг 1. Аккаунт</h3>
+<p>Зарегистрируйтесь на <a href="https://github.com">github.com</a>.</p>
+<h3 id="section-21">Шаг 2. Репозиторий</h3>
+<ol>
+<li>Нажмите <strong>New repository</strong>.</li>
+<li>Название: например, <code>my-site</code> (латиница, без пробелов).</li>
+<li>Выберите <strong>Public</strong>.</li>
+<li>Нажмите <strong>Create repository</strong>.</li>
+</ol>
+<h3 id="section-22">Шаг 3. Загрузка файлов</h3>
+<ol>
+<li>На странице репозитория нажмите <strong>uploading an existing file</strong>.</li>
+<li>Перетащите <strong>содержимое</strong> папки сайта: <code>index.html</code>, остальные страницы и папки <code>images</code>, <code>css</code>, <code>js</code>.</li>
+<li>Нажмите <strong>Commit changes</strong>.</li>
+</ol>
+<p><code>index.html</code> должен лежать в корне репозитория, а не внутри вложенной папки.</p>
+<h3 id="section-23">Шаг 4. Включение Pages</h3>
+<ol>
+<li><strong>Settings</strong> → в меню слева <strong>Pages</strong>.</li>
+<li><strong>Source</strong>: <strong>Deploy from a branch</strong>.</li>
+<li><strong>Branch</strong>: <code>main</code>, папка <code>/ (root)</code>. Нажмите <strong>Save</strong>.</li>
+</ol>
+<h3 id="section-24">Шаг 5. Проверка</h3>
+<p>Через 1–3 минуты обновите страницу настроек Pages - появится ссылка на сайт. Откройте её и <strong>заново</strong> проверьте все переходы и картинки: на сервере регистр букв в именах файлов важен.</p>
+<p>Интерфейс GitHub иногда меняется. Если названия кнопок другие, смотрите <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">официальную инструкцию</a>.</p>
+<h3 id="section-25">Частые ошибки при публикации</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Сайт не открывается: 404</td>
+<td>Главная страница должна называться <code>index.html</code> и лежать в корне</td>
+</tr>
+<tr>
+<td>Загрузили папку целиком, сайт в подпапке</td>
+<td>Загружайте <strong>содержимое</strong> папки</td>
+</tr>
+<tr>
+<td>Картинки не видны на сервере</td>
+<td>Проверьте регистр: <code>Photo.JPG</code> и <code>photo.jpg</code> - разные файлы</td>
+</tr>
+<tr>
+<td>Пути <code>C:\Users\...</code></td>
+<td>Только относительные пути</td>
+</tr>
+<tr>
+<td>Репозиторий приватный</td>
+<td>Для бесплатного Pages - Public</td>
+</tr>
+<tr>
+<td>Pages не включён</td>
+<td>Settings → Pages → выбрать ветку</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-26">Итоги курса</h2>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-10-2.svg" alt="Схема 2: Итоговый проект от планирования до публикации"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-10-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Каждая ветвь - урок и навык, который он дал. В итоговом сайте вы используете их все.</p>
+<p><strong>Что дальше:</strong> HTML - каркас. Следующий шаг - <strong>CSS</strong>: цвета, шрифты, раскладка, адаптивность под телефон. Потом - <strong>JavaScript</strong>: поведение страницы. Ваш опубликованный сайт станет площадкой для этих навыков.</p>
+<hr>
+<h2 id="section-27">Самостоятельная работа</h2>
+<h3 id="section-28">Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте <strong>страницу контактов своего</strong> клуба, кружка или библиотеки - не портфолио Азиза:</p>
+<ol>
+<li>Полный <code>&lt;head&gt;</code>: <code>charset</code>, <code>viewport</code>, <code>title</code>, <code>description</code>.</li>
+<li>Ссылка «Перейти к основному содержимому» первой в <code>body</code>, у <code>main</code> - <code>id=&quot;main&quot;</code>.</li>
+<li><code>header</code> с меню на <code>index.html</code>, <code>about.html</code>, <code>projects.html</code>, <code>contact.html</code>.</li>
+<li>Один <code>h1</code>.</li>
+<li>Таблица с <code>caption</code>, заголовками <code>scope=&quot;col&quot;</code> и <code>scope=&quot;row&quot;</code>.</li>
+<li>Форма <code>method=&quot;get&quot;</code>: <code>fieldset</code>, <code>legend</code>, минимум два поля с подписями, одно - <code>email</code>, кнопка <code>&lt;button type=&quot;submit&quot;&gt;</code>.</li>
+<li><code>footer</code>.</li>
+</ol>
+<p>Что проверяет платформа: всё перечисленное, а также отсутствие <code>div</code>, положительных <code>tabindex</code>, <code>role=&quot;button&quot;</code> и текста образца («Азиз»).</p>
+<hr>
+<h2 id="section-29">Независимый итоговый экзамен</h2>
+<p>Пошаговая сборка выше - учебный образец. Повторить готовое портфолио - не значит показать самостоятельность.</p>
+<p><strong>Задание:</strong> без копирования образца сделайте сайт клуба, библиотеки или кружка из четырёх связанных страниц. В нём должны быть:</p>
+<ul>
+<li>заголовки и списки по смыслу;</li>
+<li>свои или разрешённые изображения с подходящим <code>alt</code>;</li>
+<li>таблица с <code>caption</code> и заголовками;</li>
+<li>форма с подписями, <code>fieldset</code>/<code>legend</code> и проверкой ввода, с пометкой, что форма учебная;</li>
+<li>свои метаданные на каждой странице;</li>
+<li>публикация на GitHub Pages.</li>
+</ul>
+<p><strong>Что сдать:</strong> исходники, публичную ссылку и журнал проверок.</p>
+<table>
+<thead>
+<tr>
+<th>Критерий</th>
+<th style="text-align:right">Баллы</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Структура и навигация</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Семантика и содержание</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Изображения и таблица</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Форма и валидация</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Доступность и проверка клавиатурой</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Метаданные, публикация и журнал</td>
+<td style="text-align:right">10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Зачёт:</strong> от 80 баллов из 100. Обязательно: все четыре страницы открываются, навигация работает, у всех полей есть подписи. Битые ссылки и поля без подписей исправляются до зачёта.</p>
+<p><strong>Как ставятся баллы:</strong> полный балл - требование выполнено и проверено; половина - выполнено частично; ноль - нет.</p>
+<p><strong>Устная защита:</strong> объясните выбор тегов, как работает форма, и расскажите о двух проверках из журнала и найденных проблемах.</p>
+<hr>
+<h2 id="section-30">Вопросы для самопроверки</h2>
+<ol>
+<li>Зачем составлять карту сайта до кода?</li>
+<li>Почему меню одинаковое на всех страницах?</li>
+<li>Сколько переходов меню нужно проверить на сайте из 4 страниц?</li>
+<li>Почему <code>alt</code> пишут после того, как открыли картинку?</li>
+<li>Когда таблица на странице лишняя?</li>
+<li>Почему форма в учебном проекте - <code>method=&quot;get&quot;</code> и без <code>action</code>?</li>
+<li>Чем <code>title</code> разных страниц должны отличаться?</li>
+<li>Где должен лежать <code>index.html</code> в репозитории?</li>
+<li>Почему картинка может пропасть после публикации, хотя локально была?</li>
+<li>Что сдаётся вместе с сайтом на экзамене?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-31">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li>Абсолютные пути с диска не работают на сервере, а относительные переносятся вместе с папкой.</li>
+<li>Чтобы пользователь клавиатуры не проходил всё меню на каждой странице.</li>
+<li><code>viewport</code> и <code>description</code>.</li>
+</ol>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>Ошибки структуры дешевле найти на бумаге, чем в коде четырёх страниц.</li>
+<li>Пользователь всегда знает, где он и как попасть в любой раздел.</li>
+<li>16: с каждой из 4 страниц по 4 ссылки.</li>
+<li>Имя файла не говорит, что на картинке. <code>alt</code> описывает реальное содержание.</li>
+<li>Когда нет данных со строками и столбцами.</li>
+<li>Обработчика нет: GET позволяет увидеть отправленные значения в адресе, и данные никуда не уходят.</li>
+<li>Каждый <code>title</code> описывает свою страницу и название сайта.</li>
+<li>В корне репозитория.</li>
+<li>На сервере важен регистр букв в имени файла.</li>
+<li>Исходники, публичная ссылка и журнал проверок.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-9.html">Назад</a> · <a href="../final-project/README.md">Исходный код проекта</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-10/ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

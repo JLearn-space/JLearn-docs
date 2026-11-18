@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Participant form</title>
+    </head>
+    <body>
+        <h1>Participant form</h1>
+        <form method="get">
+            <p>Use fictional values; GET puts them in the URL. No message is delivered.</p>
+            <fieldset>
+                <legend>Participant preferences</legend>
+                <label for="topic">Reading topic</label>
+                <select id="topic" name="topic">
+                    <optgroup label="Fiction">
+                        <option value="stories" selected>Short stories</option>
+                        <option value="novels">Novels</option>
+                    </optgroup>
+                    <optgroup label="Nonfiction">
+                        <option value="history">History</option>
+                    </optgroup>
+                </select>
+                <label for="bio">Introduction</label>
+                <textarea id="bio" name="bio" rows="4" cols="30">I enjoy reading.</textarea>
+                <label for="code">Participant ID: exactly seven digits</label>
+                <input type="text" id="code" name="code" pattern="[0-9]{7}" required>
+                <button type="submit">View practice values</button>
+                <button type="reset">Restore initial values</button>
+            </fieldset>
+        </form>
+    </body>
+</html>

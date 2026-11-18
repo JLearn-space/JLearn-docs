@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 5 — Tables</title>
+</head>
+<body>
+
+    <h1>Tables in HTML</h1>
+
+    <h2>Simple Table: Student List</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+        <tr>
+            <td>Aziz</td>
+            <td>21</td>
+            <td>Tashkent</td>
+        </tr>
+        <tr>
+            <td>Dilnoza</td>
+            <td>19</td>
+            <td>Almalik</td>
+        </tr>
+    </table>
+
+    <h2>Product Table with Totals</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Laptop</td>
+                <td>$800</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Mouse</td>
+                <td>$15</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Keyboard</td>
+                <td>$35</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$865</strong></td>
+                <td><strong>4</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h2>Table with colspan</h2>
+    <table>
+        <tr>
+            <th colspan="2">Contact Information</th>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>info@saydullayev.fun</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>+998 90 123-45-67</td>
+        </tr>
+    </table>
+
+    <h2>Table with rowspan</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Grade</th>
+        </tr>
+        <tr>
+            <td rowspan="2">Aziz</td>
+            <td>Mathematics</td>
+            <td>A</td>
+        </tr>
+        <tr>
+            <td>Physics</td>
+            <td>B</td>
+        </tr>
+    </table>
+
+    <h2>Accessible Table with caption and scope</h2>
+    <table>
+        <caption>Student Grades by Subject</caption>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Mathematics</th>
+                <th scope="col">Physics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Aziz</th>
+                <td>A</td>
+                <td>B</td>
+            </tr>
+            <tr>
+                <th scope="row">Dilnoza</th>
+                <td>B</td>
+                <td>A</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

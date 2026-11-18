@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Introduction to HTML document structure · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">What is HTML and why do we need it</a><a href="#section-5">Tools: VS Code and DevTools</a><a href="#section-8">Tag, attribute, element - what&#x27;s the difference</a><a href="#section-13">HTML document structure</a><a href="#section-19">Mini-assignment</a><a href="#section-20">Building the first page completely</a><a href="#section-22">Lesson summary</a><a href="#section-23">Independent task: an introduction page</a></details></aside><article><h1 id="section-1">Introduction to HTML document structure</h1>
+<p><a href="index.html">Contents</a> · <a href="index.html">← Back</a> · <a href="en-lesson-2.html">Next →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Practice</a></p>
+<blockquote>
+<p>This is the first lesson of the course - today we lay the foundation without which no web page can exist.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<ul>
+<li>Understand what HTML, a tag, an attribute, and an element are - and how they differ from each other.</li>
+<li>Install and set up tools for work: VS Code and browser DevTools.</li>
+<li>Understand the structure of any HTML document: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</li>
+<li>Create, save, and open your first HTML page in a browser.</li>
+<li>Use the element inspector to peek &quot;under the hood&quot; of any website.</li>
+</ul>
+<hr>
+<h2 id="section-3">Lesson plan</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is HTML and why do we need it</td>
+<td>Analogy with a house skeleton, HTML's role on the web</td>
+</tr>
+<tr>
+<td>Installing tools</td>
+<td>VS Code, Live Server extension, DevTools overview</td>
+</tr>
+<tr>
+<td>Tag, attribute, element</td>
+<td>Breaking down terms with examples</td>
+</tr>
+<tr>
+<td>HTML document structure</td>
+<td>DOCTYPE, html, head, body - line-by-line breakdown</td>
+</tr>
+<tr>
+<td>Mini-assignment</td>
+<td>Build the document skeleton on your own</td>
+</tr>
+<tr>
+<td>The first page complete</td>
+<td>Writing and opening in a browser</td>
+</tr>
+<tr>
+<td>Summary and practical assignment</td>
+<td>Reinforcement, homework assignment</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">What is HTML and why do we need it</h2>
+<p><strong>In simple terms:</strong> imagine you are building a house. First you erect the framework - walls, floors, stairs. Without the framework, the house simply won't stand, even if you have the most beautiful furniture and paint.</p>
+<p><strong>HTML (HyperText Markup Language)</strong> describes content structure and meaning: headings, paragraphs, lists and images. CSS controls presentation and layout; JavaScript enables programmed behavior. Links and forms already have built-in browser behavior without JavaScript.</p>
+<p>The analogy continues: if HTML is the house framework, then:</p>
+<ul>
+<li><strong>CSS</strong> is the interior designer: paints the walls, arranges furniture, picks curtains.</li>
+<li><strong>JavaScript</strong> is the electrical and automation: lights turn on with a clap, doors open by themselves.</li>
+</ul>
+<p>We start with the framework because without it, neither design nor automation makes sense - there's nothing to &quot;hang&quot; them on.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-1-1.svg" alt="Diagram 1: Introduction to HTML document structure"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-1-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> The branches separate the roles of HTML, CSS and JavaScript; they are categories, not execution steps. This course builds HTML structure before styling or behavior.</p>
+<p><strong>Important to understand right away:</strong> HTML is a <strong>markup language</strong>, not a programming language. It has no &quot;if&quot; conditions, no loops, no calculations. It simply describes the structure of the document using tags.</p>
+<hr>
+<h2 id="section-5">Tools: VS Code and DevTools</h2>
+<p>For working with HTML we need two tools.</p>
+<h3 id="section-6">VS Code (Visual Studio Code)</h3>
+<p>This is a free code editor from Microsoft. You can download it from the official website <a href="https://code.visualstudio.com">code.visualstudio.com</a> - the version for Windows, macOS, or Linux will be detected automatically.</p>
+<p>After installation, install one extension - it will make life much easier:</p>
+<ol>
+<li>Open VS Code.</li>
+<li>On the left panel, find the &quot;Extensions&quot; icon (squares).</li>
+<li>In the search, type <strong>Live Server</strong>.</li>
+<li>Click &quot;Install&quot; on the extension by author Ritwick Dey.</li>
+</ol>
+<p><strong>Why Live Server is needed:</strong> without it, to see changes in the browser, you'd have to manually refresh the page each time (F5). Live Server does this automatically every time you save a file - and opens the page on a local address like <code>http://127.0.0.1:5500</code>.</p>
+<h3 id="section-7">DevTools (browser developer tools)</h3>
+<p>DevTools shows the current element tree (DOM). It can differ from the source HTML: the browser repairs markup and scripts can change it.</p>
+<p><strong>Open it:</strong> right-click → Inspect. In Chrome you can also use Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (macOS). View Page Source is a different command.</p>
+<p>Try opening DevTools on any website right now and find the <strong>Elements</strong> tab (Chrome/Edge) or <strong>Inspector</strong> (Firefox) - there you'll see the HTML structure of the page in real time.</p>
+<p><strong>Mini-assignment (2 minutes):</strong> open DevTools on your favorite website, find the <code>&lt;h1&gt;</code> tag in the Elements panel (usually the article heading) and click on it - you'll see that exact element highlighted on the page.</p>
+<hr>
+<h2 id="section-8">Tag, attribute, element - what's the difference</h2>
+<p>These are three terms that beginners almost always confuse. Let's break them down using a parcel analogy.</p>
+<p>Imagine you are sending a parcel:</p>
+<ul>
+<li><strong>A tag</strong> is markup written in angle brackets: <code>&lt;p&gt;</code> opens an element and <code>&lt;/p&gt;</code> closes it. Void elements such as <code>img</code> have no closing tag.</li>
+<li><strong>Attribute</strong> - this is a sticker on the box with additional information: &quot;fragile&quot;, &quot;top&quot;, &quot;recipient's address&quot;. In HTML, an attribute is written inside the opening tag: <code>&lt;p class=&quot;intro&quot;&gt;</code>.</li>
+<li><strong>Element</strong> - this is the entire box as a whole: the box (tag) + stickers (attributes) + content inside.</li>
+</ul>
+<h3 id="section-9">Tag syntax</h3>
+<p>Most tags are <strong>paired</strong>: there is an opening tag and a closing tag, with content in between.</p>
+<pre><code class="language-html">&lt;p&gt;This is a paragraph of text.&lt;/p&gt;
+</code></pre>
+<p>Here:</p>
+<ul>
+<li><code>&lt;p&gt;</code> - opening tag</li>
+<li><code>This is a paragraph of text.</code> - content</li>
+<li><code>&lt;/p&gt;</code> - closing tag (note the slash <code>/</code>)</li>
+</ul>
+<p>There are also <strong>unpaired (self-closing) tags</strong> - they have no content and no closing tag, they simply &quot;insert&quot; something into the document:</p>
+<pre><code class="language-html">&lt;br&gt;
+&lt;hr&gt;
+&lt;img src=&quot;cat.jpg&quot; alt=&quot;Cat&quot;&gt;
+</code></pre>
+<p>We'll talk about <code>br</code>, <code>hr</code>, and <code>img</code> in detail in later lessons - for now it's important to just see the difference in syntax.</p>
+<h3 id="section-10">Attribute syntax</h3>
+<p>Attributes go in the opening tag. In this lesson we use <code>name=&quot;value&quot;</code>; attributes without a written value are covered later.</p>
+<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Paragraph text&lt;/p&gt;
+</code></pre>
+<p>Here <code>class</code> is the attribute name, <code>&quot;intro&quot;</code> is its value. The value is always in quotes (double quotes, by convention in this course).</p>
+<p>A single tag can have multiple attributes - they are separated by spaces:</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Orange cat on windowsill&quot; width=&quot;300&quot;&gt;
+</code></pre>
+<h3 id="section-11">The complete element</h3>
+<p>A paired element is written with an opening tag, optional attributes, content and a closing tag. A void element such as <code>img</code> has no content or closing tag.</p>
+<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Welcome to my website!&lt;/p&gt;
+</code></pre>
+<p>This entire chunk of code is one HTML element.</p>
+<hr>
+<h3 id="section-12">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Omitted an explicit <code>&lt;/p&gt;</code></td>
+<td>In this course we close paired elements explicitly for readability; HTML permits omission of certain end tags under specific rules.</td>
+</tr>
+<tr>
+<td>Unquoted <code>class</code> value</td>
+<td>Use <code>class=&quot;intro&quot;</code> consistently; HTML permits some unquoted values.</td>
+</tr>
+<tr>
+<td>Wrote <code>&lt;p/&gt;</code> instead of <code>&lt;/p&gt;</code></td>
+<td>The closing tag is <code>&lt;/p&gt;</code>. A slash after the name does not close a normal HTML element.</td>
+</tr>
+<tr>
+<td>Mixed <code>&lt;P&gt;</code> and <code>&lt;p&gt;</code></td>
+<td>Both are allowed in HTML. Our course convention is lowercase.</td>
+</tr>
+<tr>
+<td>Closed nested elements in the wrong order</td>
+<td>Close the inner element before the outer one. We practice nesting in lesson 2.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-13">HTML document structure</h2>
+<p>Every HTML page, regardless of its content, starts with the same &quot;skeleton&quot;. Let's break it down line by line.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;My first page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Let's break down each line, continuing the house skeleton analogy.</p>
+<h3 id="section-14"><code>&lt;!DOCTYPE html&gt;</code></h3>
+<p><code>&lt;!DOCTYPE html&gt;</code> is a document type declaration. In a regular HTML document it enables the browser’s standards rendering mode. Without it, modern browsers can also enter quirks mode, which preserves historical layout behavior.</p>
+<p>It selects a rendering mode; it is not a version number or a standard’s year.</p>
+<p>It is <strong>always written the same way</strong>, once, at the very beginning of the file.</p>
+<h3 id="section-15"><code>&lt;html lang=&quot;en&quot;&gt;</code></h3>
+<p>The root (main) tag, inside which all page content resides. All other tags are its &quot;children&quot; and &quot;grandchildren&quot;.</p>
+<p>The <code>lang=&quot;en&quot;</code> attribute specifies the page language - English. This helps:</p>
+<ul>
+<li>screen readers (programs for visually impaired users) pronounce text correctly;</li>
+<li>the browser offer correct translations;</li>
+<li>search engines understand the content language.</li>
+</ul>
+<p><strong>Analogy:</strong> <code>&lt;html&gt;</code> is the house itself, and <code>lang=&quot;en&quot;</code> is a sign saying &quot;People inside speak English.&quot;</p>
+<h3 id="section-16"><code>&lt;head&gt;</code> - the document's &quot;head&quot;</h3>
+<p>This is where service information <strong>about the page</strong> is located, which is not displayed directly on the screen: the browser tab title, encoding, linked style and script files (covered in lesson 9), metadata for search engines.</p>
+<p><strong>Analogy:</strong> <code>&lt;head&gt;</code> is the house's technical passport: address, year of construction, materials. We don't see the technical passport while walking around the house, but it determines important characteristics.</p>
+<p>Inside <code>&lt;head&gt;</code> in this lesson we use two tags:</p>
+<p><strong><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></strong> - specifies the document encoding. UTF-8 supports virtually all languages of the world, including Cyrillic. Without this line, Russian text may display as gibberish (for example, <code>Ð¿Ñ€Ð¸Ð²ÐµÑ‚</code> instead of &quot;privet&quot;).</p>
+<p><strong><code>&lt;title&gt;My first page&lt;/title&gt;</code></strong> sets the browser tab title. Search engines may use it for a result title or generate another title. The visible heading inside the page is written separately with <code>&lt;h1&gt;</code>.</p>
+<h3 id="section-17"><code>&lt;body&gt;</code> - the document's &quot;body&quot;</h3>
+<p>This is where <strong>everything the user sees</strong> is located: text, images, buttons, links, tables. All course content starting from the second lesson will be added here.</p>
+<p><strong>Analogy:</strong> if <code>&lt;head&gt;</code> is the house's technical passport, then <code>&lt;body&gt;</code> is all the rooms where people actually live: living room, kitchen, bedroom. All tags we'll study later (headings, paragraphs, images, forms) are placed inside <code>&lt;body&gt;</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-1-2.svg" alt="Diagram 2: Introduction to HTML document structure"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-1-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Follow the arrows as containment: html contains head and body. The DOCTYPE sits before html and is not a child element.</p>
+<hr>
+<h3 id="section-18">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forgot <code>&lt;!DOCTYPE html&gt;</code></td>
+<td>Always write it as the first line of the file - no spaces or text before it</td>
+</tr>
+<tr>
+<td>Putting text directly in <code>&lt;html&gt;</code>, bypassing <code>&lt;head&gt;</code>/<code>&lt;body&gt;</code></td>
+<td>All visible content goes inside <code>&lt;body&gt;</code> only, service information goes inside <code>&lt;head&gt;</code> only</td>
+</tr>
+<tr>
+<td>Forgetting <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Add this line in <code>&lt;head&gt;</code> in every project - otherwise Cyrillic may display incorrectly</td>
+</tr>
+<tr>
+<td>Confusing <code>&lt;title&gt;</code> with the <code>&lt;h1&gt;</code> heading on the page</td>
+<td><code>&lt;title&gt;</code> is only visible on the browser tab, <code>&lt;h1&gt;</code> is the visible heading on the page itself (covered in lesson 2)</td>
+</tr>
+<tr>
+<td>Not closing <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></td>
+<td>Each of these tags is paired - don't forget <code>&lt;/head&gt;</code> and <code>&lt;/body&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-19">Mini-assignment</h2>
+<p>Build the HTML document &quot;skeleton&quot; on your own, without peeking at the example above:</p>
+<ol>
+<li>Document type declaration.</li>
+<li>Root tag with the English language specified.</li>
+<li>Service section with UTF-8 encoding and the tab title &quot;Lesson 1&quot;.</li>
+<li>The visible part of the page - empty for now.</li>
+</ol>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Lesson 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<hr>
+<h2 id="section-20">Building the first page completely</h2>
+<h3 id="section-21">Your working folder and first two elements</h3>
+<p>Create a <code>my-html-site</code> folder somewhere convenient and open it with File → Open Folder in VS Code. Create <code>index.html</code> inside it. The <code>.html</code> extension is part of the file name: make sure no <code>.txt</code> was appended. Avoid editing different files with the same name in different folders.</p>
+<p>Inside <code>body</code>, <code>&lt;h1&gt;</code> marks the main page heading and <code>&lt;p&gt;</code> marks a paragraph. One heading and separate paragraphs are enough for the first task. The tab title is set separately in <code>title</code>. Lesson 2 develops text markup further.</p>
+<p>To check your workflow, change a word in a <code>&lt;p&gt;</code>, save the file and refresh the browser. If nothing changes, first compare the open file’s name and folder with the browser address.</p>
+<p>Now let's supplement the skeleton with real content (a heading and a paragraph of text - we'll talk about these tags in detail in lesson 2, for now we'll just use them so the page isn't empty).</p>
+<p><strong>Step 1.</strong> Open VS Code, create a new folder for the project, for example <code>html-course</code>.</p>
+<p><strong>Step 2.</strong> Inside the folder, create a file <code>index.html</code> (this exact name is the standard for a website's main page).</p>
+<p><strong>Step 3.</strong> Paste the following code:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;My first page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;This is my first HTML page. I'm learning web development in the &quot;HTML: in 10 lessons&quot; course.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Step 4.</strong> Save the file (Ctrl+S / Cmd+S).</p>
+<p><strong>Step 5.</strong> Open the page using one of two methods:</p>
+<ul>
+<li>Via Live Server: right-click the file in VS Code → &quot;Open with Live Server&quot;.</li>
+<li>Manually: find the <code>index.html</code> file in the file explorer/finder and double-click it - it will open in the default browser.</li>
+</ul>
+<p><strong>Step 6.</strong> Open DevTools using Inspect and locate your heading and paragraph. Change text in the editor, save and check the browser. Edits made only in DevTools are not saved in the HTML file.</p>
+<hr>
+<h2 id="section-22">Lesson summary</h2>
+<p>Today you learned:</p>
+<ul>
+<li><strong>HTML</strong> is a markup language, the &quot;framework&quot; of a web page that describes the structure and meaning of content.</li>
+<li><strong>A tag</strong> is markup such as <code>&lt;p&gt;</code> or <code>&lt;/p&gt;</code>; <strong>an attribute</strong> supplies information in the opening tag; <strong>an element</strong> is the part of the document structure created by that markup.</li>
+<li>Every HTML document starts with <code>&lt;!DOCTYPE html&gt;</code> and consists of <code>&lt;html&gt;</code>, inside which are <code>&lt;head&gt;</code> (service information) and <code>&lt;body&gt;</code> (visible content).</li>
+<li>You set up VS Code with Live Server and learned to use browser DevTools.</li>
+<li>You created and opened your first HTML page.</li>
+</ul>
+<hr>
+<h2 id="section-23">Independent task: an introduction page</h2>
+<p>Create a new <code>my-html-site</code> folder with an <code>index.html</code> file inside it. Build from the requirements rather than copying a complete document. Do not add links, lists, images, CSS or JavaScript yet.</p>
+<ol>
+<li>Set the language of your text and UTF-8 encoding.</li>
+<li>Give the browser tab the title “Introduction”.</li>
+<li>Write one main heading and two paragraphs: about yourself and your learning goal.</li>
+<li>Open the file in a browser. Change the second paragraph in the editor, save and check the update.</li>
+</ol>
+<h3 id="section-24">Completion criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The file is named <code>index.html</code>, not <code>index.html.txt</code>.</label></li>
+<li class="check"><label><input type="checkbox"> DOCTYPE, <code>html</code>, <code>head</code> and <code>body</code> are present; paired elements are explicitly closed.</label></li>
+<li class="check"><label><input type="checkbox"> The language matches the text and the encoding is UTF-8.</label></li>
+<li class="check"><label><input type="checkbox"> You can distinguish the tab title from the page heading.</label></li>
+<li class="check"><label><input type="checkbox"> One <code>&lt;h1&gt;</code> and two <code>&lt;p&gt;</code> elements appear; the saved change is visible.</label></li>
+</ul>
+<h3 id="section-25">Check your understanding</h3>
+<ol>
+<li>How does an element differ from its opening tag?</li>
+<li>Why does the tab title belong in <code>head</code> and a paragraph in <code>body</code>?</li>
+<li>Why does an edit in DevTools not change the file on disk?</li>
+</ol>
+<p>If a criterion fails, revisit the relevant example and check again. Continue when all criteria pass and you can explain the answers in your own words.</p>
+<hr>
+<p><a href="index.html">Contents</a> · <a href="index.html">← Back</a> · <a href="en-lesson-2.html">Next →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Practice</a></p>
+</article></main><footer><a href="../Lesson-1/en/Introduction%20to%20HTML%20document%20structure.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

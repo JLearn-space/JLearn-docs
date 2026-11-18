@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Accessibility (a11y) · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">Why accessibility matters</a><a href="#section-5">What we already did right (systematization)</a><a href="#section-6">ARIA: aria-label and role</a><a href="#section-10">Contrast</a><a href="#section-13">Mini-task</a><a href="#section-14">tabindex - keyboard focus control</a><a href="#section-19">Heading hierarchy as the page &quot;skeleton&quot;</a><a href="#section-20">Lesson summary</a><a href="#section-21">Independent practice</a></details></aside><article><h1 id="section-1">Accessibility (a11y)</h1>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-7.html">Previous</a> · <a href="en-lesson-9.html">Next</a> · <a href="../Lesson-8/practice.html">Practice</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
+<blockquote>
+<p><strong>Connection to the previous lessons:</strong> in past lessons we've often mentioned &quot;the screen reader will hear this correctly&quot; - when talking about <code>alt</code>, <code>label</code>, <code>scope</code>, <code>legend</code>. Today we gather all these scattered mentions into one unified topic - accessibility - and add new tools: ARIA, contrast, <code>tabindex</code>.</p>
+</blockquote>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-8-1.svg" alt="Diagram 1: Accessibility (a11y)"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-8-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> The branches group accessibility practices, not a step-by-step repair order. Semantic structure, image alternatives and keyboard use work together; ARIA supplements them.</p>
+<hr>
+<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<ul>
+<li>Understand why accessibility (a11y) is needed and who uses it.</li>
+<li>Use basic ARIA attributes: <code>aria-label</code>, <code>role</code>.</li>
+<li>Understand the importance of text and background contrast.</li>
+<li>Control keyboard focus order via <code>tabindex</code>.</li>
+<li>Understand how heading hierarchy works as the &quot;skeleton&quot; of a page for screen readers.</li>
+</ul>
+<hr>
+<h2 id="section-3">Lesson plan</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why accessibility matters</td>
+<td>Who and how uses it, &quot;invisible&quot; users</td>
+</tr>
+<tr>
+<td>Review: what we already did right</td>
+<td>alt, label, scope, legend - systematization</td>
+</tr>
+<tr>
+<td>ARIA: aria-label and role</td>
+<td>When HTML semantics aren't enough</td>
+</tr>
+<tr>
+<td>Contrast</td>
+<td>Text readability, checking tools</td>
+</tr>
+<tr>
+<td>Mini-task</td>
+<td>Add aria-label on your own</td>
+</tr>
+<tr>
+<td>tabindex</td>
+<td>Keyboard focus order and control</td>
+</tr>
+<tr>
+<td>Heading hierarchy as a skeleton</td>
+<td>Final summary of the principle</td>
+</tr>
+<tr>
+<td>Summary and practical task</td>
+<td>Audit your own site</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">Why accessibility matters</h2>
+<p><strong>In simple terms:</strong> imagine a building with stairs at the entrance but no ramp. A person in a wheelchair physically cannot get inside - not because the building is &quot;bad&quot; on its own, but because it didn't account for the fact that not all visitors move the same way.</p>
+<p>Web accessibility (<strong>accessibility</strong>, abbreviated <strong>a11y</strong> - the number 11 represents the count of letters between &quot;a&quot; and &quot;y&quot;) is the same principle, just for websites. A website must be equally usable by:</p>
+<ul>
+<li><strong>blind and visually impaired users</strong> who use screen readers (programs that read screen content aloud) or greatly enlarge the page scale;</li>
+<li><strong>people who cannot use a mouse</strong> (due to motor impairments) and navigate the page using only the keyboard;</li>
+<li><strong>hard-of-hearing users</strong> who need subtitles for video;</li>
+<li><strong>people with cognitive differences</strong> who benefit from simple, predictable structure;</li>
+<li>even <strong>regular users in inconvenient conditions</strong> - for example, someone with a temporarily broken arm using only a keyboard, or someone reading a site in bright sunlight on a low-contrast screen.</li>
+</ul>
+<p><strong>Important fact to realize:</strong> everything we did right in previous lessons (meaningful <code>alt</code>, <code>label</code>/<code>for</code> pairing, <code>scope</code> on tables, <code>legend</code> on field groups) was already work on accessibility - we just called it something else. Today's lesson systematizes this knowledge and adds several new tools.</p>
+<p><strong>Why this isn't an &quot;optional feature&quot; but part of professional markup:</strong> in many countries there are legal requirements for website accessibility (especially government and commercial sites). But even without the legal side - an accessible site simply works better for <strong>more people</strong>, and this is a sign of quality, well-thought-out markup.</p>
+<hr>
+<h2 id="section-5">What we already did right (systematization)</h2>
+<p>Before moving on, let's recall and compile everything related to accessibility from previous lessons:</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Lesson</th>
+<th>How it helps accessibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alt</code> on <code>&lt;img&gt;</code></td>
+<td>Lesson 4</td>
+<td>Screen reader reads the image description instead of the image itself</td>
+</tr>
+<tr>
+<td><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> hierarchy without skipping levels</td>
+<td>Lesson 2</td>
+<td>Screen reader builds a page &quot;map&quot; from headings for quick navigation</td>
+</tr>
+<tr>
+<td>Semantic tags (<code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code>, etc.)</td>
+<td>Lesson 2</td>
+<td>Screen reader understands the purpose of each major page block</td>
+</tr>
+<tr>
+<td><code>label</code> + <code>for</code>/<code>id</code></td>
+<td>Lesson 6</td>
+<td>Screen reader announces the form field's purpose, not just &quot;text field&quot;</td>
+</tr>
+<tr>
+<td><code>scope</code> on <code>&lt;th&gt;</code> in tables</td>
+<td>Lesson 5</td>
+<td>Screen reader links a data cell to the correct row/column header</td>
+</tr>
+<tr>
+<td><code>fieldset</code> + <code>legend</code></td>
+<td>Lesson 7</td>
+<td>Screen reader gives context to a group of fields (especially important for radio groups)</td>
+</tr>
+<tr>
+<td><code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code></td>
+<td>Lesson 2</td>
+<td>Mark importance and stress emphasis; <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> have other purposes. Speech output depends on the screen reader</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see, accessibility is not a separate &quot;add-on&quot; on top of regular markup, but a consequence of <strong>correct, semantic</strong> HTML usage from the very start of the course.</p>
+<hr>
+<h2 id="section-6">ARIA: <code>aria-label</code> and <code>role</code></h2>
+<p>Sometimes standard HTML semantics aren't enough to fully describe an element's purpose - especially for interactive elements that are visually clear (e.g., a close-window icon shown as an &quot;×&quot;) but don't contain text inside that a screen reader could read.</p>
+<p>For such cases there's <strong>ARIA</strong> (Accessible Rich Internet Applications) - a set of special attributes that supplement (but don't replace!) regular HTML semantics.</p>
+<h3 id="section-7"><code>aria-label</code> - text description for screen readers</h3>
+<p>Used when an element has no visible text, but its purpose needs to be announced to screen readers.</p>
+<p><strong>Example: a close button with no visible text, only an icon (shown as &quot;×&quot;):</strong></p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; aria-label=&quot;Close window&quot;&gt;×&lt;/button&gt;
+</code></pre>
+<p>Visually the user just sees an &quot;×&quot; symbol, but the screen reader will announce &quot;Close window, button&quot; - giving a full description, not a meaningless character.</p>
+<p><strong>Example: an icon-link to a social network with no text:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;https://t.me/example&quot; aria-label=&quot;Our Telegram channel&quot;&gt;
+    &lt;img src=&quot;telegram-icon.svg&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Note: here the image's <code>alt=&quot;&quot;</code> is empty (a decorative icon, as we covered in lesson 4), and the entire link's description is given by <code>aria-label</code> on the <code>&lt;a&gt;</code> tag.</p>
+<p><strong>Important rule:</strong> <code>aria-label</code> is used <strong>only when there's no other way</strong> to give an element a text description. If an element already has visible text (e.g., a &quot;Submit&quot; button), <code>aria-label</code> is not needed - don't duplicate what's already available to the screen reader from regular content.</p>
+<h3 id="section-8"><code>role</code> - clarifying the element's role</h3>
+<p>The <code>role</code> attribute explicitly tells the screen reader what functional role an element performs - especially useful if a non-ideal tag was used for some reason.</p>
+<pre><code class="language-html">&lt;div role=&quot;alert&quot;&gt;
+    Attention: the file was not saved.
+&lt;/div&gt;
+</code></pre>
+<p><code>role=&quot;alert&quot;</code> is intended for important dynamic notifications. This static example does not guarantee an immediate announcement on load; test actual behavior with a screen reader.</p>
+<p><strong>The golden rule of ARIA to remember:</strong> <em>&quot;The first rule of ARIA is: don't use ARIA if there's a suitable native HTML tag.&quot;</em> In other words, if you can use <code>&lt;button&gt;</code> instead of <code>&lt;div role=&quot;button&quot;&gt;</code> - use <code>&lt;button&gt;</code>, because the native tag already has all needed behavior out of the box (Tab focus, Enter/Space response, proper announcement), while imitating this behavior on <code>&lt;div&gt;</code> with ARIA requires extra work and is more error-prone.</p>
+<pre><code class="language-html">&lt;!-- Bad: imitating a button via div --&gt;
+&lt;div role=&quot;button&quot; aria-label=&quot;Submit form&quot;&gt;Submit&lt;/div&gt;
+
+&lt;!-- Good: using the native button --&gt;
+&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+</code></pre>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-8-2.svg" alt="Diagram 2: Accessibility (a11y)"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-8-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Prefer an existing visible text or native label for a control’s name. The separate image branch concerns alt; the interaction branch reminds us that ARIA alone cannot add keyboard behavior.</p>
+<hr>
+<h3 id="section-9">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using ARIA instead of native HTML tags where the native tag already works</td>
+<td>Always prefer a semantic HTML tag over ARIA imitation: <code>&lt;button&gt;</code>, not <code>&lt;div role=&quot;button&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Duplicating <code>aria-label</code> where the element already has visible text</td>
+<td>Use <code>aria-label</code> only when there's no visible text content</td>
+</tr>
+<tr>
+<td>Putting <code>aria-label</code> on images instead of <code>alt</code></td>
+<td>Always use <code>alt</code> for images - that's its direct purpose; <code>aria-label</code> is for other textless elements (buttons, icon-links)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-10">Contrast</h2>
+<p><strong>In simple terms:</strong> contrast is the difference in brightness between text and the background behind it. Light gray text on a white background may look stylish to a designer, but will be practically unreadable for a person with impaired vision - and even for a person with normal vision in bright sunlight or on a cheap monitor.</p>
+<p>Although actual color configuration belongs to CSS (a topic for future lessons), it's important to understand the principle now, because decisions about content (e.g., whether you'll rely only on color to convey information) are made at the content structure level.</p>
+<h3 id="section-11">Practical rule: don't rely only on color</h3>
+<p>A common mistake is conveying important information <strong>only</strong> through color, without a text duplicate. For example:</p>
+<pre><code class="language-html">&lt;!-- Bad: the color has no textual explanation --&gt;
+&lt;p&gt;&lt;span style=&quot;color: #b00020;&quot;&gt;●&lt;/span&gt; Email&lt;/p&gt;
+
+&lt;!-- Good: the text itself conveys meaning, color is only an addition --&gt;
+&lt;p style=&quot;color: #b00020;&quot;&gt;&lt;strong&gt;Error:&lt;/strong&gt; field filled incorrectly&lt;/p&gt;
+</code></pre>
+<p>Even without detailed CSS knowledge, it's important to remember the principle: <strong>text content must be self-sufficient</strong> and not lose meaning if all color styling is removed - because for some users (blind people, colorblind users, black-and-white screen users), color is simply unavailable.</p>
+<h3 id="section-12">Recommended minimum contrast level</h3>
+<p>There's a WCAG (Web Content Accessibility Guidelines) standard that recommends a minimum contrast ratio of <strong>4.5:1</strong> for regular text (and slightly less - 3:1 - for large text like headings). You can check the contrast of a color pair using free online tools (e.g., WebAIM Contrast Checker) - this will be especially relevant when choosing a site's color palette as you study CSS further.</p>
+<hr>
+<h2 id="section-13">Mini-task</h2>
+<p>Add <code>aria-label</code> to a textless GitHub icon-link so the screen reader announces its purpose.</p>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; aria-label=&quot;My GitHub profile&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    &lt;img src=&quot;github-icon.svg&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<hr>
+<h2 id="section-14"><code>tabindex</code> - keyboard focus control</h2>
+<p><strong>In simple terms:</strong> try right now, without touching the mouse, pressing the <strong>Tab</strong> key on any web page - you'll see the focus frame &quot;jump&quot; from one link/button/form field to another in a specific order. This is keyboard navigation - critically important for people who can't (or find it inconvenient) use a mouse.</p>
+<p>By default, the Tab traversal order follows <strong>the order of elements in HTML code</strong> - interactive elements (links, buttons, form fields) are automatically &quot;focusable&quot; without any additional code. This is yet another reason why writing HTML in a logical order matters - visual order can be changed via CSS, but Tab navigation by default follows the code order.</p>
+<h3 id="section-15"><code>tabindex=&quot;0&quot;</code> - make an element focusable</h3>
+<p><code>tabindex=&quot;0&quot;</code> adds focus only, not Enter/Space activation. A native button already supports the keyboard; ARIA itself creates no behavior.</p>
+<p>Sometimes you need to make focusable an element that isn't by default (e.g., a <code>&lt;div&gt;</code> with interactive behavior via JavaScript - although, as we covered in block 3, it's better to use native interactive tags when possible).</p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot;&gt;Details ▼&lt;/button&gt;
+</code></pre>
+<p><code>tabindex=&quot;0&quot;</code> embeds the element into the <strong>natural</strong> navigation order (wherever it is in the code) without disrupting the page's overall logic.</p>
+<h3 id="section-16"><code>tabindex=&quot;-1&quot;</code> - remove an element from Tab navigation</h3>
+<pre><code class="language-html">&lt;div tabindex=&quot;-1&quot; id=&quot;modal-title&quot;&gt;
+    Modal window title
+&lt;/div&gt;
+</code></pre>
+<p>Used for elements that need to receive focus programmatically (e.g., via JavaScript when opening a popup) but should not be part of the regular Tab sequence.</p>
+<h3 id="section-17">Positive <code>tabindex</code> values - why they should be avoided</h3>
+<p>Technically you can write <code>tabindex=&quot;1&quot;</code>, <code>tabindex=&quot;2&quot;</code>, etc., to explicitly set a traversal order different from the code order:</p>
+<pre><code class="language-html">&lt;!-- Not recommended --&gt;
+&lt;input type=&quot;text&quot; tabindex=&quot;2&quot;&gt;
+&lt;input type=&quot;text&quot; tabindex=&quot;1&quot;&gt;
+</code></pre>
+<p><strong>Why this is bad practice:</strong> this approach is extremely easy to &quot;break&quot; with any page structure change - a new element added without tabindex will end up in an unexpected place in the sequence, and the user will &quot;jump&quot; around the page unpredictably. <strong>The right approach</strong> is to arrange elements in a logical order right in the HTML code, then special <code>tabindex</code> won't be needed in 95% of cases.</p>
+<p><strong>Practical rule for this course:</strong> use <code>tabindex=&quot;0&quot;</code> and <code>tabindex=&quot;-1&quot;</code> only when truly needed (non-standard interactive elements), avoid positive numbers, and prioritize the logical order of the HTML code itself.</p>
+<hr>
+<h3 id="section-18">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using positive <code>tabindex</code> values to &quot;fix&quot; navigation order</td>
+<td>Instead, change the actual order of elements in the HTML code</td>
+</tr>
+<tr>
+<td>Putting <code>tabindex</code> on elements that are already focusable (links, buttons, form fields)</td>
+<td>Native interactive elements are focusable by default - <code>tabindex</code> isn't needed for them</td>
+</tr>
+<tr>
+<td>Forgetting that visual order (set by future CSS) can differ from HTML code order, confusing Tab navigation</td>
+<td>Try to make the logical order in HTML match the visual order on the page</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-19">Heading hierarchy as the page &quot;skeleton&quot;</h2>
+<p>Let's return once more to the topic started in lesson 2 and look at it specifically through the lens of accessibility - because this may be the most underappreciated a11y tool by beginners.</p>
+<p><strong>Imagine you are a blind user</strong> who just opened a long page (e.g., a recipe article of 2000 words). You can't &quot;scan with your eyes&quot; the way a sighted user does in a couple of seconds, visually picking out the structure. What do you do? Most screen readers allow you to <strong>jump from heading to heading</strong> with a single key, without listening to all the text in sequence.</p>
+<p>If the page is built correctly:</p>
+<pre><code class="language-html">&lt;h1&gt;Plov recipe&lt;/h1&gt;
+&lt;h2&gt;Ingredients&lt;/h2&gt;
+&lt;h2&gt;Step-by-step preparation&lt;/h2&gt;
+&lt;h3&gt;Preparing the rice&lt;/h3&gt;
+&lt;h3&gt;Frying the meat and vegetables&lt;/h3&gt;
+&lt;h3&gt;Final cooking&lt;/h3&gt;
+&lt;h2&gt;Serving tips&lt;/h2&gt;
+</code></pre>
+<ul>
+<li>a blind user can in a few seconds &quot;scan&quot; the structure through headings (hearing only h1, h2, h2, h3, h3, h3, h2), realize they're interested in &quot;Preparing the rice,&quot; and jump straight there, completely skipping everything else - just like a sighted user visually scans the page looking for the desired section.</li>
+</ul>
+<p><strong>Using bold paragraphs instead of headings</strong> removes heading semantics. Skipping directly from h2 to h4 does not disable heading navigation, but makes the section hierarchy harder to understand. Choose heading levels by content structure.</p>
+<p>Choose tags by meaning: strong for importance, em for stress emphasis, nav for navigation and th for table headers. The b and i elements are also valid, with different semantic purposes. A tag choice does not guarantee particular screen-reader intonation.</p>
+<hr>
+<h2 id="section-20">Lesson summary</h2>
+<p>Today you learned:</p>
+<ul>
+<li>Accessibility (a11y) is about ensuring the site can be used by people with different perception and interaction abilities: blind, hard-of-hearing, keyboard-only users.</li>
+<li>Everything we did right before (<code>alt</code>, <code>label</code>/<code>for</code>, <code>scope</code>, <code>legend</code>, semantics) was already work on accessibility.</li>
+<li><code>aria-label</code> describes elements without visible text, <code>role</code> clarifies the functional role - but always prefer native HTML tags over ARIA imitations.</li>
+<li>Text and background contrast is critical for readability - and it's important not to rely only on color to convey meaning.</li>
+<li><code>tabindex=&quot;0&quot;</code>/<code>&quot;-1&quot;</code> control whether an element participates in Tab navigation - but positive numbers should be avoided in favor of logical code order.</li>
+<li>The <code>h1</code>–<code>h6</code> heading hierarchy works as the page's &quot;skeleton,&quot; allowing the screen reader (and any user) to quickly navigate the content.</li>
+</ul>
+<h2 id="section-21">Independent practice</h2>
+<p>For a native select, try: Tab to the list → Space to open → an arrow key to choose → Enter to confirm. Depending on the browser, an arrow key alone may only open the menu or move its highlight; check the final selected value.</p>
+<p>If you have not set custom colors, calculate black text on white (#000000 and #ffffff) in WebAIM Contrast Checker: the result is 21:1. This does not prove the colors of every browser control. For actual colors, inspect color and background-color in Elements → Computed; if the background is transparent, inspect the ancestor that supplies it. Check the pairs actually used on the page.</p>
+<p>To inspect an accessible name, open DevTools → Elements, select a control and expand Accessibility. Compare Name with its visible label and Role with its purpose. Panel placement can vary by browser version.</p>
+<p>Tab moves between focusable elements; it need not stop at ordinary paragraphs or headings. Try Enter and Space on a button and arrow keys in a select.</p>
+<p>Audit your lesson 7 page: labels, headings, alternative text and Tab order. Fix findings and record before/after evidence.</p>
+<h3 id="section-22">Completion criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Traverse the full page with Tab and Shift+Tab: logical order, visible focus, no traps.</label></li>
+<li class="check"><label><input type="checkbox"> Activate a native button with Enter and Space; try arrow keys in a select. Check Name and Role in Elements → Accessibility.</label></li>
+<li class="check"><label><input type="checkbox"> Check each author-defined text/background pair: normal text at least 4.5:1. If there are no custom colors, record the black/white calculation separately from browser-control colors.</label></li>
+<li class="check"><label><input type="checkbox"> Record at least three checks: action, expectation, actual result and a fix if a problem was found. Otherwise record “no issue found”.</label></li>
+</ul>
+<h3 id="section-23">Self-check questions</h3>
+<p>What does tabindex add, and what does it not add? Why prefer a native button? When should alt be empty?</p>
+<hr>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-7.html">Previous</a> · <a href="en-lesson-9.html">Next</a> · <a href="../Lesson-8/practice.html">Practice</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-8/en/Accessibility%20%28a11y%29.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

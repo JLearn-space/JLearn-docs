@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Final project from planning to publication · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">Guided walkthrough</a><a href="#section-5">Planning before writing code</a><a href="#section-9">Step-by-step build: semantics (the skeleton of every page)</a><a href="#section-10">Step-by-step build: content (text, headings, lists)</a><a href="#section-11">Step-by-step build: media (images)</a><a href="#section-12">Step-by-step build: table</a><a href="#section-13">Step-by-step build: form</a><a href="#section-14">Step-by-step build: meta tags</a><a href="#section-15">Step-by-step build: accessibility</a><a href="#section-16">Final quality checklist</a><a href="#section-17">Publishing to GitHub Pages</a><a href="#section-23">Course summary</a><a href="#section-24">Independent final assessment</a></details></aside><article><h1 id="section-1">Final project from planning to publication</h1>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-9.html">Previous</a> · <a href="../Lesson-10/index.html">Practice</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+<blockquote>
+<p><strong>Connection to the previous lesson:</strong> we've come a long way from the first <code>&lt;!DOCTYPE html&gt;</code> to meta tags and project structure. Today is not a new topic, but rather <strong>applying the entire course in practice</strong>: we'll plan, build, and publish a real portfolio website from scratch to completion.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<ul>
+<li>How to plan a website structure before writing the first line of code.</li>
+<li>How to build a complete page in the correct order: semantics → content → media → table → form → meta tags → accessibility.</li>
+<li>How to go through the final quality checklist and find weak spots in your own code.</li>
+<li>How to publish a finished site to the public via GitHub Pages.</li>
+</ul>
+<hr>
+<h2 id="section-3">Lesson plan</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project planning</td>
+<td>What kind of site, how many pages, what goes on each</td>
+</tr>
+<tr>
+<td>Step-by-step build: semantics</td>
+<td>Page skeleton, header/nav/main/footer</td>
+</tr>
+<tr>
+<td>Step-by-step build: content</td>
+<td>Headings, text, lists</td>
+</tr>
+<tr>
+<td>Step-by-step build: media</td>
+<td>Images, figure</td>
+</tr>
+<tr>
+<td>Step-by-step build: table</td>
+<td>If applicable to the project</td>
+</tr>
+<tr>
+<td>Step-by-step build: form</td>
+<td>Contact form</td>
+</tr>
+<tr>
+<td>Step-by-step build: meta tags</td>
+<td>head in full</td>
+</tr>
+<tr>
+<td>Step-by-step build: accessibility</td>
+<td>Final aria/alt/scope check</td>
+</tr>
+<tr>
+<td>Final quality checklist</td>
+<td>Full self-review</td>
+</tr>
+<tr>
+<td>Publishing to GitHub Pages</td>
+<td>Step-by-step instructions</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">Guided walkthrough</h2>
+<p>A form with method=&quot;get&quot; demonstrates markup rather than message delivery: the browser sends fictional values by GET to the current URL, and static hosting does not process the message. POST does not encrypt data; HTTPS protects transport. Use fictional data for this exercise. Include every referenced image and favicon, and match alt to the actual image. Plan accessibility from the beginning and recheck it before publication. Saving repository files does not itself configure Pages.</p>
+<p>The following sections demonstrate building a study portfolio. A separate independent assessment appears at the end of this lesson.</p>
+<h2 id="section-5">Planning before writing code</h2>
+<p><strong>In simple terms:</strong> before building a house, an architect draws a plan on paper - how many rooms, what goes where, how to move between them. It's the same with websites: if you sit down to write code without a plan, you'll very likely end up constantly redoing everything on the fly.</p>
+<h3 id="section-6">Step 1. Choose your project topic</h3>
+<p>The final project is a simple multi-page portfolio website. Examples of good topics for a learning project:</p>
+<ul>
+<li>Personal portfolio (about yourself, projects, contacts).</li>
+<li>A small local business website (cafe, tutoring, workshop).</li>
+<li>A course or hobby club showcase website.</li>
+</ul>
+<p><strong>Important:</strong> choose a topic you actually have something to say about - it'll be much easier to fill the pages with meaningful content, not just &quot;filler&quot; text.</p>
+<h3 id="section-7">Step 2. Define the page structure (sitemap)</h3>
+<p>Write down on paper or in a text file the list of pages and what each one will contain:</p>
+<p><strong>Example sitemap for a personal portfolio:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home</td>
+<td><code>index.html</code></td>
+<td>Greeting, brief &quot;about me&quot;, links to other sections</td>
+</tr>
+<tr>
+<td>About</td>
+<td><code>about.html</code></td>
+<td>Detailed bio, photo, skills list</td>
+</tr>
+<tr>
+<td>Projects</td>
+<td><code>projects.html</code></td>
+<td>List of works with preview images</td>
+</tr>
+<tr>
+<td>Contacts</td>
+<td><code>contact.html</code></td>
+<td>Contact form, table with contact methods</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-8">Step 3. Draft a content plan for each page</h3>
+<p>For each page, briefly list which HTML tools from the course you'll be using. For example, for <code>contact.html</code>:</p>
+<ul>
+<li><code>&lt;header&gt;</code> with a persistent <code>&lt;nav&gt;</code> menu</li>
+<li><code>&lt;main&gt;</code> with a heading <code>&lt;h1&gt;Contacts&lt;/h1&gt;</code></li>
+<li><code>&lt;table&gt;</code> with <code>scope</code> - contact methods and working hours</li>
+<li><code>&lt;form&gt;</code> with <code>fieldset</code>/<code>legend</code> - contact form</li>
+<li><code>&lt;footer&gt;</code> with social media links using <code>aria-label</code></li>
+</ul>
+<p><strong>This planning is not a formality.</strong> This is usually where you notice inconsistencies - for example, that your home page has no link to a page you just created. It's much easier to fix this on paper than after you've already written code for four pages.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-10-1.svg" alt="Diagram 1: Final project from planning to publication"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-10-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Follow the arrows as a project workflow: plan accessibility first, build, inspect and then publish. The final step includes testing the actual public URL rather than assuming a local result proves deployment works.</p>
+<hr>
+<h2 id="section-9">Step-by-step build: semantics (the skeleton of every page)</h2>
+<p>We start building with the semantic skeleton - what we covered in lesson 2. This is done <strong>before</strong> filling in real content - structure first, then content goes inside it.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;!-- we'll fill this in block 7 --&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;!-- persistent menu --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;!-- main page content --&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;!-- footer --&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Do this the same way for every page in your project</strong> - a single skeleton with the same <code>&lt;header&gt;</code>/<code>&lt;nav&gt;</code>/<code>&lt;footer&gt;</code> on all pages, with only the <code>&lt;main&gt;</code> content differing - exactly as we built a multi-page site in lesson 3.</p>
+<hr>
+<h2 id="section-10">Step-by-step build: content (text, headings, lists)</h2>
+<p>Now we fill <code>&lt;main&gt;</code> with real text, using proper heading hierarchy (lesson 2) - a single <code>&lt;h1&gt;</code> per page, with no skipped levels.</p>
+<p><strong>Example for <code>about.html</code>:</strong></p>
+<pre><code class="language-html">&lt;main&gt;
+    &lt;h1&gt;About Me&lt;/h1&gt;
+
+    &lt;p&gt;My name is Aziz and I've been &lt;strong&gt;passionate about web development&lt;/strong&gt; for over a year now. I started with HTML - and now I'm taking this course to organize my knowledge.&lt;/p&gt;
+
+    &lt;h2&gt;My Skills&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;HTML5 - semantic markup&lt;/li&gt;
+        &lt;li&gt;CSS fundamentals&lt;/li&gt;
+        &lt;li&gt;Learning JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h2&gt;My Journey&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;Started learning web development on my own&lt;/li&gt;
+        &lt;li&gt;Completed the &quot;HTML: A to Z&quot; course&lt;/li&gt;
+        &lt;li&gt;Planning to continue - CSS and JavaScript next&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Use <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> only where the text genuinely requires semantic emphasis - not for decoration, but for meaning (as we covered in lesson 2).</p>
+<hr>
+<h2 id="section-11">Step-by-step build: media (images)</h2>
+<p>Add images where they're appropriate - profile photo, project previews, illustrations. Don't forget about <code>alt</code> (lesson 4) and <code>figure</code>/<code>figcaption</code> when an image needs a caption.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/profile-photo.jpg&quot; alt=&quot;Aziz smiling in front of a laptop with code on screen&quot; width=&quot;300&quot;&gt;
+    &lt;figcaption&gt;My workspace&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><strong>If you don't have your own photos for the project</strong> - use free placeholder images (it's still important to write meaningful <code>alt</code> text that describes what's actually shown in the image, not made-up text).</p>
+<hr>
+<h2 id="section-12">Step-by-step build: table</h2>
+<p>Add a table where your project actually has tabular data (lesson 5) - remember the rule: tables are only for data, not for layout.</p>
+<p><strong>Example for <code>contact.html</code> - contact methods table:</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Contact Methods&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Method&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Contact&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Response Time&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Email&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;info@saydullayev.fun&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Within 24 hours&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;Telegram&lt;/th&gt;
+            &lt;td&gt;&lt;a href=&quot;https://t.me/example&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;@example&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;A few hours&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>If a table doesn't fit your project topic</strong> (for example, a purely visual portfolio with no comparative data) - that's fine, don't artificially add a table just to use the tag. Use your engineering judgment: the tag should appear where it solves a real problem.</p>
+<hr>
+<h2 id="section-13">Step-by-step build: form</h2>
+<p>Add a contact form (lessons 6-7), with proper <code>label</code>/<code>for</code>/<code>id</code> linkage, grouping via <code>fieldset</code>/<code>legend</code>, and at least minimal validation.</p>
+<p>The study form uses <code>method=&quot;get&quot;</code>: the browser adds values to the current page URL. Use fictional data only. No message is delivered because there is no handler. GET makes the submitted values visible; POST itself does not encrypt data.</p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Get in Touch&lt;/legend&gt;
+
+        &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required maxlength=&quot;50&quot;&gt;&lt;br&gt;
+
+        &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;br&gt;
+
+        &lt;label for=&quot;message&quot;&gt;Message:&lt;/label&gt;&lt;br&gt;
+        &lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;5&quot; cols=&quot;40&quot; placeholder=&quot;Write your message...&quot; required&gt;&lt;/textarea&gt;
+    &lt;/fieldset&gt;
+
+    &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<hr>
+<h2 id="section-14">Step-by-step build: meta tags</h2>
+<p>Fill out the <code>&lt;head&gt;</code> of each page (lesson 9) - now that the content is ready, it's easy to write a meaningful <code>description</code>.</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;About me - Aziz, an aspiring web developer learning HTML, CSS, and JavaScript.&quot;&gt;
+    &lt;title&gt;About Me - Aziz's Portfolio&lt;/title&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Check each page for:</strong> a unique <code>&lt;title&gt;</code> (not the same across all pages!), a unique <code>description</code> that reflects the specific content of that page.</p>
+<hr>
+<h2 id="section-15">Step-by-step build: accessibility</h2>
+<p>Final check of each page using the tools from lesson 8:</p>
+<ul>
+<li>All <code>&lt;img&gt;</code> tags have a meaningful <code>alt</code> (or empty <code>alt=&quot;&quot;</code> for decorative images).</li>
+<li>Icon links without text have <code>aria-label</code>.</li>
+<li>Heading hierarchy has no gaps and a single <code>&lt;h1&gt;</code> per page.</li>
+<li>Test Tab navigation - reach every interactive element without a mouse.</li>
+</ul>
+<hr>
+<h2 id="section-16">Final quality checklist</h2>
+<p>Go through this list for <strong>every</strong> page of your project - mark them right on paper or in your notes:</p>
+<ul>
+<li class="check"><label><input type="checkbox"> Single <code>&lt;h1&gt;</code> on the page</label></li>
+<li class="check"><label><input type="checkbox"> Semantics instead of div soup (<code>header</code>/<code>nav</code>/<code>main</code>/<code>footer</code> used for their intended purpose)</label></li>
+<li class="check"><label><input type="checkbox"> <code>alt</code> on all <code>&lt;img&gt;</code> tags</label></li>
+<li class="check"><label><input type="checkbox"> <code>label</code> on all form fields</label></li>
+<li class="check"><label><input type="checkbox"> Meaningful link text (not &quot;click here&quot;, but a clear description - e.g., &quot;Read more about the project&quot;)</label></li>
+<li class="check"><label><input type="checkbox"> <code>meta charset</code> and <code>meta viewport</code> in place</label></li>
+<li class="check"><label><input type="checkbox"> Code passes W3C validation without errors</label></li>
+<li class="check"><label><input type="checkbox"> Page is readable on a mobile screen (you can check via DevTools - device mode, phone/tablet icon in the top panel)</label></li>
+</ul>
+<p><strong>Go through this checklist right now with one of your completed pages</strong> - chances are, you'll find at least one item worth improving. This is normal and useful - this is exactly what a real quality check before publication looks like.</p>
+<hr>
+<h2 id="section-17">Publishing to GitHub Pages</h2>
+<p>The final step of the course - making your site accessible to the entire world via a real URL, not just on your computer.</p>
+<h3 id="section-18">What is GitHub Pages</h3>
+<p>GitHub is a service for storing code (we mentioned it as a platform for portfolios in previous lessons). <strong>GitHub Pages</strong> is a free GitHub feature that lets you publish a static HTML/CSS/JS website directly from your repository at a URL like <code>username.github.io/repository-name</code>.</p>
+<h3 id="section-19">Step-by-step instructions</h3>
+<p><strong>Step 1.</strong> If you don't have a GitHub account yet - sign up at github.com.</p>
+<p><strong>Step 2.</strong> Create a new repository:</p>
+<ul>
+<li>Click &quot;New repository&quot;.</li>
+<li>Give it a name, e.g. <code>my-portfolio</code>.</li>
+<li>Select &quot;Public&quot; (the repository must be public for free GitHub Pages).</li>
+<li>Click &quot;Create repository&quot;.</li>
+</ul>
+<p><strong>Step 3.</strong> Upload project files using one of two methods:</p>
+<p><em>Method A - via the web interface (easier for beginners):</em></p>
+<ul>
+<li>On the repository page, click &quot;uploading an existing file&quot;.</li>
+<li>Drag and drop all your project files and folders (<code>index.html</code>, <code>css/</code>, <code>js/</code>, <code>images/</code>, etc.).</li>
+<li>At the bottom, click &quot;Commit changes&quot;.</li>
+</ul>
+<p><em>Method B - via Git from the terminal (if you're already familiar with Git):</em></p>
+<pre><code class="language-bash">git init
+git add .
+git commit -m &quot;First site publication&quot;
+git branch -M main
+git remote add origin https://github.com/your-username/my-portfolio.git
+git push -u origin main
+</code></pre>
+<p><strong>Step 4.</strong> Enable GitHub Pages:</p>
+<ul>
+<li>Open the &quot;Settings&quot; tab in your repository.</li>
+<li>In the sidebar menu, find the &quot;Pages&quot; section.</li>
+<li>Under &quot;Build and deployment&quot;, set &quot;Source&quot; to &quot;Deploy from a branch&quot;. Then select <code>main</code> and <code>/ (root)</code> under &quot;Branch&quot;.</li>
+<li>Click &quot;Save&quot;.</li>
+</ul>
+<p><strong>Step 5.</strong> Wait for deployment to complete; this may take several minutes - GitHub will build and publish your site. Refresh the &quot;Pages&quot; settings page - a link will appear like:</p>
+<pre><code>https://your-username.github.io/my-portfolio/
+</code></pre>
+<p><strong>Step 6.</strong> Open that link in your browser - your site is now accessible to anyone on the internet.</p>
+<h3 id="section-20">Important practical note: the main file name</h3>
+<p>GitHub Pages automatically opens the <code>index.html</code> file when visiting the repository's root address - so it's important that your home page is named <code>index.html</code> (not <code>home.html</code> or <code>main.html</code>), otherwise it won't open automatically via the short URL.</p>
+<h3 id="section-21">Updating the site in the future</h3>
+<p>If you want to make changes later - just upload the updated files the same way (via the web interface &quot;Add file&quot; → &quot;Upload files&quot;, or <code>git push</code> if you're using the terminal) - GitHub Pages will automatically rebuild and update the published version of your site after the new deployment completes successfully.</p>
+<hr>
+<h3 id="section-22">Common publishing mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository created as Private</td>
+<td>For free GitHub Pages, the repository must be public</td>
+</tr>
+<tr>
+<td>Home page not named <code>index.html</code></td>
+<td>Rename the home page file to <code>index.html</code></td>
+</tr>
+<tr>
+<td>CSS/image paths break after publishing</td>
+<td>Make sure you use relative paths (lesson 3), not absolute paths like <code>C:\Users\...</code> that only work on your computer</td>
+</tr>
+<tr>
+<td>Pages feature not enabled in settings</td>
+<td>Don't forget to go to Settings → Pages and explicitly select the publishing branch</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Course summary</h2>
+<p>Congratulations - you've traveled the path from the first <code>&lt;!DOCTYPE html&gt;</code> to a fully published multi-page website! Over 10 lessons, you've mastered:</p>
+<ul>
+<li>HTML document structure and basic tools (lessons 1-2).</li>
+<li>Links and navigation between pages (lesson 3).</li>
+<li>Working with images and media (lesson 4).</li>
+<li>Tables for tabular data (lesson 5).</li>
+<li>Forms - both levels of complexity, from simple fields to validation (lessons 6-7).</li>
+<li>Accessibility as a principle, not a separate &quot;feature&quot; (lesson 8).</li>
+<li>Meta tags, SEO basics, and integration with CSS/JS (lesson 9).</li>
+<li>The full cycle: from project planning to public publication (lesson 10).</li>
+</ul>
+<p><strong>What's next:</strong> HTML is just the &quot;skeleton&quot; (as we said from the very first lesson). The logical continuation is <strong>CSS</strong> (styling, colors, spacing, responsive layout for different screens) and then <strong>JavaScript</strong> (interactivity, truly working with forms, dynamic page behavior). The site you published today will become an excellent &quot;playground&quot; for practicing these new skills in the future.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-10-2.svg" alt="Diagram 2: Final project from planning to publication"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-10-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Branches summarize the course progression. They group knowledge by lesson; the final project combines earlier skills rather than introducing a separate HTML language.</p>
+<h2 id="section-24">Independent final assessment</h2>
+<p>The step-by-step build above is a guided example. Reproducing the supplied portfolio does not demonstrate independent competence.</p>
+<p>Without copying the example, build a four-page site for a club, library or study group. Include meaningful headings and lists, owned or permitted images with suitable alt, a captioned table with headers, and a form with labels, fieldset/legend and validation. State that the form is a demonstration. Add unique metadata and publish. Submit source files, a public URL and a test record.</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th style="text-align:right">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structure and navigation</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Semantics and content</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Images and table</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Form and validation</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td>Accessibility and keyboard checks</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>Metadata, publication and test record</td>
+<td style="text-align:right">10</td>
+</tr>
+</tbody>
+</table>
+<p>Pass: at least 80/100, all four pages accessible, working navigation and accessible form labels. Fix broken links and missing labels before passing. Full points: implemented and checked; half: partial; zero: absent. Explain your tag choices, form behavior and two completed checks and any issues found.</p>
+<hr>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-9.html">Previous</a> · <a href="../Lesson-10/index.html">Practice</a> · <a href="ru-lesson-10.html">RU</a> · <a href="en-lesson-10.html">EN</a> · <a href="uz-lesson-10.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-10/en/Final%20project%20from%20planning%20to%20publication.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3 — Links and Navigation</title>
+</head>
+<body id="top">
+
+    <h1>Link Examples</h1>
+
+    <a href="https://www.google.com">Go to Google</a>
+
+    <h2>Absolute Links (External Sites)</h2>
+    <a href="https://www.wikipedia.org">Wikipedia</a><br>
+    <a href="https://github.com/Saydullayev017">Author's GitHub</a>
+
+    <h2>Relative Links (Your Own Pages)</h2>
+    <a href="about.html">About</a><br>
+    <a href="about.html">View relative-page example</a><br>
+    <a href="../Lesson-1/practice.html">Lesson 1 (parent folder, then another lesson)</a><br>
+    <p><code>/</code> means the web server root; it depends on where the site is hosted.</p>
+
+    <h2>Links in a New Tab</h2>
+    <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">
+        MDN Web Docs (new tab)
+    </a>
+
+    <h2>Anchor Links (Page Navigation)</h2>
+
+    <nav>
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#history">History of HTML</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <h2 id="intro">Introduction</h2>
+    <p>HTML is a markup language, the foundation of any web page.</p>
+
+    <h2 id="history">History of HTML</h2>
+    <p>HTML appeared in 1991. Tim Berners-Lee created it for sharing scientific documents.</p>
+
+    <h2 id="conclusion">Conclusion</h2>
+    <p>HTML continues to evolve and remain relevant in the modern web.</p>
+
+    <p><a href="#top">Back to top ↑</a></p>
+
+    <h2>Contact Links</h2>
+
+    <p>Email: <a href="mailto:info@saydullayev.fun">info@saydullayev.fun</a></p>
+
+    <p>Email with subject:
+        <a href="mailto:info@saydullayev.fun?subject=Course%20question">
+            Send us an email
+        </a>
+    </p>
+
+    <p>Phone: <a href="tel:+998901234567">+998 90 123-45-67</a></p>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+/* Готовый файл стилей из урока 9. Писать CSS в курсе не требуется. */
+body { font-family: system-ui, sans-serif; max-width: 64rem; margin: 3rem auto; padding: 0 1.5rem; line-height: 1.7; color: #172554; }
+img { max-width: 100%; height: auto; }
+table { border-collapse: collapse; }
+th, td { border: 1px solid #cbd5e1; padding: .5rem .75rem; text-align: left; }

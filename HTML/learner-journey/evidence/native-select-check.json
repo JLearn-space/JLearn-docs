@@ -1,0 +1,48 @@
+{
+  "mode": "Observed native Google Chrome macOS accessibility tree after physical keyboard input through CUA; no document or option mutation by script",
+  "date": "2026-11-10",
+  "checks": [
+    {
+      "lang": "ru",
+      "file": "learner-journey/ru/lesson-08/index.html",
+      "sha256": "0d6b1ce45c90d89d7ff190c0ac9122181cb770936d8a64347040b4a995a4864b",
+      "before": "Текст",
+      "after": "Формы",
+      "keys": [
+        "Tab to select",
+        "Space",
+        "Down",
+        "Return"
+      ],
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "file": "learner-journey/en/lesson-08/index.html",
+      "sha256": "80ac95b9cc983b850a3893348550be85a2a90a47cf79ce4e6c15b6d45f8653c9",
+      "before": "Short stories",
+      "after": "Novels",
+      "keys": [
+        "Tab to select",
+        "Space",
+        "Down",
+        "Return"
+      ],
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "file": "learner-journey/uz/lesson-08/index.html",
+      "sha256": "0051d2c695a724c732d33b645a5ceb1d53e3a0c73055a75aa86efee95553357c",
+      "before": "Hikoya tahlili",
+      "after": "She’r o‘qish",
+      "keys": [
+        "Tab to select",
+        "Space",
+        "Down",
+        "Return"
+      ],
+      "passed": true
+    }
+  ]
+}

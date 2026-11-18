@@ -1,0 +1,255 @@
+{
+  "lesson": 8,
+  "lesson_title": "Доступность (a11y)",
+  "task": {
+    "title": "Исправьте анкету: 6 ошибок доступности",
+    "language": "html",
+    "description": "В стартовом коде шесть ошибок доступности. Исправьте: div role=\"button\" - на button type=\"submit\"; подпись почты - через label for; ссылке-иконке - aria-label; уберите положительный tabindex; добавьте ссылку #main и id=\"main\" у main; «Частые вопросы» - через details и summary.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                Почта\n                <input type=\"email\" id=\"email\" name=\"email\" tabindex=\"3\" required>\n            </p>\n            <div role=\"button\">Отправить</div>\n        </form>\n        <h2>Частые вопросы</h2>\n        <p><strong>Сколько стоит участие?</strong></p>\n        <p>Участие бесплатное.</p>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "href=\"#main\"",
+        "id=\"main\"",
+        "<details",
+        "<summary"
+      ],
+      "forbidden": [
+        "role=\"button\"",
+        "tabindex=\"1\"",
+        "tabindex=\"2\"",
+        "tabindex=\"3\"",
+        "tabindex=\"4\"",
+        "tabindex=\"5\""
+      ],
+      "tags": {
+        "label": 2,
+        "details": 1,
+        "summary": 1
+      },
+      "for_id_pairs": true,
+      "button_submit": true,
+      "empty_link_a11y": true,
+      "href_targets": [
+        "#main"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Кнопка: <button type=\"submit\">Отправить</button>.",
+      "Подпись почты: <label for=\"email\">Почта</label>.",
+      "Ссылка-иконка: <a href=\"...\" aria-label=\"Наш Telegram-канал\">.",
+      "Положительный tabindex удалите целиком.",
+      "Первой строкой body: <a href=\"#main\">Перейти к основному содержимому</a>, а у main - id=\"main\".",
+      "Вопрос-ответ: <details><summary>Вопрос</summary><p>Ответ</p></details>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "осталась div-кнопка",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <div role=\"button\">Отправить</div>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет подписи почты",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                Почта\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "иконка без имени",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "положительный tabindex",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" tabindex=\"2\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет ссылки пропуска",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет id у main",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет details",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <p>Участие бесплатное.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "button без type submit",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <a href=\"#main\">Перейти к основному содержимому</a>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <a href=\"https://t.me/example\" aria-label=\"Наш Telegram-канал\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"button\">Отправить</button>\n            </p>\n        </form>\n        <h2>Частые вопросы</h2>\n        <details>\n            <summary>Сколько стоит участие?</summary>\n            <p>Участие бесплатное.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что означает «11» в a11y?",
+        "options": [
+          "Номер стандарта",
+          "Число букв между a и y в accessibility",
+          "Версия HTML",
+          "Число правил"
+        ],
+        "answer": 1,
+        "explanation": "a-ccessibilit-y: 11 букв между a и y."
+      },
+      {
+        "type": "single",
+        "question": "Что лучше для кнопки отправки?",
+        "options": [
+          "<div role=\"button\">",
+          "<button type=\"submit\">",
+          "<span onclick>",
+          "<a href=\"#\">"
+        ],
+        "answer": 1,
+        "explanation": "Нативная кнопка уже фокусируется, реагирует на Enter и Space и отправляет форму."
+      },
+      {
+        "type": "single",
+        "question": "Какой минимальный контраст нужен обычному тексту по WCAG?",
+        "options": [
+          "2:1",
+          "3:1",
+          "4.5:1",
+          "10:1"
+        ],
+        "answer": 2,
+        "explanation": "4.5:1 для обычного текста, 3:1 для крупного."
+      },
+      {
+        "type": "single",
+        "question": "Почему нельзя писать tabindex=\"3\"?",
+        "options": [
+          "Это синтаксическая ошибка",
+          "Элемент выдернется в начало маршрута Tab",
+          "Элемент станет невидимым",
+          "Браузер его проигнорирует"
+        ],
+        "answer": 1,
+        "explanation": "Положительные значения ломают естественный порядок Tab."
+      },
+      {
+        "type": "multiple",
+        "question": "Откуда браузер берёт доступное имя элемента?",
+        "options": [
+          "Текст внутри кнопки или ссылки",
+          "Связанный <label>",
+          "aria-label",
+          "Атрибут class"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "class на имя не влияет."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про aria-label?",
+        "options": [
+          "Нужен, когда нет видимого текста",
+          "Лишний на кнопке с текстом «Отправить»",
+          "Заменяет alt у <img>",
+          "Даёт имя ссылке-иконке"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "У картинок всегда alt."
+      },
+      {
+        "type": "multiple",
+        "question": "Что не добавляет tabindex=\"0\" элементу <div>?",
+        "options": [
+          "Реакцию на Enter",
+          "Реакцию на Space",
+          "Попадание в маршрут Tab",
+          "Роль кнопки"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "tabindex добавляет только фокус."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте значение tabindex и эффект.",
+        "pairs": [
+          [
+            "0",
+            "Добавить в маршрут Tab"
+          ],
+          [
+            "-1",
+            "Убрать из маршрута, фокус только программно"
+          ],
+          [
+            "3",
+            "Не использовать никогда"
+          ]
+        ],
+        "explanation": "Порядок Tab задаёт порядок элементов в коде."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте проблему и исправление.",
+        "pairs": [
+          [
+            "Ссылка-иконка без имени",
+            "aria-label у ссылки"
+          ],
+          [
+            "Длинное меню на каждой странице",
+            "Ссылка «Перейти к основному содержимому»"
+          ],
+          [
+            "Ошибка показана только красным",
+            "Добавить текст «Ошибка:»"
+          ],
+          [
+            "Вопрос-ответ из div и ARIA",
+            "<details> и <summary>"
+          ]
+        ],
+        "explanation": "Сначала нативный HTML, ARIA - когда тега не хватает."
+      },
+      {
+        "type": "input",
+        "question": "Какая клавиша переводит фокус к предыдущему элементу? Введите сочетание.",
+        "answers": [
+          "Shift+Tab",
+          "shift + tab",
+          "shift+tab"
+        ],
+        "case_sensitive": false,
+        "explanation": "Tab - вперёд, Shift+Tab - назад."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут даёт имя кнопке «×» без текста? Введите имя атрибута.",
+        "answers": [
+          "aria-label"
+        ],
+        "case_sensitive": false,
+        "explanation": "<button aria-label=\"Закрыть окно\">×</button>."
+      },
+      {
+        "type": "input",
+        "question": "Какой href у ссылки пропуска меню, если у <main> id=\"main\"?",
+        "answers": [
+          "#main"
+        ],
+        "case_sensitive": false,
+        "explanation": "Якорь на основной блок страницы."
+      }
+    ]
+  }
+}

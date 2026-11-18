@@ -1,0 +1,556 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Изображения и медиа · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из урока 3</a><a href="#section-5">План урока</a><a href="#section-6">Тег &lt;img&gt;</a><a href="#section-8">Атрибут alt</a><a href="#section-11">Размеры и ленивая загрузка</a><a href="#section-12">Форматы изображений</a><a href="#section-14">Подпись: figure и figcaption</a><a href="#section-15">Подготовка файлов для практики</a><a href="#section-16">Мини-задание 1</a><a href="#section-17">Аудио и видео</a><a href="#section-22">Favicon - иконка на вкладке</a><a href="#section-23">Мини-задание 2</a><a href="#section-24">Итоги урока: шпаргалка</a><a href="#section-25">Самостоятельная работа</a><a href="#section-29">Вопросы для самопроверки</a><a href="#section-30">Что дальше</a><a href="#section-31">Ответы</a></details></aside><article><h1 id="section-1">Изображения и медиа</h1>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-3.html">Назад</a> | <a href="ru-lesson-5.html">Вперёд</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Практика: пример</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 3 вы связали страницы ссылками. Сегодня добавим на них картинки, звук и видео. Пути к файлам работают по тем же правилам, что и ссылки.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Страница кафе без фото блюд, страница кружка без фотографий занятий - их пролистывают за секунду. Картинки и видео удерживают внимание.</p>
+<p>Но картинку видят не все. Незрячий пользователь «услышит» её только через описание, которое вы напишете. Сегодня научимся и вставлять медиа, и описывать его.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Вставлять изображение тегом <code>&lt;img&gt;</code> с атрибутами <code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code>.</li>
+<li>Писать хороший <code>alt</code> и понимать, когда он должен быть пустым.</li>
+<li>Выбирать формат: JPEG, PNG, SVG или WebP.</li>
+<li>Подписывать изображение через <code>&lt;figure&gt;</code> и <code>&lt;figcaption&gt;</code>.</li>
+<li>Вставлять аудио и видео с панелью управления.</li>
+<li>Встраивать видео с YouTube через <code>&lt;iframe&gt;</code>.</li>
+<li>Добавлять иконку сайта (favicon).</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из урока 3</h2>
+<ol>
+<li>Как сослаться на файл <code>photo.jpg</code> в папке <code>images</code>, если HTML-файл лежит рядом с этой папкой?</li>
+<li>Что означает <code>../</code> в пути?</li>
+<li>Почему путь <code>C:\Users\...</code> не сработает на сайте?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тег <code>&lt;img&gt;</code></td>
+<td>Окно в стене</td>
+</tr>
+<tr>
+<td>Атрибут <code>alt</code></td>
+<td>Описание по телефону</td>
+</tr>
+<tr>
+<td>Размеры и ленивая загрузка</td>
+<td><code>width</code>, <code>height</code>, <code>loading</code></td>
+</tr>
+<tr>
+<td>Форматы</td>
+<td>Какой файл выбрать</td>
+</tr>
+<tr>
+<td>Подпись</td>
+<td><code>figure</code> и <code>figcaption</code></td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Картинка с подписью</td>
+</tr>
+<tr>
+<td>Аудио и видео</td>
+<td><code>audio</code>, <code>video</code>, <code>source</code></td>
+</tr>
+<tr>
+<td>Видео с YouTube</td>
+<td><code>iframe</code></td>
+</tr>
+<tr>
+<td>Favicon</td>
+<td>Иконка на вкладке</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Видео с обложкой</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и страница увлечений</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Тег <code>&lt;img&gt;</code></h2>
+<p><strong>Простыми словами:</strong> ссылка - это дверь на другую страницу, а <code>&lt;img&gt;</code> - окно, через которое в страницу «вставляется» картинка. Сама картинка лежит отдельным файлом.</p>
+<pre><code class="language-html">&lt;img src=&quot;images/cat.jpg&quot; alt=&quot;Рыжий кот спит на подоконнике&quot;&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что значит</th>
+<th>Обязателен?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src</code></td>
+<td>Путь к файлу (правила те же, что у ссылок)</td>
+<td>Да</td>
+</tr>
+<tr>
+<td><code>alt</code></td>
+<td>Текстовое описание картинки</td>
+<td>Да</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Размеры в пикселях</td>
+<td>Желательно</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;img&gt;</code> - <strong>пустой элемент</strong>: закрывающего тега нет, всё передаётся атрибутами.</p>
+<p><strong>Что увидите:</strong> картинку на месте тега. Если файл не найден - значок «сломанной картинки» и текст из <code>alt</code>.</p>
+<h3 id="section-7">Картинка-ссылка</h3>
+<p>Картинку можно сделать ссылкой - оберните её в <code>&lt;a&gt;</code>:</p>
+<pre><code class="language-html">&lt;a href=&quot;index.html&quot;&gt;
+    &lt;img src=&quot;images/logo.png&quot; alt=&quot;Кружок веб-разработки - на главную&quot; width=&quot;150&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Здесь <code>alt</code> описывает не рисунок, а <strong>куда ведёт ссылка</strong>.</p>
+<hr>
+<h2 id="section-8">Атрибут <code>alt</code></h2>
+<p><strong>Простыми словами:</strong> представьте, что описываете картинку другу по телефону. Коротко, по существу, только то, что важно для страницы.</p>
+<p><code>alt</code> нужен:</p>
+<ul>
+<li>незрячим: скринридер читает его вместо картинки;</li>
+<li>когда картинка не загрузилась: браузер показывает <code>alt</code>;</li>
+<li>поисковикам: они понимают, что на изображении.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Картинка</th>
+<th>Плохой <code>alt</code></th>
+<th>Хороший <code>alt</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Фото занятия кружка</td>
+<td><code>alt=&quot;фото&quot;</code></td>
+<td><code>alt=&quot;Студенты за ноутбуками на занятии кружка&quot;</code></td>
+</tr>
+<tr>
+<td>Логотип-ссылка на главную</td>
+<td><code>alt=&quot;logo.png&quot;</code></td>
+<td><code>alt=&quot;Кружок веб-разработки - на главную&quot;</code></td>
+</tr>
+<tr>
+<td>График посещаемости</td>
+<td><code>alt=&quot;график&quot;</code></td>
+<td><code>alt=&quot;Посещаемость выросла с 10 до 25 человек за семестр&quot;</code></td>
+</tr>
+<tr>
+<td>Узор-разделитель</td>
+<td><code>alt=&quot;узор&quot;</code></td>
+<td><code>alt=&quot;&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-9">Пустой <code>alt=&quot;&quot;</code> - для украшений</h3>
+<p>Если картинка <strong>только украшает</strong> и ничего не сообщает, пишите <code>alt=&quot;&quot;</code>. Скринридер её пропустит.</p>
+<pre><code class="language-html">&lt;img src=&quot;images/decorative-line.png&quot; alt=&quot;&quot;&gt;
+</code></pre>
+<p><strong>Пустой <code>alt=&quot;&quot;</code> и отсутствие <code>alt</code> - разные вещи.</strong> Без атрибута скринридер может прочитать имя файла: «decorative-line точка png». Это мусор для слушателя.</p>
+<h3 id="section-10">Попробуйте сломать</h3>
+<ol>
+<li>Напишите в <code>src</code> несуществующее имя файла: <code>src=&quot;images/cat2.jpg&quot;</code>. Что показал браузер вместо картинки?</li>
+<li>Теперь удалите <code>alt</code> целиком. Что изменилось?</li>
+</ol>
+<hr>
+<h2 id="section-11">Размеры и ленивая загрузка</h2>
+<pre><code class="language-html">&lt;img src=&quot;images/cat.jpg&quot; alt=&quot;Рыжий кот спит на подоконнике&quot; width=&quot;400&quot; height=&quot;300&quot; loading=&quot;lazy&quot;&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Зачем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Браузер заранее оставляет место под картинку. Текст не «прыгает», когда она загрузится</td>
+</tr>
+<tr>
+<td><code>loading=&quot;lazy&quot;</code></td>
+<td>Картинка загружается, только когда пользователь до неё долистал. Страница открывается быстрее</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Важно про пропорции:</strong> если реальная картинка 800×600, то <code>width=&quot;400&quot; height=&quot;300&quot;</code> - правильно, а <code>width=&quot;400&quot; height=&quot;400&quot;</code> её растянет. Не знаете пропорции - укажите только <code>width</code>.</p>
+<p><code>loading=&quot;lazy&quot;</code> ставьте на картинки ниже первого экрана. Первую большую картинку страницы грузите сразу.</p>
+<hr>
+<h2 id="section-12">Форматы изображений</h2>
+<table>
+<thead>
+<tr>
+<th>Формат</th>
+<th>Лучше всего для</th>
+<th>Прозрачность</th>
+<th>Особенность</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JPEG</strong> <code>.jpg</code></td>
+<td>Фотографии</td>
+<td>Нет</td>
+<td>Сжатие с потерей качества</td>
+</tr>
+<tr>
+<td><strong>PNG</strong> <code>.png</code></td>
+<td>Скриншоты, графика с чёткими краями</td>
+<td>Да</td>
+<td>Без потерь, но файл тяжелее</td>
+</tr>
+<tr>
+<td><strong>SVG</strong> <code>.svg</code></td>
+<td>Логотипы, иконки</td>
+<td>Да</td>
+<td>Векторный: не теряет качество при увеличении</td>
+</tr>
+<tr>
+<td><strong>WebP</strong> <code>.webp</code></td>
+<td>Фото и графика</td>
+<td>Да</td>
+<td>Обычно легче JPEG и PNG</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Аналогия для SVG:</strong> JPEG и PNG - это мозаика из точек: увеличьте, и станут видны квадратики. SVG - инструкция «нарисуй круг такого радиуса»: при любом увеличении круг остаётся гладким.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-4-1.svg" alt="Схема 1: Изображения и медиа"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-4-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Два вопроса подсказывают стартовый выбор формата. Для фото и сложной графики сравните качество и вес нескольких вариантов.</p>
+<p><strong>Вес файла важен.</strong> Фото прямо с телефона весит 3–5 МБ. Для сайта уменьшите его до 100–300 КБ, например в бесплатном сервисе Squoosh.</p>
+<h3 id="section-13">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нет <code>alt</code></td>
+<td>Всегда пишите <code>alt</code>: с описанием или пустой для украшений</td>
+</tr>
+<tr>
+<td><code>alt=&quot;картинка&quot;</code>, <code>alt=&quot;img1&quot;</code></td>
+<td>Описывайте содержание</td>
+</tr>
+<tr>
+<td>Картинка с текстом вместо текста</td>
+<td>Текст пишите текстом, а не рисуйте</td>
+</tr>
+<tr>
+<td>PNG для фотографии</td>
+<td>Для фото - JPEG или WebP</td>
+</tr>
+<tr>
+<td>JPEG для логотипа с прозрачным фоном</td>
+<td>PNG или SVG</td>
+</tr>
+<tr>
+<td>Неправильная пропорция <code>width</code>/<code>height</code></td>
+<td>Сохраняйте пропорцию или укажите только <code>width</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-14">Подпись: <code>figure</code> и <code>figcaption</code></h2>
+<p>Когда картинке нужна подпись, как в учебнике «Рис. 1», используют связку:</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/chart.png&quot; alt=&quot;Столбцы посещаемости: сентябрь 10, октябрь 18, ноябрь 25 человек&quot; width=&quot;500&quot;&gt;
+    &lt;figcaption&gt;Рис. 1. Посещаемость кружка за осень&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> картинку и подпись под ней, всё с небольшим отступом.</p>
+<p><code>&lt;figure&gt;</code> объединяет картинку и подпись в один смысловой блок. Подпись можно поставить и над картинкой.</p>
+<p><strong><code>alt</code> и <code>figcaption</code> - не одно и то же:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>alt</code></th>
+<th><code>figcaption</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Кто видит</td>
+<td>Только тот, кто не видит картинку</td>
+<td>Все</td>
+</tr>
+<tr>
+<td>Что пишем</td>
+<td>Что изображено</td>
+<td>Пояснение, название, источник</td>
+</tr>
+</tbody>
+</table>
+<p>Не копируйте одно и то же в оба места.</p>
+<hr>
+<h2 id="section-15">Подготовка файлов для практики</h2>
+<p>Учебные картинки и медиа лежат в папках <code>Lesson-4/images</code>, <code>Lesson-4/audio</code>, <code>Lesson-4/video</code>. Скопируйте нужные файлы в свою папку <code>images</code> рядом с HTML-файлом. Перед тем как писать <code>alt</code>, <strong>откройте картинку и посмотрите</strong>, что на ней: имя файла не всегда совпадает с содержанием.</p>
+<p>Свои фото и музыку берите только те, которые вам разрешено использовать.</p>
+<hr>
+<h2 id="section-16">Мини-задание 1</h2>
+<p>Вставьте картинку <code>logo.png</code> из папки <code>images</code> шириной 200 пикселей. Добавьте подпись «Логотип нашего кружка». Напишите <code>alt</code> по тому, что видите на картинке. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-17">Аудио и видео</h2>
+<h3 id="section-18"><code>&lt;audio&gt;</code></h3>
+<pre><code class="language-html">&lt;audio controls&gt;
+    &lt;source src=&quot;audio/music.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+&lt;/audio&gt;
+&lt;p&gt;&lt;a href=&quot;audio/music.mp3&quot;&gt;Скачать аудиофайл&lt;/a&gt;&lt;/p&gt;
+</code></pre>
+<h3 id="section-19"><code>&lt;video&gt;</code></h3>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot; poster=&quot;images/video-preview.jpg&quot;&gt;
+    &lt;source src=&quot;video/lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+&lt;/video&gt;
+&lt;p&gt;&lt;a href=&quot;video/lesson.mp4&quot;&gt;Скачать видео&lt;/a&gt;&lt;/p&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>controls</code></td>
+<td>Показывает кнопки: play, громкость, перемотка. <strong>Без него кнопок нет</strong></td>
+</tr>
+<tr>
+<td><code>&lt;source src type&gt;</code></td>
+<td>Файл и его формат. Можно указать несколько - браузер возьмёт первый, который умеет играть</td>
+</tr>
+<tr>
+<td><code>poster</code></td>
+<td>Обложка видео до запуска</td>
+</tr>
+<tr>
+<td><code>muted</code></td>
+<td>Без звука</td>
+</tr>
+<tr>
+<td><code>loop</code></td>
+<td>По кругу</td>
+</tr>
+<tr>
+<td><code>autoplay</code></td>
+<td>Автозапуск. Браузеры разрешают его только вместе с <code>muted</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Что увидите:</strong> плеер с кнопкой play. Видео не запускается само - пользователь нажимает play.</p>
+<p><strong>Ссылка на файл под плеером</strong> нужна на случай, если браузер не сможет воспроизвести файл.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-4-2.svg" alt="Схема 2: Изображения и медиа"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-4-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Браузер перебирает <code>&lt;source&gt;</code> сверху вниз. Одного подходящего достаточно. Если не подошёл ни один - пригодится ссылка на файл под плеером.</p>
+<p><strong>Доступность:</strong> если в видео важная речь, добавьте субтитры или текстовую расшифровку под видео.</p>
+<h3 id="section-20">Видео с YouTube: <code>&lt;iframe&gt;</code></h3>
+<p>Большие видео не хранят на своём сайте - их встраивают с YouTube. На YouTube под видео: <strong>Поделиться → Встроить</strong>, скопируйте код:</p>
+<pre><code class="language-html">&lt;iframe width=&quot;560&quot; height=&quot;315&quot;
+        src=&quot;https://www.youtube.com/embed/КОД_ВИДЕО&quot;
+        title=&quot;Урок HTML: структура документа&quot;
+        allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
+<p><code>&lt;iframe&gt;</code> - «окно» в другую страницу. Обязательно задайте <code>title</code>: по нему скринридер поймёт, что во фрейме.</p>
+<h3 id="section-21">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нет <code>controls</code></td>
+<td>Без него у пользователя нет кнопок</td>
+</tr>
+<tr>
+<td><code>autoplay</code> со звуком</td>
+<td>Браузер заблокирует. Лучше без автозапуска</td>
+</tr>
+<tr>
+<td>Видео на 500 МБ в папке сайта</td>
+<td>Загрузите на YouTube и встройте <code>iframe</code></td>
+</tr>
+<tr>
+<td><code>iframe</code> без <code>title</code></td>
+<td>Добавьте понятный <code>title</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-22">Favicon - иконка на вкладке</h2>
+<p>Маленькая иконка рядом с названием вкладки. Подключается в <code>&lt;head&gt;</code>:</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Кружок веб-разработки&lt;/title&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> иконку на вкладке браузера. Если её нет - обновите страницу с очисткой кэша: Ctrl+Shift+R (на macOS: Cmd+Shift+R).</p>
+<p>Тег <code>&lt;link&gt;</code> подробно разберём в уроке 9.</p>
+<hr>
+<h2 id="section-23">Мини-задание 2</h2>
+<p>Вставьте видео <code>video/lesson.mp4</code> шириной 640 пикселей с панелью управления и обложкой <code>images/video-preview.jpg</code>. Под видео добавьте ссылку на файл. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-24">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Картинка</td>
+<td><code>&lt;img src=&quot;...&quot; alt=&quot;...&quot; width=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Украшение</td>
+<td><code>alt=&quot;&quot;</code></td>
+</tr>
+<tr>
+<td>Ленивая загрузка</td>
+<td><code>loading=&quot;lazy&quot;</code></td>
+</tr>
+<tr>
+<td>Картинка с подписью</td>
+<td><code>&lt;figure&gt;&lt;img ...&gt;&lt;figcaption&gt;...&lt;/figcaption&gt;&lt;/figure&gt;</code></td>
+</tr>
+<tr>
+<td>Картинка-ссылка</td>
+<td><code>&lt;a href=&quot;...&quot;&gt;&lt;img alt=&quot;куда ведёт&quot; ...&gt;&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Аудио / видео</td>
+<td><code>&lt;audio controls&gt;</code> / <code>&lt;video controls&gt;</code> + <code>&lt;source&gt;</code></td>
+</tr>
+<tr>
+<td>Обложка видео</td>
+<td><code>poster=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Видео с YouTube</td>
+<td><code>&lt;iframe src=&quot;https://www.youtube.com/embed/...&quot; title=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Иконка сайта</td>
+<td><code>&lt;link rel=&quot;icon&quot; href=&quot;favicon.png&quot;&gt;</code> в <code>&lt;head&gt;</code></td>
+</tr>
+<tr>
+<td>Фото / логотип</td>
+<td>JPEG или WebP / SVG или PNG</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-25">Самостоятельная работа</h2>
+<h3 id="section-26">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте страницу <strong>«Мои увлечения»</strong>:</p>
+<ol>
+<li>Полный документ и иконка сайта: <code>&lt;link rel=&quot;icon&quot; ...&gt;</code> в <code>&lt;head&gt;</code>.</li>
+<li>Один <code>&lt;h1&gt;</code> и короткий абзац о себе.</li>
+<li>Минимум <strong>три</strong> картинки <code>&lt;img&gt;</code>:
+<ul>
+<li>одна внутри <code>&lt;figure&gt;</code> с <code>&lt;figcaption&gt;</code>;</li>
+<li>одна декоративная с <code>alt=&quot;&quot;</code>;</li>
+<li>у смысловых картинок - понятный <code>alt</code> и <code>width</code>.</li>
+</ul>
+</li>
+<li>Видео <code>&lt;video&gt;</code> с <code>controls</code> и <code>&lt;source&gt;</code>.</li>
+</ol>
+<p>Пути к файлам пишите так, будто картинки лежат в папке <code>images</code>, а видео - в <code>video</code>.</p>
+<p>Что проверяет платформа: скелет документа, favicon, один <code>h1</code>, минимум три <code>img</code> с <code>src</code>, <code>alt</code> и <code>width</code>, <code>figure</code> с <code>figcaption</code>, декоративный <code>alt=&quot;&quot;</code>, <code>video</code> с <code>controls</code> и <code>source</code>, отсутствие <code>autoplay</code> и пустых описаний вроде <code>alt=&quot;картинка&quot;</code>.</p>
+<h3 id="section-27">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Создайте <code>hobbies.html</code> в своей папке.</li>
+<li>Скопируйте учебные файлы или возьмите свои (с разрешением на использование).</li>
+<li>Откройте каждую картинку и напишите <code>alt</code> по тому, что видите.</li>
+<li>Перенесите всю папку в другое место и проверьте, что картинки и видео не сломались.</li>
+</ol>
+<h3 id="section-28">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Все файлы существуют, пути работают после переноса папки.</label></li>
+<li class="check"><label><input type="checkbox"> У каждой картинки есть <code>alt</code>: описание или пустой для украшений.</label></li>
+<li class="check"><label><input type="checkbox"> <code>figcaption</code> не повторяет <code>alt</code> слово в слово.</label></li>
+<li class="check"><label><input type="checkbox"> Видео запускает пользователь, есть ссылка на файл.</label></li>
+<li class="check"><label><input type="checkbox"> Страница понятна, даже если видео не смотреть.</label></li>
+</ul>
+<hr>
+<h2 id="section-29">Вопросы для самопроверки</h2>
+<ol>
+<li>Какие два атрибута у <code>&lt;img&gt;</code> обязательны?</li>
+<li>Когда <code>alt</code> должен быть пустым?</li>
+<li>Чем пустой <code>alt=&quot;&quot;</code> отличается от отсутствия <code>alt</code>?</li>
+<li>Зачем указывать <code>width</code> и <code>height</code>?</li>
+<li>Что делает <code>loading=&quot;lazy&quot;</code>?</li>
+<li>Какой формат выбрать для фото, а какой для логотипа?</li>
+<li>Чем <code>figcaption</code> отличается от <code>alt</code>?</li>
+<li>Что будет, если не написать <code>controls</code> у видео?</li>
+<li>Зачем ссылка на файл под плеером?</li>
+<li>Где подключается favicon?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-30">Что дальше</h2>
+<p>Картинки и видео есть. В уроке 5 научимся показывать данные в таблицах: расписание, сравнение, оценки. И сделаем таблицы понятными для скринридера.</p>
+<hr>
+<h2 id="section-31">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li><code>images/photo.jpg</code>.</li>
+<li>Подняться на одну папку выше.</li>
+<li>На сервере нет вашего диска и ваших папок.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src=&quot;images/logo.png&quot; alt=&quot;Логотип: фигурные скобки и надпись «Кружок»&quot; width=&quot;200&quot;&gt;
+    &lt;figcaption&gt;Логотип нашего кружка&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p>Ваш <code>alt</code> может отличаться: главное, чтобы он описывал то, что вы видите на картинке.</p>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; poster=&quot;images/video-preview.jpg&quot;&gt;
+    &lt;source src=&quot;video/lesson.mp4&quot; type=&quot;video/mp4&quot;&gt;
+&lt;/video&gt;
+&lt;p&gt;&lt;a href=&quot;video/lesson.mp4&quot;&gt;Скачать видео&lt;/a&gt;&lt;/p&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li><code>src</code> и <code>alt</code>.</li>
+<li>Когда картинка только украшает и ничего не сообщает.</li>
+<li>С <code>alt=&quot;&quot;</code> скринридер пропускает картинку. Без <code>alt</code> он может прочитать имя файла.</li>
+<li>Браузер заранее оставит место, и текст не будет прыгать при загрузке.</li>
+<li>Откладывает загрузку картинки, пока пользователь до неё не долистает.</li>
+<li>Фото - JPEG или WebP, логотип - SVG или PNG.</li>
+<li><code>alt</code> - замена картинки для тех, кто её не видит. <code>figcaption</code> - подпись, которую видят все.</li>
+<li>У пользователя не будет кнопок, видео нельзя будет запустить.</li>
+<li>Если браузер не сможет воспроизвести файл, его можно будет открыть или скачать.</li>
+<li>В <code>&lt;head&gt;</code>, тегом <code>&lt;link rel=&quot;icon&quot;&gt;</code>.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> | <a href="ru-lesson-3.html">Назад</a> | <a href="ru-lesson-5.html">Вперёд</a> | <a href="ru-lesson-4.html">RU</a> | <a href="en-lesson-4.html">EN</a> | <a href="uz-lesson-4.html">UZ</a> | <a href="../Lesson-4/practice.html">Практика: пример</a></p>
+</article></main><footer><a href="../Lesson-4/ru/%D0%98%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BC%D0%B5%D0%B4%D0%B8%D0%B0.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

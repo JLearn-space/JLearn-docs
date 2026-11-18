@@ -1,0 +1,6 @@
+{
+  "language": "ru",
+  "browser_status": "observed: headless checks plus native Chrome selection",
+  "publication_status": "not attempted",
+  "evidence": "../evidence/browser-walkthrough.json"
+}

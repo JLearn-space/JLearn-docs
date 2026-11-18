@@ -1,0 +1,1 @@
+Rasmlar shu topshiriq uchun yaratilgan sodda geometrik chizmalar. WAV shu topshiriq uchun sintez qilingan uch nota; nutq yo‘q. Tashqi media olinmagan. Bu resurslar oldindan tayyor fayl sifatida ishlatildi; ularni chizish yoki audio yaratish HTML o‘quvchisidan talab qilinmaydi.

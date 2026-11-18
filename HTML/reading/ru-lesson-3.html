@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ссылки и навигация · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из уроков 1–2</a><a href="#section-5">План урока</a><a href="#section-6">Тег &lt;a&gt; и атрибут href</a><a href="#section-7">Пути к файлам</a><a href="#section-12">Якоря: переход к разделу страницы</a><a href="#section-17">Почта и телефон</a><a href="#section-19">Новая вкладка: target=&quot;_blank&quot;</a><a href="#section-21">Мини-задание 1</a><a href="#section-22">Сайт из трёх страниц</a><a href="#section-23">Мини-задание 2</a><a href="#section-24">Итоги урока: шпаргалка</a><a href="#section-25">Самостоятельная работа</a><a href="#section-29">Вопросы для самопроверки</a><a href="#section-30">Что дальше</a><a href="#section-31">Ответы</a></details></aside><article><h1 id="section-1">Ссылки и навигация</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-2.html">← Назад</a> · <a href="ru-lesson-4.html">Вперёд →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Практика</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 2 вы разметили страницу блоками и оставили пустой <code>&lt;nav&gt;</code>. Сегодня наполним его настоящими ссылками и свяжем несколько страниц в один сайт.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Сайт из одной страницы - это листовка. Сайт из нескольких страниц, связанных меню, - это уже книга с оглавлением. Ссылки превращают отдельные файлы в сайт.</p>
+<p>Сегодня вы соберёте мини-сайт из трёх страниц и сможете переходить между ними одним кликом.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Создавать ссылку тегом <code>&lt;a&gt;</code> с атрибутом <code>href</code>.</li>
+<li>Выбирать путь: абсолютный для чужих сайтов, относительный для своих страниц.</li>
+<li>Подниматься в родительскую папку через <code>../</code>.</li>
+<li>Делать якоря: переход к разделу страницы через <code>id</code> и <code>#</code>.</li>
+<li>Создавать ссылки на почту (<code>mailto:</code>) и телефон (<code>tel:</code>).</li>
+<li>Открывать ссылку в новой вкладке, когда это действительно нужно.</li>
+<li>Делать одинаковое меню на всех страницах сайта.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из уроков 1–2</h2>
+<ol>
+<li>Как называется файл главной страницы сайта?</li>
+<li>Какой блок предназначен для меню сайта?</li>
+<li>Какой список подходит для пунктов меню, если порядок не важен?</li>
+</ol>
+<p>Ответы - в конце урока.</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тег <code>&lt;a&gt;</code></td>
+<td>Дверь и адрес</td>
+</tr>
+<tr>
+<td>Пути к файлам</td>
+<td>Полный адрес и «два дома дальше»</td>
+</tr>
+<tr>
+<td>Якоря</td>
+<td>Закладки в книге</td>
+</tr>
+<tr>
+<td>Почта и телефон</td>
+<td><code>mailto:</code> и <code>tel:</code></td>
+</tr>
+<tr>
+<td>Новая вкладка</td>
+<td>Когда она нужна</td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Три ссылки без подсказок</td>
+</tr>
+<tr>
+<td>Сайт из трёх страниц</td>
+<td>Общее меню</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Содержание страницы на якорях</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Задание в IDE и мини-сайт кружка</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-6">Тег <code>&lt;a&gt;</code> и атрибут <code>href</code></h2>
+<p><strong>Простыми словами:</strong> ссылка - это дверь. <code>href</code> - адрес, куда она ведёт. Без адреса дверь просто нарисована на стене.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.wikipedia.org&quot;&gt;Википедия&lt;/a&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Что значит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;a&gt;</code></td>
+<td>Ссылка (anchor - «якорь»)</td>
+</tr>
+<tr>
+<td><code>href=&quot;...&quot;</code></td>
+<td>Куда ведёт. Без него ссылка не работает</td>
+</tr>
+<tr>
+<td><code>Википедия</code></td>
+<td>Текст, на который нажимают</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Что увидите:</strong> синий подчёркнутый текст «Википедия». Курсор над ним превращается в руку. Клик - и открывается Википедия.</p>
+<p><strong>Текст ссылки должен объяснять, куда она ведёт.</strong> «Расписание кружка» - хорошо. «Нажмите здесь» - плохо: из текста непонятно, что за дверью.</p>
+<hr>
+<h2 id="section-7">Пути к файлам</h2>
+<h3 id="section-8">Абсолютный путь - для чужих сайтов</h3>
+<p>Полный адрес с <code>https://</code> и доменом:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://developer.mozilla.org&quot;&gt;MDN&lt;/a&gt;
+</code></pre>
+<p><strong>Аналогия:</strong> полный почтовый адрес «Узбекистан, Алмалык, ул. Амира Темура, 10». Его поймут из любой точки мира.</p>
+<h3 id="section-9">Относительный путь - для своих страниц</h3>
+<p>Путь <strong>от текущего файла</strong>. Аналогия: «иди два дома дальше». Работает, только если вы стоите в нужном месте.</p>
+<p>Возьмём проект:</p>
+<pre><code>my-site/
+├── index.html
+├── about.html
+├── pages/
+│   └── schedule.html
+└── images/
+    └── photo.jpg
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Откуда</th>
+<th>Куда</th>
+<th><code>href</code></th>
+<th>Как читать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.html</code></td>
+<td><code>about.html</code></td>
+<td><code>about.html</code></td>
+<td>Рядом, в той же папке</td>
+</tr>
+<tr>
+<td><code>index.html</code></td>
+<td><code>schedule.html</code></td>
+<td><code>pages/schedule.html</code></td>
+<td>Зайти в папку <code>pages</code></td>
+</tr>
+<tr>
+<td><code>pages/schedule.html</code></td>
+<td><code>index.html</code></td>
+<td><code>../index.html</code></td>
+<td>Выйти из <code>pages</code> на уровень выше</td>
+</tr>
+<tr>
+<td><code>pages/schedule.html</code></td>
+<td><code>photo.jpg</code></td>
+<td><code>../images/photo.jpg</code></td>
+<td>Выйти, затем зайти в <code>images</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>../</code> - это «выйти из комнаты в коридор».</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-3-1.svg" alt="Схема 1: Ссылки и навигация"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-3-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Каждый путь отсчитывается от папки текущего файла. Без префикса - та же папка, имя папки - спуститься внутрь, <code>../</code> - подняться. Путь с <code>/</code> в начале отсчитывается от корня сайта: в курсе мы его не используем.</p>
+<p><strong>Правило курса:</strong> свои страницы - относительный путь, чужие сайты - абсолютный.</p>
+<h3 id="section-10">Попробуйте сломать</h3>
+<ol>
+<li>В ссылке <code>href=&quot;about.html&quot;</code> напишите <code>href=&quot;About.html&quot;</code>. На вашем компьютере ссылка может сработать, а на сервере - нет: там регистр букв важен. Всегда пишите имя файла точно, лучше строчными буквами.</li>
+<li>Удалите расширение: <code>href=&quot;about&quot;</code>. Нажмите ссылку. Что показал браузер?</li>
+</ol>
+<h3 id="section-11">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>href=&quot;C:\Users\...\about.html&quot;</code></td>
+<td>Путь с диска работает только на вашем компьютере. Пишите <code>about.html</code></td>
+</tr>
+<tr>
+<td><code>href=&quot;about&quot;</code> без расширения</td>
+<td>Полное имя: <code>about.html</code></td>
+</tr>
+<tr>
+<td><code>About.html</code> вместо <code>about.html</code></td>
+<td>Имя в ссылке - буква в букву как у файла</td>
+</tr>
+<tr>
+<td>Из <code>pages/</code> ссылка <code>index.html</code></td>
+<td>Нужно подняться: <code>../index.html</code></td>
+</tr>
+<tr>
+<td>Пробелы в имени файла</td>
+<td>Называйте файлы без пробелов: <code>my-page.html</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-12">Якоря: переход к разделу страницы</h2>
+<p><strong>Простыми словами:</strong> якорь - это закладка в книге. Сначала вкладываете закладку, потом открываете книгу сразу на ней.</p>
+<p><strong>Шаг 1.</strong> Даём разделу уникальное имя через <code>id</code>:</p>
+<pre><code class="language-html">&lt;h2 id=&quot;schedule&quot;&gt;Расписание&lt;/h2&gt;
+</code></pre>
+<p><strong>Шаг 2.</strong> Делаем ссылку с <code>#</code> перед этим именем:</p>
+<pre><code class="language-html">&lt;a href=&quot;#schedule&quot;&gt;Перейти к расписанию&lt;/a&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> клик - и страница прокручивается к заголовку «Расписание».</p>
+<h3 id="section-13">Содержание длинной страницы</h3>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;h2&gt;Содержание&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;О кружке&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#schedule&quot;&gt;Расписание&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;about&quot;&gt;О кружке&lt;/h2&gt;
+    &lt;p&gt;Учимся делать сайты.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;schedule&quot;&gt;Расписание&lt;/h2&gt;
+    &lt;p&gt;Каждую среду в 15:00.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<h3 id="section-14">Якорь на другой странице</h3>
+<p>Сначала файл, потом <code>#</code> и <code>id</code>:</p>
+<pre><code class="language-html">&lt;a href=&quot;schedule.html#wednesday&quot;&gt;Занятие в среду&lt;/a&gt;
+</code></pre>
+<p>Откроется <code>schedule.html</code> сразу на разделе с <code>id=&quot;wednesday&quot;</code>.</p>
+<h3 id="section-15">Правила для <code>id</code></h3>
+<ul>
+<li><code>id</code> <strong>уникален</strong> на странице: два элемента с одним <code>id</code> - ошибка.</li>
+<li>Без пробелов: <code>id=&quot;schedule-2&quot;</code>, а не <code>id=&quot;schedule 2&quot;</code>.</li>
+<li>В ссылке на этой странице - всегда с <code>#</code>.</li>
+</ul>
+<h3 id="section-16">Попробуйте сломать</h3>
+<p>Удалите <code>#</code> в ссылке: <code>href=&quot;schedule&quot;</code>. Нажмите. Браузер теперь ищет <strong>файл</strong> с именем <code>schedule</code> и не находит его.</p>
+<hr>
+<h2 id="section-17">Почта и телефон</h2>
+<pre><code class="language-html">&lt;a href=&quot;mailto:club@example.com&quot;&gt;club@example.com&lt;/a&gt;
+&lt;a href=&quot;tel:+998901112233&quot;&gt;+998 90 111-22-33&lt;/a&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Ссылка</th>
+<th>Что происходит при клике</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mailto:</code></td>
+<td>Открывается почтовая программа, адрес уже вписан</td>
+</tr>
+<tr>
+<td><code>tel:</code></td>
+<td>Телефон предлагает позвонить</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Правило для <code>tel:</code>:</strong> в <code>href</code> номер пишется слитно, с <code>+</code> и кодом страны. В видимом тексте - как удобно читать.</p>
+<p>Если на компьютере не настроена почтовая программа, клик по <code>mailto:</code> может ничего не открыть. Это не ошибка вашего HTML.</p>
+<h3 id="section-18">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>href=&quot;club@example.com&quot;</code></td>
+<td>Нужен префикс: <code>mailto:club@example.com</code></td>
+</tr>
+<tr>
+<td><code>href=&quot;tel:+998 90 111 22 33&quot;</code></td>
+<td>Без пробелов: <code>tel:+998901112233</code></td>
+</tr>
+<tr>
+<td>Настоящие личные данные в учебном проекте</td>
+<td>Используйте вымышленные: <code>example.com</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-19">Новая вкладка: <code>target=&quot;_blank&quot;</code></h2>
+<p>По умолчанию ссылка открывается <strong>в той же вкладке</strong>. Это правильное поведение: пользователь сам решает, где открыть ссылку (кнопка «Назад», средняя кнопка мыши).</p>
+<p>Иногда новая вкладка действительно помогает, например справка, которая не должна прерывать заполнение формы. Тогда:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN (откроется в новой вкладке)&lt;/a&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Атрибут</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target=&quot;_blank&quot;</code></td>
+<td>Открыть в новой вкладке</td>
+</tr>
+<tr>
+<td><code>rel=&quot;noopener&quot;</code></td>
+<td>Новая вкладка не получит доступа к вашей странице</td>
+</tr>
+<tr>
+<td><code>rel=&quot;noreferrer&quot;</code></td>
+<td>Не сообщать сайту, откуда пришёл пользователь</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Правило курса:</strong> если используете <code>_blank</code>, всегда добавляйте <code>rel=&quot;noopener noreferrer&quot;</code> и предупреждайте в тексте ссылки: «(новая вкладка)».</p>
+<h3 id="section-20">Какой <code>href</code> выбрать</h3>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-3-2.svg" alt="Схема 2: Ссылки и навигация"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-3-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Сначала решите, куда должен попасть пользователь, затем выберите <code>href</code>. Ссылка на другую страницу может ещё и вести к её разделу: <code>about.html#history</code>.</p>
+<hr>
+<h2 id="section-21">Мини-задание 1</h2>
+<p>Без подглядывания создайте три ссылки:</p>
+<ol>
+<li>На файл <code>contact.html</code> в той же папке.</li>
+<li>На <code>https://developer.mozilla.org</code> в новой вкладке, с защитой и предупреждением.</li>
+<li>На звонок по номеру +998 90 111-22-33.</li>
+</ol>
+<p>Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-22">Сайт из трёх страниц</h2>
+<p>Соберём сайт кружка:</p>
+<pre><code>club-site/
+├── index.html
+├── schedule.html
+└── contacts.html
+</code></pre>
+<p><strong>Главное правило:</strong> на <strong>каждой</strong> странице одинаковое меню.</p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Главная&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;schedule.html&quot;&gt;Расписание&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;contacts.html&quot;&gt;Контакты&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<p><strong>Файл <code>index.html</code>:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Главная - Кружок веб-разработки&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;p&gt;Кружок веб-разработки&lt;/p&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Главная&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;schedule.html&quot;&gt;Расписание&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contacts.html&quot;&gt;Контакты&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;h1&gt;Добро пожаловать в кружок&lt;/h1&gt;
+        &lt;p&gt;Учимся делать сайты с нуля. Ближайшее занятие смотрите в &lt;a href=&quot;schedule.html&quot;&gt;расписании&lt;/a&gt;.&lt;/p&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Кружок веб-разработки&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Страницы <code>schedule.html</code> и <code>contacts.html</code> устроены так же: тот же <code>header</code> с тем же меню, свой <code>title</code>, свой <code>h1</code> и своё содержимое. Расписание оформите списком, контакты - ссылками <code>mailto:</code> и <code>tel:</code>.</p>
+<p><strong>Что увидите:</strong> три страницы с одинаковым меню вверху. Нажимайте пункты меню - страницы сменяют друг друга.</p>
+<p><strong>Как проверить сайт:</strong> с <strong>каждой</strong> страницы нажмите <strong>каждый</strong> пункт меню. 3 страницы × 3 ссылки = 9 переходов. Все 9 должны работать.</p>
+<hr>
+<h2 id="section-23">Мини-задание 2</h2>
+<p>На странице <code>index.html</code> добавьте содержание из двух пунктов, которое ведёт к разделам «О кружке» и «Как вступить» на этой же странице. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-24">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Запись</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ссылка</td>
+<td><code>&lt;a href=&quot;адрес&quot;&gt;Понятный текст&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Чужой сайт</td>
+<td><code>href=&quot;https://site.uz&quot;</code></td>
+</tr>
+<tr>
+<td>Своя страница рядом</td>
+<td><code>href=&quot;about.html&quot;</code></td>
+</tr>
+<tr>
+<td>Страница во вложенной папке</td>
+<td><code>href=&quot;pages/schedule.html&quot;</code></td>
+</tr>
+<tr>
+<td>Страница уровнем выше</td>
+<td><code>href=&quot;../index.html&quot;</code></td>
+</tr>
+<tr>
+<td>Раздел на этой странице</td>
+<td><code>id=&quot;about&quot;</code> + <code>href=&quot;#about&quot;</code></td>
+</tr>
+<tr>
+<td>Раздел другой страницы</td>
+<td><code>href=&quot;schedule.html#wednesday&quot;</code></td>
+</tr>
+<tr>
+<td>Почта / телефон</td>
+<td><code>href=&quot;mailto:...&quot;</code> / <code>href=&quot;tel:+998...&quot;</code></td>
+</tr>
+<tr>
+<td>Новая вкладка</td>
+<td><code>target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;</code> + предупреждение</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-25">Самостоятельная работа</h2>
+<h3 id="section-26">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>Сделайте <strong>главную страницу кружка</strong> <code>index.html</code>:</p>
+<ol>
+<li>Полный документ: DOCTYPE, <code>lang</code>, UTF-8, <code>title</code>.</li>
+<li><code>&lt;header&gt;</code> с меню <code>&lt;nav&gt;</code> из трёх ссылок: <code>index.html</code>, <code>schedule.html</code>, <code>contacts.html</code>.</li>
+<li>Один <code>&lt;h1&gt;</code> в <code>&lt;main&gt;</code>.</li>
+<li>Содержание из двух ссылок-якорей: <code>#about</code> и <code>#join</code>.</li>
+<li>Два раздела с заголовками <code>&lt;h2 id=&quot;about&quot;&gt;</code> и <code>&lt;h2 id=&quot;join&quot;&gt;</code>.</li>
+<li>В разделе «Как вступить»:
+<ul>
+<li>ссылка на почту (<code>mailto:</code>);</li>
+<li>ссылка на телефон (<code>tel:</code> слитно, с <code>+</code>);</li>
+<li>внешняя ссылка на любой сайт с <code>https://</code> в новой вкладке, с <code>rel=&quot;noopener noreferrer&quot;</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Таблицы и картинки не используйте.</p>
+<p>Что проверяет платформа: скелет документа, <code>nav</code>, все пять адресов ссылок, оба <code>id</code>, <code>mailto:</code>, <code>tel:+</code> без пробелов, внешнюю ссылку <code>https://</code> с <code>target=&quot;_blank&quot;</code> и <code>rel=&quot;noopener</code>, один <code>h1</code>, минимум два <code>h2</code>, отсутствие путей с диска.</p>
+<h3 id="section-27">Часть 2. Проект на компьютере</h3>
+<ol>
+<li>Создайте папку <code>club-site</code> и три страницы: <code>index.html</code>, <code>schedule.html</code>, <code>contacts.html</code>.</li>
+<li>На каждой странице одинаковое меню, свой <code>title</code> и свой <code>h1</code>.</li>
+<li>Расписание - списком. На странице контактов - <code>mailto:</code> и <code>tel:</code>.</li>
+<li>С <code>schedule.html</code> сделайте ссылку на раздел <code>#join</code> главной страницы.</li>
+<li>Проверьте все 9 переходов меню и все якоря. Запишите найденные ошибки и исправления.</li>
+</ol>
+<h3 id="section-28">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Все 9 переходов меню ведут на нужные страницы.</label></li>
+<li class="check"><label><input type="checkbox"> Имена файлов в <code>href</code> совпадают с файлами буква в букву.</label></li>
+<li class="check"><label><input type="checkbox"> Нет путей вида <code>C:\Users\...</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Все <code>id</code> уникальны, якоря ведут к нужным разделам.</label></li>
+<li class="check"><label><input type="checkbox"> Текст каждой ссылки объясняет, куда она ведёт.</label></li>
+<li class="check"><label><input type="checkbox"> <code>mailto:</code> и <code>tel:</code> записаны правильно, данные вымышленные.</label></li>
+</ul>
+<hr>
+<h2 id="section-29">Вопросы для самопроверки</h2>
+<ol>
+<li>Что будет со ссылкой без <code>href</code>?</li>
+<li>Когда нужен абсолютный путь, а когда относительный?</li>
+<li>Что означает <code>../</code> в пути?</li>
+<li>Почему ссылка с <code>C:\Users\...</code> не сработает на сайте?</li>
+<li>Чем ссылка <code>href=&quot;#about&quot;</code> отличается от <code>href=&quot;about.html&quot;</code>?</li>
+<li>Почему два элемента не могут иметь одинаковый <code>id</code>?</li>
+<li>Как сослаться на раздел <code>#join</code> страницы <code>index.html</code> из другой страницы?</li>
+<li>Как правильно записать номер телефона в <code>tel:</code>?</li>
+<li>Зачем <code>rel=&quot;noopener noreferrer&quot;</code> рядом с <code>target=&quot;_blank&quot;</code>?</li>
+<li>Почему «Нажмите здесь» - плохой текст ссылки?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-30">Что дальше</h2>
+<p>Сайт уже ходит по страницам, но в нём только текст. В уроке 4 добавим изображения с подписями, аудио и видео, а также иконку сайта на вкладке.</p>
+<hr>
+<h2 id="section-31">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li><code>index.html</code>.</li>
+<li><code>&lt;nav&gt;</code>.</li>
+<li><code>&lt;ul&gt;</code>.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;contact.html&quot;&gt;Контакты&lt;/a&gt;
+&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN (откроется в новой вкладке)&lt;/a&gt;
+&lt;a href=&quot;tel:+998901112233&quot;&gt;+998 90 111-22-33&lt;/a&gt;
+</code></pre>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;h2&gt;Содержание&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;О кружке&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#join&quot;&gt;Как вступить&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;about&quot;&gt;О кружке&lt;/h2&gt;
+    &lt;p&gt;Учимся делать сайты с нуля.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;join&quot;&gt;Как вступить&lt;/h2&gt;
+    &lt;p&gt;Напишите нам на почту.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>Она не будет работать как ссылка: это просто текст.</li>
+<li>Абсолютный - для чужих сайтов, относительный - для страниц своего проекта.</li>
+<li>Подняться на одну папку выше.</li>
+<li>На сервере нет вашего диска <code>C:</code> и вашей папки.</li>
+<li><code>#about</code> - раздел на этой же странице, <code>about.html</code> - другой файл.</li>
+<li>Браузер не поймёт, к какому из них переходить. <code>id</code> - уникальное имя.</li>
+<li><code>href=&quot;index.html#join&quot;</code>.</li>
+<li>Слитно, с <code>+</code> и кодом страны: <code>tel:+998901112233</code>.</li>
+<li>Чтобы новая вкладка не получила доступ к вашей странице и не узнала, откуда пришёл пользователь.</li>
+<li>Из текста не понятно, куда ведёт ссылка. Скринридер часто читает список ссылок отдельно от текста.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-2.html">← Назад</a> · <a href="ru-lesson-4.html">Вперёд →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Практика</a></p>
+</article></main><footer><a href="../Lesson-3/ru/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B8%20%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

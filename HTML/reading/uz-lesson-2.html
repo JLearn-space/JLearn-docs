@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Matn va semantika · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxirida nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">Sarlavhalar h1-h6</a><a href="#section-5">Abzatslar va satr o&#x27;tkazishlar: p, br, hr</a><a href="#section-10">Matn urg‘ulari: strong, em, mark, small</a><a href="#section-17">Ro&#x27;yxatlar: ul, ol, dl</a><a href="#section-23">Mini-vazifa</a><a href="#section-24">Semantik teglar: header, nav, main, section, article, aside, footer</a><a href="#section-34">Dars xulosalari</a><a href="#section-35">Mustaqil ish: foydali qo&#x27;llanma</a></details></aside><article><h1 id="section-1">Matn va semantika</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-1.html">← Orqaga</a> · <a href="uz-lesson-3.html">Keyingi →</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a> · <a href="../Lesson-2/practice.html">Amaliyot</a></p>
+<blockquote>
+<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darsda biz HTML-hujjatning &quot;skeletini&quot; yig'dik (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) va allaqachon qisqacha <code>&lt;h1&gt;</code> va <code>&lt;p&gt;</code> ishlatdik. Bugun <code>&lt;body&gt;</code> ni haqiqiy matn mazmuni bilan to'ldiramiz va hujjatga mazmun tuzilishini berishni o'rganamiz.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Dars oxirida nimani o'rganasiz</h2>
+<ul>
+<li>Matnni <code>h1</code>–<code>h6</code> sarlavhalar va <code>p</code> abzatslari bilan to'g'ri tizimlashtirish.</li>
+<li>Matnga mazmun urg‘uini (<code>strong</code>, <code>em</code>) qo'yish va bu oddiy vizual ajratishdan (<code>b</code>, <code>i</code>) qanday farq qilishini tushunish.</li>
+<li>Belgilangan, raqamlangan va ta'riflar ro'yxatlarini (<code>ul</code>, <code>ol</code>, <code>dl</code>) tuzish.</li>
+<li>Semantik HTML belgilash nima ekanligini tushunish va <code>&lt;div&gt;</code> &quot;shorbasi&quot; o'rniga <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code> teglarini ishlatish.</li>
+<li>Shu bloklardan butun sahifaning mazmunli tuzilishini yig'ish.</li>
+</ul>
+<hr>
+<h2 id="section-3">Dars rejasi</h2>
+<table>
+<thead>
+<tr>
+<th>Bo‘lim</th>
+<th>Mazmun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sarlavhalar h1–h6</td>
+<td>Ierarxiya, kitob mundarijasiga o'xshatish</td>
+</tr>
+<tr>
+<td>Abzatslar va satr o'tkazish: p, br, hr</td>
+<td>Abzats va satr o'tkazish orasidagi farq</td>
+</tr>
+<tr>
+<td>Matn urg‘ulari: strong/em/mark/small</td>
+<td>Mazmun vs vizual, b/i ning alohida ma’nosi</td>
+</tr>
+<tr>
+<td>Ro'yxatlar: ul, ol, dl</td>
+<td>Uch xil ro'yxat va ularning qo'llanilishi</td>
+</tr>
+<tr>
+<td>Mini-vazifa</td>
+<td>Ro'yxatni mustaqil yig'ish</td>
+</tr>
+<tr>
+<td>Semantik teglar</td>
+<td>header/nav/main/section/article/aside/footer</td>
+</tr>
+<tr>
+<td>Xulosalar va amaliy vazifa</td>
+<td>Butun sahifaning tuzilishini yig'amiz</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4">Sarlavhalar h1-h6</h2>
+<p><strong>Oddiy qilib aytganda:</strong> tasavvur qiling, siz kitob yozayapsiz. Kitobning nomi bor (eng katta va muhimi - u bitta), keyin boblar, keyin boblar ichidagi bo'limlar, keyin bo'limlardagi pastki bo'limlar. HTML'dagi sarlavhalar aynan shunday ishlaydi - bu oddiy &quot;katta qalin matn&quot; emas, bu <strong>mazmun ierarxiyasi</strong>.</p>
+<p>HTML'da oltita sarlavha darajasi bor: <code>&lt;h1&gt;</code> (eng muhim, &quot;kitob nomi&quot;) dan <code>&lt;h6&gt;</code> (eng kichik, &quot;pastki bo'limning pastki bo'limi&quot;) gacha.</p>
+<pre><code class="language-html">&lt;h1&gt;Sahifa nomi (odatda sahifada faqat bitta)&lt;/h1&gt;
+&lt;h2&gt;Katta bo'lim&lt;/h2&gt;
+&lt;h3&gt;h2 ichidagi pastki bo'lim&lt;/h3&gt;
+&lt;h4&gt;Yana kichikroq pastki bo'lim&lt;/h4&gt;
+&lt;h5&gt;Juda kichik sarlavha&lt;/h5&gt;
+&lt;h6&gt;Eng kichik sarlavha&lt;/h6&gt;
+</code></pre>
+<p><strong>Kurs tavsiyasi:</strong> sahifaning asosiy mavzusi uchun bitta <code>&lt;h1&gt;</code> ishlating. Bo'limlar uchun <code>&lt;h2&gt;</code>, ichki bo'limlar uchun <code>&lt;h3&gt;</code> va keyingi darajalarni tanlang; chuqurlashishda darajalarni tashlab ketmang. <code>&lt;h3&gt;</code> dan <code>&lt;h2&gt;</code> ga qaytish yangi bo'limni boshlaydi va to'g'ri. Bu tushunarli tuzilish tavsiyasi; HTML bir nechta <code>&lt;h1&gt;</code> ni mutlaqo taqiqlamaydi.</p>
+<p><strong>Nima uchun bu muhim, &quot;chiroy uchun&quot; emas:</strong> sarlavhalar faqat matnning vizual o'lchami emas. Ekran o'quvchilari (ko'zi ojizlar uchun dasturlar - bu haqida 8-darsda batafsil) sarlavhalar bo'yicha sahifaning &quot;xaritasini&quot; quradi va foydalanuvchiga darhol bo'limlar orasida o'tish imkonini beradi. Agar <code>&lt;h3&gt;</code> ni faqat &quot;kichikroq matn kerak&quot; degan sababga ko'ra ishlatsangiz, haqiqatan ham pastki bo'lim bo'lmagan holda - bu xaritani foydalanuvchi uchun buzasiz.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-2-1.svg" alt="Chizma 1: Matn va semantika"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-2-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Yuqoridagi h1 umumiy mavzuni, h2 uning bo‘limlarini bildiradi. Bir h2 ostidagi h3 lar aynan shu bo‘limning ichki mavzulari; boshqa h2 ga o‘tish yangi asosiy bo‘limni boshlaydi.</p>
+<hr>
+<h2 id="section-5">Abzatslar va satr o'tkazishlar: p, br, hr</h2>
+<h3 id="section-6"><code>&lt;p&gt;</code> - abzats</h3>
+<p><code>&lt;p&gt;</code> (paragraph) tegi bitta mazmun matn blokini o'rab oladi - kitobdagi abzats bilan bir xil.</p>
+<pre><code class="language-html">&lt;p&gt;Bu matnning birinchi abzatsi. Bu yerda istalgancha gap bo'lishi mumkin.&lt;/p&gt;
+&lt;p&gt;Bu esa ikkinchi, alohida abzats - ularning orasida brauzer avtomatik ravishda vertikal bo'shliq qo'shadi.&lt;/p&gt;
+</code></pre>
+<h3 id="section-7"><code>&lt;br&gt;</code> - satr o'tkazish</h3>
+<p>Juft bo'lmagan teg (1-darsda tahlil qilgandek - yopuvchisi yo'q), u oddiygina matnni yangi satrga o'tkazadi <strong>bitta mazmun bloki ichida</strong>, yangi abzats yaratmasdan.</p>
+<pre><code class="language-html">&lt;p&gt;
+    Lenina ko'chasi, 10-uy&lt;br&gt;
+    Almati shahri&lt;br&gt;
+    O'zbekiston
+&lt;/p&gt;
+</code></pre>
+<p><strong>Qachon ishlatish:</strong> faqat satr o'tkazish mazmunan muhim bo'lgan hollarda - pochta manzili, she'riyat, qo'shiq satrlari. <strong>Abzatslar orasidagi bo'shliq yaratish uchun <code>&lt;br&gt;</code> ishlatmang</strong> - buning uchun <code>&lt;p&gt;</code> mavjud, elementlar orasidagi masofa esa CSS vazifasi (9-dars va keyin).</p>
+<h3 id="section-8"><code>&lt;hr&gt;</code> - gorizontal chiziq</h3>
+<p>Shuningdek juft bo'lmagan teg. Tematik ajratishni bildiradi - matn ichida mavzuning o'zgarishini (masalan, maqolaning yangi mavzusiga o'tish).</p>
+<pre><code class="language-html">&lt;p&gt;HTML tarixi haqida maqolaning birinchi qismi.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Maqolaning ikkinchi qismi - allaqachon zamonaviy standartlar haqida.&lt;/p&gt;
+</code></pre>
+<hr>
+<h3 id="section-9">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abzatslar orasidagi bo'shliqni taqlid qilish uchun bir nechta <code>&lt;br&gt;</code> ni ketma-ket ishlatish: <code>Matn&lt;br&gt;&lt;br&gt;&lt;br&gt;Matn</code></td>
+<td>Abzatslarni <code>&lt;p&gt;</code> teglari bilan ajrating, masofani keyin CSS orqali sozlang</td>
+</tr>
+<tr>
+<td>Sahifaning barcha matnini bitta <code>&lt;p&gt;</code> ga o'rab olish va <code>&lt;br&gt;</code> orqali satr o'tkazish</td>
+<td>Har bir mazmun abzatsi - alohida <code>&lt;p&gt;</code> tegi</td>
+</tr>
+<tr>
+<td>Sarlavhani faqat katta shrift uchun tanlash</td>
+<td>Kurs vazifalarida bitta asosiy <code>&lt;h1&gt;</code> ishlating, qolgan darajalarni tuzilishga qarab tanlang. Matn o'lchami CSS orqali boshqariladi.</td>
+</tr>
+<tr>
+<td>Sarlavha darajalarini o'tkazib yuborish (<code>h2</code> -&gt; <code>h4</code>)</td>
+<td>Ketma-ketlikni saqlang: <code>h2</code> -&gt; <code>h3</code> -&gt; <code>h4</code>, &quot;o'tib ketishlarsiz&quot;</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-10">Matn urg‘ulari: strong, em, mark, small</h2>
+<p>Bu yerda asosiy tamoyilni tushunish muhim: <strong>HTML mazmunni tasvirlaydi, matn vizual ko'rinishini emas.</strong> Bu zamonaviy yondashuvni eskidan ajratadi.</p>
+<h3 id="section-11"><code>&lt;strong&gt;</code> - muhimlik (faqat &quot;qalin&quot; emas)</h3>
+<pre><code class="language-html">&lt;p&gt;&lt;strong&gt;E'tibor:&lt;/strong&gt; ishni boshlashdan oldin faylni saqlang.&lt;/p&gt;
+</code></pre>
+<p>Brauzer <code>&lt;strong&gt;</code> ichidagi matnni standart ravishda qalin ko'rsatadi - lekin bu tegning ma'nosi &quot;qil qalin&quot; emas, &quot;bu muhim, o'tkazib yuborma&quot;. Ekran o'quvchisi bu matnni hatto alohida ohangda o'qishi mumkin.</p>
+<h3 id="section-12"><code>&lt;em&gt;</code> - mazmun urg‘ui (faqat &quot; kursiv&quot; emas)</h3>
+<pre><code class="language-html">&lt;p&gt;Men bu loyihani bugun &lt;em&gt;haqiqatan ham&lt;/em&gt; tugatishim kerak.&lt;/p&gt;
+</code></pre>
+<p>Standart ravishda kursiv ko'rsatiladi, lekin ma'no - &quot;shu so'zga mantiqiy urg‘u tushadi&quot;, siz jumlani ovoz chiqarib aytganingizda shu so'zni ovoz bilan ajratgandek.</p>
+<h3 id="section-13"><code>&lt;b&gt;</code> va <code>&lt;i&gt;</code>: boshqa mazmun vazifalari</h3>
+<p>Bu elementlar <strong>eskirmagan</strong>. <code>&lt;b&gt;</code> qo'shimcha muhimlik bermasdan e'tiborni tortadi, masalan qisqa tavsifdagi kalit so'zlarni ajratadi. <code>&lt;i&gt;</code> boshqa ohang yoki uslubdagi matnni, masalan kontekstda birinchi marta kiritilayotgan atamani belgilaydi.</p>
+<p><code>&lt;strong&gt;</code> muhimlik, jiddiylik yoki shoshilinchlikni, <code>&lt;em&gt;</code> esa mazmuniy urg'uni bildiradi. Elementni ma'noga qarab tanlang. Faqat ko'rinish uchun kursdan keyin o'rganiladigan CSSdan foydalaning. Har bir ekran o'quvchisi muayyan teg uchun ohangni albatta o'zgartiradi deb hisoblamang.</p>
+<h3 id="section-14"><code>&lt;mark&gt;</code> - marker bilan belgilash</h3>
+<pre><code class="language-html">&lt;p&gt;Hisobotda &lt;uchta jiddiy xato&lt;/mark&gt; topildi, ular tuzatilishi kerak.&lt;/p&gt;
+</code></pre>
+<p>Taqqoslash: siz sariq marker olib, qog'oz matndagi satrni yoritgandek - u &quot;o'zi o'zi muhim&quot; uchun emas, hozir tegishli bo'lgani uchun (masalan, sahifadagi qidiruv natijasi).</p>
+<h3 id="section-15"><code>&lt;small&gt;</code> - kichik matn (eslatmalar, ogohlantirishlar)</h3>
+<pre><code class="language-html">&lt;p&gt;Kurs narxi - 500 000 so'm.&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;Narx nashr etilgan paytda dolzarb va o'zgarishi mumkin.&lt;/small&gt;&lt;/p&gt;
+</code></pre>
+<p>Izohlar, mualliflik huquqi, huquqiy eslatmalar uchun ishlatiladi - asosiy matndan kamroq muhim, lekin ko'rsatilishi kerak bo'lgan narsa.</p>
+<hr>
+<h3 id="section-16">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> yoki <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> ni faqat ko'rinishiga qarab tanlash</td>
+<td>Muhimlik uchun <code>strong</code>, urg'u uchun <code>em</code>; <code>b</code> va <code>i</code> ni o'z mazmun vazifasiga qarab tanlang.</td>
+</tr>
+<tr>
+<td>Butun abzatsni <code>&lt;strong&gt;</code> ga o'rab olish</td>
+<td>Faqat haqiqatan muhim so'zlarni/iboralarni ajrating, butun matnni emas</td>
+</tr>
+<tr>
+<td>Oddiy muhimlik belgilash uchun <code>&lt;strong&gt;</code> o'rniga <code>&lt;mark&gt;</code> ishlatish</td>
+<td><code>&lt;mark&gt;</code> - &quot;tegishlilikni yoritish&quot; (masalan, qidiruvda moslik), umumiy matn muhimligi emas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-17">Ro'yxatlar: ul, ol, dl</h2>
+<h3 id="section-18"><code>&lt;ul&gt;</code> - belgilangan ro'yxat (unordered list)</h3>
+<p>Elementlar tartibi muhim bo'lmagan hollarda ishlatiladi.</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;HTML - tuzilish&lt;/li&gt;
+    &lt;li&gt;CSS - bezatish&lt;/li&gt;
+    &lt;li&gt;JavaScript - xatti-harakat&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>Har bir ro'yxat elementi <code>&lt;li&gt;</code> (list item) tegiga o'raladi - va <code>&lt;li&gt;</code> faqat <code>&lt;ul&gt;</code> yoki <code>&lt;ol&gt;</code> ichida bo'lishi mumkin, o'zi mustaqil ishlatilmaydi.</p>
+<h3 id="section-19"><code>&lt;ol&gt;</code> - raqamlangan ro'yxat (ordered list)</h3>
+<p>Tartibi muhim bo'lgan hollarda ishlatiladi - masalan, bosqichma-bosqich ko'rsatma.</p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;VS Code ochish&lt;/li&gt;
+    &lt;li&gt;index.html faylini yaratish&lt;/li&gt;
+    &lt;li&gt;Hujjat tuzilishini yozish&lt;/li&gt;
+    &lt;li&gt;Saqlash va brauzerda ochish&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<p><strong>Taqqoslash:</strong> <code>&lt;ul&gt;</code> - bu xaridorlik ro'yxati (siz sut va noni qaysi tartibda savatga qo'ysangiz ham farqi yo'q), <code>&lt;ol&gt;</code> esa retsept (retsept teskari tartibni talab qilmagan holda, &quot;ingredientlarni aralashtirish&quot; ularni &quot;to'g'rab olish&quot; dan oldin bo'lishi mumkin emas).</p>
+<h3 id="section-20"><code>&lt;dl&gt;</code> - ta'riflar ro'yxati (description list)</h3>
+<p>&quot;Atama - ta'rif&quot; juftliklari uchun ishlatiladi, masalan, atamalar lug‘ati.</p>
+<pre><code class="language-html">&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Veb-sahifalar tuzilishini yaratish uchun belgilash tili&lt;/dd&gt;
+
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Sahifalar tashqi ko'rinishini bezatish uchun uslublar tili&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<p>Bu yerda <code>&lt;dt&gt;</code> (definition term) - bu atama, <code>&lt;dd&gt;</code> (definition description) esa uning ta'rifi. Bitta <code>&lt;dt&gt;</code> ning bir nechta <code>&lt;dd&gt;</code> si bo'lishi mumkin.</p>
+<h3 id="section-21">Ichki ro'yxatlar</h3>
+<p>Ro'yxatlarni bir-biriga ichki qilib joylashtirish mumkin - masalan, biror element ichidagi pastki elementlar:</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Frontend
+        &lt;ul&gt;
+            &lt;li&gt;HTML&lt;/li&gt;
+            &lt;li&gt;CSS&lt;/li&gt;
+            &lt;li&gt;JavaScript&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Backend
+        &lt;ul&gt;
+            &lt;li&gt;PHP&lt;/li&gt;
+            &lt;li&gt;MySQL&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>E'tibor bering: ichki <code>&lt;ul&gt;</code> ota-ona ro'yxatining <code>&lt;li&gt;</code> tegi <strong>ichida</strong> joylashgan, uning ortida emas.</p>
+<hr>
+<h3 id="section-22">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> ga o'ramasdan <code>&lt;li&gt;</code> ishlatish</td>
+<td><code>&lt;li&gt;</code> doimo <code>&lt;ul&gt;</code> yoki <code>&lt;ol&gt;</code> ichida bo'lishi kerak</td>
+</tr>
+<tr>
+<td>Tartibi muhim bo'lmagan hollarda <code>&lt;ol&gt;</code> ishlatish (masalan, xaridorlik ro'yxati)</td>
+<td>Tartib uchun <code>&lt;ol&gt;</code>, ixtiyoriy to'plam uchun <code>&lt;ul&gt;</code> ishlating</td>
+</tr>
+<tr>
+<td>Ro'yxatni <code>&lt;li&gt;</code> dan keyin, uning ichida emas, joylashtirish</td>
+<td>Ichki ro'yxat <code>&lt;li&gt;</code> tegi ichida, uni yopishdan <code>&lt;/li&gt;</code> oldin bo'lishi kerak</td>
+</tr>
+<tr>
+<td>Har bir <code>&lt;li&gt;</code> ni yopishni unutish</td>
+<td>Har bir ro'yxat elementi juft teg, <code>&lt;/li&gt;</code> ni unutmang</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-23">Mini-vazifa</h2>
+<p>&quot;Qanday qilib choy damlash&quot; bo'yicha uch qadamdan iborat raqamlangan ro'yxatni yuqoridagi misollarga qaramasdan mustaqil yarating.</p>
+<p><strong>Yechim:</strong></p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Suvni qaynatish&lt;/li&gt;
+    &lt;li&gt;Choy paketini stakanga solish&lt;/li&gt;
+    &lt;li&gt;Qaynagan suv quyib 3 daqiqa kutish&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<hr>
+<h2 id="section-24">Semantik teglar: header, nav, main, section, article, aside, footer</h2>
+<p><strong>Oddiy qilib aytganda:</strong> biz haligacha sahifa ichidagi matn haqida gaplashdik. Endi <strong>o'z sahifani</strong> ma'noni ifodalovchi katta bloklarga qanday bo'lishishini gaplashamiz - xonadagi xonalar turli maqsadga ega (oshxona, yotoq xonasi, mehmonxona) va katta shaklsiz makon emas.</p>
+<p>Oldin (va hali ham ko'p eski loyihalarda) veb-sahifalar mazmunsiz cheksiz <code>&lt;div&gt;</code> lar orqali dizayn qilingan - bu <strong>&quot;&lt;div&gt; shorbasi&quot;</strong> deb ataladi: <code>&lt;div class=&quot;header&quot;&gt;&lt;div class=&quot;nav&quot;&gt;...</code>. Muammo shundaki, <code>&lt;div&gt;</code> - bu &quot;nomsiz quti&quot;, brauzer va ekran o'quvchisi uning ichidagini tushunmaydi - navigatsiya mi, sayt pastqami, yoki asosiy kontentmi.</p>
+<p><strong>Semantik teglar shu muammoni hal qiladi</strong> - ular o'z nomi blokning maqsadini tushunarli qiladigan tarzda nomlangan.</p>
+<h3 id="section-25"><code>&lt;header&gt;</code> - sahifa yoki bo'limning tepa qismi</h3>
+<pre><code class="language-html">&lt;header&gt;
+    &lt;h1&gt;Mening sayohatlar blogim&lt;/h1&gt;
+    &lt;p&gt;Dunyoning turli burchaklaridan eslatmalar&lt;/p&gt;
+&lt;/header&gt;
+</code></pre>
+<p>Odatda logo, sayt nomi, ba'zan - navigatsiyani o'z ichiga oladi.</p>
+<p><strong>Oldindan ko'rish:</strong> keyingi misollardagi <code>&lt;a&gt;</code> havolalari 3-darsda tushuntiriladi. Hozir <code>nav</code> vazifasini o'rganamiz, havola sintaksisini emas; mustaqil ishda havolalar talab qilinmaydi.</p>
+<h3 id="section-26"><code>&lt;nav&gt;</code> - navigatsiya</h3>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;Sayt haqida&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Aloqa&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<p><em>(<code>&lt;a&gt;</code> tegi va havolalar haqida 3-darsda batafsil gaplashamiz - hozir faqat menyuning vizual misoli sifatida ishlatamiz.)</em></p>
+<h3 id="section-27"><code>&lt;main&gt;</code> - sahifaning asosiy mazmuni</h3>
+<pre><code class="language-html">&lt;main&gt;
+    &lt;h2&gt;So'nggi eslatmalar&lt;/h2&gt;
+    &lt;p&gt;Bu yerda sahifaning asosiy kontenti...&lt;/p&gt;
+&lt;/main&gt;
+</code></pre>
+<p><strong>Muhim qoida:</strong> <code>&lt;main&gt;</code> sahifada <strong>faqat bitta</strong> bo'lishi kerak - bu foydalanuvchi sahifaga kelgan kontent (tepa qismi, menyu va pastqasiz).</p>
+<h3 id="section-28"><code>&lt;section&gt;</code> - tematik bo'lim</h3>
+<pre><code class="language-html">&lt;section&gt;
+    &lt;h2&gt;Kurs haqida&lt;/h2&gt;
+    &lt;p&gt;Bu kurs sizga noldan HTML belgilashni o'rganishga yordam beradi...&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Bitta tema birlashtirilgan kontentni guruhlash uchun ishlatiladi - odatda <code>&lt;section&gt;</code> ning o'z sarlavhasi bo'ladi.</p>
+<h3 id="section-29"><code>&lt;article&gt;</code> - mustaqil kontent</h3>
+<pre><code class="language-html">&lt;article&gt;
+    &lt;h2&gt;Men qanday qilib dasturlashni o'rgandim&lt;/h2&gt;
+    &lt;p&gt;Uch yil oldin men sinab ko'rishga qaror qildim...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<p><strong><code>&lt;article&gt;</code> ni <code>&lt;section&gt;</code> dan qanday ajratish mumkin:</strong> &quot;bu blok qolgan sahifa kontekstisiz, o'zi o'zi ma'nolimi, masalan, uni ajratib alohida nashr qilsa?&quot; Blogdagi post, yangilik, foydalanuvchi izohi - bu <code>&lt;article&gt;</code>. Bosh sahifadagi &quot;Biz haqimizda&quot; sahifaning qolgan qismisiz ma'nosiz bo'lsa - bu <code>&lt;section&gt;</code>.</p>
+<h3 id="section-30"><code>&lt;aside&gt;</code> - qo'shimcha, ikkinchi darajali ma'lumot</h3>
+<pre><code class="language-html">&lt;aside&gt;
+    &lt;h2&gt;O'xshash maqolalar&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;CSS asoslari&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;JavaScript ga kirish&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/aside&gt;
+</code></pre>
+<p>Taqqoslash: gazetaning yon ustunidagi &quot;shuningdek o'qing&quot; - qiziq, lekin maqolaning asosiy mazmuni emas.</p>
+<h3 id="section-31"><code>&lt;footer&gt;</code> - sahifa yoki bo'limning pastki qismi</h3>
+<pre><code class="language-html">&lt;footer&gt;
+    &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Mening blogim. Barcha huquqlar himoyalangan.&lt;/small&gt;&lt;/p&gt;
+&lt;/footer&gt;
+</code></pre>
+<p>Odatda mualliflik huquqini, aloqa ma'lumotlarini, ijtimoiy tarmoqlarga havolalarni o'z ichiga oladi.</p>
+<h3 id="section-32">Hammasini birga yig'amiz</h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mening sayohatlar blogim&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;Sayt haqida&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Samarqandga sayohat&lt;/h2&gt;
+            &lt;p&gt;O'tgan oy men Samarqandda bo'ldim...&lt;/p&gt;
+        &lt;/article&gt;
+
+        &lt;aside&gt;
+            &lt;h2&gt;O'xshash yozuvlar&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Buxoroga sayohat&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Mening blogim.&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Tuzilishga e'tibor bering: <code>&lt;header&gt;</code> va <code>&lt;footer&gt;</code> tashqarida, <code>&lt;main&gt;</code> sahifada bitta va asosiy kontentni o'z ichiga oladi, <code>&lt;article&gt;</code> va <code>&lt;aside&gt;</code> allaqachon <code>&lt;main&gt;</code> ichida.</p>
+<p><strong>Muhim:</strong> semantik teglar <code>&lt;div&gt;</code> ning to'liq o'rnini bosmaydi. <code>&lt;div&gt;</code> hali ham qo'llaniladi, blokqa hech qanday semantik ma'no mos kelmasa (masalan, oddiy CSS stilizatsiya uchun o'ram). Lekin blokning aniq mazmunli maqsadi bo'lsa - semantik tegni afzal ko'ring.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-2-2.svg" alt="Chizma 2: Matn va semantika"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-2-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Har bir o‘q chapdagi element o‘ngdagi elementni o‘z ichiga olishini bildiradi. header, main va footer bir darajada; nav havolalari hozir faqat oldindan ko‘rsatilgan namuna bo‘lib, 3-darsda tushuntiriladi.</p>
+<hr>
+<h3 id="section-33">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bitta sahifada bir nechta <code>&lt;main&gt;</code> ishlatish</td>
+<td><code>&lt;main&gt;</code> - sahifada faqat bitta</td>
+</tr>
+<tr>
+<td>Tepa qismi/pastqasi/navigatsiya ekanligi aniq bo'lgan narsani <code>&lt;div&gt;</code> ga o'rab olish</td>
+<td><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code> ishlating - ular brauzer va ekran o'quvchilari uchun ma'noni olib yuradi</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code> va <code>&lt;article&gt;</code> ni aralashtirish</td>
+<td><code>&lt;article&gt;</code> — mustaqil material; <code>&lt;section&gt;</code> — odatda sarlavhali tematik bo'lim. Bunday ma'nosiz oddiy o'rov uchun <code>&lt;div&gt;</code> mos keladi.</td>
+</tr>
+<tr>
+<td>Har bir havolalar to'plamini <code>&lt;nav&gt;</code> deb olish</td>
+<td><code>&lt;nav&gt;</code> sayt menyusi yoki maqola mundarijasi kabi muhim navigatsiya blokidir. Har bir havolani <code>&lt;nav&gt;</code> ichiga joylashtirish shart emas.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-34">Dars xulosalari</h2>
+<p>Bugun siz quyidagilarni o'rgandingiz:</p>
+<ul>
+<li>Sarlavhalar <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> sahifaning mazmun ierarxiyasini quradi - kitob mundarijasidek, bitta <code>&lt;h1&gt;</code> bilan va darajalar &quot;o'tib ketishlarsiz&quot;.</li>
+<li><code>&lt;p&gt;</code> - abzats, <code>&lt;br&gt;</code> - abzats ichidagi satr o'tkazish, <code>&lt;hr&gt;</code> - tematik ajratish.</li>
+<li><code>&lt;strong&gt;</code> muhimlikni, <code>&lt;em&gt;</code> mazmuniy urg'uni bildiradi. <code>&lt;b&gt;</code> va <code>&lt;i&gt;</code> ham mazmun vazifalariga ega va eskirmagan.</li>
+<li>Uch xil ro'yxat: <code>&lt;ul&gt;</code> (tartib muhim emas), <code>&lt;ol&gt;</code> (tartib muhim), <code>&lt;dl&gt;</code> (atama - ta'rif).</li>
+<li>Semantik teglar (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>) &quot;&lt;div&gt; shorbasini&quot; almashtiradi va sahifa tuzilishini brauzer, qidiruv tizimlari va ekran o'quvchilari uchun tushunarli qiladi.</li>
+</ul>
+<hr>
+<h2 id="section-35">Mustaqil ish: foydali qo'llanma</h2>
+<p>Tanish mavzuda <code>guide.html</code> yarating: sayohatga tayyorgarlik, o'simlik parvarishi yoki o'quv kunini rejalashtirish. Faqat 1–2-dars materialidan foydalaning. Hozircha havola, rasm, jadval va shakllar kerak emas.</p>
+<ol>
+<li>Til, UTF-8 va mazmunli yorliq nomi bilan to'liq hujjat tuzing.</li>
+<li><code>header</code>, bitta <code>main</code> va <code>footer</code> qo'shing. <code>main</code> ichida ikkinchi darajali sarlavhali ikkita tematik bo'lim yarating.</li>
+<li>Bir bo'limda kerakli narsalarning tartibsiz ro'yxatini, ikkinchisida amallar ketma-ketligini joylashtiring.</li>
+<li>Mazmuniga mos <code>strong</code> yoki <code>em</code> ishlatilgan abzats qo'shing; pastki qismda <code>small</code> orqali eslatma yozing.</li>
+<li>Muharrirdagi tuzilishni DevTools bilan solishtiring. Har bir semantik elementni nima uchun tanlaganingizni tushuntiring.</li>
+</ol>
+<h3 id="section-36">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Bitta asosiy <code>&lt;h1&gt;</code> va ikkita <code>&lt;h2&gt;</code> bor; darajalar shrift o'lchamiga emas, tuzilishga mos.</label></li>
+<li class="check"><label><input type="checkbox"> Bitta <code>main</code> bor; bo'limlarda bir mavzuga oid material va sarlavhalar mavjud.</label></li>
+<li class="check"><label><input type="checkbox"> <code>ol</code> da tartib muhim, <code>ul</code> da muhim emas; har bir band — <code>li</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Elementlar to'g'ri joylashtirilgan; mazmuniy urg'uni tushuntira olasiz.</label></li>
+<li class="check"><label><input type="checkbox"> Sahifa ochiladi va o'qiladi; keyingi dars mavzulari talab qilinmaydi.</label></li>
+</ul>
+<h3 id="section-37">O'zingizni tekshiring</h3>
+<ol>
+<li>Qachon <code>article</code>, qachon <code>section</code>, qachon oddiy <code>div</code> kerak?</li>
+<li><code>strong</code> va <code>b</code>, shuningdek <code>em</code> va <code>i</code> nimasi bilan farq qiladi?</li>
+<li>Nega abzatslar orasidagi masofa uchun bir nechta <code>br</code> ishlatmaslik kerak?</li>
+</ol>
+<p>Barcha mezonlar bajarilgach, davom eting. Teg tanlovini tushuntirish qiyin bo'lsa, uning vazifasini qayta ko'rib, belgilashni tuzating.</p>
+<hr>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-1.html">← Orqaga</a> · <a href="uz-lesson-3.html">Keyingi →</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a> · <a href="../Lesson-2/practice.html">Amaliyot</a></p>
+</article></main><footer><a href="../Lesson-2/uz/Matn%20va%20semantika.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

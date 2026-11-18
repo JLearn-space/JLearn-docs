@@ -1,0 +1,3211 @@
+{
+  "date": "2026-11-10",
+  "mode": "287 real loopback HTTP/headless Chrome checks plus 3 native Chrome keyboard checks",
+  "total": 290,
+  "failed": [],
+  "results": [
+    {
+      "lang": "ru",
+      "lesson": 1,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-01/index.html",
+          "learner-journey/ru/lesson-01/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 1,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Знакомство",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 1,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Урок 1",
+        "images": [],
+        "labels": [],
+        "heading": 0,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 1,
+      "name": "one heading and two paragraphs",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 1,
+      "name": "saved file change appears after reload",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 2,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-02/guide.html",
+          "learner-journey/ru/lesson-02/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 2,
+      "name": "page and referenced resources load: guide.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Памятка перед учебным днём",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 2,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Как заварить чай",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 2,
+      "name": "guide uses semantic structure and two list kinds",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-03/contact.html",
+          "learner-journey/ru/lesson-03/contacts.html",
+          "learner-journey/ru/lesson-03/index.html",
+          "learner-journey/ru/lesson-03/mini.html",
+          "learner-journey/ru/lesson-03/schedule.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "page and referenced resources load: contact.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Контакт для мини-задания",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "page and referenced resources load: contacts.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Контакты кружка",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Кружок чтения",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Ссылки: мини-задание",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "page and referenced resources load: schedule.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Расписание кружка",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition index.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition index.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "anchor index.html → #purpose",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "anchor index.html → #rules",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition schedule.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition schedule.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition schedule.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "anchor schedule.html → #rules",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition contacts.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition contacts.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "menu transition contacts.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 3,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 9,
+        "anchors": 3
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-04/index.html",
+          "learner-journey/ru/lesson-04/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Мои увлечения",
+        "images": [
+          {
+            "src": "images/logo.png",
+            "loaded": true
+          },
+          {
+            "src": "images/icon-star.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Учебное изображение",
+        "images": [
+          {
+            "src": "images/logo.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "two images and captioned figure",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "media loads and plays 0",
+      "passed": true,
+      "detail": {
+        "controls": true,
+        "duration": 2,
+        "running": true
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 4,
+      "name": "whole folder survives relocation",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 5,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-05/index.html",
+          "learner-journey/ru/lesson-05/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 5,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Расписание учебной недели",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 5,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Расписание на два дня",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 5,
+      "name": "schedule has caption and column/row headers",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 5,
+      "name": "separate merged-cell example exists",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-06/index.html",
+          "learner-journey/ru/lesson-06/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Учебная запись на курс",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Любимый напиток",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "required fields block empty submission",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "email format is checked",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "radio group permits one selected option",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "checkboxes can both be selected",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "clicking label focuses its field",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 6,
+      "name": "GET contains all successful named values",
+      "passed": true,
+      "detail": {
+        "expected": [
+          [
+            "student",
+            "Demo learner"
+          ],
+          [
+            "email",
+            "learner@example.com"
+          ],
+          [
+            "start",
+            "2026-11-10"
+          ],
+          [
+            "topics",
+            "text"
+          ],
+          [
+            "topics",
+            "links"
+          ],
+          [
+            "time",
+            "evening"
+          ]
+        ],
+        "url": "http://127.0.0.1:8843/learner-journey/ru/lesson-06/index.html?student=Demo+learner&email=learner%40example.com&start=2026-11-10&topics=text&topics=links&time=evening"
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-07/index.html",
+          "learner-journey/ru/lesson-07/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Анкета участника",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Выбор страны",
+        "images": [],
+        "labels": [
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "ID \"\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "ID \"123456\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "ID \"1234567\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "ID \"abcdefg\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "Space on reset restores original values",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 7,
+      "name": "valid participant form submits with GET",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-08/before.html",
+          "learner-journey/ru/lesson-08/index.html",
+          "learner-journey/ru/lesson-08/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "page and referenced resources load: before.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Анкета участника",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Анкета участника",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Ссылка на профиль",
+        "images": [
+          {
+            "src": "images/github-icon.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "Tab visits every control once with keyboard focus",
+      "passed": true,
+      "detail": {
+        "forward": [
+          {
+            "tag": "SELECT",
+            "id": "topic",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "TEXTAREA",
+            "id": "message",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "INPUT",
+            "id": "study-id",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Показать учебные значения",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Восстановить исходные значения",
+            "visible": true,
+            "outline": "auto"
+          }
+        ],
+        "reverse": [
+          "Показать учебные значения",
+          "study-id",
+          "message",
+          "topic"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "Chrome accessibility tree contains named native controls",
+      "passed": true,
+      "detail": [
+        {
+          "role": "button",
+          "name": "Показать учебные значения"
+        },
+        {
+          "role": "button",
+          "name": "Восстановить исходные значения"
+        },
+        {
+          "role": "combobox",
+          "name": "Направление"
+        },
+        {
+          "role": "textbox",
+          "name": "Пожелания"
+        },
+        {
+          "role": "textbox",
+          "name": "ID — ровно семь цифр от 0 до 9"
+        }
+      ]
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "default text contrast is black on white canvas",
+      "passed": true,
+      "detail": {
+        "text": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": 21,
+        "scope": "body text; not a claim about every user-agent control color"
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "arrow key changes the native selection",
+      "passed": true,
+      "verification": "native UI",
+      "automated_passed": false,
+      "detail": {
+        "lang": "ru",
+        "file": "learner-journey/ru/lesson-08/index.html",
+        "sha256": "0d6b1ce45c90d89d7ff190c0ac9122181cb770936d8a64347040b4a995a4864b",
+        "before": "Текст",
+        "after": "Формы",
+        "keys": [
+          "Tab to select",
+          "Space",
+          "Down",
+          "Return"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "Space activates reset and restores initial text",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 8,
+      "name": "Enter activates submit",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-09/about.html",
+          "learner-journey/ru/lesson-09/index.html",
+          "learner-journey/ru/lesson-09/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "page and referenced resources load: about.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Формат встреч — кружок чтения",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Кружок чтения — главная",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Мини-задание",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: about.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/ru/lesson-09/css/style.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/ru/lesson-09/js/main.js",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: index.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/ru/lesson-09/css/style.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/ru/lesson-09/js/main.js",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "ru",
+      "lesson": 9,
+      "name": "two pages have distinct title/description and viewport",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/ru/lesson-10/index.html",
+          "learner-journey/ru/lesson-10/join.html",
+          "learner-journey/ru/lesson-10/meetings.html",
+          "learner-journey/ru/lesson-10/resources.html"
+        ]
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Клуб внимательного чтения",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "page and referenced resources load: join.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Учебная заявка — клуб внимательного чтения",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "page and referenced resources load: meetings.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Расписание — клуб внимательного чтения",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "page and referenced resources load: resources.html",
+      "passed": true,
+      "detail": {
+        "lang": "ru",
+        "title": "Материалы — клуб внимательного чтения",
+        "images": [
+          {
+            "src": "images/page-layout.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "four independent pages",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition index.html → meetings.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition index.html → resources.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition index.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition join.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition join.html → meetings.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition join.html → resources.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition join.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition meetings.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition meetings.html → meetings.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition meetings.html → resources.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition meetings.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition resources.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition resources.html → meetings.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition resources.html → resources.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "menu transition resources.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "ru",
+      "lesson": 10,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 16,
+        "anchors": 0
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 1,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-01/index.html",
+          "learner-journey/en/lesson-01/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 1,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Introduction",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 1,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Lesson 1",
+        "images": [],
+        "labels": [],
+        "heading": 0,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 1,
+      "name": "one heading and two paragraphs",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 1,
+      "name": "saved file change appears after reload",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 2,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-02/guide.html",
+          "learner-journey/en/lesson-02/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 2,
+      "name": "page and referenced resources load: guide.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Study morning guide",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 2,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Tea steps",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 2,
+      "name": "guide uses semantic structure and two list kinds",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-03/contact.html",
+          "learner-journey/en/lesson-03/contacts.html",
+          "learner-journey/en/lesson-03/index.html",
+          "learner-journey/en/lesson-03/mini.html",
+          "learner-journey/en/lesson-03/schedule.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "page and referenced resources load: contact.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Mini contact destination",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "page and referenced resources load: contacts.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Reading contacts",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Reading circle",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Link practice",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "page and referenced resources load: schedule.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Reading schedule",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition index.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition index.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "anchor index.html → #purpose",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "anchor index.html → #joining",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition schedule.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition schedule.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition schedule.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "anchor schedule.html → #joining",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition contacts.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition contacts.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "menu transition contacts.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 3,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 9,
+        "anchors": 3
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-04/index.html",
+          "learner-journey/en/lesson-04/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "My hobbies",
+        "images": [
+          {
+            "src": "images/book.svg",
+            "loaded": true
+          },
+          {
+            "src": "images/decor.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Logo practice",
+        "images": [
+          {
+            "src": "images/logo.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "two images and captioned figure",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "media loads and plays 0",
+      "passed": true,
+      "detail": {
+        "controls": true,
+        "duration": 0.5,
+        "running": true
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 4,
+      "name": "whole folder survives relocation",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 5,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-05/index.html",
+          "learner-journey/en/lesson-05/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 5,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Timetable",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 5,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Two-day schedule",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 5,
+      "name": "schedule has caption and column/row headers",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 5,
+      "name": "separate merged-cell example exists",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-06/index.html",
+          "learner-journey/en/lesson-06/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Practice registration",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Favourite drink",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "required fields block empty submission",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "email format is checked",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "radio group permits one selected option",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "checkboxes can both be selected",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "clicking label focuses its field",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 6,
+      "name": "GET contains all successful named values",
+      "passed": true,
+      "detail": {
+        "expected": [
+          [
+            "name",
+            "Demo learner"
+          ],
+          [
+            "email",
+            "learner@example.com"
+          ],
+          [
+            "start",
+            "2026-11-10"
+          ],
+          [
+            "topics",
+            "poems"
+          ],
+          [
+            "topics",
+            "stories"
+          ],
+          [
+            "session",
+            "evening"
+          ]
+        ],
+        "url": "http://127.0.0.1:8843/learner-journey/en/lesson-06/index.html?name=Demo+learner&email=learner%40example.com&start=2026-11-10&topics=poems&topics=stories&session=evening"
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-07/index.html",
+          "learner-journey/en/lesson-07/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Participant form",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Country selector",
+        "images": [],
+        "labels": [
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "ID \"\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "ID \"123456\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "ID \"1234567\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "ID \"abcdefg\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "Space on reset restores original values",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 7,
+      "name": "valid participant form submits with GET",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-08/index.html",
+          "learner-journey/en/lesson-08/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Audited participant form",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Named icon link",
+        "images": [
+          {
+            "src": "github-icon.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "Tab visits every control once with keyboard focus",
+      "passed": true,
+      "detail": {
+        "forward": [
+          {
+            "tag": "SELECT",
+            "id": "topic",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "TEXTAREA",
+            "id": "bio",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "INPUT",
+            "id": "code",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "View practice values",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Restore initial values",
+            "visible": true,
+            "outline": "auto"
+          }
+        ],
+        "reverse": [
+          "View practice values",
+          "code",
+          "bio",
+          "topic"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "Chrome accessibility tree contains named native controls",
+      "passed": true,
+      "detail": [
+        {
+          "role": "combobox",
+          "name": "Reading topic"
+        },
+        {
+          "role": "textbox",
+          "name": "Introduction"
+        },
+        {
+          "role": "textbox",
+          "name": "Participant ID: exactly seven digits"
+        },
+        {
+          "role": "button",
+          "name": "View practice values"
+        },
+        {
+          "role": "button",
+          "name": "Restore initial values"
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "default text contrast is black on white canvas",
+      "passed": true,
+      "detail": {
+        "text": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": 21,
+        "scope": "body text; not a claim about every user-agent control color"
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "arrow key changes the native selection",
+      "passed": true,
+      "verification": "native UI",
+      "automated_passed": false,
+      "detail": {
+        "lang": "en",
+        "file": "learner-journey/en/lesson-08/index.html",
+        "sha256": "80ac95b9cc983b850a3893348550be85a2a90a47cf79ce4e6c15b6d45f8653c9",
+        "before": "Short stories",
+        "after": "Novels",
+        "keys": [
+          "Tab to select",
+          "Space",
+          "Down",
+          "Return"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "Space activates reset and restores initial text",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 8,
+      "name": "Enter activates submit",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-09/about.html",
+          "learner-journey/en/lesson-09/index.html",
+          "learner-journey/en/lesson-09/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "page and referenced resources load: about.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "About the reading circle",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Reading circle home",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Mini-task",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: about.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/en/lesson-09/css/style.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/en/lesson-09/js/main.js",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: index.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/en/lesson-09/js/main.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/en/lesson-09/css/style.css",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "lesson": 9,
+      "name": "two pages have distinct title/description and viewport",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/en/lesson-10/about.html",
+          "learner-journey/en/lesson-10/index.html",
+          "learner-journey/en/lesson-10/join.html",
+          "learner-journey/en/lesson-10/schedule.html"
+        ]
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "page and referenced resources load: about.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Our reading values",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Riverbank reading club",
+        "images": [
+          {
+            "src": "images/book.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "page and referenced resources load: join.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Join the reading club",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "page and referenced resources load: schedule.html",
+      "passed": true,
+      "detail": {
+        "lang": "en",
+        "title": "Weekly reading sessions",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "four independent pages",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition about.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition about.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition about.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition about.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition index.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition index.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition index.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition join.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition join.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition join.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition join.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition schedule.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition schedule.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition schedule.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "menu transition schedule.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "lesson": 10,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 16,
+        "anchors": 0
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 1,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-01/index.html",
+          "learner-journey/uz/lesson-01/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 1,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Tanishuv",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 1,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "1-dars",
+        "images": [],
+        "labels": [],
+        "heading": 0,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 1,
+      "name": "one heading and two paragraphs",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 1,
+      "name": "saved file change appears after reload",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 2,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-02/guide.html",
+          "learner-journey/uz/lesson-02/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 2,
+      "name": "page and referenced resources load: guide.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "O‘quv kuniga tayyorgarlik",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 2,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Choy damlash",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 2,
+      "name": "guide uses semantic structure and two list kinds",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-03/contact.html",
+          "learner-journey/uz/lesson-03/contacts.html",
+          "learner-journey/uz/lesson-03/index.html",
+          "learner-journey/uz/lesson-03/mini.html",
+          "learner-journey/uz/lesson-03/schedule.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "page and referenced resources load: contact.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitob do‘stlari — aloqa",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "page and referenced resources load: contacts.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitob do‘stlari — aloqa",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitob do‘stlari — bosh sahifa",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Havola mashqi",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "page and referenced resources load: schedule.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitob do‘stlari — uchrashuvlar",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition index.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition index.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "anchor index.html → #about",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "anchor index.html → #rules",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition schedule.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition schedule.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition schedule.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "anchor schedule.html → #rules",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition contacts.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition contacts.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "menu transition contacts.html → contacts.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 3,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 9,
+        "anchors": 3
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-04/index.html",
+          "learner-journey/uz/lesson-04/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Mening qiziqishlarim",
+        "images": [
+          {
+            "src": "images/book.png",
+            "loaded": true
+          },
+          {
+            "src": "images/flower.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Logotipni joylashtirish",
+        "images": [
+          {
+            "src": "images/logo.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "two images and captioned figure",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "media loads and plays 0",
+      "passed": true,
+      "detail": {
+        "controls": true,
+        "duration": 1.2,
+        "running": true
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 4,
+      "name": "whole folder survives relocation",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 5,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-05/index.html",
+          "learner-journey/uz/lesson-05/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 5,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "To‘garak dars jadvali",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 5,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Ikki kunlik jadval",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 5,
+      "name": "schedule has caption and column/row headers",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 5,
+      "name": "separate merged-cell example exists",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-06/index.html",
+          "learner-journey/uz/lesson-06/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kursga o‘quv yoziluvi",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Sevimli ichimlik",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "required fields block empty submission",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "email format is checked",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "radio group permits one selected option",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "checkboxes can both be selected",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "clicking label focuses its field",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 6,
+      "name": "GET contains all successful named values",
+      "passed": true,
+      "detail": {
+        "expected": [
+          [
+            "student",
+            "Demo learner"
+          ],
+          [
+            "email",
+            "learner@example.com"
+          ],
+          [
+            "start_date",
+            "2026-11-10"
+          ],
+          [
+            "topic",
+            "reading"
+          ],
+          [
+            "topic",
+            "writing"
+          ],
+          [
+            "mode",
+            "onsite"
+          ]
+        ],
+        "url": "http://127.0.0.1:8843/learner-journey/uz/lesson-06/index.html?student=Demo+learner&email=learner%40example.com&start_date=2026-11-10&topic=reading&topic=writing&mode=onsite"
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-07/index.html",
+          "learner-journey/uz/lesson-07/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Ishtirokchi anketasi",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Mamlakat tanlash",
+        "images": [],
+        "labels": [
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "ID \"\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "ID \"123456\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "ID \"1234567\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "ID \"abcdefg\" has expected validity",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "Space on reset restores original values",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 7,
+      "name": "valid participant form submits with GET",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-08/index.html",
+          "learner-journey/uz/lesson-08/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Ishtirokchi anketasi",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Nomlangan belgi-havola",
+        "images": [
+          {
+            "src": "images/github-icon.svg",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "Tab visits every control once with keyboard focus",
+      "passed": true,
+      "detail": {
+        "forward": [
+          {
+            "tag": "INPUT",
+            "id": "member-id",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "SELECT",
+            "id": "group",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "TEXTAREA",
+            "id": "note",
+            "text": "",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "O‘quv anketasini yuborish",
+            "visible": true,
+            "outline": "auto"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Dastlabki qiymatlarga qaytarish",
+            "visible": true,
+            "outline": "auto"
+          }
+        ],
+        "reverse": [
+          "O‘quv anketasini yuborish",
+          "note",
+          "group",
+          "member-id"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "Chrome accessibility tree contains named native controls",
+      "passed": true,
+      "detail": [
+        {
+          "role": "button",
+          "name": "O‘quv anketasini yuborish"
+        },
+        {
+          "role": "button",
+          "name": "Dastlabki qiymatlarga qaytarish"
+        },
+        {
+          "role": "textbox",
+          "name": "Ishtirokchi IDsi (aynan 7 ta raqam, majburiy):"
+        },
+        {
+          "role": "combobox",
+          "name": "Mashg‘ulot yo‘nalishi:"
+        },
+        {
+          "role": "textbox",
+          "name": "Kutayotgan natijangiz:"
+        }
+      ]
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "default text contrast is black on white canvas",
+      "passed": true,
+      "detail": {
+        "text": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": 21,
+        "scope": "body text; not a claim about every user-agent control color"
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "arrow key changes the native selection",
+      "passed": true,
+      "verification": "native UI",
+      "automated_passed": false,
+      "detail": {
+        "lang": "uz",
+        "file": "learner-journey/uz/lesson-08/index.html",
+        "sha256": "0051d2c695a724c732d33b645a5ceb1d53e3a0c73055a75aa86efee95553357c",
+        "before": "Hikoya tahlili",
+        "after": "She’r o‘qish",
+        "keys": [
+          "Tab to select",
+          "Space",
+          "Down",
+          "Return"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "Space activates reset and restores initial text",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 8,
+      "name": "Enter activates submit",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-09/about.html",
+          "learner-journey/uz/lesson-09/index.html",
+          "learner-journey/uz/lesson-09/mini.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "page and referenced resources load: about.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitoblarni tanlash mezonlari",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitoblar ro‘yxati",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Mini-vazifa",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: about.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/uz/lesson-09/css/style.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/uz/lesson-09/js/main.js",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "CSS and JS load over real local HTTP: index.html",
+      "passed": true,
+      "detail": [
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/uz/lesson-09/css/style.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:8843/learner-journey/uz/lesson-09/js/main.js",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "lang": "uz",
+      "lesson": 9,
+      "name": "two pages have distinct title/description and viewport",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "HTML solutions exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "learner-journey/uz/lesson-10/about.html",
+          "learner-journey/uz/lesson-10/index.html",
+          "learner-journey/uz/lesson-10/join.html",
+          "learner-journey/uz/lesson-10/mini.html",
+          "learner-journey/uz/lesson-10/schedule.html"
+        ]
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "page and referenced resources load: about.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Klubimiz haqida",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "page and referenced resources load: index.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Kitob do‘stlari klubi",
+        "images": [
+          {
+            "src": "images/book.png",
+            "loaded": true
+          }
+        ],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "page and referenced resources load: join.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "O‘quv anketasi",
+        "images": [],
+        "labels": [
+          true,
+          true,
+          true
+        ],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "page and referenced resources load: mini.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Sayt rejasi",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "page and referenced resources load: schedule.html",
+      "passed": true,
+      "detail": {
+        "lang": "uz",
+        "title": "Uchrashuvlar jadvali",
+        "images": [],
+        "labels": [],
+        "heading": 1,
+        "missing": []
+      }
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "four independent pages",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition about.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition about.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition about.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition about.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition index.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition index.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition index.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition index.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition join.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition join.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition join.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition join.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition schedule.html → index.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition schedule.html → about.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition schedule.html → schedule.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "menu transition schedule.html → join.html",
+      "passed": true
+    },
+    {
+      "lang": "uz",
+      "lesson": 10,
+      "name": "complete navigation count",
+      "passed": true,
+      "detail": {
+        "transitions": 16,
+        "anchors": 0
+      }
+    }
+  ],
+  "not_performed": [
+    "Real GitHub publication",
+    "Installation of VS Code and its extensions",
+    "A human novice study or live screen-reader session"
+  ]
+}

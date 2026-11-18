@@ -1,0 +1,435 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Havolalar va navigatsiya · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxirida nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">&lt;a&gt; tegi va href atributi</a><a href="#section-5">Absolyut va nisbiy yo&#x27;llar</a><a href="#section-10">target=&quot;_blank&quot; - yangi yorliqda ochish</a><a href="#section-11">Bo‘limga havolalar - sahifaning bir qismiga o&#x27;tish</a><a href="#section-16">Email va telefon uchun havolalar</a><a href="#section-20">Mini-vazifa</a><a href="#section-21">Uzluksiz navigatsiyali ko&#x27;p sahifali saytni yig&#x27;amiz</a><a href="#section-22">Dars xulosalari</a><a href="#section-23">Mustaqil ish: to&#x27;garak mini-sayti</a></details></aside><article><h1 id="section-1">Havolalar va navigatsiya</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-2.html">← Orqaga</a> · <a href="uz-lesson-4.html">Keyingi →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Amaliyot</a></p>
+<blockquote>
+<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darsda biz matnni tizimlashtirishni o'rgandik va <code>&lt;nav&gt;</code> tegini namuna havolalar <code>href=&quot;#&quot;</code> bilan ishlatdik. Bugun havolalar qanday haqiqatan ishlashini tushunamiz - va bir nechta HTML-sahifalarni bitta saytga bog'laymiz.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Dars oxirida nimani o'rganasiz</h2>
+<ul>
+<li><code>&lt;a&gt;</code> tegi va <code>href</code> atributi bilan havolalar yaratish.</li>
+<li>Absolyut va nisbiy yo'llarni farqlash va qaysi holatda qaysini ishlatishni bilish.</li>
+<li><code>target=&quot;_blank&quot;</code> orqali havolalarni yangi yorliqda ochish.</li>
+<li>Bo‘limga havolalarni yaratish - sahifaning ma'lum joyiga o'tish.</li>
+<li>Email va telefon uchun havolalar yaratish (<code>mailto:</code>, <code>tel:</code>).</li>
+<li>Bir nechta HTML-sahifalardan uzluksiz navigatsiyali sayt yig'ish.</li>
+</ul>
+<hr>
+<h2 id="section-3">Dars rejasi</h2>
+<table>
+<thead>
+<tr>
+<th>Bo‘lim</th>
+<th>Mazmun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a tegi va href atributi</td>
+<td>Havolaning asosiy sintaksisi</td>
+</tr>
+<tr>
+<td>Absolyut va nisbiy yo'llar</td>
+<td>Farq, qachon qaysini ishlatish, papka tuzilishi</td>
+</tr>
+<tr>
+<td>target=&quot;_blank&quot;</td>
+<td>Yangi yorliqda ochish, xavfsizlik</td>
+</tr>
+<tr>
+<td>Bo‘limga havolalar</td>
+<td>Sahifaning bir qismiga o'tish, id</td>
+</tr>
+<tr>
+<td>mailto va tel</td>
+<td>Email va telefon uchun havolalar</td>
+</tr>
+<tr>
+<td>Mini-vazifa</td>
+<td>Havolani mustaqil yaratish</td>
+</tr>
+<tr>
+<td>Ko'p sahifali sayt</td>
+<td>Uzluksiz menyu bilan 3 sahifani yig'amiz</td>
+</tr>
+<tr>
+<td>Xulosalar va amaliy vazifa</td>
+<td>Mustahkamlash</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-4"><code>&lt;a&gt;</code> tegi va <code>href</code> atributi</h2>
+<p><strong>Oddiy qilib aytganda:</strong> tasavvur qiling, kitobda &quot;batafsil bu haqida 42-sahifada o'qing&quot; deb yozilgan. HTML'dagi havola - bu xuddi shu narsa, faqat &quot;42-sahifa&quot; o'rniga boshqa veb-sahifaning manzilini (yoki shu sahifaning boshqa joyini) ko'rsatasiz va o'tish bitta bosish bilan amalga oshadi.</p>
+<p><code>&lt;a&gt;</code> tegi (anchor - &quot;yakor&quot;) - juft teg bo'lib, matnni (yoki rasmini - bu 4-darsda) o'rab, uni bosiladigan havolaga aylantiradi.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.google.com&quot;&gt;Google ga o'tish&lt;/a&gt;
+</code></pre>
+<p>Bu yerda:</p>
+<ul>
+<li><code>&lt;a&gt;</code> - havola tegi</li>
+<li><code>href</code> (hypertext reference) - havola qayerga borishini ko'rsatadigan atribut - <strong>majburiy</strong> atribut, usiz <code>&lt;a&gt;</code> havola sifatida ishlamaydi</li>
+<li><code>Google ga o'tish</code> - foydalanuvchi bosadigan ko'rinadigan havola matni</li>
+</ul>
+<p><strong>Taqqoslash:</strong> <code>&lt;a&gt;</code> - bu eshik, <code>href</code> esa manzil, bu eshik qayerga borishini ko'rsatadi. Manzilsiz eshik shunchaki devorga chizilgan va hech qayerga ochilmaydi.</p>
+<hr>
+<h2 id="section-5">Absolyut va nisbiy yo'llar</h2>
+<p>Bu darsning asosiy mavzusi - ko'pchilik yangi boshlovchilar aynan shu yerda adashadi.</p>
+<h3 id="section-6">Absolyut yo'l</h3>
+<p><strong>Absolyut yo'l</strong> - bu to'liq manzil, protokol (<code>https://</code>) va domen bilan birga. <strong>Tashqi</strong> saytlarga havolalar uchun ishlatiladi - ya'ni shaxsiy loyihangizning sahifalariga emas.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.wikipedia.org&quot;&gt;Vikipediya&lt;/a&gt;
+&lt;a href=&quot;https://github.com/Saydullayev017&quot;&gt;Mening GitHub&lt;/a&gt;
+</code></pre>
+<p><strong>Taqqoslash:</strong> absolyut yo'l - bu shahar va mamlakat bilan to'liq pochta manzili: &quot;O'zbekiston, Toshkent shahri, Amir Temur ko'chasi, 10-uy&quot;. U dunyoning istalgan nuqtasidan aniq tushunarli.</p>
+<h3 id="section-7">Nisbiy yo'l</h3>
+<p><strong>Nisbiy yo'l</strong> - bu <strong>joriy faylga nisbatan</strong> ko'rsatilgan manzil. Bitta loyiha ichidagi <strong>o'z</strong> sahifalaringizga havolalar uchun ishlatiladi.</p>
+<p><strong>Taqqoslash:</strong> nisbiy yo'l - bu qo'shniga &quot;ikkita uy nariga boring&quot; deb aytishga o'xshaydi - bu faqat boshlang'ich nuqtada turgan bo'lsangiz tushunarli. Agar boshqa shaharda bo'lsangiz, bu ko'rsatma ma'nosini yo'qotadi - lekin to'liq manzil istalgan joydan ishlaydi.</p>
+<p>Loyiha tuzilishi misolida tushunamiz:</p>
+<pre><code>html-course/
+├── index.html
+├── about.html
+├── contact.html
+└── images/
+    └── photo.jpg
+</code></pre>
+<p><strong>Bitta papkadagi faylga havola:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;about.html&quot;&gt;Sayt haqida&lt;/a&gt;
+</code></pre>
+<p>Faylning oddiy nomi - brauzer uni joriy fayl yonida qidiradi.</p>
+<p><strong>Ichki papkadagi faylga havola:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;images/photo.jpg&quot;&gt;Rasmini ko'rish&lt;/a&gt;
+</code></pre>
+<p><strong>Yuqoridagi papkadagi faylga havola</strong> (agar siz masalan <code>images/</code> ichida bo'lsangiz va <code>index.html</code> ga havola qo'ymoqchi bo'lsangiz):</p>
+<pre><code class="language-html">&lt;a href=&quot;../index.html&quot;&gt;Bosh sahifaga&lt;/a&gt;
+</code></pre>
+<p><code>../</code> &quot;bir daraja yuqoriga ko'tarilish&quot; degan ma'noni anglatadi - xonadan koridorga chiqishdek.</p>
+<p><strong>Saytning o'z papkasiga/bosh sahifasiga havola:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;/&quot;&gt;Bosh sahifaga&lt;/a&gt;
+</code></pre>
+<p>Boshidagi slesh &quot;sayt ildizi&quot; degan ma'noni anglatadi - agar sizda masalan <code>mysite.uz</code> sayti bo'lsa, <code>/</code> havolasi <code>mysite.uz</code> ga olib boradi, yonidagi faylga emas.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-3-1.svg" alt="Chizma 1: Havolalar va navigatsiya"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-3-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Joriy fayldan chiquvchi o‘q yozilgan yo‘l qayerga olib borishini ko‘rsatadi. ../ bir papka yuqoriga, boshidagi / esa sayt manzilining ildiziga olib boradi; ular bir xil manzil emas.</p>
+<h3 id="section-8">Qachon qaysini ishlatish</h3>
+<table>
+<thead>
+<tr>
+<th>Holat</th>
+<th>Qaysi yo'l</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O'z loyihangizdagi boshqa sahifaga havola</td>
+<td>Nisbiy</td>
+</tr>
+<tr>
+<td>Tashqi saytga havola (ijtimoiy tarmoq, Vikipediya, boshqa sayt)</td>
+<td>Absolyut</td>
+</tr>
+<tr>
+<td>Loyihangizdagi rasmga havola</td>
+<td>Nisbiy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Amaliy tanlov:</strong> o'z sahifangizga absolyut URL yozish mumkin, lekin lokal ishlashda u nashr qilingan domenga olib boradi. Nisbiy yo'llar lokal fayllarni tekshirish va loyihani birga ko'chirishga yordam beradi. <code>/about.html</code> domen ildizidan boshlanadi; sayt ichki papkada bo'lsa, kutilmagan joyga olib borishi mumkin.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-3-2.svg" alt="Chizma 2: Havolalar va navigatsiya"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-3-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Avval havolaning vazifasini tanlang: bo‘lim, loyiha fayli, tashqi sahifa, xat yoki qo‘ng‘iroq. Shunga mos ravishda href boshida #, fayl yo‘li, https:, mailto: yoki tel: yoziladi.</p>
+<hr>
+<h3 id="section-9">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lokal sahifani tekshirganda kutilmaganda nashr qilingan saytga o'tish: <code>href=&quot;https://mysite.ru/about.html&quot;</code></td>
+<td>Loyiha ichidagi sahifalar uchun nisbiy yo'ldan foydalaning: <code>href=&quot;about.html&quot;</code></td>
+</tr>
+<tr>
+<td><code>/about.html</code> (sayt ildizidan) va <code>about.html</code> (joriy papkadani) ni aralashtirish</td>
+<td>Eslab qoling: boshidagi slesh &quot;sayt ildizidan&quot; degan ma'noni anglatadi, sleshsiz - &quot;joriy fayldan&quot;</td>
+</tr>
+<tr>
+<td>Havolada <code>.html</code> kengaytmasini unutish: <code>href=&quot;about&quot;</code></td>
+<td>To'liq fayl nomini kengaytma bilan ko'rsating: <code>href=&quot;about.html&quot;</code></td>
+</tr>
+<tr>
+<td>Fayl nomidagi registrni noto'g'ri yozish: <code>href=&quot;About.html&quot;</code> o'rniga <code>about.html</code></td>
+<td>Ko'pchilik serverlarda (ayniqsa Linux/GitHub Pages) registr muhim - havola nomi fayl nomi bilan aniq mos kelishi kerak</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-10"><code>target=&quot;_blank&quot;</code> - yangi yorliqda ochish</h2>
+<p>Standart ravishda havola bir xil oynada/yorliqda ochiladi, joriy sahifani almashtiradi. Agar sahifa <strong>yangi</strong> yorliqda ochilishini xohlasangiz (masalan, tashqi saytga o'tishda, foydalanuvchi sizning saytingizni yo'qotmasligi uchun) - <code>target=&quot;_blank&quot;</code> atributini ishlating.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; target=&quot;_blank&quot;&gt;Mening GitHub&lt;/a&gt;
+</code></pre>
+<p><strong><code>rel</code> nima qiladi:</strong> <code>noopener</code> yangi yorliqning asl sahifaga <code>window.opener</code> orqali kirishini cheklaydi. Zamonaviy brauzerlar <code>_blank</code> uchun buni allaqachon nazarda tutadi; aniq yozish maqsadni tushunarli qiladi. <code>noreferrer</code> qo'shimcha ravishda manba sahifa manzilini yubormaydi. Kurs misollarida ikkala qiymat ham bor; ularning vazifalari farq qiladi.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mening GitHub&lt;/a&gt;
+</code></pre>
+<p><strong>Tavsiya:</strong> odatda shu yorliqda qoling. Yangi yorliq vazifaga foydali bo'lsa <code>_blank</code> ishlating va havola matnida ayting: “MDN (yangi yorliq)”. HTML ichki havolalar uchun ham <code>_blank</code> ga ruxsat beradi; tashqi havolaga yangi yorliq doimo kerak emas.</p>
+<hr>
+<h2 id="section-11">Bo‘limga havolalar - sahifaning bir qismiga o'tish</h2>
+<p>Ba'zan boshqa sahifaga emas, balki shu (yoki boshqa) sahifaning ma'lum <strong>joyiga</strong> o'tish kerak - masalan, uzun maqolaning aniq bo'limiga.</p>
+<p>Bu ikki qadamda amalga oshiriladi.</p>
+<p><strong>1-qadam.</strong> O'tmoqchi bo'lgan elementga <code>id</code> atributi orqali noyob identifikator berish:</p>
+<pre><code class="language-html">&lt;h2 id=&quot;section2&quot;&gt;2-bo'im. Shakllar&lt;/h2&gt;
+</code></pre>
+<p><strong>2-qadam.</strong> Shu <code>id</code> ga havola yaratish, nomdan oldin <code>#</code> belgisini qo'yish:</p>
+<pre><code class="language-html">&lt;a href=&quot;#section2&quot;&gt;2-bo'imga o'tish&lt;/a&gt;
+</code></pre>
+<p>Bosganingizda brauzer silliq (yoki darhol, sozlamalarga qarab) sahifani <code>id=&quot;section2&quot;</code> ga ega elementga buradi.</p>
+<h3 id="section-12">Misol: uzun maqolaning mundarijasi</h3>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;h2&gt;Mundarija&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Kirish&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#history&quot;&gt;Tarix&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Xulosa&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;article&gt;
+    &lt;h2 id=&quot;intro&quot;&gt;Kirish&lt;/h2&gt;
+    &lt;p&gt;Kirish matni...&lt;/p&gt;
+
+    &lt;h2 id=&quot;history&quot;&gt;Tarix&lt;/h2&gt;
+    &lt;p&gt;Tarix haqida matn...&lt;/p&gt;
+
+    &lt;h2 id=&quot;conclusion&quot;&gt;Xulosa&lt;/h2&gt;
+    &lt;p&gt;Xulosa matni...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<h3 id="section-13">Boshqa sahifaning bo'limiga bo‘limga havola</h3>
+<p>Xuddi shu tamoyil, faqat avval fayl ko'rsatiladi, keyin <code>#</code> va <code>id</code>:</p>
+<pre><code class="language-html">&lt;a href=&quot;about.html#history&quot;&gt;Kompaniya tarixi&lt;/a&gt;
+</code></pre>
+<p>Bu <code>about.html</code> faylini ochadi va darhol <code>id=&quot;history&quot;</code> ga ega elementga buradi.</p>
+<h3 id="section-14">Sahifaning yuqorisiga qaytish</h3>
+<p>Ko'p ishlatiladigan usul - uzun sahifaning oxiridagi &quot;yuqoriga&quot; havola:</p>
+<pre><code class="language-html">&lt;a href=&quot;#top&quot;&gt;Yuqoriga ↑&lt;/a&gt;
+</code></pre>
+<p>(Sahifaning boshida biror joyda <code>id=&quot;top&quot;</code> ga ega element bor shartida, masalan <code>&lt;body id=&quot;top&quot;&gt;</code> yoki birinchi sarlavha.)</p>
+<p><strong><code>id</code> haqida muhim qoida:</strong> <code>id</code> qiymati butun sahifada <strong>noyob</strong> bo'lishi kerak - bir xil <code>id</code> ga ega ikki element bo'lishi mumkin emas. Bu <code>id</code> ni <code>class</code> dan ajratadi (<code>class</code> haqida CSS darsidan batafsil gaplashamiz).</p>
+<hr>
+<h3 id="section-15">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Havolada nomdan oldin <code>#</code> belgisini unutish: <code>href=&quot;section2&quot;</code></td>
+<td>Shu sahadagi bo‘limga havolada har doim <code>href=&quot;#section2&quot;</code> deb yozing</td>
+</tr>
+<tr>
+<td>Bir nechta element uchun bir xil <code>id</code> ishlatish</td>
+<td>Sahifadagi har bir <code>id</code> noyob bo'lishi kerak</td>
+</tr>
+<tr>
+<td><code>id</code> qiymatida bo'sh joy ishlatish: <code>id=&quot;section 2&quot;</code></td>
+<td><code>id</code> qiymati bo'sh joysiz yoziladi, odatda <code>camelCase</code> yoki defis bilan: <code>id=&quot;section2&quot;</code> yoki <code>id=&quot;section-2&quot;</code></td>
+</tr>
+<tr>
+<td><code>id</code> (noyob, bitta element uchun) va <code>class</code> (elementlar guruhi uchun, keyinroq tahlil qilamiz) ni aralashtirish</td>
+<td>Bo‘limga havolalar uchun aynan <code>id</code> ishlatiladi, <code>class</code> emas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-16">Email va telefon uchun havolalar</h2>
+<h3 id="section-17"><code>mailto:</code> - pochta dasturini to'ldirilgan manzil bilan ochish</h3>
+<pre><code class="language-html">&lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;Bizga xat yozish&lt;/a&gt;
+</code></pre>
+<p>Bosganingizda brauzer qurilmaga o'rnatilgan pochta ilovasini (masalan, Outlook, Gmail) oldindan to'ldirilgan &quot;Kimga&quot; maydoni bilan ochadi.</p>
+<p>Xat mavzusini darhol belgilash mumkin:</p>
+<pre><code class="language-html">&lt;a href=&quot;mailto:info@saydullayev.fun?subject=Kurs haqida savol&quot;&gt;Bizga xat yozish&lt;/a&gt;
+</code></pre>
+<h3 id="section-18"><code>tel:</code> - qo'ng'iroq ilovasini ochish</h3>
+<pre><code class="language-html">&lt;a href=&quot;tel:+998901234567&quot;&gt;+998 90 123-45-67&lt;/a&gt;
+</code></pre>
+<p>Ayniqsa mobil qurilmalarda foydali - bosganingizda telefon darhol shu raqamga qo'ng'iroq qilishni taklif qiladi. Raqamni xalqaro formatda (va <code>+</code> va mamlakat kodi bilan) ko'rsatish tavsiya etiladi, <code>href</code> atributi ichida bo'sh joy va qavslarsiz - ko'rinadigan matnda esa istalgandek formatlash mumkin.</p>
+<hr>
+<h3 id="section-19">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manzildan oldin <code>mailto:</code> va <code>tel:</code> ni unutish: <code>href=&quot;info@site.uz&quot;</code></td>
+<td>Har doim protokolni ko'rsating: <code>href=&quot;mailto:info@site.uz&quot;</code></td>
+</tr>
+<tr>
+<td><code>href</code> ichida bo'sh joy bilan telefon raqamini ko'rsatish: <code>href=&quot;tel:+998 90 123 45 67&quot;</code></td>
+<td>Atribut ichida raqamni yig'ish shaklida yozing: <code>href=&quot;tel:+998901234567&quot;</code> - formatlashni faqat ko'rinadigan matnda bajaring</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-20">Mini-vazifa</h2>
+<p>Mustaqil ravishda, misollarga qaramasdan yarating:</p>
+<ol>
+<li>Bitta papkadagi <code>contact.html</code> fayliga havola.</li>
+<li><code>https://developer.mozilla.org</code> tashqi saytiga havola, yangi yorliqda ochilishi va xavfsizlik himoyasi bilan.</li>
+<li>+998901112233 raqamiga qo'ng'iroq havolasi.</li>
+</ol>
+<p><strong>Yechim:</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;contact.html&quot;&gt;Aloqa&lt;/a&gt;
+
+&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN&lt;/a&gt;
+
+&lt;a href=&quot;tel:+998901112233&quot;&gt;+998 90 111-22-33&lt;/a&gt;
+</code></pre>
+<hr>
+<h2 id="section-21">Uzluksiz navigatsiyali ko'p sahifali saytni yig'amiz</h2>
+<p>Endi barcha havola teglarini ular mavjud bo'lgan narsa uchun qo'llaymiz - bir nechta sahifani bitta saytga bog'laymiz. Uchta sahifa yaratamiz: <code>index.html</code>, <code>about.html</code>, <code>contact.html</code> - har birida bir xil navigatsiya menyusi.</p>
+<p>Papka tuzilishi:</p>
+<pre><code>html-course/
+├── index.html
+├── about.html
+└── contact.html
+</code></pre>
+<p><strong><code>index.html</code> fayli:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;uz&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Bosh sahifa - Mening saytim&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mening o'quv saytim&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;Sayt haqida&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Aloqa&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;h2&gt;Xush kelibsiz!&lt;/h2&gt;
+        &lt;p&gt;Bu mening o'quv loyihamning bosh sahifasi, men uni «HTML: 10 darsda» kursida yaratyapman.&lt;/p&gt;
+        &lt;p&gt;Ko'proq bilmoqchimisiz? &lt;a href=&quot;about.html&quot;&gt;«Sayt haqida»&lt;/a&gt; bo'limiga o'ting.&lt;/p&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Mening o'quv saytim.&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong><code>about.html</code> fayli:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;uz&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Sayt haqida - Mening saytim&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mening o'quv saytim&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;Sayt haqida&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Aloqa&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;h2&gt;Sayt haqida&lt;/h2&gt;
+        &lt;p&gt;Bu saytni men HTML kursi doirasida amaliyotda barcha o'rganilgan mavzularni mustahkamlash uchun yaratyapman.&lt;/p&gt;
+        &lt;p&gt;Loyihaning manba kodini &lt;a href=&quot;https://github.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt; da ko'rishingiz mumkin.&lt;/p&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Mening o'quv saytim.&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong><code>contact.html</code> fayli:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;uz&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Aloqa - Mening saytim&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mening o'quv saytim&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;Sayt haqida&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Aloqa&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;h2&gt;Aloqa&lt;/h2&gt;
+        &lt;p&gt;Menga qulay usulda bog'laning:&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Email: &lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;info@saydullayev.fun&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;Telefon: &lt;a href=&quot;tel:+998901234567&quot;&gt;+998 90 123-45-67&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Mening o'quv saytim.&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>O'zingiz sinab ko'ring:</strong> uchta faylni yarating, <code>index.html</code> ni Live Server orqali oching va menyudagi barcha havolalarni bosing - o'tishlar uchta sahifa orasida ikki tomonlama ishlashiga ishonch hosil qiling.</p>
+<p>E'tibor bering: <code>&lt;nav&gt;</code> menyusi uchta sahifada <strong>so'zma-so'z bir xil</strong> - bu standart amaliyot (kelajakda ilg'or texnologiyalarni o'rganganingizda, takrorlanadigan bloklarni bitta faylga chiqarish mumkin bo'ladi, lekin toza HTML darajasida hozircha shu blokni har sahifaga nusxalaymiz).</p>
+<hr>
+<h2 id="section-22">Dars xulosalari</h2>
+<p>Bugun siz quyidagilarni o'rgandingiz:</p>
+<ul>
+<li><code>&lt;a&gt;</code> da <code>href</code> bo'lsa, u giperhavola yaratadi; <code>href</code> bo'lmasa, faol havola emas.</li>
+<li>Absolyut yo'l (<code>https://</code> bilan) - tashqi saytlar uchun, nisbiy yo'l - loyiha ichidagi sahifalar uchun.</li>
+<li><code>_blank</code> yangi ko'rish kontekstini, odatda yorliqni ochadi. Uni asosli qo'llang va foydalanuvchini ogohlantiring; <code>noopener</code> va <code>noreferrer</code> vazifalari farq qiladi.</li>
+<li>Bo‘limga havolalar (<code>href=&quot;#id&quot;</code>) maqsad elementining <code>id</code>si orqali sahifaning ma'lum joyiga o'tkazadi.</li>
+<li><code>mailto:</code> va <code>tel:</code> tez xat yuborish yoki qo'ng'iroq qilish uchun havolalar yaratadi.</li>
+<li>Siz birinchi navigatsiya menyusiga ega ko'p sahifali saytingizni yig'diz.</li>
+</ul>
+<hr>
+<h2 id="section-23">Mustaqil ish: to'garak mini-sayti</h2>
+<p>Alohida papkada o'quv yoki havaskorlik to'garagi saytini yarating. Quyidagi talablar asosida o'z matningiz va tuzilmangizni tayyorlang; yuqoridagi misoldan faqat ma'lumot uchun foydalaning. Faqat 1–3-dars materialini ishlating: rasm, CSS, jadval va shakllarsiz.</p>
+<ol>
+<li><code>index.html</code>, <code>schedule.html</code> va <code>contacts.html</code> yarating. Har birida bir xil uch havolali menyu bo'lsin.</li>
+<li>Sahifalarga turli <code>title</code> va asosiy sarlavhalar bering. Jadval o'rniga dars vaqtlarini ro'yxat qilib yozing.</li>
+<li>Bosh sahifada ikkita bo'lim va bo‘limga havolali mundarija yarating. Boshqa sahifadan ham shu bo'limlardan biriga havola bering.</li>
+<li>Tashqi ma'lumot havolasini, aloqa sahifasida esa o'quv ma'lumotlari bilan <code>mailto:</code> va <code>tel:</code> havolalarini qo'shing. Yangi yorliqni faqat asosli bo'lsa tanlang va bu haqda matnda ayting.</li>
+<li>Har bir sahifadan menyuning barcha bandlarini va har bir ankorni tekshiring. Xatolar va tuzatishlarni yozib boring.</li>
+</ol>
+<h3 id="section-24">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Menyudagi barcha to'qqiz o'tish (har bir sahifada uchtadan) kerakli faylga olib boradi.</label></li>
+<li class="check"><label><input type="checkbox"> Fayl nomi, kengaytmasi va registri <code>href</code> ga mos; <code>C:\Users\...</code> kabi yo'llar yo'q.</label></li>
+<li class="check"><label><input type="checkbox"> Har bir sahifada <code>id</code> lar takrorlanmaydi; ankorlar kerakli bo'limga olib boradi.</label></li>
+<li class="check"><label><input type="checkbox"> Havola manzili matndan tushunarli; yangi yorliq ochilishi oldindan aytilgan.</label></li>
+<li class="check"><label><input type="checkbox"> <code>mailto:</code> va <code>tel:</code> to'g'ri sxemada yozilgan; mos dastur sozlanmaganligi HTML xatosi emas.</label></li>
+</ul>
+<h3 id="section-25">O'zingizni tekshiring</h3>
+<ol>
+<li><code>about.html</code>, <code>../about.html</code> va <code>/about.html</code> nimasi bilan farq qiladi?</li>
+<li>Bo‘limga havoladan <code>#</code> olib tashlansa nima bo'ladi?</li>
+<li>Nega tashqi havolaga har doim <code>_blank</code> kerak emas?</li>
+</ol>
+<p>Biror o'tish ishlamasa, tuzating va o'sha boshlang'ich sahifadan qayta tekshiring. Barcha mezonlar bajarilgach, davom eting.</p>
+<hr>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-2.html">← Orqaga</a> · <a href="uz-lesson-4.html">Keyingi →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Amaliyot</a></p>
+</article></main><footer><a href="../Lesson-3/uz/Havolalar%20va%20navigatsiya.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

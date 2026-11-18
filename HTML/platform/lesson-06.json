@@ -1,0 +1,268 @@
+{
+  "lesson": 6,
+  "lesson_title": "Формы. Часть 1",
+  "task": {
+    "title": "Запись в кружок",
+    "language": "html",
+    "description": "Форма method=\"get\": имя (text, required), почта (email, required), дата начала (date), два checkbox, группа из двух radio с одним name, кнопка input type=\"submit\". У каждого поля label for = id, name; у checkbox и radio - value. Без <button>.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <!-- Имя (text, required) -->\n            <!-- Почта (email, required) -->\n            <!-- Дата начала (date) -->\n            <!-- Два checkbox: темы -->\n            <!-- Два radio: время (один name) -->\n            <!-- input type=\"submit\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "required",
+        "name=\"",
+        "value=\""
+      ],
+      "forbidden": [
+        "<button"
+      ],
+      "tags": {
+        "form": 1,
+        "label": 7,
+        "input": 8
+      },
+      "attrs": {
+        "input": [
+          "id",
+          "name",
+          "value"
+        ],
+        "label": [
+          "for"
+        ]
+      },
+      "for_id_pairs": true,
+      "input_types": [
+        "text",
+        "email",
+        "date",
+        "checkbox",
+        "radio",
+        "submit"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Подпись: <label for=\"email\">Почта</label> и поле <input id=\"email\" ...>.",
+      "Обязательное поле: атрибут required.",
+      "Группа radio: одинаковый name у обоих, разные value.",
+      "Кнопка в этом уроке - <input type=\"submit\" value=\"Записаться\">.",
+      "Проверьте, что каждый for совпадает с существующим id."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "for не совпадает с id",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"mail\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "подпись текстом без label",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                Имя\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет email",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет date",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"text\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет radio",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"checkbox\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "кнопка button",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <button type=\"submit\">Записаться</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет required",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\">\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\">\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "method post вместо get",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"post\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Записаться\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет submit",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Имя</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Почта</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Дата начала</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Утро</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Вечер</label>\n            </p>\n            <p>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Как связать подпись с полем?",
+        "options": [
+          "<label name=\"x\"> и <input name=\"x\">",
+          "<label for=\"x\"> и <input id=\"x\">",
+          "<label id=\"x\"> и <input for=\"x\">",
+          "Поставить label сразу после поля"
+        ],
+        "answer": 1,
+        "explanation": "for у label равен id у поля."
+      },
+      {
+        "type": "single",
+        "question": "Какой тип поля выбрать, если нужен ровно один вариант из нескольких?",
+        "options": [
+          "checkbox",
+          "radio",
+          "text",
+          "submit"
+        ],
+        "answer": 1,
+        "explanation": "radio - один из группы."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт с полем без атрибута name при отправке?",
+        "options": [
+          "Отправится с именем id",
+          "Не отправится",
+          "Форма не отправится совсем",
+          "Отправится как on"
+        ],
+        "answer": 1,
+        "explanation": "Без name браузер пропускает поле."
+      },
+      {
+        "type": "single",
+        "question": "Защищает ли method=\"post\" данные шифрованием?",
+        "options": [
+          "Да, всегда",
+          "Нет, шифрует только HTTPS",
+          "Только пароли",
+          "Только в Chrome"
+        ],
+        "answer": 1,
+        "explanation": "POST прячет данные из адреса, но не шифрует их."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про группу radio?",
+        "options": [
+          "У всех переключателей одинаковый name",
+          "У каждого свой id",
+          "У каждого свой value",
+          "Можно выбрать несколько"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Общий name объединяет группу, id - для подписи, value - что отправить."
+      },
+      {
+        "type": "multiple",
+        "question": "Что делает браузер с полем type=\"email\"?",
+        "options": [
+          "Проверяет наличие @ при отправке",
+          "Показывает на телефоне клавиатуру с @",
+          "Отправляет письмо",
+          "Шифрует адрес"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "email проверяет формат и меняет клавиатуру, но ничего не отправляет сам."
+      },
+      {
+        "type": "multiple",
+        "question": "Почему placeholder не заменяет label?",
+        "options": [
+          "Подсказка исчезает при вводе",
+          "Её может не прочитать скринридер как подпись",
+          "Placeholder отправляется на сервер",
+          "Placeholder запрещён в HTML"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Подпись нужна всегда, placeholder - только пример."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте тип поля и назначение.",
+        "pairs": [
+          [
+            "password",
+            "Скрывает символы"
+          ],
+          [
+            "number",
+            "Числа со стрелками"
+          ],
+          [
+            "date",
+            "Календарь"
+          ],
+          [
+            "tel",
+            "Цифровая клавиатура на телефоне"
+          ]
+        ],
+        "explanation": "Тип поля меняет поведение браузера."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте атрибут и роль.",
+        "pairs": [
+          [
+            "name",
+            "Имя значения при отправке"
+          ],
+          [
+            "id",
+            "Связь с подписью"
+          ],
+          [
+            "value",
+            "Значение, которое уйдёт на сервер"
+          ],
+          [
+            "required",
+            "Поле нельзя оставить пустым"
+          ]
+        ],
+        "explanation": "id - для страницы, name и value - для отправки."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут формы задаёт способ отправки (get или post)? Введите имя атрибута.",
+        "answers": [
+          "method"
+        ],
+        "case_sensitive": false,
+        "explanation": "method=\"get\" или method=\"post\"."
+      },
+      {
+        "type": "input",
+        "question": "После отправки с method=\"get\" в адресе: ?name=Aziz&time=evening. Какое значение у поля time? Введите значение.",
+        "answers": [
+          "evening"
+        ],
+        "case_sensitive": false,
+        "explanation": "Пары name=value разделяются &."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут без значения делает поле обязательным? Введите имя атрибута.",
+        "answers": [
+          "required"
+        ],
+        "case_sensitive": false,
+        "explanation": "required не даст отправить пустое поле."
+      }
+    ]
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "lesson": 7,
+  "lesson_title": "Формы. Часть 2",
+  "task": {
+    "title": "Анкета участника",
+    "language": "html",
+    "description": "Форма method=\"get\": два fieldset с legend; номер билета - обязательный, ровно 7 цифр (pattern); textarea с начальным текстом; select с двумя optgroup и selected; у каждого поля label for = id; кнопки button type=\"submit\" и type=\"reset\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <!-- fieldset + legend «Личные данные»: номер билета (pattern 7 цифр, required), textarea «О себе» -->\n            <!-- fieldset + legend «Направление»: select с двумя optgroup и selected -->\n            <!-- button type=\"submit\" и button type=\"reset\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "<select",
+        "<optgroup",
+        "selected",
+        "</textarea>",
+        "pattern=\"",
+        "{7}",
+        "required",
+        "type=\"reset\""
+      ],
+      "tags": {
+        "fieldset": 2,
+        "legend": 2,
+        "optgroup": 2,
+        "option": 3,
+        "textarea": 1,
+        "label": 3,
+        "button": 2
+      },
+      "for_id_pairs": true,
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "Группа: <fieldset><legend>Личные данные</legend> ... </fieldset>.",
+      "Номер билета: pattern=\"[0-9]{7}\" и required.",
+      "Начальный текст textarea - между тегами: <textarea>Текст</textarea>.",
+      "Список: <select> с <optgroup label=\"...\"> и одним <option selected>.",
+      "Кнопки: <button type=\"submit\"> и <button type=\"reset\">."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет pattern",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "pattern на 6 цифр",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{6}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "один fieldset",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет legend",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <p>Личные данные</p>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет optgroup",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        \n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        \n                        \n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        \n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет selected",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\">HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "textarea с value",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\" value=\"Учусь\">\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "кнопка без type",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button>Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет reset",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"course\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "подпись не связана",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Анкета участника</title>\n</head>\n<body>\n    <main>\n        <h1>Анкета участника</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Личные данные</legend>\n                <p>\n                    <label for=\"student-id\">Номер билета (7 цифр)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">О себе</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Учусь на первом курсе.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Направление</legend>\n                <p>\n                    <label for=\"courses\">Что хотите изучать</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Фронтенд\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Бэкенд\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Отправить анкету</button>\n                <button type=\"reset\">Сбросить</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Где пишется начальный текст textarea?",
+        "options": [
+          "В атрибуте value",
+          "Между тегами <textarea> и </textarea>",
+          "В placeholder",
+          "В атрибуте text"
+        ],
+        "answer": 1,
+        "explanation": "textarea - парный тег, текст между тегами."
+      },
+      {
+        "type": "single",
+        "question": "Что делает кнопка type=\"reset\"?",
+        "options": [
+          "Очищает все поля",
+          "Возвращает начальные значения полей",
+          "Отправляет форму",
+          "Перезагружает страницу"
+        ],
+        "answer": 1,
+        "explanation": "reset восстанавливает значения, заданные в HTML."
+      },
+      {
+        "type": "single",
+        "question": "Как ведёт себя <button> без type внутри формы?",
+        "options": [
+          "Ничего не делает",
+          "Как submit - отправляет форму",
+          "Как reset",
+          "Выдаёт ошибку"
+        ],
+        "answer": 1,
+        "explanation": "Поэтому type у кнопки пишут всегда."
+      },
+      {
+        "type": "single",
+        "question": "Что означает pattern=\"[0-9]{7}\"?",
+        "options": [
+          "До 7 цифр",
+          "Ровно 7 цифр",
+          "Минимум 7 символов",
+          "7 любых символов"
+        ],
+        "answer": 1,
+        "explanation": "[0-9] - цифра, {7} - ровно 7 раз."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про fieldset и legend?",
+        "options": [
+          "legend - заголовок группы",
+          "legend пишут первым внутри fieldset",
+          "Скринридер читает legend перед полями группы",
+          "fieldset заменяет label"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "label нужен каждому полю и внутри fieldset."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие атрибуты проверяют ввод в браузере?",
+        "options": [
+          "min и max",
+          "maxlength",
+          "pattern",
+          "placeholder"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "placeholder - только подсказка-пример."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про <option value=\"almalyk\">Алмалык</option>?",
+        "options": [
+          "Пользователь видит «Алмалык»",
+          "На сервер уйдёт almalyk",
+          "На сервер уйдёт «Алмалык»",
+          "selected выбрал бы его заранее"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Видно текст, отправляется value."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте элемент и назначение.",
+        "pairs": [
+          [
+            "<select>",
+            "Выбор из готовых вариантов"
+          ],
+          [
+            "<datalist>",
+            "Подсказки, можно ввести своё"
+          ],
+          [
+            "<textarea>",
+            "Многострочный текст"
+          ],
+          [
+            "<optgroup>",
+            "Группа вариантов в списке"
+          ]
+        ],
+        "explanation": "Элемент выбирают по типу ответа."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте тип кнопки и действие.",
+        "pairs": [
+          [
+            "submit",
+            "Проверить и отправить"
+          ],
+          [
+            "reset",
+            "Вернуть начальные значения"
+          ],
+          [
+            "button",
+            "Ничего сам не делает"
+          ]
+        ],
+        "explanation": "Тип пишут явно всегда."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут делает вариант списка выбранным заранее? Введите имя атрибута.",
+        "answers": [
+          "selected"
+        ],
+        "case_sensitive": false,
+        "explanation": "<option selected>."
+      },
+      {
+        "type": "input",
+        "question": "Какой тег даёт заголовок группе полей внутри fieldset? Введите имя тега без скобок.",
+        "answers": [
+          "legend"
+        ],
+        "case_sensitive": false,
+        "explanation": "legend - первым внутри fieldset."
+      },
+      {
+        "type": "input",
+        "question": "Какой тип input создаёт ползунок? Введите значение type.",
+        "answers": [
+          "range"
+        ],
+        "case_sensitive": false,
+        "explanation": "<input type=\"range\" min=\"0\" max=\"10\">."
+      }
+    ]
+  }
+}

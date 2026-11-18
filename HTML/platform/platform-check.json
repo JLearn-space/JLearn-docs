@@ -1,0 +1,56 @@
+{
+  "tasks": 10,
+  "details": [
+    {
+      "file": "lesson-01.json",
+      "rules": 4,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "lesson-02.json",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "lesson-03.json",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "lesson-04.json",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "lesson-05.json",
+      "rules": 5,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "lesson-06.json",
+      "rules": 7,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "lesson-07.json",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "lesson-08.json",
+      "rules": 8,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "lesson-09.json",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "lesson-10.json",
+      "rules": 9,
+      "wrong_solutions": 11
+    }
+  ],
+  "failures": []
+}

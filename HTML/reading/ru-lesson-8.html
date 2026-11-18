@@ -1,0 +1,786 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Доступность (a11y) · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Учебное издание · Русский</p><a href="index.html">HTML за 10 уроков</a></header><main><aside><details open><summary>Содержание урока</summary><a href="#section-2">Зачем это вам</a><a href="#section-3">Чему вы научитесь</a><a href="#section-4">Повторение: 3 вопроса из прошлых уроков</a><a href="#section-5">План урока</a><a href="#section-6">Что такое доступность</a><a href="#section-8">Доступное имя и ARIA</a><a href="#section-15">Мини-задание 1</a><a href="#section-16">Контраст и цвет</a><a href="#section-20">Клавиатура и tabindex</a><a href="#section-26">Мини-задание 2</a><a href="#section-27">Заголовки - оглавление для скринридера</a><a href="#section-28">Аудит за 15 минут</a><a href="#section-30">Итоги урока: шпаргалка</a><a href="#section-31">Самостоятельная работа: аудит анкеты</a><a href="#section-35">Вопросы для самопроверки</a><a href="#section-36">Что дальше</a><a href="#section-37">Ответы</a></details></aside><article><h1 id="section-1">Доступность (a11y)</h1>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-7.html">Назад</a> · <a href="ru-lesson-9.html">Вперёд</a> · <a href="../Lesson-8/practice.html">Практика</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
+<blockquote>
+<p><strong>Связь с прошлым уроком:</strong> в уроке 7 вы собрали анкету участника. Сегодня проверим её глазами разных людей: без мыши, без зрения, на ярком солнце. И исправим то, что им мешает.</p>
+</blockquote>
+<hr>
+<h2 id="section-2">Зачем это вам</h2>
+<p>Ваш одногруппник сломал правую руку. Он открывает вашу анкету из урока 7 и заполняет её только клавиатурой.</p>
+<ul>
+<li>Дойдёт ли он до кнопки «Отправить»?</li>
+<li>Увидит ли, в каком поле сейчас находится?</li>
+<li>А незрячий пользователь - услышит ли, что за поле перед ним?</li>
+</ul>
+<p>К концу урока вы ответите на эти вопросы сами и сможете проверить любую свою страницу за 15 минут.</p>
+<hr>
+<h2 id="section-3">Чему вы научитесь</h2>
+<ul>
+<li>Объяснять, что такое доступность (a11y) и кому она нужна.</li>
+<li>Давать имя элементу без текста с помощью <code>aria-label</code>.</li>
+<li>Выбирать нативный HTML-тег вместо имитации через <code>role</code>.</li>
+<li>Проверять контраст текста и не передавать смысл только цветом.</li>
+<li>Проходить страницу клавиатурой и правильно использовать <code>tabindex</code>.</li>
+<li>Добавлять ссылку «Перейти к основному содержимому».</li>
+<li>Проводить мини-аудит страницы и записывать результат в журнал.</li>
+</ul>
+<hr>
+<h2 id="section-4">Повторение: 3 вопроса из прошлых уроков</h2>
+<ol>
+<li>Какой <code>alt</code> нужен декоративной картинке? (урок 4)</li>
+<li>Как связать <code>&lt;label&gt;</code> с полем ввода? (урок 6)</li>
+<li>Зачем нужен <code>&lt;legend&gt;</code> внутри <code>&lt;fieldset&gt;</code>? (урок 7)</li>
+</ol>
+<p>Ответы - в конце урока, в разделе «Ответы».</p>
+<hr>
+<h2 id="section-5">План урока</h2>
+<table>
+<thead>
+<tr>
+<th>Раздел</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что такое доступность</td>
+<td>Кто пользуется сайтом иначе, чем мы</td>
+</tr>
+<tr>
+<td>Вы уже это делали</td>
+<td>Собираем вместе alt, label, scope, legend</td>
+</tr>
+<tr>
+<td>Доступное имя и ARIA</td>
+<td>Как элемент «представляется» скринридеру</td>
+</tr>
+<tr>
+<td>Мини-задание 1</td>
+<td>Имя для ссылки-иконки</td>
+</tr>
+<tr>
+<td>Контраст и цвет</td>
+<td>Читаемость текста</td>
+</tr>
+<tr>
+<td>Клавиатура и tabindex</td>
+<td>Порядок фокуса, ссылка «Перейти к содержимому»</td>
+</tr>
+<tr>
+<td>Мини-задание 2</td>
+<td>Добавить ссылку пропуска меню</td>
+</tr>
+<tr>
+<td>Заголовки</td>
+<td>Оглавление страницы для скринридера</td>
+</tr>
+<tr>
+<td>Аудит за 15 минут</td>
+<td>Пошаговая проверка и журнал</td>
+</tr>
+<tr>
+<td>Самостоятельная работа</td>
+<td>Аудит своей анкеты из урока 7</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-8-1.svg" alt="Схема 1: Доступность (a11y)"></div><figcaption>Схема 1 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-8-1.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Четыре ветви - четыре направления проверки. Начинаем всегда с правильных HTML-тегов. ARIA - дополнение на тот случай, когда тега не хватает.</p>
+<hr>
+<h2 id="section-6">Что такое доступность</h2>
+<p><strong>Простыми словами:</strong> у здания лестница на входе, но нет пандуса. Человек на коляске не попадёт внутрь. Здание не «плохое» - его просто строили, не подумав обо всех посетителях.</p>
+<p><strong>Веб-доступность</strong> (accessibility, сокращённо <strong>a11y</strong>: между «a» и «y» 11 букв) - тот же пандус, только для сайтов. Сайтом должны пользоваться:</p>
+<table>
+<thead>
+<tr>
+<th>Кто</th>
+<th>Как пользуется сайтом</th>
+<th>Что ему нужно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Незрячие</td>
+<td>Скринридер читает страницу вслух</td>
+<td><code>alt</code>, подписи полей, заголовки</td>
+</tr>
+<tr>
+<td>Слабовидящие</td>
+<td>Увеличивают масштаб в 2–4 раза</td>
+<td>Хороший контраст, текст вместо картинок с текстом</td>
+</tr>
+<tr>
+<td>Не могут пользоваться мышью</td>
+<td>Только клавиатура</td>
+<td>Все действия доступны по Tab, виден фокус</td>
+</tr>
+<tr>
+<td>Слабослышащие</td>
+<td>Смотрят видео без звука</td>
+<td>Субтитры</td>
+</tr>
+<tr>
+<td>Любой из нас</td>
+<td>Яркое солнце, сломанная рука, старый телефон</td>
+<td>Всё перечисленное выше</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Скринридер</strong> - программа, которая читает страницу вслух. Она есть в каждой системе: VoiceOver в macOS и iOS, TalkBack в Android, бесплатная NVDA для Windows.</p>
+<p>Во многих странах доступность сайтов - требование закона, особенно для государственных сервисов. Но главное другое: доступный сайт удобнее для всех.</p>
+<h3 id="section-7">Вы уже это делали</h3>
+<p>Всё, что вы делали правильно в уроках 1–7, - это уже работа над доступностью:</p>
+<table>
+<thead>
+<tr>
+<th>Что</th>
+<th>Урок</th>
+<th>Чем помогает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lang=&quot;ru&quot;</code> у <code>&lt;html&gt;</code></td>
+<td>1</td>
+<td>Скринридер читает текст с правильным произношением</td>
+</tr>
+<tr>
+<td>Заголовки <code>h1</code>–<code>h6</code> по порядку</td>
+<td>2</td>
+<td>Скринридер строит оглавление страницы</td>
+</tr>
+<tr>
+<td><code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code></td>
+<td>2</td>
+<td>Пользователь прыгает сразу к нужной области</td>
+</tr>
+<tr>
+<td>Понятный текст ссылки</td>
+<td>3</td>
+<td>«Расписание кружка» вместо «нажмите здесь»</td>
+</tr>
+<tr>
+<td><code>alt</code> у <code>&lt;img&gt;</code></td>
+<td>4</td>
+<td>Картинка заменяется описанием</td>
+</tr>
+<tr>
+<td><code>caption</code> и <code>scope</code> в таблице</td>
+<td>5</td>
+<td>Ячейка связывается со своим заголовком</td>
+</tr>
+<tr>
+<td><code>label</code> + <code>for</code>/<code>id</code></td>
+<td>6</td>
+<td>Поле произносится как «Email, поле ввода»</td>
+</tr>
+<tr>
+<td><code>fieldset</code> + <code>legend</code></td>
+<td>7</td>
+<td>Группа radio получает общий вопрос</td>
+</tr>
+</tbody>
+</table>
+<p>Сегодня добавим четыре новых инструмента: ARIA, контраст, клавиатуру и аудит.</p>
+<hr>
+<h2 id="section-8">Доступное имя и ARIA</h2>
+<p><strong>Простыми словами:</strong> на конференции у каждого участника бейдж с именем. На странице у каждой кнопки, ссылки и поля тоже есть «бейдж» - <strong>доступное имя</strong>. Скринридер произносит имя и роль: «Отправить, кнопка».</p>
+<p>Откуда браузер берёт имя:</p>
+<table>
+<thead>
+<tr>
+<th>Элемент</th>
+<th>Источник имени</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Кнопка, ссылка</td>
+<td>Текст внутри</td>
+<td><code>&lt;button&gt;Отправить&lt;/button&gt;</code> → «Отправить»</td>
+</tr>
+<tr>
+<td>Поле формы</td>
+<td>Связанный <code>&lt;label&gt;</code></td>
+<td>«Email»</td>
+</tr>
+<tr>
+<td>Ссылка-картинка</td>
+<td><code>alt</code> картинки внутри</td>
+<td><code>&lt;a href=&quot;/&quot;&gt;&lt;img alt=&quot;Главная&quot;&gt;&lt;/a&gt;</code> → «Главная»</td>
+</tr>
+<tr>
+<td>Элемент без текста</td>
+<td><code>aria-label</code></td>
+<td>см. ниже</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-9"><code>aria-label</code> - имя для элемента без текста</h3>
+<p><strong>ARIA</strong> (Accessible Rich Internet Applications) - набор атрибутов для скринридеров. Он дополняет HTML, но не заменяет его.</p>
+<p>Кнопка с крестиком вместо слова:</p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; aria-label=&quot;Закрыть окно&quot;&gt;×&lt;/button&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> на странице просто «×».
+<strong>Что услышит незрячий:</strong> «Закрыть окно, кнопка». Без <code>aria-label</code> он услышал бы «умножить, кнопка».</p>
+<p>Ссылка-иконка на соцсеть:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://t.me/example&quot; aria-label=&quot;Наш Telegram-канал&quot;&gt;
+    &lt;img src=&quot;images/telegram-icon.svg&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Здесь у картинки пустой <code>alt=&quot;&quot;</code> (она декоративная, урок 4), а имя всей ссылке даёт <code>aria-label</code>.</p>
+<p><strong>Правило:</strong> <code>aria-label</code> нужен только там, где нет видимого текста. Если на кнопке написано «Отправить», <code>aria-label</code> не добавляйте.</p>
+<h3 id="section-10"><code>role</code> и первое правило ARIA</h3>
+<p>Атрибут <code>role</code> сообщает скринридеру роль элемента. Но <strong>первое правило ARIA: не используйте ARIA, если есть подходящий HTML-тег.</strong></p>
+<pre><code class="language-html">&lt;!-- Плохо: div притворяется кнопкой --&gt;
+&lt;div role=&quot;button&quot;&gt;Отправить&lt;/div&gt;
+
+&lt;!-- Хорошо: настоящая кнопка --&gt;
+&lt;button type=&quot;submit&quot;&gt;Отправить&lt;/button&gt;
+</code></pre>
+<p>Почему так:</p>
+<table>
+<thead>
+<tr>
+<th>Что умеет</th>
+<th><code>&lt;div role=&quot;button&quot;&gt;</code></th>
+<th><code>&lt;button&gt;</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Скринридер называет «кнопка»</td>
+<td>Да</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Попадает в фокус по Tab</td>
+<td>Нет</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Срабатывает на Enter и Space</td>
+<td>Нет</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Отправляет форму</td>
+<td>Нет</td>
+<td>Да</td>
+</tr>
+</tbody>
+</table>
+<p><code>role</code> меняет только то, <strong>как элемент называется</strong>. Поведение он не добавляет.</p>
+<p>Ещё одна роль, которую вы встретите: <code>role=&quot;alert&quot;</code>. Её ставят на сообщения, которые появляются во время работы страницы, например «Файл не сохранён». Когда такой блок появляется, скринридер сразу его зачитывает. Сами такие сообщения добавляет JavaScript, поэтому в нашем курсе достаточно знать, что такая роль есть.</p>
+<h3 id="section-11">Нативный пример: <code>&lt;details&gt;</code> и <code>&lt;summary&gt;</code></h3>
+<p>Нужен блок «Вопрос - ответ», который раскрывается по клику? Не собирайте его из <code>div</code> и ARIA. В HTML есть готовый тег:</p>
+<pre><code class="language-html">&lt;details&gt;
+    &lt;summary&gt;Сколько стоит участие в кружке?&lt;/summary&gt;
+    &lt;p&gt;Участие бесплатное.&lt;/p&gt;
+&lt;/details&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> строку с треугольником. Клик, Enter или Space - и ответ раскрывается. Фокус по Tab, озвучка «свёрнуто / развёрнуто» - всё работает без единой строки ARIA.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Схема с горизонтальной прокруткой"><img src="diagrams/ru-lesson-8-2.svg" alt="Схема 2: Доступность (a11y)"></div><figcaption>Схема 2 · Схема с горизонтальной прокруткой<a href="diagrams/ru-lesson-8-2.svg">Открыть схему отдельно</a></figcaption></figure><p><strong>Как читать схему.</strong> Три отдельных вопроса, которые вы задаёте себе: как назвать элемент управления, какой <code>alt</code> дать картинке и каким тегом сделать интерактивный элемент.</p>
+<h3 id="section-12">Как посмотреть доступное имя</h3>
+<ol>
+<li>Откройте страницу в Chrome и нажмите F12.</li>
+<li>Во вкладке <strong>Elements</strong> выберите кнопку или поле.</li>
+<li>Справа откройте вкладку <strong>Accessibility</strong> (если её не видно - нажмите <code>»</code>).</li>
+<li>В разделе <strong>Computed Properties</strong> найдите <strong>Name</strong> (имя) и <strong>Role</strong> (роль).</li>
+</ol>
+<h3 id="section-13">Попробуйте сломать</h3>
+<ol>
+<li>Удалите <code>aria-label</code> у кнопки «×». Посмотрите Name в DevTools. Что там теперь?</li>
+<li>Замените <code>&lt;button&gt;</code> на <code>&lt;div role=&quot;button&quot;&gt;</code>. Нажмите Tab. Попадает ли фокус на «кнопку»?</li>
+</ol>
+<h3 id="section-14">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;div role=&quot;button&quot;&gt;</code> вместо кнопки</td>
+<td>Используйте <code>&lt;button&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-label</code> поверх видимого текста</td>
+<td>Удалите: имя уже берётся из текста</td>
+</tr>
+<tr>
+<td><code>aria-label</code> у картинки вместо <code>alt</code></td>
+<td>Для <code>&lt;img&gt;</code> всегда <code>alt</code></td>
+</tr>
+<tr>
+<td>Ссылка-иконка без имени</td>
+<td><code>aria-label</code> у ссылки или <code>alt</code> у картинки внутри</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-15">Мини-задание 1</h2>
+<p>Ссылка на GitHub показана только иконкой. Сделайте так, чтобы скринридер произнёс «Мой профиль на GitHub, ссылка». Иконка лежит в <code>images/github-icon.svg</code>.</p>
+<p>Проверьте результат в DevTools: Name должно совпадать с вашим текстом. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-16">Контраст и цвет</h2>
+<p><strong>Простыми словами:</strong> светло-серый текст на белом фоне - как вывеска в тумане. Дизайнеру кажется стильно, а человек со слабым зрением или с телефоном на солнце ничего не прочитает.</p>
+<p><strong>Контраст</strong> - разница яркости текста и фона. Его записывают как отношение: от 1:1 (нет разницы) до 21:1 (чёрное на белом).</p>
+<h3 id="section-17">Правило 1: минимальный контраст</h3>
+<p>Стандарт <strong>WCAG</strong> требует:</p>
+<ul>
+<li><strong>4.5:1</strong> - для обычного текста;</li>
+<li><strong>3:1</strong> - для крупного текста (примерно от 24 px, или от 19 px жирным).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Текст на белом фоне</th>
+<th>Контраст</th>
+<th>Обычный текст</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#000000</code> чёрный</td>
+<td>21:1</td>
+<td>✅ Проходит</td>
+</tr>
+<tr>
+<td><code>#1d4ed8</code> синий</td>
+<td>6.7:1</td>
+<td>✅ Проходит</td>
+</tr>
+<tr>
+<td><code>#767676</code> серый</td>
+<td>4.54:1</td>
+<td>✅ Проходит (на грани)</td>
+</tr>
+<tr>
+<td><code>#999999</code> светло-серый</td>
+<td>2.85:1</td>
+<td>❌ Не проходит</td>
+</tr>
+<tr>
+<td><code>#cccccc</code> очень светлый</td>
+<td>1.61:1</td>
+<td>❌ Не проходит</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Как проверить:</strong></p>
+<ol>
+<li>Откройте <a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a>.</li>
+<li>В <strong>Foreground</strong> введите цвет текста, в <strong>Background</strong> - цвет фона.</li>
+<li>Посмотрите <strong>Contrast Ratio</strong> и строку <strong>WCAG AA: Normal Text</strong> - должно быть <strong>Pass</strong>.</li>
+</ol>
+<p>Цвета вы будете задавать в курсе CSS. Пока на ваших страницах чёрный текст на белом фоне - это 21:1, лучший результат.</p>
+<h3 id="section-18">Правило 2: не передавайте смысл только цветом</h3>
+<p>Около 8% мужчин плохо различают красный и зелёный. Незрячий цвет не видит вовсе.</p>
+<pre><code class="language-html">&lt;!-- Плохо: что значит красная точка? --&gt;
+&lt;p&gt;&lt;span style=&quot;color: #b00020;&quot;&gt;●&lt;/span&gt; Email&lt;/p&gt;
+
+&lt;!-- Хорошо: смысл понятен из текста, цвет только помогает --&gt;
+&lt;p style=&quot;color: #b00020;&quot;&gt;&lt;strong&gt;Ошибка:&lt;/strong&gt; email заполнен неверно&lt;/p&gt;
+</code></pre>
+<p><strong>Проверка:</strong> мысленно сделайте страницу чёрно-белой. Если смысл не потерялся - всё в порядке.</p>
+<h3 id="section-19">Попробуйте сломать</h3>
+<p>В Chrome откройте DevTools → <code>⋮</code> → <strong>More tools</strong> → <strong>Rendering</strong>. Найдите <strong>Emulate vision deficiencies</strong> и выберите <strong>Achromatopsia</strong> (полная цветовая слепота). Понятна ли страница без цвета?</p>
+<hr>
+<h2 id="section-20">Клавиатура и <code>tabindex</code></h2>
+<p><strong>Простыми словами:</strong> Tab ведёт по странице, как экскурсовод по залам музея. Маршрут задаёт порядок элементов в HTML-коде: сверху вниз.</p>
+<p><strong>Попробуйте прямо сейчас:</strong> откройте свою анкету из урока 7 и нажимайте Tab, не трогая мышь. Рамка, которая прыгает по полям, - это <strong>фокус</strong>.</p>
+<h3 id="section-21">Главные клавиши</h3>
+<table>
+<thead>
+<tr>
+<th>Клавиша</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tab</td>
+<td>Следующий интерактивный элемент</td>
+</tr>
+<tr>
+<td>Shift+Tab</td>
+<td>Предыдущий элемент</td>
+</tr>
+<tr>
+<td>Enter</td>
+<td>Открыть ссылку, нажать кнопку</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>Нажать кнопку, отметить checkbox</td>
+</tr>
+<tr>
+<td>Стрелки</td>
+<td>Выбрать radio в группе, вариант в select</td>
+</tr>
+</tbody>
+</table>
+<p>Заголовки и абзацы фокус не получают - так и должно быть. Tab ходит только по тому, с чем можно взаимодействовать: ссылкам, кнопкам и полям.</p>
+<h3 id="section-22">Значения <code>tabindex</code></h3>
+<p>Ссылки, кнопки и поля формы попадают в фокус сами. <code>tabindex</code> нужен редко:</p>
+<table>
+<thead>
+<tr>
+<th>Значение</th>
+<th>Что делает</th>
+<th>Когда использовать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tabindex=&quot;0&quot;</code></td>
+<td>Добавляет элемент в маршрут Tab</td>
+<td>Очень редко: лучше взять нативный тег</td>
+</tr>
+<tr>
+<td><code>tabindex=&quot;-1&quot;</code></td>
+<td>Убирает из маршрута, но фокус можно поставить из JavaScript</td>
+<td>Заголовок всплывающего окна</td>
+</tr>
+<tr>
+<td><code>tabindex=&quot;1&quot;</code>, <code>&quot;2&quot;</code>...</td>
+<td>Ставит элемент в начало маршрута</td>
+<td><strong>Никогда</strong></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;!-- НЕ делайте так --&gt;
+&lt;input type=&quot;text&quot; tabindex=&quot;2&quot;&gt;
+&lt;input type=&quot;text&quot; tabindex=&quot;1&quot;&gt;
+</code></pre>
+<p>Положительные числа ломают маршрут: фокус сначала прыгает по пронумерованным элементам, а потом по всем остальным. Пользователь теряется.</p>
+<p><strong>Правило:</strong> нужен другой порядок - поменяйте порядок элементов в коде.</p>
+<p>Запомните: <code>tabindex</code> добавляет <strong>только фокус</strong>. На Enter <code>div</code> с <code>tabindex=&quot;0&quot;</code> всё равно не реагирует. Поэтому для кнопки нужен <code>&lt;button&gt;</code>.</p>
+<h3 id="section-23">Ссылка «Перейти к основному содержимому»</h3>
+<p>Представьте меню из 10 ссылок. Пользователь клавиатуры на <strong>каждой</strong> странице нажимает Tab 10 раз, чтобы добраться до текста. Решение - якорная ссылка из урока 3, первой строкой в <code>&lt;body&gt;</code>:</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;a href=&quot;#main&quot;&gt;Перейти к основному содержимому&lt;/a&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;!-- 10 ссылок меню --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main id=&quot;main&quot;&gt;
+        &lt;h1&gt;Анкета участника&lt;/h1&gt;
+        &lt;!-- форма --&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Что увидите:</strong> первый Tab на странице - фокус на этой ссылке. Enter - и вы сразу в <code>&lt;main&gt;</code>. Следующий Tab приведёт к первому полю формы, а не к меню.</p>
+<p>На настоящих сайтах такую ссылку прячут через CSS, пока она не получит фокус. Это вы сделаете в курсе CSS. Пока оставьте её видимой.</p>
+<h3 id="section-24">Попробуйте сломать</h3>
+<p>Поставьте <code>tabindex=&quot;1&quot;</code> на <strong>последнее</strong> поле анкеты. Обновите страницу и нажмите Tab. Куда прыгнул фокус? Удобно ли это?</p>
+<h3 id="section-25">Частые ошибки новичков</h3>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Положительный <code>tabindex</code> для «исправления» порядка</td>
+<td>Переставьте элементы в коде</td>
+</tr>
+<tr>
+<td><code>tabindex</code> на ссылке, кнопке или поле</td>
+<td>Удалите: они фокусируются сами</td>
+</tr>
+<tr>
+<td><code>div</code> с <code>tabindex=&quot;0&quot;</code> вместо кнопки</td>
+<td>Используйте <code>&lt;button&gt;</code></td>
+</tr>
+<tr>
+<td>Нет способа пропустить длинное меню</td>
+<td>Добавьте ссылку «Перейти к основному содержимому»</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-26">Мини-задание 2</h2>
+<p>Добавьте в свою анкету из урока 7 ссылку «Перейти к основному содержимому».</p>
+<p>Проверка: обновите страницу → Tab (фокус на ссылке) → Enter → Tab. Фокус должен попасть на первое поле формы. Решение - в разделе «Ответы».</p>
+<hr>
+<h2 id="section-27">Заголовки - оглавление для скринридера</h2>
+<p><strong>Простыми словами:</strong> заголовки - это оглавление книги. Зрячий пробегает страницу глазами за секунду. Незрячий открывает список заголовков (в VoiceOver и NVDA есть отдельная клавиша) и прыгает к нужному.</p>
+<pre><code class="language-html">&lt;h1&gt;Рецепт плова&lt;/h1&gt;
+&lt;h2&gt;Ингредиенты&lt;/h2&gt;
+&lt;h2&gt;Приготовление&lt;/h2&gt;
+&lt;h3&gt;Подготовка риса&lt;/h3&gt;
+&lt;h3&gt;Обжарка мяса и овощей&lt;/h3&gt;
+&lt;h3&gt;Финальная варка&lt;/h3&gt;
+&lt;h2&gt;Советы по подаче&lt;/h2&gt;
+</code></pre>
+<p>Пользователь слышит оглавление из 7 строк, выбирает «Подготовка риса» и сразу попадает туда.</p>
+<p>Две разные ошибки:</p>
+<table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Что происходит</th>
+<th>Как исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Заголовок сделан через <code>&lt;p&gt;&lt;strong&gt;...&lt;/strong&gt;&lt;/p&gt;</code></td>
+<td>Его нет в оглавлении: скринридер его не найдёт</td>
+<td>Используйте <code>h2</code>–<code>h6</code></td>
+</tr>
+<tr>
+<td>Пропуск уровня: <code>h2</code>, а сразу за ним <code>h4</code></td>
+<td>Заголовок есть, но структура путает: где <code>h3</code>?</td>
+<td>Идите по порядку: <code>h2</code> → <code>h3</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Как проверить:</strong> выпишите все заголовки страницы столбиком, сдвигая каждый уровень вправо. Получилось аккуратное оглавление - всё в порядке.</p>
+<hr>
+<h2 id="section-28">Аудит за 15 минут</h2>
+<p>Порядок проверки любой страницы. Результат записывайте в <strong>журнал аудита</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Шаг</th>
+<th>Что проверяем</th>
+<th>Как</th>
+<th>Норма</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Клавиатура</td>
+<td>Tab и Shift+Tab по всей странице</td>
+<td>Попадаете на каждое поле и кнопку, фокус виден, нигде не «застреваете»</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Кнопки</td>
+<td>Дойти до кнопки, нажать Enter</td>
+<td>Кнопка срабатывает</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Имена</td>
+<td>DevTools → Accessibility → Name</td>
+<td>У каждого поля имя совпадает с подписью</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Картинки</td>
+<td>Просмотреть каждый <code>&lt;img&gt;</code></td>
+<td>Смысловые - с описанием, декоративные - <code>alt=&quot;&quot;</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Заголовки</td>
+<td>Выписать столбиком</td>
+<td>Один <code>h1</code>, уровни без пропусков</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Контраст</td>
+<td>WebAIM</td>
+<td>Не ниже 4.5:1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-29">Шаблон журнала</h3>
+<table>
+<thead>
+<tr>
+<th>№</th>
+<th>Что проверял</th>
+<th>Ожидал</th>
+<th>Получилось</th>
+<th>Исправление</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Tab по форме</td>
+<td>Все 6 полей и кнопка</td>
+<td>Все 6 полей и кнопка</td>
+<td>Не нужно</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Name поля «Телефон»</td>
+<td>«Телефон»</td>
+<td>Пусто</td>
+<td>Добавил <code>&lt;label for=&quot;phone&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Правило журнала:</strong> если шаг не выполняли, пишите «не проверено». Не пишите «ошибок нет».</p>
+<hr>
+<h2 id="section-30">Итоги урока: шпаргалка</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Инструмент</th>
+<th>Запомнить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Имя кнопке или ссылке без текста</td>
+<td><code>aria-label=&quot;...&quot;</code></td>
+<td>Только если нет видимого текста</td>
+</tr>
+<tr>
+<td>Сделать кнопку</td>
+<td><code>&lt;button&gt;</code></td>
+<td>Не <code>&lt;div role=&quot;button&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Раскрывающийся блок</td>
+<td><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code></td>
+<td>Готовый нативный тег</td>
+</tr>
+<tr>
+<td>Читаемый текст</td>
+<td>Контраст ≥ 4.5:1</td>
+<td>Проверять в WebAIM</td>
+</tr>
+<tr>
+<td>Сообщить об ошибке</td>
+<td>Текст + цвет</td>
+<td>Не только цветом</td>
+</tr>
+<tr>
+<td>Порядок Tab</td>
+<td>Порядок в HTML-коде</td>
+<td>Положительный <code>tabindex</code> - никогда</td>
+</tr>
+<tr>
+<td>Пропустить меню</td>
+<td><code>&lt;a href=&quot;#main&quot;&gt;</code></td>
+<td>Первой строкой в <code>&lt;body&gt;</code></td>
+</tr>
+<tr>
+<td>Оглавление страницы</td>
+<td><code>h1</code>–<code>h6</code> по порядку</td>
+<td>Без пропусков уровней</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-31">Самостоятельная работа: аудит анкеты</h2>
+<h3 id="section-32">Часть 1. Задание в IDE (засчитывается платформой)</h3>
+<p>В редакторе уже лежит страница анкеты <strong>с шестью ошибками доступности</strong>. Найдите и исправьте все:</p>
+<ol>
+<li>Кнопка отправки сделана из <code>&lt;div role=&quot;button&quot;&gt;</code>.</li>
+<li>У поля почты нет связанной подписи.</li>
+<li>Ссылка-иконка на Telegram не имеет имени.</li>
+<li>У одного поля стоит положительный <code>tabindex</code>.</li>
+<li>Нет ссылки «Перейти к основному содержимому» и <code>id</code> у <code>&lt;main&gt;</code>.</li>
+<li>Раздел «Частые вопросы» сделан абзацами вместо <code>&lt;details&gt;</code> и <code>&lt;summary&gt;</code>.</li>
+</ol>
+<p>Что проверяет платформа: нет <code>role=&quot;button&quot;</code> и положительных <code>tabindex</code>, есть <code>&lt;button type=&quot;submit&quot;&gt;</code>, каждая подпись связана с полем, у ссылки-иконки есть <code>aria-label</code>, есть ссылка <code>#main</code> и <code>id=&quot;main&quot;</code>, есть <code>&lt;details&gt;</code> с <code>&lt;summary&gt;</code>, один <code>h1</code>.</p>
+<h3 id="section-33">Часть 2. Аудит своей анкеты на компьютере</h3>
+<p>Возьмите свою анкету участника из урока 7. Работайте с копией файла.</p>
+<p><strong>Базовый уровень (обязательно)</strong></p>
+<ol>
+<li>Проведите аудит по шагам 1–6 из раздела «Аудит за 15 минут».</li>
+<li>Заполните журнал: не меньше 5 строк.</li>
+<li>Исправьте всё, что нашли, и проверьте исправленные места ещё раз.</li>
+<li>Если ошибок не нашлось - так и запишите в журнал: «проверено, нарушений нет». Это тоже результат.</li>
+</ol>
+<p><strong>Стандартный уровень</strong></p>
+<ol start="5">
+<li>Добавьте ссылку «Перейти к основному содержимому».</li>
+<li>Добавьте под формой блок «Частые вопросы»: 2–3 вопроса через <code>&lt;details&gt;</code> и <code>&lt;summary&gt;</code>.</li>
+</ol>
+<p><strong>Уровень со звёздочкой ★</strong></p>
+<ol start="7">
+<li>Включите скринридер (macOS: Cmd+F5; Windows: бесплатная <a href="https://www.nvaccess.org/download/">NVDA</a>). Пройдите анкету с закрытыми глазами. Запишите 3 наблюдения: что было понятно и что нет.</li>
+</ol>
+<h3 id="section-34">Критерии готовности</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> Задание в IDE засчитано.</label></li>
+<li class="check"><label><input type="checkbox"> Tab и Shift+Tab проходят все поля и кнопку в логичном порядке, фокус виден.</label></li>
+<li class="check"><label><input type="checkbox"> Кнопка отправки срабатывает с клавиатуры.</label></li>
+<li class="check"><label><input type="checkbox"> У каждого поля Name в DevTools совпадает с видимой подписью.</label></li>
+<li class="check"><label><input type="checkbox"> На странице один <code>h1</code>, уровни заголовков без пропусков.</label></li>
+<li class="check"><label><input type="checkbox"> Нет положительных <code>tabindex</code> и нет <code>div</code> вместо кнопок.</label></li>
+<li class="check"><label><input type="checkbox"> Журнал содержит не меньше 5 строк: что проверял, ожидал, получилось, исправление.</label></li>
+<li class="check"><label><input type="checkbox"> (Стандартный) Ссылка пропуска меню переводит фокус в <code>&lt;main&gt;</code>.</label></li>
+<li class="check"><label><input type="checkbox"> (Стандартный) Блоки <code>&lt;details&gt;</code> раскрываются клавишами Enter и Space.</label></li>
+</ul>
+<hr>
+<h2 id="section-35">Вопросы для самопроверки</h2>
+<ol>
+<li>Что означает «11» в сокращении a11y?</li>
+<li>Откуда браузер берёт доступное имя для кнопки <code>&lt;button&gt;Отправить&lt;/button&gt;</code>?</li>
+<li>Когда нужен <code>aria-label</code>, а когда он лишний?</li>
+<li>Чем <code>&lt;button&gt;</code> лучше, чем <code>&lt;div role=&quot;button&quot;&gt;</code>? Назовите три отличия.</li>
+<li>Что добавляет <code>tabindex=&quot;0&quot;</code> и чего он <strong>не</strong> добавляет?</li>
+<li>Почему нельзя использовать <code>tabindex=&quot;3&quot;</code>?</li>
+<li>Какой минимальный контраст нужен обычному тексту?</li>
+<li>Почему нельзя сообщать об ошибке только красным цветом?</li>
+<li>Зачем нужна ссылка «Перейти к основному содержимому»?</li>
+<li>Чем отличаются две ошибки: «заголовок через <code>&lt;p&gt;</code>» и «<code>h2</code>, затем <code>h4</code>»?</li>
+</ol>
+<p>После вопросов пройдите <strong>тест урока</strong> на платформе: 12 вопросов, порог 70%.</p>
+<hr>
+<h2 id="section-36">Что дальше</h2>
+<p>Ваша страница уже понятна людям. В уроке 9 сделаем её понятной <strong>поисковикам и браузерам</strong>: мета-теги, описание для Google, правильное отображение на телефоне, подключение CSS и JavaScript.</p>
+<hr>
+<h2 id="section-37">Ответы</h2>
+<p><strong>Повторение</strong></p>
+<ol>
+<li>Пустой: <code>alt=&quot;&quot;</code>. Тогда скринридер пропускает картинку.</li>
+<li>Атрибут <code>for</code> у <code>&lt;label&gt;</code> совпадает с <code>id</code> поля: <code>&lt;label for=&quot;email&quot;&gt;</code> и <code>&lt;input id=&quot;email&quot;&gt;</code>.</li>
+<li><code>&lt;legend&gt;</code> даёт общий вопрос группе полей. Скринридер прочитает «Уровень подготовки, группа» перед вариантами radio.</li>
+</ol>
+<p><strong>Мини-задание 1</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; aria-label=&quot;Мой профиль на GitHub&quot;&gt;
+    &lt;img src=&quot;images/github-icon.svg&quot; alt=&quot;&quot; width=&quot;32&quot; height=&quot;32&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Есть второй правильный вариант - дать имя через <code>alt</code> картинки: <code>&lt;img src=&quot;images/github-icon.svg&quot; alt=&quot;Мой профиль на GitHub&quot;&gt;</code>. Главное, чтобы имя было указано один раз.</p>
+<p><strong>Мини-задание 2</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;a href=&quot;#main&quot;&gt;Перейти к основному содержимому&lt;/a&gt;
+    &lt;header&gt;...&lt;/header&gt;
+    &lt;main id=&quot;main&quot;&gt;
+        &lt;h1&gt;Анкета участника&lt;/h1&gt;
+        &lt;form&gt;...&lt;/form&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Вопросы для самопроверки</strong></p>
+<ol>
+<li>Количество букв между «a» и «y» в слове accessibility.</li>
+<li>Из текста внутри кнопки: «Отправить».</li>
+<li>Нужен, когда у элемента нет видимого текста (иконка, «×»). Лишний, когда текст уже есть.</li>
+<li><code>&lt;button&gt;</code> попадает в фокус по Tab, срабатывает на Enter и Space, отправляет форму. <code>div</code> с <code>role</code> умеет только называться кнопкой.</li>
+<li>Добавляет элемент в маршрут Tab. Не добавляет реакцию на Enter и Space и не делает элемент кнопкой.</li>
+<li>Положительные числа выдёргивают элемент в начало маршрута. Порядок Tab перестаёт совпадать с порядком на экране.</li>
+<li>4.5:1. Для крупного текста - 3:1.</li>
+<li>Часть людей не различает цвета, а незрячие их не видят. Смысл должен быть понятен из текста.</li>
+<li>Чтобы пользователь клавиатуры не проходил всё меню по Tab на каждой странице.</li>
+<li>Заголовок через <code>&lt;p&gt;</code> не попадает в оглавление скринридера вовсе. При пропуске уровня заголовок в оглавлении есть, но структура сбивает с толку.</li>
+</ol>
+<hr>
+<p><a href="index.html">Содержание</a> · <a href="ru-lesson-7.html">Назад</a> · <a href="ru-lesson-9.html">Вперёд</a> · <a href="../Lesson-8/practice.html">Практика</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
+</article></main><footer><a href="../Lesson-8/ru/%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%28a11y%29.md">Открыть исходный Markdown</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

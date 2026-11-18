@@ -1,0 +1,257 @@
+{
+  "lesson": 3,
+  "lesson_title": "Ссылки и навигация",
+  "task": {
+    "title": "Главная страница кружка",
+    "language": "html",
+    "description": "Сделайте index.html кружка: меню nav на index.html, schedule.html, contacts.html; содержание с якорями #about и #join; разделы h2 с этими id; в разделе «Как вступить» - mailto:, tel: (слитно, с +) и внешняя https-ссылка в новой вкладке с rel=\"noopener noreferrer\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <!-- nav: ссылки на index.html, schedule.html, contacts.html -->\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <!-- содержание: ссылки #about и #join -->\n\n        <!-- раздел h2 id=\"about\" -->\n\n        <!-- раздел h2 id=\"join\": mailto, tel, внешняя ссылка в новой вкладке -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "<nav",
+        "</nav>",
+        "id=\"about\"",
+        "id=\"join\"",
+        "href=\"mailto:",
+        "href=\"tel:+",
+        "href=\"https://",
+        "target=\"_blank\"",
+        "rel=\"noopener"
+      ],
+      "forbidden": [
+        "href=\"c:",
+        "file://",
+        "tel:+998 ",
+        "<table"
+      ],
+      "href_targets": [
+        "index.html",
+        "schedule.html",
+        "contacts.html",
+        "#about",
+        "#join"
+      ],
+      "h1_exact": 1,
+      "h2_required": 2
+    },
+    "hints": [
+      "Меню: <nav><ul><li><a href=\"index.html\">...</a></li>...</ul></nav>.",
+      "Якорь: <h2 id=\"about\"> и ссылка <a href=\"#about\">.",
+      "Телефон в href - слитно: href=\"tel:+998901112233\".",
+      "Внешняя ссылка: href=\"https://...\", target=\"_blank\", rel=\"noopener noreferrer\".",
+      "Пути с диска (C:\\...) и таблицы не используются."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "якорь без #",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет id у раздела",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2>Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет пункта меню",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "путь с диска",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"C:\\Users\\aziz\\club\\schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "email без mailto",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "пробелы в tel",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998 90 111 22 33\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "_blank без rel",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "расписание таблицей",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <table><tr><td>Среда</td></tr></table>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет nav",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        \n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Расписание</a></li>\n                <li><a href=\"contacts.html\">Контакты</a></li>\n            </ul>\n        \n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <ul>\n            <li><a href=\"#about\">О кружке</a></li>\n            <li><a href=\"#join\">Как вступить</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">О кружке</h2>\n            <p>Учимся делать сайты с нуля.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Как вступить</h2>\n            <p>Почта: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Телефон: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">Справочник MDN (новая вкладка)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какой атрибут задаёт адрес ссылки?",
+        "options": [
+          "src",
+          "href",
+          "link",
+          "url"
+        ],
+        "answer": 1,
+        "explanation": "href - hypertext reference, адрес ссылки."
+      },
+      {
+        "type": "single",
+        "question": "Файл находится в папке pages/. Как сослаться из него на index.html в корне проекта?",
+        "options": [
+          "index.html",
+          "/pages/index.html",
+          "../index.html",
+          "pages/index.html"
+        ],
+        "answer": 2,
+        "explanation": "../ поднимает на одну папку выше."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно записать ссылку на телефон?",
+        "options": [
+          "href=\"+998901112233\"",
+          "href=\"tel:+998901112233\"",
+          "href=\"tel:+998 90 111 22 33\"",
+          "href=\"phone:998901112233\""
+        ],
+        "answer": 1,
+        "explanation": "Префикс tel: и номер слитно с кодом страны."
+      },
+      {
+        "type": "single",
+        "question": "Какой текст ссылки лучше всего?",
+        "options": [
+          "Нажмите здесь",
+          "Ссылка",
+          "Расписание занятий кружка",
+          "Тут"
+        ],
+        "answer": 2,
+        "explanation": "Текст должен объяснять, куда ведёт ссылка."
+      },
+      {
+        "type": "multiple",
+        "question": "Что нужно для перехода к разделу на этой же странице?",
+        "options": [
+          "id у целевого элемента",
+          "href=\"#имя\" у ссылки",
+          "target=\"_blank\"",
+          "rel=\"noopener\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Якорь = id у цели + ссылка с # и тем же именем."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие пути - относительные?",
+        "options": [
+          "about.html",
+          "../index.html",
+          "https://site.uz/about.html",
+          "images/photo.jpg"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Относительный путь отсчитывается от текущего файла и не содержит https://."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие ошибки в ссылках?",
+        "options": [
+          "href=\"C:\\Users\\aziz\\about.html\"",
+          "href=\"About.html\" для файла about.html",
+          "href=\"about.html\"",
+          "Два элемента с id=\"about\""
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Путь с диска не работает на сервере, регистр важен, id должен быть уникальным."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте адрес и куда он ведёт.",
+        "pairs": [
+          [
+            "#about",
+            "Раздел этой страницы"
+          ],
+          [
+            "about.html",
+            "Другая страница рядом"
+          ],
+          [
+            "mailto:club@example.com",
+            "Почтовая программа"
+          ],
+          [
+            "https://developer.mozilla.org",
+            "Чужой сайт"
+          ]
+        ],
+        "explanation": "Префикс и форма адреса определяют тип ссылки."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте атрибут и его роль.",
+        "pairs": [
+          [
+            "target=\"_blank\"",
+            "Открыть в новой вкладке"
+          ],
+          [
+            "rel=\"noopener\"",
+            "Не дать новой вкладке доступ к странице"
+          ],
+          [
+            "rel=\"noreferrer\"",
+            "Не сообщать, откуда пришёл пользователь"
+          ]
+        ],
+        "explanation": "Если используете _blank, добавляйте rel=\"noopener noreferrer\"."
+      },
+      {
+        "type": "input",
+        "question": "Что пишут в начале пути, чтобы подняться на одну папку выше? Введите только эту часть.",
+        "answers": [
+          "../"
+        ],
+        "case_sensitive": false,
+        "explanation": "../ - «выйти из комнаты в коридор»."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут даёт элементу уникальное имя для якоря? Введите имя атрибута.",
+        "answers": [
+          "id"
+        ],
+        "case_sensitive": false,
+        "explanation": "id уникален на странице."
+      },
+      {
+        "type": "input",
+        "question": "Есть раздел id=\"join\" на странице index.html. Какой href ведёт к нему с другой страницы той же папки?",
+        "answers": [
+          "index.html#join"
+        ],
+        "case_sensitive": false,
+        "explanation": "Сначала файл, потом # и id."
+      }
+    ]
+  }
+}

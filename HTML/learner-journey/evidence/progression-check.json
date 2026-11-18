@@ -1,0 +1,488 @@
+{
+  "files": 80,
+  "independent_lesson_sets": 30,
+  "issues": [],
+  "records": [
+    {
+      "file": "learner-journey/ru/lesson-01/index.html",
+      "lesson": 1,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-01/mini.html",
+      "lesson": 1,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-02/guide.html",
+      "lesson": 2,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-02/mini.html",
+      "lesson": 2,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-03/contact.html",
+      "lesson": 3,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-03/contacts.html",
+      "lesson": 3,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-03/index.html",
+      "lesson": 3,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-03/mini.html",
+      "lesson": 3,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-03/schedule.html",
+      "lesson": 3,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-04/index.html",
+      "lesson": 4,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-04/mini.html",
+      "lesson": 4,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-05/index.html",
+      "lesson": 5,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-05/mini.html",
+      "lesson": 5,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-06/index.html",
+      "lesson": 6,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-06/mini.html",
+      "lesson": 6,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-07/index.html",
+      "lesson": 7,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-07/mini.html",
+      "lesson": 7,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-08/before.html",
+      "lesson": 8,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-08/index.html",
+      "lesson": 8,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-08/mini.html",
+      "lesson": 8,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-09/about.html",
+      "lesson": 9,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-09/index.html",
+      "lesson": 9,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-09/mini.html",
+      "lesson": 9,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-10/index.html",
+      "lesson": 10,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-10/join.html",
+      "lesson": 10,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-10/meetings.html",
+      "lesson": 10,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/ru/lesson-10/resources.html",
+      "lesson": 10,
+      "lang": "ru",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-01/index.html",
+      "lesson": 1,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-01/mini.html",
+      "lesson": 1,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-02/guide.html",
+      "lesson": 2,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-02/mini.html",
+      "lesson": 2,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-03/contact.html",
+      "lesson": 3,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-03/contacts.html",
+      "lesson": 3,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-03/index.html",
+      "lesson": 3,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-03/mini.html",
+      "lesson": 3,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-03/schedule.html",
+      "lesson": 3,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-04/index.html",
+      "lesson": 4,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-04/mini.html",
+      "lesson": 4,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-05/index.html",
+      "lesson": 5,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-05/mini.html",
+      "lesson": 5,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-06/index.html",
+      "lesson": 6,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-06/mini.html",
+      "lesson": 6,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-07/index.html",
+      "lesson": 7,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-07/mini.html",
+      "lesson": 7,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-08/index.html",
+      "lesson": 8,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-08/mini.html",
+      "lesson": 8,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-09/about.html",
+      "lesson": 9,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-09/index.html",
+      "lesson": 9,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-09/mini.html",
+      "lesson": 9,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-10/about.html",
+      "lesson": 10,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-10/index.html",
+      "lesson": 10,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-10/join.html",
+      "lesson": 10,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/en/lesson-10/schedule.html",
+      "lesson": 10,
+      "lang": "en",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-01/index.html",
+      "lesson": 1,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-01/mini.html",
+      "lesson": 1,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-02/guide.html",
+      "lesson": 2,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-02/mini.html",
+      "lesson": 2,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-03/contact.html",
+      "lesson": 3,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-03/contacts.html",
+      "lesson": 3,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-03/index.html",
+      "lesson": 3,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-03/mini.html",
+      "lesson": 3,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-03/schedule.html",
+      "lesson": 3,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-04/index.html",
+      "lesson": 4,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-04/mini.html",
+      "lesson": 4,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-05/index.html",
+      "lesson": 5,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-05/mini.html",
+      "lesson": 5,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-06/index.html",
+      "lesson": 6,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-06/mini.html",
+      "lesson": 6,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-07/index.html",
+      "lesson": 7,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-07/mini.html",
+      "lesson": 7,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-08/index.html",
+      "lesson": 8,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-08/mini.html",
+      "lesson": 8,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-09/about.html",
+      "lesson": 9,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-09/index.html",
+      "lesson": 9,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-09/mini.html",
+      "lesson": 9,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-10/about.html",
+      "lesson": 10,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-10/index.html",
+      "lesson": 10,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-10/join.html",
+      "lesson": 10,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-10/mini.html",
+      "lesson": 10,
+      "lang": "uz",
+      "issues": []
+    },
+    {
+      "file": "learner-journey/uz/lesson-10/schedule.html",
+      "lesson": 10,
+      "lang": "uz",
+      "issues": []
+    }
+  ],
+  "scope": "Automated tag/attribute and local-reference guardrail; semantic dependency and comprehension review is recorded in journals."
+}

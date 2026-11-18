@@ -1,0 +1,268 @@
+{
+  "lesson": 9,
+  "lesson_title": "Мета-теги, SEO, связь с CSS и JS",
+  "task": {
+    "title": "Полный head главной страницы",
+    "language": "html",
+    "description": "Допишите head: viewport (width=device-width), description, og:title и og:description, иконку rel=\"icon\", стили css/style.css через link rel=\"stylesheet\", скрипт js/main.js с defer и закрывающим </script>. Тег <style> не используйте.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n    <!-- viewport -->\n    <!-- description -->\n    <!-- og:title и og:description -->\n    <!-- иконка сайта -->\n    <!-- стили css/style.css -->\n    <!-- скрипт js/main.js с defer -->\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "name=\"viewport\"",
+        "width=device-width",
+        "name=\"description\"",
+        "property=\"og:title\"",
+        "property=\"og:description\"",
+        "rel=\"icon\"",
+        "rel=\"stylesheet\"",
+        "href=\"css/style.css\"",
+        "src=\"js/main.js\"",
+        "defer",
+        "</script>",
+        "<header",
+        "<main",
+        "<footer"
+      ],
+      "forbidden": [
+        "<style",
+        "rel=\"style\"",
+        "href=\"../css/style.css\""
+      ],
+      "tags": {
+        "meta": 5,
+        "link": 2,
+        "script": 1,
+        "title": 1
+      },
+      "attrs": {
+        "meta": [
+          "content"
+        ],
+        "script": [
+          "src",
+          "defer"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Телефон: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">.",
+      "Описание: <meta name=\"description\" content=\"...\">.",
+      "Карточка: <meta property=\"og:title\" content=\"...\">.",
+      "Стили: <link rel=\"stylesheet\" href=\"css/style.css\">.",
+      "Скрипт: <script src=\"js/main.js\" defer></script> - с закрывающим тегом."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет viewport",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет description",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "og через name",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta name=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta name=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "rel=\"style\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"style\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "неверный путь к CSS",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"../css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет defer",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\"></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "script без закрывающего тега",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer />\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "стили через <style>",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <style>body { margin: 0; }</style>\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет иконки",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Главная - Кружок веб-разработки</title>\n    <meta name=\"description\" content=\"Кружок веб-разработки в Алмалыке: учим HTML с нуля, занятия по средам.\">\n    <meta property=\"og:title\" content=\"Кружок веб-разработки\">\n    <meta property=\"og:description\" content=\"Учим HTML с нуля. Занятия по средам.\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Добро пожаловать в кружок</h1>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Кружок веб-разработки</small></p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Где пользователь видит текст из meta name=\"description\"?",
+        "options": [
+          "На вкладке браузера",
+          "В результатах поиска под заголовком",
+          "Крупно на странице",
+          "В адресной строке"
+        ],
+        "answer": 1,
+        "explanation": "Поисковик может показать description как описание страницы."
+      },
+      {
+        "type": "single",
+        "question": "Что делает meta name=\"viewport\" с width=device-width?",
+        "options": [
+          "Делает сайт быстрее",
+          "Ширина страницы = ширине экрана телефона",
+          "Подключает CSS",
+          "Включает тёмную тему"
+        ],
+        "answer": 1,
+        "explanation": "Без viewport телефон покажет уменьшенную компьютерную версию."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно подключить файл стилей?",
+        "options": [
+          "<style src=\"css/style.css\">",
+          "<link rel=\"stylesheet\" href=\"css/style.css\">",
+          "<script src=\"css/style.css\">",
+          "<css href=\"style.css\">"
+        ],
+        "answer": 1,
+        "explanation": "Стили - через link rel=\"stylesheet\" в head."
+      },
+      {
+        "type": "single",
+        "question": "Что значит статус 404 у style.css во вкладке Network?",
+        "options": [
+          "Файл загружен",
+          "Файл взят из кэша",
+          "Файл не найден",
+          "Файл слишком большой"
+        ],
+        "answer": 2,
+        "explanation": "404 - не найден: проверьте путь и имя."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про defer?",
+        "options": [
+          "Скрипт загружается параллельно со страницей",
+          "Скрипт выполнится после чтения всей страницы",
+          "Скрипты выполнятся по порядку",
+          "Скрипт не выполнится совсем"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "defer - рекомендуемый способ подключения скриптов."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие метатеги относятся к Open Graph?",
+        "options": [
+          "og:title",
+          "og:description",
+          "og:image",
+          "viewport"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "og: - карточка для соцсетей и мессенджеров."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про имена файлов проекта?",
+        "options": [
+          "Латиница",
+          "Без пробелов",
+          "Строчные буквы и дефисы",
+          "Кириллица и пробелы удобнее"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Например, hero-photo.jpg."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте папку и содержимое.",
+        "pairs": [
+          [
+            "css/",
+            "Файлы стилей"
+          ],
+          [
+            "js/",
+            "Скрипты"
+          ],
+          [
+            "images/",
+            "Картинки"
+          ],
+          [
+            "корень проекта",
+            "HTML-страницы"
+          ]
+        ],
+        "explanation": "Раскладывайте файлы по типу."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте инструмент и что он проверяет.",
+        "pairs": [
+          [
+            "Nu HTML Checker",
+            "Ошибки разметки HTML"
+          ],
+          [
+            "Lighthouse",
+            "Оценку доступности и SEO"
+          ],
+          [
+            "Network в DevTools",
+            "Загрузились ли файлы"
+          ]
+        ],
+        "explanation": "Инструменты дополняют ручную проверку."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение rel используют для подключения файла стилей? Введите только значение.",
+        "answers": [
+          "stylesheet"
+        ],
+        "case_sensitive": false,
+        "explanation": "<link rel=\"stylesheet\" href=\"...\">."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут у script откладывает выполнение до конца чтения страницы с сохранением порядка? Введите имя атрибута.",
+        "answers": [
+          "defer"
+        ],
+        "case_sensitive": false,
+        "explanation": "defer - почти всегда правильный выбор."
+      },
+      {
+        "type": "input",
+        "question": "Каким атрибутом (не name) задают Open Graph метатеги? Введите имя атрибута.",
+        "answers": [
+          "property"
+        ],
+        "case_sensitive": false,
+        "explanation": "<meta property=\"og:title\" content=\"...\">."
+      }
+    ]
+  }
+}

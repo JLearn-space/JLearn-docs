@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Анкета участника</title>
+    </head>
+    <body>
+        <h1>Учебная анкета участника</h1>
+        <p>Только вымышленные данные; форма показывает параметры в URL.</p>
+        <form method="get">
+            <fieldset>
+                <legend>Учебные предпочтения</legend>
+                <p>
+                    <label for="topic">Направление</label>
+                    <select id="topic" name="topic">
+                        <optgroup label="Разметка">
+                            <option value="text" selected>Текст</option>
+                            <option value="forms">Формы</option>
+                        </optgroup>
+                        <optgroup label="Проверка">
+                            <option value="review">Проверка страницы</option>
+                        </optgroup>
+                    </select>
+                </p>
+                <p>
+                    <label for="message">Пожелания</label>
+                    <textarea id="message" name="message" rows="4" cols="30">Хочу больше практики.</textarea>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Учебный идентификатор</legend>
+                <p>
+                    <label for="study-id">ID — ровно семь цифр от 0 до 9</label>
+                    <input type="text" id="study-id" name="study_id" pattern="[0-9]{7}" required>
+                </p>
+            </fieldset>
+            <p>
+                <button type="submit">Показать учебные значения</button>
+                <button type="reset">Восстановить исходные значения</button>
+            </p>
+        </form>
+    </body>
+</html>

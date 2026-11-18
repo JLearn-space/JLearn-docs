@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4 — Images and Media</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <h1>Images and Media on a Page</h1>
+
+    <h2>Basic Image</h2>
+    <img src="images/page-layout.png" alt="Diagram of three content rows inside a page">
+    <img src="images/page-layout.png"
+         alt="Diagram of three content rows inside a page"
+         width="400"
+         height="300">
+    <img src="images/placeholder.png"
+         alt="Diagram used as a local placeholder">
+    <img src="images/decorative-line.png" alt="" width="300">
+
+    <h2>Image with Caption</h2>
+    <figure>
+        <img src="images/chart.png" alt="Bar chart of club attendance: September 10, October 18, November 25" width="500">
+        <figcaption>Fig. 1. Club attendance in autumn</figcaption>
+    </figure>
+
+    <h2>Image as a Link</h2>
+    <a href="about.html">
+        <img src="images/logo.png" alt="Club logo — go to the About page" width="150">
+    </a>
+
+    <h2>Format Examples</h2>
+    <figure>
+        <img src="images/layout-example.jpg" alt="Teaching diagram of a page layout" width="400">
+        <figcaption>JPEG — teaching illustration (photographs are another typical use)</figcaption>
+    </figure>
+    <figure>
+        <img src="images/logo-transparent.png" alt="Logo on transparent background" width="200">
+        <figcaption>PNG — transparent background</figcaption>
+    </figure>
+    <figure>
+        <img src="images/icon-star.svg" alt="Star icon" width="100">
+        <figcaption>SVG — vector graphics</figcaption>
+    </figure>
+
+    <h2>Audio Player</h2>
+    <audio controls>
+        <source src="audio/music.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+    </audio>
+    <p><a href="audio/music.mp3">Open the example audio file</a></p>
+    <p>Audio description: a two-second constant synthetic tone, with no speech.</p>
+
+    <h2>Video Player</h2>
+    <video controls width="640" height="360" poster="images/video-preview.jpg">
+        <source src="video/lesson.mp4" type="video/mp4">
+        Your browser does not support video playback.
+    </video>
+    <p><a href="video/lesson.mp4">Open the example video file</a></p>
+    <p>Video description: a static diagram of three content rows, shown for two seconds without sound or speech.</p>
+
+</body>
+</html>

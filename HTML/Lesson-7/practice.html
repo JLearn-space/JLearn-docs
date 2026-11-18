@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lesson 7 — Forms. Part 2</title>
+    </head>
+    <body>
+        <h1>Forms: Advanced Elements and Validation</h1>
+        <p>Learning demo: use fictional data only. Submitting validates the fields and reloads this page with named values in the URL. No message is delivered or saved by an application.</p>
+        <form method="get">
+            <p>
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="uz" selected>Uzbekistan</option>
+                    <option value="kz">Kazakhstan</option>
+                    <option value="kg">Kyrgyzstan</option>
+                </select>
+            </p>
+            <p>
+                <label for="course">Choose a course:</label>
+                <select id="course" name="course">
+                    <optgroup label="Frontend">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="js">JavaScript</option>
+                    </optgroup>
+                    <optgroup label="Backend">
+                        <option value="php">PHP</option>
+                        <option value="mysql">MySQL</option>
+                    </optgroup>
+                </select>
+            </p>
+            <p>
+                <label for="bio">About me:</label>
+                <textarea id="bio" name="bio" rows="4" cols="40" placeholder="Tell us a little about yourself..."></textarea>
+            </p>
+            <fieldset>
+                <legend>Contact Details</legend>
+                <p>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+998 XX XXX-XX-XX">
+                </p>
+                <p>
+                    <label for="contact-email">Email:</label>
+                    <input type="email" id="contact-email" name="contact-email">
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Skill Level</legend>
+                <p>
+                    <input type="radio" id="beg" name="level" value="beginner">
+                    <label for="beg">Beginner</label>
+                </p>
+                <p>
+                    <input type="radio" id="mid" name="level" value="intermediate">
+                    <label for="mid">Intermediate</label>
+                </p>
+                <p>
+                    <input type="radio" id="adv" name="level" value="advanced">
+                    <label for="adv">Advanced</label>
+                </p>
+            </fieldset>
+            <h2>Fields with Validation</h2>
+            <p>
+                <label for="age2">Age (16 to 99):</label>
+                <input type="number" id="age2" name="age2" min="16" max="99">
+            </p>
+            <p>
+                <label for="username">Name (max 20 characters):</label>
+                <input type="text" id="username" name="username" maxlength="20">
+            </p>
+            <p>
+                <label for="student-id">Student ID (exactly 7 digits):</label>
+                <input type="text" id="student-id" name="student-id" pattern="[0-9]{7}" title="Enter exactly 7 digits" required>
+            </p>
+            <button type="submit">Check all fields</button>
+            <button type="reset">Restore initial values</button>
+        </form>
+    </body>
+</html>
