@@ -1,0 +1,277 @@
+{
+  "lesson": 4,
+  "language": "uz",
+  "lesson_title": "Rasmlar va media",
+  "task": {
+    "title": "Qiziqishlarim",
+    "language": "html",
+    "description": "«Qiziqishlarim» sahifasini yasang: head da favicon, bitta h1, kamida uchta img (src, alt, width), bittasi - figcaption li figure da, bittasi alt=\"\" li bezak rasmi, controls va source li video. autoplay siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <!-- sayt belgisi -->\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>O‘zingiz haqingizda gapirib bering.</p>\n        <!-- figure: alt va width li rasm + figcaption -->\n        <!-- alt=\"\" li bezak rasmi -->\n        <!-- alt va width li yana bir rasm -->\n        <!-- controls va source li video -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "rel=\"icon\"",
+        "<figure",
+        "<figcaption",
+        "alt=\"\"",
+        "<video",
+        "controls",
+        "<source"
+      ],
+      "forbidden": [
+        "autoplay",
+        "alt=\"rasm\"",
+        "alt=\"surat\"",
+        "alt=\"tasvir\"",
+        "alt=\"foto\"",
+        "alt=\"image\"",
+        "alt=\"img"
+      ],
+      "tags": {
+        "img": 3,
+        "figure": 1,
+        "figcaption": 1,
+        "video": 1,
+        "source": 1
+      },
+      "attrs": {
+        "img": [
+          "src",
+          "alt",
+          "width"
+        ],
+        "source": [
+          "src"
+        ],
+        "link": [
+          "href"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Belgi: <head> ichida <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">.",
+      "Imzoli rasm: <figure><img ...><figcaption>...</figcaption></figure>.",
+      "Bezak rasmi: alt=\"\".",
+      "Video: <video controls><source src=\"video/....mp4\" type=\"video/mp4\"></video>.",
+      "autoplay va alt=\"rasm\" kabi bo‘sh tavsiflarni ishlatmang."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "favicon yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "figcaption yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "ikkita rasm",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "bezak uchun alt=\"\" yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"Ajratuvchi\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "alt=\"rasm\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"rasm\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "controls yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "autoplay",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls autoplay width=\"640\" poster=\"images/video-preview.jpg\">\n            <source src=\"video/hike.mp4\" type=\"video/mp4\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "source yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <video controls width=\"640\" poster=\"images/video-preview.jpg\">\n        </video>\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "video yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Qiziqishlarim</title>\n    <link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n</head>\n<body>\n    <main>\n        <h1>Qiziqishlarim</h1>\n        <p>Men tog‘larni va fotografiyani yaxshi ko‘raman.</p>\n        <figure>\n            <img src=\"images/mountains.jpg\" alt=\"Tong paytidagi Chimyonning qorli cho‘qqilari\" width=\"600\" height=\"400\">\n            <figcaption>Chimyon, o‘tgan qish</figcaption>\n        </figure>\n        <img src=\"images/divider.png\" alt=\"\" width=\"600\">\n        <img src=\"images/camera.jpg\" alt=\"Shtativdagi fotoapparatim\" width=\"300\" loading=\"lazy\">\n        <p><a href=\"video/hike.mp4\">Videoni yuklab olish</a></p>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "<img> ning qaysi atributi faylga yo‘lni ko‘rsatadi?",
+        "options": [
+          "href",
+          "src",
+          "alt",
+          "path"
+        ],
+        "answer": 1,
+        "explanation": "src - source, rasm manbai."
+      },
+      {
+        "type": "single",
+        "question": "Hech narsa xabar bermaydigan naqsh-ajratuvchiga qanday alt kerak?",
+        "options": [
+          "alt=\"naqsh\"",
+          "alt=\"\"",
+          "alt umuman kerak emas",
+          "alt=\"decorative-line.png\""
+        ],
+        "answer": 1,
+        "explanation": "Bo‘sh alt=\"\" - ekran o‘quvchi rasmni o‘tkazib yuboradi. alt siz u fayl nomini o‘qishi mumkin."
+      },
+      {
+        "type": "single",
+        "question": "Istalgan o‘lchamda aniq bo‘lishi kerak bo‘lgan oddiy logotip uchun qaysi format mos?",
+        "options": [
+          "JPEG",
+          "SVG",
+          "MP4",
+          "MP3"
+        ],
+        "answer": 1,
+        "explanation": "SVG - vektorli, kattalashtirilganda sifat yo‘qolmaydi."
+      },
+      {
+        "type": "single",
+        "question": "<video> da controls atributi bo‘lmasa nima bo‘ladi?",
+        "options": [
+          "Video o‘zi ishga tushadi",
+          "Boshqaruv tugmalari bo‘lmaydi",
+          "Video yuklanmaydi",
+          "Subtitrlar paydo bo‘ladi"
+        ],
+        "answer": 1,
+        "explanation": "controls play, ovoz balandligi va o‘tkazish tugmalarini ko‘rsatadi."
+      },
+      {
+        "type": "multiple",
+        "question": "alt atributi nima uchun kerak?",
+        "options": [
+          "Uni ekran o‘quvchi o‘qiydi",
+          "Rasm yuklanmasa ko‘rsatiladi",
+          "Rasmni kattalashtiradi",
+          "Qidiruv tizimlariga rasmni tushunishga yordam beradi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "alt - rasmning matnli o‘rinbosari."
+      },
+      {
+        "type": "multiple",
+        "question": "Fotosuratlar uchun qaysi formatlar mos?",
+        "options": [
+          "JPEG",
+          "WebP",
+          "SVG",
+          "MP3"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Foto - JPEG yoki WebP. SVG - vektor grafika uchun."
+      },
+      {
+        "type": "multiple",
+        "question": "<img> dagi width va height haqida nima to‘g‘ri?",
+        "options": [
+          "Brauzer joyni oldindan ajratadi",
+          "Noto‘g‘ri nisbat rasmni buzadi",
+          "Ularsiz rasm ko‘rinmaydi",
+          "Faqat width ni ko‘rsatish mumkin"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "O‘lchamlar matn «sakrashini» yo‘qotadi; bitta tomon - nisbat saqlanadi."
+      },
+      {
+        "type": "matching",
+        "question": "Atributni uning vazifasi bilan moslang.",
+        "pairs": [
+          [
+            "poster",
+            "Ishga tushirishdan oldingi video muqovasi"
+          ],
+          [
+            "loading=\"lazy\"",
+            "Varaqlab yetganda yuklash"
+          ],
+          [
+            "muted",
+            "Ovozsiz"
+          ],
+          [
+            "controls",
+            "Boshqaruv tugmalari"
+          ]
+        ],
+        "explanation": "Media atributlari yuklash va ijroni boshqaradi."
+      },
+      {
+        "type": "matching",
+        "question": "Tegni rol bilan moslang.",
+        "pairs": [
+          [
+            "<figure>",
+            "«Illyustratsiya + imzo» bloki"
+          ],
+          [
+            "<figcaption>",
+            "Hamma ko‘radigan imzo"
+          ],
+          [
+            "<source>",
+            "audio yoki video ichidagi fayl"
+          ],
+          [
+            "<iframe>",
+            "Ichiga qo‘yilgan begona sahifa, masalan YouTube videosi"
+          ]
+        ],
+        "explanation": "figure rasm va imzoni birlashtiradi, source media faylini beradi."
+      },
+      {
+        "type": "input",
+        "question": "link havolasining qaysi atributi sayt belgisini ulaydi? Yozuvni to‘liq kiriting, masalan rel=\"...\".",
+        "answers": [
+          "rel=\"icon\"",
+          "rel='icon'",
+          "rel=icon"
+        ],
+        "case_sensitive": false,
+        "explanation": "<head> da <link rel=\"icon\" href=\"favicon.png\">."
+      },
+      {
+        "type": "input",
+        "question": "YouTube videosi qaysi teg bilan joylashtiriladi? Teg nomini qavslarsiz kiriting.",
+        "answers": [
+          "iframe"
+        ],
+        "case_sensitive": false,
+        "explanation": "iframe - boshqa sahifaga oyna. title ni unutmang."
+      },
+      {
+        "type": "input",
+        "question": "Rasm qo‘yish uchun bo‘sh element qanday nomlanadi? Teg nomini qavslarsiz kiriting.",
+        "answers": [
+          "img"
+        ],
+        "case_sensitive": false,
+        "explanation": "img - yopuvchi tegsiz bo‘sh element."
+      }
+    ]
+  }
+}

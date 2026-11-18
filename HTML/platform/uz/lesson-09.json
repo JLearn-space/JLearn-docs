@@ -1,0 +1,269 @@
+{
+  "lesson": 9,
+  "language": "uz",
+  "lesson_title": "Meta-teglar, SEO, CSS va JS bilan bog‘lash",
+  "task": {
+    "title": "Bosh sahifaning to‘liq head i",
+    "language": "html",
+    "description": "head ni to‘ldiring: viewport (width=device-width), description, og:title va og:description, rel=\"icon\" belgisi, link rel=\"stylesheet\" orqali css/style.css uslublari, defer va yopuvchi </script> li js/main.js skripti. <style> tegini ishlatmang.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <!-- viewport -->\n    <!-- description -->\n    <!-- og:title va og:description -->\n    <!-- sayt belgisi -->\n    <!-- css/style.css uslublari -->\n    <!-- defer li js/main.js skripti -->\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "name=\"viewport\"",
+        "width=device-width",
+        "name=\"description\"",
+        "property=\"og:title\"",
+        "property=\"og:description\"",
+        "rel=\"icon\"",
+        "rel=\"stylesheet\"",
+        "href=\"css/style.css\"",
+        "src=\"js/main.js\"",
+        "defer",
+        "</script>",
+        "<header",
+        "<main",
+        "<footer"
+      ],
+      "forbidden": [
+        "<style",
+        "rel=\"style\"",
+        "href=\"../css/style.css\""
+      ],
+      "tags": {
+        "meta": 5,
+        "link": 2,
+        "script": 1,
+        "title": 1
+      },
+      "attrs": {
+        "meta": [
+          "content"
+        ],
+        "script": [
+          "src",
+          "defer"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Telefon: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">.",
+      "Tavsif: <meta name=\"description\" content=\"...\">.",
+      "Kartochka: <meta property=\"og:title\" content=\"...\">.",
+      "Uslublar: <link rel=\"stylesheet\" href=\"css/style.css\">.",
+      "Skript: <script src=\"js/main.js\" defer></script> - yopuvchi teg bilan."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "viewport yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "description yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "og name orqali",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta name=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta name=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "rel=\"style\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"style\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "CSS ga noto‘g‘ri yo‘l",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"../css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "defer yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\"></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "yopuvchi tegsiz script",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer />\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "<style> orqali uslublar",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <style>body { margin: 0; }</style>\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "belgi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n    <meta name=\"description\" content=\"Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.\">\n    <meta property=\"og:title\" content=\"Veb-dasturlash to‘garagi\">\n    <meta property=\"og:description\" content=\"HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Foydalanuvchi meta name=\"description\" dagi matnni qayerda ko‘radi?",
+        "options": [
+          "Brauzer yorlig‘ida",
+          "Qidiruv natijalarida sarlavha ostida",
+          "Sahifada yirik qilib",
+          "Manzil qatorida"
+        ],
+        "answer": 1,
+        "explanation": "Qidiruv tizimi description ni sahifa tavsifi sifatida ko‘rsatishi mumkin."
+      },
+      {
+        "type": "single",
+        "question": "width=device-width li meta name=\"viewport\" nima qiladi?",
+        "options": [
+          "Saytni tezlashtiradi",
+          "Sahifa kengligi = telefon ekrani kengligi",
+          "CSS ni ulaydi",
+          "Tungi mavzuni yoqadi"
+        ],
+        "answer": 1,
+        "explanation": "viewport siz telefon kompyuter versiyasining kichraytirilganini ko‘rsatadi."
+      },
+      {
+        "type": "single",
+        "question": "Uslublar faylini qanday to‘g‘ri ulash mumkin?",
+        "options": [
+          "<style src=\"css/style.css\">",
+          "<link rel=\"stylesheet\" href=\"css/style.css\">",
+          "<script src=\"css/style.css\">",
+          "<css href=\"style.css\">"
+        ],
+        "answer": 1,
+        "explanation": "Uslublar - head dagi link rel=\"stylesheet\" orqali."
+      },
+      {
+        "type": "single",
+        "question": "Network yorlig‘ida style.css ning 404 statusi nimani bildiradi?",
+        "options": [
+          "Fayl yuklandi",
+          "Fayl keshdan olindi",
+          "Fayl topilmadi",
+          "Fayl juda katta"
+        ],
+        "answer": 2,
+        "explanation": "404 - topilmadi: yo‘l va nomni tekshiring."
+      },
+      {
+        "type": "multiple",
+        "question": "defer haqida nima to‘g‘ri?",
+        "options": [
+          "Skript sahifa bilan parallel yuklanadi",
+          "Skript butun sahifa o‘qilgandan keyin bajariladi",
+          "Skriptlar tartib bilan bajariladi",
+          "Skript umuman bajarilmaydi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "defer - skriptlarni ulashning tavsiya etilgan usuli."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi meta-teglar Open Graph ga tegishli?",
+        "options": [
+          "og:title",
+          "og:description",
+          "og:image",
+          "viewport"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "og: - ijtimoiy tarmoq va messenjerlar uchun kartochka."
+      },
+      {
+        "type": "multiple",
+        "question": "Loyiha fayllari nomlari haqida nima to‘g‘ri?",
+        "options": [
+          "Lotin harflari",
+          "Bo‘shliqsiz",
+          "Kichik harflar va defislar",
+          "Kirill harflari va bo‘shliqlar qulayroq"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Masalan, hero-photo.jpg."
+      },
+      {
+        "type": "matching",
+        "question": "Papkani mazmuni bilan moslang.",
+        "pairs": [
+          [
+            "css/",
+            "Uslub fayllari"
+          ],
+          [
+            "js/",
+            "Skriptlar"
+          ],
+          [
+            "images/",
+            "Rasmlar"
+          ],
+          [
+            "loyiha ildizi",
+            "HTML sahifalar"
+          ]
+        ],
+        "explanation": "Fayllarni turiga ko‘ra joylang."
+      },
+      {
+        "type": "matching",
+        "question": "Vositani u tekshiradigan narsa bilan moslang.",
+        "pairs": [
+          [
+            "Nu HTML Checker",
+            "HTML belgilash xatolari"
+          ],
+          [
+            "Lighthouse",
+            "Qulaylik va SEO bahosi"
+          ],
+          [
+            "DevTools dagi Network",
+            "Fayllar yuklandimi"
+          ]
+        ],
+        "explanation": "Vositalar qo‘lda tekshiruvni to‘ldiradi."
+      },
+      {
+        "type": "input",
+        "question": "Uslublar faylini ulash uchun rel ning qaysi qiymati ishlatiladi? Faqat qiymatni kiriting.",
+        "answers": [
+          "stylesheet"
+        ],
+        "case_sensitive": false,
+        "explanation": "<link rel=\"stylesheet\" href=\"...\">."
+      },
+      {
+        "type": "input",
+        "question": "script ning qaysi atributi bajarishni sahifa o‘qib bo‘lingunicha, tartibni saqlagan holda kechiktiradi? Atribut nomini kiriting.",
+        "answers": [
+          "defer"
+        ],
+        "case_sensitive": false,
+        "explanation": "defer - deyarli doim to‘g‘ri tanlov."
+      },
+      {
+        "type": "input",
+        "question": "Open Graph meta-teglari qaysi atribut bilan beriladi (name emas)? Atribut nomini kiriting.",
+        "answers": [
+          "property"
+        ],
+        "case_sensitive": false,
+        "explanation": "<meta property=\"og:title\" content=\"...\">."
+      }
+    ]
+  }
+}

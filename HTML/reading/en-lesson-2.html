@@ -1,95 +1,198 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Text and semantics · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">Headings h1-h6</a><a href="#section-5">Paragraphs and line breaks: p, br, hr</a><a href="#section-10">Text accents: strong, em, mark, small</a><a href="#section-17">Lists: ul, ol, dl</a><a href="#section-23">Mini-assignment</a><a href="#section-24">Semantic tags: header, nav, main, section, article, aside, footer</a><a href="#section-34">Lesson summary</a><a href="#section-35">Independent task: a useful guide</a></details></aside><article><h1 id="section-1">Text and semantics</h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Text and semantics · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">Why you need this</a><a href="#section-3">What you will learn</a><a href="#section-4">Review: 3 questions from lesson 1</a><a href="#section-5">Lesson plan</a><a href="#section-6">Part A. Text</a><a href="#section-7">Headings h1–h6</a><a href="#section-8">Paragraphs and line breaks: p, br, hr</a><a href="#section-10">Emphasis: strong, em, mark, small</a><a href="#section-12">Lists: ul, ol, dl</a><a href="#section-15">Quotes, code and special characters</a><a href="#section-19">Mini-task 1</a><a href="#section-20">Part B. Page</a><a href="#section-21">Semantic blocks</a><a href="#section-24">Mini-task 2</a><a href="#section-25">Lesson summary: cheat sheet</a><a href="#section-26">Independent work</a><a href="#section-30">Self-check questions</a><a href="#section-31">What&#x27;s next</a><a href="#section-32">Answers</a></details></aside><article><h1 id="section-1">Text and semantics</h1>
 <p><a href="index.html">Contents</a> · <a href="en-lesson-1.html">← Back</a> · <a href="en-lesson-3.html">Next →</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a> · <a href="../Lesson-2/practice.html">Practice</a></p>
 <blockquote>
-<p><strong>Connection with the previous lesson:</strong> in the last lesson we assembled the HTML document &quot;skeleton&quot; (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) and even briefly used <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code>. Today we fill <code>&lt;body&gt;</code> with real text content and learn to give the document a semantic structure.</p>
+<p><strong>Link to the previous lesson:</strong> in lesson 1 you built the document skeleton and added <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code>. Today we fill <code>&lt;body&gt;</code> with real text and split the page into meaningful blocks.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<h2 id="section-2">Why you need this</h2>
+<p>Compare two pages. The first is a wall of text with no headings or lists. The second has the same text, but with sections, bullet points and steps. Which one will you read to the end?</p>
+<p>The HTML tags in this lesson make text easy to read. They also make it understandable for search engines and for programs that read pages aloud.</p>
+<hr>
+<h2 id="section-3">What you will learn</h2>
 <ul>
-<li>Properly structure text with headings <code>h1</code>–<code>h6</code> and paragraphs <code>p</code>.</li>
-<li>Highlight text with semantic emphasis (<code>strong</code>, <code>em</code>) and understand how this differs from simple visual highlighting (<code>b</code>, <code>i</code>).</li>
-<li>Build unordered, ordered, and description lists (<code>ul</code>, <code>ol</code>, <code>dl</code>).</li>
-<li>Understand what semantic markup is and use <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code> tags instead of a &quot;soup&quot; of <code>&lt;div&gt;</code>s.</li>
-<li>Assemble a meaningful structure for an entire page from these blocks.</li>
+<li>Build a heading hierarchy <code>h1</code>–<code>h6</code> without skipping levels.</li>
+<li>Split text into <code>p</code> paragraphs and use <code>br</code> and <code>hr</code> correctly.</li>
+<li>Mark importance (<code>strong</code>) and stress (<code>em</code>), highlight (<code>mark</code>), write notes (<code>small</code>).</li>
+<li>Choose the right list: <code>ul</code>, <code>ol</code> or <code>dl</code>.</li>
+<li>Show quotes and code: <code>blockquote</code>, <code>code</code>, the special characters <code>&amp;lt;</code> and <code>&amp;copy;</code>.</li>
+<li>Split a page into blocks: <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>.</li>
 </ul>
 <hr>
-<h2 id="section-3">Lesson plan</h2>
+<h2 id="section-4">Review: 3 questions from lesson 1</h2>
+<ol>
+<li>Where does visible text go: in <code>&lt;head&gt;</code> or in <code>&lt;body&gt;</code>?</li>
+<li>How is <code>&lt;title&gt;</code> different from <code>&lt;h1&gt;</code>?</li>
+<li>What does the closing tag of a paragraph look like?</li>
+</ol>
+<p>Answers are at the end of the lesson.</p>
+<hr>
+<h2 id="section-5">Lesson plan</h2>
+<p>The lesson has two parts.</p>
 <table>
 <thead>
 <tr>
-<th>Topic</th>
-<th>Content</th>
+<th>Part</th>
+<th>Section</th>
+<th>What we do</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Headings h1–h6</td>
-<td>Hierarchy, analogy with a book's table of contents</td>
+<td>A. Text</td>
+<td>Headings</td>
+<td>A book's table of contents</td>
 </tr>
 <tr>
-<td>Paragraphs and line breaks: p, br, hr</td>
-<td>Difference between a paragraph and a break</td>
+<td></td>
+<td>Paragraphs, <code>br</code>, <code>hr</code></td>
+<td>Paragraph or line break</td>
 </tr>
 <tr>
-<td>Text accents: strong/em/mark/small</td>
-<td>Meaning vs visuals, the purpose of b/i</td>
+<td></td>
+<td>Emphasis</td>
+<td><code>strong</code>, <code>em</code>, <code>mark</code>, <code>small</code></td>
 </tr>
 <tr>
-<td>Lists: ul, ol, dl</td>
-<td>Three types of lists and their usage</td>
+<td></td>
+<td>Lists</td>
+<td>Shopping, a recipe, a dictionary</td>
 </tr>
 <tr>
-<td>Mini-assignment</td>
-<td>Build a list on your own</td>
+<td></td>
+<td>Quotes and code</td>
+<td><code>blockquote</code>, <code>code</code>, special characters</td>
 </tr>
 <tr>
-<td>Semantic tags</td>
-<td>header/nav/main/section/article/aside/footer</td>
+<td></td>
+<td>Mini-task 1</td>
+<td>A three-step list</td>
 </tr>
 <tr>
-<td>Summary and practical assignment</td>
-<td>Building an entire page's structure</td>
+<td>B. Page</td>
+<td>Semantic blocks</td>
+<td>Rooms in a house</td>
+</tr>
+<tr>
+<td></td>
+<td>Mini-task 2</td>
+<td>Mark up a page with blocks</td>
+</tr>
+<tr>
+<td></td>
+<td>Independent work</td>
+<td>IDE task and a guide</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4">Headings h1-h6</h2>
-<p><strong>In simple terms:</strong> imagine you are writing a book. The book has a title (the biggest and most important - there's only one), then chapters, then sections within chapters, then subsections. Headings in HTML work exactly the same way - they're not just &quot;large bold text,&quot; but a <strong>hierarchy of meaning</strong>.</p>
-<p>In HTML there are six heading levels: from <code>&lt;h1&gt;</code> (most important, &quot;book title&quot;) to <code>&lt;h6&gt;</code> (smallest, &quot;subsection of a subsection&quot;).</p>
-<pre><code class="language-html">&lt;h1&gt;Page title (usually only one per page)&lt;/h1&gt;
-&lt;h2&gt;Major section&lt;/h2&gt;
-&lt;h3&gt;Subsection within h2&lt;/h3&gt;
-&lt;h4&gt;Even smaller subsection&lt;/h4&gt;
-&lt;h5&gt;Very small heading&lt;/h5&gt;
-&lt;h6&gt;Smallest heading&lt;/h6&gt;
+<h2 id="section-6">Part A. Text</h2>
+<h2 id="section-7">Headings <code>h1</code>–<code>h6</code></h2>
+<p><strong>In simple terms:</strong> a book has a title, chapters, sections and subsections. HTML headings are that same table of contents. They are not &quot;big bold text&quot; - they are a <strong>hierarchy of meaning</strong>.</p>
+<pre><code class="language-html">&lt;h1&gt;Page title&lt;/h1&gt;
+&lt;h2&gt;Section&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+&lt;h4&gt;Sub-subsection&lt;/h4&gt;
 </code></pre>
-<p><strong>Course recommendation:</strong> use one <code>&lt;h1&gt;</code> for the page’s main topic. Use <code>&lt;h2&gt;</code> for sections, <code>&lt;h3&gt;</code> for subsections, and so on; avoid skipping levels when nesting deeper. Returning from <code>&lt;h3&gt;</code> to <code>&lt;h2&gt;</code> starts a new section and is correct. This supports a clear structure; HTML does not categorically prohibit multiple <code>&lt;h1&gt;</code> elements.</p>
-<p><strong>Why this matters, and isn't just &quot;for looks&quot;:</strong> headings are not just about visual text size. Screen readers (programs for visually impaired users - more on this in lesson 8 about accessibility) build a &quot;map&quot; of the page from headings and let the user jump between sections immediately. If you use <code>&lt;h3&gt;</code> just because &quot;smaller text is needed,&quot; not because it's actually a subsection - you'll break this map for someone who relies on it.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-2-1.svg" alt="Diagram 1: Text and semantics"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-2-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Each arrow moves from a broader heading to a subordinate topic. Sibling h2 headings have equal importance; h3 headings belong beneath their parent topic.</p>
+<p>There are six levels: <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>. Three are usually enough.</p>
+<p><strong>Three course rules:</strong></p>
+<ol>
+<li><strong>One</strong> <code>&lt;h1&gt;</code> per page - the main topic.</li>
+<li>Levels go <strong>in order</strong>: after <code>h2</code> comes <code>h3</code>, not <code>h4</code>.</li>
+<li>You can always go back up: <code>h2</code> after <code>h3</code> starts a new section.</li>
+</ol>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-2-1.svg" alt="Diagram 1: Text and semantics"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-2-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> &quot;Route&quot; has two subsections. &quot;Tips&quot; is on the same level as &quot;Route&quot;. You don't need to use all six levels.</p>
+<p><strong>Why this matters:</strong> a blind user opens a list of headings and jumps to the section they need. If you use <code>&lt;h3&gt;</code> just because &quot;I need smaller text&quot;, the table of contents breaks. Text size is set with CSS.</p>
 <hr>
-<h2 id="section-5">Paragraphs and line breaks: p, br, hr</h2>
-<h3 id="section-6"><code>&lt;p&gt;</code> - paragraph</h3>
-<p>The <code>&lt;p&gt;</code> (paragraph) tag wraps a single block of meaningful text - the same as a paragraph in a book.</p>
-<pre><code class="language-html">&lt;p&gt;This is the first paragraph of text. It can contain as many sentences as needed.&lt;/p&gt;
-&lt;p&gt;And this is the second, separate paragraph - the browser will automatically add vertical spacing between them.&lt;/p&gt;
-</code></pre>
-<h3 id="section-7"><code>&lt;br&gt;</code> - line break</h3>
-<p>An unpaired tag (as we covered in lesson 1 - no closing tag) that simply moves text to a new line <strong>within a single block of content</strong>, without creating a new paragraph.</p>
-<pre><code class="language-html">&lt;p&gt;
-    10 Lenin Street&lt;br&gt;
-    Almaty City&lt;br&gt;
-    Uzbekistan
+<h2 id="section-8">Paragraphs and line breaks: <code>p</code>, <code>br</code>, <code>hr</code></h2>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>What it does</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;p&gt;</code></td>
+<td>A paragraph. The browser adds spacing</td>
+<td>Each separate thought</td>
+</tr>
+<tr>
+<td><code>&lt;br&gt;</code></td>
+<td>A line break <strong>inside</strong> a paragraph</td>
+<td>Addresses, poems</td>
+</tr>
+<tr>
+<td><code>&lt;hr&gt;</code></td>
+<td>A change of topic</td>
+<td>Moving to a new part of the text</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p&gt;Our club meets on Wednesdays.&lt;/p&gt;
+&lt;p&gt;
+    10 Amir Temur Street&lt;br&gt;
+    Almalyk
 &lt;/p&gt;
-</code></pre>
-<p><strong>When to use:</strong> only in cases where a line break is meaningful - postal addresses, poetry, song lyrics. <strong>Do not use <code>&lt;br&gt;</code> to create spacing between paragraphs</strong> - for that, <code>&lt;p&gt;</code> exists, and spacing between elements is CSS's job (lesson 9 and beyond).</p>
-<h3 id="section-8"><code>&lt;hr&gt;</code> - horizontal rule</h3>
-<p>Also an unpaired tag. Indicates a thematic break - a change of topic within text (for example, transitioning to a new topic in an article).</p>
-<pre><code class="language-html">&lt;p&gt;The first part of an article about the history of HTML.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;The second part of the article - about modern standards.&lt;/p&gt;
+&lt;p&gt;New topic: participation rules.&lt;/p&gt;
 </code></pre>
+<p><strong>What you will see:</strong> two paragraphs with a gap, an address on two lines, a horizontal line, then one more paragraph.</p>
+<p><code>&lt;br&gt;</code> and <code>&lt;hr&gt;</code> are void elements with no closing tag.</p>
+<h3 id="section-9">Try breaking it</h3>
+<p>Replace two paragraphs with one, and put <code>&lt;br&gt;&lt;br&gt;&lt;br&gt;</code> between them. Looks similar? But for the browser and a screen reader it is now <strong>one</strong> paragraph. Put the <code>&lt;p&gt;</code> back.</p>
 <hr>
-<h3 id="section-9">Common beginner mistakes</h3>
+<h2 id="section-10">Emphasis: <code>strong</code>, <code>em</code>, <code>mark</code>, <code>small</code></h2>
+<p><strong>The key principle:</strong> HTML describes <strong>meaning</strong>, not appearance.</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Meaning</th>
+<th>Default look</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;strong&gt;</code></td>
+<td>Important, don't miss it</td>
+<td>Bold</td>
+<td><strong>Note:</strong> save the file</td>
+</tr>
+<tr>
+<td><code>&lt;em&gt;</code></td>
+<td>Spoken stress</td>
+<td>Italic</td>
+<td>I <em>will</em> make it</td>
+</tr>
+<tr>
+<td><code>&lt;mark&gt;</code></td>
+<td>Highlighted, like a marker</td>
+<td>Yellow background</td>
+<td>Found: three errors</td>
+</tr>
+<tr>
+<td><code>&lt;small&gt;</code></td>
+<td>A note, a footnote</td>
+<td>Small</td>
+<td>Price may change</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; save the file before you start.&lt;/p&gt;
+&lt;p&gt;I &lt;em&gt;will&lt;/em&gt; finish the project today.&lt;/p&gt;
+&lt;p&gt;The report found &lt;mark&gt;three errors&lt;/mark&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;The schedule may change.&lt;/small&gt;&lt;/p&gt;
+</code></pre>
+<p><strong>What about <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code>?</strong> They are not outdated, but they mean something else:</p>
+<ul>
+<li><code>&lt;b&gt;</code> - draws attention without &quot;importance&quot;, for example a keyword in a description;</li>
+<li><code>&lt;i&gt;</code> - a different voice: a term, a foreign word, a character's thought.</li>
+</ul>
+<p>If you only want bold text for looks, that is a job for CSS.</p>
+<h3 id="section-11">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -99,123 +202,89 @@
 </thead>
 <tbody>
 <tr>
-<td>Using several <code>&lt;br&gt;</code> in a row to simulate paragraph spacing: <code>Text&lt;br&gt;&lt;br&gt;&lt;br&gt;Text</code></td>
-<td>Separate paragraphs with <code>&lt;p&gt;</code> tags, adjust spacing via CSS later</td>
+<td>A whole paragraph in <code>&lt;strong&gt;</code></td>
+<td>Highlight only the important words</td>
 </tr>
 <tr>
-<td>Wrapping all page text in a single <code>&lt;p&gt;</code> and using <code>&lt;br&gt;</code> for line breaks</td>
-<td>Each meaningful paragraph is a separate <code>&lt;p&gt;</code> tag</td>
+<td><code>&lt;br&gt;&lt;br&gt;</code> instead of a new paragraph</td>
+<td>New thought - new <code>&lt;p&gt;</code></td>
 </tr>
 <tr>
-<td>Choosing headings only for large text</td>
-<td>In course tasks use one main <code>&lt;h1&gt;</code> and choose other levels by structure. Text size is controlled with CSS.</td>
+<td><code>&lt;h3&gt;</code> for a smaller font</td>
+<td>Level by structure, size by CSS</td>
 </tr>
 <tr>
-<td>Skipping heading levels (<code>h2</code> -&gt; <code>h4</code>)</td>
-<td>Follow the sequence: <code>h2</code> -&gt; <code>h3</code> -&gt; <code>h4</code>, no &quot;skipping&quot;</td>
+<td>Skipping a level <code>h2</code> → <code>h4</code></td>
+<td>Go in order</td>
+</tr>
+<tr>
+<td><code>&lt;mark&gt;</code> for importance</td>
+<td>Importance - <code>&lt;strong&gt;</code>, <code>&lt;mark&gt;</code> - highlighting</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-10">Text accents: strong, em, mark, small</h2>
-<p>The key principle to understand here is: <strong>HTML describes meaning, not how text should look visually.</strong> This is what distinguishes the modern approach from the old one.</p>
-<h3 id="section-11"><code>&lt;strong&gt;</code> - importance (not just &quot;bold&quot;)</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;strong&gt;Attention:&lt;/strong&gt; save the file before starting work.&lt;/p&gt;
-</code></pre>
-<p>The browser will display text inside <code>&lt;strong&gt;</code> as bold by default - but the tag's meaning is not &quot;make it bold,&quot; but &quot;this is important, don't miss it.&quot; A screen reader may even pronounce this text with special emphasis.</p>
-<h3 id="section-12"><code>&lt;em&gt;</code> - semantic emphasis (not just &quot;italic&quot;)</h3>
-<pre><code class="language-html">&lt;p&gt;I &lt;em&gt;really&lt;/em&gt; need to finish this project today.&lt;/p&gt;
-</code></pre>
-<p>Displays as italic by default, but the meaning is &quot;this word receives logical emphasis,&quot; as if you were saying the sentence aloud and stressing that word with your voice.</p>
-<h3 id="section-13"><code>&lt;b&gt;</code> and <code>&lt;i&gt;</code>: different semantic purposes</h3>
-<p>These elements are <strong>not obsolete</strong>. <code>&lt;b&gt;</code> draws attention without extra importance, for example to keywords in a short description. <code>&lt;i&gt;</code> marks an alternate voice or mood, for example a term being introduced in context.</p>
-<p><code>&lt;strong&gt;</code> indicates importance, seriousness or urgency; <code>&lt;em&gt;</code> marks stress emphasis. Choose by meaning. Use CSS, studied after this course, for presentation alone. Do not assume that every screen reader will change its intonation for a particular tag.</p>
-<h3 id="section-14"><code>&lt;mark&gt;</code> - highlight marker</h3>
-<pre><code class="language-html">&lt;p&gt;The report found &lt;mark&gt;three critical errors&lt;/mark&gt; that need to be fixed.&lt;/p&gt;
-</code></pre>
-<p>Analogy: as if you took a yellow marker and highlighted a line in a paper text - not because it's &quot;important on its own,&quot; but because it's currently relevant (for example, a search result on the page).</p>
-<h3 id="section-15"><code>&lt;small&gt;</code> - small text (notes, disclaimers)</h3>
-<pre><code class="language-html">&lt;p&gt;Course price - 500,000 sum.&lt;/p&gt;
-&lt;p&gt;&lt;small&gt;Price is valid at the time of publication and may change.&lt;/small&gt;&lt;/p&gt;
-</code></pre>
-<p>Used for footnotes, copyright notices, legal disclaimers - things that are less important than the main text, but still need to be shown.</p>
-<hr>
-<h3 id="section-16">Common beginner mistakes</h3>
+<h2 id="section-12">Lists: <code>ul</code>, <code>ol</code>, <code>dl</code></h2>
+<p><strong>In simple terms:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Mistake</th>
-<th>How to fix</th>
+<th>List</th>
+<th>Analogy</th>
+<th>When</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Choosing <code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> or <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> by appearance alone</td>
-<td>Use <code>strong</code> for importance, <code>em</code> for stress emphasis, and <code>b</code> or <code>i</code> for their own semantic purposes.</td>
+<td><code>&lt;ul&gt;</code></td>
+<td>A shopping list</td>
+<td>Order does not matter</td>
 </tr>
 <tr>
-<td>Wrapping an entire paragraph in <code>&lt;strong&gt;</code></td>
-<td>Only highlight genuinely important words/phrases, not all the text</td>
+<td><code>&lt;ol&gt;</code></td>
+<td>A recipe</td>
+<td>Order matters</td>
 </tr>
 <tr>
-<td>Using <code>&lt;mark&gt;</code> instead of <code>&lt;strong&gt;</code> for general importance highlighting</td>
-<td><code>&lt;mark&gt;</code> is &quot;relevance highlighting&quot; (e.g., a search match), not general text importance</td>
+<td><code>&lt;dl&gt;</code></td>
+<td>A dictionary</td>
+<td>A term and its description</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="section-17">Lists: ul, ol, dl</h2>
-<h3 id="section-18"><code>&lt;ul&gt;</code> - unordered list</h3>
-<p>Used when the order of elements doesn't matter.</p>
 <pre><code class="language-html">&lt;ul&gt;
-    &lt;li&gt;HTML - structure&lt;/li&gt;
-    &lt;li&gt;CSS - styling&lt;/li&gt;
-    &lt;li&gt;JavaScript - behavior&lt;/li&gt;
+    &lt;li&gt;Notebook&lt;/li&gt;
+    &lt;li&gt;Pen&lt;/li&gt;
 &lt;/ul&gt;
-</code></pre>
-<p>Each list item is wrapped in an <code>&lt;li&gt;</code> (list item) tag - and <code>&lt;li&gt;</code> can only appear inside <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code>, it cannot be used on its own.</p>
-<h3 id="section-19"><code>&lt;ol&gt;</code> - ordered list</h3>
-<p>Used when order matters - for example, step-by-step instructions.</p>
-<pre><code class="language-html">&lt;ol&gt;
+
+&lt;ol&gt;
     &lt;li&gt;Open VS Code&lt;/li&gt;
-    &lt;li&gt;Create the file index.html&lt;/li&gt;
-    &lt;li&gt;Write the document structure&lt;/li&gt;
+    &lt;li&gt;Create index.html&lt;/li&gt;
     &lt;li&gt;Save and open in the browser&lt;/li&gt;
 &lt;/ol&gt;
-</code></pre>
-<p><strong>Analogy:</strong> <code>&lt;ul&gt;</code> is a shopping list (it doesn't matter which order you put milk and bread in the cart), while <code>&lt;ol&gt;</code> is a recipe (you can't &quot;mix the ingredients&quot; before &quot;chopping them&quot; if the recipe requires a different order).</p>
-<h3 id="section-20"><code>&lt;dl&gt;</code> - description list</h3>
-<p>Used for &quot;term - definition&quot; pairs, for example, a glossary.</p>
-<pre><code class="language-html">&lt;dl&gt;
-    &lt;dt&gt;HTML&lt;/dt&gt;
-    &lt;dd&gt;A markup language for creating the structure of web pages&lt;/dd&gt;
 
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;The page markup language&lt;/dd&gt;
     &lt;dt&gt;CSS&lt;/dt&gt;
-    &lt;dd&gt;A style language for styling the appearance of pages&lt;/dd&gt;
+    &lt;dd&gt;The styling language&lt;/dd&gt;
 &lt;/dl&gt;
 </code></pre>
-<p>Here <code>&lt;dt&gt;</code> (definition term) is the term, and <code>&lt;dd&gt;</code> (definition description) is its definition. A single <code>&lt;dt&gt;</code> can have multiple <code>&lt;dd&gt;</code>s.</p>
-<h3 id="section-21">Nested lists</h3>
-<p>Lists can be nested inside each other - for example, sub-items within an item:</p>
+<p><strong>What you will see:</strong> bullets before the <code>ul</code> items, numbers 1-2-3 for <code>ol</code>, <code>dt</code> terms and indented <code>dd</code> descriptions.</p>
+<p>Each <code>ul</code> and <code>ol</code> item is an <code>&lt;li&gt;</code>. It lives <strong>only</strong> inside <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code>.</p>
+<h3 id="section-13">Nested list</h3>
+<p>A nested list goes <strong>inside</strong> an <code>&lt;li&gt;</code>, before <code>&lt;/li&gt;</code>:</p>
 <pre><code class="language-html">&lt;ul&gt;
     &lt;li&gt;Frontend
         &lt;ul&gt;
             &lt;li&gt;HTML&lt;/li&gt;
             &lt;li&gt;CSS&lt;/li&gt;
-            &lt;li&gt;JavaScript&lt;/li&gt;
         &lt;/ul&gt;
     &lt;/li&gt;
-    &lt;li&gt;Backend
-        &lt;ul&gt;
-            &lt;li&gt;PHP&lt;/li&gt;
-            &lt;li&gt;MySQL&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/li&gt;
+    &lt;li&gt;Backend&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
-<p>Notice: the nested <code>&lt;ul&gt;</code> is <strong>inside</strong> the parent list's <code>&lt;li&gt;</code> tag, not after it.</p>
-<hr>
-<h3 id="section-22">Common beginner mistakes</h3>
+<h3 id="section-14">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -225,129 +294,160 @@
 </thead>
 <tbody>
 <tr>
-<td>Using <code>&lt;li&gt;</code> without a <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> wrapper</td>
-<td><code>&lt;li&gt;</code> must always be inside <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code></td>
+<td><code>&lt;li&gt;</code> without <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code></td>
+<td>Wrap it in a list</td>
 </tr>
 <tr>
-<td>Using <code>&lt;ol&gt;</code> where order doesn't matter (e.g., a shopping list)</td>
-<td>Use <code>&lt;ol&gt;</code> for ordered, <code>&lt;ul&gt;</code> for arbitrary sets</td>
+<td><code>&lt;ol&gt;</code> for a shopping list</td>
+<td>Order doesn't matter - <code>&lt;ul&gt;</code></td>
 </tr>
 <tr>
-<td>Placing a list after <code>&lt;li&gt;</code> instead of inside it</td>
-<td>Nested lists must be inside the <code>&lt;li&gt;</code> tag, before its <code>&lt;/li&gt;</code> closing</td>
+<td>A nested list after <code>&lt;/li&gt;</code></td>
+<td>Put it inside the <code>&lt;li&gt;</code></td>
 </tr>
 <tr>
-<td>Forgetting to close each <code>&lt;li&gt;</code></td>
-<td>Each list item is a paired tag, don't forget <code>&lt;/li&gt;</code></td>
+<td>Text directly inside <code>&lt;ul&gt;</code> without <code>&lt;li&gt;</code></td>
+<td>Every item is an <code>&lt;li&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-23">Mini-assignment</h2>
-<p>Build a three-step ordered list for &quot;How to make tea&quot; on your own, without peeking at the examples above.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-html">&lt;ol&gt;
-    &lt;li&gt;Boil water&lt;/li&gt;
-    &lt;li&gt;Put a tea bag in the cup&lt;/li&gt;
-    &lt;li&gt;Pour boiling water and wait 3 minutes&lt;/li&gt;
-&lt;/ol&gt;
+<h2 id="section-15">Quotes, code and special characters</h2>
+<h3 id="section-16"><code>&lt;blockquote&gt;</code> - a quote</h3>
+<pre><code class="language-html">&lt;blockquote&gt;
+    &lt;p&gt;The best way to learn is to start doing.&lt;/p&gt;
+&lt;/blockquote&gt;
 </code></pre>
+<p><strong>What you will see:</strong> a paragraph indented from the left.</p>
+<h3 id="section-17"><code>&lt;code&gt;</code> - a piece of code</h3>
+<pre><code class="language-html">&lt;p&gt;A paragraph is created with the &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; tag.&lt;/p&gt;
+</code></pre>
+<p><strong>What you will see:</strong> &quot;A paragraph is created with the <code>&lt;p&gt;</code> tag.&quot; - the tag is shown in a monospace font.</p>
+<h3 id="section-18">Special characters (HTML entities)</h3>
+<p>Why <code>&amp;lt;p&amp;gt;</code> in the example above and not <code>&lt;p&gt;</code>? If you write <code>&lt;p&gt;</code>, the browser thinks it is a real tag. To <strong>show</strong> angle brackets, you replace them with entities:</p>
+<table>
+<thead>
+<tr>
+<th>We write</th>
+<th>We see</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;lt;</code></td>
+<td><code>&lt;</code></td>
+<td>&quot;Less than&quot; or the start of a tag</td>
+</tr>
+<tr>
+<td><code>&amp;gt;</code></td>
+<td><code>&gt;</code></td>
+<td>&quot;Greater than&quot; or the end of a tag</td>
+</tr>
+<tr>
+<td><code>&amp;amp;</code></td>
+<td><code>&amp;</code></td>
+<td>An ampersand</td>
+</tr>
+<tr>
+<td><code>&amp;copy;</code></td>
+<td>©</td>
+<td>The copyright sign in a footer</td>
+</tr>
+<tr>
+<td><code>&amp;nbsp;</code></td>
+<td>non-breaking space</td>
+<td>Keep &quot;10 km&quot; together</td>
+</tr>
+</tbody>
+</table>
 <hr>
-<h2 id="section-24">Semantic tags: header, nav, main, section, article, aside, footer</h2>
-<p><strong>In simple terms:</strong> so far we've talked about text inside a page. Now let's talk about how to break the <strong>page itself</strong> into meaningful major blocks - like rooms in a house have different purposes (kitchen, bedroom, living room) rather than being one large shapeless space.</p>
-<p>Previously (and still in many old projects), web pages were built with endless <code>&lt;div&gt;</code> tags with no semantic meaning - this is called <strong>&quot;&lt;div&gt; soup&quot;</strong>: <code>&lt;div class=&quot;header&quot;&gt;&lt;div class=&quot;nav&quot;&gt;...</code>. The problem is that <code>&lt;div&gt;</code> is a &quot;faceless box&quot; - the browser and screen reader don't understand what's inside: whether it's navigation, or the site footer, or the main content.</p>
-<p><strong>Semantic tags solve this problem</strong> - they are named so that the tag's name makes the block's purpose clear.</p>
-<h3 id="section-25"><code>&lt;header&gt;</code> - page or section header</h3>
-<pre><code class="language-html">&lt;header&gt;
-    &lt;h1&gt;My travel blog&lt;/h1&gt;
-    &lt;p&gt;Notes from around the world&lt;/p&gt;
-&lt;/header&gt;
-</code></pre>
-<p>Usually contains a logo, site name, sometimes navigation.</p>
-<p><strong>Preview:</strong> links (<code>&lt;a&gt;</code>) in the following examples are explained in lesson 3. Here we study the purpose of <code>nav</code>, not link syntax; the independent task does not require links.</p>
-<h3 id="section-26"><code>&lt;nav&gt;</code> - navigation</h3>
-<pre><code class="language-html">&lt;nav&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/nav&gt;
-</code></pre>
-<p><em>(We'll discuss the <code>&lt;a&gt;</code> tag and links in detail in lesson 3 - for now we're just using it as an illustrative menu example.)</em></p>
-<h3 id="section-27"><code>&lt;main&gt;</code> - main page content</h3>
-<pre><code class="language-html">&lt;main&gt;
-    &lt;h2&gt;Recent posts&lt;/h2&gt;
-    &lt;p&gt;This is the main content of the page...&lt;/p&gt;
-&lt;/main&gt;
-</code></pre>
-<p><strong>Important rule:</strong> there must be <strong>only one</strong> <code>&lt;main&gt;</code> on a page - it is the content the user came to the page for (without the header, menu, and footer).</p>
-<h3 id="section-28"><code>&lt;section&gt;</code> - thematic section</h3>
-<pre><code class="language-html">&lt;section&gt;
-    &lt;h2&gt;About the course&lt;/h2&gt;
-    &lt;p&gt;This course will help you learn web design from scratch...&lt;/p&gt;
-&lt;/section&gt;
-</code></pre>
-<p>Used to group content united by a single topic - usually <code>&lt;section&gt;</code> has its own heading.</p>
-<h3 id="section-29"><code>&lt;article&gt;</code> - standalone, independent content</h3>
-<pre><code class="language-html">&lt;article&gt;
-    &lt;h2&gt;How I learned to code&lt;/h2&gt;
-    &lt;p&gt;Three years ago I decided to try...&lt;/p&gt;
-&lt;/article&gt;
-</code></pre>
-<p><strong>How to distinguish <code>&lt;article&gt;</code> from <code>&lt;section&gt;</code>:</strong> &quot;can this block make sense on its own, outside the context of the rest of the page, for example, if you extracted it and published it separately?&quot; A blog post, a news item, a user comment - that's <code>&lt;article&gt;</code>. An &quot;About us&quot; on the homepage that doesn't make sense without the rest of the site - that's <code>&lt;section&gt;</code>.</p>
-<h3 id="section-30"><code>&lt;aside&gt;</code> - additional, secondary information</h3>
-<pre><code class="language-html">&lt;aside&gt;
-    &lt;h2&gt;Related articles&lt;/h2&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;CSS Basics&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Introduction to JavaScript&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/aside&gt;
-</code></pre>
-<p>Analogy: like a sidebar in a newspaper with &quot;also read&quot; - interesting, but not the main content of the article.</p>
-<h3 id="section-31"><code>&lt;footer&gt;</code> - page or section footer</h3>
-<pre><code class="language-html">&lt;footer&gt;
-    &lt;p&gt;&lt;small&gt;&amp;copy; 2026 My blog. All rights reserved.&lt;/small&gt;&lt;/p&gt;
-&lt;/footer&gt;
-</code></pre>
-<p>Usually contains copyright, contact information, social media links.</p>
-<h3 id="section-32">Putting it all together</h3>
+<h2 id="section-19">Mini-task 1</h2>
+<p>Without looking, build a numbered list of three steps for &quot;How to make tea&quot;. The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-20">Part B. Page</h2>
+<h2 id="section-21">Semantic blocks</h2>
+<p><strong>In simple terms:</strong> a house has a hallway, a living room, a kitchen, a storeroom. Each room has its own purpose. A page is also divided into &quot;rooms&quot; - <strong>semantic blocks</strong>.</p>
+<p>Pages used to be built from identical <code>&lt;div&gt;</code> elements - &quot;faceless boxes&quot;. This is called &quot;div soup&quot;: neither the browser nor a screen reader knows where the menu is and where the footer is. Semantic tags name a block by its meaning.</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Room</th>
+<th>What goes inside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>Hallway</td>
+<td>Site name, logo, sometimes the menu</td>
+</tr>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>Signposts on the walls</td>
+<td>The main menu, a table of contents</td>
+</tr>
+<tr>
+<td><code>&lt;main&gt;</code></td>
+<td>Living room</td>
+<td>The main content. <strong>One</strong> per page</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code></td>
+<td>An area in a room</td>
+<td>A section on one topic, usually with a heading</td>
+</tr>
+<tr>
+<td><code>&lt;article&gt;</code></td>
+<td>A book on a shelf</td>
+<td>Stand-alone material: news, a post, a review</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>A side table</td>
+<td>Extra content: &quot;Related articles&quot;</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>The storeroom by the exit</td>
+<td>Copyright, contacts</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>section</code> or <code>article</code>?</strong> Ask yourself: &quot;Would this block make sense if I cut it out and published it separately?&quot; Yes - it's an <code>&lt;article&gt;</code> (news, a post). No - it's a <code>&lt;section&gt;</code> (an &quot;About us&quot; section on a home page).</p>
+<p><strong>And <code>&lt;div&gt;</code>?</strong> It stays for cases where no meaningful tag fits, such as a wrapper for styling.</p>
+<h3 id="section-22">Building a page</h3>
 <pre><code class="language-html">&lt;body&gt;
     &lt;header&gt;
-        &lt;h1&gt;My travel blog&lt;/h1&gt;
+        &lt;h1&gt;Travel blog&lt;/h1&gt;
         &lt;nav&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
+            &lt;!-- menu: we learn links in lesson 3 --&gt;
         &lt;/nav&gt;
     &lt;/header&gt;
 
     &lt;main&gt;
         &lt;article&gt;
-            &lt;h2&gt;Trip to Samarkand&lt;/h2&gt;
-            &lt;p&gt;Last month I visited Samarkand...&lt;/p&gt;
+            &lt;h2&gt;A trip to Samarkand&lt;/h2&gt;
+            &lt;p&gt;Last month I visited Samarkand.&lt;/p&gt;
         &lt;/article&gt;
 
         &lt;aside&gt;
             &lt;h2&gt;Related posts&lt;/h2&gt;
             &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Trip to Bukhara&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;A trip to Bukhara&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/aside&gt;
     &lt;/main&gt;
 
     &lt;footer&gt;
-        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 My blog.&lt;/small&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Travel blog&lt;/small&gt;&lt;/p&gt;
     &lt;/footer&gt;
 &lt;/body&gt;
 </code></pre>
-<p>Notice the structure: <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> are on the outside, <code>&lt;main&gt;</code> is the only one on the page and contains the main content, <code>&lt;article&gt;</code> and <code>&lt;aside&gt;</code> are inside <code>&lt;main&gt;</code>.</p>
-<p><strong>Important:</strong> semantic tags are <strong>not a complete replacement</strong> for <code>&lt;div&gt;</code>. <code>&lt;div&gt;</code> is still used when no semantic value fits the block (for example, just a wrapper for CSS styling). But if a block has a clear semantic purpose - prefer the semantic tag.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-2-2.svg" alt="Diagram 2: Text and semantics"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-2-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Arrows show one possible nesting arrangement, not a mandatory template. Header, main and footer are siblings; article and aside are inside main in this example.</p>
-<hr>
-<h3 id="section-33">Common beginner mistakes</h3>
+<p><strong>What you will see:</strong> on screen, just plain text from top to bottom. Blocks are invisible until there is CSS. But open DevTools → Elements and the page structure is visible right away.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-2-2.svg" alt="Diagram 2: Text and semantics"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-2-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Arrows show the nesting in the example. <code>header</code>, <code>main</code> and <code>footer</code> are siblings inside <code>body</code>. <code>article</code> and <code>aside</code> are siblings inside <code>main</code>. Links in <code>nav</code> will appear in lesson 3.</p>
+<h3 id="section-23">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -357,58 +457,170 @@
 </thead>
 <tbody>
 <tr>
-<td>Using multiple <code>&lt;main&gt;</code> on a single page</td>
-<td><code>&lt;main&gt;</code> - only one per page</td>
+<td>Two <code>&lt;main&gt;</code> elements on a page</td>
+<td>Only one</td>
 </tr>
 <tr>
-<td>Wrapping clearly header/footer/navigation content in <code>&lt;div&gt;</code></td>
-<td>Use <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code> - they carry meaning for browsers and screen readers</td>
+<td><code>&lt;div class=&quot;header&quot;&gt;</code> instead of <code>&lt;header&gt;</code></td>
+<td>If a meaningful tag exists, use it</td>
 </tr>
 <tr>
-<td>Confusing <code>&lt;section&gt;</code> and <code>&lt;article&gt;</code></td>
-<td><code>&lt;article&gt;</code> is a self-contained composition; <code>&lt;section&gt;</code> is a thematic grouping, usually with a heading. Use <code>&lt;div&gt;</code> for a generic wrapper without that meaning.</td>
+<td>The site header inside <code>&lt;main&gt;</code></td>
+<td>The site header goes outside <code>main</code></td>
 </tr>
 <tr>
-<td>Treating every set of links as <code>&lt;nav&gt;</code></td>
-<td><code>&lt;nav&gt;</code> marks a significant navigation block, such as a site menu or an article’s table of contents. Not every link belongs in <code>&lt;nav&gt;</code>.</td>
+<td>A <code>&lt;section&gt;</code> without a heading</td>
+<td>Give it an <code>h2</code> or use a <code>div</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-34">Lesson summary</h2>
-<p>Today you learned:</p>
+<h2 id="section-24">Mini-task 2</h2>
+<p>Mark up a club page with blocks: the club name in the header, two sections in the main part (&quot;About the club&quot;, &quot;Schedule&quot;), copyright in the footer. The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-25">Lesson summary: cheat sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main topic of the page</td>
+<td><code>&lt;h1&gt;</code> - one</td>
+</tr>
+<tr>
+<td>Sections and subsections</td>
+<td><code>&lt;h2&gt;</code> → <code>&lt;h3&gt;</code> in order</td>
+</tr>
+<tr>
+<td>Paragraph / line break / change of topic</td>
+<td><code>&lt;p&gt;</code> / <code>&lt;br&gt;</code> / <code>&lt;hr&gt;</code></td>
+</tr>
+<tr>
+<td>Important / stress / highlight / note</td>
+<td><code>&lt;strong&gt;</code> / <code>&lt;em&gt;</code> / <code>&lt;mark&gt;</code> / <code>&lt;small&gt;</code></td>
+</tr>
+<tr>
+<td>Unordered / ordered / terms</td>
+<td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> / <code>&lt;dl&gt;</code></td>
+</tr>
+<tr>
+<td>Quote / code</td>
+<td><code>&lt;blockquote&gt;</code> / <code>&lt;code&gt;</code></td>
+</tr>
+<tr>
+<td>Show <code>&lt;</code> and ©</td>
+<td><code>&amp;lt;</code> and <code>&amp;copy;</code></td>
+</tr>
+<tr>
+<td>Header / menu / main / footer</td>
+<td><code>&lt;header&gt;</code> / <code>&lt;nav&gt;</code> / <code>&lt;main&gt;</code> / <code>&lt;footer&gt;</code></td>
+</tr>
+<tr>
+<td>Section / stand-alone material / extra</td>
+<td><code>&lt;section&gt;</code> / <code>&lt;article&gt;</code> / <code>&lt;aside&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-26">Independent work</h2>
+<h3 id="section-27">Part 1. IDE task (counted by the platform)</h3>
+<p>Make a <strong>guide</strong> on a familiar topic: getting ready for a trip, caring for a plant, organising a study day.</p>
+<ol>
+<li>A full document: DOCTYPE, <code>lang</code>, UTF-8, tab name.</li>
+<li>A <code>&lt;header&gt;</code> with one <code>&lt;h1&gt;</code> - the topic of the guide.</li>
+<li>One <code>&lt;main&gt;</code> with two <code>&lt;section&gt;</code> elements inside, each with an <code>&lt;h2&gt;</code>:
 <ul>
-<li>Headings <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> build the page's meaning hierarchy - like a book's table of contents, with a single <code>&lt;h1&gt;</code> and no level &quot;skipping.&quot;</li>
-<li><code>&lt;p&gt;</code> is a paragraph, <code>&lt;br&gt;</code> is a line break within a paragraph, <code>&lt;hr&gt;</code> is a thematic break.</li>
-<li><code>&lt;strong&gt;</code> conveys importance and <code>&lt;em&gt;</code> stress emphasis. <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> also have semantic purposes and are not obsolete.</li>
-<li>Three types of lists: <code>&lt;ul&gt;</code> (order doesn't matter), <code>&lt;ol&gt;</code> (order matters), <code>&lt;dl&gt;</code> (term - definition).</li>
-<li>Semantic tags (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>) replace &quot;&lt;div&gt; soup&quot; and make the page structure understandable to browsers, search engines, and screen readers.</li>
+<li>the first section - a list of things you need (<code>&lt;ul&gt;</code>);</li>
+<li>the second - the order of actions (<code>&lt;ol&gt;</code>).</li>
+</ul>
+</li>
+<li>In one of the paragraphs, mark something important with <code>&lt;strong&gt;</code>.</li>
+<li>A <code>&lt;footer&gt;</code> with a note in <code>&lt;small&gt;</code>.</li>
+</ol>
+<p>Don't use links, images or <code>&lt;div&gt;</code> in this task.</p>
+<p>What the platform checks: the document skeleton, <code>header</code>, <code>main</code>, <code>footer</code>, two <code>section</code> elements, one <code>h1</code>, at least two <code>h2</code>, <code>ul</code>, <code>ol</code>, at least five <code>li</code>, <code>strong</code>, <code>small</code>, and no <code>&lt;div&gt;</code> or <code>&lt;br&gt;&lt;br&gt;</code>.</p>
+<h3 id="section-28">Part 2. Project on your computer</h3>
+<p>Save the guide as <code>guide.html</code> in your <code>my-html-site</code> folder. Open it in the browser and in DevTools. Explain out loud why each block uses the tag it does.</p>
+<h3 id="section-29">Acceptance criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The IDE task is accepted.</label></li>
+<li class="check"><label><input type="checkbox"> One <code>&lt;h1&gt;</code> and two <code>&lt;h2&gt;</code>; levels follow the structure.</label></li>
+<li class="check"><label><input type="checkbox"> One <code>&lt;main&gt;</code>; each <code>&lt;section&gt;</code> starts with a heading.</label></li>
+<li class="check"><label><input type="checkbox"> <code>&lt;ul&gt;</code> where order doesn't matter, <code>&lt;ol&gt;</code> where it does.</label></li>
+<li class="check"><label><input type="checkbox"> Every item is an <code>&lt;li&gt;</code> inside a list.</label></li>
+<li class="check"><label><input type="checkbox"> <code>&lt;strong&gt;</code> marks only what is truly important.</label></li>
+<li class="check"><label><input type="checkbox"> You can explain your choice for every block.</label></li>
 </ul>
 <hr>
-<h2 id="section-35">Independent task: a useful guide</h2>
-<p>Create <code>guide.html</code> about something you know: preparing for a trip, caring for a plant or planning a study day. Use only lessons 1–2. Links, images, tables and forms are not required yet.</p>
+<h2 id="section-30">Self-check questions</h2>
 <ol>
-<li>Build a complete document with its language, UTF-8 and a meaningful tab title.</li>
-<li>Add <code>header</code>, one <code>main</code> and <code>footer</code>. Inside <code>main</code>, create two thematic sections with second-level headings.</li>
-<li>Put an unordered list of necessary items in one section and a sequence of steps in the other.</li>
-<li>Add a paragraph with meaningful <code>strong</code> or <code>em</code>; place a note in <code>small</code> in the footer.</li>
-<li>Compare the editor structure with DevTools. Explain why you chose each semantic element.</li>
+<li>How many <code>&lt;h1&gt;</code> elements should a page have by the course rules?</li>
+<li>Why can't you put <code>&lt;h4&gt;</code> right after <code>&lt;h2&gt;</code>?</li>
+<li>How is <code>&lt;br&gt;</code> different from a new <code>&lt;p&gt;</code>?</li>
+<li>How is <code>&lt;strong&gt;</code> different from <code>&lt;b&gt;</code>?</li>
+<li>When do you need <code>&lt;ol&gt;</code>, and when <code>&lt;ul&gt;</code>?</li>
+<li>Where does a nested list go?</li>
+<li>How do you show the text <code>&lt;p&gt;</code> on a page so the browser doesn't treat it as a tag?</li>
+<li>How is <code>&lt;article&gt;</code> different from <code>&lt;section&gt;</code>?</li>
+<li>How many <code>&lt;main&gt;</code> elements can a page have?</li>
+<li>When do you still need <code>&lt;div&gt;</code>?</li>
 </ol>
-<h3 id="section-36">Completion criteria</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> There is one main <code>&lt;h1&gt;</code> and two <code>&lt;h2&gt;</code> headings; levels follow structure, not text size.</label></li>
-<li class="check"><label><input type="checkbox"> There is one <code>main</code>; sections group related content and have headings.</label></li>
-<li class="check"><label><input type="checkbox"> Order matters in <code>ol</code>, not in <code>ul</code>; each item is an <code>li</code>.</label></li>
-<li class="check"><label><input type="checkbox"> Elements are correctly nested and the semantic emphasis can be explained.</label></li>
-<li class="check"><label><input type="checkbox"> The page opens and is readable; no later-lesson features are required.</label></li>
-</ul>
-<h3 id="section-37">Check your understanding</h3>
+<p>After the questions, take the <strong>lesson test</strong> on the platform: 12 questions, 70% to pass.</p>
+<hr>
+<h2 id="section-31">What's next</h2>
+<p>The page has structure, but there is only one. In lesson 3 we will connect several pages with links, build a shared menu and learn to jump to a specific section.</p>
+<hr>
+<h2 id="section-32">Answers</h2>
+<p><strong>Review</strong></p>
 <ol>
-<li>When do you need <code>article</code>, <code>section</code> or a generic <code>div</code>?</li>
-<li>How does <code>strong</code> differ from <code>b</code>, and <code>em</code> from <code>i</code>?</li>
-<li>Why should you not use several <code>br</code> elements to space paragraphs?</li>
+<li>In <code>&lt;body&gt;</code>.</li>
+<li><code>&lt;title&gt;</code> is the tab name, <code>&lt;h1&gt;</code> is the heading on the page.</li>
+<li><code>&lt;/p&gt;</code>.</li>
 </ol>
-<p>Continue after all criteria pass. If you cannot explain a tag choice, revisit its purpose and revise your markup.</p>
+<p><strong>Mini-task 1</strong></p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Boil water&lt;/li&gt;
+    &lt;li&gt;Put tea in a cup&lt;/li&gt;
+    &lt;li&gt;Pour boiling water and wait 3 minutes&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<p><strong>Mini-task 2</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Web development club&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;About the club&lt;/h2&gt;
+            &lt;p&gt;We learn to build websites from scratch.&lt;/p&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Schedule&lt;/h2&gt;
+            &lt;p&gt;Every Wednesday at 15:00.&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Web development club&lt;/small&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Self-check questions</strong></p>
+<ol>
+<li>One.</li>
+<li>Skipping a level confuses the table of contents: where is the <code>h3</code> subsection?</li>
+<li><code>&lt;br&gt;</code> breaks the line inside the same paragraph, <code>&lt;p&gt;</code> starts a new thought.</li>
+<li><code>&lt;strong&gt;</code> means importance, <code>&lt;b&gt;</code> draws attention without importance.</li>
+<li><code>&lt;ol&gt;</code> - order matters (instructions), <code>&lt;ul&gt;</code> - it doesn't (shopping).</li>
+<li>Inside the <code>&lt;li&gt;</code>, before <code>&lt;/li&gt;</code>.</li>
+<li>With entities: <code>&amp;lt;p&amp;gt;</code>.</li>
+<li>An <code>&lt;article&gt;</code> makes sense on its own, a <code>&lt;section&gt;</code> is part of the page.</li>
+<li>One.</li>
+<li>When no meaningful tag fits, for example a wrapper for styling.</li>
+</ol>
 <hr>
 <p><a href="index.html">Contents</a> · <a href="en-lesson-1.html">← Back</a> · <a href="en-lesson-3.html">Next →</a> · <a href="ru-lesson-2.html">RU</a> · <a href="en-lesson-2.html">EN</a> · <a href="uz-lesson-2.html">UZ</a> · <a href="../Lesson-2/practice.html">Practice</a></p>
 </article></main><footer><a href="../Lesson-2/en/Text%20and%20semantics.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

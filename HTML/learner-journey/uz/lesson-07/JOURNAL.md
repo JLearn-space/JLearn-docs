@@ -1,6 +1,6 @@
 ## 7-dars
 
-**Manba:** `Lesson-7/uz/Formatlar qism-2.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
+**Manba:** `Lesson-7/uz/Formalar qism-2.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
 
 **Yaratilgan fayllar:** `index.html`, `mini.html`.
 

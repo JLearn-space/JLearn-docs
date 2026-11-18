@@ -1,0 +1,256 @@
+{
+  "lesson": 8,
+  "language": "uz",
+  "lesson_title": "Foydalanish qulayligi (a11y)",
+  "task": {
+    "title": "Anketani tuzating: 6 ta qulaylik xatosi",
+    "language": "html",
+    "description": "Boshlang‘ich kodda oltita qulaylik xatosi bor. Tuzating: div role=\"button\" ni button type=\"submit\" ga; pochta imzosini label for orqali; belgi-havolaga aria-label; musbat tabindex ni olib tashlang; #main havolasi va main da id=\"main\" qo‘shing; «Ko‘p beriladigan savollar» ni details va summary orqali.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                Pochta\n                <input type=\"email\" id=\"email\" name=\"email\" tabindex=\"3\" required>\n            </p>\n            <div role=\"button\">Yuborish</div>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <p><strong>Qatnashish qancha turadi?</strong></p>\n        <p>Qatnashish bepul.</p>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "href=\"#main\"",
+        "id=\"main\"",
+        "<details",
+        "<summary"
+      ],
+      "forbidden": [
+        "role=\"button\"",
+        "tabindex=\"1\"",
+        "tabindex=\"2\"",
+        "tabindex=\"3\"",
+        "tabindex=\"4\"",
+        "tabindex=\"5\""
+      ],
+      "tags": {
+        "label": 2,
+        "details": 1,
+        "summary": 1
+      },
+      "for_id_pairs": true,
+      "button_submit": true,
+      "empty_link_a11y": true,
+      "href_targets": [
+        "#main"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Tugma: <button type=\"submit\">Yuborish</button>.",
+      "Pochta imzosi: <label for=\"email\">Pochta</label>.",
+      "Belgi-havola: <a href=\"...\" aria-label=\"Telegram kanalimiz\">.",
+      "Musbat tabindex ni butunlay o‘chiring.",
+      "body ning birinchi qatori: <a href=\"#main\">Asosiy mazmunga o‘tish</a>, main da esa - id=\"main\".",
+      "Savol-javob: <details><summary>Savol</summary><p>Javob</p></details>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "div-tugma qolgan",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <div role=\"button\">Yuborish</div>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "pochta imzosi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                Pochta\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "nomsiz belgi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "musbat tabindex",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" tabindex=\"2\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "o‘tkazib yuborish havolasi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "main da id yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "details yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"submit\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <p>Qatnashish bepul.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "type submit siz button",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <a href=\"https://t.me/example\" aria-label=\"Telegram kanalimiz\">\n            <img src=\"images/telegram.svg\" alt=\"\" width=\"24\">\n        </a>\n    </header>\n    <main id=\"main\">\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" required>\n            </p>\n            <p>\n                <button type=\"button\">Yuborish</button>\n            </p>\n        </form>\n        <h2>Ko‘p beriladigan savollar</h2>\n        <details>\n            <summary>Qatnashish qancha turadi?</summary>\n            <p>Qatnashish bepul.</p>\n        </details>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "a11y dagi «11» nimani bildiradi?",
+        "options": [
+          "Standart raqami",
+          "accessibility so‘zida a va y orasidagi harflar soni",
+          "HTML versiyasi",
+          "Qoidalar soni"
+        ],
+        "answer": 1,
+        "explanation": "a-ccessibilit-y: a va y orasida 11 ta harf."
+      },
+      {
+        "type": "single",
+        "question": "Yuborish tugmasi uchun nima yaxshiroq?",
+        "options": [
+          "<div role=\"button\">",
+          "<button type=\"submit\">",
+          "<span onclick>",
+          "<a href=\"#\">"
+        ],
+        "answer": 1,
+        "explanation": "Tabiiy tugma allaqachon fokuslanadi, Enter va Space ga javob beradi va formani yuboradi."
+      },
+      {
+        "type": "single",
+        "question": "WCAG bo‘yicha oddiy matnga qanday minimal kontrast kerak?",
+        "options": [
+          "2:1",
+          "3:1",
+          "4.5:1",
+          "10:1"
+        ],
+        "answer": 2,
+        "explanation": "Oddiy matn uchun 4.5:1, yirik matn uchun 3:1."
+      },
+      {
+        "type": "single",
+        "question": "Nega tabindex=\"3\" yozib bo‘lmaydi?",
+        "options": [
+          "Bu sintaksis xatosi",
+          "Element Tab marshruti boshiga sug‘urib olinadi",
+          "Element ko‘rinmay qoladi",
+          "Brauzer uni e’tiborsiz qoldiradi"
+        ],
+        "answer": 1,
+        "explanation": "Musbat qiymatlar Tab ning tabiiy tartibini buzadi."
+      },
+      {
+        "type": "multiple",
+        "question": "Brauzer elementning qulay nomini qayerdan oladi?",
+        "options": [
+          "Tugma yoki havola ichidagi matn",
+          "Bog‘langan <label>",
+          "aria-label",
+          "class atributi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "class nomga ta’sir qilmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "aria-label haqida nima to‘g‘ri?",
+        "options": [
+          "Ko‘rinadigan matn bo‘lmaganda kerak",
+          "«Yuborish» matnli tugmada ortiqcha",
+          "<img> dagi alt ni almashtiradi",
+          "Belgi-havolaga nom beradi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Rasmlarda doim alt."
+      },
+      {
+        "type": "multiple",
+        "question": "tabindex=\"0\" <div> elementiga nimani qo‘shmaydi?",
+        "options": [
+          "Enter ga javob",
+          "Space ga javob",
+          "Tab marshrutiga tushish",
+          "Tugma roli"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "tabindex faqat fokus qo‘shadi."
+      },
+      {
+        "type": "matching",
+        "question": "tabindex qiymatini ta’siri bilan moslang.",
+        "pairs": [
+          [
+            "0",
+            "Tab marshrutiga qo‘shish"
+          ],
+          [
+            "-1",
+            "Marshrutdan olib tashlash, fokus faqat dasturiy"
+          ],
+          [
+            "3",
+            "Hech qachon ishlatmaslik"
+          ]
+        ],
+        "explanation": "Tab tartibini koddagi elementlar tartibi belgilaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Muammoni tuzatish bilan moslang.",
+        "pairs": [
+          [
+            "Nomsiz belgi-havola",
+            "Havolada aria-label"
+          ],
+          [
+            "Har bir sahifada uzun menyu",
+            "«Asosiy mazmunga o‘tish» havolasi"
+          ],
+          [
+            "Xato faqat qizil bilan ko‘rsatilgan",
+            "«Xato:» matnini qo‘shish"
+          ],
+          [
+            "div va ARIA dan savol-javob",
+            "<details> va <summary>"
+          ]
+        ],
+        "explanation": "Avval tabiiy HTML, ARIA - teg yetmaganda."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi tugma fokusni oldingi elementga o‘tkazadi? Kombinatsiyani kiriting.",
+        "answers": [
+          "Shift+Tab",
+          "shift + tab",
+          "shift+tab"
+        ],
+        "case_sensitive": false,
+        "explanation": "Tab - oldinga, Shift+Tab - orqaga."
+      },
+      {
+        "type": "input",
+        "question": "Matnsiz «×» tugmasiga qaysi atribut nom beradi? Atribut nomini kiriting.",
+        "answers": [
+          "aria-label"
+        ],
+        "case_sensitive": false,
+        "explanation": "<button aria-label=\"Oynani yopish\">×</button>."
+      },
+      {
+        "type": "input",
+        "question": "<main> da id=\"main\" bo‘lsa, menyuni o‘tkazib yuborish havolasining href i qanday?",
+        "answers": [
+          "#main"
+        ],
+        "case_sensitive": false,
+        "explanation": "Sahifaning asosiy blokiga langar."
+      }
+    ]
+  }
+}

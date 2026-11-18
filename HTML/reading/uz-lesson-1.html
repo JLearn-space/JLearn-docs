@@ -1,127 +1,167 @@
-<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HTML ga kirish: hujjat tuzilishi · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxirida nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">HTML nima va u nima uchun kerak</a><a href="#section-5">Vositalar: VS Code va DevTools</a><a href="#section-8">Teg, atribut, element - farq nima</a><a href="#section-13">HTML-hujjatning tuzilishi</a><a href="#section-18">**Chizmani qanday o‘qish kerak:** HTML faylda DOCTYPE asosiy elementdan oldin keladi. html ichida head va body yonma-yon turadi; head xizmat ma’lumotini, body ko‘rinadigan mazmunni saqlaydi.</a><a href="#section-20">Mini-vazifa</a><a href="#section-21">Birinchi sahifani to&#x27;liq yig&#x27;amiz</a><a href="#section-23">Dars xulosalari</a><a href="#section-24">Mustaqil ish: tanishuv sahifasi</a></details></aside><article><h1 id="section-1">HTML ga kirish: hujjat tuzilishi</h1>
-<p><a href="index.html">Mundarija</a> · <a href="index.html">← Orqaga</a> · <a href="uz-lesson-2.html">Keyingi →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Amaliyot</a></p>
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HTML ga kirish hujjat tuzilishi · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Bu sizga nima uchun kerak</a><a href="#section-3">Nimani o‘rganasiz</a><a href="#section-4">Reja</a><a href="#section-5">HTML nima</a><a href="#section-6">Vositalar</a><a href="#section-9">Teg, atribut, element</a><a href="#section-14">HTML-hujjat skeleti</a><a href="#section-16">Mini-topshiriq 1</a><a href="#section-17">Birinchi sahifa</a><a href="#section-19">Mini-topshiriq 2</a><a href="#section-20">Dars yakuni: shpargalka</a><a href="#section-21">Mustaqil ish</a><a href="#section-25">O‘zini tekshirish uchun savollar</a><a href="#section-26">Keyin nima</a><a href="#section-27">Javoblar</a></details></aside><article><h1 id="section-1">HTML ga kirish hujjat tuzilishi</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-2.html">Keyingi →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Amaliyot</a></p>
 <blockquote>
-<p>bu kursning birinchi darsi - bugun biz asos qo'yamiz, bu asossiz hech qanday veb-sahifa yaratib bo'lmaydi.</p>
+<p><strong>Kursning birinchi darsi.</strong> Bugun birinchi veb-sahifangizni yaratasiz va uni brauzerda ochasiz. Dasturlashni bilish shart emas: papka yaratish va faylni saqlashni bilish kifoya.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">Dars oxirida nimani o'rganasiz</h2>
+<h2 id="section-2">Bu sizga nima uchun kerak</h2>
+<p>Istalgan saytni oching: yangiliklar, do‘kon, universitet sahifasi. Ularning har biri ortida HTML belgilashli oddiy matn fayli turadi. Brauzer bu faylni o‘qiydi va sahifaga aylantiradi.</p>
+<p>Bir soatdan keyin sizda ham shunday fayl bo‘ladi. Uni o‘zingiz yozasiz, brauzerda ochasiz va o‘z sahifangizni ko‘rasiz.</p>
+<hr>
+<h2 id="section-3">Nimani o‘rganasiz</h2>
 <ul>
-<li>HTML, teg, atribut va element nima ekanligini va ular qanday farq qilishini tushunish.</li>
-<li>Ish vositalarini o'rnatish va sozlash: VS Code va brauzer DevTools.</li>
-<li>Har qanday HTML-hujjatning tuzilishini tushunish: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</li>
-<li>Birinchi HTML-sahifangizni yaratish, saqlash va brauzerda ochish.</li>
-<li>Elementlar inspektoridan foydalanib, har qanday saytning &quot;ichki qismini&quot; ko'rish.</li>
+<li>HTML nima ekanini va u CSS hamda JavaScriptdan nimasi bilan farq qilishini tushuntirish.</li>
+<li>Teg, atribut va elementni farqlash.</li>
+<li>Har qanday HTML-hujjat skeletini yozish: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</li>
+<li><code>index.html</code> faylini yaratish, saqlash va brauzerda ochish.</li>
+<li>DevTools orqali istalgan saytning belgilashini ko‘rish.</li>
 </ul>
 <hr>
-<h2 id="section-3">Dars rejasi</h2>
+<h2 id="section-4">Reja</h2>
 <table>
 <thead>
 <tr>
 <th>Bo‘lim</th>
-<th>Mazmun</th>
+<th>Nima qilamiz</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>HTML nima va u nima uchun kerak</td>
-<td>Uy skeleti bilan taqqoslash, HTMLning vebdagi roli</td>
+<td>HTML nima</td>
+<td>Uy karkasi va uning bezagi</td>
 </tr>
 <tr>
-<td>Vositalarni o'rnatish</td>
-<td>VS Code, Live Server kengaytmasi, DevTools ko'rib chiqish</td>
+<td>Vositalar</td>
+<td>VS Code, Live Server, DevTools</td>
 </tr>
 <tr>
 <td>Teg, atribut, element</td>
-<td>Misollarda atamalarni tahlil qilish</td>
+<td>Posilka misolida</td>
 </tr>
 <tr>
-<td>HTML-hujjatning tuzilishi</td>
-<td>DOCTYPE, html, head, body - satrma-satr tahlil</td>
+<td>Hujjat skeleti</td>
+<td>DOCTYPE, html, head, body qatorma-qator</td>
 </tr>
 <tr>
-<td>Mini-vazifa</td>
-<td>Hujjat skeletini mustaqil yig'ish</td>
+<td>Mini-topshiriq 1</td>
+<td>Skeletni yordamsiz yig‘ish</td>
 </tr>
 <tr>
-<td>Birinchi sahifa to'liq</td>
-<td>Yozib brauzerda ochamiz</td>
+<td>Birinchi sahifa</td>
+<td>Yozamiz, saqlaymiz, ochamiz</td>
 </tr>
 <tr>
-<td>Xulosalar va amaliy vazifa</td>
-<td>Mustahkamlash, uy vazifasi</td>
+<td>Mini-topshiriq 2</td>
+<td>Sahifani o‘zgartirib natijani ko‘rish</td>
+</tr>
+<tr>
+<td>Mustaqil ish</td>
+<td>IDE topshirig‘i va tanishuv sahifasi</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4">HTML nima va u nima uchun kerak</h2>
-<p><strong>Oddiy qilib aytganda:</strong> tasavvur qiling, siz uy quryapsiz. Avval karkas quriladi - devorlar, pol, zinapoyalar. Karkasiz uy turib qolmaydi, hatto eng chiroyli mebel va bo'yoq bo'lsa ham.</p>
-<p><strong>HTML (HyperText Markup Language)</strong> mazmunning tuzilishi va ma'nosini ifodalaydi: sarlavhalar, abzatslar, ro'yxatlar va rasmlar. CSS ko'rinish va joylashuvni boshqaradi, JavaScript xatti-harakatlarni dasturlash imkonini beradi. Havolalar va shakllar JavaScriptsiz ham brauzerning tayyor imkoniyatlari orqali ishlaydi.</p>
-<p>Davomiy taqqoslash: agar HTML - uy karkasi bo'lsa, demak:</p>
-<ul>
-<li><strong>CSS</strong> - bu ichki dizayner: devorlarni bo'yaydi, mebelni joylashtiradi, parda tanlaydi.</li>
-<li><strong>JavaScript</strong> - bu elektr va avtomatika: chiroq qarsak bilan yonadi, eshiklar o'z-o'zidan ochiladi.</li>
-</ul>
-<p>Biz karkasdan boshlaymiz, chunki karkasiz dizayn va avtomatikaning ma'nosi bor - ularni osib qo'yadigan joy yo'q.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-1-1.svg" alt="Chizma 1: HTML ga kirish hujjat tuzilishi"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-1-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Markazdagi Veb tugunidan uch yo‘nalish chiqadi: HTML mazmun va tuzilishni, CSS ko‘rinishni, JavaScript dasturlangan harakatni boshqaradi. Shoxlar ishni bajarish ketma-ketligini emas, vazifalar taqsimotini ko‘rsatadi.</p>
-<p><strong>Darhol tushunish kerak:</strong> HTML - bu <strong>belgilash tili</strong>, dasturlash tili emas. Unda &quot;agar&quot; shartlari, sikllar, hisob-kitoblar yo'q. U faqat teglar yordamida hujjatning tuzilishini tasvirlaydi.</p>
+<h2 id="section-5">HTML nima</h2>
+<p><strong>Oddiy qilib aytganda:</strong> uy qurish uchun avval karkas qo‘yiladi: devorlar, qavatlar, zinalar. Karkassiz pardani ham, chiroqni ham ilib bo‘lmaydi.</p>
+<p><strong>HTML</strong> (HyperText Markup Language, gipermatn belgilash tili) - veb-sahifaning karkasi. U sahifada <strong>nima</strong> borligini tasvirlaydi: qayerda sarlavha, qayerda abzats, qayerda rasm.</p>
+<p>Karkasning ikki yordamchisi bor:</p>
+<table>
+<thead>
+<tr>
+<th>Texnologiya</th>
+<th>Uydagi roli</th>
+<th>Saytda nima qiladi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTML</strong></td>
+<td>Karkas</td>
+<td>Tuzilma va ma’no: sarlavhalar, abzatslar, ro‘yxatlar</td>
+</tr>
+<tr>
+<td><strong>CSS</strong></td>
+<td>Interyer dizayneri</td>
+<td>Ranglar, shriftlar, joylashuv</td>
+</tr>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>Elektr va avtomatika</td>
+<td>Xatti-harakat: bosishlarga javob, sahifani o‘zgartirish</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-1-1.svg" alt="Chizma 1: HTML ga kirish hujjat tuzilishi"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-1-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> Uchta shox - uchta turli vazifa. Bu kursda siz HTML yozasiz. CSS va JavaScript chegarani tushunishingiz uchun ko‘rsatilgan.</p>
+<p><strong>Muhim:</strong> HTML - <strong>belgilash tili</strong>, dasturlash tili emas. Unda shartlar, sikllar va hisob-kitoblar yo‘q. U faqat matnni belgilaydi: «bu sarlavha», «bu abzats».</p>
 <hr>
-<h2 id="section-5">Vositalar: VS Code va DevTools</h2>
-<p>HTML bilan ishlash uchun bizga ikki vosita kerak bo'ladi.</p>
-<h3 id="section-6">VS Code (Visual Studio Code)</h3>
-<p>Bu Microsoft tomonidan taqdim etilgan bepul kod muharriri. Uni rasmiy saytdan yuklab olish mumkin <a href="https://code.visualstudio.com">code.visualstudio.com</a> - Windows, macOS yoki Linux versiyasi avtomatik aniqlanadi.</p>
-<p>O'rnatgandan so'ng, bitta kengaytmani o'rnating - bu hayotni sezilarli darajada osonlashtiradi:</p>
+<h2 id="section-6">Vositalar</h2>
+<h3 id="section-7">VS Code - kod muharriri</h3>
 <ol>
-<li>VS Code oching.</li>
-<li>Chap tomondagi panelda &quot;Extensions&quot; (kvadratchalar) ikonasini toping.</li>
-<li>Qidiruvga <strong>Live Server</strong> kiriting.</li>
-<li>Ritwick Dey tomonidan yaratilgan kengaytma uchun &quot;Install&quot; tugmasini bosing.</li>
+<li>Bepul muharrirni <a href="https://code.visualstudio.com">code.visualstudio.com</a> saytidan yuklab oling.</li>
+<li>O‘rnating va oching.</li>
+<li>Chap tomonda <strong>Extensions</strong> belgisini bosing (to‘rtta kvadratcha).</li>
+<li><strong>Live Server</strong> (muallif Ritwick Dey) ni toping va <strong>Install</strong> ni bosing.</li>
 </ol>
-<p><strong>Live Server nima uchun kerak:</strong> unisiz, o'zgarishlarni brauzerda ko'rish uchun har safar sahifani qo'lda yangilashingiz kerak bo'ladi (F5). Live Server har saqlashda avtomatik ravishda buni amalga oshiradi - va sahifani <code>http://127.0.0.1:5500</code> kabi mahalliy manzilda ochadi.</p>
-<h3 id="section-7">DevTools (brauzerdagi dasturchi vositalari)</h3>
-<p>DevTools sahifa elementlarining joriy daraxtini (DOM) ko'rsatadi. U asl HTML fayldan farq qilishi mumkin: brauzer belgilashni tuzatadi, skriptlar esa uni o'zgartirishi mumkin.</p>
-<p><strong>Ochish:</strong> o'ng tugma → Inspect. Chromeda Ctrl+Shift+I (Windows/Linux) yoki Cmd+Option+I (macOS) ham ishlaydi. View Page Source — alohida buyruq.</p>
-<p>Hozir har qanday saytda DevTools oching va <strong>Elements</strong> (Chrome/Edge) yoki <strong>Инспектор</strong> (Firefox) yorlig'ini toping - u yerda sahifaning HTML-tuzilishini haqiqiy vaqtda ko'rasiz.</p>
-<p><strong>Mini-vazifa (2 daqiqa):</strong> sevimli saytingizda DevTools oching, Elements panelida <code>&lt;h1&gt;</code> tegini toping (odatda bu maqolaning sarlavhasi) va uning ustiga bosing - sahifada aynan shu element yoritilganini ko'rasiz.</p>
+<p><strong>Live Server nima uchun:</strong> u faylni har saqlaganingizda brauzerdagi sahifani o‘zi yangilaydi. Usiz F5 ni qo‘lda bosish kerak.</p>
+<p><strong>Foydali usul - Emmet.</strong> Bo‘sh <code>.html</code> faylida <code>!</code> yozib Tab ni bosing. VS Code hujjat skeletini o‘zi qo‘yadi. Lekin avval skeletni qo‘lda yozishni o‘rganing: IDE tekshiruvida yordamchi bo‘lmaydi.</p>
+<h3 id="section-8">DevTools - dasturchi vositalari</h3>
+<p>DevTools har bir brauzerga o‘rnatilgan. U ochiq sahifa qaysi elementlardan iboratligini ko‘rsatadi.</p>
+<p><strong>Qanday ochiladi:</strong> sahifada o‘ng tugma → <strong>Kodni ko‘rish</strong> (Inspect). Yoki F12. macOS da: Cmd+Option+I.</p>
+<p><strong>Hozir sinab ko‘ring:</strong> istalgan saytda DevTools ni oching. <strong>Elements</strong> yorlig‘ida <code>&lt;h1&gt;</code> tegini toping va ustiga bosing. Sahifada asosiy sarlavha yoritiladi.</p>
+<p><strong>Eslab qoling:</strong> DevTools dagi o‘zgarishlar sahifa yangilanguncha yashaydi. Ular diskdagi faylni o‘zgartirmaydi.</p>
 <hr>
-<h2 id="section-8">Teg, atribut, element - farq nima</h2>
-<p>Bu uchta atama yangi boshlovchilar deyarli har doim aralashtirib yuboradi. Pochta orqali yuborilgan posilkaga o'xshatib tushunamiz.</p>
-<p>Tasavvur qiling, siz posilka yuboryapsiz:</p>
-<ul>
-<li><strong>Teg</strong> - bu qutining turi: &quot;mo'rt narsa uchun quti&quot;, &quot;hujjatlar uchun quti&quot;. HTML'da teglar burchakli qavslarda yoziladi: <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;img&gt;</code>.</li>
-<li><strong>Atribut</strong> - bu qutiga yopishtirilgan qo'shimcha ma'lumot bilan yorliq: &quot;mo'rt&quot;, &quot;tepa&quot;, &quot;qabul qiluvchi manzili&quot;. HTML'da atribut ochuvchi teg ichida yoziladi: <code>&lt;p class=&quot;intro&quot;&gt;</code>.</li>
-<li><strong>Element</strong> - bu allaqachon butun quti: quti (teg) + yorliqlar (atributlar) + ichidagi mazmun.</li>
-</ul>
-<h3 id="section-9">Teg sintaksisi</h3>
-<p>Ko'pchilik teglar <strong>juft</strong>: ochuvchi va yopuvchi teg bor, ularning orasida esa mazmun mavjud.</p>
-<pre><code class="language-html">&lt;p&gt;Bu matn abzatsi.&lt;/p&gt;
+<h2 id="section-9">Teg, atribut, element</h2>
+<p>Yangi o‘rganuvchilar bu uch so‘zni deyarli doim adashtiradi. Posilka misolida ko‘rib chiqamiz.</p>
+<table>
+<thead>
+<tr>
+<th>Atama</th>
+<th>Posilkada</th>
+<th>HTML da</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Teg</strong></td>
+<td>Qutining qopqog‘i va tubi</td>
+<td><code>&lt;p&gt;</code> ochadi, <code>&lt;/p&gt;</code> yopadi</td>
+</tr>
+<tr>
+<td><strong>Atribut</strong></td>
+<td>«Mo‘rt» yorlig‘i</td>
+<td>Ochuvchi teg ichidagi <code>class=&quot;intro&quot;</code></td>
+</tr>
+<tr>
+<td><strong>Element</strong></td>
+<td>Butun posilka</td>
+<td>Teglar + atributlar + mazmun</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Xush kelibsiz!&lt;/p&gt;
 </code></pre>
-<p>Bu yerda:</p>
 <ul>
-<li><code>&lt;p&gt;</code> - ochuvchi teg</li>
-<li><code>Bu matn abzatsi.</code> - mazmun</li>
-<li><code>&lt;/p&gt;</code> - yopuvchi teg (teskari chiziq <code>/</code> ga e'tibor bering)</li>
+<li><code>&lt;p class=&quot;intro&quot;&gt;</code> - atributli ochuvchi teg;</li>
+<li><code>Xush kelibsiz!</code> - mazmun;</li>
+<li><code>&lt;/p&gt;</code> - yopuvchi teg (<code>/</code> belgisi bilan);</li>
+<li>butun qator - «abzats» <strong>elementi</strong>.</li>
 </ul>
-<p><strong>Juft bo'lmagan (yolg'iz) teglar</strong> ham mavjud - ularning mazmuni va yopuvchisi yo'q, ular oddiygina hujjatga biror narsa &quot;qo'shadi&quot;:</p>
+<h3 id="section-10">Juft va bo‘sh elementlar</h3>
+<p>Ko‘pchilik elementlar <strong>juft</strong>: ochuvchi va yopuvchi teg bor, ular orasida mazmun.</p>
+<p>Ba’zi elementlar <strong>bo‘sh</strong>: ularda mazmun ham, yopuvchi teg ham yo‘q.</p>
 <pre><code class="language-html">&lt;br&gt;
-&lt;hr&gt;
-&lt;img src=&quot;cat.jpg&quot; alt=&quot;Mushuk&quot;&gt;
+&lt;img src=&quot;cat.jpg&quot; alt=&quot;Sariq mushuk&quot;&gt;
 </code></pre>
-<p><code>br</code>, <code>hr</code> va <code>img</code> haqida keyingi darslarda batafsil gaplashamiz - hozir faqat sintaksis farqini ko'rish muhim.</p>
-<h3 id="section-10">Atribut sintaksisi</h3>
-<p>Atribut ochuvchi teg ichida yoziladi. Bu darsda <code>nom=&quot;qiymat&quot;</code> ko'rinishidan foydalanamiz; qiymatsiz yoziladigan atributlarni keyin o'rganamiz.</p>
-<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Matn abzatsi&lt;/p&gt;
+<p>Ularni keyingi darslarda ko‘rib chiqamiz. Hozir yozuvdagi farqni ko‘rish muhim.</p>
+<h3 id="section-11">Atributlar</h3>
+<p>Atribut <strong>faqat ochuvchi tegda</strong> <code>nom=&quot;qiymat&quot;</code> ko‘rinishida yoziladi. Bir nechta atribut probel bilan ajratiladi:</p>
+<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Deraza tokchasida sariq mushuk&quot; width=&quot;300&quot;&gt;
 </code></pre>
-<p>Bu yerda <code>class</code> - atribut nomi, <code>&quot;intro&quot;</code> - uning qiymati. Qiymat doimo qo'shtirnoq ichida yoziladi (ikki tirnoq, kurs bo'yicha shunday qabul qilingan).</p>
-<p>Bir tegda bir nechta atribut bo'lishi mumkin - ular bo'sh joy bilan ajratiladi:</p>
-<pre><code class="language-html">&lt;img src=&quot;cat.jpg&quot; alt=&quot;Sariq mushuk derazada&quot; width=&quot;300&quot;&gt;
+<h3 id="section-12">Izohlar</h3>
+<p>O‘zingiz uchun eslatmani izohda qoldirish mumkin. Brauzer uni ko‘rsatmaydi:</p>
+<pre><code class="language-html">&lt;!-- Bu izoh: uni faqat kodda ko‘rish mumkin --&gt;
 </code></pre>
-<h3 id="section-11">Element to'liq</h3>
-<p>Juft element ochuvchi teg, ixtiyoriy atributlar, mazmun va yopuvchi teg orqali yoziladi. <code>img</code> kabi bo'sh elementda mazmun ham, yopuvchi teg ham bo'lmaydi.</p>
-<pre><code class="language-html">&lt;p class=&quot;intro&quot;&gt;Mening saytimga xush kelibsiz!&lt;/p&gt;
-</code></pre>
-<p>Bu butun kod parchasi - bitta HTML-elementi.</p>
-<hr>
-<h3 id="section-12">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<h3 id="section-13">Yangi o‘rganuvchilarning tipik xatolari</h3>
 <table>
 <thead>
 <tr>
@@ -131,30 +171,30 @@
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;/p&gt;</code> aniq yozilmagan</td>
-<td>Kursda o'qishni osonlashtirish uchun juft elementlarni aniq yopamiz; HTML ayrim yopuvchi teglarni muayyan qoidalar asosida tushirib qoldirishga ruxsat beradi.</td>
+<td><code>&lt;p&gt;</code> yopilmagan</td>
+<td>Juft elementlarni yoping: <code>&lt;p&gt;...&lt;/p&gt;</code></td>
 </tr>
 <tr>
-<td><code>class</code> qiymati qo'shtirnoqsiz</td>
-<td>Bir xillik uchun <code>class=&quot;intro&quot;</code> yozamiz; HTML ayrim qiymatlarni qo'shtirnoqsiz ham qabul qiladi.</td>
+<td><code>&lt;/p&gt;</code> o‘rniga <code>&lt;p/&gt;</code></td>
+<td>Slesh nomdan <strong>oldin</strong>: <code>&lt;/p&gt;</code></td>
 </tr>
 <tr>
-<td><code>&lt;/p&gt;</code> o'rniga <code>&lt;p/&gt;</code> yozilgan</td>
-<td>Yopuvchi teg — <code>&lt;/p&gt;</code>. Nomdan keyingi slesh oddiy HTML elementni yopmaydi.</td>
+<td>Yopuvchi tegda atribut: <code>&lt;/p class=&quot;intro&quot;&gt;</code></td>
+<td>Atributlar - faqat ochuvchi tegda</td>
 </tr>
 <tr>
-<td><code>&lt;P&gt;</code> va <code>&lt;p&gt;</code> aralashtirilgan</td>
-<td>HTMLda ikkalasi ham mumkin. Kurs kelishuvi — kichik harflar.</td>
+<td>Qiymat qo‘shtirnoqsiz</td>
+<td>Kursda doim qo‘shtirnoq: <code>class=&quot;intro&quot;</code></td>
 </tr>
 <tr>
-<td>Ichma-ich elementlar noto'g'ri tartibda yopilgan</td>
-<td>Avval ichki elementni, keyin tashqi elementni yoping. 2-darsda batafsil mashq qilamiz.</td>
+<td>Noto‘g‘ri ichma-ichlik: <code>&lt;p&gt;&lt;strong&gt;matn&lt;/p&gt;&lt;/strong&gt;</code></td>
+<td>Avval ichkisini yopamiz: <code>&lt;/strong&gt;&lt;/p&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-13">HTML-hujjatning tuzilishi</h2>
-<p>Har bir HTML-sahifa, mazmunidan qat'i nazar, bir xil &quot;skelet&quot;dan boshlanadi. Uni satrma-satr tahlil qilamiz.</p>
+<h2 id="section-14">HTML-hujjat skeleti</h2>
+<p>Har bir HTML-sahifa bir xil skeletdan boshlanadi:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;uz&quot;&gt;
 &lt;head&gt;
@@ -166,31 +206,53 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Har bir satrni uy skeleti bilan taqqoslab tahlil qilamiz.</p>
-<h3 id="section-14"><code>&lt;!DOCTYPE html&gt;</code></h3>
-<p><code>&lt;!DOCTYPE html&gt;</code> — hujjat turini e'lon qilish. Oddiy HTML hujjatda u brauzerning standart ko'rsatish rejimini yoqadi. Usiz zamonaviy brauzerlar ham eski joylashuv xususiyatlarini saqlaydigan quirks mode rejimiga o'tishi mumkin.</p>
-<p>Bu rejim tanlovi, standart versiyasi yoki yili emas.</p>
-<p><strong>Har doim bir xil</strong> yoziladi, bir marta, faylning eng boshida.</p>
-<h3 id="section-15"><code>&lt;html lang=&quot;uz&quot;&gt;</code></h3>
-<p>Asosiy (bosh) teg, uning ichida sahifaning butun mazmuni joylashgan. Boshqa barcha teglar uning &quot;farzandlari&quot; va &quot;nevaralari&quot;.</p>
-<p><code>lang=&quot;uz&quot;</code> atributi sahifaning tilini ko'rsatadi - o'zbek tili. Bu quyidagilarga yordam beradi:</p>
-<ul>
-<li>ekran o'quvchilari (ko'zi ojizlar uchun dasturlar) matnni to'g'ri o'qishiga;</li>
-<li>brauzer to'g'ri tarjimani taklif qilishiga;</li>
-<li>qidiruv tizimlari kontent tilini tushunishiga.</li>
-</ul>
-<p><strong>Taqqoslash:</strong> <code>&lt;html&gt;</code> - bu butun uy, <code>lang=&quot;uz&quot;</code> esa &quot;Ichida o'zbek tilida gaplashiladi&quot; degan yorliq.</p>
-<h3 id="section-16"><code>&lt;head&gt;</code> - hujjatning &quot;boshi&quot;</h3>
-<p>Bu yerda sahifa haqida <strong>xizmat ma'lumotlari</strong> joylashgan, ular to'g'ridan-to'g'ri ekranda ko'rsatilmaydi: brauzer yorlig'ining sarlavhasi, kodlash, ulanayotgan stil va skript fayllari (bu 9-darsda), qidiruv tizimlari uchun metama'lumotlar.</p>
-<p><strong>Taqqoslash:</strong> <code>&lt;head&gt;</code> - bu uyning texnik pasporti: manzil, qurilgan yili, materiallar. Biz uyda yurganda texnik pasportni ko'rmaymiz, lekin u muhim xususiyatlarni belgilaydi.</p>
-<p><code>&lt;head&gt;</code> ichida bu darsda biz ikkita teg ishlatamiz:</p>
-<p><strong><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></strong> - hujjat kodlashini ko'rsatadi. UTF-8 deyarli barcha dunyo tillarini, shu jumladan kirillitsani qo'llab-quvvatlaydi. Bu satr bo'lmasa, rus matni &quot;noto‘g‘ri belgilar&quot; ko'rinishida ko'rsatilishi mumkin (masalan, ruscha “Привет” o‘rniga <code>Ð¿Ñ€Ð¸Ð²ÐµÑ‚</code>).</p>
-<p><strong><code>&lt;title&gt;Mening birinchi sahifam&lt;/title&gt;</code></strong> brauzer yorlig'ining nomini belgilaydi. Qidiruv tizimi uni natija sarlavhasi sifatida ishlatishi yoki boshqa matn tuzishi mumkin. Sahifaning ko'rinadigan sarlavhasi alohida <code>&lt;h1&gt;</code> bilan yoziladi.</p>
-<h3 id="section-17"><code>&lt;body&gt;</code> - hujjatning &quot;tanasi&quot;</h3>
-<p>Bu yerda <strong>foydalanuvchi ko'radigan hamma narsa</strong> joylashgan: matn, rasmlar, tugmalar, havolalar, jadvallar. Ikkinchi darsdan boshlangan kursning butun mazmuni shu yerga qo'shiladi.</p>
-<p><strong>Taqqoslash:</strong> agar <code>&lt;head&gt;</code> - uyning texnik pasporti bo'lsa, <code>&lt;body&gt;</code> - bu haqiqatda yashaydigan barcha xonalar: mehmonxona, oshxona, yotoq xonasi. Keyinchalik o'rganadigan barcha teglar (sarlavhalar, abzatslar, rasmlar, shakllar) <code>&lt;body&gt;</code> ichiga joylashtiriladi.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-1-2.svg" alt="Chizma 2: HTML ga kirish hujjat tuzilishi"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-1-2.svg">Chizmani alohida ochish</a></figcaption></figure><h2 id="section-18"><strong>Chizmani qanday o‘qish kerak:</strong> HTML faylda DOCTYPE asosiy elementdan oldin keladi. html ichida head va body yonma-yon turadi; head xizmat ma’lumotini, body ko‘rinadigan mazmunni saqlaydi.</h2>
-<h3 id="section-19">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<p>Qatorma-qator ko‘ramiz.</p>
+<table>
+<thead>
+<tr>
+<th>Qator</th>
+<th>Ma’nosi</th>
+<th>O‘xshatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;!DOCTYPE html&gt;</code></td>
+<td>«Bu zamonaviy HTML». Brauzerning standart rejimini yoqadi</td>
+<td>«Loyiha tasdiqlangan» muhri</td>
+</tr>
+<tr>
+<td><code>&lt;html lang=&quot;uz&quot;&gt;</code></td>
+<td>Hujjat ildizi. <code>lang</code> - matn tili</td>
+<td>«Bu yerda o‘zbekcha gaplashiladi» lavhali butun uy</td>
+</tr>
+<tr>
+<td><code>&lt;head&gt;</code></td>
+<td>Xizmat ma’lumotlari. Sahifada ko‘rinmaydi</td>
+<td>Uyning texnik pasporti</td>
+</tr>
+<tr>
+<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Kodlash. Usiz harflar «g‘alati belgilar»ga aylanishi mumkin</td>
+<td>Pasport to‘ldirilgan til</td>
+</tr>
+<tr>
+<td><code>&lt;title&gt;</code></td>
+<td>Brauzer yorlig‘i nomi</td>
+<td>Darvozadagi manzil lavhasi</td>
+</tr>
+<tr>
+<td><code>&lt;body&gt;</code></td>
+<td>Foydalanuvchi ko‘radigan hamma narsa</td>
+<td>Yashaladigan xonalar</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>lang</code> nega muhim:</strong> ekran o‘quvchi (sahifani ovoz chiqarib o‘qiydigan dastur) unga qarab talaffuzni tanlaydi. Brauzer unga qarab tarjima taklif qiladi.</p>
+<p><strong>Kodlash nega muhim:</strong> <code>charset</code> siz «o‘qish» so‘zi <code>oâ€˜qish</code> kabi ko‘rinishi mumkin.</p>
+<p><strong><code>&lt;title&gt;</code> va <code>&lt;h1&gt;</code> - turli narsalar:</strong> <code>title</code> yorliqda, <code>h1</code> esa sahifaning o‘zida yirik shriftda ko‘rinadi.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-1-2.svg" alt="Chizma 2: HTML ga kirish hujjat tuzilishi"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-1-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> Strelka ota-elementdan ichki elementga boradi. DOCTYPE <code>html</code> dan oldin turadi, uning ichida emas. <code>head</code> va <code>body</code> <code>html</code> ichida yonma-yon joylashgan.</p>
+<h3 id="section-15">Yangi o‘rganuvchilarning tipik xatolari</h3>
 <table>
 <thead>
 <tr>
@@ -200,37 +262,177 @@
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;!DOCTYPE html&gt;</code> ni unutdilar</td>
-<td>Har doim faylning birinchi satrida yozing - oldidan bo'sh joy yoki matn yo'q</td>
+<td><code>&lt;!DOCTYPE html&gt;</code> yo‘q</td>
+<td>Faylning birinchi qatoriga yozing</td>
 </tr>
 <tr>
-<td>Matnni to'g'ridan-to'g'ri <code>&lt;html&gt;</code> ga joylashtirish, <code>&lt;head&gt;</code>/<code>&lt;body&gt;</code> ni chetlab o'tish</td>
-<td>Barcha ko'rinadigan kontent faqat <code>&lt;body&gt;</code> ichida, xizmat ma'lumotlari faqat <code>&lt;head&gt;</code> ichida</td>
+<td>Matn to‘g‘ridan-to‘g‘ri <code>&lt;html&gt;</code> yoki <code>&lt;head&gt;</code> da</td>
+<td>Ko‘rinadigan matn - faqat <code>&lt;body&gt;</code> da</td>
 </tr>
 <tr>
-<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code> ni unutish</td>
-<td>Har loyihada <code>&lt;head&gt;</code> ga shu satrni qo'shing - aks holda kirillitsa noto'g'ri ko'rinishi mumkin</td>
+<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code> yo‘q</td>
+<td>Har bir faylda <code>&lt;head&gt;</code> ga qo‘shing</td>
 </tr>
 <tr>
-<td><code>&lt;title&gt;</code> ni sahifadagi <code>&lt;h1&gt;</code> sarlavhasi bilan aralashtirish</td>
-<td><code>&lt;title&gt;</code> faqat brauzer yorlig'ida ko'rinadi, <code>&lt;h1&gt;</code> - sahifaning o'zidagi ko'rinadigan sarlavha (2-darsda tahlil qilamiz)</td>
+<td><code>&lt;title&gt;</code> va <code>&lt;h1&gt;</code> ni adashtirish</td>
+<td><code>title</code> - yorliq, <code>h1</code> - sahifadagi sarlavha</td>
 </tr>
 <tr>
-<td><code>&lt;head&gt;</code> yoki <code>&lt;body&gt;</code> ni yopishni unutish</td>
-<td>Har ikkala teg ham juft - <code>&lt;/head&gt;</code> va <code>&lt;/body&gt;</code> ni unutmang</td>
+<td>Ikkita <code>&lt;body&gt;</code> yoki <code>&lt;head&gt;</code></td>
+<td>Hujjatda bittadan</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-20">Mini-vazifa</h2>
-<p>HTML-hujjatning &quot;skeletini&quot; yuqoridagi misolga qaramasdan mustaqil yig'ing:</p>
+<h2 id="section-16">Mini-topshiriq 1</h2>
+<p>Hujjat skeletini <strong>qaramasdan</strong> yig‘ing:</p>
 <ol>
-<li>Hujjat turini e'lon qilish.</li>
-<li>O'zbek tilini ko'rsatgan asosiy teg.</li>
-<li>UTF-8 kodlash va &quot;1-dars&quot; yorlig'i sarlavhasi bilan xizmat qismi.</li>
-<li>Sahifaning ko'rinadigan qismi - hozircha bo'sh.</li>
+<li>Hujjat turi deklaratsiyasi.</li>
+<li>O‘zbek tilidagi ildiz element.</li>
+<li>Xizmat qismi: UTF-8 kodlash va «1-dars» yorlig‘i.</li>
+<li>Bo‘sh ko‘rinadigan qism.</li>
 </ol>
-<p><strong>Yechim:</strong></p>
+<p>Yechim - «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-17">Birinchi sahifa</h2>
+<p><strong>1-qadam.</strong> <code>my-html-site</code> papkasini yarating. VS Code da: <strong>File → Open Folder</strong> va uni tanlang.</p>
+<p><strong>2-qadam.</strong> <code>index.html</code> faylini yarating. Bu sayt bosh sahifasining standart nomi. Fayl <code>index.html.txt</code> deb nomlanmaganiga ishonch hosil qiling.</p>
+<p><strong>3-qadam.</strong> Kodni joylashtiring:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;uz&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Mening birinchi sahifam&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Salom, dunyo!&lt;/h1&gt;
+    &lt;p&gt;Bu mening birinchi HTML-sahifam.&lt;/p&gt;
+    &lt;p&gt;Men JLearn platformasida HTML o‘rganyapman.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Bu yerda ikki yangi element bor: <code>&lt;h1&gt;</code> - sahifaning asosiy sarlavhasi, <code>&lt;p&gt;</code> - abzats. Ular haqida batafsil - 2-darsda.</p>
+<p><strong>4-qadam.</strong> Saqlang: Ctrl+S (macOS da: Cmd+S).</p>
+<p><strong>5-qadam.</strong> Brauzerda oching: VS Code da fayl ustida o‘ng tugma → <strong>Open with Live Server</strong>. Yoki papkadagi faylga ikki marta bosing.</p>
+<p><strong>Nimani ko‘rasiz:</strong> yorliqda - «Mening birinchi sahifam». Sahifada - yirik «Salom, dunyo!» sarlavhasi va uning ostida orasi ochiq ikki abzats.</p>
+<h3 id="section-18">Buzib ko‘ring</h3>
+<ol>
+<li><code>&lt;/h1&gt;</code> ni o‘chirib saqlang. Abzatslarga nima bo‘ldi? (Maslahat: brauzer sarlavha qayerda tugashini bilmaydi.)</li>
+<li><code>&lt;/h1&gt;</code> ni qaytaring. Endi <code>&lt;/title&gt;</code> ni o‘chirib saqlang. Sahifada va yorliqda nima ko‘rinyapti?</li>
+<li>Hammasini qaytaring. Sahifa yana joyidami?</li>
+</ol>
+<p>Shunday qilib teglarni nega yopish kerakligini amalda ko‘rasiz.</p>
+<hr>
+<h2 id="section-19">Mini-topshiriq 2</h2>
+<ol>
+<li>Muharrirda ikkinchi abzats matnini o‘zgartiring.</li>
+<li>Faylni saqlang.</li>
+<li>Brauzerga qarang: o‘zgarish paydo bo‘ldimi?</li>
+<li>Endi sarlavha matnini <strong>DevTools da</strong> o‘zgartiring (Elements yorlig‘ida matnga ikki marta bosing). F5 bilan sahifani yangilang. O‘zgarishga nima bo‘ldi?</li>
+</ol>
+<p>Javob - «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-20">Dars yakuni: shpargalka</h2>
+<table>
+<thead>
+<tr>
+<th>Nima</th>
+<th>Yozuv</th>
+<th>Eslab qoling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hujjat turi</td>
+<td><code>&lt;!DOCTYPE html&gt;</code></td>
+<td>Faylning birinchi qatori</td>
+</tr>
+<tr>
+<td>Ildiz va til</td>
+<td><code>&lt;html lang=&quot;uz&quot;&gt;</code></td>
+<td>Til - sahifa matniga qarab</td>
+</tr>
+<tr>
+<td>Xizmat qismi</td>
+<td><code>&lt;head&gt;...&lt;/head&gt;</code></td>
+<td>Sahifada ko‘rinmaydi</td>
+</tr>
+<tr>
+<td>Kodlash</td>
+<td><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></td>
+<td>Aks holda «g‘alati belgilar»</td>
+</tr>
+<tr>
+<td>Yorliq</td>
+<td><code>&lt;title&gt;...&lt;/title&gt;</code></td>
+<td><code>h1</code> bilan adashtirmang</td>
+</tr>
+<tr>
+<td>Ko‘rinadigan qism</td>
+<td><code>&lt;body&gt;...&lt;/body&gt;</code></td>
+<td>Butun mazmun - shu yerda</td>
+</tr>
+<tr>
+<td>Sarlavha va abzats</td>
+<td><code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code></td>
+<td>Batafsil - 2-darsda</td>
+</tr>
+<tr>
+<td>Izoh</td>
+<td><code>&lt;!-- ... --&gt;</code></td>
+<td>Brauzer uni ko‘rsatmaydi</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-21">Mustaqil ish</h2>
+<h3 id="section-22">1-qism. IDE topshirig‘i (platforma hisoblaydi)</h3>
+<p>Dars ostidagi muharrirni oching va noldan <strong>tanishuv sahifasini</strong> yig‘ing:</p>
+<ol>
+<li>Hujjat skeleti: DOCTYPE, tilli <code>html</code>, <code>head</code>, <code>body</code>.</li>
+<li><code>head</code> da: UTF-8 kodlash va «Tanishuv» yorliq nomi.</li>
+<li><code>body</code> da: <strong>bitta</strong> asosiy sarlavha va <strong>ikkita</strong> abzats - o‘zingiz haqingizda va HTML ni nima uchun o‘rganayotganingiz haqida.</li>
+</ol>
+<p><strong>«Tekshirish»</strong> ni bosing. Tekshiruv o‘tmasa, muharrir ostida nima yetishmayotgani ro‘yxati chiqadi. Tuzating va qayta tekshiring.</p>
+<p><strong>Natijani qanday ko‘rish:</strong> kodni kompyuterdagi <code>index.html</code> fayliga ko‘chirib, brauzerda oching.</p>
+<p>Platforma nimani tekshiradi: DOCTYPE, <code>lang</code>, <code>charset</code>, <code>head</code>, <code>body</code> va <code>title</code> borligi, aynan bitta <code>h1</code> va kamida ikkita <code>p</code>.</p>
+<h3 id="section-23">2-qism. Kompyuterdagi loyiha</h3>
+<ol>
+<li><code>my-html-site</code> papkasini va unda xuddi shu tanishuv sahifasi bilan <code>index.html</code> ni yarating.</li>
+<li>Uni brauzerda oching.</li>
+<li>Muharrirda ikkinchi abzatsni o‘zgartiring, saqlang, o‘zgarish paydo bo‘lganini tekshiring.</li>
+</ol>
+<h3 id="section-24">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> IDE topshirig‘i qabul qilingan.</label></li>
+<li class="check"><label><input type="checkbox"> Fayl <code>index.html.txt</code> emas, <code>index.html</code> deb nomlangan.</label></li>
+<li class="check"><label><input type="checkbox"> DOCTYPE, <code>html</code>, <code>head</code>, <code>body</code> bor; barcha juft teglar yopilgan.</label></li>
+<li class="check"><label><input type="checkbox"> Til matn tiliga mos, kodlash - UTF-8.</label></li>
+<li class="check"><label><input type="checkbox"> Yorliq nomi va sahifadagi sarlavha - turli elementlar.</label></li>
+<li class="check"><label><input type="checkbox"> Brauzerda bitta <code>&lt;h1&gt;</code> va ikkita <code>&lt;p&gt;</code> ko‘rinadi.</label></li>
+<li class="check"><label><input type="checkbox"> Muharrirda saqlangan o‘zgarish yangilashdan keyin paydo bo‘ldi.</label></li>
+</ul>
+<hr>
+<h2 id="section-25">O‘zini tekshirish uchun savollar</h2>
+<ol>
+<li>HTML dasturlash tilidan nimasi bilan farq qiladi?</li>
+<li>HTML, CSS va JavaScript nimaga javob beradi?</li>
+<li>Element tegdan nimasi bilan farq qiladi?</li>
+<li>Atribut qayerda yoziladi: ochuvchi yoki yopuvchi tegda?</li>
+<li><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code> ko‘rsatilmasa nima bo‘ladi?</li>
+<li><code>lang</code> atributi nima uchun kerak?</li>
+<li><code>&lt;title&gt;</code> qayerda, <code>&lt;h1&gt;</code> qayerda ko‘rinadi?</li>
+<li><code>&lt;head&gt;</code> ga nima, <code>&lt;body&gt;</code> ga nima tushadi?</li>
+<li>DevTools dagi o‘zgarish nega faylda saqlanmaydi?</li>
+<li>Bosh sahifa nega <code>index.html</code> deb nomlanadi?</li>
+</ol>
+<p>Savollardan keyin platformada <strong>dars testini</strong> topshiring: 12 ta savol, o‘tish uchun 70% kerak. Dars IDE topshirig‘i ham, test ham topshirilganda hisoblanadi.</p>
+<hr>
+<h2 id="section-26">Keyin nima</h2>
+<p>Skelet tayyor. 2-darsda uni ma’no bilan to‘ldiramiz: turli darajadagi sarlavhalar, abzatslar, ro‘yxatlar va sahifaning semantik bloklari - sarlavha qismi, navigatsiya, asosiy qism, pastki qism.</p>
+<hr>
+<h2 id="section-27">Javoblar</h2>
+<p><strong>Mini-topshiriq 1</strong></p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;uz&quot;&gt;
 &lt;head&gt;
@@ -242,69 +444,20 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<hr>
-<h2 id="section-21">Birinchi sahifani to'liq yig'amiz</h2>
-<h3 id="section-22">Ishchi papka va dastlabki ikki element</h3>
-<p>Qulay joyda <code>my-html-site</code> papkasini yarating va VS Codeda File → Open Folder orqali oching. Ichida <code>index.html</code> yarating. <code>.html</code> kengaytmasi fayl nomining bir qismi: oxiriga <code>.txt</code> qo'shilmaganini tekshiring. Turli papkalardagi bir xil nomli fayllarni adashtirmang.</p>
-<p><code>body</code> ichida <code>&lt;h1&gt;</code> sahifaning asosiy sarlavhasini, <code>&lt;p&gt;</code> esa abzatsni bildiradi. Birinchi vazifa uchun bitta sarlavha va alohida abzatslar yetarli. Yorliq nomi alohida <code>title</code> orqali beriladi. Matn belgilashni 2-darsda batafsil o'rganamiz.</p>
-<p>Ish jarayonini tekshirish uchun <code>&lt;p&gt;</code> ichidagi bir so'zni o'zgartiring, faylni saqlang va brauzerni yangilang. O'zgarish bo'lmasa, avval ochiq faylning nomi va papkasini brauzer manzili bilan solishtiring.</p>
-<p>Endi skeletni haqiqiy mazmun bilan to'ldiramiz (sarlavha va matn abzatsi - bu teglar haqida 2-darsda batafsil gaplashamiz, hozir esa sahifaning bo'sh bo'lmaganligi uchun shunchaki ishlatamiz).</p>
-<p><strong>1-qadam.</strong> VS Code oching, loyiha uchun yangi papka yarating, masalan <code>html-course</code>.</p>
-<p><strong>2-qadam.</strong> Papka ichida <code>index.html</code> faylini yarating (aynan shu nom - saytning bosh sahifasi uchun standart nom).</p>
-<p><strong>3-qadam.</strong> Quyidagi kodni kiriting:</p>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;uz&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Mening birinchi sahifam&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Salom, dunyo!&lt;/h1&gt;
-    &lt;p&gt;Bu mening birinchi HTML-sahifam. Men «HTML: 10 darsda» kursida HTML belgilash o'rganyapman.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p><strong>4-qadam.</strong> Faylni saqlang (Ctrl+S / Cmd+S).</p>
-<p><strong>5-qadam.</strong> Sahifani ikki usuldan biri bilan oching:</p>
-<ul>
-<li>Live Server orqali: VS Code'da fayl ustiga o'ng tugmani bosing → &quot;Open with Live Server&quot;.</li>
-<li>Qo'lda: <code>index.html</code> faylini fayl menejerida/finder'da toping va ikki marta bosing - u standart brauzerda ochiladi.</li>
-</ul>
-<p><strong>6-qadam.</strong> Inspect orqali DevToolsni ochib, sarlavha va abzatsni toping. Matnni muharrirda o'zgartiring, saqlang va brauzerda tekshiring. Faqat DevToolsda kiritilgan o'zgarishlar HTML faylga saqlanmaydi.</p>
-<hr>
-<h2 id="section-23">Dars xulosalari</h2>
-<p>Bugun siz quyidagilarni o'rgandingiz:</p>
-<ul>
-<li><strong>HTML</strong> - bu belgilash tili, veb-sahifaning &quot;karkasi&quot;, u tuzilishni va mazmun ma'nosini tasvirlaydi.</li>
-<li><strong>Teg</strong> — <code>&lt;p&gt;</code> yoki <code>&lt;/p&gt;</code> kabi belgilash; <strong>atribut</strong> ochuvchi tegda qo'shimcha ma'lumot beradi; <strong>element</strong> — shu belgilash yaratadigan hujjat tuzilishining qismi.</li>
-<li>Har bir HTML-hujjat <code>&lt;!DOCTYPE html&gt;</code> dan boshlanadi va <code>&lt;html&gt;</code> dan iborat, uning ichida <code>&lt;head&gt;</code> (xizmat ma'lumotlari) va <code>&lt;body&gt;</code> (ko'rinadigan mazmun) joylashgan.</li>
-<li>Siz VS Code va Live Server ni sozlashni va brauzer DevToolsidan foydalanishni o'rgandingiz.</li>
-<li>Siz o'z birinchi HTML-sahifangizni yaratdingiz va ochdingiz.</li>
-</ul>
-<hr>
-<h2 id="section-24">Mustaqil ish: tanishuv sahifasi</h2>
-<p>Yangi <code>my-html-site</code> papkasini va uning ichida <code>index.html</code> faylini yarating. Tayyor hujjatni ko'chirmay, talablar bo'yicha tuzing. Hozircha havola, ro'yxat, rasm, CSS yoki JavaScript qo'shmang.</p>
+<p><strong>Mini-topshiriq 2.</strong> Muharrirdagi o‘zgarish paydo bo‘ldi, chunki faylni saqladingiz. DevTools dagi o‘zgarish F5 dan keyin yo‘qoldi: DevTools faqat brauzerda hozir ochiq turgan nusxani o‘zgartiradi, diskdagi fayl esa o‘zgarmaydi.</p>
+<p><strong>O‘zini tekshirish uchun savollar</strong></p>
 <ol>
-<li>Matningiz tilini va UTF-8 kodlashni ko'rsating.</li>
-<li>Brauzer yorlig'iga “Tanishuv” nomini bering.</li>
-<li>Bitta asosiy sarlavha va ikkita abzats yozing: o'zingiz va o'rganish maqsadingiz haqida.</li>
-<li>Faylni brauzerda oching. Ikkinchi abzatsni muharrirda o'zgartiring, saqlang va yangilanishni tekshiring.</li>
+<li>HTML da shartlar, sikllar va hisob-kitoblar yo‘q. U faqat mazmunni belgilaydi.</li>
+<li>HTML - tuzilma va ma’no, CSS - bezash, JavaScript - xatti-harakat.</li>
+<li>Teg - <code>&lt;p&gt;</code> yoki <code>&lt;/p&gt;</code> yozuvi. Element - hammasi birga: teglar, atributlar va mazmun.</li>
+<li>Faqat ochuvchi tegda.</li>
+<li>Harflar o‘qib bo‘lmaydigan belgilar bo‘lib ko‘rinishi mumkin.</li>
+<li>Ekran o‘quvchi to‘g‘ri talaffuzni, brauzer esa tarjimani tanlashi uchun.</li>
+<li><code>title</code> - brauzer yorlig‘ida, <code>h1</code> - sahifaning o‘zida.</li>
+<li><code>head</code> ga - xizmat ma’lumotlari: kodlash, yorliq nomi. <code>body</code> ga - ko‘rinadigan hamma narsa.</li>
+<li>DevTools faylni emas, brauzerdagi sahifa nusxasini o‘zgartiradi.</li>
+<li>Manzilda fayl ko‘rsatilmaganda server <code>index.html</code> ni avtomatik ochadi.</li>
 </ol>
-<h3 id="section-25">Tayyorlik mezonlari</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> Fayl nomi <code>index.html</code>, <code>index.html.txt</code> emas.</label></li>
-<li class="check"><label><input type="checkbox"> DOCTYPE, <code>html</code>, <code>head</code>, <code>body</code> mavjud; juft elementlar aniq yopilgan.</label></li>
-<li class="check"><label><input type="checkbox"> Til matnga mos, kodlash UTF-8.</label></li>
-<li class="check"><label><input type="checkbox"> Yorliq nomi va sahifa sarlavhasini farqlay olasiz.</label></li>
-<li class="check"><label><input type="checkbox"> Bitta <code>&lt;h1&gt;</code> va ikkita <code>&lt;p&gt;</code> ko'rinadi; saqlangan o'zgarish brauzerda paydo bo'ldi.</label></li>
-</ul>
-<h3 id="section-26">O'zingizni tekshiring</h3>
-<ol>
-<li>Element ochuvchi tegdan nimasi bilan farq qiladi?</li>
-<li>Nega yorliq nomi <code>head</code>, abzats esa <code>body</code> ichida yoziladi?</li>
-<li>Nega DevToolsdagi o'zgarish diskdagi faylni o'zgartirmaydi?</li>
-</ol>
-<p>Bajarilmagan mezon bo'lsa, tegishli misolga qayting va qayta tekshiring. Barcha mezonlar bajarilgach va javoblarni o'z so'zlaringiz bilan tushuntira olgach, keyingi darsga o'ting.</p>
 <hr>
-<p><a href="index.html">Mundarija</a> · <a href="index.html">← Orqaga</a> · <a href="uz-lesson-2.html">Keyingi →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Amaliyot</a></p>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-2.html">Keyingi →</a> · <a href="ru-lesson-1.html">RU</a> · <a href="en-lesson-1.html">EN</a> · <a href="uz-lesson-1.html">UZ</a> · <a href="../Lesson-1/practice.html">Amaliyot</a></p>
 </article></main><footer><a href="../Lesson-1/uz/HTML%20ga%20kirish%20hujjat%20tuzilishi.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

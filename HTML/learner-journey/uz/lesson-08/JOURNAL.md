@@ -1,6 +1,6 @@
 ## 8-dars
 
-**Manba:** `Lesson-8/uz/Mavjudlik (a11y).md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
+**Manba:** `Lesson-8/uz/Foydalanish qulayligi (a11y).md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
 
 **Yaratilgan fayllar:** `images/github-icon.svg`, `index.html`, `mini.html`.
 

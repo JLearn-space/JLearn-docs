@@ -1,102 +1,163 @@
 # Tables
 
-[Contents](../../README.md) | [Previous](../../Lesson-4/en/Images%20and%20media.md) | [Next](../../Lesson-6/en/Forms%20part%201.md) | [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) | [EN](../en/Tables.md) | [UZ](../uz/Jadvallar.md) | [Practice: example](../practice.html)
+[Contents](../../README.md) · [← Back](../../Lesson-4/en/Images%20and%20media.md) · [Next →](../../Lesson-6/en/Forms%20part%201.md) · [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) · [EN](Tables.md) · [UZ](../uz/Jadvallar.md) · [Practice](../practice.html)
 
-
-> **Connection with the previous lesson:** in the last lesson we learned to insert images and media. Today we cover another way to present information - tables, for data that is logically organized into rows and columns.
+> **Link to the previous lesson:** in lesson 4 you added images and video to your pages. Today we learn to show data: a schedule, grades, a comparison.
 
 ---
 
-## What you will learn by the end of the lesson
+## Why you need this
 
-- Build tables with `table`, `tr`, `td`, `th` tags.
-- Structure tables using `thead`, `tbody`, `tfoot`.
-- Merge cells horizontally and vertically with `colspan` and `rowspan`.
-- Make tables accessible to screen readers via `scope` and `caption`.
-- Understand when tables are appropriate and when they are not.
+A class schedule, term grades, a price comparison - this kind of data is easy to read as a table: a row is an object, a column is a property.
+
+A sighted user sees which heading is above which cell. A blind user hears cells one by one. Today we learn to build a table so that a screen reader names the heading of every cell.
+
+---
+
+## What you will learn
+
+- Build a table from `table`, `tr`, `th`, `td`.
+- Split it into parts: `thead`, `tbody`, `tfoot`.
+- Give the table a title with `caption`.
+- Link headings to data with `scope`.
+- Merge cells: `colspan` horizontally and `rowspan` vertically.
+- Understand when a table is **not** needed.
+
+---
+
+## Review: 3 questions from lesson 4
+
+1. Which `<img>` attribute is required besides `src`?
+2. How is `figcaption` different from `alt`?
+3. What does the `controls` attribute do?
+
+Answers are at the end of the lesson.
 
 ---
 
 ## Lesson plan
 
-| Section                                             | Content                                   |
-| ------------------------------------------------- | ----------------------------------------- |
-| Why tables exist and when NOT to use them      | Tabular data vs page layout               |
-| table, tr, td, th                              | Basic table structure                     |
-| thead, tbody, tfoot                            | Semantic table division                   |
-| Mini-task                                      | Build a simple table                      |
-| colspan and rowspan                             | Merging cells                             |
-| Table accessibility: caption, scope            | Table caption and header-data association |
-| Summary and practical task                     | Reinforcement                             |
+| Section | What we do |
+| --- | --- |
+| When a table is needed | For data, not layout |
+| Table structure | A sheet of squared paper |
+| Table parts | Head, body, totals |
+| Mini-task 1 | A 3 × 3 table |
+| Title and headings | `caption` and `scope` |
+| Merging cells | `colspan` and `rowspan` step by step |
+| Mini-task 2 | A table with a merged cell |
+| Independent work | IDE task and a schedule |
 
 ---
 
-## Why tables exist and when NOT to use them
+## When a table is needed
 
-**In simple terms:** an HTML table is the same thing as a table in Excel or Word: data organized into rows (horizontal lines) and columns (vertical lines), where each cell sits at the intersection of a specific row and a specific column.
+**A table is for data** that has rows and columns: a schedule, a price list, grades, a comparison.
 
-**The rule for using tables is very simple:** use `<table>` only when you have **actual tabular data** - that is, data where both the row and the column matter simultaneously. Good examples include:
+**A table is NOT for page layout.** Sites used to be built with tables: the menu in one cell, the text in another. Today this is a mistake: a screen reader reads such a page as "table, 3 columns, row 1...". The layout of blocks is set with CSS.
 
-- a class schedule (day of week × time);
-- comparing prices across plans (plan × feature);
-- a tournament table (team × points/wins/losses);
-- a list of students with grades per subject.
-
-### Important historical warning
-
-Many years ago (in the 1990s and early 2000s), web developers used tables **to lay out entire page layouts** - meaning, simply to position the header, menu, and content in the right places on the screen, with no relation to tabular data whatsoever. This is called **"table layout"**, and today it is **considered outdated and not recommended**, because:
-
-- such code is hard to read and maintain;
-- a screen reader encountering `<table>` expects to hear data with row/column headers - not the structure of the entire page, which confuses visually impaired users;
-- modern CSS (which is studied separately) provides far more flexible tools for positioning blocks on a page.
-
-**The rule is simple:** if you just want to "position blocks side by side" (e.g., header at the top, menu on the left, content on the right) - that's a CSS job, not `<table>`. Tables are only for actual tabular **data**.
+**A test:** can you name the columns? "Day, Time, Topic" - yes, it's a table. "Left column, right column" - no, it's layout.
 
 ---
 
-## `table`, `tr`, `td`, `th`
+## Table structure
 
-### Basic structure
+**In simple terms:** a table is a sheet of squared paper. You draw it **row by row**, left to right.
+
+| Tag | Meaning | Analogy |
+| --- | --- | --- |
+| `<table>` | The whole table | The sheet |
+| `<tr>` | A row (table row) | One row of squares |
+| `<th>` | A header cell (table header) | A labelled square |
+| `<td>` | A data cell (table data) | An ordinary square |
 
 ```html
 <table>
     <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>City</th>
+        <th>Day</th>
+        <th>Time</th>
+        <th>Topic</th>
     </tr>
     <tr>
-        <td>Aziz</td>
-        <td>21</td>
-        <td>Tashkent</td>
+        <td>Monday</td>
+        <td>15:00</td>
+        <td>HTML</td>
     </tr>
     <tr>
-        <td>Dilnoza</td>
-        <td>19</td>
-        <td>Almalyk</td>
+        <td>Wednesday</td>
+        <td>15:00</td>
+        <td>CSS</td>
     </tr>
 </table>
 ```
 
-Let's go through each tag.
+**What you will see:**
 
-### `<table>` - the table itself
+| Day | Time | Topic |
+| --- | --- | --- |
+| Monday | 15:00 | HTML |
+| Wednesday | 15:00 | CSS |
 
-The outer wrapper for the entire table. Everything else goes inside it.
+Without CSS a table has no borders - just aligned text. The browser shows `th` headings in bold and centred.
 
-### `<tr>` (table row) - a table row
+**The main rule:** every row has the same number of cells. Three columns means three cells in every `<tr>`.
 
-Each horizontal row of the table is a separate `<tr>` tag. In the example above there are three rows: one for column headers and two for data.
+### A heading can be on the left too
 
-### `<th>` (table header) - a header cell
+`<th>` is not only at the top. If a row describes one object, its name is a heading too:
 
-Denotes a cell that is a **header** for a row or column, not regular data. By default the browser renders it bold and centered - but as we learned in lesson 2, what matters is not appearance but meaning: `<th>` tells the browser and screen reader "this is a header, the other cells in this column/row belong to it."
+```html
+<tr>
+    <th>Aziz</th>
+    <td>5</td>
+    <td>4</td>
+</tr>
+```
 
-### `<td>` (table data) - a regular data cell
+### Try breaking it
 
-All the remaining cells in the table that contain the actual data (not headers).
+Delete one `<td>` in the second row. What happened to the table? The cells "slid" to the left, and the time ended up under the "Day" heading.
 
-**Analogy:** think of a gradebook. The top row with subject names ("Math," "Physics," "History") is `<th>`, and the actual grades in the cells are `<td>`. Similarly, the first column with student names is also `<th>` (row headers), and everything else inside is `<td>`.
+---
+
+## Table parts: `thead`, `tbody`, `tfoot`
+
+A large table is split into three parts:
+
+| Part | What's inside | Analogy |
+| --- | --- | --- |
+| `<thead>` | The heading row | The header of a register |
+| `<tbody>` | Data rows | The entries themselves |
+| `<tfoot>` | Totals | The "Total" row |
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price, sum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Notebook</td>
+            <td>5 000</td>
+        </tr>
+        <tr>
+            <td>Pen</td>
+            <td>3 000</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td>8 000</td>
+        </tr>
+    </tfoot>
+</table>
+```
+
+**Order in the code:** `thead` → `tbody` → `tfoot`.
 
 ```mermaid
 flowchart TD
@@ -104,248 +165,65 @@ flowchart TD
     A --> C["tbody"]
     A --> D["tfoot"]
     B --> B1["tr"]
-    B1 --> B1a["th - header cell"]
+    B1 --> B1a["th — header cell"]
     C --> C1["tr"]
-    C1 --> C1a["td - data cell"]
+    C1 --> C1a["td — data cell"]
     C --> C2["tr"]
-    C2 --> C2a["td - data cell"]
+    C2 --> C2a["td — data cell"]
     D --> D1["tr"]
-    D1 --> D1a["td - summary cell"]
+    D1 --> D1a["td — totals cell"]
 ```
 
-**How to read this diagram:** Arrows show table containment: sections contain rows and rows contain cells. A real table may also use th for row headers; this simplified tree shows the main structure.
-
-
-The diagram shows one example structure. `tbody` may also contain row headers (`th`); all three row groups are not mandatory.
-
-### `<th>` isn't just at the top - it can be on the left too
-
-```html
-<table>
-    <tr>
-        <th></th>
-        <th>Math</th>
-        <th>Physics</th>
-    </tr>
-    <tr>
-        <th>Aziz</th>
-        <td>5</td>
-        <td>4</td>
-    </tr>
-    <tr>
-        <th>Dilnoza</th>
-        <td>4</td>
-        <td>5</td>
-    </tr>
-</table>
-```
-
-Here there are headers both at the top (subject names) and on the left (student names) - and the empty `<th></th>` in the top-left corner is simply needed to make the table grid align correctly (this is standard practice for tables with "double" headers).
-
----
+**How to read the diagram.** A table is split into three parts. Each part holds `tr` rows, and rows hold cells. The head usually has `th`, the body and totals have `td`.
 
 ### Common beginner mistakes
 
-| Mistake                                                                     | How to fix                                                                                                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Using `<td>` instead of `<th>` for headers                                 | Row/column headers are always `<th>`, not `<td>` with bold text via other tags                                                                           |
-| Forgetting to close `<tr>`, `<td>`, `<th>`                                 | All three tags are paired - don't forget the closing tags                                                                                                |
-| Having different numbers of cells in different rows without reason          | Every `<tr>` should contain the same number of cells (`<td>`/`<th>`), unless you're intentionally merging cells via `colspan`/`rowspan` (see the checkbox section)       |
-| Using `<table>` to position page blocks (header/menu/content)              | For page layout use CSS - tables are only for tabular data                                                                                               |
+| Mistake | How to fix |
+| --- | --- |
+| A table for page layout | Tables are only for data |
+| Rows with different numbers of cells | Every row has as many cells as there are columns |
+| A `<td>` outside a `<tr>` | A cell always sits inside a row |
+| Headings made with `<td><strong>` | A heading is a `<th>` |
+| `tfoot` before `tbody` | Order: `thead`, `tbody`, `tfoot` |
 
 ---
 
-## `thead`, `tbody`, `tfoot`
+## Mini-task 1
 
-When a table grows larger and more complex, it helps to explicitly divide it into semantic parts - just like in a report there's a "table header," "main data," and "summary row."
+Without looking, build a grades table: the heading "Student, HTML, CSS" and two rows of data. Use `thead` and `tbody`. The solution is in the "Answers" section.
+
+---
+
+## Title and headings: `caption` and `scope`
+
+### `<caption>` - the table title
 
 ```html
 <table>
+    <caption>Club schedule for the week</caption>
+    ...
+</table>
+```
+
+`caption` is written **right after** `<table>`. Everyone sees it, and a screen reader announces it before the table: "Table: Club schedule for the week".
+
+### `scope` - whose heading is this
+
+**In simple terms:** a blind user hears the cell "15:00". To understand what it is, they need a heading: "Time, 15:00". `scope` tells the screen reader what a heading belongs to.
+
+| Value | Heading for | Where it goes |
+| --- | --- | --- |
+| `scope="col"` | The whole **column** below | In the head |
+| `scope="row"` | The whole **row** to the right | At the start of a row |
+
+```html
+<table>
+    <caption>Term grades</caption>
     <thead>
         <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Laptop</td>
-            <td>8,000,000 so'm</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Mouse</td>
-            <td>150,000 so'm</td>
-            <td>2</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td>8,300,000 so'm</td>
-            <td>3</td>
-        </tr>
-    </tfoot>
-</table>
-```
-
-- **`<thead>`** (table head) - the table header, usually row(s) with column headers.
-- **`<tbody>`** (table body) - the main "body" of the table where the data lives. If the table is long (many rows), `<thead>` can sometimes be pinned to the top while `<tbody>` scrolls - this is configured via CSS, but the semantic division is the foundation for this behavior.
-- **`<tfoot>`** (table foot) - the table footer, usually for totals (sum, average).
-
-**Important:** these are not mandatory tags (a simple table from the first example without them is still fully valid), but for tables with real data it's a good practice that explicitly communicates the table's structure to the browser and screen reader.
-
----
-
-### Common beginner mistakes
-
-| Mistake                                                                         | How to fix                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Placing column headers inside `<tbody>` instead of `<thead>`                    | Header row(s) go in `<thead>`, data goes in `<tbody>`                                                                                                                                                 |
-| Placing tfoot before tbody | In modern HTML, put thead before tbody and tfoot after the body rows. |
-
----
-
-## Mini-task
-
-Build a simple 2-day schedule table on your own, without peeking at the examples: columns "Day" and "Subject," using `<thead>` and `<tbody>`.
-
-**Solution:**
-
-```html
-<table>
-    <thead>
-        <tr>
-            <th>Day</th>
-            <th>Subject</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Monday</td>
-            <td>Math</td>
-        </tr>
-        <tr>
-            <td>Tuesday</td>
-            <td>Physics</td>
-        </tr>
-    </tbody>
-</table>
-```
-
----
-
-## `colspan` and `rowspan` - merging cells
-
-Sometimes a cell needs to "stretch" across multiple columns or rows - for example, a header that applies to two columns at once.
-
-### `colspan` - horizontal merge (columns)
-
-```html
-<table>
-    <tr>
-        <th colspan="2">Contact information</th>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td>info@saydullayev.fun</td>
-    </tr>
-    <tr>
-        <td>Phone</td>
-        <td>+998 90 123-45-67</td>
-    </tr>
-</table>
-```
-
-`colspan="2"` means "this cell takes up the width of two regular cells" - so in the first row there's only one `<th>`, but it visually stretches across the full width of the table (replacing 2 cells).
-
-**Analogy:** imagine a grid sheet where you erase the border between two adjacent cells and write one piece of text across the merged space - that's exactly what `colspan` does.
-
-### `rowspan` - vertical merge (rows)
-
-```html
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Subject</th>
-        <th>Grade</th>
-    </tr>
-    <tr>
-        <td rowspan="2">Aziz</td>
-        <td>Math</td>
-        <td>5</td>
-    </tr>
-    <tr>
-        <td>Physics</td>
-        <td>4</td>
-    </tr>
-</table>
-```
-
-`rowspan="2"` means "this cell takes up the height of two rows" - so the name "Aziz" isn't repeated twice, it appears once alongside both of his grades.
-
-**Important rule when using `colspan`/`rowspan`:** once you merge a cell across multiple columns/rows, that row/column must contain **fewer** regular cells - exactly as many fewer as the merged cell consumed. In the `rowspan="2"` example, the second `<tr>` contains only 2 cells (`<td>Physics</td><td>4</td>`), not 3 - because the first cell's spot is already "taken" by the merged cell from the first row.
-
-```mermaid
-flowchart TD
-    A["Merge cells"] --> B["colspan=N: one cell occupies N columns"]
-    A --> C["rowspan=N: one cell occupies N rows"]
-    B --> D["Omit the covered cells in this row"]
-    C --> E["Omit the covered cells in following rows"]
-```
-
-**How to read this diagram:** Choose whether a cell spans columns or rows. Omit the cells covered by that span so each row still occupies the same logical number of columns.
-
-
----
-
-### Common beginner mistakes
-
-| Mistake                                                                  | How to fix                                                                                                                                                                |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Forgetting to reduce cell count in the row/column after merging          | If you used `rowspan="2"` in one row - the next row should have one fewer cell                                                                                           |
-| Confusing `colspan` (horizontal, columns) with `rowspan` (vertical, rows) | Remember: col = column → `colspan` stretches across columns (width); row = row → `rowspan` stretches across rows (height)                                                |
-| Overusing cell merges in complex tables                                  | Use `colspan`/`rowspan` only when it genuinely simplifies data comprehension - excessive merging complicates both the code and table readability, especially for screen readers |
-
----
-
-## Table accessibility: `caption` and `scope`
-
-### `<caption>` - table caption/title
-
-```html
-<table>
-    <caption>Weekly class schedule</caption>
-    <thead>
-        <tr>
-            <th>Day</th>
-            <th>Subject</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Monday</td>
-            <td>Math</td>
-        </tr>
-    </tbody>
-</table>
-```
-
-`<caption>` is the first child element inside `<table>` (right after the opening `<table>` tag, before `<thead>`). It gives the table a title - analogous to the heading "Table 1. Class schedule" in a printed document. The screen reader announces `<caption>` before reading the table contents, immediately giving the user an understanding of what the table is about.
-
-### `scope` - associating headers with data
-
-The `scope` attribute on the `<th>` tag explicitly states what this header applies to - a column or a row. This is critically important for screen readers: as the user navigates through data cells, the screen reader can automatically announce the corresponding header, "reminding" the user of the context (e.g., "5, Math grade, for Aziz" - instead of a bare "5").
-
-```html
-<table>
-    <caption>Student grades</caption>
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Math</th>
-            <th scope="col">Physics</th>
+            <th scope="col">Student</th>
+            <th scope="col">HTML</th>
+            <th scope="col">CSS</th>
         </tr>
     </thead>
     <tbody>
@@ -355,58 +233,291 @@ The `scope` attribute on the `<th>` tag explicitly states what this header appli
             <td>4</td>
         </tr>
         <tr>
-            <th scope="row">Dilnoza</th>
-            <td>4</td>
+            <th scope="row">Madina</th>
+            <td>5</td>
             <td>5</td>
         </tr>
     </tbody>
 </table>
 ```
 
-- `scope="col"` - the header applies to the entire **column** below it.
-- `scope="row"` - the header applies to the entire **row** next to it.
-
-**Analogy:** imagine explaining a table to someone over the phone who can't see it. Without `scope` you'd just be listing numbers one after another - meaningless. With `scope` you'd clarify each time "this is Aziz's Math grade" - and that's exactly how a screen reader works thanks to this attribute.
+**What a blind user hears** on the cell "4": "Aziz, CSS, 4". Without `scope`, in a complex table they may hear just "4".
 
 ---
+
+## Merging cells: `colspan` and `rowspan`
+
+**In simple terms:** on squared paper you erase the line between neighbouring squares and write one text across two.
+
+| Attribute | Direction | Remember |
+| --- | --- | --- |
+| `colspan="2"` | Across, 2 columns | **col**umn |
+| `rowspan="2"` | Down, 2 rows | **row** |
+
+### `colspan` step by step
+
+We want one heading over two columns.
+
+**Before:** 2 rows × 2 columns.
+
+```html
+<tr>
+    <th>Email</th>
+    <th>Phone</th>
+</tr>
+```
+
+**After:** we add a row at the top with one cell spanning 2 columns.
+
+```html
+<table>
+    <tr>
+        <th colspan="2">Contacts</th>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    <tr>
+        <td>club@example.com</td>
+        <td>+998 90 111-22-33</td>
+    </tr>
+</table>
+```
+
+**Counting cells:**
+
+| Row | Cells in code | Places taken |
+| --- | --- | --- |
+| 1 | 1 (with `colspan="2"`) | 2 |
+| 2 | 2 | 2 |
+| 3 | 2 | 2 |
+
+`colspan` affects **only its own row**.
+
+### `rowspan` step by step
+
+A student took two subjects. We write the name once across two rows.
+
+```html
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Grade</th>
+    </tr>
+    <tr>
+        <td rowspan="2">Aziz</td>
+        <td>HTML</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>CSS</td>
+        <td>4</td>
+    </tr>
+</table>
+```
+
+**What you will see:**
+
+```
+┌──────────┬──────────┬──────────┐
+│ Student  │ Subject  │ Grade    │
+├──────────┼──────────┼──────────┤
+│          │ HTML     │ 5        │
+│  Aziz    ├──────────┼──────────┤
+│          │ CSS      │ 4        │
+└──────────┴──────────┴──────────┘
+```
+
+**Counting cells:**
+
+| Row | Cells in code | Why |
+| --- | --- | --- |
+| 1 | 3 | The header |
+| 2 | 3 | "Aziz" also takes a place in row 3 |
+| 3 | **2** | The first place is already taken by "Aziz" from above |
+
+`rowspan` affects **the following rows**: they have fewer cells.
+
+```mermaid
+flowchart TD
+    A["Merging cells"] --> B["colspan=N: the cell spans N columns"]
+    A --> C["rowspan=N: the cell spans N rows"]
+    B --> D["Don't add the occupied cells in this row"]
+    C --> E["Don't add the occupied cells in the following rows"]
+```
+
+**How to read the diagram.** `colspan` saves cells in its own row, `rowspan` in the following rows. An occupied place is not filled with a second cell.
+
+### Try breaking it
+
+In the `rowspan` example, add an extra `<td>Extra</td>` to the third row. What happened? The cell stuck out past the right edge of the table.
 
 ### Common beginner mistakes
 
-| Mistake                                                                                                | How to fix                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| Skipping `<caption>`, relying only on text near the table (e.g., `<h2>` before `<table>`)              | Use `<caption>` inside `<table>` - it's semantically tied to the table, unlike arbitrary adjacent text                       |
-| Not specifying `scope` on `<th>`                                                                       | Add `scope="col"` or `scope="row"` - especially important for tables with headers on both rows and columns simultaneously     |
-| Not placing `<caption>` as the first element inside `<table>`                                          | `<caption>` must come right after the opening `<table>` tag, before `<thead>`                                                  |
+| Mistake | How to fix |
+| --- | --- |
+| A full set of cells in the row after `rowspan` | Remove as many cells as places are taken from above |
+| Mixing up `colspan` and `rowspan` | col - column (across), row - row (down) |
+| Merging everything | Merge only when it makes reading easier |
+| No `caption` | Give the table a title |
+| No `scope` on headings | `scope="col"` in the head, `scope="row"` at the start of a row |
 
 ---
 
-## Lesson summary
+## Mini-task 2
 
-Today you learned:
-
-- Tables (`<table>`) are for **actual tabular data**, not for page layout - that is an outdated and discouraged practice.
-- `<tr>` - row, `<th>` - header cell, `<td>` - data cell.
-- `<thead>`, `<tbody>`, `<tfoot>` semantically divide the table into header, body, and footer.
-- `colspan` merges cells horizontally (columns), `rowspan` vertically (rows).
-- `<caption>` gives the table a title, and `scope="col"`/`scope="row"` on `<th>` associates headers with data for screen readers.
-
-
-## Independent practice
-
-Create a class timetable with at least three data rows and three columns. Add `caption`, `thead`, `tbody`, `th` headers and suitable `scope`. Create a separate small table with one `colspan` or `rowspan` merge and explain the remaining cell count in the neighbouring row.
-
-### Completion criteria
-
-- [ ] Column counts remain consistent with colspan/rowspan in every row.
-- [ ] The table presents data, has a caption and associated headers.
-- [ ] You can explain tr, th and td without a hint.
-
-### Check your understanding
-
-1. How do colspan and rowspan differ?
-2. When do you need scope="row" or scope="col"?
-3. Why should tables not be used for page layout?
+Make a "Day schedule" table with the columns "Time" and "Activity". At 10:00 - "HTML", at 11:00 - "HTML" (the same session continues), at 12:00 - "Lunch". Write the HTML session as **one cell** across two rows. The solution is in the "Answers" section.
 
 ---
 
-[Contents](../../README.md) | [Previous](../../Lesson-4/en/Images%20and%20media.md) | [Next](../../Lesson-6/en/Forms%20part%201.md) | [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) | [EN](../en/Tables.md) | [UZ](../uz/Jadvallar.md) | [Practice: example](../practice.html)
+## Lesson summary: cheat sheet
+
+| Task | Code |
+| --- | --- |
+| Table / row | `<table>` / `<tr>` |
+| Heading / data | `<th>` / `<td>` |
+| Head / body / totals | `<thead>` / `<tbody>` / `<tfoot>` |
+| Table title | `<caption>` right after `<table>` |
+| Column heading | `<th scope="col">` |
+| Row heading | `<th scope="row">` |
+| Across 2 columns | `colspan="2"`, one cell fewer in the row |
+| Down 2 rows | `rowspan="2"`, one cell fewer in the next row |
+| Page layout | Not a table, but CSS |
+
+---
+
+## Independent work
+
+### Part 1. IDE task (counted by the platform)
+
+Make a **"Club schedule"** page:
+
+1. A full document and one `<h1>`.
+2. A table with `<caption>`, `<thead>` and `<tbody>`.
+3. Three `<th scope="col">` headings in the head: day, time, topic.
+4. **At least three** rows in the body. The first cell of each row is a `<th scope="row">` with the day of the week.
+5. A second table, "Long session": one cell with `rowspan="2"`.
+
+What the platform checks: the document skeleton, one `h1`, at least two tables, `caption`, `thead`, `tbody`, at least four `tr` rows, headings with `scope="col"` and `scope="row"`, and a `rowspan`.
+
+### Part 2. Project on your computer
+
+1. Add a `schedule.html` page to the club site from lesson 3 - now with a table.
+2. Recount the cells in every row of the table with a merged cell.
+3. Open the page and make sure no cell sticks out past the edge.
+
+### Acceptance criteria
+
+- [ ] The IDE task is accepted.
+- [ ] The table describes data, not page layout.
+- [ ] There are `caption`, `thead`, `tbody`.
+- [ ] Headings are `th` with `scope`.
+- [ ] The number of cells in every row adds up, taking merges into account.
+- [ ] You can explain how many cells go in the row after a `rowspan` and why.
+
+---
+
+## Self-check questions
+
+1. Why are tables no longer used for page layout?
+2. How is `<th>` different from `<td>`?
+3. In what order do `thead`, `tbody`, `tfoot` go?
+4. Where is `<caption>` written?
+5. When is it `scope="col"`, and when `scope="row"`?
+6. What does a blind user hear in a complex table without `scope`?
+7. What does `colspan="3"` do?
+8. A 3-column table, with a `rowspan="2"` cell in the first row. How many cells do you write in the second row?
+9. A 4-column table with a `colspan="2"` cell in a row. How many cells are in that row in total?
+10. What happens if a row has an extra cell?
+
+After the questions, take the **lesson test** on the platform: 12 questions, 70% to pass.
+
+---
+
+## What's next
+
+A table shows data. In lesson 6 we learn to **collect** it: forms with fields, labels, checkboxes and a submit button.
+
+---
+
+## Answers
+
+**Review**
+
+1. `alt`.
+2. `alt` replaces the image for those who can't see it. `figcaption` is a caption for everyone.
+3. It shows the player's control buttons.
+
+**Mini-task 1**
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>HTML</th>
+            <th>CSS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Aziz</td>
+            <td>5</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>Madina</td>
+            <td>5</td>
+            <td>5</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+**Mini-task 2**
+
+```html
+<table>
+    <caption>Day schedule</caption>
+    <thead>
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Activity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>10:00</td>
+            <td rowspan="2">HTML</td>
+        </tr>
+        <tr>
+            <td>11:00</td>
+        </tr>
+        <tr>
+            <td>12:00</td>
+            <td>Lunch</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+The second row has one cell: the "Activity" place is taken by the HTML cell above.
+
+**Self-check questions**
+
+1. A screen reader reads such a page as a data table and confuses the user. Layout is done with CSS.
+2. `<th>` is a heading, `<td>` is data.
+3. `thead`, `tbody`, `tfoot`.
+4. Right after the opening `<table>`.
+5. `col` - a column heading (in the head), `row` - a row heading (at the start of a row).
+6. Just the cell value without a heading - impossible to tell what it is.
+7. The cell spans three columns.
+8. Two.
+9. Three: one merged and two ordinary.
+10. It sticks out past the edge of the table, and the columns no longer line up.
+
+---
+
+[Contents](../../README.md) · [← Back](../../Lesson-4/en/Images%20and%20media.md) · [Next →](../../Lesson-6/en/Forms%20part%201.md) · [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) · [EN](Tables.md) · [UZ](../uz/Jadvallar.md) · [Practice](../practice.html)

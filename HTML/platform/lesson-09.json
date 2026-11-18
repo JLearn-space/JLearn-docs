@@ -1,5 +1,6 @@
 {
   "lesson": 9,
+  "language": "ru",
   "lesson_title": "Мета-теги, SEO, связь с CSS и JS",
   "task": {
     "title": "Полный head главной страницы",

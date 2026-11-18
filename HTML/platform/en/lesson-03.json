@@ -1,0 +1,258 @@
+{
+  "lesson": 3,
+  "language": "en",
+  "lesson_title": "Links and navigation",
+  "task": {
+    "title": "Club home page",
+    "language": "html",
+    "description": "Make the club's index.html: a nav menu to index.html, schedule.html, contacts.html; a table of contents with anchors #about and #join; h2 sections with these ids; in the \"How to join\" section - mailto:, tel: (no spaces, with +) and an external https link in a new tab with rel=\"noopener noreferrer\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <!-- nav: links to index.html, schedule.html, contacts.html -->\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <!-- contents: links #about and #join -->\n\n        <!-- section h2 id=\"about\" -->\n\n        <!-- section h2 id=\"join\": mailto, tel, external link in a new tab -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "<nav",
+        "</nav>",
+        "id=\"about\"",
+        "id=\"join\"",
+        "href=\"mailto:",
+        "href=\"tel:+",
+        "href=\"https://",
+        "target=\"_blank\"",
+        "rel=\"noopener"
+      ],
+      "forbidden": [
+        "href=\"c:",
+        "file://",
+        "tel:+998 ",
+        "<table"
+      ],
+      "href_targets": [
+        "index.html",
+        "schedule.html",
+        "contacts.html",
+        "#about",
+        "#join"
+      ],
+      "h1_exact": 1,
+      "h2_required": 2
+    },
+    "hints": [
+      "Menu: <nav><ul><li><a href=\"index.html\">...</a></li>...</ul></nav>.",
+      "Anchor: <h2 id=\"about\"> and the link <a href=\"#about\">.",
+      "The phone in href has no spaces: href=\"tel:+998901112233\".",
+      "External link: href=\"https://...\", target=\"_blank\", rel=\"noopener noreferrer\".",
+      "Disk paths (C:\\...) and tables are not used."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "anchor without #",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "section has no id",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2>How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "missing menu item",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "disk path",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"C:\\Users\\aziz\\club\\schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "email without mailto",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "spaces in tel",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998 90 111 22 33\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "_blank without rel",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "schedule as a table",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <table><tr><td>Wednesday</td></tr></table>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no nav",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        \n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Schedule</a></li>\n                <li><a href=\"contacts.html\">Contacts</a></li>\n            </ul>\n        \n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <ul>\n            <li><a href=\"#about\">About the club</a></li>\n            <li><a href=\"#join\">How to join</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">About the club</h2>\n            <p>We learn to build websites from scratch.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">How to join</h2>\n            <p>Email: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Phone: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN reference (new tab)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which attribute sets the link address?",
+        "options": [
+          "src",
+          "href",
+          "link",
+          "url"
+        ],
+        "answer": 1,
+        "explanation": "href means hypertext reference, the link address."
+      },
+      {
+        "type": "single",
+        "question": "A file is in the pages/ folder. How does it link to index.html in the project root?",
+        "options": [
+          "index.html",
+          "/pages/index.html",
+          "../index.html",
+          "pages/index.html"
+        ],
+        "answer": 2,
+        "explanation": "../ goes up one folder."
+      },
+      {
+        "type": "single",
+        "question": "How do you write a phone link correctly?",
+        "options": [
+          "href=\"+998901112233\"",
+          "href=\"tel:+998901112233\"",
+          "href=\"tel:+998 90 111 22 33\"",
+          "href=\"phone:998901112233\""
+        ],
+        "answer": 1,
+        "explanation": "The tel: prefix and the number without spaces, with the country code."
+      },
+      {
+        "type": "single",
+        "question": "Which link text is best?",
+        "options": [
+          "Click here",
+          "Link",
+          "Club class schedule",
+          "Here"
+        ],
+        "answer": 2,
+        "explanation": "The text should explain where the link leads."
+      },
+      {
+        "type": "multiple",
+        "question": "What do you need to jump to a section on the same page?",
+        "options": [
+          "An id on the target element",
+          "href=\"#name\" on the link",
+          "target=\"_blank\"",
+          "rel=\"noopener\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Anchor = id on the target + a link with # and the same name."
+      },
+      {
+        "type": "multiple",
+        "question": "Which paths are relative?",
+        "options": [
+          "about.html",
+          "../index.html",
+          "https://site.uz/about.html",
+          "images/photo.jpg"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "A relative path is counted from the current file and has no https://."
+      },
+      {
+        "type": "multiple",
+        "question": "Which are mistakes in links?",
+        "options": [
+          "href=\"C:\\Users\\aziz\\about.html\"",
+          "href=\"About.html\" for the file about.html",
+          "href=\"about.html\"",
+          "Two elements with id=\"about\""
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "A disk path does not work on a server, case matters, an id must be unique."
+      },
+      {
+        "type": "matching",
+        "question": "Match the address with where it leads.",
+        "pairs": [
+          [
+            "#about",
+            "A section of this page"
+          ],
+          [
+            "about.html",
+            "Another page next to it"
+          ],
+          [
+            "mailto:club@example.com",
+            "Email program"
+          ],
+          [
+            "https://developer.mozilla.org",
+            "Someone else's site"
+          ]
+        ],
+        "explanation": "The prefix and form of the address set the link type."
+      },
+      {
+        "type": "matching",
+        "question": "Match the attribute with its role.",
+        "pairs": [
+          [
+            "target=\"_blank\"",
+            "Open in a new tab"
+          ],
+          [
+            "rel=\"noopener\"",
+            "Deny the new tab access to the page"
+          ],
+          [
+            "rel=\"noreferrer\"",
+            "Do not report where the user came from"
+          ]
+        ],
+        "explanation": "If you use _blank, add rel=\"noopener noreferrer\"."
+      },
+      {
+        "type": "input",
+        "question": "What do you write at the start of a path to go up one folder? Enter only that part.",
+        "answers": [
+          "../"
+        ],
+        "case_sensitive": false,
+        "explanation": "../ means \"step out of the room into the hallway\"."
+      },
+      {
+        "type": "input",
+        "question": "Which attribute gives an element a unique name for an anchor? Enter the attribute name.",
+        "answers": [
+          "id"
+        ],
+        "case_sensitive": false,
+        "explanation": "An id is unique on the page."
+      },
+      {
+        "type": "input",
+        "question": "index.html has a section with id=\"join\". Which href leads to it from another page in the same folder?",
+        "answers": [
+          "index.html#join"
+        ],
+        "case_sensitive": false,
+        "explanation": "First the file, then # and the id."
+      }
+    ]
+  }
+}

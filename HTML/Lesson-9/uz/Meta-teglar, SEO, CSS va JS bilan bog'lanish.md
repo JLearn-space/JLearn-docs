@@ -1,113 +1,125 @@
-# Meta-teglar, SEO, CSS va JS bilan bog'lanish
+# Meta-teglar, SEO, CSS va JS bilan bog‘lash
 
-[Mundarija](../../README.md) · [Oldingi dars](../../Lesson-8/uz/Mavjudlik%20%28a11y%29.md) · [Keyingi dars](../../Lesson-10/uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Amaliyot](../practice.html) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-8/uz/Foydalanish%20qulayligi%20%28a11y%29.md) · [Keyingi →](../../Lesson-10/uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Amaliyot](../practice.html)
 
-> **Oldingi dars bilan bog'lanish:** o'tgan darsda biz odamlar uchun foydalanish qulayligini ko'rib chiqdik. Bugun sahifani **qidiruv tizimlari va boshqa saytlar** uchun tushunarli qilishni tushunamiz - shuningdek, CSS va JavaScript ni ulash uchun texnik zamin tayyorlaymiz, ular ushbu kurs doirasidan tashqarida markazda bo'ladi.
-
----
-
-## Dars oxiriga qadar nimalarni o'rganasiz
-
-- Asosiy meta-teglarni sozlash: `charset`, `description`, `viewport`.
-- Open Graph asoslarini tushunish - ijtimoiy tarmoqlarda ulanish qanday ko'rinishini.
-- `<link>` va `<script>` orqali tashqi CSS va JS fayllarini ulash.
-- Skriptlarni ulashda `defer` va `async` orasidagi farqni tushunish.
-- W3C Validator orqali kodni tekshirish.
-- Loyiha papkalar tuzilmasini standart amaliyotga muvofiq tashkil etish.
+> **Oldingi dars bilan bog‘liqlik:** 8-darsda sahifani odamlar uchun tushunarli qildingiz. Bugun uni **qidiruv tizimlari, telefonlar va ijtimoiy tarmoqlar** uchun tushunarli qilamiz, tayyor bezak va skript fayllarini ulaymiz va kodni validator bilan tekshiramiz.
 
 ---
 
-## Dars rejasi
+## Bu sizga nima uchun kerak
 
-| Bo‘lim                                         | Mazmuni                         |
-| -------------------------------------------- | -------------------------------- |
-| Meta-teglar: charset, description, viewport | Sahifa haqida xizmat ma'lumoti  |
-| Open Graph (ko'rib chiqish darajasida)     | Ijtimoiy tarmoqlarda sahifa qanday ko'rinadi |
-| CSS ni link orqali ulash                  | Sintaksis, qayerda joylashtirish |
-| JS ni script orqali ulash                 | Sintaksis, defer/async ko'rib chiqish |
-| Mini-vazifa                                | Head ni mustaqil yig'ish        |
-| W3C Validator                              | Kodni xatolarga tekshirish      |
-| Loyiha papkalar tuzilmasi                  | Standart fayllarni tashkil etish |
-| Xulosalar va amaliy vazifa                 | Mustahkamlash                   |
+Saytingiz havolasini do‘stingizga Telegram da yubordingiz. U nimani ko‘radi: yalang‘och havolanimi yoki nom, tavsif va rasmli kartochkanimi? Saytingiz Google da topildi - sarlavha ostida nima yozilgan? Telefonda sahifa juda kichik ochildi va uni barmoqlar bilan kattalashtirishga to‘g‘ri keladimi?
+
+Bularning hammasini `<head>` dagi bir necha qator hal qiladi. Bugun sahifaning «texnik pasporti»ni oxirigacha yozasiz.
 
 ---
 
-## Meta-teglar: charset, description, viewport
+## Nimani o‘rganasiz
 
-HTML WHATWG Living Standard sifatida rivojlanadi. Nu HTML Checker belgilash qoidalariga moslikni tekshiradi; qulaylik, havolalar ishlashi va SEO sifatini to‘liq kafolatlamaydi. Bularni alohida tekshiring. Viewport qat’iy o‘lchamli media va jadvallarni avtomatik moslashtirmaydi. Bu darsdagi defer tashqi klassik skriptga tegishli; ichki kodga ta’sir qilmaydi. Async fayl yuklanib, bajarish imkoni bo‘lganda ishlaydi; tartibni saqlamaydi. Ulanishni tekshirishdan oldin CSS/JS fayllarini yarating.
+- Qidiruv tizimlari uchun sahifa tavsifini yozish: `meta name="description"`.
+- Telefonda normal ko‘rinishni yoqish: `meta name="viewport"`.
+- Ijtimoiy tarmoqlar uchun kartochka yasash: Open Graph.
+- Tayyor uslublar faylini ulash: `<link rel="stylesheet">`.
+- Tayyor skriptni ulash: `<script src defer>`.
+- Loyiha fayllarini papkalarga joylash.
+- Kodni validator va Lighthouse bilan tekshirish.
 
+---
 
-Biz birinchi darsning o'zida bitta meta-teg bilan uchrashdik - `<meta charset="UTF-8">`. Bugun bu mavzuni to'liq ko'rib chiqamiz va `<head>` ichida yashovchi bir nechta muhim teg qo'shamiz.
+## Takrorlash: 1, 3 va 4-darslardan 3 savol
 
-**Oddiy qilib aytganda:** meta-teglar bu mahsulot qadoqidagi yorliqqa o'xshaydi: mahsulotning o'zi (sahifaning ko'rinadigan mazmuni) qo'lingizda, yorliqda esa qo'shimcha ma'lumot yozilgan - tarkibi, yaroqlilik muddati, shtrix-kod. Ushbu ma'lumot mahsulotning o'zining qismi emas, lekin do'kon, ombor va xaridorning uni to'g'ri ishlatishi uchun juda muhim.
+1. `<head>` da nima turadi: ko‘rinadigan yoki xizmat ma’lumotlarimi?
+2. HTML `css` papkasi yonida tursa, shu papkadagi `style.css` fayliga qanday havola beriladi?
+3. Sayt belgisini qaysi teg bilan ulagan edik?
 
-### `<meta charset="UTF-8">` - kodlash (takrorlash)
+Javoblar - dars oxirida.
+
+---
+
+## Reja
+
+| Bo‘lim | Nima qilamiz |
+| --- | --- |
+| Meta-teglar | Sahifaning texnik pasporti |
+| Tavsif va viewport | Google va telefonlar uchun |
+| Open Graph | Messenjerlardagi kartochka |
+| CSS ni ulash | Karkas uchun kiyim |
+| JS ni ulash | Elektr tarmog‘i, `defer` va `async` |
+| Mini-topshiriq 1 | To‘liq `<head>` |
+| Loyiha papkalari | Fayllarda tartib |
+| Kodni tekshirish | Validator va Lighthouse |
+| Mini-topshiriq 2 | Validator bilan xatolarni topish |
+| Mustaqil ish | IDE topshirig‘i va ikki sahifa |
+
+---
+
+## Meta-teglar
+
+**Oddiy qilib aytganda:** 1-darsda `<head>` ni uyning texnik pasporti deb atadik. Meta-teglar - shu pasportning qatorlari: kodirovka, tavsif, ekranda ko‘rsatish qoidalari.
+
+Meta-teg - `<head>` dagi bo‘sh `<meta>` elementi. Sahifada u ko‘rinmaydi.
+
+### Kodirovka (takrorlash)
 
 ```html
 <meta charset="UTF-8">
 ```
 
-1-darsda tushuntirganimdek, ushbu qator brauzerga hujjat matnining qaysi kodlashda saqlanishini aytadi - UTF-8 deyarli barcha jahon tillarini, jumladan kirillni qo'llab-quvvatlaydi.
+`<head>` da birinchi qator bo‘lib yoziladi.
 
-### `<meta name="description" content="...">` - sahifa tavsifi
+### Tavsif: `description`
 
 ```html
-<meta name="description" content="«HTML: A dan Ya gacha» kursi - noldan terishni o'rganmoqchi va birinchi saytini nashr etmoqchi odamlar uchun 10 ta dars.">
+<meta name="description" content="Olmaliqdagi veb-dasturlash to‘garagi: HTML ni noldan o‘rgatamiz, mashg‘ulotlar chorshanba kunlari.">
 ```
 
-Sahifani aniq va qisqa tavsiflang. Meta description uchun qat’iy uzunlik chegarasi yo‘q: qidiruv tizimi sahifa matnini tanlashi va parchani mavjud kenglikka qarab qisqartirishi mumkin.
+**Qayerda ko‘rinadi:** qidiruv natijalarida ko‘k sarlavha ostida. Qidiruv tizimi sizning matningizni olishi yoki o‘zinikini tuzishi mumkin, lekin yaxshi tavsif sizniki olinish ehtimolini oshiradi.
 
-- Qidiruv tizimi tavsifni natijadagi parcha sifatida tanlashi mumkin, lekin buning kafolati yo‘q;
-- ba'zan ijtimoiy tarmoqlar havolani ulashda ishlatadi (Open Graph bo‘limida batafsil).
+**Qanday yozish:**
+- 1–2 gap, taxminan 160 belgigacha;
+- har bir sahifa uchun **o‘zinikini**;
+- sahifa nima haqida va unga nega o‘tish kerak.
 
-**O'xshatish:** agar `<title>` - bu kitob muqovasidagi nom bo'lsa, `description` - muqovaning orqa tomonidagi annotatsiya, do'kondagi odamga kitobni o'qish uchun olish kerakmi yoki yo'q qaror qilishga yordam beradi.
-
-### `<meta name="viewport" content="width=device-width, initial-scale=1.0">` - mobil qurilmalarga moslashuvchanlik
+### Telefon ekrani: `viewport`
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-`viewport` bo‘lmasa, mobil brauzer sahifani keng ish stoli ekrani uchun mo‘ljallangandek ko‘rsatib, keyin kichraytirishi mumkin. Shunda matn juda mayda ko‘rinadi.
+**Oddiy qilib aytganda:** bu qatorsiz telefon sahifani kompyuter uchun qilingan deb o‘ylaydi va uni kichraytirilgan nusxa qilib ko‘rsatadi. Qator bilan esa unga aytiladi: «Sahifa kengligi = ekran kengligi, masshtab 1:1».
 
-- `width=device-width` - brauzerga "qurilmaning haqiqiy ekran kengligini ishlating" deydi, tasavvur qilingan keng desktop kengligini emas.
-- `initial-scale=1.0` - dastlabki masshtab darajasini 100% belgilaydi (avtomatik kichraytirishsiz).
+**Sinab ko‘ring:** sahifani DevTools da oching → telefon belgisi (Toggle device toolbar). `viewport` ni o‘chirib, yangilang. Matn maydalashdi. Qatorni qaytaring.
 
-**Muhim:** viewport brauzerga sahifa kengligi va dastlabki masshtabni tushuntiradi. U rasmlar, jadvallar va sahifa joylashuvini o‘z-o‘zidan kichik ekranga moslashtirmaydi; buning uchun keyingi CSS kursida o‘rganiladigan qoidalar ham kerak.
+`viewport` o‘zi sahifani moslashuvchan qilmaydi - buning uchun CSS kerak. Lekin `viewport` siz moslashuvchan CSS telefonda ishlamaydi.
 
----
+### Yangi o‘rganuvchilarning tipik xatolari
 
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-|Xato|Tuzatish|
-|---|---|
-|`viewport` ni unutish - sayt telefonda kichik va o'qimsiz ko'rinadi|Har bir loyiha `<head>`iga `<meta name="viewport" content="width=device-width, initial-scale=1.0">` qo'shing|
-| Tavsif qidiruvda aynan ko‘rsatiladi deb kutish | Mazmunli tavsif yozing; qidiruv tizimi boshqa sahifa matnini tanlashi yoki parchani qisqartirishi mumkin. |
-|`description` ni sahifadagi ko'rinadigan matn bilan adashtirish|`description` sahifaning o'zida hech qayerda ko'rsatilmaydi - bu faqat qidiruv tizimlari va ijtimoiy tarmoqlar uchun xizmat ma'lumoti|
+| Xato | Qanday tuzatish |
+| --- | --- |
+| Barcha sahifalarda bir xil `description` | Har biriga o‘z tavsifi |
+| 500 belgili tavsif | 1–2 gap |
+| `viewport` yo‘q | Har bir hujjatga qo‘shing |
+| `<body>` da `<meta>` | Faqat `<head>` da |
 
 ---
 
-## Open Graph (ko'rib chiqish darajasida)
+## Open Graph: ijtimoiy tarmoqlar uchun kartochka
 
-Siz Telegram, WhatsApp'da do'stingizga sayt havolasini yuborganingizda yoki Facebook'da nashr etganingizda, ko'pincha rasm, sarlavha va tavsif bilan chiroyli karta paydo bo'ladi. Bu **Open Graph** orqali ishlaydi - aslida Facebook yaratgan, lekin hozir ko'p platformalar qo'llab-quvvatlaydigan meta-teglar to'plami.
+Havola Telegram yoki Facebook ga qo‘yilganda, ular maxsus Open Graph meta-teglarini qidiradi:
 
 ```html
-<meta property="og:title" content="HTML: A dan Ya gacha - boshlang'ichlar uchun kurs">
-<meta property="og:description" content="Noldan mustaqil sayt nashr qilishgacha 10 ta dars.">
-<meta property="og:image" content="https://saydullayev.fun/images/course-preview.jpg">
-<meta property="og:url" content="https://saydullayev.fun/html-course">
+<meta property="og:title" content="Veb-dasturlash to‘garagi">
+<meta property="og:description" content="HTML ni noldan o‘rgatamiz. Mashg‘ulotlar chorshanba kunlari.">
+<meta property="og:image" content="https://example.com/images/preview.jpg">
 ```
 
-Asosiy teglarni ko'rib chiqamiz:
+| Teg | Kartochkada nima |
+| --- | --- |
+| `og:title` | Sarlavha |
+| `og:description` | Tavsif |
+| `og:image` | Rasm. `https://` bilan **to‘liq** manzil kerak |
 
-- **`og:title`** - kartada ko'rinadigan sarlavha (brauzer yorlig'idagi `<title>` dan farqli bo'lishi mumkin - ko'pincha "sotuvchanroq" qilinadi).
-- **`og:description`** - kartadagi tavsif (`meta description` ga o'xshash, lekin aynan ijtimoiy tarmoqlar uchun).
-- **`og:image`** - kartada ko'rsatiladigan rasm (muhim: **mutlaq** yo'lni ko'rsatish kerak, `https://` ni qo'shib, chunki ijtimoiy tarmoqlar bu rasmni foydalanuvchining brauzeri orqali emas, o'z serverlaridan "yuklab oladi").
-- **`og:url`** - kanonik (asosiy) sahifa manzili.
-
-**Sintaksisning muhim xususiyati:** diqqat qiling - bu yerda odatdagi yuqoridagi meta-teglardagi `name` o'rniga `property` atributi ishlatiladi. Bu shuning uchunki, Open Graph texnik jihatdan boshqa standartga (RDFa) asoslangan, lekin amaliy foydalanish uchun shunchaki eslab qolish yetarli: Open Graph uchun - `property`, oddiy meta-teglar uchun - `name`.
-
-**Bu kursda faqat ko'rib chiqish darajasida ko'rib chiqayotgan mavzu** - bu kursda biz barcha mumkin bo'lgan Open Graph teglari variantlariga chuqur kirmaymiz (ular juda ko'p - kontent turi, locale, muallif va hokazo), lekin muhimki, siz endi havolalarni ulashdagi chiroyli oldindan ko'rish kartalari qayerdan kelishini bilasiz va o'z loyihangiz uchun asosiy to'plamni qo'shishni o'rgandingiz.
+**E’tibor bering:** bu yerda `name` emas, `property`.
 
 ```mermaid
 flowchart LR
@@ -122,164 +134,83 @@ flowchart LR
 
 ```
 
-**Bu kursdagi joylashuv:** uslublar faylini `head` ichida, metama’lumotlardan keyin ulang. Brauzer faylni body mazmuniga o‘tishdan oldin topadi. Bu kursdagi kelishuv; HTML boshqa har qanday to‘g‘ri joylashuvni taqiqlaydi degani emas.
+**Sxemani qanday o‘qish kerak.** `<head>` da turishi mumkin bo‘lgan hamma narsa. `charset`, `viewport`, `title` va `description` majburiy. Qolgani - vazifaga qarab.
 
 ---
 
-## CSS ni `<link>` orqali ulash
+## CSS ni ulash
 
-Kursdagi tayyor `../css/style.css` va `../js/main.js` fayllaridan foydalaning. CSS/JS yozish talab qilinmaydi.
-
-Biz `<link>` tegini 4-darsda ishlatgan edik - favicon uchun. Xuddi shu teg tashqi CSS stil faylini ulash uchun ishlatiladi.
+**Oddiy qilib aytganda:** HTML - karkas, CSS - kiyim. Kiyim alohida tikiladi va karkasga bitta qator bilan «kiydiriladi»:
 
 ```html
-<head>
-    <meta charset="UTF-8">
-    <title>Mening saytim</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+<link rel="stylesheet" href="css/style.css">
 ```
 
-- `rel="stylesheet"` - brauzerga ulanayotgan faylning stil jadvali ekanini aytadi.
-- `href` - CSS faylga yo'l (3-darsda ko'rib chiqqan nisbiy/mutlaq yo'llar qoidalari bo'yicha).
+| Atribut | Nimani bildiradi |
+| --- | --- |
+| `rel="stylesheet"` | «Bu uslublar fayli» |
+| `href` | Faylga yo‘l - 3-darsdagi qoidalar bo‘yicha |
 
-**Bu kursdagi joylashuv:** uslublar faylini `head` ichida, metama’lumotlardan keyin ulang. Brauzer faylni body mazmuniga o‘tishdan oldin topadi. Bu kursdagi kelishuv; HTML boshqa har qanday to‘g‘ri joylashuvni taqiqlaydi degani emas.
+`<head>` da yoziladi.
 
-**Bu kurs uchun muhim eslatma:** CSS ning o'zi sintaksisi (`style.css` faylining ichida nima yozish kerak) «HTML: A dan Ya gacha» kursi doirasidan tashqarida - biz faqat tashqi faylni HTML hujjatiga **qanday to'g'ri ulashni**, kelajakda CSS o'rganish uchun texnik asosni ko'rib chiqamiz.
+**Nimani ko‘rasiz:** sahifa darhol shriftni, chekinishlarni va kenglikni faylda yozilganidek o‘zgartiradi. **Bu kursda CSS yozish shart emas:** `Lesson-9/css/style.css` fayli allaqachon tayyor, uni nusxalash kifoya.
 
 ---
 
-## JS ni `<script>` orqali ulash
+## JavaScript ni ulash
 
-`<script>` tegi JavaScript kodini ulaydi - tashqi fayl yoki to'g'ridan-to'g'ri HTML hujjati ichidagi kod.
-
-### Tashqi fayl
-
-```html
-<script src="js/main.js"></script>
-```
-
-Diqqat qiling: `<script>` - **juft** teg (`<link>` dan farqli, u juft emas), `src` atributi ishlatilganida va ichida hech narsa qo'lda yozilmagan bo'lsa ham.
-
-### To'g'ridan-to'g'ri teg ichidagi kod (ichki skript)
-
-```html
-<script>
-    console.log("HTML hujjatidan salom!");
-</script>
-```
-
-Bu tashqi fayllarga qaraganda kamroq ishlatiladi - haqiqiy loyihalarda JS kodi odatda alohida `.js` fayllarga chiqariladi (CSS bilan xuddi sabablarga - qo'llab-quvvatlash qulayligi, sahifalar o'rtasida qayta ishlatish).
-
-### `<script>` ni qayerda joylashtirish
-
-Bu yerda muhim amaliy moment bor. Oldin `<script>` ni `<body>` ning eng oxiriga, yopuvchi `</body>` tegidan oldin qo'yish odat bo'lgan:
-
-```html
-<body>
-    <!-- sahifaning butun kontenti -->
-
-    <script src="js/main.js"></script>
-</body>
-```
-
-**Nima uchun bunday qilgan:** brauzer HTML hujjatini tepadan pastga ketma-ket o'qiydi. Agar `<script>` qo'shimcha atributlarsiz `<head>` da bo'lsa, brauzer skriptni to'liq yuklab va bajarib bo'lguncha qolgan sahifani o'qishni **to'xtatadi** - bu foydalanuvchiga ko'rinadigan kontentni ko'rsatishni sezilarli darajada sekinlashtirishi mumkin. `<body>` oxirida joylashtirish skript yuklanishiga qadar sahifaning butun ko'rinadigan qismi brauzer tomonidan o'qilganligini kafolatlaydi.
-
-### Zamonaviy yechim: `defer` va `async`
-
-Bugun ko'pincha moslashuvchanroq yondashuv ishlatiladi - `<script>` tegi `<head>` da qoladi, lekin maxsus atributlardan biri bilan:
+**Oddiy qilib aytganda:** JavaScript - uyning elektr tarmog‘i. U `<script>` tegi bilan ulanadi:
 
 ```html
 <script src="js/main.js" defer></script>
 ```
 
-```html
-<script src="js/main.js" async></script>
-```
+`<script>` - ichi bo‘sh bo‘lsa ham **juft** teg. `</script>` ni yozing.
 
-**`defer`** - brauzer skriptni qolgan HTML o'qish bilan **bir vaqtda** yuklaydi (uni to'xtatmasdan), lekin butun HTML hujjat to'liq o'qilganidan keyin **bajaradi**. Bir nechta `defer` skriptlarining bajarilish tartibi kodda ko'rsatilgan tartibda saqlanadi.
+### Qayerga qo‘yish va `defer` nima uchun
 
-**`async`** - brauzer skriptni ham bir vaqtda yuklaydi, lekin yuklash tugashi bilanoq **bajaradi** - hatto qolgan HTML hujjat hali o'qilmagan bo'lsa ham. Bu istalgan bashorat qilinmagan paytda sodir bo'lishi mumkin va bir nechta `async` skriptlarining bajarilish tartibi **kafolatlanmagan**.
+Brauzer HTML ni yuqoridan pastga o‘qiydi. Oddiy `<script>` ga duch kelganda u **to‘xtaydi**, skriptni yuklab bajaradi va shundan keyingina davom etadi. Sahifa kechikib paydo bo‘ladi.
 
-### Qachon nimani ishlatish (qisqacha, umumiy tushunish uchun)
+| Yozuv | Qanday ishlaydi | Qachon ishlatish |
+| --- | --- | --- |
+| `<script src>` | Sahifani o‘qishni to‘xtatish, yuklash, bajarish | Eski usul |
+| `<script src defer>` | Parallel yuklash, butun sahifa o‘qilgach tartib bilan bajarish | **Deyarli doim** |
+| `<script src async>` | Parallel yuklash, tayyor bo‘lishi bilan darhol bajarish | Mustaqil skriptlar: hisoblagichlar, analitika |
 
-|Atribut|Qachon ishlatish|
-|---|---|
-|`defer`|Ko'pchilik skriptlar uchun, ayniqsa skript sahifa mazmuni bilan o'zaro ta'sir qilsa (unga butun HTML allaqachon o'qilgan bo'lishi kerak)|
-|`async`|Mustaqil skriptlar uchun, ularning tartibi muhim bo'lmagan va qolgan sahifa bilan o'zaro ta'sir muhim bo'lmagan (masalan, analitika hisoblagichlari)|
-|Atributlarsiz, `<body>` oxirida|Eskiroq, lekin hali ham ishlaydigan va tushunarli variant|
-
-**Bu ham ushbu kursning ko'rib chiqish mavzusi** - JavaScript ning ishlashini chuqur tushunish va murakkab holatlarda `defer`/`async` orasidagi to'g'ri tanlov JavaScript ning o'zini o'rganish bilan birga keladi, bu HTML haqidagi ushbu kurs doirasidan tashqarida.
+**Kurs qoidasi:** `<head>` da `<script src="..." defer>`.
 
 ```mermaid
 flowchart TD
  A["Tashqi klassik skript"] --> B{"Yuklash atributi?"}
  B -->|defer| C["Parallel yuklash; tahlildan keyin tartib bilan bajarish"]
- B -->|async| D["Parallel yuklash; tayyor bo‘lganda, tartib kafolatisiz bajarish"]
+ B -->|async| D["Parallel yuklash; tayyor bo‘lganda bajarish, tartib kafolatlanmaydi"]
  B -->|Hech biri| E["Yuklash va bajarish uchun tahlilni to‘xtatish"]
 ```
 
-**Chizmani qanday o‘qish kerak:** Uch yo‘l tashqi klassik skript yuklanganda HTML tahlili bilan nima bo‘lishini taqqoslaydi. defer tahlildan keyin tartibni saqlaydi; async tayyor bo‘lganda ishlaydi va tartibni kafolatlamaydi; ikkalasi bo‘lmasa tahlil kutishi mumkin.
+**Sxemani qanday o‘qish kerak.** Skriptni ulashning uch varianti. `defer` sahifani sekinlashtirmaydi va skriptlar tartibini saqlaydi.
+
+**Skript ishlaganini qanday tekshirish:** tayyor `main.js` konsolga xabar yozadi. DevTools → **Console** yorlig‘ini oching. «Lesson 9: the deferred script loaded.» ni ko‘rasiz - skript ulangan.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Qanday tuzatish |
+| --- | --- |
+| Yopuvchi tegsiz `<script src="..." />` | Doim `</script>` |
+| Yonidagi fayl uchun `../css/style.css` yo‘li | HTML fayldan yo‘l: `css/style.css` |
+| Uslublar uchun `<link>` `<body>` da | `<head>` da |
+| `rel="style"` | To‘g‘risi: `rel="stylesheet"` |
 
 ---
 
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
+## Mini-topshiriq 1
 
-|Xato|Tuzatish|
-|---|---|
-|`<script>` ni `defer`/`async` siz `<head>` boshiga qo'yish|Bu sahifani ko'rsatishni sekinlashtiradi - `defer` ishlating yoki skriptni `<body>` oxiriga qo'ying|
-|Nopar `<link>` (CSS uchun) va juft `<script>` (JS uchun) ni adashtirish|`<link>` yopuvchi tegi yo'q, `<script>` - doimo bor, ichi bo'sh bo'lsa ham|
-|`defer` va `async` faqat tashqi skriptlar (`src="..."`) bilan ishlashini, teg ichidagi kod bilan emasligini unutish|Ichki `<script>` (src'siz) uchun bu atributlar ma'nosiz|
+Qaramasdan «To‘garak kontaktlari» sahifasining to‘liq `<head>` ini yozing: kodirovka, viewport, yorliq nomi, tavsif, belgi, `css/style.css` uslublari, `defer` bilan `js/main.js` skripti. Yechim - «Javoblar» bo‘limida.
 
 ---
 
-## Mini-vazifa
+## Loyiha papkalari
 
-`<head>` ni ko'chirib ko'rmay, mustaqil yig'ing: UTF-8 kodlash, "Mini-vazifa" sarlavhasi, moslashuvchanlik uchun viewport, `styles/main.css` stil fayli va `defer` atributli `scripts/app.js` skripti bilan.
-
-**Yechim:**
-
-```html
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini-vazifa</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <script src="scripts/app.js" defer></script>
-</head>
-```
-
----
-
-## W3C Validator - kodni tekshirish
-
-HTML WHATWG Living Standard sifatida yuritiladi. Belgilashdagi moslik xatolarini topish uchun [Nu HTML Checker](https://validator.w3.org/nu/) dan foydalaning.
-
-**Qanday foydalanish:**
-
-1. **validator.w3.org** saytini oching.
-2. Uchta tekshirish usulidan birini tanlang: nashr etilgan sahifa manzili bo'yicha (Validate by URI), kompyuterdan fayl yuklash (Validate by File Upload), yoki kodni to'g'ridan-to'g'ri kiritish (Validate by Direct Input).
-3. Tekshiruvni ishga tushiring - validatsiya qiluvchi xatolar va ogohlantirishlar ro'yxatini aniq kod qatori ko'rsatib ko'rsatadi.
-
-**Validatsiya qiluvchi topadigan tipik xatolar:**
-
-- yopilmagan teglar;
-- sahifada takrorlanuvchi `id`;
-- noto'g'ri ichki teglar (masalan, boshqa `<p>` ichidagi `<p>`, bu spetsifikatsiya tomonidan taqiqlangan);
-- mavjud bo'lmagan majburiy atributlar (masalan, `<img>` da `alt`);
-- eskirgan/mavjud bo'lmagan teglar va atributlarni ishlatish.
-
-**Nima uchun bu muhim, rasmiyatchilik emas:** yaroqsiz kod bitta brauzerda "g'alati normal" ko'rinishi mumkin, chunki u brauzer xatolarni "kechirish" va nimani nazarda tutilganini bashorat qilishni biladi - lekin boshqa brauzer (yoki ekran o'quvchisi, yoki qidiruv roboti) xuddi shu yaroqsiz kodni butunlay boshqacha talqin qilishi mumkin, bu aynan sizning foydalanuvchilaringizning bir qismida kutilmagan vizual va tuzilmaviy muammolarga olib keladi.
-
-**Amaliy tavsiya:** har bir yirik loyihani (masalan, 10-darsning yakuniy loyihasini) validatsiya qiluvchidan o'tkazing - bu kichik, lekin haqiqiy xatolarni tutadigan ajoyib odat, oddiy brauzerda ko'rishda ko'zga ko'rinmaydigan.
-
----
-
-## Loyiha papkalar tuzilmasi
-
-Darsning yakuniy amaliy bloki - haqiqiy ko'p sahifali sayt fayllarini qanday tashkil etish kerak, shunda uning ichida oson yo'l topish mumkin bo'lsin (sizga ham, loyihangizni keyinroq ochadigan har qanday odamga ham).
-
-Standart, keng tarqalgan tuzilma quyidagicha ko'rinadi:
+**Oddiy qilib aytganda:** shkafda kiyimlar javonlarga taxlangan: ko‘ylaklar alohida, paypoqlar alohida. Loyihada ham shunday.
 
 ```
 my-website/
@@ -298,73 +229,216 @@ my-website/
 └── favicon.ico
 ```
 
-Bunday tashkil etish tamoyillari:
+| Qayerda | Nima |
+| --- | --- |
+| Ildiz | HTML sahifalar va sayt belgisi |
+| `css/` | Uslub fayllari |
+| `js/` | Skriptlar |
+| `images/` | Rasmlar |
 
-- **HTML fayllar** sahifalari - to'g'ridan-to'g'ri loyiha ildiz papkasida (bu `<a href="about.html">` havolalardagi yo'llarni soddalashtiradi, 3-darsda ko'rib chiqqan).
-- **`css/`** - barcha stil fayllari uchun alohida papka.
-- **`js/`** - barcha skriptlar uchun alohida papka.
-- **`images/`** - barcha rasmlar uchun alohida papka, ko'p ikonka bo'lsa ichiga `icons/` papkasini qo'shish mumkin.
-- **`favicon.ico`** - ko'pincha loyiha ildizida qoldiriladi (ba'zi brauzerlar uni avtomatik aynan shu yerda qidiradi, 4-darsda ko'rib chiqqan).
+**Fayl nomlari:** lotin harflari, kichik harflar, bo‘shliqsiz, so‘zlar defis bilan: `Mening rasmim 1.JPG` emas, `hero-photo.jpg`.
 
-Bunday tuzilma bilan `index.html` ning `<head>` dagi yo'llar (ildizda yotgan) quyidagicha ko'rinadi:
+### Fayllar ulanganini qanday tekshirish
 
-```html
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js" defer></script>
-<link rel="icon" href="favicon.ico">
-```
+1. Sahifani Live Server orqali oching.
+2. DevTools → **Network** yorlig‘i → sahifani yangilang.
+3. **Status** ustunida `style.css` va `main.js` ni toping:
 
-Sahifa ichida:
+| Status | Ma’nosi |
+| --- | --- |
+| 200 | Yuklandi |
+| 304 | Keshdan olindi - bu ham normal |
+| 404 | **Topilmadi** - yo‘l va fayl nomini tekshiring |
 
-```html
-<img src="images/hero-photo.jpg" alt="Sahifadagi asosiy rasm">
-```
+### Yangi o‘rganuvchilarning tipik xatolari
 
-**Nima uchun CSS/JS o'rganishdan oldin bunday tuzilma muhim:** haqiqiy stillar va skriptlarni faol yozishni boshlaganingizda, turli joylarga bejiz tarqatilgan fayllar tezda xaosga aylanadi, unda biror narsani topish qiyin. Dastlabki o'quv loyihalaridan boshlab tartibli tuzilmaga odatlanish kelajakda murakkab mavzularga o'tishni sezilarli darajada osonlashtiradi.
-
----
-
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-| Xato                                                                                  | Tuzatish                                                                                              |
-| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Barcha fayllarni (HTML, CSS, rasmlarni) aralashtirib bitta papkaga solish                      | Fayl turlari bo'yicha ajrating: `css/`, `js/`, `images/`                                                    |
-| Papka va fayl nomlarida bo‘sh joy yoki kirill ishlatish (masalan, `mening rasmim.jpg`) | Lotin harflaridan foydalaning, bo‘sh joysiz, odatda kichik harflar bilan defislar: `my-photo.jpg`              |
-| Loyiha o'rtasida papka tuzilmasini o'zgartirish, HTML fayllardagi barcha yo'llarni yangilamasdan | Tuzilmani oldindan o'ylab chiqing, o'zgartirsangiz - barcha bog'liq yo'llarni `src`/`href` da tekshiring va yangilang |
+| Xato | Qanday tuzatish |
+| --- | --- |
+| Barcha fayllar bitta papkada | Joylang: `css/`, `js/`, `images/` |
+| Nomlarda bo‘shliq va kirill harflari | `my-photo.jpg` |
+| Papka nomini o‘zgartirib, yo‘llarni unutdingiz | Barcha `href` va `src` ni yangilang |
 
 ---
 
-## Dars xulosalari
+## Kodni tekshirish
 
-Bugun siz quyidagilarni bilib oldingiz:
+### Nu HTML Checker validatori
 
-- `charset`, `description`, `viewport` meta-teglar - sahifa haqida xizmat ma'lumoti: kodlash, qidiruv tizimlari uchun tavsif, mobil qurilmalarga moslashuvchanlik.
-- Open Graph teglari (`og:title`, `og:description`, `og:image`, `og:url`) ijtimoiy tarmoqlarda havolani ulashda chiroyli karta shakllantiradi.
-- CSS `<link rel="stylesheet">` orqali ulanadi, JS - `<script src="...">` orqali, yuklashni optimallashtirish uchun `defer`/`async` atributlari bilan.
-- W3C Validator kodni HTML rasmiy standartlariga mosligini tekshiradi va yashirin xatolarni topadi.
-- Standart loyiha tuzilmasi - ildizda HTML, alohida `css/`, `js/`, `images/` papkalar - saytni qo'llab-quvvatlashni osonlashtiradi.
+Brauzer xatolarni «kechiradi» va siz nimani nazarda tutganingizni taxmin qiladi. Boshqa brauzer yoki ekran o‘quvchi boshqacha taxmin qilishi mumkin. Validator ko‘z bilan ko‘rinmaydigan xatolarni topadi.
 
+1. [validator.w3.org/nu](https://validator.w3.org/nu/) ni oching.
+2. **Text Input** (kodni qo‘yish) yoki **File Upload** (faylni yuklash) ni tanlang.
+3. **Check** ni bosing.
 
+**U nimani topadi:** yopilmagan teglar, takrorlanuvchi `id`, `alt` siz `<img>`, `<p>` ichida `<p>`, mavjud bo‘lmagan atributlar.
 
-## Mustaqil mashq
+**Maqsad:** «Document checking completed. No errors or warnings to show.» yozuvi.
 
-To‘plamdagi tayyor `Lesson-9/css/style.css` va `Lesson-9/js/main.js` fayllarini o‘z loyihangizdagi `css` va `js` papkalariga ko‘chiring. Ikkala HTML sahifani shu papkalar yoniga joylang; HTML ichida `css/style.css` va `js/main.js` yo‘llarini yozing. Yuqoridagi `../css/style.css` va `../js/main.js` yo‘llari Markdown manbasiga nisbatan berilgan, saytingiz uchun majburiy yo‘l emas.
+### Lighthouse - sahifaning umumiy bahosi
 
-Yuklanishni tekshirish uchun dasturchi vositalari → Network ni ochib, sahifani HTTP orqali qayta yuklang. style.css va main.js qatorlarida Status ni ko‘ring: 200 — muvaffaqiyat, 304 — tekshirilgan kesh, 404 — fayl topilmadi. file:// da HTTP holati bo‘lmaydi; kursda ko‘rsatilgan mahalliy HTTP serverdan foydalaning.
+Lighthouse Chrome ga o‘rnatilgan:
 
-Noyob title/description, viewport va tayyor tashqi CSS/JS fayllari (o‘quv to‘plamidan oling; mustaqil CSS/JS yozish talab qilinmaydi) bilan ikkita bog‘langan sahifa yarating. Ikkalasini Nu HTML Checker bilan tekshiring.
+1. Sahifani Live Server orqali oching.
+2. DevTools → **Lighthouse** yorlig‘i.
+3. **Accessibility** va **SEO** ni belgilang, **Analyze page load** ni bosing.
+
+Bir necha soniyadan keyin 0 dan 100 gacha baho va nimani yaxshilash ro‘yxatini olasiz: `description` yo‘q, kontrast kam, `alt` yo‘q.
+
+**Validator va Lighthouse qo‘lda tekshiruvni almashtirmaydi.** 8-darsdagidek sahifani klaviatura bilan o‘ting.
+
+---
+
+## Mini-topshiriq 2
+
+Bu kodni validatorda tekshiring. U nechta va qanday xatolarni topadi?
+
+```html
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Tekshiruv</title>
+</head>
+<body>
+    <h1 id="top">Sarlavha</h1>
+    <p id="top">Abzats <p>ichma-ich abzats</p></p>
+    <img src="photo.jpg">
+</body>
+</html>
+```
+
+Javob - «Javoblar» bo‘limida.
+
+---
+
+## Dars yakuni: shpargalka
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahifa nomi - Sayt nomi</title>
+    <meta name="description" content="Sahifa haqida 1–2 gap.">
+    <meta property="og:title" content="Kartochka uchun nom">
+    <meta property="og:description" content="Kartochka uchun tavsif">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+```
+
+| Vazifa | Yozuv |
+| --- | --- |
+| Qidiruv uchun tavsif | `<meta name="description" content="...">` |
+| Telefonda normal ko‘rinish | `<meta name="viewport" content="width=device-width, initial-scale=1.0">` |
+| Messenjerlardagi kartochka | `<meta property="og:...">` |
+| Uslublar | `<link rel="stylesheet" href="css/style.css">` |
+| Skript | `<script src="js/main.js" defer></script>` |
+| Tekshiruv | Nu HTML Checker, Lighthouse |
+
+---
+
+## Mustaqil ish
+
+### 1-qism. IDE topshirig‘i (platforma hisoblaydi)
+
+To‘liq `<head>` bilan **to‘garakning bosh sahifasini** yasang:
+
+1. `charset`, `viewport` va `title`.
+2. `description` - sahifaning o‘z tavsifi.
+3. `og:title` va `og:description`.
+4. Sayt belgisi `<link rel="icon">`.
+5. Uslublar: `<link rel="stylesheet" href="css/style.css">`.
+6. Skript: `<script src="js/main.js" defer></script>`.
+7. `<body>` da - `header`, bitta `h1` va abzatsli `main`, `footer`.
+
+Uslub va skriptlarni faqat fayllarni ulash orqali yozing: `<style>` tegini ishlatmang.
+
+Platforma nimani tekshiradi: hujjat skeleti, `width=device-width` li `viewport`, `description`, `og:title`, belgi, `css/style.css` va `defer` li `js/main.js` ulanishi, yopilgan `</script>`, bitta `h1`, `<style>` yo‘qligi.
+
+### 2-qism. Kompyuterdagi loyiha
+
+1. `Lesson-9/css/style.css` va `Lesson-9/js/main.js` ni loyihangizning `css` va `js` papkalariga nusxalang.
+2. O‘z `title` va `description` lari bilan ikki sahifa yasang - `index.html` va `about.html`.
+3. Live Server orqali oching. Network da tekshiring: ikkala fayl - 200 yoki 304.
+4. Ikkala sahifani Nu HTML Checker da tekshiring - xatosiz.
+5. Lighthouse ni ishga tushiring va Accessibility va SEO baholarini yozib qo‘ying.
 
 ### Tayyorlik mezonlari
 
-- [ ] Ikkala sahifada noyob title/description va viewport bor.
-- [ ] Tayyor fayllar loyihadagi css/style.css va js/main.js ga ko‘chirilgan va HTML sahifalariga nisbatan ulangan.
-- [ ] HTTP orqali ochilganda brauzer Network oynasida CSS/JS so‘rovlari muvaffaqiyatli (200 yoki kesh 304), 404 yo‘q.
-- [ ] Ikkala sahifani Nu HTML Checker bilan, havolalarni alohida tekshiring.
-
-### O‘zini tekshirish savollari
-
-Defer va async qanday farq qiladi? Validator nimani tekshirmaydi? Nega viewportning o‘zi moslashuvchanlik uchun yetarli emas?
+- [ ] IDE topshirig‘i qabul qilingan.
+- [ ] Har bir sahifaning o‘z `title` va `description` i bor.
+- [ ] Ikkala sahifada `viewport` bor.
+- [ ] CSS va JS 404 siz yuklanadi.
+- [ ] Konsolda skript xabari ko‘rinadi.
+- [ ] Validator xato topmadi.
+- [ ] Fayllar papkalarga joylangan, nomlar lotincha va bo‘shliqsiz.
 
 ---
 
-[Mundarija](../../README.md) · [Oldingi dars](../../Lesson-8/uz/Mavjudlik%20%28a11y%29.md) · [Keyingi dars](../../Lesson-10/uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Amaliyot](../practice.html) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md)
+## O‘zini tekshirish uchun savollar
+
+1. `description` qayerda ko‘rinadi?
+2. Nega har bir sahifaning o‘z tavsifi bo‘ladi?
+3. `viewport` siz telefonda nima bo‘ladi?
+4. `og:title` `<title>` dan nimasi bilan farq qiladi?
+5. Nega `og:image` ga to‘liq manzil kerak?
+6. Uslublar faylini qanday ulash mumkin?
+7. Nega `<script>` ga doim yopuvchi teg yoziladi?
+8. `defer` `async` dan nimasi bilan farq qiladi?
+9. Network dagi 404 statusi nimani bildiradi?
+10. Sahifa shundoq ham normal ko‘rinsa, validator nimaga kerak?
+
+Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish chegarasi 70%.
+
+---
+
+## Keyin nima
+
+Haqiqiy sayt yasash uchun hamma narsani bilasiz. 10-darsda uni rejadan internetda nashr qilishgacha yig‘asiz va saytda do‘stlaringizga yuborsa bo‘ladigan manzil paydo bo‘ladi.
+
+---
+
+## Javoblar
+
+**Takrorlash**
+
+1. Xizmat ma’lumotlari.
+2. `css/style.css`.
+3. `<link rel="icon" href="favicon.png">`.
+
+**Mini-topshiriq 1**
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontaktlar - Veb-dasturlash to‘garagi</title>
+    <meta name="description" content="Veb-dasturlash to‘garagi bilan qanday bog‘lanish: pochta, telefon va yozilish formasi.">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+```
+
+**Mini-topshiriq 2.** Validator topadi:
+1. Takrorlanuvchi `id="top"`.
+2. Abzats ichida abzats: brauzer birinchi `<p>` ni oldinroq yopadi, ortiqcha `</p>` esa juftsiz qoladi.
+3. `<img>` da `alt` yo‘q.
+
+**O‘zini tekshirish uchun savollar**
+
+1. Qidiruv natijalarida sarlavha ostida.
+2. Aks holda qidiruv tizimi turli sahifalar uchun bir xil narsani ko‘rsatadi va odam farqni tushunmaydi.
+3. Sahifa kompyuter versiyasining kichraytirilgan nusxasi bo‘lib ko‘rinadi.
+4. `og:title` - ijtimoiy tarmoqlardagi kartochka sarlavhasi, `<title>` - yorliq va qidiruv natijasi nomi.
+5. Ijtimoiy tarmoq rasmni o‘z serveridan yuklaydi, nisbiy yo‘l unga hech narsa demaydi.
+6. `<head>` da `<link rel="stylesheet" href="css/style.css">`.
+7. Bu juft teg: `</script>` siz brauzer pastdagi butun kodni skript deb hisoblaydi.
+8. `defer` skriptlarni sahifa o‘qilgandan keyin va tartib bilan bajaradi, `async` - tayyor bo‘lishi bilan, tartibsiz.
+9. Fayl topilmadi: yo‘lda yoki nomda xato.
+10. Boshqa brauzer yoki ekran o‘quvchi xato kodni boshqacha tushunishi mumkin.
+
+---
+
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-8/uz/Foydalanish%20qulayligi%20%28a11y%29.md) · [Keyingi →](../../Lesson-10/uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Amaliyot](../practice.html)

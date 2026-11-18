@@ -1,196 +1,222 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tables · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">Why tables exist and when NOT to use them</a><a href="#section-6">table, tr, td, th</a><a href="#section-14">thead, tbody, tfoot</a><a href="#section-16">Mini-task</a><a href="#section-17">colspan and rowspan - merging cells</a><a href="#section-21">Table accessibility: caption and scope</a><a href="#section-25">Lesson summary</a><a href="#section-26">Independent practice</a></details></aside><article><h1 id="section-1">Tables</h1>
-<p><a href="index.html">Contents</a> | <a href="en-lesson-4.html">Previous</a> | <a href="en-lesson-6.html">Next</a> | <a href="ru-lesson-5.html">RU</a> | <a href="en-lesson-5.html">EN</a> | <a href="uz-lesson-5.html">UZ</a> | <a href="../Lesson-5/practice.html">Practice: example</a></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tables · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">Why you need this</a><a href="#section-3">What you will learn</a><a href="#section-4">Review: 3 questions from lesson 4</a><a href="#section-5">Lesson plan</a><a href="#section-6">When a table is needed</a><a href="#section-7">Table structure</a><a href="#section-10">Table parts: thead, tbody, tfoot</a><a href="#section-12">Mini-task 1</a><a href="#section-13">Title and headings: caption and scope</a><a href="#section-16">Merging cells: colspan and rowspan</a><a href="#section-21">Mini-task 2</a><a href="#section-22">Lesson summary: cheat sheet</a><a href="#section-23">Independent work</a><a href="#section-27">Self-check questions</a><a href="#section-28">What&#x27;s next</a><a href="#section-29">Answers</a></details></aside><article><h1 id="section-1">Tables</h1>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-4.html">← Back</a> · <a href="en-lesson-6.html">Next →</a> · <a href="ru-lesson-5.html">RU</a> · <a href="en-lesson-5.html">EN</a> · <a href="uz-lesson-5.html">UZ</a> · <a href="../Lesson-5/practice.html">Practice</a></p>
 <blockquote>
-<p><strong>Connection with the previous lesson:</strong> in the last lesson we learned to insert images and media. Today we cover another way to present information - tables, for data that is logically organized into rows and columns.</p>
+<p><strong>Link to the previous lesson:</strong> in lesson 4 you added images and video to your pages. Today we learn to show data: a schedule, grades, a comparison.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<h2 id="section-2">Why you need this</h2>
+<p>A class schedule, term grades, a price comparison - this kind of data is easy to read as a table: a row is an object, a column is a property.</p>
+<p>A sighted user sees which heading is above which cell. A blind user hears cells one by one. Today we learn to build a table so that a screen reader names the heading of every cell.</p>
+<hr>
+<h2 id="section-3">What you will learn</h2>
 <ul>
-<li>Build tables with <code>table</code>, <code>tr</code>, <code>td</code>, <code>th</code> tags.</li>
-<li>Structure tables using <code>thead</code>, <code>tbody</code>, <code>tfoot</code>.</li>
-<li>Merge cells horizontally and vertically with <code>colspan</code> and <code>rowspan</code>.</li>
-<li>Make tables accessible to screen readers via <code>scope</code> and <code>caption</code>.</li>
-<li>Understand when tables are appropriate and when they are not.</li>
+<li>Build a table from <code>table</code>, <code>tr</code>, <code>th</code>, <code>td</code>.</li>
+<li>Split it into parts: <code>thead</code>, <code>tbody</code>, <code>tfoot</code>.</li>
+<li>Give the table a title with <code>caption</code>.</li>
+<li>Link headings to data with <code>scope</code>.</li>
+<li>Merge cells: <code>colspan</code> horizontally and <code>rowspan</code> vertically.</li>
+<li>Understand when a table is <strong>not</strong> needed.</li>
 </ul>
 <hr>
-<h2 id="section-3">Lesson plan</h2>
+<h2 id="section-4">Review: 3 questions from lesson 4</h2>
+<ol>
+<li>Which <code>&lt;img&gt;</code> attribute is required besides <code>src</code>?</li>
+<li>How is <code>figcaption</code> different from <code>alt</code>?</li>
+<li>What does the <code>controls</code> attribute do?</li>
+</ol>
+<p>Answers are at the end of the lesson.</p>
+<hr>
+<h2 id="section-5">Lesson plan</h2>
 <table>
 <thead>
 <tr>
 <th>Section</th>
-<th>Content</th>
+<th>What we do</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Why tables exist and when NOT to use them</td>
-<td>Tabular data vs page layout</td>
+<td>When a table is needed</td>
+<td>For data, not layout</td>
 </tr>
 <tr>
-<td>table, tr, td, th</td>
-<td>Basic table structure</td>
+<td>Table structure</td>
+<td>A sheet of squared paper</td>
 </tr>
 <tr>
-<td>thead, tbody, tfoot</td>
-<td>Semantic table division</td>
+<td>Table parts</td>
+<td>Head, body, totals</td>
 </tr>
 <tr>
-<td>Mini-task</td>
-<td>Build a simple table</td>
+<td>Mini-task 1</td>
+<td>A 3 × 3 table</td>
 </tr>
 <tr>
-<td>colspan and rowspan</td>
+<td>Title and headings</td>
+<td><code>caption</code> and <code>scope</code></td>
+</tr>
+<tr>
 <td>Merging cells</td>
+<td><code>colspan</code> and <code>rowspan</code> step by step</td>
 </tr>
 <tr>
-<td>Table accessibility: caption, scope</td>
-<td>Table caption and header-data association</td>
+<td>Mini-task 2</td>
+<td>A table with a merged cell</td>
 </tr>
 <tr>
-<td>Summary and practical task</td>
-<td>Reinforcement</td>
+<td>Independent work</td>
+<td>IDE task and a schedule</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4">Why tables exist and when NOT to use them</h2>
-<p><strong>In simple terms:</strong> an HTML table is the same thing as a table in Excel or Word: data organized into rows (horizontal lines) and columns (vertical lines), where each cell sits at the intersection of a specific row and a specific column.</p>
-<p><strong>The rule for using tables is very simple:</strong> use <code>&lt;table&gt;</code> only when you have <strong>actual tabular data</strong> - that is, data where both the row and the column matter simultaneously. Good examples include:</p>
-<ul>
-<li>a class schedule (day of week × time);</li>
-<li>comparing prices across plans (plan × feature);</li>
-<li>a tournament table (team × points/wins/losses);</li>
-<li>a list of students with grades per subject.</li>
-</ul>
-<h3 id="section-5">Important historical warning</h3>
-<p>Many years ago (in the 1990s and early 2000s), web developers used tables <strong>to lay out entire page layouts</strong> - meaning, simply to position the header, menu, and content in the right places on the screen, with no relation to tabular data whatsoever. This is called <strong>&quot;table layout&quot;</strong>, and today it is <strong>considered outdated and not recommended</strong>, because:</p>
-<ul>
-<li>such code is hard to read and maintain;</li>
-<li>a screen reader encountering <code>&lt;table&gt;</code> expects to hear data with row/column headers - not the structure of the entire page, which confuses visually impaired users;</li>
-<li>modern CSS (which is studied separately) provides far more flexible tools for positioning blocks on a page.</li>
-</ul>
-<p><strong>The rule is simple:</strong> if you just want to &quot;position blocks side by side&quot; (e.g., header at the top, menu on the left, content on the right) - that's a CSS job, not <code>&lt;table&gt;</code>. Tables are only for actual tabular <strong>data</strong>.</p>
+<h2 id="section-6">When a table is needed</h2>
+<p><strong>A table is for data</strong> that has rows and columns: a schedule, a price list, grades, a comparison.</p>
+<p><strong>A table is NOT for page layout.</strong> Sites used to be built with tables: the menu in one cell, the text in another. Today this is a mistake: a screen reader reads such a page as &quot;table, 3 columns, row 1...&quot;. The layout of blocks is set with CSS.</p>
+<p><strong>A test:</strong> can you name the columns? &quot;Day, Time, Topic&quot; - yes, it's a table. &quot;Left column, right column&quot; - no, it's layout.</p>
 <hr>
-<h2 id="section-6"><code>table</code>, <code>tr</code>, <code>td</code>, <code>th</code></h2>
-<h3 id="section-7">Basic structure</h3>
-<pre><code class="language-html">&lt;table&gt;
-    &lt;tr&gt;
-        &lt;th&gt;Name&lt;/th&gt;
-        &lt;th&gt;Age&lt;/th&gt;
-        &lt;th&gt;City&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-        &lt;td&gt;Aziz&lt;/td&gt;
-        &lt;td&gt;21&lt;/td&gt;
-        &lt;td&gt;Tashkent&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-        &lt;td&gt;Dilnoza&lt;/td&gt;
-        &lt;td&gt;19&lt;/td&gt;
-        &lt;td&gt;Almalyk&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-</code></pre>
-<p>Let's go through each tag.</p>
-<h3 id="section-8"><code>&lt;table&gt;</code> - the table itself</h3>
-<p>The outer wrapper for the entire table. Everything else goes inside it.</p>
-<h3 id="section-9"><code>&lt;tr&gt;</code> (table row) - a table row</h3>
-<p>Each horizontal row of the table is a separate <code>&lt;tr&gt;</code> tag. In the example above there are three rows: one for column headers and two for data.</p>
-<h3 id="section-10"><code>&lt;th&gt;</code> (table header) - a header cell</h3>
-<p>Denotes a cell that is a <strong>header</strong> for a row or column, not regular data. By default the browser renders it bold and centered - but as we learned in lesson 2, what matters is not appearance but meaning: <code>&lt;th&gt;</code> tells the browser and screen reader &quot;this is a header, the other cells in this column/row belong to it.&quot;</p>
-<h3 id="section-11"><code>&lt;td&gt;</code> (table data) - a regular data cell</h3>
-<p>All the remaining cells in the table that contain the actual data (not headers).</p>
-<p><strong>Analogy:</strong> think of a gradebook. The top row with subject names (&quot;Math,&quot; &quot;Physics,&quot; &quot;History&quot;) is <code>&lt;th&gt;</code>, and the actual grades in the cells are <code>&lt;td&gt;</code>. Similarly, the first column with student names is also <code>&lt;th&gt;</code> (row headers), and everything else inside is <code>&lt;td&gt;</code>.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-5-1.svg" alt="Diagram 1: Tables"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-5-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Arrows show table containment: sections contain rows and rows contain cells. A real table may also use th for row headers; this simplified tree shows the main structure.</p>
-<p>The diagram shows one example structure. <code>tbody</code> may also contain row headers (<code>th</code>); all three row groups are not mandatory.</p>
-<h3 id="section-12"><code>&lt;th&gt;</code> isn't just at the top - it can be on the left too</h3>
-<pre><code class="language-html">&lt;table&gt;
-    &lt;tr&gt;
-        &lt;th&gt;&lt;/th&gt;
-        &lt;th&gt;Math&lt;/th&gt;
-        &lt;th&gt;Physics&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-        &lt;th&gt;Aziz&lt;/th&gt;
-        &lt;td&gt;5&lt;/td&gt;
-        &lt;td&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-        &lt;th&gt;Dilnoza&lt;/th&gt;
-        &lt;td&gt;4&lt;/td&gt;
-        &lt;td&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-</code></pre>
-<p>Here there are headers both at the top (subject names) and on the left (student names) - and the empty <code>&lt;th&gt;&lt;/th&gt;</code> in the top-left corner is simply needed to make the table grid align correctly (this is standard practice for tables with &quot;double&quot; headers).</p>
-<hr>
-<h3 id="section-13">Common beginner mistakes</h3>
+<h2 id="section-7">Table structure</h2>
+<p><strong>In simple terms:</strong> a table is a sheet of squared paper. You draw it <strong>row by row</strong>, left to right.</p>
 <table>
 <thead>
 <tr>
-<th>Mistake</th>
-<th>How to fix</th>
+<th>Tag</th>
+<th>Meaning</th>
+<th>Analogy</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Using <code>&lt;td&gt;</code> instead of <code>&lt;th&gt;</code> for headers</td>
-<td>Row/column headers are always <code>&lt;th&gt;</code>, not <code>&lt;td&gt;</code> with bold text via other tags</td>
+<td><code>&lt;table&gt;</code></td>
+<td>The whole table</td>
+<td>The sheet</td>
 </tr>
 <tr>
-<td>Forgetting to close <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code></td>
-<td>All three tags are paired - don't forget the closing tags</td>
+<td><code>&lt;tr&gt;</code></td>
+<td>A row (table row)</td>
+<td>One row of squares</td>
 </tr>
 <tr>
-<td>Having different numbers of cells in different rows without reason</td>
-<td>Every <code>&lt;tr&gt;</code> should contain the same number of cells (<code>&lt;td&gt;</code>/<code>&lt;th&gt;</code>), unless you're intentionally merging cells via <code>colspan</code>/<code>rowspan</code> (see the checkbox section)</td>
+<td><code>&lt;th&gt;</code></td>
+<td>A header cell (table header)</td>
+<td>A labelled square</td>
 </tr>
 <tr>
-<td>Using <code>&lt;table&gt;</code> to position page blocks (header/menu/content)</td>
-<td>For page layout use CSS - tables are only for tabular data</td>
+<td><code>&lt;td&gt;</code></td>
+<td>A data cell (table data)</td>
+<td>An ordinary square</td>
 </tr>
 </tbody>
 </table>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Day&lt;/th&gt;
+        &lt;th&gt;Time&lt;/th&gt;
+        &lt;th&gt;Topic&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Monday&lt;/td&gt;
+        &lt;td&gt;15:00&lt;/td&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Wednesday&lt;/td&gt;
+        &lt;td&gt;15:00&lt;/td&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>What you will see:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Time</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monday</td>
+<td>15:00</td>
+<td>HTML</td>
+</tr>
+<tr>
+<td>Wednesday</td>
+<td>15:00</td>
+<td>CSS</td>
+</tr>
+</tbody>
+</table>
+<p>Without CSS a table has no borders - just aligned text. The browser shows <code>th</code> headings in bold and centred.</p>
+<p><strong>The main rule:</strong> every row has the same number of cells. Three columns means three cells in every <code>&lt;tr&gt;</code>.</p>
+<h3 id="section-8">A heading can be on the left too</h3>
+<p><code>&lt;th&gt;</code> is not only at the top. If a row describes one object, its name is a heading too:</p>
+<pre><code class="language-html">&lt;tr&gt;
+    &lt;th&gt;Aziz&lt;/th&gt;
+    &lt;td&gt;5&lt;/td&gt;
+    &lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+<h3 id="section-9">Try breaking it</h3>
+<p>Delete one <code>&lt;td&gt;</code> in the second row. What happened to the table? The cells &quot;slid&quot; to the left, and the time ended up under the &quot;Day&quot; heading.</p>
 <hr>
-<h2 id="section-14"><code>thead</code>, <code>tbody</code>, <code>tfoot</code></h2>
-<p>When a table grows larger and more complex, it helps to explicitly divide it into semantic parts - just like in a report there's a &quot;table header,&quot; &quot;main data,&quot; and &quot;summary row.&quot;</p>
+<h2 id="section-10">Table parts: <code>thead</code>, <code>tbody</code>, <code>tfoot</code></h2>
+<p>A large table is split into three parts:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>What's inside</th>
+<th>Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;thead&gt;</code></td>
+<td>The heading row</td>
+<td>The header of a register</td>
+</tr>
+<tr>
+<td><code>&lt;tbody&gt;</code></td>
+<td>Data rows</td>
+<td>The entries themselves</td>
+</tr>
+<tr>
+<td><code>&lt;tfoot&gt;</code></td>
+<td>Totals</td>
+<td>The &quot;Total&quot; row</td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-html">&lt;table&gt;
     &lt;thead&gt;
         &lt;tr&gt;
-            &lt;th&gt;Product&lt;/th&gt;
-            &lt;th&gt;Price&lt;/th&gt;
-            &lt;th&gt;Quantity&lt;/th&gt;
+            &lt;th&gt;Item&lt;/th&gt;
+            &lt;th&gt;Price, sum&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;
         &lt;tr&gt;
-            &lt;td&gt;Laptop&lt;/td&gt;
-            &lt;td&gt;8,000,000 so'm&lt;/td&gt;
-            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;Notebook&lt;/td&gt;
+            &lt;td&gt;5 000&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td&gt;Mouse&lt;/td&gt;
-            &lt;td&gt;150,000 so'm&lt;/td&gt;
-            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;Pen&lt;/td&gt;
+            &lt;td&gt;3 000&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/tbody&gt;
     &lt;tfoot&gt;
         &lt;tr&gt;
             &lt;td&gt;Total&lt;/td&gt;
-            &lt;td&gt;8,300,000 so'm&lt;/td&gt;
-            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;8 000&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/tfoot&gt;
 &lt;/table&gt;
 </code></pre>
-<ul>
-<li><strong><code>&lt;thead&gt;</code></strong> (table head) - the table header, usually row(s) with column headers.</li>
-<li><strong><code>&lt;tbody&gt;</code></strong> (table body) - the main &quot;body&quot; of the table where the data lives. If the table is long (many rows), <code>&lt;thead&gt;</code> can sometimes be pinned to the top while <code>&lt;tbody&gt;</code> scrolls - this is configured via CSS, but the semantic division is the foundation for this behavior.</li>
-<li><strong><code>&lt;tfoot&gt;</code></strong> (table foot) - the table footer, usually for totals (sum, average).</li>
-</ul>
-<p><strong>Important:</strong> these are not mandatory tags (a simple table from the first example without them is still fully valid), but for tables with real data it's a good practice that explicitly communicates the table's structure to the browser and screen reader.</p>
-<hr>
-<h3 id="section-15">Common beginner mistakes</h3>
+<p><strong>Order in the code:</strong> <code>thead</code> → <code>tbody</code> → <code>tfoot</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-5-1.svg" alt="Diagram 1: Tables"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-5-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> A table is split into three parts. Each part holds <code>tr</code> rows, and rows hold cells. The head usually has <code>th</code>, the body and totals have <code>td</code>.</p>
+<h3 id="section-11">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -200,80 +226,220 @@
 </thead>
 <tbody>
 <tr>
-<td>Placing column headers inside <code>&lt;tbody&gt;</code> instead of <code>&lt;thead&gt;</code></td>
-<td>Header row(s) go in <code>&lt;thead&gt;</code>, data goes in <code>&lt;tbody&gt;</code></td>
+<td>A table for page layout</td>
+<td>Tables are only for data</td>
 </tr>
 <tr>
-<td>Placing tfoot before tbody</td>
-<td>In modern HTML, put thead before tbody and tfoot after the body rows.</td>
+<td>Rows with different numbers of cells</td>
+<td>Every row has as many cells as there are columns</td>
+</tr>
+<tr>
+<td>A <code>&lt;td&gt;</code> outside a <code>&lt;tr&gt;</code></td>
+<td>A cell always sits inside a row</td>
+</tr>
+<tr>
+<td>Headings made with <code>&lt;td&gt;&lt;strong&gt;</code></td>
+<td>A heading is a <code>&lt;th&gt;</code></td>
+</tr>
+<tr>
+<td><code>tfoot</code> before <code>tbody</code></td>
+<td>Order: <code>thead</code>, <code>tbody</code>, <code>tfoot</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-16">Mini-task</h2>
-<p>Build a simple 2-day schedule table on your own, without peeking at the examples: columns &quot;Day&quot; and &quot;Subject,&quot; using <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code>.</p>
-<p><strong>Solution:</strong></p>
+<h2 id="section-12">Mini-task 1</h2>
+<p>Without looking, build a grades table: the heading &quot;Student, HTML, CSS&quot; and two rows of data. Use <code>thead</code> and <code>tbody</code>. The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-13">Title and headings: <code>caption</code> and <code>scope</code></h2>
+<h3 id="section-14"><code>&lt;caption&gt;</code> - the table title</h3>
 <pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Club schedule for the week&lt;/caption&gt;
+    ...
+&lt;/table&gt;
+</code></pre>
+<p><code>caption</code> is written <strong>right after</strong> <code>&lt;table&gt;</code>. Everyone sees it, and a screen reader announces it before the table: &quot;Table: Club schedule for the week&quot;.</p>
+<h3 id="section-15"><code>scope</code> - whose heading is this</h3>
+<p><strong>In simple terms:</strong> a blind user hears the cell &quot;15:00&quot;. To understand what it is, they need a heading: &quot;Time, 15:00&quot;. <code>scope</code> tells the screen reader what a heading belongs to.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Heading for</th>
+<th>Where it goes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scope=&quot;col&quot;</code></td>
+<td>The whole <strong>column</strong> below</td>
+<td>In the head</td>
+</tr>
+<tr>
+<td><code>scope=&quot;row&quot;</code></td>
+<td>The whole <strong>row</strong> to the right</td>
+<td>At the start of a row</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Term grades&lt;/caption&gt;
     &lt;thead&gt;
         &lt;tr&gt;
-            &lt;th&gt;Day&lt;/th&gt;
-            &lt;th&gt;Subject&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Student&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;HTML&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;CSS&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;
         &lt;tr&gt;
-            &lt;td&gt;Monday&lt;/td&gt;
-            &lt;td&gt;Math&lt;/td&gt;
+            &lt;th scope=&quot;row&quot;&gt;Aziz&lt;/th&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;4&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td&gt;Tuesday&lt;/td&gt;
-            &lt;td&gt;Physics&lt;/td&gt;
+            &lt;th scope=&quot;row&quot;&gt;Madina&lt;/th&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
 </code></pre>
+<p><strong>What a blind user hears</strong> on the cell &quot;4&quot;: &quot;Aziz, CSS, 4&quot;. Without <code>scope</code>, in a complex table they may hear just &quot;4&quot;.</p>
 <hr>
-<h2 id="section-17"><code>colspan</code> and <code>rowspan</code> - merging cells</h2>
-<p>Sometimes a cell needs to &quot;stretch&quot; across multiple columns or rows - for example, a header that applies to two columns at once.</p>
-<h3 id="section-18"><code>colspan</code> - horizontal merge (columns)</h3>
+<h2 id="section-16">Merging cells: <code>colspan</code> and <code>rowspan</code></h2>
+<p><strong>In simple terms:</strong> on squared paper you erase the line between neighbouring squares and write one text across two.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Direction</th>
+<th>Remember</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>colspan=&quot;2&quot;</code></td>
+<td>Across, 2 columns</td>
+<td><strong>col</strong>umn</td>
+</tr>
+<tr>
+<td><code>rowspan=&quot;2&quot;</code></td>
+<td>Down, 2 rows</td>
+<td><strong>row</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-17"><code>colspan</code> step by step</h3>
+<p>We want one heading over two columns.</p>
+<p><strong>Before:</strong> 2 rows × 2 columns.</p>
+<pre><code class="language-html">&lt;tr&gt;
+    &lt;th&gt;Email&lt;/th&gt;
+    &lt;th&gt;Phone&lt;/th&gt;
+&lt;/tr&gt;
+</code></pre>
+<p><strong>After:</strong> we add a row at the top with one cell spanning 2 columns.</p>
 <pre><code class="language-html">&lt;table&gt;
     &lt;tr&gt;
-        &lt;th colspan=&quot;2&quot;&gt;Contact information&lt;/th&gt;
+        &lt;th colspan=&quot;2&quot;&gt;Contacts&lt;/th&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-        &lt;td&gt;Email&lt;/td&gt;
-        &lt;td&gt;info@saydullayev.fun&lt;/td&gt;
+        &lt;th&gt;Email&lt;/th&gt;
+        &lt;th&gt;Phone&lt;/th&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-        &lt;td&gt;Phone&lt;/td&gt;
-        &lt;td&gt;+998 90 123-45-67&lt;/td&gt;
+        &lt;td&gt;club@example.com&lt;/td&gt;
+        &lt;td&gt;+998 90 111-22-33&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;
 </code></pre>
-<p><code>colspan=&quot;2&quot;</code> means &quot;this cell takes up the width of two regular cells&quot; - so in the first row there's only one <code>&lt;th&gt;</code>, but it visually stretches across the full width of the table (replacing 2 cells).</p>
-<p><strong>Analogy:</strong> imagine a grid sheet where you erase the border between two adjacent cells and write one piece of text across the merged space - that's exactly what <code>colspan</code> does.</p>
-<h3 id="section-19"><code>rowspan</code> - vertical merge (rows)</h3>
+<p><strong>Counting cells:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Cells in code</th>
+<th>Places taken</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1 (with <code>colspan=&quot;2&quot;</code>)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><code>colspan</code> affects <strong>only its own row</strong>.</p>
+<h3 id="section-18"><code>rowspan</code> step by step</h3>
+<p>A student took two subjects. We write the name once across two rows.</p>
 <pre><code class="language-html">&lt;table&gt;
     &lt;tr&gt;
-        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Student&lt;/th&gt;
         &lt;th&gt;Subject&lt;/th&gt;
         &lt;th&gt;Grade&lt;/th&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
         &lt;td rowspan=&quot;2&quot;&gt;Aziz&lt;/td&gt;
-        &lt;td&gt;Math&lt;/td&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
         &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-        &lt;td&gt;Physics&lt;/td&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
         &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;
 </code></pre>
-<p><code>rowspan=&quot;2&quot;</code> means &quot;this cell takes up the height of two rows&quot; - so the name &quot;Aziz&quot; isn't repeated twice, it appears once alongside both of his grades.</p>
-<p><strong>Important rule when using <code>colspan</code>/<code>rowspan</code>:</strong> once you merge a cell across multiple columns/rows, that row/column must contain <strong>fewer</strong> regular cells - exactly as many fewer as the merged cell consumed. In the <code>rowspan=&quot;2&quot;</code> example, the second <code>&lt;tr&gt;</code> contains only 2 cells (<code>&lt;td&gt;Physics&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;</code>), not 3 - because the first cell's spot is already &quot;taken&quot; by the merged cell from the first row.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-5-2.svg" alt="Diagram 2: Tables"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-5-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Choose whether a cell spans columns or rows. Omit the cells covered by that span so each row still occupies the same logical number of columns.</p>
-<hr>
+<p><strong>What you will see:</strong></p>
+<pre><code>┌──────────┬──────────┬──────────┐
+│ Student  │ Subject  │ Grade    │
+├──────────┼──────────┼──────────┤
+│          │ HTML     │ 5        │
+│  Aziz    ├──────────┼──────────┤
+│          │ CSS      │ 4        │
+└──────────┴──────────┴──────────┘
+</code></pre>
+<p><strong>Counting cells:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Cells in code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>The header</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>&quot;Aziz&quot; also takes a place in row 3</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>2</strong></td>
+<td>The first place is already taken by &quot;Aziz&quot; from above</td>
+</tr>
+</tbody>
+</table>
+<p><code>rowspan</code> affects <strong>the following rows</strong>: they have fewer cells.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-5-2.svg" alt="Diagram 2: Tables"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-5-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> <code>colspan</code> saves cells in its own row, <code>rowspan</code> in the following rows. An occupied place is not filled with a second cell.</p>
+<h3 id="section-19">Try breaking it</h3>
+<p>In the <code>rowspan</code> example, add an extra <code>&lt;td&gt;Extra&lt;/td&gt;</code> to the third row. What happened? The cell stuck out past the right edge of the table.</p>
 <h3 id="section-20">Common beginner mistakes</h3>
 <table>
 <thead>
@@ -284,117 +450,192 @@
 </thead>
 <tbody>
 <tr>
-<td>Forgetting to reduce cell count in the row/column after merging</td>
-<td>If you used <code>rowspan=&quot;2&quot;</code> in one row - the next row should have one fewer cell</td>
+<td>A full set of cells in the row after <code>rowspan</code></td>
+<td>Remove as many cells as places are taken from above</td>
 </tr>
 <tr>
-<td>Confusing <code>colspan</code> (horizontal, columns) with <code>rowspan</code> (vertical, rows)</td>
-<td>Remember: col = column → <code>colspan</code> stretches across columns (width); row = row → <code>rowspan</code> stretches across rows (height)</td>
+<td>Mixing up <code>colspan</code> and <code>rowspan</code></td>
+<td>col - column (across), row - row (down)</td>
 </tr>
 <tr>
-<td>Overusing cell merges in complex tables</td>
-<td>Use <code>colspan</code>/<code>rowspan</code> only when it genuinely simplifies data comprehension - excessive merging complicates both the code and table readability, especially for screen readers</td>
+<td>Merging everything</td>
+<td>Merge only when it makes reading easier</td>
+</tr>
+<tr>
+<td>No <code>caption</code></td>
+<td>Give the table a title</td>
+</tr>
+<tr>
+<td>No <code>scope</code> on headings</td>
+<td><code>scope=&quot;col&quot;</code> in the head, <code>scope=&quot;row&quot;</code> at the start of a row</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-21">Table accessibility: <code>caption</code> and <code>scope</code></h2>
-<h3 id="section-22"><code>&lt;caption&gt;</code> - table caption/title</h3>
-<pre><code class="language-html">&lt;table&gt;
-    &lt;caption&gt;Weekly class schedule&lt;/caption&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Day&lt;/th&gt;
-            &lt;th&gt;Subject&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Monday&lt;/td&gt;
-            &lt;td&gt;Math&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-</code></pre>
-<p><code>&lt;caption&gt;</code> is the first child element inside <code>&lt;table&gt;</code> (right after the opening <code>&lt;table&gt;</code> tag, before <code>&lt;thead&gt;</code>). It gives the table a title - analogous to the heading &quot;Table 1. Class schedule&quot; in a printed document. The screen reader announces <code>&lt;caption&gt;</code> before reading the table contents, immediately giving the user an understanding of what the table is about.</p>
-<h3 id="section-23"><code>scope</code> - associating headers with data</h3>
-<p>The <code>scope</code> attribute on the <code>&lt;th&gt;</code> tag explicitly states what this header applies to - a column or a row. This is critically important for screen readers: as the user navigates through data cells, the screen reader can automatically announce the corresponding header, &quot;reminding&quot; the user of the context (e.g., &quot;5, Math grade, for Aziz&quot; - instead of a bare &quot;5&quot;).</p>
-<pre><code class="language-html">&lt;table&gt;
-    &lt;caption&gt;Student grades&lt;/caption&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th scope=&quot;col&quot;&gt;Name&lt;/th&gt;
-            &lt;th scope=&quot;col&quot;&gt;Math&lt;/th&gt;
-            &lt;th scope=&quot;col&quot;&gt;Physics&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;th scope=&quot;row&quot;&gt;Aziz&lt;/th&gt;
-            &lt;td&gt;5&lt;/td&gt;
-            &lt;td&gt;4&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th scope=&quot;row&quot;&gt;Dilnoza&lt;/th&gt;
-            &lt;td&gt;4&lt;/td&gt;
-            &lt;td&gt;5&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-</code></pre>
-<ul>
-<li><code>scope=&quot;col&quot;</code> - the header applies to the entire <strong>column</strong> below it.</li>
-<li><code>scope=&quot;row&quot;</code> - the header applies to the entire <strong>row</strong> next to it.</li>
-</ul>
-<p><strong>Analogy:</strong> imagine explaining a table to someone over the phone who can't see it. Without <code>scope</code> you'd just be listing numbers one after another - meaningless. With <code>scope</code> you'd clarify each time &quot;this is Aziz's Math grade&quot; - and that's exactly how a screen reader works thanks to this attribute.</p>
+<h2 id="section-21">Mini-task 2</h2>
+<p>Make a &quot;Day schedule&quot; table with the columns &quot;Time&quot; and &quot;Activity&quot;. At 10:00 - &quot;HTML&quot;, at 11:00 - &quot;HTML&quot; (the same session continues), at 12:00 - &quot;Lunch&quot;. Write the HTML session as <strong>one cell</strong> across two rows. The solution is in the &quot;Answers&quot; section.</p>
 <hr>
-<h3 id="section-24">Common beginner mistakes</h3>
+<h2 id="section-22">Lesson summary: cheat sheet</h2>
 <table>
 <thead>
 <tr>
-<th>Mistake</th>
-<th>How to fix</th>
+<th>Task</th>
+<th>Code</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Skipping <code>&lt;caption&gt;</code>, relying only on text near the table (e.g., <code>&lt;h2&gt;</code> before <code>&lt;table&gt;</code>)</td>
-<td>Use <code>&lt;caption&gt;</code> inside <code>&lt;table&gt;</code> - it's semantically tied to the table, unlike arbitrary adjacent text</td>
+<td>Table / row</td>
+<td><code>&lt;table&gt;</code> / <code>&lt;tr&gt;</code></td>
 </tr>
 <tr>
-<td>Not specifying <code>scope</code> on <code>&lt;th&gt;</code></td>
-<td>Add <code>scope=&quot;col&quot;</code> or <code>scope=&quot;row&quot;</code> - especially important for tables with headers on both rows and columns simultaneously</td>
+<td>Heading / data</td>
+<td><code>&lt;th&gt;</code> / <code>&lt;td&gt;</code></td>
 </tr>
 <tr>
-<td>Not placing <code>&lt;caption&gt;</code> as the first element inside <code>&lt;table&gt;</code></td>
-<td><code>&lt;caption&gt;</code> must come right after the opening <code>&lt;table&gt;</code> tag, before <code>&lt;thead&gt;</code></td>
+<td>Head / body / totals</td>
+<td><code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code> / <code>&lt;tfoot&gt;</code></td>
+</tr>
+<tr>
+<td>Table title</td>
+<td><code>&lt;caption&gt;</code> right after <code>&lt;table&gt;</code></td>
+</tr>
+<tr>
+<td>Column heading</td>
+<td><code>&lt;th scope=&quot;col&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Row heading</td>
+<td><code>&lt;th scope=&quot;row&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Across 2 columns</td>
+<td><code>colspan=&quot;2&quot;</code>, one cell fewer in the row</td>
+</tr>
+<tr>
+<td>Down 2 rows</td>
+<td><code>rowspan=&quot;2&quot;</code>, one cell fewer in the next row</td>
+</tr>
+<tr>
+<td>Page layout</td>
+<td>Not a table, but CSS</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-25">Lesson summary</h2>
-<p>Today you learned:</p>
-<ul>
-<li>Tables (<code>&lt;table&gt;</code>) are for <strong>actual tabular data</strong>, not for page layout - that is an outdated and discouraged practice.</li>
-<li><code>&lt;tr&gt;</code> - row, <code>&lt;th&gt;</code> - header cell, <code>&lt;td&gt;</code> - data cell.</li>
-<li><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code> semantically divide the table into header, body, and footer.</li>
-<li><code>colspan</code> merges cells horizontally (columns), <code>rowspan</code> vertically (rows).</li>
-<li><code>&lt;caption&gt;</code> gives the table a title, and <code>scope=&quot;col&quot;</code>/<code>scope=&quot;row&quot;</code> on <code>&lt;th&gt;</code> associates headers with data for screen readers.</li>
-</ul>
-<h2 id="section-26">Independent practice</h2>
-<p>Create a class timetable with at least three data rows and three columns. Add <code>caption</code>, <code>thead</code>, <code>tbody</code>, <code>th</code> headers and suitable <code>scope</code>. Create a separate small table with one <code>colspan</code> or <code>rowspan</code> merge and explain the remaining cell count in the neighbouring row.</p>
-<h3 id="section-27">Completion criteria</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> Column counts remain consistent with colspan/rowspan in every row.</label></li>
-<li class="check"><label><input type="checkbox"> The table presents data, has a caption and associated headers.</label></li>
-<li class="check"><label><input type="checkbox"> You can explain tr, th and td without a hint.</label></li>
-</ul>
-<h3 id="section-28">Check your understanding</h3>
+<h2 id="section-23">Independent work</h2>
+<h3 id="section-24">Part 1. IDE task (counted by the platform)</h3>
+<p>Make a <strong>&quot;Club schedule&quot;</strong> page:</p>
 <ol>
-<li>How do colspan and rowspan differ?</li>
-<li>When do you need scope=&quot;row&quot; or scope=&quot;col&quot;?</li>
-<li>Why should tables not be used for page layout?</li>
+<li>A full document and one <code>&lt;h1&gt;</code>.</li>
+<li>A table with <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code>.</li>
+<li>Three <code>&lt;th scope=&quot;col&quot;&gt;</code> headings in the head: day, time, topic.</li>
+<li><strong>At least three</strong> rows in the body. The first cell of each row is a <code>&lt;th scope=&quot;row&quot;&gt;</code> with the day of the week.</li>
+<li>A second table, &quot;Long session&quot;: one cell with <code>rowspan=&quot;2&quot;</code>.</li>
+</ol>
+<p>What the platform checks: the document skeleton, one <code>h1</code>, at least two tables, <code>caption</code>, <code>thead</code>, <code>tbody</code>, at least four <code>tr</code> rows, headings with <code>scope=&quot;col&quot;</code> and <code>scope=&quot;row&quot;</code>, and a <code>rowspan</code>.</p>
+<h3 id="section-25">Part 2. Project on your computer</h3>
+<ol>
+<li>Add a <code>schedule.html</code> page to the club site from lesson 3 - now with a table.</li>
+<li>Recount the cells in every row of the table with a merged cell.</li>
+<li>Open the page and make sure no cell sticks out past the edge.</li>
+</ol>
+<h3 id="section-26">Acceptance criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The IDE task is accepted.</label></li>
+<li class="check"><label><input type="checkbox"> The table describes data, not page layout.</label></li>
+<li class="check"><label><input type="checkbox"> There are <code>caption</code>, <code>thead</code>, <code>tbody</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Headings are <code>th</code> with <code>scope</code>.</label></li>
+<li class="check"><label><input type="checkbox"> The number of cells in every row adds up, taking merges into account.</label></li>
+<li class="check"><label><input type="checkbox"> You can explain how many cells go in the row after a <code>rowspan</code> and why.</label></li>
+</ul>
+<hr>
+<h2 id="section-27">Self-check questions</h2>
+<ol>
+<li>Why are tables no longer used for page layout?</li>
+<li>How is <code>&lt;th&gt;</code> different from <code>&lt;td&gt;</code>?</li>
+<li>In what order do <code>thead</code>, <code>tbody</code>, <code>tfoot</code> go?</li>
+<li>Where is <code>&lt;caption&gt;</code> written?</li>
+<li>When is it <code>scope=&quot;col&quot;</code>, and when <code>scope=&quot;row&quot;</code>?</li>
+<li>What does a blind user hear in a complex table without <code>scope</code>?</li>
+<li>What does <code>colspan=&quot;3&quot;</code> do?</li>
+<li>A 3-column table, with a <code>rowspan=&quot;2&quot;</code> cell in the first row. How many cells do you write in the second row?</li>
+<li>A 4-column table with a <code>colspan=&quot;2&quot;</code> cell in a row. How many cells are in that row in total?</li>
+<li>What happens if a row has an extra cell?</li>
+</ol>
+<p>After the questions, take the <strong>lesson test</strong> on the platform: 12 questions, 70% to pass.</p>
+<hr>
+<h2 id="section-28">What's next</h2>
+<p>A table shows data. In lesson 6 we learn to <strong>collect</strong> it: forms with fields, labels, checkboxes and a submit button.</p>
+<hr>
+<h2 id="section-29">Answers</h2>
+<p><strong>Review</strong></p>
+<ol>
+<li><code>alt</code>.</li>
+<li><code>alt</code> replaces the image for those who can't see it. <code>figcaption</code> is a caption for everyone.</li>
+<li>It shows the player's control buttons.</li>
+</ol>
+<p><strong>Mini-task 1</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Student&lt;/th&gt;
+            &lt;th&gt;HTML&lt;/th&gt;
+            &lt;th&gt;CSS&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Aziz&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Madina&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p><strong>Mini-task 2</strong></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Day schedule&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&quot;col&quot;&gt;Time&lt;/th&gt;
+            &lt;th scope=&quot;col&quot;&gt;Activity&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;10:00&lt;/td&gt;
+            &lt;td rowspan=&quot;2&quot;&gt;HTML&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;11:00&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;12:00&lt;/td&gt;
+            &lt;td&gt;Lunch&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>The second row has one cell: the &quot;Activity&quot; place is taken by the HTML cell above.</p>
+<p><strong>Self-check questions</strong></p>
+<ol>
+<li>A screen reader reads such a page as a data table and confuses the user. Layout is done with CSS.</li>
+<li><code>&lt;th&gt;</code> is a heading, <code>&lt;td&gt;</code> is data.</li>
+<li><code>thead</code>, <code>tbody</code>, <code>tfoot</code>.</li>
+<li>Right after the opening <code>&lt;table&gt;</code>.</li>
+<li><code>col</code> - a column heading (in the head), <code>row</code> - a row heading (at the start of a row).</li>
+<li>Just the cell value without a heading - impossible to tell what it is.</li>
+<li>The cell spans three columns.</li>
+<li>Two.</li>
+<li>Three: one merged and two ordinary.</li>
+<li>It sticks out past the edge of the table, and the columns no longer line up.</li>
 </ol>
 <hr>
-<p><a href="index.html">Contents</a> | <a href="en-lesson-4.html">Previous</a> | <a href="en-lesson-6.html">Next</a> | <a href="ru-lesson-5.html">RU</a> | <a href="en-lesson-5.html">EN</a> | <a href="uz-lesson-5.html">UZ</a> | <a href="../Lesson-5/practice.html">Practice: example</a></p>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-4.html">← Back</a> · <a href="en-lesson-6.html">Next →</a> · <a href="ru-lesson-5.html">RU</a> · <a href="en-lesson-5.html">EN</a> · <a href="uz-lesson-5.html">UZ</a> · <a href="../Lesson-5/practice.html">Practice</a></p>
 </article></main><footer><a href="../Lesson-5/en/Tables.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

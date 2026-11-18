@@ -1,5 +1,6 @@
 {
   "lesson": 1,
+  "language": "ru",
   "lesson_title": "Введение в HTML. Структура документа",
   "task": {
     "title": "Страница знакомства",

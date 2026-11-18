@@ -1,0 +1,269 @@
+{
+  "lesson": 6,
+  "language": "en",
+  "lesson_title": "Forms. Part 1",
+  "task": {
+    "title": "Club sign-up",
+    "language": "html",
+    "description": "A form with method=\"get\": name (text, required), email (email, required), start date (date), two checkboxes, a group of two radios with one name, an input type=\"submit\" button. Every field has label for = id and name; checkboxes and radios have value. No <button>.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <!-- Name (text, required) -->\n            <!-- Email (email, required) -->\n            <!-- Start date (date) -->\n            <!-- Two checkboxes: topics -->\n            <!-- Two radios: time (one name) -->\n            <!-- input type=\"submit\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "required",
+        "name=\"",
+        "value=\""
+      ],
+      "forbidden": [
+        "<button"
+      ],
+      "tags": {
+        "form": 1,
+        "label": 7,
+        "input": 8
+      },
+      "attrs": {
+        "input": [
+          "id",
+          "name",
+          "value"
+        ],
+        "label": [
+          "for"
+        ]
+      },
+      "for_id_pairs": true,
+      "input_types": [
+        "text",
+        "email",
+        "date",
+        "checkbox",
+        "radio",
+        "submit"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Label: <label for=\"email\">Email</label> and the field <input id=\"email\" ...>.",
+      "Required field: the required attribute.",
+      "Radio group: the same name on both, different values.",
+      "The button in this lesson is <input type=\"submit\" value=\"Sign up\">.",
+      "Check that every for matches an existing id."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "for does not match id",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"mail\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "text caption without label",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                Name\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no email",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no date",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"text\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no radio",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"checkbox\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "button element",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <button type=\"submit\">Sign up</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no required",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\">\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\">\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "post instead of get",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"post\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Sign up\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no submit",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Name</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Email</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Start date</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Morning</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Evening</label>\n            </p>\n            <p>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How do you connect a label to a field?",
+        "options": [
+          "<label name=\"x\"> and <input name=\"x\">",
+          "<label for=\"x\"> and <input id=\"x\">",
+          "<label id=\"x\"> and <input for=\"x\">",
+          "Put the label right after the field"
+        ],
+        "answer": 1,
+        "explanation": "The label's for equals the field's id."
+      },
+      {
+        "type": "single",
+        "question": "Which field type do you choose when exactly one option out of several is needed?",
+        "options": [
+          "checkbox",
+          "radio",
+          "text",
+          "submit"
+        ],
+        "answer": 1,
+        "explanation": "radio is one out of a group."
+      },
+      {
+        "type": "single",
+        "question": "What happens to a field without a name attribute on submit?",
+        "options": [
+          "It is sent under its id",
+          "It is not sent",
+          "The form is not sent at all",
+          "It is sent as on"
+        ],
+        "answer": 1,
+        "explanation": "Without name the browser skips the field."
+      },
+      {
+        "type": "single",
+        "question": "Does method=\"post\" protect data with encryption?",
+        "options": [
+          "Yes, always",
+          "No, only HTTPS encrypts",
+          "Only passwords",
+          "Only in Chrome"
+        ],
+        "answer": 1,
+        "explanation": "POST hides data from the address but does not encrypt it."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about a radio group?",
+        "options": [
+          "All switches have the same name",
+          "Each has its own id",
+          "Each has its own value",
+          "You can choose several"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A shared name joins the group, id is for the label, value is what gets sent."
+      },
+      {
+        "type": "multiple",
+        "question": "What does the browser do with a type=\"email\" field?",
+        "options": [
+          "Checks for @ on submit",
+          "Shows a keyboard with @ on phones",
+          "Sends an email",
+          "Encrypts the address"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "email checks the format and changes the keyboard, but sends nothing by itself."
+      },
+      {
+        "type": "multiple",
+        "question": "Why doesn't placeholder replace label?",
+        "options": [
+          "The hint disappears while typing",
+          "A screen reader may not read it as a label",
+          "The placeholder is sent to the server",
+          "placeholder is forbidden in HTML"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "A label is always needed; placeholder is only an example."
+      },
+      {
+        "type": "matching",
+        "question": "Match the field type with its purpose.",
+        "pairs": [
+          [
+            "password",
+            "Hides characters"
+          ],
+          [
+            "number",
+            "Numbers with arrows"
+          ],
+          [
+            "date",
+            "Calendar"
+          ],
+          [
+            "tel",
+            "Numeric keyboard on phones"
+          ]
+        ],
+        "explanation": "The field type changes the browser's behavior."
+      },
+      {
+        "type": "matching",
+        "question": "Match the attribute with its role.",
+        "pairs": [
+          [
+            "name",
+            "Name of the value on submit"
+          ],
+          [
+            "id",
+            "Link to the label"
+          ],
+          [
+            "value",
+            "The value sent to the server"
+          ],
+          [
+            "required",
+            "The field cannot be left empty"
+          ]
+        ],
+        "explanation": "id is for the page, name and value are for sending."
+      },
+      {
+        "type": "input",
+        "question": "Which form attribute sets the sending method (get or post)? Enter the attribute name.",
+        "answers": [
+          "method"
+        ],
+        "case_sensitive": false,
+        "explanation": "method=\"get\" or method=\"post\"."
+      },
+      {
+        "type": "input",
+        "question": "After submitting with method=\"get\" the address has: ?name=Aziz&time=evening. What is the value of the time field? Enter the value.",
+        "answers": [
+          "evening"
+        ],
+        "case_sensitive": false,
+        "explanation": "name=value pairs are separated by &."
+      },
+      {
+        "type": "input",
+        "question": "Which attribute without a value makes a field required? Enter the attribute name.",
+        "answers": [
+          "required"
+        ],
+        "case_sensitive": false,
+        "explanation": "required will not let an empty field be sent."
+      }
+    ]
+  }
+}

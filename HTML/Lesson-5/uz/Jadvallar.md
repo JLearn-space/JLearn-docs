@@ -1,102 +1,163 @@
 # Jadvallar
 
-[Mundarija](../../README.md) | [Oldingi dars](../../Lesson-4/uz/Rasmlar%20va%20media.md) | [Keyingi dars](../../Lesson-6/uz/Formatlar%20qism-1.md) | [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) | [EN](../en/Tables.md) | [UZ](../uz/Jadvallar.md) | [Amaliyot: namuna](../practice.html)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-4/uz/Rasmlar%20va%20media.md) · [Keyingi →](../../Lesson-6/uz/Formalar%20qism-1.md) · [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) · [EN](../en/Tables.md) · [UZ](Jadvallar.md) · [Amaliyot](../practice.html)
 
-
-> **Oldingi dars bilan bog'lanish:** o'tgan darsda biz rasmlar va mediani joylashtirishni o'rgandik. Bugun ma'lumotlarni ko'rsatishning yana bir usulini ko'rib chiqamiz - jadvallar, qatorlar va ustunlarga mantiqiy tizimlangan ma'lumotlar uchun.
-
----
-
-## Dars oxiriga qadar nimani o'rganasiz
-
-- `table`, `tr`, `td`, `th` teglari bilan jadvallar qurish.
-- `thead`, `tbody`, `tfoot` orqali jadvalni tuzilishga ajratish.
-- `colspan` va `rowspan` orqali katakchalarni gorizontal va vertikal yo'nalishda birlashtirish.
-- `scope` va `caption` yordamida jadvallarni ekran o'quvchilari uchun qulay qilish.
-- Qachon jadvallar mos kelishi va qachon kelmasligini tushunish.
+> **Oldingi dars bilan bog‘liqlik:** 4-darsda sahifalarga rasm va video qo‘shdingiz. Bugun ma’lumotlarni ko‘rsatishni o‘rganamiz: jadval, baholar, taqqoslash.
 
 ---
 
-## Dars rejasi
+## Bu sizga nima uchun kerak
 
-| Bo‘lim                                              | Mazmuni                                   |
-| ------------------------------------------------- | ----------------------------------------- |
-| Nima uchun jadvallar kerak va qachon ishlatmaslik kerak | Jadval ma'lumotlari vs sahifa tartibga solish |
-| table, tr, td, th                              | Jadvalning asosiy tuzilishi               |
-| thead, tbody, tfoot                            | Jadvalning mazmuniy ajratilishi           |
-| Kichik topshiriq                               | Oddiy jadval yig'ish                      |
-| colspan va rowspan                              | Katakchalarni birlashtirish               |
-| Jadvallarning qulayligi: caption, scope         | Jadval yorlig'i va sarlavhalar ma'lumotlar bog'lanishi |
-| Xulosalar va amaliy topshiriq                   | Mustahkamlash                             |
+Mashg‘ulotlar jadvali, semestr baholari, tariflarni taqqoslash - bunday ma’lumotlarni jadval ko‘rinishida o‘qish qulay: qator - ob’ekt, ustun - xususiyat.
+
+Ko‘radigan foydalanuvchi qaysi sarlavha qaysi katak ustida ekanini ko‘radi. Ko‘zi ojiz esa kataklarni birma-bir eshitadi. Bugun jadvalni shunday qurishni o‘rganamizki, ekran o‘quvchi har bir katakning sarlavhasini aytsin.
 
 ---
 
-## Nima uchun jadvallar kerak va qachon ishlatmaslik kerak
+## Nimani o‘rganasiz
 
-**Oddiy qilib aytganda:** HTML dagi jadval - bu Excel yoki Word dagi jadval bilan bir xil narsa: qatorlar (gorizontal qatorlar) va ustunlar (vertikal ustunlar) bo'yicha tizimlangan ma'lumotlar, har bir katakchasi ma'lum qator va ma'lum ustun kesishgan joyda joylashgan.
-
-**Jadvallarni qo'llash qoidasi juda oddiy:** `<table>` ni faqat sizda **haqiqatan jadval ma'lumotlari** bo'lganda ishlating - ya'ni qator ham, ustun ham bir vaqtda muhim bo'lgan ma'lumotlar. Yaxshi holatlar misollari:
-
-- dars jadvali (haftaning kuni × vaqt);
-- tariflar narxlarini taqqoslash (tarif × xususiyat);
-- turnir jadvali (jamoa × ochko/g'alaba/mag'lubiyat);
-- o'quvchilar ro'yxati baholar bilan fanlar bo'yicha.
-
-### Muhim tarixiy ogohlantirish
-
-Ko'p yillar oldin (1990-yillarda - 2000-yillarning boshida) veb-dasturchilar jadvallarni **butun sahifaning tartibini qurish uchun** ishlatishardi - ya'ni, sarlavha, menyu va kontentni ekranning to'g'ri joylariga joylashtirish uchun, jadval ma'lumotlari bilan umuman bog'liq emas. Buni **"table layout"** deb atashardi va bugun bu **eski deb hisoblanadi va tavsiya etilmaydi**, chunki:
-
-- bunday kodni o'qish va qo'llab-quvvatlash qiyin;
-- ekran o'quvchisi `<table>` ni uchratganda, aynan sarlavhali qator/ustun ma'lumotlarini eshitishni kutadi - bu ko'zi ojiz foydalanuvchilarni adashtiradi;
-- zamonaviy CSS (alohida o‘rganiladi) sahifada bloklarni joylashtirish uchun ancha moslashuvchan vositalarni beradi.
-
-**Qoida oddiy:** agar siz shunchaki "bloklarni yonma-yon joylashtirmoqchi bo'lsangiz" (masalan, sarlavha tepada, menyu chapda, kontent o'ngda) - bu CSS vazifasi, `<table>` emas. Jadval faqat haqiqiy jadval **ma'lumotlari** uchun.
+- `table`, `tr`, `th`, `td` dan jadval qurish.
+- Uni qismlarga bo‘lish: `thead`, `tbody`, `tfoot`.
+- Jadvalga `caption` orqali nom berish.
+- Sarlavhalarni ma’lumotlar bilan `scope` orqali bog‘lash.
+- Kataklarni birlashtirish: gorizontal `colspan` va vertikal `rowspan`.
+- Jadval qachon **kerak emasligini** tushunish.
 
 ---
 
-## `table`, `tr`, `td`, `th`
+## Takrorlash: 4-darsdan 3 savol
 
-### Asosiy tuzilish
+1. `<img>` da `src` dan tashqari qaysi atribut majburiy?
+2. `figcaption` `alt` dan nimasi bilan farq qiladi?
+3. `controls` atributi nima qiladi?
+
+Javoblar - dars oxirida.
+
+---
+
+## Reja
+
+| Bo‘lim | Nima qilamiz |
+| --- | --- |
+| Jadval qachon kerak | Ma’lumotlar uchun, joylashuv uchun emas |
+| Jadval tuzilishi | Katakli varaq |
+| Jadval qismlari | Sarlavha, tana, yakun |
+| Mini-topshiriq 1 | 3 × 3 jadval |
+| Nom va sarlavhalar | `caption` va `scope` |
+| Kataklarni birlashtirish | `colspan` va `rowspan` qadamma-qadam |
+| Mini-topshiriq 2 | Birlashtirilgan jadval |
+| Mustaqil ish | IDE topshirig‘i va jadval |
+
+---
+
+## Jadval qachon kerak
+
+**Jadval - ma’lumotlar uchun**, ularning qatorlari va ustunlari bor: jadval, narxlar, baholar, taqqoslash.
+
+**Jadval - sahifa joylashuvi uchun EMAS.** Ilgari saytlar jadvallar bilan yig‘ilardi: menyu bir katakda, matn boshqasida. Hozir bu xato: ekran o‘quvchi bunday sahifani «jadval, 3 ustun, 1-qator...» deb o‘qiydi. Bloklar joylashuvini CSS beradi.
+
+**Tekshiruv:** ustunlarni nomlash mumkinmi? «Kun, Vaqt, Mavzu» - ha, bu jadval. «Chap ustun, o‘ng ustun» - yo‘q, bu joylashuv.
+
+---
+
+## Jadval tuzilishi
+
+**Oddiy qilib aytganda:** jadval - katakli varaq. Siz uni **qatorma-qator**, chapdan o‘ngga chizasiz.
+
+| Teg | Ma’nosi | O‘xshatish |
+| --- | --- | --- |
+| `<table>` | Butun jadval | Varaq |
+| `<tr>` | Qator (table row) | Kataklarning bir qatori |
+| `<th>` | Sarlavha katagi (table header) | Imzolangan katak |
+| `<td>` | Ma’lumot katagi (table data) | Oddiy katak |
 
 ```html
 <table>
     <tr>
-        <th>Ism</th>
-        <th>Yosh</th>
-        <th>Shahar</th>
+        <th>Kun</th>
+        <th>Vaqt</th>
+        <th>Mavzu</th>
     </tr>
     <tr>
-        <td>Aziz</td>
-        <td>21</td>
-        <td>Toshkent</td>
+        <td>Dushanba</td>
+        <td>15:00</td>
+        <td>HTML</td>
     </tr>
     <tr>
-        <td>Dilnoza</td>
-        <td>19</td>
-        <td>Almalyk</td>
+        <td>Chorshanba</td>
+        <td>15:00</td>
+        <td>CSS</td>
     </tr>
 </table>
 ```
 
-Har bir tegni ko'rib chiqamiz.
+**Nimani ko‘rasiz:**
 
-### `<table>` - jadvalning o'zi
+| Kun | Vaqt | Mavzu |
+| --- | --- | --- |
+| Dushanba | 15:00 | HTML |
+| Chorshanba | 15:00 | CSS |
 
-Butun jadval uchun umumiy qobiq. Qolgan hamma narsa uning ichida joylashgan.
+CSS siz jadvalda chegaralar yo‘q - faqat tekislangan matn. `th` sarlavhalarini brauzer qalin va markazda ko‘rsatadi.
 
-### `<tr>` (table row) - jadval qatori
+**Asosiy qoida:** har bir qatorda kataklar soni bir xil. Uch ustun - demak har bir `<tr>` da uchta katak.
 
-Jadvalning har bir gorizontal qatori - alohida `<tr>` tegi. Yuqoridagi misolda uchta qator: bitta ustun sarlavhalari uchun va ikkitasi ma'lumotlar uchun.
+### Sarlavha chapda ham bo‘lishi mumkin
 
-### `<th>` (table header) - sarlavha katakchasi
+`<th>` faqat yuqorida emas. Qator bitta ob’ektni tasvirlasa, uning nomi ham sarlavha:
 
-Qator yoki ustun uchun **sarlavha** ekanini bildiruvchi katakcha, oddiy ma'lumot emas. Brauzer standart holatda uni qalin shrift va markazda ko'rsatadi - lekin, biz 2-darsdan bilganimizdek, muhim ko'rinish emas, ma'no: `<th>` brauzer va ekran o'quvchisiga "bu sarlavha, bu ustun/qatordagi qolgan katakchalar aynan unga tegishli" deb xabar beradi.
+```html
+<tr>
+    <th>Aziz</th>
+    <td>5</td>
+    <td>4</td>
+</tr>
+```
 
-### `<td>` (table data) - oddiy ma'lumot katakchasi
+### Buzib ko‘ring
 
-Jadvalning qolgan barcha katakchalari, o'z ma'lumotlarini (sarlavhalarni emas) saqlaydigan.
+Ikkinchi qatordagi bitta `<td>` ni o‘chiring. Jadvalga nima bo‘ldi? Kataklar chapga «siljidi» va vaqt «Kun» sarlavhasi ostiga tushdi.
 
-**O'xshatish:** sinf jurnalini tasavvur qiling. Fan nomlari yozilgan yuqori qator ("Matematika", "Fizika", "Tarix") - bu `<th>`, katakchalardagi baholar esa - `<td>`. Birinchi ustundagi o'quvchilar nomlari ham `<th>` (qator sarlavhalari), qolgan barchasi esa `<td>`.
+---
+
+## Jadval qismlari: `thead`, `tbody`, `tfoot`
+
+Katta jadval uch qismga bo‘linadi:
+
+| Qism | Ichida nima | O‘xshatish |
+| --- | --- | --- |
+| `<thead>` | Sarlavhalar qatori | Qaydnoma sarlavhasi |
+| `<tbody>` | Ma’lumot qatorlari | Yozuvlarning o‘zi |
+| `<tfoot>` | Yakunlar | «Jami» qatori |
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>Mahsulot</th>
+            <th>Narx, so‘m</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Daftar</td>
+            <td>5 000</td>
+        </tr>
+        <tr>
+            <td>Ruchka</td>
+            <td>3 000</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Jami</td>
+            <td>8 000</td>
+        </tr>
+    </tfoot>
+</table>
+```
+
+**Koddagi tartib:** `thead` → `tbody` → `tfoot`.
 
 ```mermaid
 flowchart TD
@@ -113,237 +174,56 @@ flowchart TD
     D1 --> D1a["td — yakuniy katak"]
 ```
 
-**Chizmani qanday o‘qish kerak:** O‘qlar elementlarning ichma-ich joylashuvini ko‘rsatadi: jadval guruhlaridan qatorlarga, ulardan kataklarga o‘tiladi. Bu yagona majburiy shakl emas: tbody qatorida th sarlavha kataklari ham bo‘lishi mumkin.
+**Sxemani qanday o‘qish kerak.** Jadval uch qismga bo‘linadi. Har bir qismda `tr` qatorlar, qatorlarda kataklar. Sarlavhada odatda `th`, tana va yakunda - `td`.
 
-Sxema tuzilmaning bir misolini ko‘rsatadi. `tbody` ichida qator sarlavhalari (`th`) ham bo‘lishi mumkin; uchala guruh ham majburiy emas.
+### Yangi o‘rganuvchilarning tipik xatolari
 
-### `<th>` faqat tepada emas - chapda ham bo'lishi mumkin
+| Xato | Qanday tuzatish |
+| --- | --- |
+| Sahifa joylashuvi uchun jadval | Jadval - faqat ma’lumotlar uchun |
+| Qatorlarda kataklar soni har xil | Har bir qatorda ustunlar sonicha katak |
+| `<tr>` dan tashqaridagi `<td>` | Katak doim qator ichida |
+| Sarlavhalar `<td><strong>` orqali | Sarlavha - `<th>` |
+| `tfoot` `tbody` dan oldin | Tartib: `thead`, `tbody`, `tfoot` |
+
+---
+
+## Mini-topshiriq 1
+
+Qaramasdan baholar jadvalini tuzing: «Talaba, HTML, CSS» sarlavhasi va ma’lumotli ikki qator. `thead` va `tbody` dan foydalaning. Yechim - «Javoblar» bo‘limida.
+
+---
+
+## Nom va sarlavhalar: `caption` va `scope`
+
+### `<caption>` - jadval nomi
 
 ```html
 <table>
-    <tr>
-        <th></th>
-        <th>Matematika</th>
-        <th>Fizika</th>
-    </tr>
-    <tr>
-        <th>Aziz</th>
-        <td>5</td>
-        <td>4</td>
-    </tr>
-    <tr>
-        <th>Dilnoza</th>
-        <td>4</td>
-        <td>5</td>
-    </tr>
+    <caption>To‘garakning haftalik jadvali</caption>
+    ...
 </table>
 ```
 
-Bu yerda sarlavhalar ham tepada (fan nomlari), ham chapda (o'quvchilar ismlari) mavjud - chap yuqori burchakdagi bo'sh `<th></th>` jadval to'g'ri tekislanishi uchun kerak ("ikki tomonlama" sarlavhali jadvallar uchun bu standart amaliyot).
+`caption` `<table>` dan **darhol keyin** yoziladi. Uni hamma ko‘radi, ekran o‘quvchi esa uni jadvaldan oldin e’lon qiladi: «Jadval: To‘garakning haftalik jadvali».
 
----
+### `scope` - bu kimning sarlavhasi
 
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
+**Oddiy qilib aytganda:** ko‘zi ojiz foydalanuvchi «15:00» katagini eshitadi. Bu nimaligini tushunishi uchun unga sarlavha kerak: «Vaqt, 15:00». `scope` ekran o‘quvchiga sarlavha nimaga tegishli ekanini aytadi.
 
-| Xatolik                                                                     | Qanday tuzatish                                                                                                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Sarlavhalar uchun `<th>` o'rniga `<td>` ishlatish                            | Qator/ustun sarlavhalari - har doim `<th>`, boshqa teglar orqali qalin qilinadigan `<td>` emas                                                                   |
-| `<tr>`, `<td>`, `<th>` ni yopishni unutish                                  | Uchta teg ham juft, yopuvchi teglarni unutmang                                                                                                                  |
-| Sababsiz turli qatorlarda turlicha katakchalar soni bo'lishi                | Har bir `<tr>` bir xil miqdordagi katakchalar (`<td>`/`<th>`)ni o'z ichishi kerak, faqat `colspan`/`rowspan` (tegishli bo‘limda) orqali ongli birlashtirmasangiz         |
-| Sahifa bloklarini joylashtirish uchun `<table>` ishlatish (sarlavha/menyu/kontent) | Sahifa tartibga solish uchun CSS ishlating - jadval faqat jadval ma'lumotlari uchun                                                                            |
-
----
-
-## `thead`, `tbody`, `tfoot`
-
-Jadval kattalashib murakkablashganda, uni mazmuniy qismlarga ajratish foydali - hisobotdagi kabi "jadval sarlavhasi", "asosiy ma'lumotlar" va "yakuniy qator".
+| Qiymat | Kimning sarlavhasi | Qayerda turadi |
+| --- | --- | --- |
+| `scope="col"` | Ostidagi butun **ustunniki** | Sarlavhada |
+| `scope="row"` | O‘ngdagi butun **qatorniki** | Qator boshida |
 
 ```html
 <table>
+    <caption>Semestr baholari</caption>
     <thead>
         <tr>
-            <th>Mahsulot</th>
-            <th>Narx</th>
-            <th>Soni</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Noutbuk</td>
-            <td>8 000 000 so'm</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Sichqoncha</td>
-            <td>150 000 so'm</td>
-            <td>2</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Jami</td>
-            <td>8 300 000 so'm</td>
-            <td>3</td>
-        </tr>
-    </tfoot>
-</table>
-```
-
-- **`<thead>`** (table head) - jadval sarlavhasi, odatda ustun sarlavhalari bilan qator(lar).
-- **`<tbody>`** (table body) - jadvalning asosiy "tanasi", ma'lumotlar joylashgan joy. Jadval uzun bo'lsa (ko'p qatorlar), brauzerda aylantirganda `<thead>` ba'zan tepada mahkamlanishi mumkin, `<tbody>` aylanadi - bu CSS orqali sozlanadi, lekin semantik ajratish bunday xulqning asosidir.
-- **`<tfoot>`** (table foot) - jadval pastki qismi, odatda yakunlar uchun (jami, o'rtacha qiymat).
-
-**Muhim:** bu majburiy teglar emas (birinchi misoldagi oddiy jadval bundan ham to'liq to'g'ri), lekin haqiqiy ma'lumotlar bilan jadvallar uchun - brauzer va ekran o'quvchisiga jadval tuzilishini aniq bildiruvchi yaxshi amaliyot.
-
----
-
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-| Xatolik                                                                         | Qanday tuzatish                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ustun sarlavhalarini `<thead>` o'rniga `<tbody>` ichiga joylashtirish            | Sarlavha qator(lar) - `<thead>` ichiga, ma'lumotlar - `<tbody>` ichiga                                                                                                                                      |
-| `<tfoot>` ni ma’lumot qatorlaridan oldin yozish | Zamonaviy HTMLda `tfoot` ni `tbody` yoki asosiy qatorlardan keyin yozing: `thead → tbody → tfoot`. |
-
----
-
-## Kichik topshiriq
-
-Namunalarga qaramasdan, 2 kunlik dars jadvalining oddiy jadvalini mustaqil ravishda yig'ing: "Kun" va "Fan" ustunlari, `<thead>` va `<tbody>` ishlatgan holda.
-
-**Yechim:**
-
-```html
-<table>
-    <thead>
-        <tr>
-            <th>Kun</th>
-            <th>Fan</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Dushanba</td>
-            <td>Matematika</td>
-        </tr>
-        <tr>
-            <td>Seshanba</td>
-            <td>Fizika</td>
-        </tr>
-    </tbody>
-</table>
-```
-
----
-
-## `colspan` va `rowspan` - katakchalarni birlashtirish
-
-Ba'zan bitta katakcha bir nechta ustun yoki qator bo'ylab "cho'zilishi" kerak - masalan, ikki ustunga tegishli sarlavha.
-
-### `colspan` - gorizontal birlashtirish (ustunlar)
-
-```html
-<table>
-    <tr>
-        <th colspan="2">Aloqa ma'lumotlari</th>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td>info@saydullayev.fun</td>
-    </tr>
-    <tr>
-        <td>Telefon</td>
-        <td>+998 90 123-45-67</td>
-    </tr>
-</table>
-```
-
-`colspan="2"` - "bu katakcha kenglikda ikki oddiy katakchaning o'rnini egallaydi" degani - shuning uchun birinchi qatorda faqat bitta `<th>`, lekin u vizual jihatdan jadvalning to'liq kengligiga cho'ziladi (2 katakcha o'rnini egallaydi).
-
-**O'xshatish:** katakchali varaqda ikki qo'shni katakcha orasidagini chegarani o'chirib, hosil bo'lgan birlashgan maydonda bitta matn yozing - aynan shu narsani `colspan` qiladi.
-
-### `rowspan` - vertikal birlashtirish (qatorlar)
-
-```html
-<table>
-    <tr>
-        <th>Ism</th>
-        <th>Fan</th>
-        <th>Baho</th>
-    </tr>
-    <tr>
-        <td rowspan="2">Aziz</td>
-        <td>Matematika</td>
-        <td>5</td>
-    </tr>
-    <tr>
-        <td>Fizika</td>
-        <td>4</td>
-    </tr>
-</table>
-```
-
-`rowspan="2"` - "bu katakcha balandlikda ikki qatorning o'rnini egallaydi" degani - shuning uchun "Aziz" nomi ikki marta takrorlanmaydi, ikkala bahosiga ham bir marta ko'rsatiladi.
-
-**`colspan`/`rowspan` ishlatishda muhim qoida:** siz katakchani bir nechta ustun/qatorga birlashtirsangiz, shu qator/ustunda oddiy katakchalar **kamroq** bo'lishi kerak - birlashtirilgan katakcha "yegan" miqdordagicha kamroq. `rowspan="2"` misolida ikkinchi `<tr>` qatori faqat 2 katakchadan iborat (`<td>Fizika</td><td>4</td>`), 3 ta emas - chunki birinchi katakchaning o'rnini allaqachon birinchi qatardagi birlashtirilgan katakcha "egallagan".
-
-```mermaid
-flowchart TD
-    A["Kataklarni birlashtirish"] --> B["colspan=N: katak N ustunni egallaydi"]
-    A --> C["rowspan=N: katak N qatorni egallaydi"]
-    B --> D["Shu qatordagi egallangan kataklarni qo‘shmang"]
-    C --> E["Keyingi qatorlardagi egallangan kataklarni qo‘shmang"]
-```
-
-**Chizmani qanday o‘qish kerak:** colspan bir qatordagi ustun o‘rinlarini, rowspan esa ketma-ket qatorlardagi o‘rinlarni egallaydi. Egallangan o‘rin uchun yana td yoki th qo‘shilmaydi; aks holda jadvaldagi ustunlar mos kelmay qoladi.
-
----
-
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-| Xatolik                                                                  | Qanday tuzatish                                                                                                                                                                |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Birlashtirishdan keyin qator/ustundagi katakchalar sonini kamaytirishni unutish | Agar bir qatorda `rowspan="2"` ishlatilgan bo'lsa - keyingi qatorda bitta katakcha kamroq bo'lishi kerak                                                                          |
-| `colspan` (gorizontal, ustunlar) va `rowspan` (vertikal, qatorlarni) adashtirish | Eslab qoling: col = column = ustun → `colspan` ustunlar bo'ylab cho'zadi (kenglikka); row = qator → `rowspan` qatorlar bo'ylab cho'zadi (balandlikka)                            |
-| Murakkab jadvallarda katakchalarni haddan tashqari birlashtirish         | `colspan`/`rowspan` ni faqat ma'lumotlarni tushunishni haqiqatan osonlashtirgandagina ishlating - ortiqcha birlashtirish kodni va jadvalni qiyinlashtiradi, ayniqsa ekran o'quvchilari uchun |
-
----
-
-## Jadvallarning qulayligi: `caption` va `scope`
-
-### `<caption>` - jadval yorligi/nomi
-
-```html
-<table>
-    <caption>Haftalik dars jadvali</caption>
-    <thead>
-        <tr>
-            <th>Kun</th>
-            <th>Fan</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Dushanba</td>
-            <td>Matematika</td>
-        </tr>
-    </tbody>
-</table>
-```
-
-`<caption>` - `<table>` ichidagi birinchi ichki element (ochuvchi `<table>` tegidan darhol keyin, `<thead>` dan oldin). U jadvalga nom beradi - bosma hujjatdagi "1-jadval. Dars jadvali" sarlavhasiga o'xshaydi. Ekran o'quvchisi jadval tarkibini o'qishdan oldin `<caption>` ni ovozli o'qiydi - bu foydalanuvchiga darhol jadval nima haqida ekanini tushunishga yordam beradi.
-
-### `scope` - sarlavha va ma'lumotlar bog'lanishi
-
-`<th>` tegidagi `scope` atributi bu sarlavha nisbatan nimaga ekanini - ustunga yoki qatorga - aniq ko'rsatadi. Bu ekran o'quvchilari uchun juda muhim: foydalanuvchi ma'lumotlar katakchalari bo'ylab harakatlanayotganda, ekran o'quvchisi tegishli sarlavhani avtomatik ovozli aytib berishi mumkin, foydalanuvchiga kontekstni "eslatadi" (masalan: "5, Matematika bahosi, Azizda" - oddiy "5" o'rniga).
-
-```html
-<table>
-    <caption>O'quvchilar baholari</caption>
-    <thead>
-        <tr>
-            <th scope="col">Ism</th>
-            <th scope="col">Matematika</th>
-            <th scope="col">Fizika</th>
+            <th scope="col">Talaba</th>
+            <th scope="col">HTML</th>
+            <th scope="col">CSS</th>
         </tr>
     </thead>
     <tbody>
@@ -353,58 +233,291 @@ flowchart TD
             <td>4</td>
         </tr>
         <tr>
-            <th scope="row">Dilnoza</th>
-            <td>4</td>
+            <th scope="row">Madina</th>
+            <td>5</td>
             <td>5</td>
         </tr>
     </tbody>
 </table>
 ```
 
-- `scope="col"` - sarlavha ostidagi butun **ustun** ga tegishli.
-- `scope="row"` - sarlavha yonidagi butun **qator** ga tegishli.
-
-**O'xshatish:** telefon orqali jadvalni ko'rmasdan tushuntirayotgandek tasavvur qiling. `scope` bo‘lmasa siz shunchaki raqamlarni ketma-ket aytasiz - ma'nosiz. `scope` bilan siz har safar "bu Azizning Matematika bahosi" deb aniqlaysiz - aynan shunday ekran o'quvchisi ushbu atribut tufayli ishlaydi.
+**Ko‘zi ojiz nimani eshitadi** «4» katagida: «Aziz, CSS, 4». `scope` siz murakkab jadvalda u shunchaki «4» ni eshitishi mumkin.
 
 ---
 
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
+## Kataklarni birlashtirish: `colspan` va `rowspan`
 
-| Xatolik                                                                                                | Qanday tuzatish                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `<caption>` ni tashlab, faqat jadval yonidagi matnga ishonish (masalan, `<table>` dan oldingi `<h2>`)    | Aniq `<caption>` ni `<table>` ichida ishlating - u jadvalga semantik bog'langan, yaqin atrofdagi ixtiyoriy matndan farqli o'laroq      |
-| `<th>` da `scope` ko'rsatmaslik                                                                       | `scope="col"` yoki `scope="row"` qo'shing - ayniqsa qator va ustun bo'yicha sarlavhali jadvallar uchun juda muhim                   |
-| `<caption>` ni `<table>` ichidagi birinchi element qilmay joylashtirish                                 | `<caption>` ochuvchi `<table>` tegidan darhol keyin, `<thead>` dan oldin kelishi kerak                                                |
+**Oddiy qilib aytganda:** katakli varaqda qo‘shni kataklar orasidagi chegarani o‘chirib, ikkitasiga bitta matn yozasiz.
+
+| Atribut | Yo‘nalish | Eslab qoling |
+| --- | --- | --- |
+| `colspan="2"` | Kenglikka, 2 ustunga | **col**umn - ustun |
+| `rowspan="2"` | Pastga, 2 qatorga | **row** - qator |
+
+### `colspan` qadamma-qadam
+
+Ikki ustun ustida umumiy sarlavha kerak.
+
+**Oldin:** 2 qator × 2 ustun.
+
+```html
+<tr>
+    <th>Pochta</th>
+    <th>Telefon</th>
+</tr>
+```
+
+**Keyin:** yuqoriga 2 ustunga bitta katakli qator qo‘shamiz.
+
+```html
+<table>
+    <tr>
+        <th colspan="2">Kontaktlar</th>
+    </tr>
+    <tr>
+        <th>Pochta</th>
+        <th>Telefon</th>
+    </tr>
+    <tr>
+        <td>club@example.com</td>
+        <td>+998 90 111-22-33</td>
+    </tr>
+</table>
+```
+
+**Kataklarni sanaymiz:**
+
+| Qator | Koddagi kataklar | Band joylar |
+| --- | --- | --- |
+| 1 | 1 (`colspan="2"` bilan) | 2 |
+| 2 | 2 | 2 |
+| 3 | 2 | 2 |
+
+`colspan` **faqat o‘z qatoriga** ta’sir qiladi.
+
+### `rowspan` qadamma-qadam
+
+Talaba ikki fan topshirgan. Ismni ikki qatorga bir marta yozamiz.
+
+```html
+<table>
+    <tr>
+        <th>Talaba</th>
+        <th>Fan</th>
+        <th>Baho</th>
+    </tr>
+    <tr>
+        <td rowspan="2">Aziz</td>
+        <td>HTML</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>CSS</td>
+        <td>4</td>
+    </tr>
+</table>
+```
+
+**Nimani ko‘rasiz:**
+
+```
+┌──────────┬──────────┬──────────┐
+│ Talaba   │ Fan      │ Baho     │
+├──────────┼──────────┼──────────┤
+│          │ HTML     │ 5        │
+│  Aziz    ├──────────┼──────────┤
+│          │ CSS      │ 4        │
+└──────────┴──────────┴──────────┘
+```
+
+**Kataklarni sanaymiz:**
+
+| Qator | Koddagi kataklar | Nega |
+| --- | --- | --- |
+| 1 | 3 | Sarlavha |
+| 2 | 3 | «Aziz» 3-qatorda ham joy egallaydi |
+| 3 | **2** | Birinchi joyni yuqoridagi «Aziz» egallagan |
+
+`rowspan` **keyingi qatorlarga** ta’sir qiladi: ularda kataklar kamroq.
+
+```mermaid
+flowchart TD
+    A["Kataklarni birlashtirish"] --> B["colspan=N: katak N ustunni egallaydi"]
+    A --> C["rowspan=N: katak N qatorni egallaydi"]
+    B --> D["Bu qatorda band kataklarni qo‘shmang"]
+    C --> E["Keyingi qatorlarda band kataklarni qo‘shmang"]
+```
+
+**Sxemani qanday o‘qish kerak.** `colspan` o‘z qatorida, `rowspan` - keyingi qatorlarda kataklarni tejaydi. Band joyni ikkinchi katak bilan to‘ldirishmaydi.
+
+### Buzib ko‘ring
+
+`rowspan` misolidagi uchinchi qatorga ortiqcha `<td>Ortiqcha</td>` qo‘shing. Nima bo‘ldi? Katak jadvalning o‘ng chetidan chiqib ketdi.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Qanday tuzatish |
+| --- | --- |
+| `rowspan` dan keyingi qatorda to‘liq kataklar soni | Yuqoridan band qilingan joylar sonicha katakni olib tashlang |
+| `colspan` va `rowspan` ni adashtirish | col - ustun (kenglikka), row - qator (pastga) |
+| Hammasini birlashtirish | Faqat o‘qishni osonlashtirsa birlashtiring |
+| `caption` yo‘q | Jadvalga nom bering |
+| Sarlavhalarda `scope` yo‘q | Sarlavhada `scope="col"`, qator boshida `scope="row"` |
 
 ---
 
-## Dars xulosalari
+## Mini-topshiriq 2
 
-Bugun siz o'rgandingiz:
+«Kunlik jadval» jadvalini tuzing: «Vaqt» va «Mashg‘ulot» ustunlari. 10:00 da - «HTML», 11:00 da - «HTML» (o‘sha mashg‘ulot davom etadi), 12:00 da - «Tushlik». HTML mashg‘ulotini ikki qatorga **bitta katak** bilan yozing. Yechim - «Javoblar» bo‘limida.
 
-- Jadvallar (`<table>`) **haqiqiy jadval ma'lumotlari** uchun mo'ljallangan, sahifa tartibga solish uchun emas - bu eski va tavsiya etilmaydigan amaliyot.
-- `<tr>` - qator, `<th>` - sarlavha katakchasi, `<td>` - ma'lumot katakchasi.
-- `<thead>`, `<tbody>`, `<tfoot>` jadvalni mazmuniy jihatdan sarlavha, tana va pastki qismga ajratadi.
-- `colspan` katakchalarni gorizontal (ustunlar), `rowspan` - vertikal (qatorlar) yo'nalishda birlashtiradi.
-- `<caption>` jadvalga nom beradi, `<th>` dagi `scope="col"`/`scope="row"` esa ekran o'quvchilari uchun sarlavhalarni ma'lumotlar bilan bog'laydi.
+---
 
+## Dars yakuni: shpargalka
+
+| Vazifa | Yozuv |
+| --- | --- |
+| Jadval / qator | `<table>` / `<tr>` |
+| Sarlavha / ma’lumot | `<th>` / `<td>` |
+| Sarlavha / tana / yakun | `<thead>` / `<tbody>` / `<tfoot>` |
+| Jadval nomi | `<table>` dan darhol keyin `<caption>` |
+| Ustun sarlavhasi | `<th scope="col">` |
+| Qator sarlavhasi | `<th scope="row">` |
+| 2 ustunga | `colspan="2"`, qatorda 1 katak kam |
+| 2 qatorga | `rowspan="2"`, keyingi qatorda 1 katak kam |
+| Sahifa joylashuvi | Jadval emas, CSS |
+
+---
 
 ## Mustaqil ish
 
-Kamida uchta ma’lumot qatori va uchta ustunli dars jadvali yarating. `caption`, `thead`, `tbody`, `th` sarlavhalari va mos `scope` qo‘shing. Alohida kichik jadvalda bitta `colspan` yoki `rowspan` birlashtirishini bajaring; qo‘shni qatorda nechta katak qolishini tushuntiring.
+### 1-qism. IDE topshirig‘i (platforma hisoblaydi)
+
+**«To‘garak jadvali»** sahifasini yarating:
+
+1. To‘liq hujjat va bitta `<h1>`.
+2. `<caption>`, `<thead>` va `<tbody>` li jadval.
+3. Sarlavhada uchta `<th scope="col">`: kun, vaqt, mavzu.
+4. Tanada **kamida uchta** qator. Har bir qatorning birinchi katagi - hafta kuni bilan `<th scope="row">`.
+5. Ikkinchi jadval - «Uzun mashg‘ulot»: `rowspan="2"` li bitta katak.
+
+Platforma nimani tekshiradi: hujjat skeleti, bitta `h1`, kamida ikkita jadval, `caption`, `thead`, `tbody`, kamida to‘rtta `tr` qatori, `scope="col"` va `scope="row"` li sarlavhalar, `rowspan` borligi.
+
+### 2-qism. Kompyuterdagi loyiha
+
+1. 3-darsdagi to‘garak saytiga `schedule.html` sahifasini qo‘shing - endi jadval bilan.
+2. Birlashtirilgan jadvalning har bir qatoridagi kataklarni qayta sanang.
+3. Sahifani ochib, birorta katak chetdan chiqmaganiga ishonch hosil qiling.
 
 ### Tayyorlik mezonlari
 
-- [ ] Har qatorda colspan/rowspan hisobga olingan ustunlar soni mos.
-- [ ] Jadval ma’lumotlarni ifodalaydi, nomi va bog‘langan sarlavhalari bor.
-- [ ] tr, th va td farqini yordamsiz tushuntira olasiz.
-
-### Bilimingizni tekshiring
-
-1. colspan va rowspan qanday farqlanadi?
-2. Qachon scope="row" yoki scope="col" kerak?
-3. Nima uchun jadval sahifa maketi uchun ishlatilmaydi?
+- [ ] IDE topshirig‘i qabul qilingan.
+- [ ] Jadval sahifa joylashuvini emas, ma’lumotlarni tasvirlaydi.
+- [ ] `caption`, `thead`, `tbody` bor.
+- [ ] Sarlavhalar - `scope` li `th`.
+- [ ] Birlashtirishlarni hisobga olgan holda har bir qatordagi kataklar soni mos.
+- [ ] `rowspan` dan keyingi qatorda nechta katak borligini va nega ekanini tushuntira olasiz.
 
 ---
 
-[Mundarija](../../README.md) | [Oldingi dars](../../Lesson-4/uz/Rasmlar%20va%20media.md) | [Keyingi dars](../../Lesson-6/uz/Formatlar%20qism-1.md) | [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) | [EN](../en/Tables.md) | [UZ](../uz/Jadvallar.md) | [Amaliyot: namuna](../practice.html)
+## O‘zini tekshirish uchun savollar
+
+1. Nega endi sahifa joylashuvini jadvallar bilan qilishmaydi?
+2. `<th>` `<td>` dan nimasi bilan farq qiladi?
+3. `thead`, `tbody`, `tfoot` qaysi tartibda keladi?
+4. `<caption>` qayerda yoziladi?
+5. Qachon `scope="col"`, qachon `scope="row"`?
+6. Murakkab jadvalda `scope` siz ko‘zi ojiz nimani eshitadi?
+7. `colspan="3"` nima qiladi?
+8. 3 ustunli jadval, birinchi qatorda `rowspan="2"` li katak. Ikkinchi qatorga nechta katak yoziladi?
+9. 4 ustunli jadval, qatorda `colspan="2"` li katak. Bu qatorda jami nechta katak?
+10. Qatorda ortiqcha katak bo‘lsa nima bo‘ladi?
+
+Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish chegarasi 70%.
+
+---
+
+## Keyin nima
+
+Jadval ma’lumotlarni ko‘rsatadi. 6-darsda ularni **yig‘ishni** o‘rganamiz: maydonlar, imzolar, belgilash katakchalari va yuborish tugmasi bilan formalar.
+
+---
+
+## Javoblar
+
+**Takrorlash**
+
+1. `alt`.
+2. `alt` - rasmni ko‘ra olmaydiganlar uchun o‘rinbosar. `figcaption` - hamma uchun imzo.
+3. Pleyer boshqaruv tugmalarini ko‘rsatadi.
+
+**Mini-topshiriq 1**
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>Talaba</th>
+            <th>HTML</th>
+            <th>CSS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Aziz</td>
+            <td>5</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>Madina</td>
+            <td>5</td>
+            <td>5</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+**Mini-topshiriq 2**
+
+```html
+<table>
+    <caption>Kunlik jadval</caption>
+    <thead>
+        <tr>
+            <th scope="col">Vaqt</th>
+            <th scope="col">Mashg‘ulot</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>10:00</td>
+            <td rowspan="2">HTML</td>
+        </tr>
+        <tr>
+            <td>11:00</td>
+        </tr>
+        <tr>
+            <td>12:00</td>
+            <td>Tushlik</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+Ikkinchi qatorda bitta katak: «Mashg‘ulot» joyini yuqoridagi HTML katagi egallagan.
+
+**O‘zini tekshirish uchun savollar**
+
+1. Ekran o‘quvchi bunday sahifani ma’lumotli jadval deb o‘qiydi va foydalanuvchini chalg‘itadi. Joylashuvni CSS qiladi.
+2. `<th>` - sarlavha, `<td>` - ma’lumot.
+3. `thead`, `tbody`, `tfoot`.
+4. Ochuvchi `<table>` dan darhol keyin.
+5. `col` - ustun sarlavhasi (sarlavha qismida), `row` - qator sarlavhasi (qator boshida).
+6. Sarlavhasiz faqat katak qiymatini - bu nimaligini tushunib bo‘lmaydi.
+7. Katak kenglik bo‘yicha uchta ustunni egallaydi.
+8. Ikkita.
+9. Uchta: bitta birlashtirilgan va ikkita oddiy.
+10. U jadval chetidan chiqadi, ustunlar mos kelmay qoladi.
+
+---
+
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-4/uz/Rasmlar%20va%20media.md) · [Keyingi →](../../Lesson-6/uz/Formalar%20qism-1.md) · [RU](../ru/%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.md) · [EN](../en/Tables.md) · [UZ](Jadvallar.md) · [Amaliyot](../practice.html)

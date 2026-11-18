@@ -1,400 +1,424 @@
 # Forms part 2
 
-[Contents](../../README.md) · [Previous](../../Lesson-6/en/Forms%20part%201.md) · [Next](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Practice](../practice.html) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-2.md) · [EN](../en/Forms%20part%202.md) · [UZ](../uz/Formatlar%20qism-2.md)
+[Contents](../../README.md) · [← Back](../../Lesson-6/en/Forms%20part%201.md) · [Next →](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-2.md) · [EN](Forms%20part%202.md) · [UZ](../uz/Formalar%20qism-2.md) · [Practice](../practice.html)
 
-> **Connection to the previous lesson:** in the previous lesson we covered basic form fields (text, email, password, number, date, checkbox, radio) and the `label`/`for`/`id` connection. Today we finish the remaining form elements and learn to group fields and validate input without JavaScript.
-
-```mermaid
-flowchart TD
- A["Form control"] --> B{"Purpose?"}
- B -->|"One line"| C["input"]
- B -->|"Multiple lines"| D["textarea"]
- B -->|"Choose options"| E["select / radio / checkbox"]
- A --> F["Group related controls: fieldset + legend"]
-```
-
-**How to read this diagram:** Start from the control’s purpose and choose a suitable element. Grouping via fieldset and legend is a separate decision that can apply to any of these controls.
-
+> **Link to the previous lesson:** in lesson 6 you built a form from `input` fields, labels and radio buttons. Today we add drop-down lists, multi-line text, field groups, real buttons and input format validation.
 
 ---
 
-## What you will learn by the end of the lesson
+## Why you need this
 
-- Create dropdown lists using `select`/`option`, group options with `optgroup`.
-- Use `textarea` for multi-line text.
-- Group related form fields using `fieldset`/`legend`.
-- Understand the difference between `button` and `input type="submit"`.
-- Configure built-in validation: `min`, `max`, `pattern`, `maxlength`.
+A "Tell us about yourself" question doesn't fit on one line. Choosing a city from 14 regions shouldn't be 14 radio buttons in a row. And a student ID number must be exactly 7 digits, not "abc".
+
+Today you will build a full participant form that checks what the user typed by itself.
+
+---
+
+```mermaid
+flowchart TD
+ A["Form element"] --> B{"Purpose?"}
+ B -->|"One line"| C["input"]
+ B -->|"Several lines"| D["textarea"]
+ B -->|"Choosing options"| E["select / radio / checkbox"]
+ A --> F["Grouping: fieldset + legend"]
+```
+
+**How to read the diagram.** Choose an element by the type of answer: one line, several lines, or a choice from ready options. Grouping with `fieldset` + `legend` works with any fields.
+
+---
+
+## What you will learn
+
+- Make a drop-down `select` with `option` items, `optgroup` groups and a default choice.
+- Suggest options in an ordinary field with `datalist`.
+- Accept long text with `textarea`.
+- Group fields: `fieldset` and `legend`.
+- Choose a button: `button` with type `submit`, `reset` or `button`.
+- Validate input: `min`, `max`, `maxlength`, `pattern`.
+- Make a slider with `type="range"`.
+
+---
+
+## Review: 3 questions from lesson 6
+
+1. How do you connect a label to a field?
+2. What must radio buttons in one group have in common?
+3. What does the `required` attribute do?
+
+Answers are at the end of the lesson.
 
 ---
 
 ## Lesson plan
 
-| Section                                    | Content                          |
-| --------------------------------------- | --------------------------------- |
-| select, option, optgroup             | Dropdown lists                    |
-| textarea                             | Multi-line text                   |
-| fieldset and legend                  | Grouping form fields              |
-| Mini-task                            | Build a select on your own        |
-| button vs input type="submit"        | Form submission, approach differences |
-| Validation: min/max/pattern/maxlength | Built-in data checking           |
-| Summary and practical task           | Build a full registration form    |
+| Section | What we do |
+| --- | --- |
+| Drop-down list | `select`, `option`, `optgroup` |
+| Suggestions in a field | `datalist` |
+| Multi-line text | `textarea` |
+| Field groups | `fieldset` and `legend` |
+| Mini-task 1 | A "Contacts" group |
+| Buttons | `button` and its three types |
+| Input validation | `min`, `max`, `maxlength`, `pattern`, `range` |
+| Mini-task 2 | A 7-digit ID field |
+| Independent work | IDE task and a participant form |
 
 ---
 
-## `select`, `option`, `optgroup`
+## Drop-down list: `select`
 
-
-**In simple terms:** if the `radio` buttons from the previous lesson work well for 2-4 options, when there are many options (e.g., a list of countries or cities), radio buttons take up too much screen space. For this case, there's the dropdown list - a compact list that only expands on click.
-
-```html
-<label for="city">City:</label>
-<select id="city" name="city">
-    <option value="tashkent">Tashkent</option>
-    <option value="almalyk">Almalyk</option>
-    <option value="samarkand">Samarkand</option>
-    <option value="bukhara">Bukhara</option>
-</select>
-```
-
-Let's break down the tags:
-
-- **`<select>`** wraps the options. `name` names the submitted value; `id` connects the control to an external label through `for`.
-- **`<option>`** - each individual option inside the list. The `value` attribute is what gets sent to the server; the visible text between the tags is what the user sees.
-
-### Default value via `selected`
+**In simple terms:** `select` is a café menu. The options are already printed; you choose rather than write your own.
 
 ```html
+<label for="city">City</label>
 <select id="city" name="city">
+    <option value="">- Choose a city -</option>
     <option value="tashkent">Tashkent</option>
     <option value="almalyk" selected>Almalyk</option>
     <option value="samarkand">Samarkand</option>
 </select>
 ```
 
-The `selected` attribute (without a value, like `required` from the previous lesson) marks the option that will be shown by default when the page loads - without the user clicking.
+| Part | What it does |
+| --- | --- |
+| `<select>` | The list itself. `id` for the label, `name` for sending |
+| `<option value>` | An option. The user sees the text; the server gets the `value` |
+| `selected` | The option chosen in advance |
 
-### Multiple selection via `multiple`
+**What you will see:** a field with an arrow, with "Almalyk" already chosen. Click it and the list opens.
 
-```html
-<label for="subjects">Choose subjects (multiple possible):</label>
-<select id="subjects" name="subjects" multiple>
-    <option value="html">HTML</option>
-    <option value="css">CSS</option>
-    <option value="js">JavaScript</option>
-</select>
-```
-
-The `multiple` attribute allows the user to select several options at once (usually by holding Ctrl/Cmd while clicking). This is a rare but useful case - essentially a visual alternative to a group of checkboxes.
-
-### `<optgroup>` - grouping options
-
-When there are very many options, they can be split into labeled groups:
+### Option groups: `optgroup`
 
 ```html
-<label for="course">Choose a course:</label>
+<label for="course">Track</label>
 <select id="course" name="course">
     <optgroup label="Frontend">
         <option value="html">HTML</option>
         <option value="css">CSS</option>
-        <option value="js">JavaScript</option>
     </optgroup>
     <optgroup label="Backend">
         <option value="php">PHP</option>
-        <option value="mysql">MySQL</option>
+        <option value="sql">SQL</option>
     </optgroup>
 </select>
 ```
 
-`<optgroup>` is not a selectable option on its own - it's just a visual heading-separator (bold, not clickable itself) inside the dropdown list. The `label` attribute sets the text of this heading.
+**What you will see:** in the open list - grey "Frontend" and "Backend" headings with options below them. A group heading can't be chosen.
 
-**Analogy:** `<select>` with multiple `<optgroup>` is like a restaurant menu divided into "Soups", "Hot Dishes", "Desserts" - you can't select the sections themselves, they just help you navigate among a large number of dishes.
-
----
-
-### Common beginner mistakes
-
-| Mistake                                                                                   | How to fix                                                                                                                            |
-| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Forgetting `value` on `<option>`                                                          | Without `value`, the visible option text gets sent to the server - sometimes inconvenient (e.g., for long text); set `value` intentionally |
-| Using multiple `selected` in one `<select>` without `multiple`                           | Without `multiple`, you can only mark `selected` on one `<option>`                                                                     |
-| Confusing `<optgroup>` with a regular `<option>`, trying to make it a clickable option    | `<optgroup>` is only a visual grouping, it cannot be selected on its own                                                               |
-
----
-
-## `<textarea>` - multi-line text
-
-A regular `<input type="text">` from the previous lesson is a single-line field. When you need to enter long text (a comment, message, review), you use `<textarea>`.
+### Several options: `multiple`
 
 ```html
-<label for="message">Message:</label>
-<textarea id="message" name="message" rows="5" cols="40"></textarea>
+<select id="days" name="days" multiple>
 ```
 
-Important difference from `<input>`: **`<textarea>` is a paired tag**, not self-closing. Initial text (if needed) goes between the opening and closing tags, not in a `value` attribute (`textarea` doesn't have a `value` attribute at all):
+Now several options can be chosen: hold Ctrl (Cmd on macOS). Beginners find this awkward - if there are few options, checkboxes are better.
 
-```html
-<textarea id="bio" name="bio" rows="4" cols="40">Tell us a little about yourself...</textarea>
-```
-
-**Note:** if you want a placeholder hint (which disappears on input, as we covered in the previous lesson), use the `placeholder` attribute, not text inside the tag:
-
-```html
-<textarea id="bio" name="bio" rows="4" cols="40" placeholder="Tell us a little about yourself..."></textarea>
-```
-
-- **`rows`** - approximate height of the field in text lines.
-- **`cols`** - approximate width of the field in characters.
-
-Both attributes set the **initial** size - in many browsers the user can additionally resize `textarea` manually by dragging the corner in the bottom-right of the field.
+**`select` or `radio`?** 2–5 options - `radio`: all are visible at once. More - `select`: it takes up no space.
 
 ---
 
-### Common beginner mistakes
+## Suggestions in a field: `datalist`
 
-| Mistake                                                                    | How to fix                                                                                                                      |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Trying to set initial text via `value="..."`                               | `<textarea>` has no `value` attribute - text is written between the opening and closing tags                                     |
-| Confusing text content (stays on submit) and `placeholder` (disappears)    | If you need a format hint - use `placeholder`; if you need a real pre-filled value - write it between the tags                   |
-| Forgetting the closing `</textarea>` tag                                   | `textarea` is a paired tag, don't forget the closing tag even if the field is initially empty                                     |
+The user can type their own value, but you suggest popular options:
+
+```html
+<label for="lang">Favourite language</label>
+<input type="text" id="lang" name="lang" list="langs">
+<datalist id="langs">
+    <option value="JavaScript">
+    <option value="Python">
+    <option value="PHP">
+</datalist>
+```
+
+The link: `list` on the field = `id` on the `datalist`.
+
+**The difference from `select`:** `select` has only ready options; `datalist` gives suggestions, but you can type your own.
 
 ---
 
-## `<fieldset>` and `<legend>` - grouping form fields
+## Multi-line text: `textarea`
 
-When a form becomes large (e.g., a registration with several logical sections: "Personal Data", "Contacts", "Password"), it's useful to visually and semantically group related fields.
+```html
+<label for="about">About me</label>
+<textarea id="about" name="about" rows="4" cols="40" maxlength="300">I am a first-year student.</textarea>
+```
+
+| Attribute | What it does |
+| --- | --- |
+| `rows` | Height in lines |
+| `cols` | Width in characters |
+| `maxlength` | No more than N characters |
+
+**`textarea` is a paired tag.** The initial text goes **between the tags**, not in `value`:
+
+```html
+<!-- Wrong -->
+<textarea value="Text"></textarea>
+
+<!-- Right -->
+<textarea>Text</textarea>
+```
+
+---
+
+## Field groups: `fieldset` and `legend`
+
+**In simple terms:** on a paper form, fields are framed with headings: "Personal details", "Contacts". In HTML the frame is `<fieldset>`, and the frame heading is `<legend>`.
 
 ```html
 <fieldset>
-    <legend>Personal Data</legend>
-
-    <label for="firstname">First name:</label>
-    <input type="text" id="firstname" name="firstname"><br>
-
-    <label for="lastname">Last name:</label>
-    <input type="text" id="lastname" name="lastname">
-</fieldset>
-
-<fieldset>
-    <legend>Contacts</legend>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"><br>
-
-    <label for="phone">Phone:</label>
-    <input type="text" id="phone" name="phone">
+    <legend>Convenient time</legend>
+    <input type="radio" id="morning" name="time" value="morning">
+    <label for="morning">Morning</label>
+    <input type="radio" id="evening" name="time" value="evening">
+    <label for="evening">Evening</label>
 </fieldset>
 ```
 
-- **`<fieldset>`** - wrapper for a group of related fields; the browser displays it with a border around the group by default.
-- **`<legend>`** - label/heading for this group, displayed right "on the border" of the `fieldset` (visually cuts into the top edge of the border).
+**What you will see:** a frame around the fields with the heading "Convenient time" in its top line.
 
-**Especially useful for radio groups:** since several radio buttons are semantically one "question", it makes sense to wrap them in a `fieldset` with a `legend` that states the question itself:
+**What a blind user hears:** "Convenient time, group. Morning, radio button". Without `legend` they hear just "Morning" - but morning for what?
 
-```html
-<fieldset>
-    <legend>Your skill level</legend>
-
-    <input type="radio" id="beginner" name="level" value="beginner">
-    <label for="beginner">Beginner</label><br>
-
-    <input type="radio" id="intermediate" name="level" value="intermediate">
-    <label for="intermediate">Intermediate</label><br>
-
-    <input type="radio" id="advanced" name="level" value="advanced">
-    <label for="advanced">Advanced</label>
-</fieldset>
-```
-
-**Why this matters more than just a visual border:** a screen reader reading a radio button inside a `fieldset` with `legend` reads both the `legend` text and the specific option label - for example, "Your skill level, Beginner" - this gives the user full context, not an isolated word "Beginner" without understanding which question it answers.
-
----
+**`legend` comes first** inside `fieldset`.
 
 ### Common beginner mistakes
 
-| Mistake                                                                          | How to fix                                                                                            |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Using `fieldset` without `legend`                                               | `legend` is a required semantic part of the group, don't skip it                                       |
-| Not placing `legend` as the first element inside `fieldset`                     | `legend` must come right after the opening `<fieldset>` tag                                             |
-| Wrapping the entire form in `fieldset` without identifying semantic groups       | Use `fieldset` specifically for logical field blocks, not as a wrapper "for aesthetics" around everything |
+| Mistake | How to fix |
+| --- | --- |
+| `textarea value="..."` | Text between the tags |
+| A `select` without a label | A list needs a `<label for>` too |
+| A radio group without `fieldset` | Wrap it and give it a `legend` question |
+| `legend` not first | First inside `fieldset` |
+| `select` for 2 options | `radio` is better |
 
 ---
 
-## Mini-task
+## Mini-task 1
 
-Build a "Choose a country" dropdown on your own with three options (Uzbekistan, Kazakhstan, Kyrgyzstan), with Uzbekistan selected by default.
-
-**Solution:**
-
-```html
-<label for="country">Country:</label>
-<select id="country" name="country">
-    <option value="uz" selected>Uzbekistan</option>
-    <option value="kz">Kazakhstan</option>
-    <option value="kg">Kyrgyzstan</option>
-</select>
-```
+Make a framed "Contacts" group with a heading: an email field and a phone field, both with labels. The solution is in the "Answers" section.
 
 ---
 
-## `button` vs `input type="submit"`
+## Buttons: `button`
 
-Both elements can submit a form, but there are important differences between them.
-
-### `<input type="submit">`
+In lesson 6 you used `<input type="submit">`. There is a more flexible tag - `<button>`:
 
 ```html
-<input type="submit" value="Submit form">
+<button type="submit">Send the form</button>
 ```
 
-The button text is set via the `value` attribute (as we've seen with regular fields). It's a self-closing tag - you can't place an icon or other HTML markup inside, only plain text via `value`.
+**Why `<button>` is handier:** it's a paired tag, so you can put text with other tags inside, such as `<strong>`.
 
-### `<button>`
-
-```html
-<button type="submit">Submit form</button>
-```
-
-`<button>` is a **paired** tag; text (or even more complex content - icons, nested tags) goes between the opening and closing tags:
-
-```html
-<button type="submit">
-    <strong>Submit</strong> form
-</button>
-```
-
-### The `type` attribute on `<button>` - an important detail
-
-`<button>` has three possible `type` values, and this is a common source of errors:
-
-```html
-<button type="submit">Submit</button>
-<button type="reset">Clear form</button>
-<button type="button">Regular button (does nothing on its own)</button>
-```
-
-- **`type="submit"`** - submits the form (the default value if `type` is not specified explicitly).
-- **`type="reset"`** - resets all form fields back to their initial values.
-- **`type="button"`** - a regular button with no built-in behavior; used when button behavior will be added later via JavaScript (in this course we won't actively use these buttons since JavaScript isn't part of the curriculum, but it's important to know this value exists).
-
-**Important warning:** if `<button>` is inside `<form>` and you **didn't specify** `type` explicitly, the browser treats it as `type="submit"` by default. This can lead to unexpected form submission when you just wanted "a button for something else." **Rule: always specify `type` on `<button>` explicitly.**
+| Type | What it does |
+| --- | --- |
+| `type="submit"` | Validates the form and sends it |
+| `type="reset"` | Restores the **initial** values of all fields |
+| `type="button"` | Does nothing by itself - for JavaScript |
 
 ```mermaid
 flowchart TD
- A["Button type"] --> B["submit: validate and submit"]
- A --> C["reset: restore initial values"]
- A --> D["button: no default submission"]
+ A["Button type"] --> B["submit: validate and send"]
+ A --> C["reset: restore the initial values"]
+ A --> D["button: no submission by default"]
 ```
 
-**How to read this diagram:** Each branch is a button type and its default effect. Reset restores initial values, while button has no default submission action.
+**How to read the diagram.** Three different values of `type`, not three steps.
 
+**Always write `type`.** A button inside a form without `type` behaves like `submit` - and the form gets sent when you didn't expect it.
 
----
-### Common beginner mistakes
+**`reset` doesn't clear fields; it restores the initial values.** If the `textarea` originally said "I am a first-year student", after `reset` that exact text comes back.
 
-| Mistake                                                                                                                     | How to fix                                                                |
-| --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Not specifying `type` on `<button>`, expecting it to be "just a button"                                                     | Always explicitly set `type="submit"`, `type="reset"`, or `type="button"`  |
-| Trying to nest HTML inside `input type="submit"`                                                                            | If you need a button with complex content - use `<button>`                 |
-| Using `type="reset"` without clear necessity - users often accidentally click it and lose all entered text                   | Use `reset` carefully, only when truly needed in your form                  |
+### Try breaking it
 
----
-
-## Built-in validation: `min`, `max`, `pattern`, `maxlength`
-
-We partially covered validation in the previous lesson (`required`, `min`/`max` for `type="number"`). Today we expand the toolkit.
-
-### `min` and `max` - for numbers and dates
-
-```html
-<label for="age">Age:</label>
-<input type="number" id="age" name="age" min="16" max="99">
-
-<label for="event-date">Event date:</label>
-<input type="date" id="event-date" name="event-date" min="2026-01-01" max="2026-12-31">
-```
-
-The browser won't allow submitting the form if the value falls outside the specified bounds, and will show the user a popup warning.
-
-### `maxlength` - text length limit
-
-```html
-<label for="username">Username (max 20 characters):</label>
-<input type="text" id="username" name="username" maxlength="20">
-
-<label for="comment">Comment (max 500 characters):</label>
-<textarea id="comment" name="comment" maxlength="500"></textarea>
-```
-
-During ordinary manual input, the browser limits length according to `maxlength`. This is not an absolute safeguard: HTML constraints do not replace validation by the handler.
-
-### `pattern` - template validation (regular expression)
-
-`pattern` is the most powerful but also the most complex validation tool. It uses **regular expressions** - a special language for describing text templates. We won't dive deep into regular expression syntax in this course (that's a separate big topic), but we'll go through several practical examples.
-
-**Example: only digits, exactly 7 characters (a sample student ID format):**
-
-```html
-<label for="student-id">Student ID number (7 digits):</label>
-<input type="text" id="student-id" name="student-id" pattern="[0-9]{7}" title="Enter exactly 7 digits">
-```
-
-Breaking down the `[0-9]{7}` pattern: `[0-9]` means "any digit from 0 to 9", `{7}` means "exactly 7 times in a row."
-
-**Additional example: a required seven-digit code.**
-
-```html
-<label for="code">Code: exactly 7 digits</label>
-<input id="code" name="code" type="text" pattern="[0-9]{7}" required>
-```
-
-The browser may include title in validation feedback; presentation varies. Put the requirement in visible text next to the field.
-
-**Important caveat for beginners:** writing advanced regular expressions is an advanced skill that in practice often requires separate study or finding ready-made templates (e.g., for validating a phone number for a specific country). In this lesson, it's important to understand the **principle** of how `pattern` works, not to memorize all possible patterns by heart.
-
----
+Add `<button>Hint</button>` without `type` to the form. Click it. The form was sent, even though you only wanted a button.
 
 ### Common beginner mistakes
 
-| Mistake|How to fix|
-|---|---|
-|No visible instructions for pattern|State the requirement next to the field; title is optional and does not replace instructions|
-|Expecting `min`/`max`/`pattern`/`required` to protect data 100% (e.g., from malicious input)|Built-in HTML validation is about user convenience, not security; real data protection must always be duplicated on the server side (that's a topic for future courses, not part of pure HTML curriculum)|
-|Setting `maxlength` too small for real data (e.g., `maxlength="5"` for a name)|Think through realistic limits by testing with different data examples|
+| Mistake | How to fix |
+| --- | --- |
+| `<button>` without `type` | Always `type="submit"`, `"reset"` or `"button"` |
+| Expecting `reset` to clear the fields | It restores the initial values |
+| A `<div>` instead of a button | Only `<button>` - more in lesson 8 |
 
 ---
 
-## Lesson summary
+## Input validation
 
-Today you learned:
+The browser can check a field before sending:
 
-- `<select>`/`<option>` create a dropdown list, `<optgroup>` groups options, `selected` sets the default value, `multiple` allows selecting several options.
-- `<textarea>` is a paired tag for multi-line text; initial text goes between tags, not via `value`.
-- `<fieldset>`/`<legend>` semantically group related form fields - especially useful for radio button groups.
-- `<button>` is more flexible than `<input type="submit">` - supports nested content, but requires explicit `type` specification.
-- `min`/`max` limit number and date ranges, `maxlength` limits text length, `pattern` validates input against a template (with visible instructions and optional `title`).
+| Attribute | For which fields | Example | What it checks |
+| --- | --- | --- | --- |
+| `min`, `max` | `number`, `date`, `range` | `min="16" max="60"` | Value limits |
+| `maxlength` | `text`, `textarea` | `maxlength="50"` | No more than 50 characters |
+| `pattern` | `text`, `tel` | `pattern="[0-9]{7}"` | Format by a template |
 
+### `pattern` - a format template
 
+`pattern` is a regular expression, a small language of templates. You only need a few:
 
-## Independent practice
+| Template | Meaning |
+| --- | --- |
+| `[0-9]` | One digit |
+| `[0-9]{7}` | Exactly 7 digits |
+| `[A-Z]{2}` | Two capital Latin letters |
+| `[A-Z]{2}[0-9]{7}` | Two letters, then 7 digits, for example `AB1234567` |
 
-Add explicit type="submit" and type="reset" buttons; change initial values before testing reset.
+```html
+<label for="student-id">Student ID number (7 digits)</label>
+<input type="text" id="student-id" name="student-id" pattern="[0-9]{7}" inputmode="numeric" required>
+```
 
-Build a participant form with grouped select options, textarea, fieldset/legend and a required seven-digit ID.
+`inputmode="numeric"` opens a numeric keypad on a phone. Put the format hint in the label: "7 digits" - so the person knows right away what to type.
 
-### Completion criteria
+**Test the field:**
 
-- [ ] Every input, select and textarea has an associated label; IDs are unique and for matches id. Buttons have clear text of their own.
-- [ ] Select includes optgroup and meaningful option values.
-- [ ] Textarea initial text is between its tags.
-- [ ] Related controls use fieldset with legend.
-- [ ] Required ID rejects empty input, six digits and letters; accepts seven digits.
-- [ ] After edits, reset restores initial values.
+| Input | Result |
+| --- | --- |
+| empty | Error: the field is required |
+| `123456` | Error: 6 digits |
+| `abcdefg` | Error: letters |
+| `1234567` | Accepted |
 
-### Self-check questions
+### Slider: `type="range"`
 
-How does reset differ from clearing? When does an empty field pass pattern? Why is title not a substitute for visible instructions?
+```html
+<label for="level">Knowledge level (0–10)</label>
+<input type="range" id="level" name="level" min="0" max="10" value="5">
+```
+
+**What you will see:** a slider. By default it sits at 5.
+
+**Important:** validation in the browser helps the user; it is not protection. A real server always checks the data again.
 
 ---
 
-[Contents](../../README.md) · [Previous](../../Lesson-6/en/Forms%20part%201.md) · [Next](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Practice](../practice.html) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-2.md) · [EN](../en/Forms%20part%202.md) · [UZ](../uz/Formatlar%20qism-2.md)
+## Mini-task 2
+
+Make a required "Group code" field in this format: two capital Latin letters, a hyphen, two digits. Example: `IT-25`. Put the format hint in the label. The solution is in the "Answers" section.
+
+---
+
+## Lesson summary: cheat sheet
+
+| Task | Code |
+| --- | --- |
+| Drop-down list | `<select>` + `<option value>` |
+| Chosen in advance | `selected` |
+| Option groups | `<optgroup label="...">` |
+| Suggestions in a field | `list` + `<datalist id>` |
+| Long text | `<textarea>text</textarea>` |
+| A frame with a heading | `<fieldset>` + `<legend>` first |
+| Submit button | `<button type="submit">` |
+| Restore initial values | `<button type="reset">` |
+| Number limits | `min`, `max` |
+| Text length | `maxlength` |
+| Format | `pattern="[0-9]{7}"` |
+| Slider | `type="range"` |
+
+---
+
+## Independent work
+
+### Part 1. IDE task (counted by the platform)
+
+Make a **participant form** with `method="get"`:
+
+1. A first `fieldset` group with the `legend` "Personal details":
+   - an ID number - required, exactly 7 digits (`pattern`);
+   - an "About me" field - a `textarea` with initial text.
+2. A second `fieldset` group with the `legend` "Track":
+   - a `select` with two `optgroup` groups and a default choice (`selected`).
+3. Every field has a `<label for>` and a unique `id`.
+4. The buttons `<button type="submit">` and `<button type="reset">`.
+
+What the platform checks: a form, two `fieldset` and two `legend` elements, a `select` with `optgroup` and `selected`, a `textarea`, a `pattern` with `{7}`, `required`, every label linked to a field, a `type="submit"` button and a `type="reset"` button.
+
+### Part 2. Project on your computer
+
+1. Save the form as `profile.html`.
+2. Test the ID field: empty, 6 digits, letters, 7 digits.
+3. Change the choice in the list and the "About me" text, then press "Reset". Did the initial values come back?
+
+### Acceptance criteria
+
+- [ ] The IDE task is accepted.
+- [ ] Every field, list and `textarea` has a label; `for` matches `id`.
+- [ ] Buttons have clear text and an explicit `type`.
+- [ ] The `select` has `optgroup` and meaningful `value` attributes.
+- [ ] The initial `textarea` text is between the tags.
+- [ ] The ID field rejects empty, 6 digits and letters; accepts 7 digits.
+- [ ] `reset` restores the initial values.
+
+---
+
+## Self-check questions
+
+1. When is `select` better, and when `radio`?
+2. In an `<option>`, what does the user see and what goes to the server?
+3. How is `datalist` different from `select`?
+4. Where is the initial text of a `textarea` written?
+5. Why does a group of radio buttons need a `legend`?
+6. Why is `<button>` handier than `<input type="submit">`?
+7. What happens when you press a `<button>` without `type` inside a form?
+8. What does `reset` do: clear the fields or something else?
+9. What does `pattern="[0-9]{7}"` mean?
+10. Why doesn't browser validation replace server validation?
+
+After the questions, take the **lesson test** on the platform: 12 questions, 70% to pass.
+
+---
+
+## What's next
+
+The form is ready. In lesson 8 we check it through the eyes of different people: without a mouse, without sight, in bright sunlight - and fix what gets in their way.
+
+---
+
+## Answers
+
+**Review**
+
+1. The `for` on the `<label>` equals the `id` on the field.
+2. The same `name`.
+3. It prevents sending the form while the field is empty.
+
+**Mini-task 1**
+
+```html
+<fieldset>
+    <legend>Contacts</legend>
+    <p>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+    </p>
+    <p>
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone">
+    </p>
+</fieldset>
+```
+
+**Mini-task 2**
+
+```html
+<label for="group">Group code (for example, IT-25)</label>
+<input type="text" id="group" name="group" pattern="[A-Z]{2}-[0-9]{2}" required>
+```
+
+**Self-check questions**
+
+1. 2–5 options - `radio`, all visible at once. More - `select`.
+2. They see the text between the tags; the server gets the `value`.
+3. `select` has only ready options; `datalist` gives suggestions and lets you type your own.
+4. Between the `<textarea>` and `</textarea>` tags.
+5. It's the shared question of the group: a screen reader reads it before the options.
+6. You can put text with other tags inside; it's a paired tag.
+7. The form is sent: without `type`, a button works as `submit`.
+8. It restores the initial values of the fields.
+9. Exactly 7 digits.
+10. Browser validation can be bypassed. The server must check the data itself.
+
+---
+
+[Contents](../../README.md) · [← Back](../../Lesson-6/en/Forms%20part%201.md) · [Next →](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-2.md) · [EN](Forms%20part%202.md) · [UZ](../uz/Formalar%20qism-2.md) · [Practice](../practice.html)

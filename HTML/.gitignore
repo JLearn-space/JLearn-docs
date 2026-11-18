@@ -15,3 +15,6 @@
 # Local course authoring dependencies
 node_modules/
 __pycache__/
+
+# Publishing artifacts
+_publish/*.tgz

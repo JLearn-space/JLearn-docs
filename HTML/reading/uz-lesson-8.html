@@ -1,298 +1,786 @@
-<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Vebdan hamma foydalana olishi (a11y) · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxiriga qadar nimalarni o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">Nima uchun vebdan hamma foydalana olishi muhim</a><a href="#section-5">Biz nima to&#x27;g&#x27;ri qildik (tizimlashtirish)</a><a href="#section-6">ARIA: aria-label va role</a><a href="#section-11">Kontrast</a><a href="#section-14">Mini-vazifa</a><a href="#section-15">tabindex - klaviatura bilan fokusni boshqarish</a><a href="#section-20">Sarlavhalar ierarxiyasi sifatida sahifaning &quot;skeleti&quot;</a><a href="#section-21">Dars xulosalari</a><a href="#section-22">Mustaqil mashq</a></details></aside><article><h1 id="section-1">Vebdan hamma foydalana olishi (a11y)</h1>
-<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-7.html">Oldingi dars</a> · <a href="uz-lesson-9.html">Keyingi dars</a> · <a href="../Lesson-8/practice.html">Amaliyot</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Foydalanish qulayligi (a11y) · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Bu sizga nima uchun kerak</a><a href="#section-3">Nimani o‘rganasiz</a><a href="#section-4">Takrorlash: oldingi darslardan 3 savol</a><a href="#section-5">Reja</a><a href="#section-6">Foydalanish qulayligi nima</a><a href="#section-8">Qulay nom va ARIA</a><a href="#section-15">Mini-topshiriq 1</a><a href="#section-16">Kontrast va rang</a><a href="#section-20">Klaviatura va tabindex</a><a href="#section-26">Mini-topshiriq 2</a><a href="#section-27">Sarlavhalar - ekran o‘quvchi uchun mundarija</a><a href="#section-28">15 daqiqalik audit</a><a href="#section-30">Dars yakuni: shpargalka</a><a href="#section-31">Mustaqil ish: anketa auditi</a><a href="#section-35">O‘zini tekshirish uchun savollar</a><a href="#section-36">Keyin nima</a><a href="#section-37">Javoblar</a></details></aside><article><h1 id="section-1">Foydalanish qulayligi (a11y)</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-7.html">← Orqaga</a> · <a href="uz-lesson-9.html">Keyingi →</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a> · <a href="../Lesson-8/practice.html">Amaliyot</a></p>
 <blockquote>
-<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darslarda biz ko'p marta &quot;ekran o'quvchisi buni to'g'ri eshitadi&quot; degan edik - <code>alt</code>, <code>label</code>, <code>scope</code>, <code>legend</code> haqida gaplashganda. Bugun barcha tarqalgan eslatmalarni bitta mavzuga - foydalanish qulayligiga - birlashtiramiz va yangi vositalar qo'shamiz: ARIA, kontrast, <code>tabindex</code>.</p>
+<p><strong>Oldingi dars bilan bog‘liqlik:</strong> 7-darsda ishtirokchi anketasini yig‘dingiz. Bugun uni turli odamlar ko‘zi bilan tekshiramiz: sichqonchasiz, ko‘rmasdan, yorqin quyoshda. Va ularga xalaqit beradigan narsalarni tuzatamiz.</p>
 </blockquote>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-8-1.svg" alt="Chizma 1: Mavjudlik (a11y)"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-8-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> A11y bir atributdan iborat emas: semantika, rasmlar, klaviatura va kerakli ARIA birgalikda ishlaydi. Har bir shox sahifani ko‘rish yoki boshqarish usullaridan birini tekshirishni eslatadi.</p>
 <hr>
-<h2 id="section-2">Dars oxiriga qadar nimalarni o'rganasiz</h2>
+<h2 id="section-2">Bu sizga nima uchun kerak</h2>
+<p>Guruhdoshingiz o‘ng qo‘lini sindirib oldi. U 7-darsdagi anketangizni ochib, faqat klaviatura bilan to‘ldiradi.</p>
 <ul>
-<li>Nima uchun foydalanish qulayligi (a11y) kerakligini va kim foydalanishini tushunish.</li>
-<li>Asosiy ARIA atributlarini ishlatish: <code>aria-label</code>, <code>role</code>.</li>
-<li>Matn va fon kontrastining muhimligini tushunish.</li>
-<li><code>tabindex</code> orqali klaviatura bilan fokus tartibini boshqarish.</li>
-<li>Sarlavhalar ierarxiyasi ekran o'quvchisi uchun sahifaning &quot;skeleti&quot; sifatida qanday ishlashini tushunish.</li>
+<li>U «Yuborish» tugmasigacha yeta oladimi?</li>
+<li>Hozir qaysi maydonda turganini ko‘radimi?</li>
+<li>Ko‘zi ojiz foydalanuvchi esa oldida qanday maydon borligini eshitadimi?</li>
+</ul>
+<p>Dars oxirida bu savollarga o‘zingiz javob berasiz va istalgan sahifangizni 15 daqiqada tekshira olasiz.</p>
+<hr>
+<h2 id="section-3">Nimani o‘rganasiz</h2>
+<ul>
+<li>Foydalanish qulayligi (a11y) nima va u kimga kerakligini tushuntirish.</li>
+<li>Matnsiz elementga <code>aria-label</code> orqali nom berish.</li>
+<li><code>role</code> orqali taqlid o‘rniga tabiiy HTML tegini tanlash.</li>
+<li>Matn kontrastini tekshirish va ma’noni faqat rang bilan bermaslik.</li>
+<li>Sahifani klaviatura bilan o‘tish va <code>tabindex</code> ni to‘g‘ri ishlatish.</li>
+<li>«Asosiy mazmunga o‘tish» havolasini qo‘shish.</li>
+<li>Sahifaning kichik auditini o‘tkazish va natijani jurnalga yozish.</li>
 </ul>
 <hr>
-<h2 id="section-3">Dars rejasi</h2>
+<h2 id="section-4">Takrorlash: oldingi darslardan 3 savol</h2>
+<ol>
+<li>Bezak rasmiga qanday <code>alt</code> kerak? (4-dars)</li>
+<li><code>&lt;label&gt;</code> ni kiritish maydoni bilan qanday bog‘lash mumkin? (6-dars)</li>
+<li><code>&lt;fieldset&gt;</code> ichida <code>&lt;legend&gt;</code> nima uchun kerak? (7-dars)</li>
+</ol>
+<p>Javoblar - dars oxirida, «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-5">Reja</h2>
 <table>
 <thead>
 <tr>
 <th>Bo‘lim</th>
-<th>Mazmuni</th>
+<th>Nima qilamiz</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Nima uchun foydalanish qulayligi kerak</td>
-<td>Kim va qanday foydalanadi, &quot;ko'rinmaydigan&quot; foydalanuvchilar</td>
+<td>Foydalanish qulayligi nima</td>
+<td>Bizdan boshqacha foydalanadiganlar</td>
 </tr>
 <tr>
-<td>Takrorlash: biz nima to'g'ri qildik</td>
-<td>alt, label, scope, legend - tizimlashtirish</td>
+<td>Siz buni allaqachon qilgansiz</td>
+<td>alt, label, scope, legend ni jamlaymiz</td>
 </tr>
 <tr>
-<td>ARIA: aria-label va role</td>
-<td>HTML semantikasi yetarli bo'lmaganda</td>
+<td>Qulay nom va ARIA</td>
+<td>Element ekran o‘quvchiga qanday «tanishtiriladi»</td>
 </tr>
 <tr>
-<td>Kontrast</td>
-<td>Matning o'qilishi, tekshiruv vositalari</td>
+<td>Mini-topshiriq 1</td>
+<td>Belgi-havola uchun nom</td>
 </tr>
 <tr>
-<td>Mini-vazifa</td>
-<td>aria-label mustaqil qo'shish</td>
+<td>Kontrast va rang</td>
+<td>Matn o‘qilishi</td>
 </tr>
 <tr>
-<td>tabindex</td>
-<td>Klaviatura bilan fokus tartibi va boshqarish</td>
+<td>Klaviatura va tabindex</td>
+<td>Fokus tartibi, «Asosiy mazmunga o‘tish» havolasi</td>
 </tr>
 <tr>
-<td>Sarlavhalar ierarxiyasi sifatida skelet</td>
-<td>Printsi ning yakuniy umumlashtirishi</td>
+<td>Mini-topshiriq 2</td>
+<td>Menyuni o‘tkazib yuborish havolasini qo‘shish</td>
 </tr>
 <tr>
-<td>Xulosalar va amaliy vazifa</td>
-<td>O'z saytini audit qilish</td>
+<td>Sarlavhalar</td>
+<td>Ekran o‘quvchi uchun sahifa mundarijasi</td>
+</tr>
+<tr>
+<td>15 daqiqalik audit</td>
+<td>Qadamma-qadam tekshiruv va jurnal</td>
+</tr>
+<tr>
+<td>Mustaqil ish</td>
+<td>7-darsdagi anketangiz auditi</td>
 </tr>
 </tbody>
 </table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-8-1.svg" alt="Chizma 1: Foydalanish qulayligi (a11y)"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-8-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> To‘rtta shox - tekshiruvning to‘rt yo‘nalishi. Doim to‘g‘ri HTML teglaridan boshlaymiz. ARIA - teg yetmagan holat uchun qo‘shimcha.</p>
 <hr>
-<h2 id="section-4">Nima uchun vebdan hamma foydalana olishi muhim</h2>
-<p><strong>Oddiy qilib aytganda:</strong> kirishda zinapoya bor, lekin pandus yo'q bino ni tasavvur qiling. Nogironlik aravachasidagi odam fizik jihatdan ichkariga kira olmaydi - binoning o'zi &quot;yomon&quot; degani uchun emas, balki barcha mehmonlarning xarakatlanishi bir xil emasligini hisobga olmaganligi uchun.</p>
-<p>Vebdan turli imkoniyatlarga ega odamlarning foydalana olishi (<strong>accessibility</strong>, qisqartirilgan <strong>a11y</strong> - 11 raqami &quot;a&quot; va &quot;y&quot; orasidagi o'tkazilgan harflar sonini bildiradi) - bu saytlar uchun xuddi shu tamoyil. Sayt quyidagilar uchun bir xil darajada mos bo'lishi kerak:</p>
-<ul>
-<li><strong>Ko'rmaydigan va zaif ko'ruvchi foydalanuvchilar</strong>, ekran o'quvchilaridan (ekran mazmunini ovoz chiqarib o'qiydigan dasturlar) foydalanuvchi yoki sahifa masshtabini juda kattalashtiruvchi;</li>
-<li><strong>Sichqoncha bilan ishlay olmaydigan odamlar</strong> (motor buzilishi tufayli) va sahifani faqat klaviatura bilan boshqaruvchi;</li>
-<li><strong>Zaif eshituvchi foydalanuvchilar</strong>, video uchun subtitrlar kerak bo'lganlar;</li>
-<li><strong>Kognitiv xususiyatlarga ega odamlar</strong>, oddiy, bashorat qilinadigan tuzilmadan foyda ko'radiganlar;</li>
-<li>hatto <strong>noqulay sharoitlardagi oddiy foydalanuvchilar</strong> - masalan, vaqtincha singan qo'li bilan faqat klaviaturadan foydalanayotgan odam, yoki yorqin quyosh ostida yomon kontrastli ekran bilan saytni o'qiyotgan odam.</li>
-</ul>
-<p><strong>Tushunishga arziydigan muhim fakt:</strong> biz o'tgan darslarda to'g'ri qilgan hamma narsa (ma'noli <code>alt</code>, <code>label</code>/<code>for</code> bog'lanishi, jadvallarda <code>scope</code>, maydon guruhlarida <code>legend</code>) - bu allaqachon foydalanish qulayligi ustida ishlash edi, biz uni faqat boshqacha chaqirardik. Bugungi dars bilimlarni tizimlashtiradi va bir nechta yangi vosita qo'shadi.</p>
-<p><strong>Nima uchun bu &quot;ixtiyoriy emas&quot; va professional belgilashning bir qismi:</strong> ko'p mamlakatlarda saytlarning mavjudligiga yuridik talablar mavjud (ayniqsa davlat va tijorat saytlari). Lekin yuridik tomonini hisobga olmasdan ham - mavjud sayt oddiygina <strong>ko'proq odamlar</strong> uchun yaxshiroq ishlaydi va bu sifatli, o'ylangan belgilashning belgisi.</p>
-<hr>
-<h2 id="section-5">Biz nima to'g'ri qildik (tizimlashtirish)</h2>
-<p>Davom etishdan oldin, o'tgan darslarda foydalanish qulayligiga bog'liq bo'lgan hamma narsani eslab, bir joyga to'playmiz:</p>
+<h2 id="section-6">Foydalanish qulayligi nima</h2>
+<p><strong>Oddiy qilib aytganda:</strong> binoning kirish qismida zina bor, lekin pandus yo‘q. Aravachadagi odam ichkariga kira olmaydi. Bino «yomon» emas - uni barcha tashrif buyuruvchilar haqida o‘ylamasdan qurishgan.</p>
+<p><strong>Veb-qulaylik</strong> (accessibility, qisqacha <strong>a11y</strong>: «a» va «y» orasida 11 ta harf) - xuddi shu pandus, faqat saytlar uchun. Saytdan foydalanishi kerak:</p>
+<table>
+<thead>
+<tr>
+<th>Kim</th>
+<th>Saytdan qanday foydalanadi</th>
+<th>Unga nima kerak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ko‘zi ojizlar</td>
+<td>Ekran o‘quvchi sahifani ovoz chiqarib o‘qiydi</td>
+<td><code>alt</code>, maydon imzolari, sarlavhalar</td>
+</tr>
+<tr>
+<td>Ko‘zi zaiflar</td>
+<td>Masshtabni 2–4 marta kattalashtiradi</td>
+<td>Yaxshi kontrast, matnli rasm o‘rniga matn</td>
+</tr>
+<tr>
+<td>Sichqonchadan foydalana olmaydiganlar</td>
+<td>Faqat klaviatura</td>
+<td>Barcha harakatlar Tab orqali, fokus ko‘rinadi</td>
+</tr>
+<tr>
+<td>Eshitishi zaiflar</td>
+<td>Videoni ovozsiz ko‘radi</td>
+<td>Subtitrlar</td>
+</tr>
+<tr>
+<td>Har birimiz</td>
+<td>Yorqin quyosh, singan qo‘l, eski telefon</td>
+<td>Yuqoridagilarning hammasi</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ekran o‘quvchi</strong> - sahifani ovoz chiqarib o‘qiydigan dastur. U har bir tizimda bor: macOS va iOS da VoiceOver, Android da TalkBack, Windows uchun bepul NVDA.</p>
+<p>Ko‘plab mamlakatlarda saytlar qulayligi - qonun talabi, ayniqsa davlat xizmatlari uchun. Lekin asosiysi boshqa: qulay sayt hamma uchun qulayroq.</p>
+<h3 id="section-7">Siz buni allaqachon qilgansiz</h3>
+<p>1–7-darslarda to‘g‘ri qilgan hamma narsangiz - bu allaqachon qulaylik ustidagi ish:</p>
 <table>
 <thead>
 <tr>
 <th>Nima</th>
 <th>Dars</th>
-<th>Foydalanish qulayligika qanday yordam beradi</th>
+<th>Nimaga yordam beradi</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;img&gt;</code> da <code>alt</code></td>
-<td>4-dars</td>
-<td>Ekran o'quvchisi rasm o'rniga tavsifni ovoz chiqaradi</td>
+<td><code>&lt;html&gt;</code> dagi <code>lang=&quot;uz&quot;</code></td>
+<td>1</td>
+<td>Ekran o‘quvchi matnni to‘g‘ri talaffuz bilan o‘qiydi</td>
 </tr>
 <tr>
-<td>Darajalarni o'tkazib yubormasdan <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> ierarxiyasi</td>
-<td>2-dars</td>
-<td>Ekran o'quvchisi tez yo'l topish uchun sarlavhalar bo'yicha sahifa &quot;xaritasini&quot; quradi</td>
+<td>Tartib bilan <code>h1</code>–<code>h6</code> sarlavhalar</td>
+<td>2</td>
+<td>Ekran o‘quvchi sahifa mundarijasini quradi</td>
 </tr>
 <tr>
-<td>Semantik teglar (<code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code> va hokazo)</td>
-<td>2-dars</td>
-<td>Ekran o'quvchisi sahifaning har bir yirik blokining maqsadini tushunadi</td>
+<td><code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code></td>
+<td>2</td>
+<td>Foydalanuvchi to‘g‘ri kerakli qismga sakraydi</td>
+</tr>
+<tr>
+<td>Tushunarli havola matni</td>
+<td>3</td>
+<td>«Bu yerni bosing» o‘rniga «To‘garak jadvali»</td>
+</tr>
+<tr>
+<td><code>&lt;img&gt;</code> dagi <code>alt</code></td>
+<td>4</td>
+<td>Rasm tavsif bilan almashadi</td>
+</tr>
+<tr>
+<td>Jadvaldagi <code>caption</code> va <code>scope</code></td>
+<td>5</td>
+<td>Katak o‘z sarlavhasi bilan bog‘lanadi</td>
 </tr>
 <tr>
 <td><code>label</code> + <code>for</code>/<code>id</code></td>
-<td>6-dars</td>
-<td>Ekran o'quvchisi forma maydonining maqsadini ovoz chiqaradi, &quot;matn maydoni&quot; emas</td>
-</tr>
-<tr>
-<td>Jadvallarda <code>&lt;th&gt;</code> da <code>scope</code></td>
-<td>5-dars</td>
-<td>Ekran o'quvchisi ma'lumot katakchasi kerakli qator/ustun sarlavhasiga bog'laydi</td>
+<td>6</td>
+<td>Maydon «Email, kiritish maydoni» deb aytiladi</td>
 </tr>
 <tr>
 <td><code>fieldset</code> + <code>legend</code></td>
-<td>7-dars</td>
-<td>Ekran o'quvchisi maydon guruhiga kontekst beradi (radio guruhlari uchun juda muhim)</td>
-</tr>
-<tr>
-<td><code>&lt;strong&gt;</code> va <code>&lt;em&gt;</code></td>
-<td>2-dars</td>
-<td>Muhimlik va ma’no urg‘usini bildiradi; <code>&lt;b&gt;</code> va <code>&lt;i&gt;</code> boshqa vazifalarda ishlatiladi. O‘qilish ekran o‘quvchisiga bog‘liq</td>
+<td>7</td>
+<td>radio guruhi umumiy savolga ega bo‘ladi</td>
 </tr>
 </tbody>
 </table>
-<p>Ko'rib turganingizdek, foydalanish qulayligi bu oddiy belgilashning ustidagi alohida &quot;qo'shma&quot; emas, balki kursning boshidan beri HTML ning <strong>to'g'ri, semantik</strong> ishlatilishining natijasi.</p>
+<p>Bugun to‘rtta yangi vosita qo‘shamiz: ARIA, kontrast, klaviatura va audit.</p>
 <hr>
-<h2 id="section-6">ARIA: <code>aria-label</code> va <code>role</code></h2>
-<p>Ba'zan standart HTML semantikasi elementning maqsadini to'liq tasvirlash uchun yetarli bo'lmaydi - ayniqsa vizual jihatdan tushunarli (masalan, oynani yopish uchun &quot;×&quot; belgisi bilan ko'rsatilgan ikonka), lekin ekran o'quvchisi o'qiy oladigan matni ichida bo'lmagan interaktiv elementlar uchun.</p>
-<p>Bunday holatlar uchun <strong>ARIA</strong> (Accessible Rich Internet Applications) mavjud - oddiy HTML semantikasini to'ldiruvchi (lekin o'rnini bermaydigan!) maxsus atributlar to'plami.</p>
-<h3 id="section-7"><code>aria-label</code> - ekran o'quvchisi uchun matnli tavsif</h3>
-<p>Elementda ko'rinadigan matn bo'lmaganida, lekin uning maqsadini ekran o'quvchisiga aytish kerak bo'lganda ishlatiladi.</p>
-<p><strong>Misol: faqat ikonka bilan, ko'rinadigan matnsiz yopish tugmasi (&quot;×&quot; belgisi bilan shartli ko'rsatilgan):</strong></p>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; aria-label=&quot;Oynani yopish&quot;&gt;×&lt;/button&gt;
-</code></pre>
-<p>Vizual foydalanuvchi oddiy &quot;×&quot; belgini ko'radi, lekin ekran o'quvchisi &quot;Oynani yopish, tugma&quot; deb ovoz chiqaradi - ya'ni mazmunli tavsif beradi, ma'nosiz belgi emas.</p>
-<p><strong>Misol: matnsiz ijtimoiy tarmoqqa ikonka-havola:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;https://t.me/example&quot; aria-label=&quot;Bizning Telegram kanalimiz&quot;&gt;
-    &lt;img src=&quot;telegram-icon.svg&quot; alt=&quot;&quot;&gt;
-&lt;/a&gt;
-</code></pre>
-<p>Diqqat qiling: bu yerda rasmdagi <code>alt=&quot;&quot;</code> bo'sh (dekorativ ikonka, 4-darsda tushuntirgandek), va butun havolaning tavsifini to'liq <code>&lt;a&gt;</code> tegidagi <code>aria-label</code> beradi.</p>
-<p><strong>Muhim qoida:</strong> <code>aria-label</code> <strong>faqat boshqa usul bo'lmaganda</strong> ishlatiladi. Agar elementda allaqachon ko'rinadigan matn bo'lsa (masalan, &quot;Yuborish&quot; tugmasi), <code>aria-label</code> kerak emas - oddiy mazmundan ekran o'quvchisiga allaqachon mavjud narsani takrorlamang.</p>
-<h3 id="section-8"><code>role</code> - element rolini aniqlash</h3>
-<p><code>role</code> atributi ekran o'quvchisiga element qanday funksional rol o'ynashini aniq aytadi - ayniqsa ma'lum sabablarga ko'ra eng mos teg ishlatilmagan bo'lsa foydali.</p>
-<pre><code class="language-html">&lt;div role=&quot;alert&quot;&gt;
-    Diqqat: fayl saqlanmadi.
-&lt;/div&gt;
-</code></pre>
-<p><code>role=&quot;alert&quot;</code> muhim dinamik xabarlar uchun. Statik misol yuklanishda darhol o‘qilishini kafolatlamaydi; haqiqiy xatti-harakatni ekran o‘quvchisi bilan tekshiring.</p>
-<p><strong>Eslab qolish kerak bo'lgan ARIA ning oltin qoidasi:</strong> <em>&quot;ARIA ning birinchi qoidasi - agar mos tabiiy HTML teg bo'lsa, ARIA ishlatma.&quot;</em> Boshqa qilib aytganda, agar <code>&lt;button&gt;</code> o'rniga <code>&lt;div role=&quot;button&quot;&gt;</code> ishlatish mumkin bo'lsa - <code>&lt;button&gt;</code> ishlating, chunki tabiiy teg &quot;qutidan chiqqan holda&quot; barcha kerakli xulqqa ega (Tab bo'yicha fokus, Enter/Space ga reaktsiya, to'g'ri ovoz chiqarish), va <code>&lt;div&gt;</code> da ARIA bilan bu xulqni taqlid qilish qo'shimcha ish talab qiladi va xatolarga ko'proq moyil.</p>
-<pre><code class="language-html">&lt;!-- Yomon: div orqali tugmani taqlid qilish --&gt;
-&lt;div role=&quot;button&quot; aria-label=&quot;Formani yuborish&quot;&gt;Yuborish&lt;/div&gt;
-
-&lt;!-- Yaxshi: tabiiy button ishlatamiz --&gt;
-&lt;button type=&quot;submit&quot;&gt;Yuborish&lt;/button&gt;
-</code></pre>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-8-2.svg" alt="Chizma 2: Mavjudlik (a11y)"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-8-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Matn yoki label allaqachon nom berayotgan bo‘lsa, undan foydalaning. Matnsiz belgili boshqaruvga tushunarli nom kerak; rasm uchun esa mazmuniga mos alt tanlanadi. ARIA nom yoki rol beradi, ammo tugmani ishlaydigan qilib qo‘ymaydi.</p>
-<hr>
-<h3 id="section-9">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<h2 id="section-8">Qulay nom va ARIA</h2>
+<p><strong>Oddiy qilib aytganda:</strong> konferensiyada har bir ishtirokchining ismli beyji bor. Sahifada har bir tugma, havola va maydonning ham «beyji» bor - <strong>qulay nom</strong>. Ekran o‘quvchi nom va rolni aytadi: «Yuborish, tugma».</p>
+<p>Brauzer nomni qayerdan oladi:</p>
 <table>
 <thead>
 <tr>
-<th>Xato</th>
-<th>Tuzatish</th>
+<th>Element</th>
+<th>Nom manbai</th>
+<th>Misol</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Tabiiy HTML teglar o'rniga ARIA ishlatish</td>
-<td>Doimo semantik HTML tegni ARIA taqlidiga afzal ko'ring: <code>&lt;button&gt;</code>, <code>&lt;div role=&quot;button&quot;&gt;</code> emas</td>
+<td>Tugma, havola</td>
+<td>Ichidagi matn</td>
+<td><code>&lt;button&gt;Yuborish&lt;/button&gt;</code> → «Yuborish»</td>
 </tr>
 <tr>
-<td>Elementda allaqachon ko'rinadigan matn bo'lganda <code>aria-label</code> ni takrorlash</td>
-<td><code>aria-label</code> ni faqat ko'rinadigan matn mazmuni bo'lmaganda ishlating</td>
+<td>Forma maydoni</td>
+<td>Bog‘langan <code>&lt;label&gt;</code></td>
+<td>«Email»</td>
 </tr>
 <tr>
-<td>Rasmlarda <code>alt</code> o'rniga <code>aria-label</code> qo'yish</td>
-<td>Rasmlar uchun doimo <code>alt</code> ishlating - bu uning to'g'ridan-to'g'ri maqsadi; <code>aria-label</code> - matnsiz boshqa elementlar uchun (tugmalar, ikonka-havolalar)</td>
+<td>Rasm-havola</td>
+<td>Ichidagi rasmning <code>alt</code> i</td>
+<td><code>&lt;a href=&quot;/&quot;&gt;&lt;img alt=&quot;Bosh sahifa&quot;&gt;&lt;/a&gt;</code> → «Bosh sahifa»</td>
+</tr>
+<tr>
+<td>Matnsiz element</td>
+<td><code>aria-label</code></td>
+<td>quyida qarang</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-9"><code>aria-label</code> - matnsiz element uchun nom</h3>
+<p><strong>ARIA</strong> (Accessible Rich Internet Applications) - ekran o‘quvchilar uchun atributlar to‘plami. U HTML ni to‘ldiradi, lekin almashtirmaydi.</p>
+<p>So‘z o‘rniga xochcha bilan tugma:</p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; aria-label=&quot;Oynani yopish&quot;&gt;×&lt;/button&gt;
+</code></pre>
+<p><strong>Nimani ko‘rasiz:</strong> sahifada shunchaki «×».
+<strong>Ko‘zi ojiz nimani eshitadi:</strong> «Oynani yopish, tugma». <code>aria-label</code> siz u «ko‘paytirish, tugma» ni eshitardi.</p>
+<p>Ijtimoiy tarmoqqa belgi-havola:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://t.me/example&quot; aria-label=&quot;Telegram kanalimiz&quot;&gt;
+    &lt;img src=&quot;images/telegram-icon.svg&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Bu yerda rasmning <code>alt=&quot;&quot;</code> i bo‘sh (u bezak, 4-dars), butun havolaga esa nomni <code>aria-label</code> beradi.</p>
+<p><strong>Qoida:</strong> <code>aria-label</code> faqat ko‘rinadigan matn yo‘q joyda kerak. Tugmada «Yuborish» deb yozilgan bo‘lsa, <code>aria-label</code> qo‘shmang.</p>
+<h3 id="section-10"><code>role</code> va ARIA ning birinchi qoidasi</h3>
+<p><code>role</code> atributi ekran o‘quvchiga element rolini aytadi. Lekin <strong>ARIA ning birinchi qoidasi: mos HTML tegi bo‘lsa, ARIA ishlatmang.</strong></p>
+<pre><code class="language-html">&lt;!-- Yomon: div tugma bo‘lib ko‘rinadi --&gt;
+&lt;div role=&quot;button&quot;&gt;Yuborish&lt;/div&gt;
+
+&lt;!-- Yaxshi: haqiqiy tugma --&gt;
+&lt;button type=&quot;submit&quot;&gt;Yuborish&lt;/button&gt;
+</code></pre>
+<p>Nega shunday:</p>
+<table>
+<thead>
+<tr>
+<th>Nima qila oladi</th>
+<th><code>&lt;div role=&quot;button&quot;&gt;</code></th>
+<th><code>&lt;button&gt;</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ekran o‘quvchi «tugma» deydi</td>
+<td>Ha</td>
+<td>Ha</td>
+</tr>
+<tr>
+<td>Tab bilan fokusga tushadi</td>
+<td>Yo‘q</td>
+<td>Ha</td>
+</tr>
+<tr>
+<td>Enter va Space ga javob beradi</td>
+<td>Yo‘q</td>
+<td>Ha</td>
+</tr>
+<tr>
+<td>Formani yuboradi</td>
+<td>Yo‘q</td>
+<td>Ha</td>
+</tr>
+</tbody>
+</table>
+<p><code>role</code> faqat element <strong>qanday nomlanishini</strong> o‘zgartiradi. U xatti-harakat qo‘shmaydi.</p>
+<p>Uchrab qoladigan yana bir rol: <code>role=&quot;alert&quot;</code>. U sahifa ishlayotganda paydo bo‘ladigan xabarlarga qo‘yiladi, masalan «Fayl saqlanmadi». Bunday blok paydo bo‘lganda ekran o‘quvchi uni darhol o‘qiydi. Bunday xabarlarni JavaScript qo‘shadi, shuning uchun kursimizda bunday rol borligini bilish yetarli.</p>
+<h3 id="section-11">Tabiiy misol: <code>&lt;details&gt;</code> va <code>&lt;summary&gt;</code></h3>
+<p>Bosilganda ochiladigan «Savol - javob» bloki kerakmi? Uni <code>div</code> va ARIA dan yig‘mang. HTML da tayyor teg bor:</p>
+<pre><code class="language-html">&lt;details&gt;
+    &lt;summary&gt;To‘garakda qatnashish qancha turadi?&lt;/summary&gt;
+    &lt;p&gt;Qatnashish bepul.&lt;/p&gt;
+&lt;/details&gt;
+</code></pre>
+<p><strong>Nimani ko‘rasiz:</strong> uchburchakli qator. Bosish, Enter yoki Space - va javob ochiladi. Tab bilan fokus, «yopiq / ochiq» deb aytish - hammasi bitta ham ARIA qatorisiz ishlaydi.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-8-2.svg" alt="Chizma 2: Foydalanish qulayligi (a11y)"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-8-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> O‘zingizga beradigan uchta alohida savol: boshqaruv elementini qanday nomlash, rasmga qanday <code>alt</code> berish va interaktiv elementni qaysi teg bilan qilish.</p>
+<h3 id="section-12">Qulay nomni qanday ko‘rish</h3>
+<ol>
+<li>Sahifani Chrome da ochib, F12 ni bosing.</li>
+<li><strong>Elements</strong> yorlig‘ida tugma yoki maydonni tanlang.</li>
+<li>O‘ngda <strong>Accessibility</strong> yorlig‘ini oching (ko‘rinmasa - <code>»</code> ni bosing).</li>
+<li><strong>Computed Properties</strong> bo‘limida <strong>Name</strong> (nom) va <strong>Role</strong> (rol) ni toping.</li>
+</ol>
+<h3 id="section-13">Buzib ko‘ring</h3>
+<ol>
+<li>«×» tugmasidan <code>aria-label</code> ni o‘chiring. DevTools dagi Name ga qarang. Endi u yerda nima?</li>
+<li><code>&lt;button&gt;</code> ni <code>&lt;div role=&quot;button&quot;&gt;</code> ga almashtiring. Tab ni bosing. Fokus «tugma»ga tushadimi?</li>
+</ol>
+<h3 id="section-14">Yangi o‘rganuvchilarning tipik xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tugma o‘rniga <code>&lt;div role=&quot;button&quot;&gt;</code></td>
+<td><code>&lt;button&gt;</code> ishlating</td>
+</tr>
+<tr>
+<td>Ko‘rinadigan matn ustidan <code>aria-label</code></td>
+<td>O‘chiring: nom allaqachon matndan olinadi</td>
+</tr>
+<tr>
+<td>Rasmda <code>alt</code> o‘rniga <code>aria-label</code></td>
+<td><code>&lt;img&gt;</code> uchun doim <code>alt</code></td>
+</tr>
+<tr>
+<td>Nomsiz belgi-havola</td>
+<td>Havolada <code>aria-label</code> yoki ichidagi rasmda <code>alt</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h3 id="section-10">Elementning foydalanish uchun berilgan nomini tekshirish</h3>
-<p>Chrome yoki Edge brauzerida tugma, havola yoki maydon ustida o‘ng tugma → Inspect ni tanlang. Elements panelida aynan o‘sha elementni belgilang; yon paneldagi Accessibility bo‘limini oching (yashirilgan bo‘lsa » menyusidan toping). Computed Properties ichidagi Name va Role qiymatlarini ko‘ring: masalan, “Yuborish” va “button”. Name bo‘sh yoki maqsadga mos bo‘lmasa, avval label yoki ko‘rinadigan matnni tuzating. Bu tekshiruv ekranni o‘qish dasturi bilan to‘liq sinovni almashtirmaydi.</p>
-<h2 id="section-11">Kontrast</h2>
-<p><strong>Oddiy qilib aytganda:</strong> kontrast - bu matn va uning orasidagi fon orasidagi yorqinlik farqi. Oq fon ustidagi och kulrang matn dizaynerga zamonaviy ko'rinishi mumkin, lekin zaif ko'ruvchi odam uchun deyarli o'qimsiz - hatto oddiy ko'ruvchi odam uchun yorqin quyosh ostida yoki arzon monitor'da.</p>
-<p>Haqiqiy rang sozlash CSS ga bog'liq (kelajak darslar mavzusi) bo'lsa ham, hozir tamoyilni tushunish muhim, chunki kontent haqidagi qarorlar (masalan, axborotni uzatishda faqat rangga ishonib ishonmaslik) kontent tuzilishida qabul qilinadi.</p>
-<h3 id="section-12">Amaliy qoida: faqat rangga ishonmang</h3>
-<p>Quyidagi <code>span</code> va <code>style</code> yozilgan parcha faqat tayyor ko‘rgazmali misol: rang bilan berilgan xabarni tushunish uchun keltirilgan. Hozir CSS yozish yoki bu sintaksisni yodlash talab qilinmaydi; maqsadni matnda ham aytish kerak.</p>
-<p>Ko'p uchraydigan xato - muhim axborotni <strong>faqat</strong> rang orqali uzatish, matnli takrorlamasdan. Masalan:</p>
-<pre><code class="language-html">&lt;!-- Yomon: rang ma’nosi matn bilan tushuntirilmagan --&gt;
+<h2 id="section-15">Mini-topshiriq 1</h2>
+<p>GitHub havolasi faqat belgi bilan ko‘rsatilgan. Ekran o‘quvchi «GitHub dagi profilim, havola» deb aytadigan qiling. Belgi <code>images/github-icon.svg</code> da.</p>
+<p>Natijani DevTools da tekshiring: Name siz yozgan matn bilan mos bo‘lishi kerak. Yechim - «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-16">Kontrast va rang</h2>
+<p><strong>Oddiy qilib aytganda:</strong> oq fonda och kulrang matn - tumandagi peshlavha. Dizaynerga chiroyli ko‘rinadi, ko‘zi zaif odam yoki quyoshda telefonli odam esa hech narsani o‘qiy olmaydi.</p>
+<p><strong>Kontrast</strong> - matn va fon yorqinligi farqi. U nisbat sifatida yoziladi: 1:1 (farq yo‘q) dan 21:1 gacha (oqda qora).</p>
+<h3 id="section-17">1-qoida: minimal kontrast</h3>
+<p><strong>WCAG</strong> standarti talab qiladi:</p>
+<ul>
+<li><strong>4.5:1</strong> - oddiy matn uchun;</li>
+<li><strong>3:1</strong> - yirik matn uchun (taxminan 24 px dan, yoki qalin 19 px dan).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Oq fondagi matn</th>
+<th>Kontrast</th>
+<th>Oddiy matn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#000000</code> qora</td>
+<td>21:1</td>
+<td>✅ O‘tadi</td>
+</tr>
+<tr>
+<td><code>#1d4ed8</code> ko‘k</td>
+<td>6.7:1</td>
+<td>✅ O‘tadi</td>
+</tr>
+<tr>
+<td><code>#767676</code> kulrang</td>
+<td>4.54:1</td>
+<td>✅ O‘tadi (chegarada)</td>
+</tr>
+<tr>
+<td><code>#999999</code> och kulrang</td>
+<td>2.85:1</td>
+<td>❌ O‘tmaydi</td>
+</tr>
+<tr>
+<td><code>#cccccc</code> juda och</td>
+<td>1.61:1</td>
+<td>❌ O‘tmaydi</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Qanday tekshirish:</strong></p>
+<ol>
+<li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> ni oching.</li>
+<li><strong>Foreground</strong> ga matn rangini, <strong>Background</strong> ga fon rangini kiriting.</li>
+<li><strong>Contrast Ratio</strong> ga va <strong>WCAG AA: Normal Text</strong> qatoriga qarang - <strong>Pass</strong> bo‘lishi kerak.</li>
+</ol>
+<p>Ranglarni CSS kursida berasiz. Hozircha sahifalaringizda oq fonda qora matn - bu 21:1, eng yaxshi natija.</p>
+<h3 id="section-18">2-qoida: ma’noni faqat rang bilan bermang</h3>
+<p>Erkaklarning taxminan 8% i qizil va yashilni yomon ajratadi. Ko‘zi ojiz esa rangni umuman ko‘rmaydi.</p>
+<pre><code class="language-html">&lt;!-- Yomon: qizil nuqta nimani bildiradi? --&gt;
 &lt;p&gt;&lt;span style=&quot;color: #b00020;&quot;&gt;●&lt;/span&gt; Email&lt;/p&gt;
 
-&lt;!-- Yaxshi: matn o'zi ma'noni uzatadi, rang - faqat qo'shimcha --&gt;
-&lt;p style=&quot;color: #b00020;&quot;&gt;&lt;strong&gt;Xato:&lt;/strong&gt; maydon noto'g'ri to'ldirilgan&lt;/p&gt;
+&lt;!-- Yaxshi: ma’no matndan tushunarli, rang faqat yordam beradi --&gt;
+&lt;p style=&quot;color: #b00020;&quot;&gt;&lt;strong&gt;Xato:&lt;/strong&gt; email noto‘g‘ri to‘ldirilgan&lt;/p&gt;
 </code></pre>
-<p>CSS ni batafsil bilmasdan ham, tamoyilni eslab qolish muhim: <strong>matn mazmuni mustaqil bo'lishi kerak</strong> va barcha rangli bezaklarni olib tashlasangiz ma'noni yo'qotmasligi kerak - chunki foydalanuvchilarning bir qismi uchun (ko'rmaydiganlar, daltonglar, qora-oq ekran foydalanuvchilari) rang umuman mavjud emas.</p>
-<h3 id="section-13">Tavsiya etilgan minimal kontrast darajasi</h3>
-<p>WCAG (Web Content Accessibility Guidelines) standarti mavjud bo'lib, oddiy matn uchun minimal kontrast nisbatini <strong>4.5:1</strong> (va katta matn, masalan sarlavhalar uchun biroz kamroq - 3:1) tavsiya etadi. Rang juftligining kontrastini bepul onlayn vositalar (masalan, WebAIM Contrast Checker) yordamida tekshirish mumkin - CSS ni keyinchalik o'rganganda, sayt rang palitrasini tanlashda bu juda muhim bo'ladi.</p>
+<p><strong>Tekshiruv:</strong> sahifani xayolan oq-qora qiling. Ma’no yo‘qolmagan bo‘lsa - hammasi joyida.</p>
+<h3 id="section-19">Buzib ko‘ring</h3>
+<p>Chrome da DevTools → <code>⋮</code> → <strong>More tools</strong> → <strong>Rendering</strong> ni oching. <strong>Emulate vision deficiencies</strong> ni toping va <strong>Achromatopsia</strong> (to‘liq rang ko‘rlik) ni tanlang. Sahifa rangsiz tushunarlimi?</p>
 <hr>
-<h2 id="section-14">Mini-vazifa</h2>
-<p>Matnsiz GitHub ikonka-havolasiga <code>aria-label</code> qo'shing, shunda ekran o'quvchisi uning maqsadini ovoz chiqaradi.</p>
-<p><strong>Yechim:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; aria-label=&quot;Mening GitHub profilim&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
-    &lt;img src=&quot;github-icon.svg&quot; alt=&quot;&quot;&gt;
-&lt;/a&gt;
-</code></pre>
-<hr>
-<h2 id="section-15"><code>tabindex</code> - klaviatura bilan fokusni boshqarish</h2>
-<p><strong>Oddiy qilib aytganda:</strong> sichqonchaga tegmasdan, hozir har qanday veb-sahifada <strong>Tab</strong> tugmasini bosib ko'ring - fokus ramkasi boshqa havola/tugma/forma maydoniga ma'lum tartibda &quot;sakrab o'tishini&quot; ko'rasiz. Bu klaviatura bilan yo'l topish - sichqoncha bilan ishlay olmaydigan (yoki noqulay foydalanadigan) odamlar uchun juda muhim.</p>
-<p>Odatda Tab o'tish tartibi <strong>HTML kodidagi elementlar tartibiga</strong> amal qiladi - interaktiv elementlar (havolalar, tugmalar, forma maydonlari) qo'shimcha kodga muhtoj bo'lmasdan avtomatik &quot;fokuslanadi&quot;. Bu HTML ni mantiqiy tartibda yozishning yana bir sababi - vizual tartibni CSS orqali o'zgartirish mumkin, lekin Tab navigatsiyasi odatda kod tartibiga amal qiladi.</p>
-<h3 id="section-16"><code>tabindex=&quot;0&quot;</code> - elementni fokuslanadigan qilish</h3>
-<p><code>tabindex=&quot;0&quot;</code> faqat fokus qo‘shadi; Enter/Space amalini yaratmaydi. Tabiiy button klaviaturani qo‘llaydi; ARIA o‘zi xatti-harakat yaratmaydi.</p>
-<p>Ba'zan defaultda fokuslanmaydigan elementni fokuslanadigan qilish kerak bo'ladi (masalan, JavaScript orqali interaktiv xulqga ega <code>&lt;div&gt;</code> - lekin, 3-blokda tushuntirgandek, imkon qadar tabiiy interaktiv teglarni ishlatgan yaxshi).</p>
-<pre><code class="language-html">&lt;button type=&quot;button&quot;&gt;Batafsil ▼&lt;/button&gt;
-</code></pre>
-<p>Namunada tabiiy button ishlatilgan: u Tab tartibiga kiradi va klaviaturani qo‘llaydi. Oddiy div da tabindex=&quot;0&quot; faqat fokus qo‘shadi; amal yaratmaydi.</p>
-<h3 id="section-17"><code>tabindex=&quot;-1&quot;</code> - elementni Tab navigatsiyasidan olib tashlash</h3>
-<pre><code class="language-html">&lt;div tabindex=&quot;-1&quot; id=&quot;modal-title&quot;&gt;
-    Modall oynaning sarlavhasi
-&lt;/div&gt;
-</code></pre>
-<p>Dastur tomonidan fokus olishi kerak bo'lgan (masalan, JavaScript orqali suzuvchi oyna ochilganda), lekin oddiy Tab ketma-ketligiga tushishi kerak bo'lmagan elementlar uchun ishlatiladi.</p>
-<h3 id="section-18">Musbat <code>tabindex</code> qiymatlari - nima uchun ulardan qochish kerak</h3>
-<p>Texnik jihatdan <code>tabindex=&quot;1&quot;</code>, <code>tabindex=&quot;2&quot;</code> va hokazo yozish mumkin, kod tartibidan farqli o'ziga xos o'tish tartibini belgilash uchun:</p>
-<pre><code class="language-html">&lt;!-- Tavsiya etilmaydi --&gt;
+<h2 id="section-20">Klaviatura va <code>tabindex</code></h2>
+<p><strong>Oddiy qilib aytganda:</strong> Tab sahifa bo‘ylab muzey zallari bo‘ylab ekskursovod kabi olib boradi. Marshrutni HTML koddagi elementlar tartibi belgilaydi: yuqoridan pastga.</p>
+<p><strong>Hozir sinab ko‘ring:</strong> 7-darsdagi anketangizni oching va sichqonchaga tegmasdan Tab ni bosing. Maydonlar bo‘ylab sakrayotgan ramka - bu <strong>fokus</strong>.</p>
+<h3 id="section-21">Asosiy tugmalar</h3>
+<table>
+<thead>
+<tr>
+<th>Tugma</th>
+<th>Nima qiladi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tab</td>
+<td>Keyingi interaktiv element</td>
+</tr>
+<tr>
+<td>Shift+Tab</td>
+<td>Oldingi element</td>
+</tr>
+<tr>
+<td>Enter</td>
+<td>Havolani ochish, tugmani bosish</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>Tugmani bosish, checkbox ni belgilash</td>
+</tr>
+<tr>
+<td>Strelkalar</td>
+<td>Guruhda radio, select da variant tanlash</td>
+</tr>
+</tbody>
+</table>
+<p>Sarlavhalar va abzatslar fokus olmaydi - shunday bo‘lishi kerak. Tab faqat ta’sir qilish mumkin bo‘lgan narsalar bo‘ylab yuradi: havolalar, tugmalar va maydonlar.</p>
+<h3 id="section-22"><code>tabindex</code> qiymatlari</h3>
+<p>Havolalar, tugmalar va forma maydonlari fokusga o‘zi tushadi. <code>tabindex</code> kamdan-kam kerak:</p>
+<table>
+<thead>
+<tr>
+<th>Qiymat</th>
+<th>Nima qiladi</th>
+<th>Qachon ishlatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tabindex=&quot;0&quot;</code></td>
+<td>Elementni Tab marshrutiga qo‘shadi</td>
+<td>Juda kam: tabiiy tegni olgan ma’qul</td>
+</tr>
+<tr>
+<td><code>tabindex=&quot;-1&quot;</code></td>
+<td>Marshrutdan chiqaradi, lekin fokusni JavaScript dan qo‘yish mumkin</td>
+<td>Qalqib chiquvchi oyna sarlavhasi</td>
+</tr>
+<tr>
+<td><code>tabindex=&quot;1&quot;</code>, <code>&quot;2&quot;</code>...</td>
+<td>Elementni marshrut boshiga qo‘yadi</td>
+<td><strong>Hech qachon</strong></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;!-- BUNDAY QILMANG --&gt;
 &lt;input type=&quot;text&quot; tabindex=&quot;2&quot;&gt;
 &lt;input type=&quot;text&quot; tabindex=&quot;1&quot;&gt;
 </code></pre>
-<p><strong>Nima uchun bu yomon amaliyot:</strong> bunday yondashuvni sahifa tuzilmasidagi istalgan o'zgarish bilan &quot;buzish&quot; juda oson - <code>tabindex</code> qo'shilmagan yangi element ketma-ketlikda kutilmagan joyda bo'ladi va foydalanuvchi sahifada bashorat qilinmagan tarzda &quot;sakrab yuradi&quot;. <strong>To'g'ri yondashuv</strong> - elementlarni mantiqiy tartibda to'g'ridan-to'g'ri HTML kodida joylashtirish, shunda odatdagi sahifalarda maxsus <code>tabindex</code> umuman kerak bo'lmaydi.</p>
-<p><strong>Bu kurs uchun amaliy qoida:</strong> <code>tabindex=&quot;0&quot;</code> va <code>tabindex=&quot;-1&quot;</code> ni faqat haqiqatdan kerak bo'lganda (nodavom interaktiv elementlar) ishlating, musbat sonlardan qoching va birinchi navbatda HTML kodining mantiqiy tartibiga e'tibor bering.</p>
-<hr>
-<h3 id="section-19">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<p>Musbat sonlar marshrutni buzadi: fokus avval raqamlangan elementlar, keyin qolgan hammasi bo‘ylab sakraydi. Foydalanuvchi adashadi.</p>
+<p><strong>Qoida:</strong> boshqa tartib kerakmi - koddagi elementlar tartibini o‘zgartiring.</p>
+<p>Eslab qoling: <code>tabindex</code> <strong>faqat fokus</strong> qo‘shadi. <code>tabindex=&quot;0&quot;</code> li <code>div</code> baribir Enter ga javob bermaydi. Shuning uchun tugmaga <code>&lt;button&gt;</code> kerak.</p>
+<h3 id="section-23">«Asosiy mazmunga o‘tish» havolasi</h3>
+<p>10 ta havolali menyuni tasavvur qiling. Klaviatura foydalanuvchisi <strong>har bir</strong> sahifada matnga yetib borish uchun Tab ni 10 marta bosadi. Yechim - 3-darsdagi langar-havola, <code>&lt;body&gt;</code> dagi birinchi qator:</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;a href=&quot;#main&quot;&gt;Asosiy mazmunga o‘tish&lt;/a&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;!-- 10 ta menyu havolasi --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main id=&quot;main&quot;&gt;
+        &lt;h1&gt;Ishtirokchi anketasi&lt;/h1&gt;
+        &lt;!-- forma --&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Nimani ko‘rasiz:</strong> sahifadagi birinchi Tab - fokus shu havolada. Enter - va siz darhol <code>&lt;main&gt;</code> dasiz. Keyingi Tab menyuga emas, formaning birinchi maydoniga olib boradi.</p>
+<p>Haqiqiy saytlarda bunday havolani fokus olmaguncha CSS orqali yashirishadi. Buni CSS kursida qilasiz. Hozircha uni ko‘rinadigan qoldiring.</p>
+<h3 id="section-24">Buzib ko‘ring</h3>
+<p>Anketaning <strong>oxirgi</strong> maydoniga <code>tabindex=&quot;1&quot;</code> qo‘ying. Sahifani yangilab, Tab ni bosing. Fokus qayerga sakradi? Qulaymi?</p>
+<h3 id="section-25">Yangi o‘rganuvchilarning tipik xatolari</h3>
 <table>
 <thead>
 <tr>
 <th>Xato</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tartibni «tuzatish» uchun musbat <code>tabindex</code></td>
+<td>Elementlarni kodda joyini almashtiring</td>
+</tr>
+<tr>
+<td>Havola, tugma yoki maydonda <code>tabindex</code></td>
+<td>O‘chiring: ular o‘zi fokuslanadi</td>
+</tr>
+<tr>
+<td>Tugma o‘rniga <code>tabindex=&quot;0&quot;</code> li <code>div</code></td>
+<td><code>&lt;button&gt;</code> ishlating</td>
+</tr>
+<tr>
+<td>Uzun menyuni o‘tkazib yuborish usuli yo‘q</td>
+<td>«Asosiy mazmunga o‘tish» havolasini qo‘shing</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-26">Mini-topshiriq 2</h2>
+<p>7-darsdagi anketangizga «Asosiy mazmunga o‘tish» havolasini qo‘shing.</p>
+<p>Tekshiruv: sahifani yangilang → Tab (fokus havolada) → Enter → Tab. Fokus formaning birinchi maydoniga tushishi kerak. Yechim - «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-27">Sarlavhalar - ekran o‘quvchi uchun mundarija</h2>
+<p><strong>Oddiy qilib aytganda:</strong> sarlavhalar - kitob mundarijasi. Ko‘radigan odam sahifani bir soniyada ko‘z bilan kezib chiqadi. Ko‘zi ojiz sarlavhalar ro‘yxatini ochadi (VoiceOver va NVDA da alohida tugma bor) va keraklisiga sakraydi.</p>
+<pre><code class="language-html">&lt;h1&gt;Palov retsepti&lt;/h1&gt;
+&lt;h2&gt;Masalliqlar&lt;/h2&gt;
+&lt;h2&gt;Tayyorlash&lt;/h2&gt;
+&lt;h3&gt;Guruchni tayyorlash&lt;/h3&gt;
+&lt;h3&gt;Go‘sht va sabzavotni qovurish&lt;/h3&gt;
+&lt;h3&gt;Yakuniy damlash&lt;/h3&gt;
+&lt;h2&gt;Dasturxonga tortish maslahatlari&lt;/h2&gt;
+</code></pre>
+<p>Foydalanuvchi 7 qatorli mundarijani eshitadi, «Guruchni tayyorlash» ni tanlaydi va darhol o‘sha yerga tushadi.</p>
+<p>Ikki turli xato:</p>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
+<th>Nima bo‘ladi</th>
+<th>Qanday tuzatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sarlavha <code>&lt;p&gt;&lt;strong&gt;...&lt;/strong&gt;&lt;/p&gt;</code> orqali</td>
+<td>U mundarijada yo‘q: ekran o‘quvchi uni topa olmaydi</td>
+<td><code>h2</code>–<code>h6</code> ishlating</td>
+</tr>
+<tr>
+<td>Daraja o‘tkazilgan: <code>h2</code>, darhol keyin <code>h4</code></td>
+<td>Sarlavha bor, lekin tuzilma chalkash: <code>h3</code> qayerda?</td>
+<td>Tartib bilan boring: <code>h2</code> → <code>h3</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Qanday tekshirish:</strong> sahifaning barcha sarlavhalarini ustun qilib yozing, har bir darajani o‘ngga surib. Tartibli mundarija chiqdi - hammasi joyida.</p>
+<hr>
+<h2 id="section-28">15 daqiqalik audit</h2>
+<p>Istalgan sahifani tekshirish tartibi. Natijani <strong>audit jurnaliga</strong> yozing.</p>
+<table>
+<thead>
+<tr>
+<th>Qadam</th>
+<th>Nimani tekshiramiz</th>
+<th>Qanday</th>
+<th>Me’yor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Klaviatura</td>
+<td>Butun sahifa bo‘ylab Tab va Shift+Tab</td>
+<td>Har bir maydon va tugmaga yetasiz, fokus ko‘rinadi, hech qayerda «qotib qolmaysiz»</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Tugmalar</td>
+<td>Tugmaga yetib, Enter ni bosish</td>
+<td>Tugma ishlaydi</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Nomlar</td>
+<td>DevTools → Accessibility → Name</td>
+<td>Har bir maydonda nom imzo bilan mos</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Rasmlar</td>
+<td>Har bir <code>&lt;img&gt;</code> ni ko‘rib chiqish</td>
+<td>Ma’nolilari - tavsif bilan, bezaklari - <code>alt=&quot;&quot;</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Sarlavhalar</td>
+<td>Ustun qilib yozish</td>
+<td>Bitta <code>h1</code>, darajalar o‘tkazilmagan</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Kontrast</td>
+<td>WebAIM</td>
+<td>4.5:1 dan past emas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-29">Jurnal shabloni</h3>
+<table>
+<thead>
+<tr>
+<th>№</th>
+<th>Nimani tekshirdim</th>
+<th>Kutdim</th>
+<th>Bo‘ldi</th>
 <th>Tuzatish</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Navigatsiya tartibini &quot;tuzatish&quot; uchun musbat <code>tabindex</code> qiymatlarini ishlatish</td>
-<td>Buning o'rniga HTML kodidagi elementlar tartibining o'zini o'zgartiring</td>
+<td>1</td>
+<td>Forma bo‘ylab Tab</td>
+<td>Barcha 6 maydon va tugma</td>
+<td>Barcha 6 maydon va tugma</td>
+<td>Kerak emas</td>
 </tr>
 <tr>
-<td>Allaqachon fokuslanadigan elementlarga (havolalar, tugmalar, forma maydonlari) <code>tabindex</code> qo'yish</td>
-<td>Tabiiy interaktiv elementlar defaultda allaqachon fokuslanadi - ularga <code>tabindex</code> kerak emas</td>
+<td>2</td>
+<td>«Telefon» maydonining Name i</td>
+<td>«Telefon»</td>
+<td>Bo‘sh</td>
+<td><code>&lt;label for=&quot;phone&quot;&gt;</code> qo‘shdim</td>
 </tr>
 <tr>
-<td>Vizual tartib (kelajakda CSS orqali belgilanadi) HTML kodidagi tartibdan farqli bo'lishi va Tab navigatsiyasini chalkashtirishi mumkinligini unutish</td>
-<td>HTML dagi mantiqiy tartib sahifadagi vizual tartib bilan mos kelishiga harakat qiling</td>
+<td>3</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Jurnal qoidasi:</strong> qadamni bajarmagan bo‘lsangiz, «tekshirilmadi» deb yozing. «Xato yo‘q» deb yozmang.</p>
+<hr>
+<h2 id="section-30">Dars yakuni: shpargalka</h2>
+<table>
+<thead>
+<tr>
+<th>Vazifa</th>
+<th>Vosita</th>
+<th>Eslab qoling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matnsiz tugma yoki havolaga nom</td>
+<td><code>aria-label=&quot;...&quot;</code></td>
+<td>Faqat ko‘rinadigan matn bo‘lmasa</td>
+</tr>
+<tr>
+<td>Tugma yasash</td>
+<td><code>&lt;button&gt;</code></td>
+<td><code>&lt;div role=&quot;button&quot;&gt;</code> emas</td>
+</tr>
+<tr>
+<td>Ochiluvchi blok</td>
+<td><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code></td>
+<td>Tayyor tabiiy teg</td>
+</tr>
+<tr>
+<td>O‘qiladigan matn</td>
+<td>Kontrast ≥ 4.5:1</td>
+<td>WebAIM da tekshirish</td>
+</tr>
+<tr>
+<td>Xato haqida xabar</td>
+<td>Matn + rang</td>
+<td>Faqat rang bilan emas</td>
+</tr>
+<tr>
+<td>Tab tartibi</td>
+<td>HTML koddagi tartib</td>
+<td>Musbat <code>tabindex</code> - hech qachon</td>
+</tr>
+<tr>
+<td>Menyuni o‘tkazib yuborish</td>
+<td><code>&lt;a href=&quot;#main&quot;&gt;</code></td>
+<td><code>&lt;body&gt;</code> dagi birinchi qator</td>
+</tr>
+<tr>
+<td>Sahifa mundarijasi</td>
+<td>Tartib bilan <code>h1</code>–<code>h6</code></td>
+<td>Darajalarni o‘tkazmasdan</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-20">Sarlavhalar ierarxiyasi sifatida sahifaning &quot;skeleti&quot;</h2>
-<p>2-darsda boshlangan mavzuga qaytaylik va uni aynan foydalanish qulayligi nuqtai nazaridan ko'raylik - chunki bu, balki, boshlovchilar tomonidan yetarli baholanmagan a11y vositasi.</p>
-<p><strong>Tasavvur qiling, siz ko'rmaydigan foydalanuvchisiz</strong>, va hozirgina uzoq sahifani (masalan, 2000 so'zlik retsept maqolasini) ochdingiz. Ko'ruvchi foydalanuvchi bir necha soniyada vizual ravishda tuzilmanini ko'rib chiqishi mumkin, sizda esa &quot;ko'z bilan yugurish&quot; imkoniyati yo'q. Nima qilasiz? Ko'pchilik ekran o'quvchilari butun matnni ketma-ket eshitmasdan, bitta tugma bilan <strong>sarlavadan sarlavhaga o'tishga</strong> imkon beradi.</p>
-<p>Sahifa to'g'ri qurilgan bo'lsa:</p>
-<pre><code class="language-html">&lt;h1&gt;Palov retsepti&lt;/h1&gt;
-&lt;h2&gt;Kerakli masalliqlar&lt;/h2&gt;
-&lt;h2&gt;Qadam-baqadam tayyorlash&lt;/h2&gt;
-&lt;h3&gt;Guruchni tayyorlash&lt;/h3&gt;
-&lt;h3&gt;Go'sht va sabzavotlarni qovurish&lt;/h3&gt;
-&lt;h3&gt;Yakuniy qaynatish&lt;/h3&gt;
-&lt;h2&gt;Dasturxonga tortish bo‘yicha maslahatlar&lt;/h2&gt;
+<h2 id="section-31">Mustaqil ish: anketa auditi</h2>
+<h3 id="section-32">1-qism. IDE topshirig‘i (platforma hisoblaydi)</h3>
+<p>Muharrirda <strong>oltita qulaylik xatosi bor</strong> anketa sahifasi turibdi. Hammasini toping va tuzating:</p>
+<ol>
+<li>Yuborish tugmasi <code>&lt;div role=&quot;button&quot;&gt;</code> dan qilingan.</li>
+<li>Pochta maydonida bog‘langan imzo yo‘q.</li>
+<li>Telegram belgi-havolasining nomi yo‘q.</li>
+<li>Bitta maydonda musbat <code>tabindex</code> turibdi.</li>
+<li>«Asosiy mazmunga o‘tish» havolasi va <code>&lt;main&gt;</code> da <code>id</code> yo‘q.</li>
+<li>«Ko‘p beriladigan savollar» bo‘limi <code>&lt;details&gt;</code> va <code>&lt;summary&gt;</code> o‘rniga abzatslar bilan qilingan.</li>
+</ol>
+<p>Platforma nimani tekshiradi: <code>role=&quot;button&quot;</code> va musbat <code>tabindex</code> yo‘qligi, <code>&lt;button type=&quot;submit&quot;&gt;</code> borligi, har bir imzoning maydon bilan bog‘lanishi, belgi-havolada <code>aria-label</code>, <code>#main</code> havolasi va <code>id=&quot;main&quot;</code>, <code>&lt;summary&gt;</code> li <code>&lt;details&gt;</code>, bitta <code>h1</code>.</p>
+<h3 id="section-33">2-qism. Kompyuterda o‘z anketangiz auditi</h3>
+<p>7-darsdagi ishtirokchi anketangizni oling. Fayl nusxasi bilan ishlang.</p>
+<p><strong>Asosiy daraja (majburiy)</strong></p>
+<ol>
+<li>«15 daqiqalik audit» bo‘limidagi 1–6-qadamlar bo‘yicha audit o‘tkazing.</li>
+<li>Jurnalni to‘ldiring: kamida 5 qator.</li>
+<li>Topgan hamma narsani tuzating va tuzatilgan joylarni yana tekshiring.</li>
+<li>Xato topilmasa - jurnalga shunday yozing: «tekshirildi, buzilish yo‘q». Bu ham natija.</li>
+</ol>
+<p><strong>Standart daraja</strong></p>
+<ol start="5">
+<li>«Asosiy mazmunga o‘tish» havolasini qo‘shing.</li>
+<li>Forma ostiga «Ko‘p beriladigan savollar» blokini qo‘shing: <code>&lt;details&gt;</code> va <code>&lt;summary&gt;</code> orqali 2–3 savol.</li>
+</ol>
+<p><strong>Yulduzchali daraja ★</strong></p>
+<ol start="7">
+<li>Ekran o‘quvchini yoqing (macOS: Cmd+F5; Windows: bepul <a href="https://www.nvaccess.org/download/">NVDA</a>). Anketani ko‘zingizni yumib o‘ting. 3 ta kuzatishni yozing: nima tushunarli edi va nima yo‘q.</li>
+</ol>
+<h3 id="section-34">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> IDE topshirig‘i qabul qilingan.</label></li>
+<li class="check"><label><input type="checkbox"> Tab va Shift+Tab barcha maydon va tugmani mantiqiy tartibda o‘tadi, fokus ko‘rinadi.</label></li>
+<li class="check"><label><input type="checkbox"> Yuborish tugmasi klaviaturadan ishlaydi.</label></li>
+<li class="check"><label><input type="checkbox"> Har bir maydonda DevTools dagi Name ko‘rinadigan imzo bilan mos.</label></li>
+<li class="check"><label><input type="checkbox"> Sahifada bitta <code>h1</code>, sarlavha darajalari o‘tkazilmagan.</label></li>
+<li class="check"><label><input type="checkbox"> Musbat <code>tabindex</code> va tugmalar o‘rniga <code>div</code> yo‘q.</label></li>
+<li class="check"><label><input type="checkbox"> Jurnalda kamida 5 qator: nimani tekshirdim, kutdim, bo‘ldi, tuzatish.</label></li>
+<li class="check"><label><input type="checkbox"> (Standart) Menyuni o‘tkazib yuborish havolasi fokusni <code>&lt;main&gt;</code> ga o‘tkazadi.</label></li>
+<li class="check"><label><input type="checkbox"> (Standart) <code>&lt;details&gt;</code> bloklari Enter va Space bilan ochiladi.</label></li>
+</ul>
+<hr>
+<h2 id="section-35">O‘zini tekshirish uchun savollar</h2>
+<ol>
+<li>a11y qisqartmasidagi «11» nimani bildiradi?</li>
+<li><code>&lt;button&gt;Yuborish&lt;/button&gt;</code> tugmasi uchun brauzer qulay nomni qayerdan oladi?</li>
+<li><code>aria-label</code> qachon kerak, qachon ortiqcha?</li>
+<li><code>&lt;button&gt;</code> <code>&lt;div role=&quot;button&quot;&gt;</code> dan nimasi bilan yaxshiroq? Uchta farqni ayting.</li>
+<li><code>tabindex=&quot;0&quot;</code> nima qo‘shadi va nimani <strong>qo‘shmaydi</strong>?</li>
+<li>Nega <code>tabindex=&quot;3&quot;</code> ishlatib bo‘lmaydi?</li>
+<li>Oddiy matnga qanday minimal kontrast kerak?</li>
+<li>Nega xato haqida faqat qizil rang bilan xabar berib bo‘lmaydi?</li>
+<li>«Asosiy mazmunga o‘tish» havolasi nima uchun?</li>
+<li>«<code>&lt;p&gt;</code> orqali sarlavha» va «<code>h2</code>, keyin <code>h4</code>» xatolari nimasi bilan farq qiladi?</li>
+</ol>
+<p>Savollardan keyin platformada <strong>dars testini</strong> topshiring: 12 ta savol, o‘tish chegarasi 70%.</p>
+<hr>
+<h2 id="section-36">Keyin nima</h2>
+<p>Sahifangiz odamlar uchun tushunarli bo‘ldi. 9-darsda uni <strong>qidiruv tizimlari va brauzerlar</strong> uchun tushunarli qilamiz: meta-teglar, Google uchun tavsif, telefonda to‘g‘ri ko‘rinish, CSS va JavaScript ulash.</p>
+<hr>
+<h2 id="section-37">Javoblar</h2>
+<p><strong>Takrorlash</strong></p>
+<ol>
+<li>Bo‘sh: <code>alt=&quot;&quot;</code>. Shunda ekran o‘quvchi rasmni o‘tkazib yuboradi.</li>
+<li><code>&lt;label&gt;</code> dagi <code>for</code> atributi maydondagi <code>id</code> bilan mos: <code>&lt;label for=&quot;email&quot;&gt;</code> va <code>&lt;input id=&quot;email&quot;&gt;</code>.</li>
+<li><code>&lt;legend&gt;</code> maydonlar guruhiga umumiy savol beradi. Ekran o‘quvchi radio variantlaridan oldin «Tayyorgarlik darajasi, guruh» deb o‘qiydi.</li>
+</ol>
+<p><strong>Mini-topshiriq 1</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; aria-label=&quot;GitHub dagi profilim&quot;&gt;
+    &lt;img src=&quot;images/github-icon.svg&quot; alt=&quot;&quot; width=&quot;32&quot; height=&quot;32&quot;&gt;
+&lt;/a&gt;
 </code></pre>
-<ul>
-<li>ko'rmaydigan foydalanuvchi bir necha soniyada sarlavhalar orqali tuzilmanini &quot;skanerlashi&quot; mumkin (faqat h1, h2, h2, h3, h3, h3, h2 ni eshitib), &quot;Guruchni tayyorlash&quot; unga qiziqlisini tushunib, darhol u yerga o'tishi, qolganini to'liq o'tkazib yuborishi - xuddi ko'ruvchi foydalanuvchi kerakli bo'limni qidirib vizual yurgandek.</li>
-</ul>
-<p><strong>Sarlavha o‘rniga qalin <code>&lt;p&gt;</code> ishlatilsa</strong>, sarlavhalar bo‘yicha o‘tish uchun kerakli ma’no yo‘qoladi. <code>h2</code> dan bevosita <code>h4</code> ga sakrash esa bu o‘tishni o‘chirib qo‘ymaydi, lekin bo‘limlar orasidagi darajani tushunishni qiyinlashtiradi. Darajani ko‘rinishga emas, mavzu tuzilishiga qarab tanlang.</p>
-<p>Tegni ma’nosiga qarab tanlang: strong muhimlik, em ma’no urg‘usi, nav navigatsiya, th jadval sarlavhasi uchun. b va i ham to‘g‘ri elementlar, ammo boshqa ma’noviy vazifalarda ishlatiladi. Teg tanlovi ekran o‘quvchisining muayyan ohangini kafolatlamaydi.</p>
+<p>Ikkinchi to‘g‘ri variant bor - nomni rasmning <code>alt</code> i orqali berish: <code>&lt;img src=&quot;images/github-icon.svg&quot; alt=&quot;GitHub dagi profilim&quot;&gt;</code>. Asosiysi, nom bir marta ko‘rsatilsin.</p>
+<p><strong>Mini-topshiriq 2</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;a href=&quot;#main&quot;&gt;Asosiy mazmunga o‘tish&lt;/a&gt;
+    &lt;header&gt;...&lt;/header&gt;
+    &lt;main id=&quot;main&quot;&gt;
+        &lt;h1&gt;Ishtirokchi anketasi&lt;/h1&gt;
+        &lt;form&gt;...&lt;/form&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>O‘zini tekshirish uchun savollar</strong></p>
+<ol>
+<li>accessibility so‘zida «a» va «y» orasidagi harflar soni.</li>
+<li>Tugma ichidagi matndan: «Yuborish».</li>
+<li>Elementda ko‘rinadigan matn bo‘lmaganda kerak (belgi, «×»). Matn bor bo‘lsa ortiqcha.</li>
+<li><code>&lt;button&gt;</code> Tab bilan fokusga tushadi, Enter va Space ga javob beradi, formani yuboradi. <code>role</code> li <code>div</code> faqat tugma deb atala oladi.</li>
+<li>Elementni Tab marshrutiga qo‘shadi. Enter va Space ga javobni qo‘shmaydi va elementni tugma qilmaydi.</li>
+<li>Musbat sonlar elementni marshrut boshiga sug‘urib oladi. Tab tartibi ekrandagi tartibga mos kelmay qoladi.</li>
+<li>4.5:1. Yirik matn uchun - 3:1.</li>
+<li>Ba’zi odamlar ranglarni ajrata olmaydi, ko‘zi ojizlar esa ularni ko‘rmaydi. Ma’no matndan tushunarli bo‘lishi kerak.</li>
+<li>Klaviatura foydalanuvchisi har bir sahifada butun menyuni Tab bilan o‘tmasligi uchun.</li>
+<li><code>&lt;p&gt;</code> orqali sarlavha ekran o‘quvchi mundarijasiga umuman tushmaydi. Daraja o‘tkazilganda sarlavha mundarijada bor, lekin tuzilma chalkashtiradi.</li>
+</ol>
 <hr>
-<h2 id="section-21">Dars xulosalari</h2>
-<p>Bugun siz quyidagilarni bilib oldingiz:</p>
-<ul>
-<li>Foydalanish qulayligi (a11y) - turli qabul qilish va o'zaro munosabat qobiliyatiga ega odamlar saytdan foydalanishi mumkinligiga g'amxo'rlik: ko'rmaydiganlar, zaif eshituvchilar, faqat klaviatura foydalanuvchilari.</li>
-<li>Biz oldin to'g'ri qilgan hamma narsa (<code>alt</code>, <code>label</code>/<code>for</code>, <code>scope</code>, <code>legend</code>, semantika) - bu allaqachon foydalanish qulayligi ustida ishlash edi.</li>
-<li><code>aria-label</code> ko'rinadigan matnsiz elementlarni tavsiflaydi, <code>role</code> funksional rolni aniqlaydi - lekin doimo tabiiy HTML tegni ARIA taqlidiga afzal ko'ring.</li>
-<li>Matn va fon kontrasti o'qilishi uchun juda muhim - va axborotni uzatishda faqat rangga ishonmaslik kerak.</li>
-<li><code>tabindex=&quot;0&quot;</code>/<code>&quot;-1&quot;</code> elementning Tab navigatsiyasiga kirishini boshqaradi - lekin musbat sonlardan qochish kerak, kodning mantiqiy tartibiga ishonish lozim.</li>
-<li><code>h1</code>–<code>h6</code> sarlavhalar ierarxiyasi sahifaning &quot;skeleti&quot; sifatida ishlaydi, ekran o'quvchisi (va har qanday foydalanuvchi) mazmun tezda yo'l topadi.</li>
-</ul>
-<h2 id="section-22">Mustaqil mashq</h2>
-<p>Brauzerning select ro‘yxati uchun: Tab bilan unga o‘ting → Space bilan oching → strelka bilan tanlang → Enter bilan tasdiqlang. Brauzerga qarab bitta strelka faqat menyuni ochishi yoki belgilangan qatorni siljitishi mumkin; yakuniy tanlangan qiymatni tekshiring.</p>
-<p>O‘z ranglaringiz hali belgilanmagan bo‘lsa, oq fondagi qora matnni tekshiring: #000000 va #ffffff. WebAIM Contrast Checker da Foreground va Background maydonlariga kiriting; Bu juftlik 21:1 natija beradi, ammo barcha boshqaruv elementlari ranglari tekshirilganini isbotlamaydi. Boshqa haqiqiy juftliklarni bilish uchun Elements → Computed da matnning color va fonning background-color qiymatlarini ko‘ring; shaffof fon bo‘lsa, rangli fonli tashqi elementni ham tekshiring. Faqat sahifada ishlatilgan juftliklarni baholang.</p>
-<p>Tab faqat fokuslanadigan elementlar orasida yuradi; oddiy sarlavha va abzatslarning hammasida to‘xtashi shart emas. Tugmada Enter va Space ni, select ichida esa yo‘nalish strelkalarini sinang.</p>
-<p>7-dars sahifangizdagi yorliqlar, sarlavhalar, muqobil matn va Tab tartibini tekshiring. Xatolarni tuzatib, oldingi va keyingi holatni yozing.</p>
-<h3 id="section-23">Tayyorlik mezonlari</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> Butun sahifani Tab va Shift+Tab bilan aylaning: tartib mantiqiy, fokus ko‘rinadi, tuzoq yo‘q.</label></li>
-<li class="check"><label><input type="checkbox"> Brauzerning o‘z tugmasini Enter va Space bilan ishlating; select da strelkalar bilan tanlang. Elements → Accessibility dagi Name/Role ni tekshiring.</label></li>
-<li class="check"><label><input type="checkbox"> Muallif belgilagan har bir matn/fon juftligini tekshiring: oddiy matn kamida 4.5:1. O‘z ranglaringiz bo‘lmasa, qora/oq hisobini brauzer boshqaruvlari ranglaridan alohida qayd eting.</label></li>
-<li class="check"><label><input type="checkbox"> Kamida uchta tekshiruvni yozing: amal, kutilgan natija, amaldagi natija va, muammo topilsa, tuzatish. Muammo topilmasa, “muammo topilmadi” deb yozing.</label></li>
-</ul>
-<h3 id="section-24">O‘zini tekshirish savollari</h3>
-<p>tabindex nimani qo‘shadi va nimani qo‘shmaydi? Nega tabiiy button afzal? Alt qachon bo‘sh bo‘lishi kerak?</p>
-<hr>
-<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-7.html">Oldingi dars</a> · <a href="uz-lesson-9.html">Keyingi dars</a> · <a href="../Lesson-8/practice.html">Amaliyot</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a></p>
-</article></main><footer><a href="../Lesson-8/uz/Mavjudlik%20%28a11y%29.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-7.html">← Orqaga</a> · <a href="uz-lesson-9.html">Keyingi →</a> · <a href="ru-lesson-8.html">RU</a> · <a href="en-lesson-8.html">EN</a> · <a href="uz-lesson-8.html">UZ</a> · <a href="../Lesson-8/practice.html">Amaliyot</a></p>
+</article></main><footer><a href="../Lesson-8/uz/Foydalanish%20qulayligi%20%28a11y%29.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

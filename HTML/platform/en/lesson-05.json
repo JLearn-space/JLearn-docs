@@ -1,0 +1,251 @@
+{
+  "lesson": 5,
+  "language": "en",
+  "lesson_title": "Tables",
+  "task": {
+    "title": "Club schedule",
+    "language": "html",
+    "description": "Make two tables. The first: caption, thead with three th scope=\"col\", tbody with at least three rows, the first cell of each row is th scope=\"row\". The second: \"Long class\" with one cell rowspan=\"2\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <!-- Table 1: caption, thead (3 th scope=\"col\"), tbody (3 rows, first cell th scope=\"row\") -->\n\n        <!-- Table 2: \"Long class\", one cell with rowspan=\"2\" -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "<caption",
+        "<thead",
+        "<tbody",
+        "rowspan=\""
+      ],
+      "forbidden": [
+        "<td><strong>",
+        "<td><b>"
+      ],
+      "tags": {
+        "table": 2,
+        "caption": 1,
+        "tr": 7,
+        "th": 6,
+        "td": 6
+      },
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Table name: <caption> right after <table>.",
+      "Header row: <thead><tr><th scope=\"col\">Day</th>...</tr></thead>.",
+      "Data row: <tr><th scope=\"row\">Monday</th><td>15:00</td><td>HTML</td></tr>.",
+      "Second table: one <td rowspan=\"2\"> cell, the next row has one cell fewer.",
+      "A header is <th>, not <td><strong>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no caption",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no scope=\"row\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th>Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th>Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th>Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no scope=\"col\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th>Day</th>\n                    <th>Time</th>\n                    <th>Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th>Time</th>\n                <th>Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no thead",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no rowspan",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td>Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "one table",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "headers via td strong",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <td><strong>Day</th>\n                    <td><strong>Time</th>\n                    <td><strong>Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td><strong>Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <td><strong>Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n                <tr>\n                    <td><strong>Friday</th>\n                    <td>16:00</td>\n                    <td>Forms</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <td><strong>Time</th>\n                <td><strong>Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n            <tr>\n                <td>11:00</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "only two data rows",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club schedule</title>\n</head>\n<body>\n    <main>\n        <h1>Club schedule</h1>\n        <table>\n            <caption>Classes for the week</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Day</th>\n                    <th scope=\"col\">Time</th>\n                    <th scope=\"col\">Topic</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Monday</th>\n                    <td>15:00</td>\n                    <td>HTML</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Wednesday</th>\n                    <td>15:00</td>\n                    <td>Tables</td>\n                </tr>\n            </tbody>\n        </table>\n        <table>\n            <caption>Long class</caption>\n            <tr>\n                <th scope=\"col\">Time</th>\n                <th scope=\"col\">Class</th>\n            </tr>\n            <tr>\n                <td>10:00</td>\n                <td rowspan=\"2\">Project</td>\n            </tr>\n        </table>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which tag creates a table row?",
+        "options": [
+          "<td>",
+          "<tr>",
+          "<th>",
+          "<row>"
+        ],
+        "answer": 1,
+        "explanation": "tr - table row."
+      },
+      {
+        "type": "single",
+        "question": "Where is <caption> written?",
+        "options": [
+          "At the end of the table",
+          "Right after <table>",
+          "Inside <thead>",
+          "In the document <head>"
+        ],
+        "answer": 1,
+        "explanation": "caption comes first inside table."
+      },
+      {
+        "type": "single",
+        "question": "A table has 3 columns. The first data row has a cell with rowspan=\"2\". How many cells are in the second data row?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": 1,
+        "explanation": "One place is taken by the cell above: 3 - 1 = 2."
+      },
+      {
+        "type": "single",
+        "question": "What are tables NOT used for?",
+        "options": [
+          "A schedule",
+          "Comparing plans",
+          "Laying out page blocks",
+          "Student grades"
+        ],
+        "answer": 2,
+        "explanation": "Layout is done with CSS; tables are for data only."
+      },
+      {
+        "type": "multiple",
+        "question": "Which tags are parts of a table?",
+        "options": [
+          "<thead>",
+          "<tbody>",
+          "<tfoot>",
+          "<theader>"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "There is no <theader> tag."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about scope?",
+        "options": [
+          "scope=\"col\" is a column header",
+          "scope=\"row\" is a row header",
+          "scope goes on <td>",
+          "It helps a screen reader announce the cell header"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "scope goes on th."
+      },
+      {
+        "type": "multiple",
+        "question": "Which are mistakes in tables?",
+        "options": [
+          "Different numbers of cells in rows without merging",
+          "<td> outside <tr>",
+          "<caption> right after <table>",
+          "Headers via <td><strong>"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "caption right after table is correct."
+      },
+      {
+        "type": "matching",
+        "question": "Match the tag with its role.",
+        "pairs": [
+          [
+            "<th>",
+            "Header cell"
+          ],
+          [
+            "<td>",
+            "Data cell"
+          ],
+          [
+            "<tr>",
+            "Row"
+          ],
+          [
+            "<caption>",
+            "Table name"
+          ]
+        ],
+        "explanation": "A table is built from tr rows of th and td cells."
+      },
+      {
+        "type": "matching",
+        "question": "Match the attribute with the merge direction.",
+        "pairs": [
+          [
+            "colspan",
+            "Across, over several columns"
+          ],
+          [
+            "rowspan",
+            "Down, over several rows"
+          ],
+          [
+            "scope=\"col\"",
+            "Header for the whole column"
+          ]
+        ],
+        "explanation": "col means column, row means row."
+      },
+      {
+        "type": "input",
+        "question": "Which attribute merges cells horizontally? Enter the attribute name.",
+        "answers": [
+          "colspan"
+        ],
+        "case_sensitive": false,
+        "explanation": "colspan - column span."
+      },
+      {
+        "type": "input",
+        "question": "A table has 4 columns. A row has one cell with colspan=\"2\". How many cells are in that row in total? Enter a number.",
+        "answers": [
+          "3"
+        ],
+        "case_sensitive": false,
+        "explanation": "1 merged + 2 regular = 4 places."
+      },
+      {
+        "type": "input",
+        "question": "What scope value does a header at the start of a row have? Enter only the value.",
+        "answers": [
+          "row"
+        ],
+        "case_sensitive": false,
+        "explanation": "scope=\"row\" is a header for the row to its right."
+      }
+    ]
+  }
+}

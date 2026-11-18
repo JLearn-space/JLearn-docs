@@ -1,216 +1,195 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Forms part 2 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">select, option, optgroup</a><a href="#section-9">&lt;textarea&gt; - multi-line text</a><a href="#section-11">&lt;fieldset&gt; and &lt;legend&gt; - grouping form fields</a><a href="#section-13">Mini-task</a><a href="#section-14">button vs input type=&quot;submit&quot;</a><a href="#section-19">Built-in validation: min, max, pattern, maxlength</a><a href="#section-24">Lesson summary</a><a href="#section-25">Independent practice</a></details></aside><article><h1 id="section-1">Forms part 2</h1>
-<p><a href="index.html">Contents</a> · <a href="en-lesson-6.html">Previous</a> · <a href="en-lesson-8.html">Next</a> · <a href="../Lesson-7/practice.html">Practice</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Forms part 2 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">Why you need this</a><a href="#section-3">What you will learn</a><a href="#section-4">Review: 3 questions from lesson 6</a><a href="#section-5">Lesson plan</a><a href="#section-6">Drop-down list: select</a><a href="#section-9">Suggestions in a field: datalist</a><a href="#section-10">Multi-line text: textarea</a><a href="#section-11">Field groups: fieldset and legend</a><a href="#section-13">Mini-task 1</a><a href="#section-14">Buttons: button</a><a href="#section-17">Input validation</a><a href="#section-20">Mini-task 2</a><a href="#section-21">Lesson summary: cheat sheet</a><a href="#section-22">Independent work</a><a href="#section-26">Self-check questions</a><a href="#section-27">What&#x27;s next</a><a href="#section-28">Answers</a></details></aside><article><h1 id="section-1">Forms part 2</h1>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-6.html">← Back</a> · <a href="en-lesson-8.html">Next →</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a> · <a href="../Lesson-7/practice.html">Practice</a></p>
 <blockquote>
-<p><strong>Connection to the previous lesson:</strong> in the previous lesson we covered basic form fields (text, email, password, number, date, checkbox, radio) and the <code>label</code>/<code>for</code>/<code>id</code> connection. Today we finish the remaining form elements and learn to group fields and validate input without JavaScript.</p>
+<p><strong>Link to the previous lesson:</strong> in lesson 6 you built a form from <code>input</code> fields, labels and radio buttons. Today we add drop-down lists, multi-line text, field groups, real buttons and input format validation.</p>
 </blockquote>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-7-1.svg" alt="Diagram 1: Forms part 2"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-7-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Start from the control’s purpose and choose a suitable element. Grouping via fieldset and legend is a separate decision that can apply to any of these controls.</p>
 <hr>
-<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<h2 id="section-2">Why you need this</h2>
+<p>A &quot;Tell us about yourself&quot; question doesn't fit on one line. Choosing a city from 14 regions shouldn't be 14 radio buttons in a row. And a student ID number must be exactly 7 digits, not &quot;abc&quot;.</p>
+<p>Today you will build a full participant form that checks what the user typed by itself.</p>
+<hr>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-7-1.svg" alt="Diagram 1: Forms part 2"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-7-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Choose an element by the type of answer: one line, several lines, or a choice from ready options. Grouping with <code>fieldset</code> + <code>legend</code> works with any fields.</p>
+<hr>
+<h2 id="section-3">What you will learn</h2>
 <ul>
-<li>Create dropdown lists using <code>select</code>/<code>option</code>, group options with <code>optgroup</code>.</li>
-<li>Use <code>textarea</code> for multi-line text.</li>
-<li>Group related form fields using <code>fieldset</code>/<code>legend</code>.</li>
-<li>Understand the difference between <code>button</code> and <code>input type=&quot;submit&quot;</code>.</li>
-<li>Configure built-in validation: <code>min</code>, <code>max</code>, <code>pattern</code>, <code>maxlength</code>.</li>
+<li>Make a drop-down <code>select</code> with <code>option</code> items, <code>optgroup</code> groups and a default choice.</li>
+<li>Suggest options in an ordinary field with <code>datalist</code>.</li>
+<li>Accept long text with <code>textarea</code>.</li>
+<li>Group fields: <code>fieldset</code> and <code>legend</code>.</li>
+<li>Choose a button: <code>button</code> with type <code>submit</code>, <code>reset</code> or <code>button</code>.</li>
+<li>Validate input: <code>min</code>, <code>max</code>, <code>maxlength</code>, <code>pattern</code>.</li>
+<li>Make a slider with <code>type=&quot;range&quot;</code>.</li>
 </ul>
 <hr>
-<h2 id="section-3">Lesson plan</h2>
+<h2 id="section-4">Review: 3 questions from lesson 6</h2>
+<ol>
+<li>How do you connect a label to a field?</li>
+<li>What must radio buttons in one group have in common?</li>
+<li>What does the <code>required</code> attribute do?</li>
+</ol>
+<p>Answers are at the end of the lesson.</p>
+<hr>
+<h2 id="section-5">Lesson plan</h2>
 <table>
 <thead>
 <tr>
 <th>Section</th>
-<th>Content</th>
+<th>What we do</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>select, option, optgroup</td>
-<td>Dropdown lists</td>
+<td>Drop-down list</td>
+<td><code>select</code>, <code>option</code>, <code>optgroup</code></td>
 </tr>
 <tr>
-<td>textarea</td>
+<td>Suggestions in a field</td>
+<td><code>datalist</code></td>
+</tr>
+<tr>
 <td>Multi-line text</td>
+<td><code>textarea</code></td>
 </tr>
 <tr>
-<td>fieldset and legend</td>
-<td>Grouping form fields</td>
+<td>Field groups</td>
+<td><code>fieldset</code> and <code>legend</code></td>
 </tr>
 <tr>
-<td>Mini-task</td>
-<td>Build a select on your own</td>
+<td>Mini-task 1</td>
+<td>A &quot;Contacts&quot; group</td>
 </tr>
 <tr>
-<td>button vs input type=&quot;submit&quot;</td>
-<td>Form submission, approach differences</td>
+<td>Buttons</td>
+<td><code>button</code> and its three types</td>
 </tr>
 <tr>
-<td>Validation: min/max/pattern/maxlength</td>
-<td>Built-in data checking</td>
+<td>Input validation</td>
+<td><code>min</code>, <code>max</code>, <code>maxlength</code>, <code>pattern</code>, <code>range</code></td>
 </tr>
 <tr>
-<td>Summary and practical task</td>
-<td>Build a full registration form</td>
+<td>Mini-task 2</td>
+<td>A 7-digit ID field</td>
+</tr>
+<tr>
+<td>Independent work</td>
+<td>IDE task and a participant form</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4"><code>select</code>, <code>option</code>, <code>optgroup</code></h2>
-<p><strong>In simple terms:</strong> if the <code>radio</code> buttons from the previous lesson work well for 2-4 options, when there are many options (e.g., a list of countries or cities), radio buttons take up too much screen space. For this case, there's the dropdown list - a compact list that only expands on click.</p>
-<pre><code class="language-html">&lt;label for=&quot;city&quot;&gt;City:&lt;/label&gt;
+<h2 id="section-6">Drop-down list: <code>select</code></h2>
+<p><strong>In simple terms:</strong> <code>select</code> is a café menu. The options are already printed; you choose rather than write your own.</p>
+<pre><code class="language-html">&lt;label for=&quot;city&quot;&gt;City&lt;/label&gt;
 &lt;select id=&quot;city&quot; name=&quot;city&quot;&gt;
-    &lt;option value=&quot;tashkent&quot;&gt;Tashkent&lt;/option&gt;
-    &lt;option value=&quot;almalyk&quot;&gt;Almalyk&lt;/option&gt;
-    &lt;option value=&quot;samarkand&quot;&gt;Samarkand&lt;/option&gt;
-    &lt;option value=&quot;bukhara&quot;&gt;Bukhara&lt;/option&gt;
-&lt;/select&gt;
-</code></pre>
-<p>Let's break down the tags:</p>
-<ul>
-<li><strong><code>&lt;select&gt;</code></strong> wraps the options. <code>name</code> names the submitted value; <code>id</code> connects the control to an external label through <code>for</code>.</li>
-<li><strong><code>&lt;option&gt;</code></strong> - each individual option inside the list. The <code>value</code> attribute is what gets sent to the server; the visible text between the tags is what the user sees.</li>
-</ul>
-<h3 id="section-5">Default value via <code>selected</code></h3>
-<pre><code class="language-html">&lt;select id=&quot;city&quot; name=&quot;city&quot;&gt;
+    &lt;option value=&quot;&quot;&gt;- Choose a city -&lt;/option&gt;
     &lt;option value=&quot;tashkent&quot;&gt;Tashkent&lt;/option&gt;
     &lt;option value=&quot;almalyk&quot; selected&gt;Almalyk&lt;/option&gt;
     &lt;option value=&quot;samarkand&quot;&gt;Samarkand&lt;/option&gt;
 &lt;/select&gt;
 </code></pre>
-<p>The <code>selected</code> attribute (without a value, like <code>required</code> from the previous lesson) marks the option that will be shown by default when the page loads - without the user clicking.</p>
-<h3 id="section-6">Multiple selection via <code>multiple</code></h3>
-<pre><code class="language-html">&lt;label for=&quot;subjects&quot;&gt;Choose subjects (multiple possible):&lt;/label&gt;
-&lt;select id=&quot;subjects&quot; name=&quot;subjects&quot; multiple&gt;
-    &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
-    &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
-    &lt;option value=&quot;js&quot;&gt;JavaScript&lt;/option&gt;
-&lt;/select&gt;
-</code></pre>
-<p>The <code>multiple</code> attribute allows the user to select several options at once (usually by holding Ctrl/Cmd while clicking). This is a rare but useful case - essentially a visual alternative to a group of checkboxes.</p>
-<h3 id="section-7"><code>&lt;optgroup&gt;</code> - grouping options</h3>
-<p>When there are very many options, they can be split into labeled groups:</p>
-<pre><code class="language-html">&lt;label for=&quot;course&quot;&gt;Choose a course:&lt;/label&gt;
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>The list itself. <code>id</code> for the label, <code>name</code> for sending</td>
+</tr>
+<tr>
+<td><code>&lt;option value&gt;</code></td>
+<td>An option. The user sees the text; the server gets the <code>value</code></td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td>The option chosen in advance</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What you will see:</strong> a field with an arrow, with &quot;Almalyk&quot; already chosen. Click it and the list opens.</p>
+<h3 id="section-7">Option groups: <code>optgroup</code></h3>
+<pre><code class="language-html">&lt;label for=&quot;course&quot;&gt;Track&lt;/label&gt;
 &lt;select id=&quot;course&quot; name=&quot;course&quot;&gt;
     &lt;optgroup label=&quot;Frontend&quot;&gt;
         &lt;option value=&quot;html&quot;&gt;HTML&lt;/option&gt;
         &lt;option value=&quot;css&quot;&gt;CSS&lt;/option&gt;
-        &lt;option value=&quot;js&quot;&gt;JavaScript&lt;/option&gt;
     &lt;/optgroup&gt;
     &lt;optgroup label=&quot;Backend&quot;&gt;
         &lt;option value=&quot;php&quot;&gt;PHP&lt;/option&gt;
-        &lt;option value=&quot;mysql&quot;&gt;MySQL&lt;/option&gt;
+        &lt;option value=&quot;sql&quot;&gt;SQL&lt;/option&gt;
     &lt;/optgroup&gt;
 &lt;/select&gt;
 </code></pre>
-<p><code>&lt;optgroup&gt;</code> is not a selectable option on its own - it's just a visual heading-separator (bold, not clickable itself) inside the dropdown list. The <code>label</code> attribute sets the text of this heading.</p>
-<p><strong>Analogy:</strong> <code>&lt;select&gt;</code> with multiple <code>&lt;optgroup&gt;</code> is like a restaurant menu divided into &quot;Soups&quot;, &quot;Hot Dishes&quot;, &quot;Desserts&quot; - you can't select the sections themselves, they just help you navigate among a large number of dishes.</p>
+<p><strong>What you will see:</strong> in the open list - grey &quot;Frontend&quot; and &quot;Backend&quot; headings with options below them. A group heading can't be chosen.</p>
+<h3 id="section-8">Several options: <code>multiple</code></h3>
+<pre><code class="language-html">&lt;select id=&quot;days&quot; name=&quot;days&quot; multiple&gt;
+</code></pre>
+<p>Now several options can be chosen: hold Ctrl (Cmd on macOS). Beginners find this awkward - if there are few options, checkboxes are better.</p>
+<p><strong><code>select</code> or <code>radio</code>?</strong> 2–5 options - <code>radio</code>: all are visible at once. More - <code>select</code>: it takes up no space.</p>
 <hr>
-<h3 id="section-8">Common beginner mistakes</h3>
+<h2 id="section-9">Suggestions in a field: <code>datalist</code></h2>
+<p>The user can type their own value, but you suggest popular options:</p>
+<pre><code class="language-html">&lt;label for=&quot;lang&quot;&gt;Favourite language&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;lang&quot; name=&quot;lang&quot; list=&quot;langs&quot;&gt;
+&lt;datalist id=&quot;langs&quot;&gt;
+    &lt;option value=&quot;JavaScript&quot;&gt;
+    &lt;option value=&quot;Python&quot;&gt;
+    &lt;option value=&quot;PHP&quot;&gt;
+&lt;/datalist&gt;
+</code></pre>
+<p>The link: <code>list</code> on the field = <code>id</code> on the <code>datalist</code>.</p>
+<p><strong>The difference from <code>select</code>:</strong> <code>select</code> has only ready options; <code>datalist</code> gives suggestions, but you can type your own.</p>
+<hr>
+<h2 id="section-10">Multi-line text: <code>textarea</code></h2>
+<pre><code class="language-html">&lt;label for=&quot;about&quot;&gt;About me&lt;/label&gt;
+&lt;textarea id=&quot;about&quot; name=&quot;about&quot; rows=&quot;4&quot; cols=&quot;40&quot; maxlength=&quot;300&quot;&gt;I am a first-year student.&lt;/textarea&gt;
+</code></pre>
 <table>
 <thead>
 <tr>
-<th>Mistake</th>
-<th>How to fix</th>
+<th>Attribute</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Forgetting <code>value</code> on <code>&lt;option&gt;</code></td>
-<td>Without <code>value</code>, the visible option text gets sent to the server - sometimes inconvenient (e.g., for long text); set <code>value</code> intentionally</td>
+<td><code>rows</code></td>
+<td>Height in lines</td>
 </tr>
 <tr>
-<td>Using multiple <code>selected</code> in one <code>&lt;select&gt;</code> without <code>multiple</code></td>
-<td>Without <code>multiple</code>, you can only mark <code>selected</code> on one <code>&lt;option&gt;</code></td>
+<td><code>cols</code></td>
+<td>Width in characters</td>
 </tr>
 <tr>
-<td>Confusing <code>&lt;optgroup&gt;</code> with a regular <code>&lt;option&gt;</code>, trying to make it a clickable option</td>
-<td><code>&lt;optgroup&gt;</code> is only a visual grouping, it cannot be selected on its own</td>
+<td><code>maxlength</code></td>
+<td>No more than N characters</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="section-9"><code>&lt;textarea&gt;</code> - multi-line text</h2>
-<p>A regular <code>&lt;input type=&quot;text&quot;&gt;</code> from the previous lesson is a single-line field. When you need to enter long text (a comment, message, review), you use <code>&lt;textarea&gt;</code>.</p>
-<pre><code class="language-html">&lt;label for=&quot;message&quot;&gt;Message:&lt;/label&gt;
-&lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;5&quot; cols=&quot;40&quot;&gt;&lt;/textarea&gt;
+<p><strong><code>textarea</code> is a paired tag.</strong> The initial text goes <strong>between the tags</strong>, not in <code>value</code>:</p>
+<pre><code class="language-html">&lt;!-- Wrong --&gt;
+&lt;textarea value=&quot;Text&quot;&gt;&lt;/textarea&gt;
+
+&lt;!-- Right --&gt;
+&lt;textarea&gt;Text&lt;/textarea&gt;
 </code></pre>
-<p>Important difference from <code>&lt;input&gt;</code>: <strong><code>&lt;textarea&gt;</code> is a paired tag</strong>, not self-closing. Initial text (if needed) goes between the opening and closing tags, not in a <code>value</code> attribute (<code>textarea</code> doesn't have a <code>value</code> attribute at all):</p>
-<pre><code class="language-html">&lt;textarea id=&quot;bio&quot; name=&quot;bio&quot; rows=&quot;4&quot; cols=&quot;40&quot;&gt;Tell us a little about yourself...&lt;/textarea&gt;
-</code></pre>
-<p><strong>Note:</strong> if you want a placeholder hint (which disappears on input, as we covered in the previous lesson), use the <code>placeholder</code> attribute, not text inside the tag:</p>
-<pre><code class="language-html">&lt;textarea id=&quot;bio&quot; name=&quot;bio&quot; rows=&quot;4&quot; cols=&quot;40&quot; placeholder=&quot;Tell us a little about yourself...&quot;&gt;&lt;/textarea&gt;
-</code></pre>
-<ul>
-<li><strong><code>rows</code></strong> - approximate height of the field in text lines.</li>
-<li><strong><code>cols</code></strong> - approximate width of the field in characters.</li>
-</ul>
-<p>Both attributes set the <strong>initial</strong> size - in many browsers the user can additionally resize <code>textarea</code> manually by dragging the corner in the bottom-right of the field.</p>
 <hr>
-<h3 id="section-10">Common beginner mistakes</h3>
-<table>
-<thead>
-<tr>
-<th>Mistake</th>
-<th>How to fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Trying to set initial text via <code>value=&quot;...&quot;</code></td>
-<td><code>&lt;textarea&gt;</code> has no <code>value</code> attribute - text is written between the opening and closing tags</td>
-</tr>
-<tr>
-<td>Confusing text content (stays on submit) and <code>placeholder</code> (disappears)</td>
-<td>If you need a format hint - use <code>placeholder</code>; if you need a real pre-filled value - write it between the tags</td>
-</tr>
-<tr>
-<td>Forgetting the closing <code>&lt;/textarea&gt;</code> tag</td>
-<td><code>textarea</code> is a paired tag, don't forget the closing tag even if the field is initially empty</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="section-11"><code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> - grouping form fields</h2>
-<p>When a form becomes large (e.g., a registration with several logical sections: &quot;Personal Data&quot;, &quot;Contacts&quot;, &quot;Password&quot;), it's useful to visually and semantically group related fields.</p>
+<h2 id="section-11">Field groups: <code>fieldset</code> and <code>legend</code></h2>
+<p><strong>In simple terms:</strong> on a paper form, fields are framed with headings: &quot;Personal details&quot;, &quot;Contacts&quot;. In HTML the frame is <code>&lt;fieldset&gt;</code>, and the frame heading is <code>&lt;legend&gt;</code>.</p>
 <pre><code class="language-html">&lt;fieldset&gt;
-    &lt;legend&gt;Personal Data&lt;/legend&gt;
-
-    &lt;label for=&quot;firstname&quot;&gt;First name:&lt;/label&gt;
-    &lt;input type=&quot;text&quot; id=&quot;firstname&quot; name=&quot;firstname&quot;&gt;&lt;br&gt;
-
-    &lt;label for=&quot;lastname&quot;&gt;Last name:&lt;/label&gt;
-    &lt;input type=&quot;text&quot; id=&quot;lastname&quot; name=&quot;lastname&quot;&gt;
-&lt;/fieldset&gt;
-
-&lt;fieldset&gt;
-    &lt;legend&gt;Contacts&lt;/legend&gt;
-
-    &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
-    &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;&lt;br&gt;
-
-    &lt;label for=&quot;phone&quot;&gt;Phone:&lt;/label&gt;
-    &lt;input type=&quot;text&quot; id=&quot;phone&quot; name=&quot;phone&quot;&gt;
+    &lt;legend&gt;Convenient time&lt;/legend&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+    &lt;label for=&quot;morning&quot;&gt;Morning&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+    &lt;label for=&quot;evening&quot;&gt;Evening&lt;/label&gt;
 &lt;/fieldset&gt;
 </code></pre>
-<ul>
-<li><strong><code>&lt;fieldset&gt;</code></strong> - wrapper for a group of related fields; the browser displays it with a border around the group by default.</li>
-<li><strong><code>&lt;legend&gt;</code></strong> - label/heading for this group, displayed right &quot;on the border&quot; of the <code>fieldset</code> (visually cuts into the top edge of the border).</li>
-</ul>
-<p><strong>Especially useful for radio groups:</strong> since several radio buttons are semantically one &quot;question&quot;, it makes sense to wrap them in a <code>fieldset</code> with a <code>legend</code> that states the question itself:</p>
-<pre><code class="language-html">&lt;fieldset&gt;
-    &lt;legend&gt;Your skill level&lt;/legend&gt;
-
-    &lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt;
-    &lt;label for=&quot;beginner&quot;&gt;Beginner&lt;/label&gt;&lt;br&gt;
-
-    &lt;input type=&quot;radio&quot; id=&quot;intermediate&quot; name=&quot;level&quot; value=&quot;intermediate&quot;&gt;
-    &lt;label for=&quot;intermediate&quot;&gt;Intermediate&lt;/label&gt;&lt;br&gt;
-
-    &lt;input type=&quot;radio&quot; id=&quot;advanced&quot; name=&quot;level&quot; value=&quot;advanced&quot;&gt;
-    &lt;label for=&quot;advanced&quot;&gt;Advanced&lt;/label&gt;
-&lt;/fieldset&gt;
-</code></pre>
-<p><strong>Why this matters more than just a visual border:</strong> a screen reader reading a radio button inside a <code>fieldset</code> with <code>legend</code> reads both the <code>legend</code> text and the specific option label - for example, &quot;Your skill level, Beginner&quot; - this gives the user full context, not an isolated word &quot;Beginner&quot; without understanding which question it answers.</p>
-<hr>
+<p><strong>What you will see:</strong> a frame around the fields with the heading &quot;Convenient time&quot; in its top line.</p>
+<p><strong>What a blind user hears:</strong> &quot;Convenient time, group. Morning, radio button&quot;. Without <code>legend</code> they hear just &quot;Morning&quot; - but morning for what?</p>
+<p><strong><code>legend</code> comes first</strong> inside <code>fieldset</code>.</p>
 <h3 id="section-12">Common beginner mistakes</h3>
 <table>
 <thead>
@@ -221,60 +200,64 @@
 </thead>
 <tbody>
 <tr>
-<td>Using <code>fieldset</code> without <code>legend</code></td>
-<td><code>legend</code> is a required semantic part of the group, don't skip it</td>
+<td><code>textarea value=&quot;...&quot;</code></td>
+<td>Text between the tags</td>
 </tr>
 <tr>
-<td>Not placing <code>legend</code> as the first element inside <code>fieldset</code></td>
-<td><code>legend</code> must come right after the opening <code>&lt;fieldset&gt;</code> tag</td>
+<td>A <code>select</code> without a label</td>
+<td>A list needs a <code>&lt;label for&gt;</code> too</td>
 </tr>
 <tr>
-<td>Wrapping the entire form in <code>fieldset</code> without identifying semantic groups</td>
-<td>Use <code>fieldset</code> specifically for logical field blocks, not as a wrapper &quot;for aesthetics&quot; around everything</td>
+<td>A radio group without <code>fieldset</code></td>
+<td>Wrap it and give it a <code>legend</code> question</td>
+</tr>
+<tr>
+<td><code>legend</code> not first</td>
+<td>First inside <code>fieldset</code></td>
+</tr>
+<tr>
+<td><code>select</code> for 2 options</td>
+<td><code>radio</code> is better</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-13">Mini-task</h2>
-<p>Build a &quot;Choose a country&quot; dropdown on your own with three options (Uzbekistan, Kazakhstan, Kyrgyzstan), with Uzbekistan selected by default.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-html">&lt;label for=&quot;country&quot;&gt;Country:&lt;/label&gt;
-&lt;select id=&quot;country&quot; name=&quot;country&quot;&gt;
-    &lt;option value=&quot;uz&quot; selected&gt;Uzbekistan&lt;/option&gt;
-    &lt;option value=&quot;kz&quot;&gt;Kazakhstan&lt;/option&gt;
-    &lt;option value=&quot;kg&quot;&gt;Kyrgyzstan&lt;/option&gt;
-&lt;/select&gt;
-</code></pre>
+<h2 id="section-13">Mini-task 1</h2>
+<p>Make a framed &quot;Contacts&quot; group with a heading: an email field and a phone field, both with labels. The solution is in the &quot;Answers&quot; section.</p>
 <hr>
-<h2 id="section-14"><code>button</code> vs <code>input type=&quot;submit&quot;</code></h2>
-<p>Both elements can submit a form, but there are important differences between them.</p>
-<h3 id="section-15"><code>&lt;input type=&quot;submit&quot;&gt;</code></h3>
-<pre><code class="language-html">&lt;input type=&quot;submit&quot; value=&quot;Submit form&quot;&gt;
+<h2 id="section-14">Buttons: <code>button</code></h2>
+<p>In lesson 6 you used <code>&lt;input type=&quot;submit&quot;&gt;</code>. There is a more flexible tag - <code>&lt;button&gt;</code>:</p>
+<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Send the form&lt;/button&gt;
 </code></pre>
-<p>The button text is set via the <code>value</code> attribute (as we've seen with regular fields). It's a self-closing tag - you can't place an icon or other HTML markup inside, only plain text via <code>value</code>.</p>
-<h3 id="section-16"><code>&lt;button&gt;</code></h3>
-<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Submit form&lt;/button&gt;
-</code></pre>
-<p><code>&lt;button&gt;</code> is a <strong>paired</strong> tag; text (or even more complex content - icons, nested tags) goes between the opening and closing tags:</p>
-<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;
-    &lt;strong&gt;Submit&lt;/strong&gt; form
-&lt;/button&gt;
-</code></pre>
-<h3 id="section-17">The <code>type</code> attribute on <code>&lt;button&gt;</code> - an important detail</h3>
-<p><code>&lt;button&gt;</code> has three possible <code>type</code> values, and this is a common source of errors:</p>
-<pre><code class="language-html">&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
-&lt;button type=&quot;reset&quot;&gt;Clear form&lt;/button&gt;
-&lt;button type=&quot;button&quot;&gt;Regular button (does nothing on its own)&lt;/button&gt;
-</code></pre>
-<ul>
-<li><strong><code>type=&quot;submit&quot;</code></strong> - submits the form (the default value if <code>type</code> is not specified explicitly).</li>
-<li><strong><code>type=&quot;reset&quot;</code></strong> - resets all form fields back to their initial values.</li>
-<li><strong><code>type=&quot;button&quot;</code></strong> - a regular button with no built-in behavior; used when button behavior will be added later via JavaScript (in this course we won't actively use these buttons since JavaScript isn't part of the curriculum, but it's important to know this value exists).</li>
-</ul>
-<p><strong>Important warning:</strong> if <code>&lt;button&gt;</code> is inside <code>&lt;form&gt;</code> and you <strong>didn't specify</strong> <code>type</code> explicitly, the browser treats it as <code>type=&quot;submit&quot;</code> by default. This can lead to unexpected form submission when you just wanted &quot;a button for something else.&quot; <strong>Rule: always specify <code>type</code> on <code>&lt;button&gt;</code> explicitly.</strong></p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-7-2.svg" alt="Diagram 2: Forms part 2"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-7-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Each branch is a button type and its default effect. Reset restores initial values, while button has no default submission action.</p>
-<hr>
-<h3 id="section-18">Common beginner mistakes</h3>
+<p><strong>Why <code>&lt;button&gt;</code> is handier:</strong> it's a paired tag, so you can put text with other tags inside, such as <code>&lt;strong&gt;</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type=&quot;submit&quot;</code></td>
+<td>Validates the form and sends it</td>
+</tr>
+<tr>
+<td><code>type=&quot;reset&quot;</code></td>
+<td>Restores the <strong>initial</strong> values of all fields</td>
+</tr>
+<tr>
+<td><code>type=&quot;button&quot;</code></td>
+<td>Does nothing by itself - for JavaScript</td>
+</tr>
+</tbody>
+</table>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-7-2.svg" alt="Diagram 2: Forms part 2"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-7-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Three different values of <code>type</code>, not three steps.</p>
+<p><strong>Always write <code>type</code>.</strong> A button inside a form without <code>type</code> behaves like <code>submit</code> - and the form gets sent when you didn't expect it.</p>
+<p><strong><code>reset</code> doesn't clear fields; it restores the initial values.</strong> If the <code>textarea</code> originally said &quot;I am a first-year student&quot;, after <code>reset</code> that exact text comes back.</p>
+<h3 id="section-15">Try breaking it</h3>
+<p>Add <code>&lt;button&gt;Hint&lt;/button&gt;</code> without <code>type</code> to the form. Click it. The form was sent, even though you only wanted a button.</p>
+<h3 id="section-16">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -284,99 +267,272 @@
 </thead>
 <tbody>
 <tr>
-<td>Not specifying <code>type</code> on <code>&lt;button&gt;</code>, expecting it to be &quot;just a button&quot;</td>
-<td>Always explicitly set <code>type=&quot;submit&quot;</code>, <code>type=&quot;reset&quot;</code>, or <code>type=&quot;button&quot;</code></td>
+<td><code>&lt;button&gt;</code> without <code>type</code></td>
+<td>Always <code>type=&quot;submit&quot;</code>, <code>&quot;reset&quot;</code> or <code>&quot;button&quot;</code></td>
 </tr>
 <tr>
-<td>Trying to nest HTML inside <code>input type=&quot;submit&quot;</code></td>
-<td>If you need a button with complex content - use <code>&lt;button&gt;</code></td>
+<td>Expecting <code>reset</code> to clear the fields</td>
+<td>It restores the initial values</td>
 </tr>
 <tr>
-<td>Using <code>type=&quot;reset&quot;</code> without clear necessity - users often accidentally click it and lose all entered text</td>
-<td>Use <code>reset</code> carefully, only when truly needed in your form</td>
+<td>A <code>&lt;div&gt;</code> instead of a button</td>
+<td>Only <code>&lt;button&gt;</code> - more in lesson 8</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-19">Built-in validation: <code>min</code>, <code>max</code>, <code>pattern</code>, <code>maxlength</code></h2>
-<p>We partially covered validation in the previous lesson (<code>required</code>, <code>min</code>/<code>max</code> for <code>type=&quot;number&quot;</code>). Today we expand the toolkit.</p>
-<h3 id="section-20"><code>min</code> and <code>max</code> - for numbers and dates</h3>
-<pre><code class="language-html">&lt;label for=&quot;age&quot;&gt;Age:&lt;/label&gt;
-&lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot; min=&quot;16&quot; max=&quot;99&quot;&gt;
-
-&lt;label for=&quot;event-date&quot;&gt;Event date:&lt;/label&gt;
-&lt;input type=&quot;date&quot; id=&quot;event-date&quot; name=&quot;event-date&quot; min=&quot;2026-01-01&quot; max=&quot;2026-12-31&quot;&gt;
-</code></pre>
-<p>The browser won't allow submitting the form if the value falls outside the specified bounds, and will show the user a popup warning.</p>
-<h3 id="section-21"><code>maxlength</code> - text length limit</h3>
-<pre><code class="language-html">&lt;label for=&quot;username&quot;&gt;Username (max 20 characters):&lt;/label&gt;
-&lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; maxlength=&quot;20&quot;&gt;
-
-&lt;label for=&quot;comment&quot;&gt;Comment (max 500 characters):&lt;/label&gt;
-&lt;textarea id=&quot;comment&quot; name=&quot;comment&quot; maxlength=&quot;500&quot;&gt;&lt;/textarea&gt;
-</code></pre>
-<p>During ordinary manual input, the browser limits length according to <code>maxlength</code>. This is not an absolute safeguard: HTML constraints do not replace validation by the handler.</p>
-<h3 id="section-22"><code>pattern</code> - template validation (regular expression)</h3>
-<p><code>pattern</code> is the most powerful but also the most complex validation tool. It uses <strong>regular expressions</strong> - a special language for describing text templates. We won't dive deep into regular expression syntax in this course (that's a separate big topic), but we'll go through several practical examples.</p>
-<p><strong>Example: only digits, exactly 7 characters (a sample student ID format):</strong></p>
-<pre><code class="language-html">&lt;label for=&quot;student-id&quot;&gt;Student ID number (7 digits):&lt;/label&gt;
-&lt;input type=&quot;text&quot; id=&quot;student-id&quot; name=&quot;student-id&quot; pattern=&quot;[0-9]{7}&quot; title=&quot;Enter exactly 7 digits&quot;&gt;
-</code></pre>
-<p>Breaking down the <code>[0-9]{7}</code> pattern: <code>[0-9]</code> means &quot;any digit from 0 to 9&quot;, <code>{7}</code> means &quot;exactly 7 times in a row.&quot;</p>
-<p><strong>Additional example: a required seven-digit code.</strong></p>
-<pre><code class="language-html">&lt;label for=&quot;code&quot;&gt;Code: exactly 7 digits&lt;/label&gt;
-&lt;input id=&quot;code&quot; name=&quot;code&quot; type=&quot;text&quot; pattern=&quot;[0-9]{7}&quot; required&gt;
-</code></pre>
-<p>The browser may include title in validation feedback; presentation varies. Put the requirement in visible text next to the field.</p>
-<p><strong>Important caveat for beginners:</strong> writing advanced regular expressions is an advanced skill that in practice often requires separate study or finding ready-made templates (e.g., for validating a phone number for a specific country). In this lesson, it's important to understand the <strong>principle</strong> of how <code>pattern</code> works, not to memorize all possible patterns by heart.</p>
-<hr>
-<h3 id="section-23">Common beginner mistakes</h3>
+<h2 id="section-17">Input validation</h2>
+<p>The browser can check a field before sending:</p>
 <table>
 <thead>
 <tr>
-<th>Mistake</th>
-<th>How to fix</th>
+<th>Attribute</th>
+<th>For which fields</th>
+<th>Example</th>
+<th>What it checks</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>No visible instructions for pattern</td>
-<td>State the requirement next to the field; title is optional and does not replace instructions</td>
+<td><code>min</code>, <code>max</code></td>
+<td><code>number</code>, <code>date</code>, <code>range</code></td>
+<td><code>min=&quot;16&quot; max=&quot;60&quot;</code></td>
+<td>Value limits</td>
 </tr>
 <tr>
-<td>Expecting <code>min</code>/<code>max</code>/<code>pattern</code>/<code>required</code> to protect data 100% (e.g., from malicious input)</td>
-<td>Built-in HTML validation is about user convenience, not security; real data protection must always be duplicated on the server side (that's a topic for future courses, not part of pure HTML curriculum)</td>
+<td><code>maxlength</code></td>
+<td><code>text</code>, <code>textarea</code></td>
+<td><code>maxlength=&quot;50&quot;</code></td>
+<td>No more than 50 characters</td>
 </tr>
 <tr>
-<td>Setting <code>maxlength</code> too small for real data (e.g., <code>maxlength=&quot;5&quot;</code> for a name)</td>
-<td>Think through realistic limits by testing with different data examples</td>
+<td><code>pattern</code></td>
+<td><code>text</code>, <code>tel</code></td>
+<td><code>pattern=&quot;[0-9]{7}&quot;</code></td>
+<td>Format by a template</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-18"><code>pattern</code> - a format template</h3>
+<p><code>pattern</code> is a regular expression, a small language of templates. You only need a few:</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[0-9]</code></td>
+<td>One digit</td>
+</tr>
+<tr>
+<td><code>[0-9]{7}</code></td>
+<td>Exactly 7 digits</td>
+</tr>
+<tr>
+<td><code>[A-Z]{2}</code></td>
+<td>Two capital Latin letters</td>
+</tr>
+<tr>
+<td><code>[A-Z]{2}[0-9]{7}</code></td>
+<td>Two letters, then 7 digits, for example <code>AB1234567</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;label for=&quot;student-id&quot;&gt;Student ID number (7 digits)&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;student-id&quot; name=&quot;student-id&quot; pattern=&quot;[0-9]{7}&quot; inputmode=&quot;numeric&quot; required&gt;
+</code></pre>
+<p><code>inputmode=&quot;numeric&quot;</code> opens a numeric keypad on a phone. Put the format hint in the label: &quot;7 digits&quot; - so the person knows right away what to type.</p>
+<p><strong>Test the field:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>empty</td>
+<td>Error: the field is required</td>
+</tr>
+<tr>
+<td><code>123456</code></td>
+<td>Error: 6 digits</td>
+</tr>
+<tr>
+<td><code>abcdefg</code></td>
+<td>Error: letters</td>
+</tr>
+<tr>
+<td><code>1234567</code></td>
+<td>Accepted</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-19">Slider: <code>type=&quot;range&quot;</code></h3>
+<pre><code class="language-html">&lt;label for=&quot;level&quot;&gt;Knowledge level (0–10)&lt;/label&gt;
+&lt;input type=&quot;range&quot; id=&quot;level&quot; name=&quot;level&quot; min=&quot;0&quot; max=&quot;10&quot; value=&quot;5&quot;&gt;
+</code></pre>
+<p><strong>What you will see:</strong> a slider. By default it sits at 5.</p>
+<p><strong>Important:</strong> validation in the browser helps the user; it is not protection. A real server always checks the data again.</p>
+<hr>
+<h2 id="section-20">Mini-task 2</h2>
+<p>Make a required &quot;Group code&quot; field in this format: two capital Latin letters, a hyphen, two digits. Example: <code>IT-25</code>. Put the format hint in the label. The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-21">Lesson summary: cheat sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drop-down list</td>
+<td><code>&lt;select&gt;</code> + <code>&lt;option value&gt;</code></td>
+</tr>
+<tr>
+<td>Chosen in advance</td>
+<td><code>selected</code></td>
+</tr>
+<tr>
+<td>Option groups</td>
+<td><code>&lt;optgroup label=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Suggestions in a field</td>
+<td><code>list</code> + <code>&lt;datalist id&gt;</code></td>
+</tr>
+<tr>
+<td>Long text</td>
+<td><code>&lt;textarea&gt;text&lt;/textarea&gt;</code></td>
+</tr>
+<tr>
+<td>A frame with a heading</td>
+<td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> first</td>
+</tr>
+<tr>
+<td>Submit button</td>
+<td><code>&lt;button type=&quot;submit&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Restore initial values</td>
+<td><code>&lt;button type=&quot;reset&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Number limits</td>
+<td><code>min</code>, <code>max</code></td>
+</tr>
+<tr>
+<td>Text length</td>
+<td><code>maxlength</code></td>
+</tr>
+<tr>
+<td>Format</td>
+<td><code>pattern=&quot;[0-9]{7}&quot;</code></td>
+</tr>
+<tr>
+<td>Slider</td>
+<td><code>type=&quot;range&quot;</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-24">Lesson summary</h2>
-<p>Today you learned:</p>
+<h2 id="section-22">Independent work</h2>
+<h3 id="section-23">Part 1. IDE task (counted by the platform)</h3>
+<p>Make a <strong>participant form</strong> with <code>method=&quot;get&quot;</code>:</p>
+<ol>
+<li>A first <code>fieldset</code> group with the <code>legend</code> &quot;Personal details&quot;:
 <ul>
-<li><code>&lt;select&gt;</code>/<code>&lt;option&gt;</code> create a dropdown list, <code>&lt;optgroup&gt;</code> groups options, <code>selected</code> sets the default value, <code>multiple</code> allows selecting several options.</li>
-<li><code>&lt;textarea&gt;</code> is a paired tag for multi-line text; initial text goes between tags, not via <code>value</code>.</li>
-<li><code>&lt;fieldset&gt;</code>/<code>&lt;legend&gt;</code> semantically group related form fields - especially useful for radio button groups.</li>
-<li><code>&lt;button&gt;</code> is more flexible than <code>&lt;input type=&quot;submit&quot;&gt;</code> - supports nested content, but requires explicit <code>type</code> specification.</li>
-<li><code>min</code>/<code>max</code> limit number and date ranges, <code>maxlength</code> limits text length, <code>pattern</code> validates input against a template (with visible instructions and optional <code>title</code>).</li>
+<li>an ID number - required, exactly 7 digits (<code>pattern</code>);</li>
+<li>an &quot;About me&quot; field - a <code>textarea</code> with initial text.</li>
 </ul>
-<h2 id="section-25">Independent practice</h2>
-<p>Add explicit type=&quot;submit&quot; and type=&quot;reset&quot; buttons; change initial values before testing reset.</p>
-<p>Build a participant form with grouped select options, textarea, fieldset/legend and a required seven-digit ID.</p>
-<h3 id="section-26">Completion criteria</h3>
+</li>
+<li>A second <code>fieldset</code> group with the <code>legend</code> &quot;Track&quot;:
 <ul>
-<li class="check"><label><input type="checkbox"> Every input, select and textarea has an associated label; IDs are unique and for matches id. Buttons have clear text of their own.</label></li>
-<li class="check"><label><input type="checkbox"> Select includes optgroup and meaningful option values.</label></li>
-<li class="check"><label><input type="checkbox"> Textarea initial text is between its tags.</label></li>
-<li class="check"><label><input type="checkbox"> Related controls use fieldset with legend.</label></li>
-<li class="check"><label><input type="checkbox"> Required ID rejects empty input, six digits and letters; accepts seven digits.</label></li>
-<li class="check"><label><input type="checkbox"> After edits, reset restores initial values.</label></li>
+<li>a <code>select</code> with two <code>optgroup</code> groups and a default choice (<code>selected</code>).</li>
 </ul>
-<h3 id="section-27">Self-check questions</h3>
-<p>How does reset differ from clearing? When does an empty field pass pattern? Why is title not a substitute for visible instructions?</p>
+</li>
+<li>Every field has a <code>&lt;label for&gt;</code> and a unique <code>id</code>.</li>
+<li>The buttons <code>&lt;button type=&quot;submit&quot;&gt;</code> and <code>&lt;button type=&quot;reset&quot;&gt;</code>.</li>
+</ol>
+<p>What the platform checks: a form, two <code>fieldset</code> and two <code>legend</code> elements, a <code>select</code> with <code>optgroup</code> and <code>selected</code>, a <code>textarea</code>, a <code>pattern</code> with <code>{7}</code>, <code>required</code>, every label linked to a field, a <code>type=&quot;submit&quot;</code> button and a <code>type=&quot;reset&quot;</code> button.</p>
+<h3 id="section-24">Part 2. Project on your computer</h3>
+<ol>
+<li>Save the form as <code>profile.html</code>.</li>
+<li>Test the ID field: empty, 6 digits, letters, 7 digits.</li>
+<li>Change the choice in the list and the &quot;About me&quot; text, then press &quot;Reset&quot;. Did the initial values come back?</li>
+</ol>
+<h3 id="section-25">Acceptance criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The IDE task is accepted.</label></li>
+<li class="check"><label><input type="checkbox"> Every field, list and <code>textarea</code> has a label; <code>for</code> matches <code>id</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Buttons have clear text and an explicit <code>type</code>.</label></li>
+<li class="check"><label><input type="checkbox"> The <code>select</code> has <code>optgroup</code> and meaningful <code>value</code> attributes.</label></li>
+<li class="check"><label><input type="checkbox"> The initial <code>textarea</code> text is between the tags.</label></li>
+<li class="check"><label><input type="checkbox"> The ID field rejects empty, 6 digits and letters; accepts 7 digits.</label></li>
+<li class="check"><label><input type="checkbox"> <code>reset</code> restores the initial values.</label></li>
+</ul>
 <hr>
-<p><a href="index.html">Contents</a> · <a href="en-lesson-6.html">Previous</a> · <a href="en-lesson-8.html">Next</a> · <a href="../Lesson-7/practice.html">Practice</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a></p>
+<h2 id="section-26">Self-check questions</h2>
+<ol>
+<li>When is <code>select</code> better, and when <code>radio</code>?</li>
+<li>In an <code>&lt;option&gt;</code>, what does the user see and what goes to the server?</li>
+<li>How is <code>datalist</code> different from <code>select</code>?</li>
+<li>Where is the initial text of a <code>textarea</code> written?</li>
+<li>Why does a group of radio buttons need a <code>legend</code>?</li>
+<li>Why is <code>&lt;button&gt;</code> handier than <code>&lt;input type=&quot;submit&quot;&gt;</code>?</li>
+<li>What happens when you press a <code>&lt;button&gt;</code> without <code>type</code> inside a form?</li>
+<li>What does <code>reset</code> do: clear the fields or something else?</li>
+<li>What does <code>pattern=&quot;[0-9]{7}&quot;</code> mean?</li>
+<li>Why doesn't browser validation replace server validation?</li>
+</ol>
+<p>After the questions, take the <strong>lesson test</strong> on the platform: 12 questions, 70% to pass.</p>
+<hr>
+<h2 id="section-27">What's next</h2>
+<p>The form is ready. In lesson 8 we check it through the eyes of different people: without a mouse, without sight, in bright sunlight - and fix what gets in their way.</p>
+<hr>
+<h2 id="section-28">Answers</h2>
+<p><strong>Review</strong></p>
+<ol>
+<li>The <code>for</code> on the <code>&lt;label&gt;</code> equals the <code>id</code> on the field.</li>
+<li>The same <code>name</code>.</li>
+<li>It prevents sending the form while the field is empty.</li>
+</ol>
+<p><strong>Mini-task 1</strong></p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Contacts&lt;/legend&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;phone&quot;&gt;Phone&lt;/label&gt;
+        &lt;input type=&quot;tel&quot; id=&quot;phone&quot; name=&quot;phone&quot;&gt;
+    &lt;/p&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<p><strong>Mini-task 2</strong></p>
+<pre><code class="language-html">&lt;label for=&quot;group&quot;&gt;Group code (for example, IT-25)&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;group&quot; name=&quot;group&quot; pattern=&quot;[A-Z]{2}-[0-9]{2}&quot; required&gt;
+</code></pre>
+<p><strong>Self-check questions</strong></p>
+<ol>
+<li>2–5 options - <code>radio</code>, all visible at once. More - <code>select</code>.</li>
+<li>They see the text between the tags; the server gets the <code>value</code>.</li>
+<li><code>select</code> has only ready options; <code>datalist</code> gives suggestions and lets you type your own.</li>
+<li>Between the <code>&lt;textarea&gt;</code> and <code>&lt;/textarea&gt;</code> tags.</li>
+<li>It's the shared question of the group: a screen reader reads it before the options.</li>
+<li>You can put text with other tags inside; it's a paired tag.</li>
+<li>The form is sent: without <code>type</code>, a button works as <code>submit</code>.</li>
+<li>It restores the initial values of the fields.</li>
+<li>Exactly 7 digits.</li>
+<li>Browser validation can be bypassed. The server must check the data itself.</li>
+</ol>
+<hr>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-6.html">← Back</a> · <a href="en-lesson-8.html">Next →</a> · <a href="ru-lesson-7.html">RU</a> · <a href="en-lesson-7.html">EN</a> · <a href="uz-lesson-7.html">UZ</a> · <a href="../Lesson-7/practice.html">Practice</a></p>
 </article></main><footer><a href="../Lesson-7/en/Forms%20part%202.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

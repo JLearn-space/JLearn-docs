@@ -1,0 +1,269 @@
+{
+  "lesson": 9,
+  "language": "en",
+  "lesson_title": "Meta tags, SEO, linking CSS and JS",
+  "task": {
+    "title": "A complete head for the home page",
+    "language": "html",
+    "description": "Complete the head: viewport (width=device-width), description, og:title and og:description, an icon with rel=\"icon\", styles css/style.css via link rel=\"stylesheet\", the script js/main.js with defer and a closing </script>. Do not use the <style> tag.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n    <!-- viewport -->\n    <!-- description -->\n    <!-- og:title and og:description -->\n    <!-- site icon -->\n    <!-- styles css/style.css -->\n    <!-- script js/main.js with defer -->\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "name=\"viewport\"",
+        "width=device-width",
+        "name=\"description\"",
+        "property=\"og:title\"",
+        "property=\"og:description\"",
+        "rel=\"icon\"",
+        "rel=\"stylesheet\"",
+        "href=\"css/style.css\"",
+        "src=\"js/main.js\"",
+        "defer",
+        "</script>",
+        "<header",
+        "<main",
+        "<footer"
+      ],
+      "forbidden": [
+        "<style",
+        "rel=\"style\"",
+        "href=\"../css/style.css\""
+      ],
+      "tags": {
+        "meta": 5,
+        "link": 2,
+        "script": 1,
+        "title": 1
+      },
+      "attrs": {
+        "meta": [
+          "content"
+        ],
+        "script": [
+          "src",
+          "defer"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Phone: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">.",
+      "Description: <meta name=\"description\" content=\"...\">.",
+      "Card: <meta property=\"og:title\" content=\"...\">.",
+      "Styles: <link rel=\"stylesheet\" href=\"css/style.css\">.",
+      "Script: <script src=\"js/main.js\" defer></script> - with a closing tag."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no viewport",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no description",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "og via name",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta name=\"og:title\" content=\"Web development club\">\n    <meta name=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "rel=\"style\"",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"style\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "wrong CSS path",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"../css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no defer",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\"></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "script without a closing tag",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer />\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "styles via <style>",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <style>body { margin: 0; }</style>\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no icon",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Home - Web development club</title>\n    <meta name=\"description\" content=\"Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.\">\n    <meta property=\"og:title\" content=\"Web development club\">\n    <meta property=\"og:description\" content=\"We teach HTML from scratch. Classes on Wednesdays.\">\n    <link rel=\"stylesheet\" href=\"css/style.css\">\n    <script src=\"js/main.js\" defer></script>\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Welcome to the club</h1>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Web development club</small></p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Where does the user see the text from meta name=\"description\"?",
+        "options": [
+          "On the browser tab",
+          "In search results under the title",
+          "Large on the page",
+          "In the address bar"
+        ],
+        "answer": 1,
+        "explanation": "A search engine may show description as the page summary."
+      },
+      {
+        "type": "single",
+        "question": "What does meta name=\"viewport\" with width=device-width do?",
+        "options": [
+          "Makes the site faster",
+          "Page width = phone screen width",
+          "Connects CSS",
+          "Turns on dark mode"
+        ],
+        "answer": 1,
+        "explanation": "Without viewport a phone shows a shrunken desktop version."
+      },
+      {
+        "type": "single",
+        "question": "How do you connect a style file correctly?",
+        "options": [
+          "<style src=\"css/style.css\">",
+          "<link rel=\"stylesheet\" href=\"css/style.css\">",
+          "<script src=\"css/style.css\">",
+          "<css href=\"style.css\">"
+        ],
+        "answer": 1,
+        "explanation": "Styles go via link rel=\"stylesheet\" in head."
+      },
+      {
+        "type": "single",
+        "question": "What does status 404 for style.css in the Network tab mean?",
+        "options": [
+          "The file loaded",
+          "The file came from cache",
+          "The file was not found",
+          "The file is too large"
+        ],
+        "answer": 2,
+        "explanation": "404 means not found: check the path and the name."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about defer?",
+        "options": [
+          "The script downloads in parallel with the page",
+          "The script runs after the whole page is read",
+          "Scripts run in order",
+          "The script never runs"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "defer is the recommended way to connect scripts."
+      },
+      {
+        "type": "multiple",
+        "question": "Which meta tags belong to Open Graph?",
+        "options": [
+          "og:title",
+          "og:description",
+          "og:image",
+          "viewport"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "og: is the card for social networks and messengers."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about project file names?",
+        "options": [
+          "Latin letters",
+          "No spaces",
+          "Lowercase letters and hyphens",
+          "Cyrillic and spaces are more convenient"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "For example, hero-photo.jpg."
+      },
+      {
+        "type": "matching",
+        "question": "Match the folder with its contents.",
+        "pairs": [
+          [
+            "css/",
+            "Style files"
+          ],
+          [
+            "js/",
+            "Scripts"
+          ],
+          [
+            "images/",
+            "Images"
+          ],
+          [
+            "project root",
+            "HTML pages"
+          ]
+        ],
+        "explanation": "Sort files by type."
+      },
+      {
+        "type": "matching",
+        "question": "Match the tool with what it checks.",
+        "pairs": [
+          [
+            "Nu HTML Checker",
+            "HTML markup errors"
+          ],
+          [
+            "Lighthouse",
+            "Accessibility and SEO score"
+          ],
+          [
+            "Network in DevTools",
+            "Whether files loaded"
+          ]
+        ],
+        "explanation": "Tools complement a manual check."
+      },
+      {
+        "type": "input",
+        "question": "Which rel value connects a style file? Enter only the value.",
+        "answers": [
+          "stylesheet"
+        ],
+        "case_sensitive": false,
+        "explanation": "<link rel=\"stylesheet\" href=\"...\">."
+      },
+      {
+        "type": "input",
+        "question": "Which script attribute delays running until the page is read while keeping the order? Enter the attribute name.",
+        "answers": [
+          "defer"
+        ],
+        "case_sensitive": false,
+        "explanation": "defer is almost always the right choice."
+      },
+      {
+        "type": "input",
+        "question": "Which attribute (not name) is used for Open Graph meta tags? Enter the attribute name.",
+        "answers": [
+          "property"
+        ],
+        "case_sensitive": false,
+        "explanation": "<meta property=\"og:title\" content=\"...\">."
+      }
+    ]
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "lesson": 7,
+  "language": "uz",
+  "lesson_title": "Formalar. 2-qism",
+  "task": {
+    "title": "Ishtirokchi anketasi",
+    "language": "html",
+    "description": "method=\"get\" forma: legend li ikkita fieldset; guvohnoma raqami - majburiy, roppa-rosa 7 ta raqam (pattern); boshlang‘ich matnli textarea; ikkita optgroup va selected li select; har bir maydonda label for = id; button type=\"submit\" va type=\"reset\" tugmalari.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <!-- fieldset + legend «Shaxsiy ma’lumotlar»: guvohnoma raqami (pattern 7 raqam, required), «O‘zim haqimda» textarea -->\n            <!-- fieldset + legend «Yo‘nalish»: ikkita optgroup va selected li select -->\n            <!-- button type=\"submit\" va button type=\"reset\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "<select",
+        "<optgroup",
+        "selected",
+        "</textarea>",
+        "pattern=\"",
+        "{7}",
+        "required",
+        "type=\"reset\""
+      ],
+      "tags": {
+        "fieldset": 2,
+        "legend": 2,
+        "optgroup": 2,
+        "option": 3,
+        "textarea": 1,
+        "label": 3,
+        "button": 2
+      },
+      "for_id_pairs": true,
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "Guruh: <fieldset><legend>Shaxsiy ma’lumotlar</legend> ... </fieldset>.",
+      "Guvohnoma raqami: pattern=\"[0-9]{7}\" va required.",
+      "textarea boshlang‘ich matni - teglar orasida: <textarea>Matn</textarea>.",
+      "Ro‘yxat: <optgroup label=\"...\"> va bitta <option selected> li <select>.",
+      "Tugmalar: <button type=\"submit\"> va <button type=\"reset\">."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "pattern yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "6 raqamli pattern",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{6}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "bitta fieldset",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "legend yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <p>Shaxsiy ma’lumotlar</p>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "optgroup yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        \n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        \n                        \n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        \n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "selected yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\">HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "value li textarea",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\" value=\"O‘qiyman\">\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "type siz tugma",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button>Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "reset yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"course\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "imzo bog‘lanmagan",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Ishtirokchi anketasi</title>\n</head>\n<body>\n    <main>\n        <h1>Ishtirokchi anketasi</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Shaxsiy ma’lumotlar</legend>\n                <p>\n                    <label for=\"student-id\">Talabalik guvohnomasi raqami (7 ta raqam)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">O‘zim haqimda</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">Birinchi kursda o‘qiyman.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Yo‘nalish</legend>\n                <p>\n                    <label for=\"courses\">Nimani o‘rganmoqchisiz</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Anketani yuborish</button>\n                <button type=\"reset\">Tozalash</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "textarea ning boshlang‘ich matni qayerda yoziladi?",
+        "options": [
+          "value atributida",
+          "<textarea> va </textarea> teglari orasida",
+          "placeholder da",
+          "text atributida"
+        ],
+        "answer": 1,
+        "explanation": "textarea - juft teg, matn teglar orasida."
+      },
+      {
+        "type": "single",
+        "question": "type=\"reset\" tugmasi nima qiladi?",
+        "options": [
+          "Barcha maydonlarni tozalaydi",
+          "Maydonlarning boshlang‘ich qiymatlarini qaytaradi",
+          "Formani yuboradi",
+          "Sahifani qayta yuklaydi"
+        ],
+        "answer": 1,
+        "explanation": "reset HTML da berilgan qiymatlarni tiklaydi."
+      },
+      {
+        "type": "single",
+        "question": "Forma ichida type siz <button> o‘zini qanday tutadi?",
+        "options": [
+          "Hech narsa qilmaydi",
+          "submit kabi - formani yuboradi",
+          "reset kabi",
+          "Xato beradi"
+        ],
+        "answer": 1,
+        "explanation": "Shuning uchun tugmada type doim yoziladi."
+      },
+      {
+        "type": "single",
+        "question": "pattern=\"[0-9]{7}\" nimani bildiradi?",
+        "options": [
+          "7 tagacha raqam",
+          "Roppa-rosa 7 ta raqam",
+          "Kamida 7 ta belgi",
+          "Istalgan 7 ta belgi"
+        ],
+        "answer": 1,
+        "explanation": "[0-9] - raqam, {7} - roppa-rosa 7 marta."
+      },
+      {
+        "type": "multiple",
+        "question": "fieldset va legend haqida nima to‘g‘ri?",
+        "options": [
+          "legend - guruh sarlavhasi",
+          "legend fieldset ichida birinchi yoziladi",
+          "Ekran o‘quvchi legend ni guruh maydonlaridan oldin o‘qiydi",
+          "fieldset label ni almashtiradi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "label fieldset ichida ham har bir maydonga kerak."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi atributlar brauzerda kiritishni tekshiradi?",
+        "options": [
+          "min va max",
+          "maxlength",
+          "pattern",
+          "placeholder"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "placeholder - faqat maslahat-misol."
+      },
+      {
+        "type": "multiple",
+        "question": "<option value=\"almalyk\">Olmaliq</option> haqida nima to‘g‘ri?",
+        "options": [
+          "Foydalanuvchi «Olmaliq» ni ko‘radi",
+          "Serverga almalyk ketadi",
+          "Serverga «Olmaliq» ketadi",
+          "selected uni oldindan tanlardi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Matn ko‘rinadi, value yuboriladi."
+      },
+      {
+        "type": "matching",
+        "question": "Elementni vazifasi bilan moslang.",
+        "pairs": [
+          [
+            "<select>",
+            "Tayyor variantlardan tanlash"
+          ],
+          [
+            "<datalist>",
+            "Maslahatlar, o‘zingiznikini kiritish mumkin"
+          ],
+          [
+            "<textarea>",
+            "Ko‘p qatorli matn"
+          ],
+          [
+            "<optgroup>",
+            "Ro‘yxatdagi variantlar guruhi"
+          ]
+        ],
+        "explanation": "Element javob turiga qarab tanlanadi."
+      },
+      {
+        "type": "matching",
+        "question": "Tugma turini harakat bilan moslang.",
+        "pairs": [
+          [
+            "submit",
+            "Tekshirish va yuborish"
+          ],
+          [
+            "reset",
+            "Boshlang‘ich qiymatlarni qaytarish"
+          ],
+          [
+            "button",
+            "O‘zi hech narsa qilmaydi"
+          ]
+        ],
+        "explanation": "Tur doim aniq yoziladi."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi atribut ro‘yxat variantini oldindan tanlangan qiladi? Atribut nomini kiriting.",
+        "answers": [
+          "selected"
+        ],
+        "case_sensitive": false,
+        "explanation": "<option selected>."
+      },
+      {
+        "type": "input",
+        "question": "fieldset ichida maydonlar guruhiga qaysi teg sarlavha beradi? Teg nomini qavslarsiz kiriting.",
+        "answers": [
+          "legend"
+        ],
+        "case_sensitive": false,
+        "explanation": "legend - fieldset ichida birinchi."
+      },
+      {
+        "type": "input",
+        "question": "input ning qaysi turi slayder yaratadi? type qiymatini kiriting.",
+        "answers": [
+          "range"
+        ],
+        "case_sensitive": false,
+        "explanation": "<input type=\"range\" min=\"0\" max=\"10\">."
+      }
+    ]
+  }
+}

@@ -113,9 +113,29 @@ def check_test(t, name, fails):
 
 def main():
     fails, report = [], []
-    files = sorted((R / 'platform').glob('lesson-*.json'))
+    files = []
+    for lang in ('', 'uz/', 'en/'):
+        files += sorted((R / 'platform').glob(lang + 'lesson-*.json'))
+    base = {}
     for f in files:
         d = json.loads(f.read_text())
+        rel = f.relative_to(R / 'platform').as_posix()
+        # перевод должен совпадать с русской версией по структуре
+        if '/' not in rel:
+            base[f.name] = d
+        elif f.name not in base:
+            fails.append(f'{rel}: нет русской версии')
+        else:
+            b = base[f.name]
+            if sorted(d['task']['rules']) != sorted(b['task']['rules']):
+                fails.append(f'{rel}: набор правил отличается от русской версии')
+            sig = lambda x: [(q['type'], q.get('answer'), len(q.get('options', q.get('pairs', q.get('answers', []))))) for q in x['test']['questions']]
+            if sig(d) != sig(b):
+                fails.append(f'{rel}: вопросы теста не совпадают с русской версией по типам и ответам')
+            if len(d['task'].get('wrong_solutions', [])) != len(b['task'].get('wrong_solutions', [])):
+                fails.append(f'{rel}: число ошибочных решений отличается')
+        f = type('F', (), {'name': rel})()
+        f.name = rel
         t, rules = d['task'], d['task']['rules']
         ok, miss = check(t['solution'], rules)
         if not ok: fails.append(f'{f.name}: эталон не прошёл {miss}')
@@ -125,7 +145,7 @@ def main():
             ok, _ = check(w['code'], rules)
             if ok: fails.append(f"{f.name}: ошибочное решение {i} ({w['mistake']}) проходит")
         check_test(d['test'], f.name, fails)
-        report.append({'file': f.name, 'rules': len(rules), 'wrong_solutions': len(t.get('wrong_solutions', []))})
+        report.append({'file': f.name, 'language': d.get('language', 'ru'), 'rules': len(rules), 'wrong_solutions': len(t.get('wrong_solutions', []))})
     out = {'tasks': len(files), 'details': report, 'failures': fails}
     (R / 'platform' / 'platform-check.json').write_text(json.dumps(out, ensure_ascii=False, indent=2))
     print(json.dumps(out, ensure_ascii=False, indent=2))

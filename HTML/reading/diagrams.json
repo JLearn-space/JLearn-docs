@@ -1,7 +1,7 @@
 [
   {
     "id": "en-lesson-1-1",
-    "source": "mindmap\n  root((Web))\n    HTML\n      Structure\n      Content\n      Semantics\n    CSS\n      Styling\n      Layout\n      Responsive\n    JavaScript\n      Interactivity\n      DOM Manipulation\n      Events\n",
+    "source": "mindmap\n  root((Web))\n    HTML\n      Structure\n      Content\n      Meaning\n    CSS\n      Styling\n      Layout\n      Screen adaptation\n    JavaScript\n      Programmed behaviour\n      Changing the document\n      Handling events\n",
     "file": "Lesson-1/en/Introduction to HTML document structure.md"
   },
   {
@@ -21,17 +21,17 @@
   },
   {
     "id": "uz-lesson-1-1",
-    "source": "mindmap\n  root((Veb))\n    HTML\n      Tuzilish\n      Mazmun\n      Ma’no\n    CSS\n      Ko‘rinish\n      Joylashuv\n      Ekranga moslashish\n    JavaScript\n      Dasturlangan xatti-harakat\n      Hujjatni o‘zgartirish\n      Hodisalarni qayta ishlash\n",
+    "source": "mindmap\n  root((Veb))\n    HTML\n      Tuzilma\n      Mazmun\n      Ma’no\n    CSS\n      Bezash\n      Joylashuv\n      Ekranga moslash\n    JavaScript\n      Dasturlangan xatti-harakat\n      Hujjatni o‘zgartirish\n      Hodisalarni qayta ishlash\n",
     "file": "Lesson-1/uz/HTML ga kirish hujjat tuzilishi.md"
   },
   {
     "id": "uz-lesson-1-2",
-    "source": "flowchart TD\n    F[\"HTML fayl\"] --> A[\"DOCTYPE html — asosiy elementdan oldin\"]\n    F --> B[\"html: lang=uz\"]\n    B --> C[\"head\"]\n    B --> D[\"body\"]\n    C --> C1[\"meta: charset=UTF-8\"]\n    C --> C2[\"title: Sahifa\"]\n    D --> D1[\"h1: Sarlavha\"]\n    D --> D2[\"p: Abzats\"]\n",
+    "source": "flowchart TD\n    F[\"HTML fayl\"] --> A[\"DOCTYPE html — ildiz elementdan oldin\"]\n    F --> B[\"html: lang=uz\"]\n    B --> C[\"head\"]\n    B --> D[\"body\"]\n    C --> C1[\"meta: charset=UTF-8\"]\n    C --> C2[\"title: Sahifa\"]\n    D --> D1[\"h1: Sarlavha\"]\n    D --> D2[\"p: Abzats\"]\n",
     "file": "Lesson-1/uz/HTML ga kirish hujjat tuzilishi.md"
   },
   {
     "id": "en-lesson-2-1",
-    "source": "flowchart TD\n    A[\"h1: Travel guide\"] --> B[\"h2: Itinerary\"]\n    B --> C[\"h3: First day\"]\n    B --> D[\"h3: Second day\"]\n    A --> E[\"h2: Tips\"]\n",
+    "source": "flowchart TD\n    A[\"h1: Travel guide\"] --> B[\"h2: Route\"]\n    B --> C[\"h3: Day one\"]\n    B --> D[\"h3: Day two\"]\n    A --> E[\"h2: Tips\"]\n",
     "file": "Lesson-2/en/Text and semantics.md"
   },
   {
@@ -51,7 +51,7 @@
   },
   {
     "id": "uz-lesson-2-1",
-    "source": "flowchart TD\n    A[\"h1: Sayohat qo‘llanmasi\"] --> B[\"h2: Yo‘nalish\"]\n    B --> C[\"h3: Birinchi kun\"]\n    B --> D[\"h3: Ikkinchi kun\"]\n    A --> E[\"h2: Maslahatlar\"]\n",
+    "source": "flowchart TD\n    A[\"h1: Yo‘lko‘rsatkich\"] --> B[\"h2: Marshrut\"]\n    B --> C[\"h3: Birinchi kun\"]\n    B --> D[\"h3: Ikkinchi kun\"]\n    A --> E[\"h2: Maslahatlar\"]\n",
     "file": "Lesson-2/uz/Matn va semantika.md"
   },
   {
@@ -61,12 +61,12 @@
   },
   {
     "id": "en-lesson-3-1",
-    "source": "flowchart LR\n    A[\"Current File\"] -->|\"about.html\"| B[\"File in the same folder\"]\n    A -->|\"images/photo.jpg\"| C[\"File in a subfolder\"]\n    A -->|\"../index.html\"| D[\"File in the parent folder\"]\n    A -->|\"/\"| E[\"Domain root\"]\n",
+    "source": "flowchart LR\n    A[\"Current HTML file\"] -->|\"about.html\"| B[\"File in the same folder\"]\n    A -->|\"images/photo.jpg\"| C[\"File in a subfolder\"]\n    A -->|\"../index.html\"| D[\"File in the parent folder\"]\n    A -->|\"/\"| E[\"Domain root\"]\n",
     "file": "Lesson-3/en/Links and navigation.md"
   },
   {
     "id": "en-lesson-3-2",
-    "source": "flowchart LR\n    A[\"Link destination\"] --> B[\"Page section: #id\"]\n    A --> C[\"Project file: about.html\"]\n    A --> D[\"External page: full HTTPS URL\"]\n    A --> E[\"Email: mailto:\"]\n    A --> F[\"Phone call: tel:\"]\n",
+    "source": "flowchart LR\n    A[\"Link destination\"] --> B[\"Page section: #id\"]\n    A --> C[\"Project file: about.html\"]\n    A --> D[\"External page: full HTTPS URL\"]\n    A --> E[\"Email: mailto:\"]\n    A --> F[\"Call: tel:\"]\n",
     "file": "Lesson-3/en/Links and navigation.md"
   },
   {
@@ -81,22 +81,22 @@
   },
   {
     "id": "uz-lesson-3-1",
-    "source": "flowchart LR\n    A[\"Joriy HTML fayl\"] -->|\"about.html\"| B[\"Shu papkadagi fayl\"]\n    A -->|\"images/photo.jpg\"| C[\"Ichki papkadagi fayl\"]\n    A -->|\"../index.html\"| D[\"Yuqori papkadagi fayl\"]\n    A -->|\"/\"| E[\"Domen ildizi\"]\n",
+    "source": "flowchart LR\n    A[\"Joriy HTML fayl\"] -->|\"about.html\"| B[\"O‘sha papkadagi fayl\"]\n    A -->|\"images/photo.jpg\"| C[\"Ichki papkadagi fayl\"]\n    A -->|\"../index.html\"| D[\"Yuqori papkadagi fayl\"]\n    A -->|\"/\"| E[\"Domen ildizi\"]\n",
     "file": "Lesson-3/uz/Havolalar va navigatsiya.md"
   },
   {
     "id": "uz-lesson-3-2",
-    "source": "flowchart LR\n    A[\"Havola manzili\"] --> B[\"Sahifa bo‘limi: #id\"]\n    A --> C[\"Loyiha fayli: about.html\"]\n    A --> D[\"Tashqi sahifa: to‘liq HTTPS URL\"]\n    A --> E[\"Xat: mailto:\"]\n    A --> F[\"Qo‘ng‘iroq: tel:\"]\n",
+    "source": "flowchart LR\n    A[\"Havola maqsadi\"] --> B[\"Sahifa bo‘limi: #id\"]\n    A --> C[\"Loyiha fayli: about.html\"]\n    A --> D[\"Tashqi sahifa: to‘liq HTTPS URL\"]\n    A --> E[\"Xat: mailto:\"]\n    A --> F[\"Qo‘ng‘iroq: tel:\"]\n",
     "file": "Lesson-3/uz/Havolalar va navigatsiya.md"
   },
   {
     "id": "en-lesson-4-1",
-    "source": "flowchart TD\n    A[\"Image\"] --> B{\"Simple vector logo or icon?\"}\n    B -->|Yes| C[\"SVG\"]\n    B -->|No| D{\"Photograph?\"}\n    D -->|Yes| E[\"JPEG or WebP\"]\n    D -->|No| F[\"PNG or WebP: compare quality and file size\"]\n",
+    "source": "flowchart TD\n    A[\"Image\"] --> B{\"A simple vector logo or icon?\"}\n    B -->|Yes| C[\"SVG\"]\n    B -->|No| D{\"A photo?\"}\n    D -->|Yes| E[\"JPEG or WebP\"]\n    D -->|No| F[\"PNG or WebP: compare quality and file size\"]\n",
     "file": "Lesson-4/en/Images and media.md"
   },
   {
     "id": "en-lesson-4-2",
-    "source": "flowchart TD\n    A[\"Browser checks source candidates in order\"] --> B{\"Playable supported source found?\"}\n    B -->|Yes| C[\"Load selected source; user starts playback\"]\n    B -->|No| D[\"Playback unavailable; provide a visible download link\"]\n",
+    "source": "flowchart TD\n    A[\"The browser checks sources in order\"] --> B{\"Found a suitable source?\"}\n    B -->|Yes| C[\"Loads the source; the user starts playback\"]\n    B -->|No| D[\"Playback unavailable; a visible link to the file is needed\"]\n",
     "file": "Lesson-4/en/Images and media.md"
   },
   {
@@ -111,22 +111,22 @@
   },
   {
     "id": "uz-lesson-4-1",
-    "source": "flowchart TD\n    A[\"Rasm\"] --> B{\"Oddiy vektor logotip yoki belgi?\"}\n    B -->|Ha| C[\"SVG\"]\n    B -->|Yo‘q| D{\"Fotosuratmi?\"}\n    D -->|Ha| E[\"JPEG yoki WebP\"]\n    D -->|Yo‘q| F[\"PNG yoki WebP: sifat va fayl hajmini taqqoslang\"]\n",
+    "source": "flowchart TD\n    A[\"Rasm\"] --> B{\"Oddiy vektor logotip yoki belgimi?\"}\n    B -->|Ha| C[\"SVG\"]\n    B -->|Yo‘q| D{\"Fotosuratmi?\"}\n    D -->|Ha| E[\"JPEG yoki WebP\"]\n    D -->|Yo‘q| F[\"PNG yoki WebP: sifat va fayl hajmini solishtiring\"]\n",
     "file": "Lesson-4/uz/Rasmlar va media.md"
   },
   {
     "id": "uz-lesson-4-2",
-    "source": "flowchart TD\n    A[\"Brauzer manbalarni ketma-ket tekshiradi\"] --> B{\"Mos manba topildimi?\"}\n    B -->|Ha| C[\"Manba yuklanadi; foydalanuvchi ijroni boshlaydi\"]\n    B -->|Yo‘q| D[\"Ijro imkonsiz; faylga ko‘rinadigan havola kerak\"]\n",
+    "source": "flowchart TD\n    A[\"Brauzer manbalarni tartib bilan tekshiradi\"] --> B{\"Mos manba topildimi?\"}\n    B -->|Ha| C[\"Manba yuklanadi; foydalanuvchi ijroni yoqadi\"]\n    B -->|Yo‘q| D[\"Ijro imkonsiz; faylga ko‘rinadigan havola kerak\"]\n",
     "file": "Lesson-4/uz/Rasmlar va media.md"
   },
   {
     "id": "en-lesson-5-1",
-    "source": "flowchart TD\n    A[\"table\"] --> B[\"thead\"]\n    A --> C[\"tbody\"]\n    A --> D[\"tfoot\"]\n    B --> B1[\"tr\"]\n    B1 --> B1a[\"th - header cell\"]\n    C --> C1[\"tr\"]\n    C1 --> C1a[\"td - data cell\"]\n    C --> C2[\"tr\"]\n    C2 --> C2a[\"td - data cell\"]\n    D --> D1[\"tr\"]\n    D1 --> D1a[\"td - summary cell\"]\n",
+    "source": "flowchart TD\n    A[\"table\"] --> B[\"thead\"]\n    A --> C[\"tbody\"]\n    A --> D[\"tfoot\"]\n    B --> B1[\"tr\"]\n    B1 --> B1a[\"th — header cell\"]\n    C --> C1[\"tr\"]\n    C1 --> C1a[\"td — data cell\"]\n    C --> C2[\"tr\"]\n    C2 --> C2a[\"td — data cell\"]\n    D --> D1[\"tr\"]\n    D1 --> D1a[\"td — totals cell\"]\n",
     "file": "Lesson-5/en/Tables.md"
   },
   {
     "id": "en-lesson-5-2",
-    "source": "flowchart TD\n    A[\"Merge cells\"] --> B[\"colspan=N: one cell occupies N columns\"]\n    A --> C[\"rowspan=N: one cell occupies N rows\"]\n    B --> D[\"Omit the covered cells in this row\"]\n    C --> E[\"Omit the covered cells in following rows\"]\n",
+    "source": "flowchart TD\n    A[\"Merging cells\"] --> B[\"colspan=N: the cell spans N columns\"]\n    A --> C[\"rowspan=N: the cell spans N rows\"]\n    B --> D[\"Don't add the occupied cells in this row\"]\n    C --> E[\"Don't add the occupied cells in the following rows\"]\n",
     "file": "Lesson-5/en/Tables.md"
   },
   {
@@ -146,17 +146,17 @@
   },
   {
     "id": "uz-lesson-5-2",
-    "source": "flowchart TD\n    A[\"Kataklarni birlashtirish\"] --> B[\"colspan=N: katak N ustunni egallaydi\"]\n    A --> C[\"rowspan=N: katak N qatorni egallaydi\"]\n    B --> D[\"Shu qatordagi egallangan kataklarni qo‘shmang\"]\n    C --> E[\"Keyingi qatorlardagi egallangan kataklarni qo‘shmang\"]\n",
+    "source": "flowchart TD\n    A[\"Kataklarni birlashtirish\"] --> B[\"colspan=N: katak N ustunni egallaydi\"]\n    A --> C[\"rowspan=N: katak N qatorni egallaydi\"]\n    B --> D[\"Bu qatorda band kataklarni qo‘shmang\"]\n    C --> E[\"Keyingi qatorlarda band kataklarni qo‘shmang\"]\n",
     "file": "Lesson-5/uz/Jadvallar.md"
   },
   {
     "id": "en-lesson-6-1",
-    "source": "flowchart TD\n    A[\"User fills form fields\"] --> B{\"Input passes browser validation?\"}\n    B -->|No| C[\"Show validation errors\"]\n    B -->|Yes| D[\"Package data as name=value pairs\"]\n    D --> E{\"Method?\"}\n    E -->|GET| F[\"Data in URL parameters\"]\n    E -->|POST| G[\"Data in request body\"]\n    F --> H[\"Send to action URL\"]\n    G --> H\n",
+    "source": "flowchart TD\n    A[\"The user fills in the form\"] --> B{\"Did the input pass browser validation?\"}\n    B -->|No| C[\"Show input errors\"]\n    B -->|Yes| D[\"Prepare name=value pairs\"]\n    D --> E{\"Method?\"}\n    E -->|GET| F[\"Data in the URL parameters\"]\n    E -->|POST| G[\"Data in the request body\"]\n    F --> H[\"Send the request to the action address\"]\n    G --> H\n",
     "file": "Lesson-6/en/Forms part 1.md"
   },
   {
     "id": "en-lesson-6-2",
-    "source": "mindmap\n  root((input types))\n    text\n      Single-line text\n    email\n      Validates email format\n    password\n      Hidden characters\n    number\n      Numeric input\n    date\n      Date picker\n    checkbox\n      Select multiple\n    radio\n      Select one from group\n",
+    "source": "mindmap\n  root((input types))\n    text\n      Single-line text\n    email\n      Email format check\n    password\n      Hidden characters\n    number\n      Numeric input\n    date\n      Date picker\n    checkbox\n      Several independent options\n    radio\n      One option from a group\n",
     "file": "Lesson-6/en/Forms part 1.md"
   },
   {
@@ -171,22 +171,22 @@
   },
   {
     "id": "uz-lesson-6-1",
-    "source": "flowchart TD\n    A[\"Foydalanuvchi formani to‘ldiradi\"] --> B{\"Kiritilgan qiymatlar tekshiruvdan o‘tdimi?\"}\n    B -->|Yo‘q| C[\"Kiritish xatolarini ko‘rsatish\"]\n    B -->|Ha| D[\"name=value juftlarini tayyorlash\"]\n    D --> E{\"Usul?\"}\n    E -->|GET| F[\"Ma’lumotlar URL parametrlarida\"]\n    E -->|POST| G[\"Ma’lumotlar so‘rov tanasida\"]\n    F --> H[\"action manziliga so‘rov yuborish\"]\n    G --> H\n",
-    "file": "Lesson-6/uz/Formatlar qism-1.md"
+    "source": "flowchart TD\n    A[\"Foydalanuvchi formani to‘ldiradi\"] --> B{\"Kiritish brauzer tekshiruvidan o‘tdimi?\"}\n    B -->|Yo‘q| C[\"Kiritish xatolarini ko‘rsatish\"]\n    B -->|Ha| D[\"name=value juftliklarini tayyorlash\"]\n    D --> E{\"Usul?\"}\n    E -->|GET| F[\"Ma’lumotlar URL parametrlarida\"]\n    E -->|POST| G[\"Ma’lumotlar so‘rov tanasida\"]\n    F --> H[\"So‘rovni action manziliga yuborish\"]\n    G --> H\n",
+    "file": "Lesson-6/uz/Formalar qism-1.md"
   },
   {
     "id": "uz-lesson-6-2",
-    "source": "mindmap\n  root((input turlari))\n    text\n      Bir qatorli matn\n    email\n      Email formatini tekshiradi\n    password\n      Yashirilgan belgilar\n    number\n      Sonli kiritish\n    date\n      Sana tanlash\n    checkbox\n      Bir nechta mustaqil variant\n    radio\n      Guruhdan bitta variant\n",
-    "file": "Lesson-6/uz/Formatlar qism-1.md"
+    "source": "mindmap\n  root((input turlari))\n    text\n      Bir qatorli matn\n    email\n      Email formatini tekshirish\n    password\n      Yashirin belgilar\n    number\n      Son kiritish\n    date\n      Sana tanlash\n    checkbox\n      Bir nechta mustaqil variant\n    radio\n      Guruhdan bitta variant\n",
+    "file": "Lesson-6/uz/Formalar qism-1.md"
   },
   {
     "id": "en-lesson-7-1",
-    "source": "flowchart TD\n A[\"Form control\"] --> B{\"Purpose?\"}\n B -->|\"One line\"| C[\"input\"]\n B -->|\"Multiple lines\"| D[\"textarea\"]\n B -->|\"Choose options\"| E[\"select / radio / checkbox\"]\n A --> F[\"Group related controls: fieldset + legend\"]\n",
+    "source": "flowchart TD\n A[\"Form element\"] --> B{\"Purpose?\"}\n B -->|\"One line\"| C[\"input\"]\n B -->|\"Several lines\"| D[\"textarea\"]\n B -->|\"Choosing options\"| E[\"select / radio / checkbox\"]\n A --> F[\"Grouping: fieldset + legend\"]\n",
     "file": "Lesson-7/en/Forms part 2.md"
   },
   {
     "id": "en-lesson-7-2",
-    "source": "flowchart TD\n A[\"Button type\"] --> B[\"submit: validate and submit\"]\n A --> C[\"reset: restore initial values\"]\n A --> D[\"button: no default submission\"]\n",
+    "source": "flowchart TD\n A[\"Button type\"] --> B[\"submit: validate and send\"]\n A --> C[\"reset: restore the initial values\"]\n A --> D[\"button: no submission by default\"]\n",
     "file": "Lesson-7/en/Forms part 2.md"
   },
   {
@@ -201,22 +201,22 @@
   },
   {
     "id": "uz-lesson-7-1",
-    "source": "flowchart TD\n A[\"Forma elementi\"] --> B{\"Vazifasi?\"}\n B -->|\"Bitta qator\"| C[\"input\"]\n B -->|\"Bir nechta qator\"| D[\"textarea\"]\n B -->|\"Variantlarni tanlash\"| E[\"select / radio / checkbox\"]\n A --> F[\"Guruhlash: fieldset + legend\"]\n",
-    "file": "Lesson-7/uz/Formatlar qism-2.md"
+    "source": "flowchart TD\n A[\"Forma elementi\"] --> B{\"Vazifasi?\"}\n B -->|\"Bitta qator\"| C[\"input\"]\n B -->|\"Bir necha qator\"| D[\"textarea\"]\n B -->|\"Variant tanlash\"| E[\"select / radio / checkbox\"]\n A --> F[\"Guruhlash: fieldset + legend\"]\n",
+    "file": "Lesson-7/uz/Formalar qism-2.md"
   },
   {
     "id": "uz-lesson-7-2",
-    "source": "flowchart TD\n A[\"Tugma turi\"] --> B[\"submit: tekshirish va yuborish\"]\n A --> C[\"reset: dastlabki qiymatlarni tiklash\"]\n A --> D[\"button: avtomatik yubormaydi\"]\n",
-    "file": "Lesson-7/uz/Formatlar qism-2.md"
+    "source": "flowchart TD\n A[\"Tugma turi\"] --> B[\"submit: tekshirish va yuborish\"]\n A --> C[\"reset: boshlang‘ich qiymatlarni tiklash\"]\n A --> D[\"button: standart holatda yubormaydi\"]\n",
+    "file": "Lesson-7/uz/Formalar qism-2.md"
   },
   {
     "id": "en-lesson-8-1",
-    "source": "mindmap\n root((a11y))\n  Semantic HTML\n   header nav main footer\n   Heading hierarchy\n   label and legend\n  Images\n   Meaningful alt\n  Keyboard\n   Native buttons and links\n   Logical focus order\n  ARIA\n   aria-label\n   role\n",
+    "source": "mindmap\n root((a11y))\n  Semantic HTML\n   header nav main footer\n   Heading hierarchy\n   label and legend captions\n  Images\n   Meaningful alt\n  Keyboard\n   Native buttons and links\n   Logical focus order\n  ARIA\n   aria-label\n   role\n",
     "file": "Lesson-8/en/Accessibility (a11y).md"
   },
   {
     "id": "en-lesson-8-2",
-    "source": "flowchart TD\n A[\"Name a control\"] --> B{\"Native text or label available?\"}\n B -->|Yes| C[\"Use visible text / label\"]\n B -->|\"No: icon control\"| D[\"Use an accessible name, e.g. aria-label\"]\n E[\"Image\"] --> F[\"Meaningful alt, or empty alt if decorative\"]\n G[\"Need interaction?\"] --> H[\"Prefer native HTML; ARIA alone adds no behavior\"]\n",
+    "source": "flowchart TD\n A[\"Control name\"] --> B{\"Is there text or a label?\"}\n B -->|Yes| C[\"Use visible text / label\"]\n B -->|\"No: icon control\"| D[\"Give an accessible name, e.g. aria-label\"]\n E[\"Image\"] --> F[\"Meaningful alt; empty for decoration\"]\n G[\"Need interaction?\"] --> H[\"Prefer HTML; ARIA adds no behavior\"]\n",
     "file": "Lesson-8/en/Accessibility (a11y).md"
   },
   {
@@ -231,13 +231,13 @@
   },
   {
     "id": "uz-lesson-8-1",
-    "source": "mindmap\n root((a11y))\n  Semantik HTML\n   header nav main footer\n   Sarlavhalar tartibi\n   label va legend yorliqlari\n  Rasmlar\n   Mazmunli alt\n  Klaviatura\n   Tabiiy tugma va havolalar\n   Mantiqiy fokus tartibi\n  ARIA\n   aria-label\n   role\n",
-    "file": "Lesson-8/uz/Mavjudlik (a11y).md"
+    "source": "mindmap\n root((a11y))\n  Semantik HTML\n   header nav main footer\n   Sarlavhalar ierarxiyasi\n   label va legend imzolari\n  Rasmlar\n   Ma’noli alt\n  Klaviatura\n   Tabiiy tugma va havolalar\n   Mantiqiy fokus tartibi\n  ARIA\n   aria-label\n   role\n",
+    "file": "Lesson-8/uz/Foydalanish qulayligi (a11y).md"
   },
   {
     "id": "uz-lesson-8-2",
-    "source": "flowchart TD\n A[\"Boshqaruv elementining nomi\"] --> B{\"Matn yoki label bormi?\"}\n B -->|Ha| C[\"Ko‘rinadigan matn / label ishlating\"]\n B -->|\"Yo‘q: belgili element\"| D[\"Qulay nom bering, masalan aria-label\"]\n E[\"Rasm\"] --> F[\"Mazmunli alt; bezak uchun bo‘sh alt\"]\n G[\"O‘zaro aloqa kerakmi?\"] --> H[\"HTML ni afzal ko‘ring; ARIA xatti-harakat qo‘shmaydi\"]\n",
-    "file": "Lesson-8/uz/Mavjudlik (a11y).md"
+    "source": "flowchart TD\n A[\"Boshqaruv elementi nomi\"] --> B{\"Matn yoki label bormi?\"}\n B -->|Ha| C[\"Ko‘rinadigan matn / label dan foydalaning\"]\n B -->|\"Yo‘q: belgili element\"| D[\"Qulay nom bering, masalan aria-label\"]\n E[\"Rasm\"] --> F[\"Ma’noli alt; bezak uchun bo‘sh\"]\n G[\"Ta’sir kerakmi?\"] --> H[\"HTML ni afzal ko‘ring; ARIA xatti-harakat qo‘shmaydi\"]\n",
+    "file": "Lesson-8/uz/Foydalanish qulayligi (a11y).md"
   },
   {
     "id": "en-lesson-9-1",
@@ -246,7 +246,7 @@
   },
   {
     "id": "en-lesson-9-2",
-    "source": "flowchart TD\n A[\"External classic script\"] --> B{\"Loading attribute?\"}\n B -->|defer| C[\"Fetch in parallel; run after parsing, in order\"]\n B -->|async| D[\"Fetch in parallel; run when ready, no order guarantee\"]\n B -->|Neither| E[\"Pause parser to fetch and execute\"]\n",
+    "source": "flowchart TD\n A[\"External classic script\"] --> B{\"Loading attribute?\"}\n B -->|defer| C[\"Download in parallel; run after parsing, in order\"]\n B -->|async| D[\"Download in parallel; run when ready, order not guaranteed\"]\n B -->|Neither| E[\"Stop parsing to download and run\"]\n",
     "file": "Lesson-9/en/Meta tags, SEO, linking CSS and JS.md"
   },
   {
@@ -266,17 +266,17 @@
   },
   {
     "id": "uz-lesson-9-2",
-    "source": "flowchart TD\n A[\"Tashqi klassik skript\"] --> B{\"Yuklash atributi?\"}\n B -->|defer| C[\"Parallel yuklash; tahlildan keyin tartib bilan bajarish\"]\n B -->|async| D[\"Parallel yuklash; tayyor bo‘lganda, tartib kafolatisiz bajarish\"]\n B -->|Hech biri| E[\"Yuklash va bajarish uchun tahlilni to‘xtatish\"]\n",
+    "source": "flowchart TD\n A[\"Tashqi klassik skript\"] --> B{\"Yuklash atributi?\"}\n B -->|defer| C[\"Parallel yuklash; tahlildan keyin tartib bilan bajarish\"]\n B -->|async| D[\"Parallel yuklash; tayyor bo‘lganda bajarish, tartib kafolatlanmaydi\"]\n B -->|Hech biri| E[\"Yuklash va bajarish uchun tahlilni to‘xtatish\"]\n",
     "file": "Lesson-9/uz/Meta-teglar, SEO, CSS va JS bilan bog'lanish.md"
   },
   {
     "id": "en-lesson-10-1",
-    "source": "flowchart TD\n A[\"Plan content, pages and accessibility\"] --> B[\"Build semantic HTML\"]\n B --> C[\"Add real media, table and form markup\"]\n C --> D[\"Add metadata\"]\n D --> E[\"Check links, keyboard, markup and files\"]\n E --> F[\"Publish and retest public URL\"]\n",
+    "source": "flowchart TD\n A[\"Plan content, pages and accessibility\"] --> B[\"Create semantic HTML\"]\n B --> C[\"Add media, table and form markup\"]\n C --> D[\"Add metadata\"]\n D --> E[\"Check links, keyboard, markup and files\"]\n E --> F[\"Publish and check the public link\"]\n",
     "file": "Lesson-10/en/Final project from planning to publication.md"
   },
   {
     "id": "en-lesson-10-2",
-    "source": "mindmap\n  root((Course Knowledge))\n    Lesson 1-2\n      HTML document structure\n      Semantic tags\n      Head and body\n    Lesson 3\n      Links and navigation\n    Lesson 4\n      Images and media\n    Lesson 5\n      Tables\n    Lesson 6-7\n      Forms and validation\n    Lesson 8\n      Accessibility a11y\n    Lesson 9\n      Meta tags and SEO\n    Lesson 10\n      Full project cycle\n\n",
+    "source": "mindmap\n  root((Course knowledge))\n    Lessons 1-2\n      HTML document structure\n      Semantic tags\n      head and body\n    Lesson 3\n      Links and navigation\n    Lesson 4\n      Images and media\n    Lesson 5\n      Tables\n    Lessons 6-7\n      Forms and validation\n    Lesson 8\n      Accessibility a11y\n    Lesson 9\n      Meta tags and SEO\n    Lesson 10\n      Full project cycle\n\n",
     "file": "Lesson-10/en/Final project from planning to publication.md"
   },
   {
@@ -291,12 +291,12 @@
   },
   {
     "id": "uz-lesson-10-1",
-    "source": "flowchart TD\n A[\"Mazmun, sahifalar va qulaylik rejasi\"] --> B[\"Semantik HTML yaratish\"]\n B --> C[\"Media, jadval va forma belgilashini qo‘shish\"]\n C --> D[\"Metama’lumot qo‘shish\"]\n D --> E[\"Havola, klaviatura, belgilash va fayllarni tekshirish\"]\n E --> F[\"Nashr etish va ochiq havolani tekshirish\"]\n",
+    "source": "flowchart TD\n A[\"Mazmun, sahifalar va qulaylik rejasi\"] --> B[\"Semantik HTML yaratish\"]\n B --> C[\"Media, jadval va forma belgilashini qo‘shish\"]\n C --> D[\"Metama’lumotlarni qo‘shish\"]\n D --> E[\"Havolalar, klaviatura, belgilash va fayllarni tekshirish\"]\n E --> F[\"Nashr qilish va ommaviy havolani tekshirish\"]\n",
     "file": "Lesson-10/uz/Yakuniy loyiha rejalashtirishdan nashr etishgacha.md"
   },
   {
     "id": "uz-lesson-10-2",
-    "source": "mindmap\n  root((Kurs bilimi))\n    1-2-darslar\n      HTML hujjat tuzilishi\n      Semantik teglar\n      head va body\n    3-dars\n      Havolalar va navigatsiya\n    4-dars\n      Rasmlar va media\n    5-dars\n      Jadvallar\n    6-7-darslar\n      Formalar va tekshiruv\n    8-dars\n      Foydalanish qulayligi a11y\n    9-dars\n      Meta-teglar va SEO\n    10-dars\n      Loyiha to'liq tsikli\n\n",
+    "source": "mindmap\n  root((Kurs bilimlari))\n    1-2-darslar\n      HTML hujjat tuzilmasi\n      Semantik teglar\n      head va body\n    3-dars\n      Havolalar va navigatsiya\n    4-dars\n      Rasmlar va media\n    5-dars\n      Jadvallar\n    6-7-darslar\n      Formalar va validatsiya\n    8-dars\n      Foydalanish qulayligi a11y\n    9-dars\n      Meta-teglar va SEO\n    10-dars\n      Loyihaning to‘liq sikli\n\n",
     "file": "Lesson-10/uz/Yakuniy loyiha rejalashtirishdan nashr etishgacha.md"
   }
 ]

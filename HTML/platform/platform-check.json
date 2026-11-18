@@ -1,53 +1,183 @@
 {
-  "tasks": 10,
+  "tasks": 30,
   "details": [
     {
       "file": "lesson-01.json",
+      "language": "ru",
       "rules": 4,
       "wrong_solutions": 8
     },
     {
       "file": "lesson-02.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 10
     },
     {
       "file": "lesson-03.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 9
     },
     {
       "file": "lesson-04.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 9
     },
     {
       "file": "lesson-05.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 8
     },
     {
       "file": "lesson-06.json",
+      "language": "ru",
       "rules": 7,
       "wrong_solutions": 9
     },
     {
       "file": "lesson-07.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 10
     },
     {
       "file": "lesson-08.json",
+      "language": "ru",
       "rules": 8,
       "wrong_solutions": 8
     },
     {
       "file": "lesson-09.json",
+      "language": "ru",
       "rules": 5,
       "wrong_solutions": 9
     },
     {
       "file": "lesson-10.json",
+      "language": "ru",
+      "rules": 9,
+      "wrong_solutions": 11
+    },
+    {
+      "file": "uz/lesson-01.json",
+      "language": "uz",
+      "rules": 4,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "uz/lesson-02.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "uz/lesson-03.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "uz/lesson-04.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "uz/lesson-05.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "uz/lesson-06.json",
+      "language": "uz",
+      "rules": 7,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "uz/lesson-07.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "uz/lesson-08.json",
+      "language": "uz",
+      "rules": 8,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "uz/lesson-09.json",
+      "language": "uz",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "uz/lesson-10.json",
+      "language": "uz",
+      "rules": 9,
+      "wrong_solutions": 11
+    },
+    {
+      "file": "en/lesson-01.json",
+      "language": "en",
+      "rules": 4,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "en/lesson-02.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "en/lesson-03.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "en/lesson-04.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "en/lesson-05.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "en/lesson-06.json",
+      "language": "en",
+      "rules": 7,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "en/lesson-07.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 10
+    },
+    {
+      "file": "en/lesson-08.json",
+      "language": "en",
+      "rules": 8,
+      "wrong_solutions": 8
+    },
+    {
+      "file": "en/lesson-09.json",
+      "language": "en",
+      "rules": 5,
+      "wrong_solutions": 9
+    },
+    {
+      "file": "en/lesson-10.json",
+      "language": "en",
       "rules": 9,
       "wrong_solutions": 11
     }

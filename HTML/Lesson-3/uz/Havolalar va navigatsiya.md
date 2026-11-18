@@ -2,326 +2,296 @@
 
 [Mundarija](../../README.md) · [← Orqaga](../../Lesson-2/uz/Matn%20va%20semantika.md) · [Keyingi →](../../Lesson-4/uz/Rasmlar%20va%20media.md) · [RU](../ru/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B8%20%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](../en/Links%20and%20navigation.md) · [UZ](Havolalar%20va%20navigatsiya.md) · [Amaliyot](../practice.html)
 
-
-> **Oldingi dars bilan bog'lanish:** o'tgan darsda biz matnni tizimlashtirishni o'rgandik va `<nav>` tegini namuna havolalar `href="#"` bilan ishlatdik. Bugun havolalar qanday haqiqatan ishlashini tushunamiz - va bir nechta HTML-sahifalarni bitta saytga bog'laymiz.
-
----
-
-## Dars oxirida nimani o'rganasiz
-
-- `<a>` tegi va `href` atributi bilan havolalar yaratish.
-- Absolyut va nisbiy yo'llarni farqlash va qaysi holatda qaysini ishlatishni bilish.
-- `target="_blank"` orqali havolalarni yangi yorliqda ochish.
-- Bo‘limga havolalarni yaratish - sahifaning ma'lum joyiga o'tish.
-- Email va telefon uchun havolalar yaratish (`mailto:`, `tel:`).
-- Bir nechta HTML-sahifalardan uzluksiz navigatsiyali sayt yig'ish.
+> **Oldingi dars bilan bog‘liqlik:** 2-darsda sahifani bloklarga ajratdingiz va `<nav>` ni bo‘sh qoldirdingiz. Bugun uni haqiqiy havolalar bilan to‘ldiramiz va bir nechta sahifani bitta saytga bog‘laymiz.
 
 ---
 
-## Dars rejasi
+## Bu sizga nima uchun kerak
 
-| Bo‘lim                                       | Mazmun                                        |
-| ------------------------------------------ | --------------------------------------------- |
-| a tegi va href atributi                 | Havolaning asosiy sintaksisi                  |
-| Absolyut va nisbiy yo'llar              | Farq, qachon qaysini ishlatish, papka tuzilishi |
-| target="_blank"                         | Yangi yorliqda ochish, xavfsizlik             |
-| Bo‘limga havolalar                          | Sahifaning bir qismiga o'tish, id             |
-| mailto va tel                            | Email va telefon uchun havolalar               |
-| Mini-vazifa                              | Havolani mustaqil yaratish                    |
-| Ko'p sahifali sayt                       | Uzluksiz menyu bilan 3 sahifani yig'amiz      |
-| Xulosalar va amaliy vazifa               | Mustahkamlash                                 |
+Bitta sahifali sayt - bu varaqa. Menyu bilan bog‘langan bir nechta sahifali sayt esa mundarijali kitob. Havolalar alohida fayllarni saytga aylantiradi.
+
+Bugun uch sahifali mini-sayt yig‘asiz va ular orasida bitta bosish bilan o‘tasiz.
+
+---
+
+## Nimani o‘rganasiz
+
+- `href` atributli `<a>` tegi bilan havola yaratish.
+- Yo‘lni tanlash: boshqa saytlar uchun mutlaq, o‘z sahifalaringiz uchun nisbiy.
+- `../` orqali yuqori papkaga chiqish.
+- Langarlar: `id` va `#` orqali sahifa bo‘limiga o‘tish.
+- Pochta (`mailto:`) va telefon (`tel:`) havolalari.
+- Havolani haqiqatan kerak bo‘lganda yangi yorliqda ochish.
+- Saytning barcha sahifalarida bir xil menyu.
+
+---
+
+## Takrorlash: 1–2-darslardan 3 savol
+
+1. Sayt bosh sahifasi fayli qanday nomlanadi?
+2. Sayt menyusi uchun qaysi blok mo‘ljallangan?
+3. Tartib muhim bo‘lmasa, menyu bandlari uchun qaysi ro‘yxat mos?
+
+Javoblar - dars oxirida.
+
+---
+
+## Reja
+
+| Bo‘lim | Nima qilamiz |
+| --- | --- |
+| `<a>` tegi | Eshik va manzil |
+| Fayllarga yo‘llar | To‘liq manzil va «ikki uy narida» |
+| Langarlar | Kitobdagi xatcho‘plar |
+| Pochta va telefon | `mailto:` va `tel:` |
+| Yangi yorliq | Qachon kerak |
+| Mini-topshiriq 1 | Yordamsiz uch havola |
+| Uch sahifali sayt | Umumiy menyu |
+| Mini-topshiriq 2 | Langarlardagi mundarija |
+| Mustaqil ish | IDE topshirig‘i va to‘garak mini-sayti |
 
 ---
 
 ## `<a>` tegi va `href` atributi
 
-**Oddiy qilib aytganda:** tasavvur qiling, kitobda "batafsil bu haqida 42-sahifada o'qing" deb yozilgan. HTML'dagi havola - bu xuddi shu narsa, faqat "42-sahifa" o'rniga boshqa veb-sahifaning manzilini (yoki shu sahifaning boshqa joyini) ko'rsatasiz va o'tish bitta bosish bilan amalga oshadi.
-
-`<a>` tegi (anchor - "yakor") - juft teg bo'lib, matnni (yoki rasmini - bu 4-darsda) o'rab, uni bosiladigan havolaga aylantiradi.
-
-```html
-<a href="https://www.google.com">Google ga o'tish</a>
-```
-
-Bu yerda:
-
-- `<a>` - havola tegi
-- `href` (hypertext reference) - havola qayerga borishini ko'rsatadigan atribut - **majburiy** atribut, usiz `<a>` havola sifatida ishlamaydi
-- `Google ga o'tish` - foydalanuvchi bosadigan ko'rinadigan havola matni
-
-**Taqqoslash:** `<a>` - bu eshik, `href` esa manzil, bu eshik qayerga borishini ko'rsatadi. Manzilsiz eshik shunchaki devorga chizilgan va hech qayerga ochilmaydi.
-
----
-
-## Absolyut va nisbiy yo'llar
-
-Bu darsning asosiy mavzusi - ko'pchilik yangi boshlovchilar aynan shu yerda adashadi.
-
-### Absolyut yo'l
-
-**Absolyut yo'l** - bu to'liq manzil, protokol (`https://`) va domen bilan birga. **Tashqi** saytlarga havolalar uchun ishlatiladi - ya'ni shaxsiy loyihangizning sahifalariga emas.
+**Oddiy qilib aytganda:** havola - eshik. `href` - u olib boradigan manzil. Manzilsiz eshik devorga shunchaki chizilgan bo‘ladi.
 
 ```html
 <a href="https://www.wikipedia.org">Vikipediya</a>
-<a href="https://github.com/Saydullayev017">Mening GitHub</a>
 ```
 
-**Taqqoslash:** absolyut yo'l - bu shahar va mamlakat bilan to'liq pochta manzili: "O'zbekiston, Toshkent shahri, Amir Temur ko'chasi, 10-uy". U dunyoning istalgan nuqtasidan aniq tushunarli.
+| Qism | Ma’nosi |
+| --- | --- |
+| `<a>` | Havola (anchor - «langar») |
+| `href="..."` | Qayerga olib boradi. Usiz havola ishlamaydi |
+| `Vikipediya` | Bosiladigan matn |
 
-### Nisbiy yo'l
+**Nimani ko‘rasiz:** ko‘k, tagiga chizilgan «Vikipediya» matni. Kursor ustida qo‘lga aylanadi. Bosing - Vikipediya ochiladi.
 
-**Nisbiy yo'l** - bu **joriy faylga nisbatan** ko'rsatilgan manzil. Bitta loyiha ichidagi **o'z** sahifalaringizga havolalar uchun ishlatiladi.
+**Havola matni u qayerga olib borishini tushuntirishi kerak.** «To‘garak jadvali» - yaxshi. «Bu yerni bosing» - yomon: eshik ortida nima borligi matndan tushunarsiz.
 
-**Taqqoslash:** nisbiy yo'l - bu qo'shniga "ikkita uy nariga boring" deb aytishga o'xshaydi - bu faqat boshlang'ich nuqtada turgan bo'lsangiz tushunarli. Agar boshqa shaharda bo'lsangiz, bu ko'rsatma ma'nosini yo'qotadi - lekin to'liq manzil istalgan joydan ishlaydi.
+---
 
-Loyiha tuzilishi misolida tushunamiz:
+## Fayllarga yo‘llar
+
+### Mutlaq yo‘l - boshqa saytlar uchun
+
+`https://` va domen bilan to‘liq manzil:
+
+```html
+<a href="https://developer.mozilla.org">MDN</a>
+```
+
+**O‘xshatish:** «O‘zbekiston, Olmaliq, Amir Temur ko‘chasi, 10» to‘liq pochta manzili. Uni dunyoning istalgan nuqtasidan tushunishadi.
+
+### Nisbiy yo‘l - o‘z sahifalaringiz uchun
+
+**Joriy fayldan** yo‘l. O‘xshatish: «ikki uy nariga bor». Faqat kerakli joyda turganingizda ishlaydi.
+
+Loyihani olamiz:
 
 ```
-html-course/
+my-site/
 ├── index.html
 ├── about.html
-├── contact.html
+├── pages/
+│   └── schedule.html
 └── images/
     └── photo.jpg
 ```
 
-**Bitta papkadagi faylga havola:**
+| Qayerdan | Qayerga | `href` | Qanday o‘qiladi |
+| --- | --- | --- | --- |
+| `index.html` | `about.html` | `about.html` | Yonida, o‘sha papkada |
+| `index.html` | `schedule.html` | `pages/schedule.html` | `pages` papkasiga kirish |
+| `pages/schedule.html` | `index.html` | `../index.html` | `pages` dan bir daraja yuqoriga chiqish |
+| `pages/schedule.html` | `photo.jpg` | `../images/photo.jpg` | Chiqish, keyin `images` ga kirish |
 
-```html
-<a href="about.html">Sayt haqida</a>
-```
-
-Faylning oddiy nomi - brauzer uni joriy fayl yonida qidiradi.
-
-**Ichki papkadagi faylga havola:**
-
-```html
-<a href="images/photo.jpg">Rasmini ko'rish</a>
-```
-
-**Yuqoridagi papkadagi faylga havola** (agar siz masalan `images/` ichida bo'lsangiz va `index.html` ga havola qo'ymoqchi bo'lsangiz):
-
-```html
-<a href="../index.html">Bosh sahifaga</a>
-```
-
-`../` "bir daraja yuqoriga ko'tarilish" degan ma'noni anglatadi - xonadan koridorga chiqishdek.
-
-**Saytning o'z papkasiga/bosh sahifasiga havola:**
-
-```html
-<a href="/">Bosh sahifaga</a>
-```
-
-Boshidagi slesh "sayt ildizi" degan ma'noni anglatadi - agar sizda masalan `mysite.uz` sayti bo'lsa, `/` havolasi `mysite.uz` ga olib boradi, yonidagi faylga emas.
+`../` - bu «xonadan yo‘lakka chiqish».
 
 ```mermaid
 flowchart LR
-    A["Joriy HTML fayl"] -->|"about.html"| B["Shu papkadagi fayl"]
+    A["Joriy HTML fayl"] -->|"about.html"| B["O‘sha papkadagi fayl"]
     A -->|"images/photo.jpg"| C["Ichki papkadagi fayl"]
     A -->|"../index.html"| D["Yuqori papkadagi fayl"]
     A -->|"/"| E["Domen ildizi"]
 ```
 
-**Chizmani qanday o‘qish kerak:** Joriy fayldan chiquvchi o‘q yozilgan yo‘l qayerga olib borishini ko‘rsatadi. ../ bir papka yuqoriga, boshidagi / esa sayt manzilining ildiziga olib boradi; ular bir xil manzil emas.
+**Sxemani qanday o‘qish kerak.** Har bir yo‘l joriy fayl papkasidan hisoblanadi. Prefikssiz - o‘sha papka, papka nomi - ichkariga tushish, `../` - yuqoriga chiqish. Boshida `/` bo‘lgan yo‘l sayt ildizidan hisoblanadi: kursda uni ishlatmaymiz.
 
-### Qachon qaysini ishlatish
+**Kurs qoidasi:** o‘z sahifalaringiz - nisbiy yo‘l, boshqa saytlar - mutlaq.
 
-|Holat|Qaysi yo'l|
-|---|---|
-|O'z loyihangizdagi boshqa sahifaga havola|Nisbiy|
-|Tashqi saytga havola (ijtimoiy tarmoq, Vikipediya, boshqa sayt)|Absolyut|
-|Loyihangizdagi rasmga havola|Nisbiy|
+### Buzib ko‘ring
 
-**Amaliy tanlov:** o'z sahifangizga absolyut URL yozish mumkin, lekin lokal ishlashda u nashr qilingan domenga olib boradi. Nisbiy yo'llar lokal fayllarni tekshirish va loyihani birga ko'chirishga yordam beradi. `/about.html` domen ildizidan boshlanadi; sayt ichki papkada bo'lsa, kutilmagan joyga olib borishi mumkin.
+1. `href="about.html"` havolasida `href="About.html"` deb yozing. Kompyuteringizda havola ishlashi mumkin, serverda esa yo‘q: u yerda harflar registri muhim. Fayl nomini doim aniq yozing, yaxshisi kichik harflar bilan.
+2. Kengaytmani o‘chiring: `href="about"`. Havolani bosing. Brauzer nimani ko‘rsatdi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Qanday tuzatish |
+| --- | --- |
+| `href="C:\Users\...\about.html"` | Diskdagi yo‘l faqat kompyuteringizda ishlaydi. `about.html` deb yozing |
+| Kengaytmasiz `href="about"` | To‘liq nom: `about.html` |
+| `about.html` o‘rniga `About.html` | Havoladagi nom faylnikiga harfma-harf mos |
+| `pages/` dan `index.html` havolasi | Yuqoriga chiqish kerak: `../index.html` |
+| Fayl nomida bo‘sh joylar | Fayllarni bo‘sh joysiz nomlang: `my-page.html` |
+
+---
+
+## Langarlar: sahifa bo‘limiga o‘tish
+
+**Oddiy qilib aytganda:** langar - kitobdagi xatcho‘p. Avval xatcho‘p qo‘yasiz, keyin kitobni to‘g‘ri o‘sha joyda ochasiz.
+
+**1-qadam.** Bo‘limga `id` orqali noyob nom beramiz:
+
+```html
+<h2 id="schedule">Jadval</h2>
+```
+
+**2-qadam.** Shu nomdan oldin `#` qo‘yib havola qilamiz:
+
+```html
+<a href="#schedule">Jadvalga o‘tish</a>
+```
+
+**Nimani ko‘rasiz:** bosish - va sahifa «Jadval» sarlavhasigacha aylantiriladi.
+
+### Uzun sahifa mundarijasi
+
+```html
+<nav>
+    <h2>Mundarija</h2>
+    <ul>
+        <li><a href="#about">To‘garak haqida</a></li>
+        <li><a href="#schedule">Jadval</a></li>
+    </ul>
+</nav>
+
+<section>
+    <h2 id="about">To‘garak haqida</h2>
+    <p>Sayt yaratishni o‘rganamiz.</p>
+</section>
+
+<section>
+    <h2 id="schedule">Jadval</h2>
+    <p>Har chorshanba soat 15:00 da.</p>
+</section>
+```
+
+### Boshqa sahifadagi langar
+
+Avval fayl, keyin `#` va `id`:
+
+```html
+<a href="schedule.html#wednesday">Chorshanbadagi mashg‘ulot</a>
+```
+
+`schedule.html` darhol `id="wednesday"` bo‘limida ochiladi.
+
+### `id` qoidalari
+
+- `id` sahifada **noyob**: bir xil `id` li ikki element - xato.
+- Bo‘sh joysiz: `id="schedule 2"` emas, `id="schedule-2"`.
+- Shu sahifadagi havolada - doim `#` bilan.
+
+### Buzib ko‘ring
+
+Havoladagi `#` ni o‘chiring: `href="schedule"`. Bosing. Brauzer endi `schedule` nomli **faylni** qidiradi va topa olmaydi.
+
+---
+
+## Pochta va telefon
+
+```html
+<a href="mailto:club@example.com">club@example.com</a>
+<a href="tel:+998901112233">+998 90 111-22-33</a>
+```
+
+| Havola | Bosilganda nima bo‘ladi |
+| --- | --- |
+| `mailto:` | Pochta dasturi ochiladi, manzil yozilgan bo‘ladi |
+| `tel:` | Telefon qo‘ng‘iroq qilishni taklif qiladi |
+
+**`tel:` qoidasi:** `href` da raqam `+` va mamlakat kodi bilan qo‘shib yoziladi. Ko‘rinadigan matnda - o‘qishga qulay qilib.
+
+Kompyuterda pochta dasturi sozlanmagan bo‘lsa, `mailto:` bosilganda hech narsa ochilmasligi mumkin. Bu HTML ingizning xatosi emas.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Qanday tuzatish |
+| --- | --- |
+| `href="club@example.com"` | Prefiks kerak: `mailto:club@example.com` |
+| `href="tel:+998 90 111 22 33"` | Bo‘sh joysiz: `tel:+998901112233` |
+| O‘quv loyihada haqiqiy shaxsiy ma’lumotlar | To‘qima ma’lumot ishlating: `example.com` |
+
+---
+
+## Yangi yorliq: `target="_blank"`
+
+Odatda havola **o‘sha yorliqda** ochiladi. Bu to‘g‘ri xatti-harakat: foydalanuvchi havolani qayerda ochishni o‘zi hal qiladi («Orqaga» tugmasi, sichqonchaning o‘rta tugmasi).
+
+Ba’zan yangi yorliq haqiqatan yordam beradi, masalan formani to‘ldirishni to‘xtatmasligi kerak bo‘lgan ma’lumotnoma. Shunda:
+
+```html
+<a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN (yangi yorliqda ochiladi)</a>
+```
+
+| Atribut | Nima qiladi |
+| --- | --- |
+| `target="_blank"` | Yangi yorliqda ochish |
+| `rel="noopener"` | Yangi yorliq sahifangizga kira olmaydi |
+| `rel="noreferrer"` | Foydalanuvchi qayerdan kelganini saytga aytmaslik |
+
+**Kurs qoidasi:** `_blank` ishlatsangiz, doim `rel="noopener noreferrer"` qo‘shing va havola matnida ogohlantiring: «(yangi yorliq)».
+
+### Qaysi `href` ni tanlash
 
 ```mermaid
 flowchart LR
-    A["Havola manzili"] --> B["Sahifa bo‘limi: #id"]
+    A["Havola maqsadi"] --> B["Sahifa bo‘limi: #id"]
     A --> C["Loyiha fayli: about.html"]
     A --> D["Tashqi sahifa: to‘liq HTTPS URL"]
     A --> E["Xat: mailto:"]
     A --> F["Qo‘ng‘iroq: tel:"]
 ```
 
-**Chizmani qanday o‘qish kerak:** Avval havolaning vazifasini tanlang: bo‘lim, loyiha fayli, tashqi sahifa, xat yoki qo‘ng‘iroq. Shunga mos ravishda href boshida #, fayl yo‘li, https:, mailto: yoki tel: yoziladi.
+**Sxemani qanday o‘qish kerak.** Avval foydalanuvchi qayerga tushishi kerakligini hal qiling, keyin `href` ni tanlang. Boshqa sahifaga havola uning bo‘limiga ham olib borishi mumkin: `about.html#history`.
 
 ---
 
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
+## Mini-topshiriq 1
 
-| Xato                                                                                  | Qanday tuzatish                                                                                                            |
-| ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Lokal sahifani tekshirganda kutilmaganda nashr qilingan saytga o'tish: `href="https://mysite.ru/about.html"` | Loyiha ichidagi sahifalar uchun nisbiy yo'ldan foydalaning: `href="about.html"`                                              |
-| `/about.html` (sayt ildizidan) va `about.html` (joriy papkadani) ni aralashtirish       | Eslab qoling: boshidagi slesh "sayt ildizidan" degan ma'noni anglatadi, sleshsiz - "joriy fayldan"                           |
-| Havolada `.html` kengaytmasini unutish: `href="about"`                                | To'liq fayl nomini kengaytma bilan ko'rsating: `href="about.html"`                                                         |
-| Fayl nomidagi registrni noto'g'ri yozish: `href="About.html"` o'rniga `about.html`     | Ko'pchilik serverlarda (ayniqsa Linux/GitHub Pages) registr muhim - havola nomi fayl nomi bilan aniq mos kelishi kerak       |
+Qaramasdan uchta havola yarating:
 
----
+1. O‘sha papkadagi `contact.html` fayliga.
+2. `https://developer.mozilla.org` ga, yangi yorliqda, himoya va ogohlantirish bilan.
+3. +998 90 111-22-33 raqamiga qo‘ng‘iroq.
 
-## `target="_blank"` - yangi yorliqda ochish
-
-Standart ravishda havola bir xil oynada/yorliqda ochiladi, joriy sahifani almashtiradi. Agar sahifa **yangi** yorliqda ochilishini xohlasangiz (masalan, tashqi saytga o'tishda, foydalanuvchi sizning saytingizni yo'qotmasligi uchun) - `target="_blank"` atributini ishlating.
-
-```html
-<a href="https://github.com/Saydullayev017" target="_blank">Mening GitHub</a>
-```
-
-**`rel` nima qiladi:** `noopener` yangi yorliqning asl sahifaga `window.opener` orqali kirishini cheklaydi. Zamonaviy brauzerlar `_blank` uchun buni allaqachon nazarda tutadi; aniq yozish maqsadni tushunarli qiladi. `noreferrer` qo'shimcha ravishda manba sahifa manzilini yubormaydi. Kurs misollarida ikkala qiymat ham bor; ularning vazifalari farq qiladi.
-
-```html
-<a href="https://github.com/Saydullayev017" target="_blank" rel="noopener noreferrer">Mening GitHub</a>
-```
-
-**Tavsiya:** odatda shu yorliqda qoling. Yangi yorliq vazifaga foydali bo'lsa `_blank` ishlating va havola matnida ayting: “MDN (yangi yorliq)”. HTML ichki havolalar uchun ham `_blank` ga ruxsat beradi; tashqi havolaga yangi yorliq doimo kerak emas.
+Yechim - «Javoblar» bo‘limida.
 
 ---
 
-## Bo‘limga havolalar - sahifaning bir qismiga o'tish
+## Uch sahifali sayt
 
-Ba'zan boshqa sahifaga emas, balki shu (yoki boshqa) sahifaning ma'lum **joyiga** o'tish kerak - masalan, uzun maqolaning aniq bo'limiga.
+To‘garak saytini yig‘amiz:
 
-Bu ikki qadamda amalga oshiriladi.
-
-**1-qadam.** O'tmoqchi bo'lgan elementga `id` atributi orqali noyob identifikator berish:
-
-```html
-<h2 id="section2">2-bo'im. Shakllar</h2>
+```
+club-site/
+├── index.html
+├── schedule.html
+└── contacts.html
 ```
 
-**2-qadam.** Shu `id` ga havola yaratish, nomdan oldin `#` belgisini qo'yish:
-
-```html
-<a href="#section2">2-bo'imga o'tish</a>
-```
-
-Bosganingizda brauzer silliq (yoki darhol, sozlamalarga qarab) sahifani `id="section2"` ga ega elementga buradi.
-
-### Misol: uzun maqolaning mundarijasi
+**Asosiy qoida:** **har bir** sahifada bir xil menyu.
 
 ```html
 <nav>
-    <h2>Mundarija</h2>
     <ul>
-        <li><a href="#intro">Kirish</a></li>
-        <li><a href="#history">Tarix</a></li>
-        <li><a href="#conclusion">Xulosa</a></li>
+        <li><a href="index.html">Bosh sahifa</a></li>
+        <li><a href="schedule.html">Jadval</a></li>
+        <li><a href="contacts.html">Kontaktlar</a></li>
     </ul>
 </nav>
-
-<article>
-    <h2 id="intro">Kirish</h2>
-    <p>Kirish matni...</p>
-
-    <h2 id="history">Tarix</h2>
-    <p>Tarix haqida matn...</p>
-
-    <h2 id="conclusion">Xulosa</h2>
-    <p>Xulosa matni...</p>
-</article>
-```
-
-### Boshqa sahifaning bo'limiga bo‘limga havola
-
-Xuddi shu tamoyil, faqat avval fayl ko'rsatiladi, keyin `#` va `id`:
-
-```html
-<a href="about.html#history">Kompaniya tarixi</a>
-```
-
-Bu `about.html` faylini ochadi va darhol `id="history"` ga ega elementga buradi.
-
-### Sahifaning yuqorisiga qaytish
-
-Ko'p ishlatiladigan usul - uzun sahifaning oxiridagi "yuqoriga" havola:
-
-```html
-<a href="#top">Yuqoriga ↑</a>
-```
-
-(Sahifaning boshida biror joyda `id="top"` ga ega element bor shartida, masalan `<body id="top">` yoki birinchi sarlavha.)
-
-**`id` haqida muhim qoida:** `id` qiymati butun sahifada **noyob** bo'lishi kerak - bir xil `id` ga ega ikki element bo'lishi mumkin emas. Bu `id` ni `class` dan ajratadi (`class` haqida CSS darsidan batafsil gaplashamiz).
-
----
-
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-|Xato|Qanday tuzatish|
-|---|---|
-|Havolada nomdan oldin `#` belgisini unutish: `href="section2"`|Shu sahadagi bo‘limga havolada har doim `href="#section2"` deb yozing|
-|Bir nechta element uchun bir xil `id` ishlatish|Sahifadagi har bir `id` noyob bo'lishi kerak|
-|`id` qiymatida bo'sh joy ishlatish: `id="section 2"`|`id` qiymati bo'sh joysiz yoziladi, odatda `camelCase` yoki defis bilan: `id="section2"` yoki `id="section-2"`|
-|`id` (noyob, bitta element uchun) va `class` (elementlar guruhi uchun, keyinroq tahlil qilamiz) ni aralashtirish|Bo‘limga havolalar uchun aynan `id` ishlatiladi, `class` emas|
-
----
-
-## Email va telefon uchun havolalar
-
-### `mailto:` - pochta dasturini to'ldirilgan manzil bilan ochish
-
-```html
-<a href="mailto:info@saydullayev.fun">Bizga xat yozish</a>
-```
-
-Bosganingizda brauzer qurilmaga o'rnatilgan pochta ilovasini (masalan, Outlook, Gmail) oldindan to'ldirilgan "Kimga" maydoni bilan ochadi.
-
-Xat mavzusini darhol belgilash mumkin:
-
-```html
-<a href="mailto:info@saydullayev.fun?subject=Kurs haqida savol">Bizga xat yozish</a>
-```
-
-### `tel:` - qo'ng'iroq ilovasini ochish
-
-```html
-<a href="tel:+998901234567">+998 90 123-45-67</a>
-```
-
-Ayniqsa mobil qurilmalarda foydali - bosganingizda telefon darhol shu raqamga qo'ng'iroq qilishni taklif qiladi. Raqamni xalqaro formatda (va `+` va mamlakat kodi bilan) ko'rsatish tavsiya etiladi, `href` atributi ichida bo'sh joy va qavslarsiz - ko'rinadigan matnda esa istalgandek formatlash mumkin.
-
----
-
-### Yangi boshlovchilarning ko'p uchraydigan xatolari
-
-| Xato                                                                              | Qanday tuzatish                                                                                                    |
-| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Manzildan oldin `mailto:` va `tel:` ni unutish: `href="info@site.uz"`             | Har doim protokolni ko'rsating: `href="mailto:info@site.uz"`                                                      |
-| `href` ichida bo'sh joy bilan telefon raqamini ko'rsatish: `href="tel:+998 90 123 45 67"` | Atribut ichida raqamni yig'ish shaklida yozing: `href="tel:+998901234567"` - formatlashni faqat ko'rinadigan matnda bajaring |
-
----
-
-## Mini-vazifa
-
-Mustaqil ravishda, misollarga qaramasdan yarating:
-
-1. Bitta papkadagi `contact.html` fayliga havola.
-2. `https://developer.mozilla.org` tashqi saytiga havola, yangi yorliqda ochilishi va xavfsizlik himoyasi bilan.
-3. +998901112233 raqamiga qo'ng'iroq havolasi.
-
-**Yechim:**
-
-```html
-<a href="contact.html">Aloqa</a>
-
-<a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN</a>
-
-<a href="tel:+998901112233">+998 90 111-22-33</a>
-```
-
----
-
-## Uzluksiz navigatsiyali ko'p sahifali saytni yig'amiz
-
-Endi barcha havola teglarini ular mavjud bo'lgan narsa uchun qo'llaymiz - bir nechta sahifani bitta saytga bog'laymiz. Uchta sahifa yaratamiz: `index.html`, `about.html`, `contact.html` - har birida bir xil navigatsiya menyusi.
-
-Papka tuzilishi:
-
-```
-html-course/
-├── index.html
-├── about.html
-└── contact.html
 ```
 
 **`index.html` fayli:**
@@ -331,148 +301,173 @@ html-course/
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Bosh sahifa - Mening saytim</title>
+    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>
 </head>
 <body>
     <header>
-        <h1>Mening o'quv saytim</h1>
+        <p>Veb-dasturlash to‘garagi</p>
         <nav>
             <ul>
                 <li><a href="index.html">Bosh sahifa</a></li>
-                <li><a href="about.html">Sayt haqida</a></li>
-                <li><a href="contact.html">Aloqa</a></li>
+                <li><a href="schedule.html">Jadval</a></li>
+                <li><a href="contacts.html">Kontaktlar</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
-        <h2>Xush kelibsiz!</h2>
-        <p>Bu mening o'quv loyihamning bosh sahifasi, men uni «HTML: 10 darsda» kursida yaratyapman.</p>
-        <p>Ko'proq bilmoqchimisiz? <a href="about.html">«Sayt haqida»</a> bo'limiga o'ting.</p>
+        <h1>To‘garakka xush kelibsiz</h1>
+        <p>Noldan sayt yaratishni o‘rganamiz. Eng yaqin mashg‘ulotni <a href="schedule.html">jadvalda</a> ko‘ring.</p>
     </main>
-
     <footer>
-        <p><small>&copy; 2026 Mening o'quv saytim.</small></p>
+        <p><small>&copy; 2026 Veb-dasturlash to‘garagi</small></p>
     </footer>
 </body>
 </html>
 ```
 
-**`about.html` fayli:**
+`schedule.html` va `contacts.html` sahifalari ham xuddi shunday tuzilgan: o‘sha menyu bilan o‘sha `header`, o‘z `title`, o‘z `h1` va o‘z mazmuni. Jadvalni ro‘yxat bilan, kontaktlarni `mailto:` va `tel:` havolalari bilan bering.
 
-```html
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <title>Sayt haqida - Mening saytim</title>
-</head>
-<body>
-    <header>
-        <h1>Mening o'quv saytim</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Bosh sahifa</a></li>
-                <li><a href="about.html">Sayt haqida</a></li>
-                <li><a href="contact.html">Aloqa</a></li>
-            </ul>
-        </nav>
-    </header>
+**Nimani ko‘rasiz:** yuqorisida bir xil menyu bo‘lgan uchta sahifa. Menyu bandlarini bosing - sahifalar almashadi.
 
-    <main>
-        <h2>Sayt haqida</h2>
-        <p>Bu saytni men HTML kursi doirasida amaliyotda barcha o'rganilgan mavzularni mustahkamlash uchun yaratyapman.</p>
-        <p>Loyihaning manba kodini <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a> da ko'rishingiz mumkin.</p>
-    </main>
-
-    <footer>
-        <p><small>&copy; 2026 Mening o'quv saytim.</small></p>
-    </footer>
-</body>
-</html>
-```
-
-**`contact.html` fayli:**
-
-```html
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <title>Aloqa - Mening saytim</title>
-</head>
-<body>
-    <header>
-        <h1>Mening o'quv saytim</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Bosh sahifa</a></li>
-                <li><a href="about.html">Sayt haqida</a></li>
-                <li><a href="contact.html">Aloqa</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <h2>Aloqa</h2>
-        <p>Menga qulay usulda bog'laning:</p>
-        <ul>
-            <li>Email: <a href="mailto:info@saydullayev.fun">info@saydullayev.fun</a></li>
-            <li>Telefon: <a href="tel:+998901234567">+998 90 123-45-67</a></li>
-        </ul>
-    </main>
-
-    <footer>
-        <p><small>&copy; 2026 Mening o'quv saytim.</small></p>
-    </footer>
-</body>
-</html>
-```
-
-**O'zingiz sinab ko'ring:** uchta faylni yarating, `index.html` ni Live Server orqali oching va menyudagi barcha havolalarni bosing - o'tishlar uchta sahifa orasida ikki tomonlama ishlashiga ishonch hosil qiling.
-
-E'tibor bering: `<nav>` menyusi uchta sahifada **so'zma-so'z bir xil** - bu standart amaliyot (kelajakda ilg'or texnologiyalarni o'rganganingizda, takrorlanadigan bloklarni bitta faylga chiqarish mumkin bo'ladi, lekin toza HTML darajasida hozircha shu blokni har sahifaga nusxalaymiz).
+**Saytni qanday tekshirish:** **har bir** sahifadan **har bir** menyu bandini bosing. 3 sahifa × 3 havola = 9 o‘tish. 9 tasi ham ishlashi kerak.
 
 ---
 
-## Dars xulosalari
+## Mini-topshiriq 2
 
-Bugun siz quyidagilarni o'rgandingiz:
-
-- `<a>` da `href` bo'lsa, u giperhavola yaratadi; `href` bo'lmasa, faol havola emas.
-- Absolyut yo'l (`https://` bilan) - tashqi saytlar uchun, nisbiy yo'l - loyiha ichidagi sahifalar uchun.
-- `_blank` yangi ko'rish kontekstini, odatda yorliqni ochadi. Uni asosli qo'llang va foydalanuvchini ogohlantiring; `noopener` va `noreferrer` vazifalari farq qiladi.
-- Bo‘limga havolalar (`href="#id"`) maqsad elementining `id`si orqali sahifaning ma'lum joyiga o'tkazadi.
-- `mailto:` va `tel:` tez xat yuborish yoki qo'ng'iroq qilish uchun havolalar yaratadi.
-- Siz birinchi navigatsiya menyusiga ega ko'p sahifali saytingizni yig'diz.
+`index.html` sahifasiga xuddi shu sahifadagi «To‘garak haqida» va «Qanday qo‘shilish» bo‘limlariga olib boradigan ikki bandli mundarija qo‘shing. Yechim - «Javoblar» bo‘limida.
 
 ---
 
-## Mustaqil ish: to'garak mini-sayti
+## Dars yakuni: shpargalka
 
-Alohida papkada o'quv yoki havaskorlik to'garagi saytini yarating. Quyidagi talablar asosida o'z matningiz va tuzilmangizni tayyorlang; yuqoridagi misoldan faqat ma'lumot uchun foydalaning. Faqat 1–3-dars materialini ishlating: rasm, CSS, jadval va shakllarsiz.
+| Vazifa | Yozuv |
+| --- | --- |
+| Havola | `<a href="manzil">Tushunarli matn</a>` |
+| Boshqa sayt | `href="https://site.uz"` |
+| Yondagi o‘z sahifa | `href="about.html"` |
+| Ichki papkadagi sahifa | `href="pages/schedule.html"` |
+| Bir daraja yuqoridagi sahifa | `href="../index.html"` |
+| Shu sahifadagi bo‘lim | `id="about"` + `href="#about"` |
+| Boshqa sahifa bo‘limi | `href="schedule.html#wednesday"` |
+| Pochta / telefon | `href="mailto:..."` / `href="tel:+998..."` |
+| Yangi yorliq | `target="_blank" rel="noopener noreferrer"` + ogohlantirish |
 
-1. `index.html`, `schedule.html` va `contacts.html` yarating. Har birida bir xil uch havolali menyu bo'lsin.
-2. Sahifalarga turli `title` va asosiy sarlavhalar bering. Jadval o'rniga dars vaqtlarini ro'yxat qilib yozing.
-3. Bosh sahifada ikkita bo'lim va bo‘limga havolali mundarija yarating. Boshqa sahifadan ham shu bo'limlardan biriga havola bering.
-4. Tashqi ma'lumot havolasini, aloqa sahifasida esa o'quv ma'lumotlari bilan `mailto:` va `tel:` havolalarini qo'shing. Yangi yorliqni faqat asosli bo'lsa tanlang va bu haqda matnda ayting.
-5. Har bir sahifadan menyuning barcha bandlarini va har bir ankorni tekshiring. Xatolar va tuzatishlarni yozib boring.
+---
+
+## Mustaqil ish
+
+### 1-qism. IDE topshirig‘i (platforma hisoblaydi)
+
+**To‘garak bosh sahifasini** `index.html` ni yarating:
+
+1. To‘liq hujjat: DOCTYPE, `lang`, UTF-8, `title`.
+2. Uch havolali `<nav>` menyusi bilan `<header>`: `index.html`, `schedule.html`, `contacts.html`.
+3. `<main>` da bitta `<h1>`.
+4. Ikki langar-havoladan iborat mundarija: `#about` va `#join`.
+5. `<h2 id="about">` va `<h2 id="join">` sarlavhali ikki bo‘lim.
+6. «Qanday qo‘shilish» bo‘limida:
+   - pochta havolasi (`mailto:`);
+   - telefon havolasi (`tel:` qo‘shib, `+` bilan);
+   - istalgan saytga `https://` bilan tashqi havola, yangi yorliqda, `rel="noopener noreferrer"` bilan.
+
+Jadval va rasmlar ishlatmang.
+
+Platforma nimani tekshiradi: hujjat skeleti, `nav`, havolalarning beshta manzili, ikkala `id`, `mailto:`, bo‘sh joysiz `tel:+`, `target="_blank"` va `rel="noopener` li tashqi `https://` havola, bitta `h1`, kamida ikkita `h2`, diskdagi yo‘llar yo‘qligi.
+
+### 2-qism. Kompyuterdagi loyiha
+
+1. `club-site` papkasini va uchta sahifani yarating: `index.html`, `schedule.html`, `contacts.html`.
+2. Har bir sahifada bir xil menyu, o‘z `title` va o‘z `h1`.
+3. Jadval - ro‘yxat bilan. Kontaktlar sahifasida - `mailto:` va `tel:`.
+4. `schedule.html` dan bosh sahifaning `#join` bo‘limiga havola qiling.
+5. Menyuning barcha 9 o‘tishini va barcha langarlarni tekshiring. Topilgan xato va tuzatishlarni yozib qo‘ying.
 
 ### Tayyorlik mezonlari
 
-- [ ] Menyudagi barcha to'qqiz o'tish (har bir sahifada uchtadan) kerakli faylga olib boradi.
-- [ ] Fayl nomi, kengaytmasi va registri `href` ga mos; `C:\Users\...` kabi yo'llar yo'q.
-- [ ] Har bir sahifada `id` lar takrorlanmaydi; ankorlar kerakli bo'limga olib boradi.
-- [ ] Havola manzili matndan tushunarli; yangi yorliq ochilishi oldindan aytilgan.
-- [ ] `mailto:` va `tel:` to'g'ri sxemada yozilgan; mos dastur sozlanmaganligi HTML xatosi emas.
+- [ ] IDE topshirig‘i qabul qilingan.
+- [ ] Menyuning barcha 9 o‘tishi kerakli sahifalarga olib boradi.
+- [ ] `href` dagi fayl nomlari fayllar bilan harfma-harf mos.
+- [ ] `C:\Users\...` kabi yo‘llar yo‘q.
+- [ ] Barcha `id` noyob, langarlar kerakli bo‘limlarga olib boradi.
+- [ ] Har bir havola matni u qayerga olib borishini tushuntiradi.
+- [ ] `mailto:` va `tel:` to‘g‘ri yozilgan, ma’lumotlar to‘qima.
 
-### O'zingizni tekshiring
+---
 
-1. `about.html`, `../about.html` va `/about.html` nimasi bilan farq qiladi?
-2. Bo‘limga havoladan `#` olib tashlansa nima bo'ladi?
-3. Nega tashqi havolaga har doim `_blank` kerak emas?
+## O‘zini tekshirish uchun savollar
 
-Biror o'tish ishlamasa, tuzating va o'sha boshlang'ich sahifadan qayta tekshiring. Barcha mezonlar bajarilgach, davom eting.
+1. `href` siz havolaga nima bo‘ladi?
+2. Qachon mutlaq, qachon nisbiy yo‘l kerak?
+3. Yo‘ldagi `../` nimani bildiradi?
+4. `C:\Users\...` li havola saytda nega ishlamaydi?
+5. `href="#about"` havolasi `href="about.html"` dan nimasi bilan farq qiladi?
+6. Nega ikki element bir xil `id` ga ega bo‘la olmaydi?
+7. Boshqa sahifadan `index.html` sahifasining `#join` bo‘limiga qanday havola qilinadi?
+8. `tel:` da telefon raqami qanday to‘g‘ri yoziladi?
+9. `target="_blank"` yonida `rel="noopener noreferrer"` nima uchun?
+10. «Bu yerni bosing» nega yomon havola matni?
+
+Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish chegarasi 70%.
+
+---
+
+## Keyin nima
+
+Sayt sahifalar bo‘ylab yuradi, lekin unda faqat matn bor. 4-darsda imzoli rasmlar, audio va video, shuningdek yorliqdagi sayt belgisini qo‘shamiz.
+
+---
+
+## Javoblar
+
+**Takrorlash**
+
+1. `index.html`.
+2. `<nav>`.
+3. `<ul>`.
+
+**Mini-topshiriq 1**
+
+```html
+<a href="contact.html">Kontaktlar</a>
+<a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN (yangi yorliqda ochiladi)</a>
+<a href="tel:+998901112233">+998 90 111-22-33</a>
+```
+
+**Mini-topshiriq 2**
+
+```html
+<nav>
+    <h2>Mundarija</h2>
+    <ul>
+        <li><a href="#about">To‘garak haqida</a></li>
+        <li><a href="#join">Qanday qo‘shilish</a></li>
+    </ul>
+</nav>
+
+<section>
+    <h2 id="about">To‘garak haqida</h2>
+    <p>Noldan sayt yaratishni o‘rganamiz.</p>
+</section>
+
+<section>
+    <h2 id="join">Qanday qo‘shilish</h2>
+    <p>Bizga pochta orqali yozing.</p>
+</section>
+```
+
+**O‘zini tekshirish uchun savollar**
+
+1. U havola sifatida ishlamaydi: bu shunchaki matn.
+2. Mutlaq - boshqa saytlar uchun, nisbiy - o‘z loyihangiz sahifalari uchun.
+3. Bir papka yuqoriga chiqish.
+4. Serverda sizning `C:` diskingiz va papkangiz yo‘q.
+5. `#about` - shu sahifadagi bo‘lim, `about.html` - boshqa fayl.
+6. Brauzer qaysi biriga o‘tishni tushunmaydi. `id` - noyob nom.
+7. `href="index.html#join"`.
+8. Qo‘shib, `+` va mamlakat kodi bilan: `tel:+998901112233`.
+9. Yangi yorliq sahifangizga kira olmasligi va foydalanuvchi qayerdan kelganini bilmasligi uchun.
+10. Havola qayerga olib borishi matndan tushunarsiz. Ekran o‘quvchi ko‘pincha havolalar ro‘yxatini matndan alohida o‘qiydi.
 
 ---
 

@@ -1,186 +1,220 @@
-# Yakuniy loyiha: rejalashtirishdan nashr etishgacha
+# Yakuniy loyiha: rejalashtirishdan nashrgacha
 
-[Mundarija](../../README.md) · [Oldingi dars](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Amaliyot](../index.html) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)
 
-> **Oldingi dars bilan bog'lanish:** biz birinchi `<!DOCTYPE html>` dan meta-teglar va loyiha tuzilmasigacha bo'lgan yo'lni bosib o'tdik. Bugun - yangi emas, balki **butun kursni amalda qo'llash**: noldan boshlab haqiqiy sayt-vizitkani rejalashtiramiz, yig'amiz va nashr etamiz.
-
----
-
-## Dars oxiriga qadar nimani o'rganasiz
-
-- Birinchi kod yozilmasidan oldin sayt tuzilmasini rejalashtirish.
-- To'g'ri tartibda to'liq sahifani yig'ish: semantika → kontent → media → jadval → forma → meta-teglar → foydalanish qulayligi.
-- Yakuniy sifat tekshiruv ro'yxatidan o'tish va o'z kodingizdagi zaif tomonlarni topish.
-- Tayyor saytni GitHub Pages orqali nashr etish bosqichlarini bajarish va natijani tekshirish.
+> **Oldingi darslar bilan bog‘liqlik:** bugun yangi teglar bo‘lmaydi. 1–9-darslarda o‘rganganlaringizning hammasini bitta saytga yig‘asiz va uni internetda nashr qilasiz.
 
 ---
 
-## Dars rejasi
+## Bu sizga nima uchun kerak
 
-| Bo‘lim                             | Kontent                                  |
-| -------------------------------- | ------------------------------------------- |
-| Loyiha rejalashtirish          | Qanday sayt, nechta sahifa, har birida nima |
-| Bosqichma-bosqich yig'ish: semantika   | Sahifa skeleti, header/nav/main/footer     |
-| Bosqichma-bosqich yig'ish: kontent     | Sarlavhalar, matn, ro'yxatlar                    |
-| Bosqichma-bosqich yig'ish: media       | Rasmlar, figure                         |
-| Bosqichma-bosqich yig'ish: jadval     | Agar loyihaga mos bo'lsa                    |
-| Bosqichma-bosqich yig'ish: forma       | Fikr-mulohaza formasi                        |
-| Bosqichma-bosqich yig'ish: meta-teglar   | head to'liq                                |
-| Bosqichma-bosqich yig'ish: foydalanish qulayligi | Yakuniy aria/alt/scope tekshiruvi           |
-| Yakuniy sifat tekshiruv ro'yxati   | To'liq o'z-o'zini tekshirish                         |
-| GitHub Pages'da nashr etish   | Bosqichma-bosqich ko'rsatma                        |
+Shu paytgacha sahifalaringiz faqat kompyuteringizda yashadi. Bugun saytda `sizning-ismingiz.github.io/my-site` ko‘rinishidagi haqiqiy manzil paydo bo‘ladi. Uni do‘stingizga, o‘qituvchiga yuborish yoki rezyumega qo‘yish mumkin.
 
+To‘rt sahifali tayyor sayt - sizning birinchi portfoliongiz.
 
 ---
 
-## O‘qituvchi bilan namuna tahlili
+## Nimani o‘rganasiz
 
-method="get" bo‘lgan forma xabar yetkazishni emas, belgilashni namoyish etadi: brauzer o‘quv qiymatlarini GET orqali joriy manzilga yuboradi, statik hosting esa xabarni qayta ishlamaydi. POST ma’lumotni shifrlamaydi; uzatishni HTTPS himoyalaydi. Mashqda o‘ylab topilgan ma’lumotlardan foydalaning. Ishlatilgan rasm va favicon fayllarini qo‘shing, alt haqiqiy rasmga mos bo‘lsin. Qulaylikni boshidan rejalang va nashrdan oldin qayta tekshiring. Fayllarni repozitoriyga saqlashning o‘zi Pages ni sozlamaydi.
+- Saytni kodning birinchi qatoridan oldin rejalashtirish: sahifalar xaritasi va mazmun rejasi.
+- Saytni qadamma-qadam yig‘ish: skelet → mazmun → media → jadval → forma → meta-teglar → foydalanish qulayligi.
+- Saytni chek-list bo‘yicha tekshirish va tekshiruvlarni jurnalga yozish.
+- Saytni GitHub Pages da nashr qilish va ommaviy havolani tekshirish.
 
+---
 
-Keyingi bo‘limlar o‘quv portfoliosini yig‘ishni ko‘rsatadi. Alohida baholanadigan mustaqil sinov dars oxirida berilgan.
+## Takrorlash: 3, 8 va 9-darslardan 3 savol
 
-## Kod yozishdan oldin rejalashtirish
+1. Nega loyihadagi yo‘llar nisbiy bo‘lishi kerak?
+2. «Asosiy mazmunga o‘tish» havolasi nima uchun?
+3. `charset` dan tashqari har bir sahifada qaysi ikki meta-teg majburiy?
 
-**Oddiy qilib aytganda:** uy qurishdan oldin arxitektor qog'ozga rejani chizadi - nechta xona, qayerda nima joylashgan, ular orqasida qanday harakat qilish kerak. Sayt bilan ham xuddi shunday: agar plansiz kod yozishga o'tirsangiz, hamma narsani doimiy qayta ishlash xavfi juda katta.
+Javoblar - dars oxirida.
 
-### 1-qadam. Loyiha mavzusini tanlang
+---
 
-Yakuniy loyiha - bu oddiy ko'p sahifali sayt-vizitka. O'quv loyihasi uchun yaxshi mavzular misollari:
+## Reja
 
-- Shaxsiy portfolioning (o'zingiz haqida, loyihalar, kontaktlar).
-- Kichik mahalliy biznes sayti (kafetereya, repetitorlik, ustaxona).
-- O'quv kursi yoki qiziqishlar klubi sayt-vizitkasi.
+| Bo‘lim | Nima qilamiz |
+| --- | --- |
+| Loyihaning boshlang‘ich kodi | Namuna qayerda va undan qanday foydalanish |
+| Rejalashtirish | Qurilishdan oldin uy chizmasi |
+| 1–7-qadamlar | Saytni qatlamma-qatlam yig‘amiz |
+| Chek-list va jurnal | Topshirishdan oldin qabul |
+| Nashr | GitHub Pages |
+| Mustaqil ish | IDE topshirig‘i |
+| Mustaqil yakuniy imtihon | Noldan o‘z saytingiz |
 
-**Muhim:** o'zingiz haqida haqiqatan aytadigan narsangiz bor mavzuni tanlang - bu sahifalarni mazmunli kontent bilan to'ldirish osonroq bo'ladi, "ko'z uchun" yozilgan matn emas.
+---
 
-### 2-qadam. Sahifalar tuzilmasini aniqlang (sayt xaritasi)
+## Loyihaning boshlang‘ich kodi
 
-Qog'ozda yoki matn faylida sahifalar ro'yxatini va har birida nima bo'lishini yozing:
+Namuna - Azizning to‘rt sahifali portfoliosi - alohida [final-project](../../final-project/README.md) papkasida turadi (namuna matnlari rus tilida):
 
-**Shaxsiy portfolio uchun sayt xaritasi misoli:**
+```
+final-project/
+├── starter/          ← 4 sahifaning bo‘sh shablonlari
+├── steps/
+│   ├── 01-skeleton/  ← 1-qadamdan keyin
+│   ├── 02-content/
+│   ├── 03-media/
+│   ├── 04-table/
+│   ├── 05-form/
+│   ├── 06-meta/
+│   └── 07-a11y/      ← 7-qadamdan keyin
+├── final/            ← tayyor sayt
+└── docs/             ← reja, chek-list, jurnal
+```
 
-|Sahifa|Fayl|Mazmuni|
-|---|---|---|
-|Bosh sahifa|`index.html`|Salomlashish, qisqacha "o'zim haqimda", qolgan bo'limlarga havolalar|
-|O'zim haqimda|`about.html`|Batafsil hikoya, foto, ko'nikmalar ro'yxati|
-|Loyihalar|`projects.html`|Ishlar ro'yxati oldindan ko'rish rasmlari bilan|
-|Kontaktlar|`contact.html`|Fikr-mulohaza formasi, bog'lanish usullari jadvali|
+**Qanday foydalanish:** dars qadamini **o‘z** saytingizda bajarasiz, keyin shu qadam papkasi bilan solishtirasiz. Har bir qadam papkasi - ishlaydigan sayt: uni Live Server orqali oching.
 
-### 3-qadam. Har bir sahifa uchun kontent rejasini tuzing
+**Namunani ko‘chirmang.** Solishtiring va farqni tushuntiring. Imtihonda boshqa mavzudagi o‘z saytingiz kerak.
 
-Har bir sahifa uchuni qisqacha, kursdagi qaysi HTML vositalarini ishlatishingizni yozing. Masalan, `contact.html` uchun:
+---
 
-- `<header>` umumiy menyu `<nav>` bilan
-- `<main>` sarlavha `<h1>Kontaktlar</h1>`
-- `<table>` `scope` bilan - bog'lanish usullari va ish vaqti
-- `<form>` `fieldset`/`legend` bilan - fikr-mulohaza formasi
-- `<footer>` `aria-label` orqali ijtimoiy tarmoqlarga havolalar
+## Rejalashtirish
 
-**Bu rejalashtirish shunchaki rasmiy emas.** Aynan shu qadamda odatda nomuvofiqliklarni sezasiz: masalan, bosh sahifada siz yangi gaplashgan sahifaga havola yo'q ekanligini - buni qog'ozda tuzish kod to'rt sahifa yozilgandan keyin tuzishdan ancha oson.
+**Oddiy qilib aytganda:** uy chizmasiz qurilmaydi. Avval nechta xona va eshiklar qayerda ekanini chizishadi. Qog‘ozdagi xatoni bir daqiqada, tayyor uyda esa bir haftada tuzatasiz.
+
+### A qadam. Mavzu
+
+Aytib beradigan narsangiz bor mavzuni tanlang:
+- shaxsiy portfolio;
+- klub yoki to‘garak;
+- kichik kafe, ustaxona, repetitor.
+
+### B qadam. Sayt xaritasi
+
+| Sahifa | Fayl | Unda nima |
+| --- | --- | --- |
+| Bosh sahifa | `index.html` | Salomlashuv, rasm, bo‘limlarga havolalar |
+| Men haqimda | `about.html` | Hikoya, ko‘nikmalar, yo‘l |
+| Loyihalar | `projects.html` | Rasmli ishlar |
+| Kontaktlar | `contact.html` | Bog‘lanish usullari, forma |
+
+### V qadam. Har bir sahifa rejasi
+
+Har bir sahifa uchun qaysi teglar kerakligini yozing. Masalan, `contact.html`:
+
+- 4 sahifali menyuli `header`;
+- «Kontaktlar» `h1` li `main`;
+- `caption` va `scope` li bog‘lanish usullari jadvali;
+- `fieldset`, `legend` va imzoli forma;
+- `aria-label` li belgi-havolali `footer`.
+
+Reja namunasi - [docs/PLAN.md](../../final-project/docs/PLAN.md).
 
 ```mermaid
 flowchart TD
  A["Mazmun, sahifalar va qulaylik rejasi"] --> B["Semantik HTML yaratish"]
  B --> C["Media, jadval va forma belgilashini qo‘shish"]
- C --> D["Metama’lumot qo‘shish"]
- D --> E["Havola, klaviatura, belgilash va fayllarni tekshirish"]
- E --> F["Nashr etish va ochiq havolani tekshirish"]
+ C --> D["Metama’lumotlarni qo‘shish"]
+ D --> E["Havolalar, klaviatura, belgilash va fayllarni tekshirish"]
+ E --> F["Nashr qilish va ommaviy havolani tekshirish"]
 ```
 
-**Chizmani qanday o‘qish kerak:** O‘qlar loyiha ishining ketma-ketligini bildiradi: reja, HTML, kerakli mazmun, tekshiruv va nashr. Tekshiruvda xato topilsa, tegishli avvalgi bosqichga qaytib tuzatish kerak; nashr yangi xatolarni tekshirish o‘rnini bosmaydi.
+**Sxemani qanday o‘qish kerak.** Bu rejadan nashr qilingan saytni tekshirishgacha bo‘lgan ish sikli. Tekshiruvda xato topdingiz - kerakli qadamga qayting va tuzating.
 
 ---
 
-## Bosqichma-bosqich yig'ish: semantika (har bir sahifaning skeleti)
+## 1-qadam. Skelet
 
-Yig'ishni semantik skeletdan boshlaymiz - bu 2-darsda muhokama qilgan narsa. Buni haqiqiy kontent bilan to'ldirishdan **oldin** qilinadi - avval tuzilma, keyin ichiga kontent.
+To‘rtala sahifada bir xil skelet. Faqat `title` farq qiladi.
 
 ```html
 <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title><!-- Meta-teglar bo‘limida to‘ldiramiz --></title>
+    <title>Kontaktlar - Azizning portfoliosi</title>
 </head>
 <body>
     <header>
         <nav>
-            <!-- umumiy menyu -->
+            <ul>
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="about.html">Men haqimda</a></li>
+                <li><a href="projects.html">Loyihalar</a></li>
+                <li><a href="contact.html">Kontaktlar</a></li>
+            </ul>
         </nav>
     </header>
-
     <main>
-        <!-- sahifaning asosiy kontenti -->
+        <!-- sahifa mazmuni: 2-qadam -->
     </main>
-
     <footer>
-        <!-- pastki qism -->
     </footer>
 </body>
 </html>
 ```
 
-**Buni loyihangizning har bir sahifasi uchun bir xil qiling** - barcha sahifalarda bir xil `<header>`/`<nav>`/`<footer>` bilan yagona skelet, faqat `<main>` kontenti farq qiladi - aynan shunday biz 3-darsda ko'p sahifali sayt qilganmiz.
+**Tekshiruv:** har bir sahifadan menyuning har bir bandini bosing: 4 × 4 = 16 ta o‘tish.
+
+Solishtiring: `steps/01-skeleton`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: kontent (matn, sarlavhalar, ro'yxatlar)
+## 2-qadam. Mazmun
 
-Endi `<main>` ni haqiqiy matn bilan to'ldiramiz, to'g'ri sarlavhalar ierarxiyasidan foydalanib (2-dars) - sahifada yagona `<h1>`, darajalarni o'tkazib yubormasdan.
-
-**`about.html` uchun misol:**
+`main` ni matn bilan to‘ldiramiz. Bitta `h1`, darajalar o‘tkazilmagan, ro‘yxatlar ma’noga ko‘ra.
 
 ```html
 <main>
     <h1>Men haqimda</h1>
-
-    <p>Mening ismim Aziz, men bir yildan ortiq vaqtdan beri <strong>veb-dasturlashga qiziqaman</strong>. HTMLdan boshladim - va endi bilimlarimni tartibga solish uchun shu kursdan o'tmoqdaman.</p>
-
-    <h2>Mening ko'nikmalarim</h2>
-    <ul>
-        <li>HTML5 - semantik kodlash</li>
-        <li>CSSning asoslari</li>
-        <li>JavaScriptni o'rganmoqdaman</li>
-    </ul>
-
-    <h2>Mening yo'lim</h2>
-    <ol>
-        <li>Veb-dasturlashni mustaqil o'rganishni boshladim</li>
-        <li>"HTML: A dan Ya gacha" kursidan o'tdim</li>
-        <li>Davom etishni rejalashtiraman - CSS va JavaScriptga</li>
-    </ol>
+    <p>Mening ismim Aziz. Men bir yildan beri <strong>veb-dasturlashga qiziqaman</strong> va bilimlarimni tartibga keltirish uchun «10 darsda HTML» kursini o‘tdim.</p>
+    <section>
+        <h2>Ko‘nikmalarim</h2>
+        <ul>
+            <li>HTML semantik belgilash</li>
+            <li>Jadvallar va formalar</li>
+            <li>Sahifalar qulayligi</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Mening yo‘lim</h2>
+        <ol>
+            <li>Sahifa yasashni mustaqil o‘rgana boshladim</li>
+            <li>«10 darsda HTML» kursini o‘tdim</li>
+            <li>Keyin - CSS va JavaScript</li>
+        </ol>
+    </section>
 </main>
 ```
 
-`<strong>`/`<em>` ni faqat matn haqiqatan ma'noviy urg'u talab qilgan joyda ishlating - bezak uchun emas, mazmun uchun (2-darsda muhokama qilganimizdek).
+Solishtiring: `steps/02-content`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: media (rasmlar)
+## 3-qadam. Media
 
-Rasmlarni o'rinli joylarga qo'shing - profil fotosurati, loyihalarning oldindan ko'rish rasmlari, tasvirlar. `alt` (4-dars) va rasmga izohli yozuv kerak bo'lsa `figure`/`figcaption` ni unutmang.
+`alt` li rasmlar, `figure` imzolari, sayt belgisi.
 
 ```html
 <figure>
-    <img src="images/profile-photo.jpg" alt="Aziz ochiq kodli noutbuk oldida jilmayapti" width="300">
-    <figcaption>Mening ish joyim</figcaption>
+    <img src="images/profile.jpg" alt="Illyustratsiya: Aziz noutbuk oldida o‘tiribdi" width="300" height="300">
+    <figcaption>O‘qishdan keyingi kechlarimni shunday o‘tkazaman</figcaption>
 </figure>
 ```
 
-**Agar loyiha uchun o'z rasmlaringiz bo'lmasa** - erkin foydalanish mumkin bo'lgan zaxira rasmlardan foydalaning (muhim: har doim rasmda haqiqatan nima tasvirlanganiga mos mazmunli `alt` yozing, ixtiro qilingan matn emas).
+**Qadamning asosiy qoidasi:** har bir rasmni oching va `alt` ni **unda nima borligiga qarab** yozing. To‘rtta turli rasm - to‘rtta turli `alt`. Namunada loyihalar sahifasidagi har bir maketning o‘z tavsifi bor.
+
+`<head>` ga belgini qo‘shing:
+
+```html
+<link rel="icon" type="image/png" href="favicon.png">
+```
+
+Solishtiring: `steps/03-media`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: jadval
+## 4-qadam. Jadval
 
-Jadvalni loyihada haqiqatan jadval ma'lumotlari bo'lgan joylarga qo'shing (5-dars) - qoidani unutmang: jadval faqat ma'lumotlar uchun, maket kodlash uchun emas.
-
-**`contact.html` uchun misol - bog'lanish usullari jadvali:**
+Jadval - faqat jadvalli ma’lumotlar bor joyda. Namunada bu kontaktlar sahifasidagi javob berish vaqti:
 
 ```html
 <table>
-    <caption>Bog'lanish usullari</caption>
+    <caption>Qachon javob beraman</caption>
     <thead>
         <tr>
             <th scope="col">Usul</th>
@@ -190,189 +224,175 @@ Jadvalni loyihada haqiqatan jadval ma'lumotlari bo'lgan joylarga qo'shing (5-dar
     </thead>
     <tbody>
         <tr>
-            <th scope="row">Email</th>
-            <td><a href="mailto:info@saydullayev.fun">info@saydullayev.fun</a></td>
-            <td>Kun ichida</td>
+            <th scope="row">Pochta</th>
+            <td><a href="mailto:aziz@example.com">aziz@example.com</a></td>
+            <td>Bir sutka ichida</td>
         </tr>
         <tr>
             <th scope="row">Telegram</th>
-            <td><a href="https://t.me/example" target="_blank" rel="noopener noreferrer">@example</a></td>
+            <td><a href="https://t.me/example">@example</a></td>
             <td>Bir necha soat</td>
         </tr>
     </tbody>
 </table>
 ```
 
-**Agar loyiha mavzuingiz uchun jadval mos kelmasa** (masalan, faqat rasmlardan iborat, taqqoslanadigan ma’lumotlari yo‘q portfolio) - bu normal, tegni sun'iy ravishda ishlatish uchun qo'shmang. O'z muhandislik bahongizni ishlating: teg haqiqiy vazifani hal qiladigan joyda paydo bo'lishi kerak.
+Mavzuingizda jadvalli ma’lumot yo‘qmi? Jadvalni shunchaki belgi uchun qo‘shmang. Lekin imtihonda jadval majburiy: unga haqiqiy vazifa toping, masalan jadval-raspisaniye.
+
+Solishtiring: `steps/04-table`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: forma
-
-Fikr-mulohaza formasini qo'shing (6-7-dars), to'g'ri `label`/`for`/`id` bog'lanishi, `fieldset`/`legend` orqali guruhlash va kamida minimal tekshirish bilan.
-
-O‘quv formasi `method="get"` ishlatadi: brauzer qiymatlarni joriy sahifa URL manziliga qo‘shadi. Faqat o‘ylab topilgan ma’lumot kiriting. Qayta ishlovchi yo‘q, xabar yetkazilmaydi. GET yuborilgan qiymatlarni ko‘rsatadi; POST o‘zi ma’lumotni shifrlamaydi.
+## 5-qadam. Forma
 
 ```html
 <form method="get">
     <fieldset>
-        <legend>Menga murojaat qiling</legend>
-
-        <p><label for="name">Ism:</label> <input type="text" id="name" name="name" required maxlength="50"></p>
-
-        <p><label for="email">Email:</label> <input type="email" id="email" name="email" required></p>
-
-        <p><label for="message">Xabar:</label> <textarea id="message" name="message" rows="5" cols="40" placeholder="Savolingizni yozing..." required></textarea></p>
+        <legend>Fikr-mulohaza</legend>
+        <p>
+            <label for="name">Ism</label>
+            <input type="text" id="name" name="name" autocomplete="name" maxlength="50" required>
+        </p>
+        <p>
+            <label for="email">Pochta</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+        </p>
+        <p>
+            <label for="message">Xabar</label>
+            <textarea id="message" name="message" rows="5" maxlength="500" required></textarea>
+        </p>
     </fieldset>
-
-    <button type="submit">Yuborish</button>
+    <p><button type="submit">Yuborish</button></p>
 </form>
 ```
 
+Forma ustiga u o‘quv forma ekanini yozing: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yetkazilmaydi. Faqat o‘ylab topilgan ma’lumotlarni kiriting.
+
+Solishtiring: `steps/05-form`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: meta-teglar
+## 6-qadam. Meta-teglar, CSS va JS
 
-Har bir sahifaning `<head>` qismini to'ldiring (9-dars) - endi kontent tayyor bo'lgach, mazmunli `description` yozish oson.
+Endi matn tayyor bo‘lgach, har bir sahifa tavsifini yozish oson:
 
 ```html
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Men haqimda - Aziz, yangi boshlagan veb-dasturchi, HTML, CSS va JavaScriptni o'rganmoqda.">
     <title>Men haqimda - Azizning portfoliosi</title>
+    <meta name="description" content="Aziz veb-dasturlashni qanday o‘rgana boshlagani, qaysi ko‘nikmalarni egallagani va keyin nimani rejalashtirgani haqida gapiradi.">
+    <meta property="og:title" content="Men haqimda - Azizning portfoliosi">
+    <meta property="og:description" content="Aziz veb-dasturlashni qanday o‘rgana boshlagani, qaysi ko‘nikmalarni egallagani va keyin nimani rejalashtirgani haqida gapiradi.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
 </head>
 ```
 
-**Har bir sahifada tekshiring:** yagona `<title>` (barcha sahifalarda bir xil emas!), ma'lum sahifaning kontentini aks ettiruvchi yagona `description`.
+**Har bir sahifada o‘z `title` va `description` i.** `css/style.css` va `js/main.js` fayllari - 9-darsdan tayyor.
+
+Solishtiring: `steps/06-meta`.
 
 ---
 
-## Bosqichma-bosqich yig'ish: foydalanish qulayligi
+## 7-qadam. Foydalanish qulayligi
 
-8-dars vositalari bo'yicha har bir sahifaning yakuniy tekshiruvi:
+`body` dagi birinchi qator - menyuni o‘tkazib yuborish havolasi, `main` da - `id`:
 
-- Barcha `<img>` ma'noli `alt` ga ega (yoki bezak rasmlar uchun bo'sh `alt=""`).
-- Matnsiz havola belgilari `aria-label` ga ega.
-- Sarlavhalar ierarxiyasida bo'sh joylar yo'q va sahifada yagona `<h1>` mavjud.
-- Tab-navigatsiyani tekshiring - har bir interaktiv elementga sichqonchadan foydalanmasdan yeting.
-
----
-
-## Yakuniy sifat tekshiruv ro'yxati
-
-Loyihangizning **har bir** sahifasi uchun ushbu ro'yxatdan o'ting - qog'ozda yoki eslatmalarda belgilang:
-
-- [ ] Sahifada yagona `<h1>`
-- [ ] Semantika div-shorbasining o'rniga (`header`/`nav`/`main`/`footer` o'z maqsadida ishlatilgan)
-- [ ] Barcha `<img>` da `alt`
-- [ ] Barcha forma maydonlarida `label`
-- [ ] Havolalarning ma'noli matni ("bosing" emas, aniq tavsif - masalan, "Loyiha haqida batafsil o'qing")
-- [ ] `meta charset` va `meta viewport` o'rnida
-- [ ] Kod W3C-tekshiruvidan xatosiz o'tadi
-- [ ] Sahifa mobil ekranda o'qilishi mumkin (DevTools orqali tekshirishingiz mumkin - qurilma rejimi, yuqori paneldagi telefon/planshet belgisi)
-
-**Hozir tayyor sahifalarinizdan biri bo'yicha shu tekshiruv ro'yxatidan o'ting** - ehtimol, tuzatish kerak bo'lgan kamida bitta band topiladi. Bu normal va foydali - aynan shunday nashr etishdan oldin haqiqiy sifat tekshiruvi ko'rinishadi.
-
----
-
-## GitHub Pages'da nashr etish
-
-Kursning yakuniy qadami - saytingizni real havola orqali butun dunyoga ochiq qilish, faqat o'z kompyuteringizda emas.
-
-### GitHub Pages nima
-
-GitHub - kod saqlash xizmati (biz oldingi darslarda uni portfolio uchun maydon sifatida eslatganmiz). **GitHub Pages** - GitHubning bepul funksiyasi, bu sizning statik HTML/CSS/JS saytingizni to'g'ridan-to'g'ri repozitoriyangizdan `username.github.io/repository-name` ko'rinishidagi manzilda nashr etishga imkon beradi.
-
-### Bosqichma-bosqich ko'rsatma
-
-**1-qadam.** Agar hali GitHub'da akkauntingiz bo'lmasa - github.com'da ro'yxatdan o'ting.
-
-**2-qadam.** Yangi repozitoriya yarating:
-
-- "New repository" tugmasini bosing.
-- Nom bering, masalan `my-portfolio`.
-- "Public" ni tanlang (repozitoriya bepul GitHub Pages uchun ochiq bo'lishi kerak).
-- "Create repository" tugmasini bosing.
-
-**3-qadam.** Fayllarni ikki usuldan biri bilan yuklang:
-
-_A usuli - veb-interfeys orqali (yangi boshlaganlar uchun osonroq):_
-
-- Repozitoriya sahifasida "uploading an existing file" tugmasini bosing.
-- Loyihangizning barcha fayllari va papkalarini tortib tashlang (`index.html`, `css/`, `js/`, `images/` va boshqalar).
-- Pastda "Commit changes" tugmasini bosing.
-
-_B usuli - terminal orqali Git bilan (agar Git bilan tanish bo'lsangiz):_
-
-```bash
-git init
-git add .
-git commit -m "Saytning birinchi nashri"
-git branch -M main
-git remote add origin https://github.com/your-username/my-portfolio.git
-git push -u origin main
+```html
+<body>
+    <a href="#main">Asosiy mazmunga o‘tish</a>
+    <header>...</header>
+    <main id="main">
 ```
 
-**4-qadam.** GitHub Pages'ni yoqing:
+Futerdagi belgi-havola nom oladi:
 
-- Repozitoriyangizdagi "Settings" varaqlarini oching.
-- Yon menyuda "Pages" bo'limini toping.
-- "Build and deployment" bo‘limida "Source" uchun "Deploy from a branch" ni tanlang. So‘ng "Branch" da `main` va `/ (root)` ni tanlang.
-- "Save" tugmasini bosing.
-
-**5-qadam.** Nashr tugashini kuting; bu bir necha daqiqa olishi mumkin - GitHub saytingizni yig'adi va nashr etadi. "Pages" sozlamalar sahifasini yangilang - havola paydo bo'ladi:
-
-```
-https://your-username.github.io/my-portfolio/
+```html
+<a href="https://t.me/example" aria-label="Azizning Telegrami">
+    <img src="images/telegram.svg" alt="" width="24" height="24">
+</a>
 ```
 
-**6-qadam.** Shu havolani brauzerda oching - saytingiz endi internetdagi har qanday odam uchun mavjud.
+Keyin 8-darsdagidek har bir sahifani klaviatura bilan o‘ting.
 
-### Muhim amaliy nuqta: asosiy fayl nomi
-
-GitHub Pages repozitoriyaning ildiz manziliga kirilganda avtomatik ravishda `index.html` faylini ochadi - shuning uchun bosh sahifangiz aynan `index.html` deb atalishi muhim (masalan, `home.html` yoki `main.html` emas), aks holda qisqa havola orqali avtomatik ochilmaydi.
-
-### Saytni kelajakda yangilash
-
-Agar keyinchalik nimadir o'zgartirishni istasangiz - yangilangan fayllarni shu usul bilan yuklang (veb-interfeysda "Add file" → "Upload files" yoki terminal orqali ishlasangiz `git push`) - GitHub Pages yangi nashr muvaffaqiyatli tugagach sayt versiyasini yangilaydi.
+Solishtiring: `steps/07-a11y` - bu tayyor saytning o‘zi.
 
 ---
 
-###  Nashr etishda tez-tez uchraydigan xatolar
+## Chek-list va jurnal
 
-|Xato|Qanday tuzatish|
-|---|---|
-|Repozitoriya maxfiy (Private) yaratilgan|Bepul GitHub Pages uchun repozitoriya ochiq bo'lishi kerak|
-|Bosh sahifa `index.html` deb nomlanmagan|Bosh sahifa faylini aynan `index.html` deb qayta nomlang|
-|CSS/JS/rasmlarga yo'llar nashr etishdan keyin sinadi|Nisbiy yo'llardan foydalaning (3-dars), faqat o'z kompyuteringizda ishlaydigan `C:\Users\...` ko'rinishidagi mutlaq yo'llar emas|
-|Pages funksiyasi sozlamalarda yoqilmagan|Settings → Pages ga kirib, nashr tarmog‘ini aniq tanlashni unutmang|
+Nashrdan oldin har bir sahifa uchun [chek-list](../../final-project/docs/CHECKLIST.md) dan o‘ting. Har bir tekshiruvni [jurnal](../../final-project/docs/JOURNAL.md) ga yozing: nimani tekshirdingiz, nimani kutdingiz, nima bo‘ldi, nimani tuzatdingiz.
+
+Asosiy bandlar:
+
+- [ ] Bitta `h1`, darajalar o‘tkazilmagan.
+- [ ] Menyuning 16 ta o‘tishi ishlaydi.
+- [ ] Har bir rasmda mazmuniga ko‘ra o‘z `alt` i.
+- [ ] `caption` va `scope` li jadval.
+- [ ] Har bir maydonda bog‘langan imzo.
+- [ ] Har bir sahifada o‘z `title` va `description` i.
+- [ ] Butun sahifa klaviatura bilan o‘tiladi.
+- [ ] Nu HTML Checker - xatosiz.
 
 ---
 
-## Kurs yakunlari
+## GitHub Pages da nashr qilish
 
-Tabriklaymiz - siz birinchi `<!DOCTYPE html>` dan to'liq nashr etilgan ko'p sahifali saytgacha bo'lgan yo'lni bosib o'tdingiz! 10 ta dars davomida siz o'zlashtirdingiz:
+**GitHub Pages** - HTML, CSS va JS dan iborat saytlar uchun bepul xosting. Manzil shunday bo‘ladi: `https://sizning-loginingiz.github.io/repozitoriy-nomi/`.
 
-- HTML hujjatining tuzilmasi va asosiy vositalar (1-2-darslar).
-- Havolalar va sahifalar orasidagi navigatsiya (3-dars).
-- Rasmlar va media bilan ishlash (4-dars).
-- Jadval ma'lumotlari uchun jadvallar (5-dars).
-- Formalar - oddiy maydonlardan tekshirishgacha, ikki qiyinlik darajasi (6-7-darslar).
-- Foydalanish qulayligi tamoyili sifatida, alohida "ficha" emas (8-dars).
-- Meta-teglar, SEO asoslari va CSS/JS bilan bog'lanish (9-dars).
-- To'liq tsikl: loyiha rejalashtirishdan ochiq nashr etishgacha (10-dars).
+### 1-qadam. Akkaunt
 
-**Keyingisi nima:** HTML - bu faqat "skelet" (birinchi darsdan beri aytganimizdek). Yo‘lingizning mantiqiy davomi - **CSS** (dizayn, ranglar, bo'sh joylar, turli ekranlar uchun moslashuvchan kodlash) va keyin **JavaScript** (interaktivlik, formalar bilan haqiqatan ishlash, sahifaning dinamik xulq-atvori). Bugun nashr etilgan saytingiz kelajakda yangi bilimlaringizni amalda qo'llash uchun ajoyib "ish maydoni" bo'ladi.
+[github.com](https://github.com) da ro‘yxatdan o‘ting.
+
+### 2-qadam. Repozitoriy
+
+1. **New repository** ni bosing.
+2. Nomi: masalan, `my-site` (lotincha, bo‘shliqsiz).
+3. **Public** ni tanlang.
+4. **Create repository** ni bosing.
+
+### 3-qadam. Fayllarni yuklash
+
+1. Repozitoriy sahifasida **uploading an existing file** ni bosing.
+2. Sayt papkasining **ichidagilarini** sudrab keling: `index.html`, qolgan sahifalar va `images`, `css`, `js` papkalari.
+3. **Commit changes** ni bosing.
+
+`index.html` ichki papkada emas, repozitoriy ildizida turishi kerak.
+
+### 4-qadam. Pages ni yoqish
+
+1. **Settings** → chapdagi menyuda **Pages**.
+2. **Source**: **Deploy from a branch**.
+3. **Branch**: `main`, `/ (root)` papkasi. **Save** ni bosing.
+
+### 5-qadam. Tekshiruv
+
+1–3 daqiqadan keyin Pages sozlamalari sahifasini yangilang - sayt havolasi paydo bo‘ladi. Uni oching va barcha o‘tishlar va rasmlarni **qaytadan** tekshiring: serverda fayl nomlaridagi harflar registri muhim.
+
+GitHub interfeysi ba’zan o‘zgaradi. Tugmalar nomi boshqacha bo‘lsa, [rasmiy qo‘llanmaga](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) qarang.
+
+### Nashrdagi tipik xatolar
+
+| Xato | Qanday tuzatish |
+| --- | --- |
+| Sayt ochilmaydi: 404 | Bosh sahifa `index.html` deb nomlanib, ildizda turishi kerak |
+| Papkani butunligicha yukladingiz, sayt ichki papkada | Papkaning **ichidagilarini** yuklang |
+| Rasmlar serverda ko‘rinmaydi | Registrni tekshiring: `Photo.JPG` va `photo.jpg` - turli fayllar |
+| `C:\Users\...` yo‘llari | Faqat nisbiy yo‘llar |
+| Repozitoriy yopiq | Bepul Pages uchun - Public |
+| Pages yoqilmagan | Settings → Pages → tarmoqni tanlash |
+
+---
+
+## Kurs yakuni
 
 ```mermaid
 mindmap
-  root((Kurs bilimi))
+  root((Kurs bilimlari))
     1-2-darslar
-      HTML hujjat tuzilishi
+      HTML hujjat tuzilmasi
       Semantik teglar
       head va body
     3-dars
@@ -382,36 +402,110 @@ mindmap
     5-dars
       Jadvallar
     6-7-darslar
-      Formalar va tekshiruv
+      Formalar va validatsiya
     8-dars
       Foydalanish qulayligi a11y
     9-dars
       Meta-teglar va SEO
     10-dars
-      Loyiha to'liq tsikli
+      Loyihaning to‘liq sikli
 
 ```
 
-**Chizmani qanday o‘qish kerak:** Markazdagi kursdan chiqqan shoxlar bilimlarning qaysi darslarda o‘rganilganini jamlaydi. Yakuniy loyiha bu mavzularni bitta maqsadli saytda birlashtiradi; barcha teglarni sababsiz qo‘shishni talab qilmaydi.
+**Sxemani qanday o‘qish kerak.** Har bir shox - dars va u bergan ko‘nikma. Yakuniy saytda ularning hammasidan foydalanasiz.
 
-
-## Mustaqil yakuniy sinov
-
-Yuqoridagi bosqichli yig‘ish — o‘quv namunasi. Tayyor portfolioni takrorlash mustaqil ko‘nikmani tasdiqlamaydi.
-
-Namunani ko‘chirmasdan klub, kutubxona yoki to‘garak uchun to‘rtta bog‘langan sahifadan iborat sayt yarating. Mazmunli sarlavha va ro‘yxatlar, ruxsat etilgan rasmlar va mos alt, caption va sarlavhali jadval, label, fieldset/legend va tekshiruvli forma qo‘shing. Forma namuna ekanini yozing. Noyob metama’lumot qo‘shib, nashr eting. Manba fayllari, ochiq havola va tekshiruv qaydini topshiring.
-
-| Mezon | Ball |
-|---|---:|
-| Tuzilma va navigatsiya | 20 |
-| Semantika va mazmun | 20 |
-| Rasmlar va jadval | 15 |
-| Forma va tekshiruv | 15 |
-| Qulaylik va klaviatura tekshiruvi | 20 |
-| Metama’lumot, nashr va tekshiruv qaydi | 10 |
-
-O‘tish: kamida 80/100; to‘rtta sahifa ochiladi, navigatsiya ishlaydi va forma maydonlarida tushunarli yorliq bor. Buzilgan havola va yo‘q yorliqlar tuzatilishi shart. To‘liq ball: bajarilgan va tekshirilgan; yarmi: qisman; nol: yo‘q. Teg tanlovi, forma xatti-harakati va bajarilgan ikkita tekshiruv va topilgan muammolarni (bo‘lsa) tushuntiring.
+**Keyin nima:** HTML - karkas. Keyingi qadam - **CSS**: ranglar, shriftlar, joylashuv, telefonga moslashuvchanlik. Keyin - **JavaScript**: sahifa xatti-harakati. Nashr qilingan saytingiz bu ko‘nikmalar uchun maydonga aylanadi.
 
 ---
 
-[Mundarija](../../README.md) · [Oldingi dars](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Amaliyot](../index.html) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md)
+## Mustaqil ish
+
+### IDE topshirig‘i (platforma hisoblaydi)
+
+Azizning portfoliosini emas, **o‘z** klubingiz, to‘garagingiz yoki kutubxonangizning **kontaktlar sahifasini** yasang:
+
+1. To‘liq `<head>`: `charset`, `viewport`, `title`, `description`.
+2. `body` da birinchi bo‘lib «Asosiy mazmunga o‘tish» havolasi, `main` da - `id="main"`.
+3. `index.html`, `about.html`, `projects.html`, `contact.html` ga menyuli `header`.
+4. Bitta `h1`.
+5. `caption`, `scope="col"` va `scope="row"` sarlavhali jadval.
+6. `method="get"` forma: `fieldset`, `legend`, imzoli kamida ikki maydon, bittasi - `email`, `<button type="submit">` tugmasi.
+7. `footer`.
+
+Platforma nimani tekshiradi: sanab o‘tilgan hamma narsa, shuningdek `div`, musbat `tabindex`, `role="button"` va namuna matni («Aziz») yo‘qligi.
+
+---
+
+## Mustaqil yakuniy imtihon
+
+Yuqoridagi qadamma-qadam yig‘ish - o‘quv namunasi. Tayyor portfolioni takrorlash mustaqillikni ko‘rsatish degani emas.
+
+**Topshiriq:** namunani ko‘chirmasdan klub, kutubxona yoki to‘garakning to‘rtta bog‘langan sahifali saytini yasang. Unda bo‘lishi kerak:
+
+- ma’noga ko‘ra sarlavhalar va ro‘yxatlar;
+- mos `alt` li o‘z yoki ruxsat berilgan rasmlar;
+- `caption` va sarlavhali jadval;
+- imzoli, `fieldset`/`legend` li va kiritish tekshiruvli forma, forma o‘quv ekani haqida belgi bilan;
+- har bir sahifada o‘z metama’lumotlari;
+- GitHub Pages da nashr.
+
+**Nimani topshirish kerak:** boshlang‘ich fayllar, ommaviy havola va tekshiruvlar jurnali.
+
+| Mezon | Ball |
+| --- | ---: |
+| Tuzilma va navigatsiya | 20 |
+| Semantika va mazmun | 20 |
+| Rasmlar va jadval | 15 |
+| Forma va validatsiya | 15 |
+| Qulaylik va klaviatura tekshiruvi | 20 |
+| Metama’lumotlar, nashr va jurnal | 10 |
+
+**O‘tish:** 100 dan 80 ball va undan yuqori. Majburiy: to‘rtala sahifa ochiladi, navigatsiya ishlaydi, barcha maydonlarda imzo bor. Buzilgan havolalar va imzosiz maydonlar o‘tishdan oldin tuzatiladi.
+
+**Ball qanday qo‘yiladi:** to‘liq ball - talab bajarilgan va tekshirilgan; yarmi - qisman bajarilgan; nol - yo‘q.
+
+**Og‘zaki himoya:** teglar tanlovini, forma qanday ishlashini tushuntiring va jurnaldagi ikki tekshiruv hamda topilgan muammolar haqida gapirib bering.
+
+---
+
+## O‘zini tekshirish uchun savollar
+
+1. Nega sayt xaritasini koddan oldin tuzish kerak?
+2. Nega menyu barcha sahifalarda bir xil?
+3. 4 sahifali saytda menyuning nechta o‘tishini tekshirish kerak?
+4. Nega `alt` rasmni ochgandan keyin yoziladi?
+5. Sahifada jadval qachon ortiqcha?
+6. Nega o‘quv loyihadagi forma `method="get"` va `action` siz?
+7. Turli sahifalarning `title` lari nimasi bilan farq qilishi kerak?
+8. Repozitoriyda `index.html` qayerda turishi kerak?
+9. Nega rasm lokal ko‘ringan bo‘lsa ham nashrdan keyin yo‘qolishi mumkin?
+10. Imtihonda sayt bilan birga nima topshiriladi?
+
+Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish chegarasi 70%.
+
+---
+
+## Javoblar
+
+**Takrorlash**
+
+1. Diskdagi absolyut yo‘llar serverda ishlamaydi, nisbiylari esa papka bilan birga ko‘chadi.
+2. Klaviatura foydalanuvchisi har bir sahifada butun menyuni o‘tmasligi uchun.
+3. `viewport` va `description`.
+
+**O‘zini tekshirish uchun savollar**
+
+1. Tuzilma xatolarini to‘rt sahifa kodida emas, qog‘ozda topish arzonroq.
+2. Foydalanuvchi doim qayerdaligini va istalgan bo‘limga qanday o‘tishni biladi.
+3. 16: 4 sahifaning har biridan 4 tadan havola.
+4. Fayl nomi rasmda nima borligini aytmaydi. `alt` haqiqiy mazmunni tasvirlaydi.
+5. Satr va ustunli ma’lumotlar bo‘lmaganda.
+6. Ishlov beruvchi yo‘q: GET yuborilgan qiymatlarni manzilda ko‘rish imkonini beradi va ma’lumotlar hech qayerga ketmaydi.
+7. Har bir `title` o‘z sahifasini va sayt nomini tasvirlaydi.
+8. Repozitoriy ildizida.
+9. Serverda fayl nomidagi harflar registri muhim.
+10. Boshlang‘ich fayllar, ommaviy havola va tekshiruvlar jurnali.
+
+---
+
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)

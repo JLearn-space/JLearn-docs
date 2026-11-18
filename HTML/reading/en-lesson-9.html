@@ -1,91 +1,108 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Meta tags, SEO, linking CSS and JS · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">Meta tags: charset, description, viewport</a><a href="#section-9">Open Graph (overview)</a><a href="#section-10">Connecting CSS via &lt;link&gt;</a><a href="#section-11">Connecting JS via &lt;script&gt;</a><a href="#section-18">Mini-task</a><a href="#section-19">W3C Validator - checking code</a><a href="#section-20">Project folder structure</a><a href="#section-22">Lesson summary</a><a href="#section-23">Independent practice</a></details></aside><article><h1 id="section-1">Meta tags, SEO, linking CSS and JS</h1>
-<p><a href="index.html">Contents</a> · <a href="en-lesson-8.html">Previous</a> · <a href="en-lesson-10.html">Next</a> · <a href="../Lesson-9/practice.html">Practice</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Meta tags, SEO, linking CSS and JS · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">Why you need this</a><a href="#section-3">What you will learn</a><a href="#section-4">Review: 3 questions from Lessons 1, 3 and 4</a><a href="#section-5">Lesson plan</a><a href="#section-6">Meta tags</a><a href="#section-11">Open Graph: a card for social networks</a><a href="#section-12">Connecting CSS</a><a href="#section-13">Connecting JavaScript</a><a href="#section-16">Mini-task 1</a><a href="#section-17">Project folders</a><a href="#section-20">Checking code</a><a href="#section-23">Mini-task 2</a><a href="#section-24">Lesson summary: cheat sheet</a><a href="#section-25">Independent work</a><a href="#section-29">Self-check questions</a><a href="#section-30">What&#x27;s next</a><a href="#section-31">Answers</a></details></aside><article><h1 id="section-1">Meta tags, SEO, linking CSS and JS</h1>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-8.html">← Back</a> · <a href="en-lesson-10.html">Next →</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a> · <a href="../Lesson-9/practice.html">Practice</a></p>
 <blockquote>
-<p><strong>Connection to the previous lesson:</strong> in the previous lesson we covered accessibility for people. Today we figure out how to make a page understandable for <strong>search engines and other sites</strong> - and also prepare the technical groundwork for connecting CSS and JavaScript, which will be the focus beyond the scope of this course.</p>
+<p><strong>Link to the previous lesson:</strong> in Lesson 8 you made the page clear to people. Today we make it clear to <strong>search engines, phones and social networks</strong>, connect ready-made style and script files, and check the code with a validator.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<h2 id="section-2">Why you need this</h2>
+<p>You sent a link to your site to a friend on Telegram. What will they see: a bare link, or a card with a title, description and picture? Your site showed up in Google - what is written under the title? On a phone the page opened tiny and you have to zoom in with your fingers?</p>
+<p>All of this is solved by a few lines in <code>&lt;head&gt;</code>. Today you will finish the page's &quot;technical passport&quot;.</p>
+<hr>
+<h2 id="section-3">What you will learn</h2>
 <ul>
-<li>Configure key meta tags: <code>charset</code>, <code>description</code>, <code>viewport</code>.</li>
-<li>Understand Open Graph basics - how a site looks when shared on social networks.</li>
-<li>Connect external CSS and JS files via <code>&lt;link&gt;</code> and <code>&lt;script&gt;</code>.</li>
-<li>Understand the difference between <code>defer</code> and <code>async</code> when connecting scripts.</li>
-<li>Check code validity through the W3C Validator.</li>
-<li>Organize a project folder structure following standard practices.</li>
+<li>Write a page description for search engines: <code>meta name=&quot;description&quot;</code>.</li>
+<li>Turn on a normal view on phones: <code>meta name=&quot;viewport&quot;</code>.</li>
+<li>Make a card for social networks: Open Graph.</li>
+<li>Connect a ready style file: <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code>.</li>
+<li>Connect a ready script: <code>&lt;script src defer&gt;</code>.</li>
+<li>Arrange project files into folders.</li>
+<li>Check code with a validator and Lighthouse.</li>
 </ul>
 <hr>
-<h2 id="section-3">Lesson plan</h2>
+<h2 id="section-4">Review: 3 questions from Lessons 1, 3 and 4</h2>
+<ol>
+<li>What goes in <code>&lt;head&gt;</code>: visible content or service information?</li>
+<li>How do you link to <code>style.css</code> in the <code>css</code> folder if the HTML sits next to that folder?</li>
+<li>Which tag did we use to connect the site icon?</li>
+</ol>
+<p>Answers are at the end of the lesson.</p>
+<hr>
+<h2 id="section-5">Lesson plan</h2>
 <table>
 <thead>
 <tr>
 <th>Section</th>
-<th>Content</th>
+<th>What we do</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Meta tags: charset, description, viewport</td>
-<td>Service information about the page</td>
+<td>Meta tags</td>
+<td>The page's technical passport</td>
 </tr>
 <tr>
-<td>Open Graph (overview)</td>
-<td>How the page looks on social networks</td>
+<td>Description and viewport</td>
+<td>For Google and phones</td>
 </tr>
 <tr>
-<td>Connecting CSS via link</td>
-<td>Syntax, where to place it</td>
+<td>Open Graph</td>
+<td>A card in messengers</td>
 </tr>
 <tr>
-<td>Connecting JS via script</td>
-<td>Syntax, defer/async overview</td>
+<td>Connecting CSS</td>
+<td>Clothes for the frame</td>
 </tr>
 <tr>
-<td>Mini-task</td>
-<td>Build head on your own</td>
+<td>Connecting JS</td>
+<td>Wiring, <code>defer</code> and <code>async</code></td>
 </tr>
 <tr>
-<td>W3C Validator</td>
-<td>Checking code for errors</td>
+<td>Mini-task 1</td>
+<td>A complete <code>&lt;head&gt;</code></td>
 </tr>
 <tr>
-<td>Project folder structure</td>
-<td>Standard file organization</td>
+<td>Project folders</td>
+<td>Order in your files</td>
 </tr>
 <tr>
-<td>Summary and practical task</td>
-<td>Reinforcement</td>
+<td>Checking code</td>
+<td>Validator and Lighthouse</td>
+</tr>
+<tr>
+<td>Mini-task 2</td>
+<td>Find errors with the validator</td>
+</tr>
+<tr>
+<td>Independent work</td>
+<td>IDE task and two pages</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4">Meta tags: charset, description, viewport</h2>
-<p>HTML is maintained as the WHATWG Living Standard. Nu HTML Checker checks markup conformance, not full accessibility, working links or SEO quality; test these separately. Viewport does not automatically make fixed-size media or tables responsive. Here, defer refers to external classic scripts and has no effect on inline code. Async executes when loading completes and execution can proceed; it does not preserve script order. Create the referenced CSS/JS files before testing their connections.</p>
-<p>We already encountered one meta tag in the very first lesson - <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>. Today we'll cover this topic completely and add several more important tags that live inside <code>&lt;head&gt;</code>.</p>
-<p><strong>In simple terms:</strong> meta tags are like a label on product packaging: the product itself (the visible content of the page) is what you hold in your hands, and on the label there's additional information - ingredients, expiration date, barcode. This information is not part of the product itself, but is critically important for the store, warehouse, and customer to handle it correctly.</p>
-<h3 id="section-5"><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code> - encoding (review)</h3>
+<h2 id="section-6">Meta tags</h2>
+<p><strong>In simple terms:</strong> in Lesson 1 we called <code>&lt;head&gt;</code> the house's technical passport. Meta tags are the lines of this passport: encoding, description, display rules.</p>
+<p>A meta tag is an empty <code>&lt;meta&gt;</code> element in <code>&lt;head&gt;</code>. It is not visible on the page.</p>
+<h3 id="section-7">Encoding (review)</h3>
 <pre><code class="language-html">&lt;meta charset=&quot;UTF-8&quot;&gt;
 </code></pre>
-<p>As we covered in lesson 1, this line tells the browser what encoding the document's text is stored in - UTF-8 supports virtually all languages in the world, including Cyrillic.</p>
-<h3 id="section-6"><code>&lt;meta name=&quot;description&quot; content=&quot;...&quot;&gt;</code> - page description</h3>
-<pre><code class="language-html">&lt;meta name=&quot;description&quot; content=&quot;The 'HTML: in 10 lessons' course - 10 lessons for those who want to learn web development from scratch and publish their first website.&quot;&gt;
+<p>It is the first line in <code>&lt;head&gt;</code>.</p>
+<h3 id="section-8">Description: <code>description</code></h3>
+<pre><code class="language-html">&lt;meta name=&quot;description&quot; content=&quot;Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.&quot;&gt;
 </code></pre>
-<p>Write a concise, accurate page description. Meta description has no fixed length limit: the search engine may select page text and truncate the snippet to the available width.</p>
+<p><strong>Where you see it:</strong> in search results under the blue title. The search engine may take your text or write its own, but a good description raises the chance yours is used.</p>
+<p><strong>How to write it:</strong></p>
 <ul>
-<li>appears in Google/Yandex search results below the link title - this is what people actually read when deciding whether to click on your site in search results;</li>
-<li>is sometimes used by social networks when a link is shared (more in block 2).</li>
+<li>1–2 sentences, up to about 160 characters;</li>
+<li><strong>its own</strong> for every page;</li>
+<li>what the page is about and why to visit it.</li>
 </ul>
-<p><strong>Analogy:</strong> if <code>&lt;title&gt;</code> is the book title on the cover, then <code>description</code> is the blurb on the back of the cover that helps someone in a bookstore decide whether to pick up the book to read.</p>
-<h3 id="section-7"><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code> - mobile responsiveness</h3>
+<h3 id="section-9">Phone screen: <code>viewport</code></h3>
 <pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
 </code></pre>
-<p>This is arguably the most technically important meta tag of the modern web. Without it, mobile browsers display the page as if it were designed for a wide desktop screen (usually around 980px), then <strong>scale everything down</strong> to fit on the small phone screen - as a result, everything looks tiny, and the user has to stretch the text with their fingers.</p>
-<ul>
-<li><code>width=device-width</code> tells the browser &quot;use the device's actual screen width,&quot; not an imaginary wide desktop width.</li>
-<li><code>initial-scale=1.0</code> sets the initial zoom level to 100% (without automatic shrinking).</li>
-</ul>
-<p><strong>Important to understand now, before studying CSS:</strong> this tag alone doesn't make a site &quot;responsive&quot; in the full sense (responsiveness is primarily CSS work that you'll study later), but without it <strong>no</strong> responsive layout done later via CSS will work correctly on mobile devices. This is a fundamental setting, without which everything else is meaningless.</p>
-<hr>
-<h3 id="section-8">Common beginner mistakes</h3>
+<p><strong>In simple terms:</strong> without this line the phone thinks the page was made for a computer and shows it as a shrunken copy. With it, the page says: &quot;Page width = screen width, scale 1:1&quot;.</p>
+<p><strong>Try it:</strong> open the page in DevTools → the phone icon (Toggle device toolbar). Remove <code>viewport</code> and reload. The text became tiny. Put the line back.</p>
+<p><code>viewport</code> does not make the layout responsive by itself - that needs CSS. But without <code>viewport</code>, responsive CSS will not work on a phone.</p>
+<h3 id="section-10">Typical beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -95,110 +112,117 @@
 </thead>
 <tbody>
 <tr>
-<td>Forgetting <code>viewport</code> - site looks tiny and unreadable on phones</td>
-<td>Add <code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code> to the <code>&lt;head&gt;</code> of every project</td>
+<td>The same <code>description</code> on all pages</td>
+<td>Its own description for each</td>
 </tr>
 <tr>
-<td>Assuming a fixed description length guarantees a snippet</td>
-<td>Write an accurate summary; search engines may select page text and truncate to available width.</td>
+<td>A 500-character description</td>
+<td>1–2 sentences</td>
 </tr>
 <tr>
-<td>Confusing <code>description</code> with visible text on the page</td>
-<td><code>description</code> is not displayed anywhere on the page itself - it's purely service information for search engines and social networks</td>
+<td>No <code>viewport</code></td>
+<td>Add it to every document</td>
+</tr>
+<tr>
+<td><code>&lt;meta&gt;</code> in <code>&lt;body&gt;</code></td>
+<td>Only in <code>&lt;head&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-9">Open Graph (overview)</h2>
-<p>When you send a site link to a friend on Telegram, WhatsApp, or share it on Facebook, a nice card with an image, title, and description often appears. This works thanks to <strong>Open Graph</strong> - a set of meta tags originally created by Facebook but now supported by most platforms.</p>
-<pre><code class="language-html">&lt;meta property=&quot;og:title&quot; content=&quot;HTML: in 10 lessons - a course for beginners&quot;&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;10 lessons from scratch to publishing your first website independently.&quot;&gt;
-&lt;meta property=&quot;og:image&quot; content=&quot;https://saydullayev.fun/images/course-preview.jpg&quot;&gt;
-&lt;meta property=&quot;og:url&quot; content=&quot;https://saydullayev.fun/html-course&quot;&gt;
+<h2 id="section-11">Open Graph: a card for social networks</h2>
+<p>When a link is pasted into Telegram or Facebook, they look for special Open Graph meta tags:</p>
+<pre><code class="language-html">&lt;meta property=&quot;og:title&quot; content=&quot;Web development club&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;We teach HTML from scratch. Classes on Wednesdays.&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://example.com/images/preview.jpg&quot;&gt;
 </code></pre>
-<p>Let's break down the main tags:</p>
-<ul>
-<li><strong><code>og:title</code></strong> - the title shown on the card (can differ from the browser tab's <code>&lt;title&gt;</code> - often made more &quot;sales-oriented&quot;).</li>
-<li><strong><code>og:description</code></strong> - the description on the card (similar to <code>meta description</code>, but specifically for social networks).</li>
-<li><strong><code>og:image</code></strong> - the image shown on the card (important: must specify an <strong>absolute</strong> path including <code>https://</code>, since social networks &quot;download&quot; this image from their own servers, not through the user's browser).</li>
-<li><strong><code>og:url</code></strong> - the canonical (primary) page URL.</li>
-</ul>
-<p><strong>Important syntax feature:</strong> notice - here the <code>property</code> attribute is used instead of <code>name</code> as in regular meta tags from block 1. This is because Open Graph is technically based on a different standard (RDFa), but for practical use you just need to remember: Open Graph uses <code>property</code>, regular meta tags use <code>name</code>.</p>
-<p><strong>This is a topic we're only covering at an overview level</strong> - in this course we won't dive deep into all possible Open Graph tag variations (there are quite many - content type, locale, author, etc.), but it's important that you now know where those nice preview cards come from when sharing links, and know how to add a basic set for your project.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-9-1.svg" alt="Diagram 1: Meta tags, SEO, linking CSS and JS"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-9-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Arrows list metadata and resource references that can appear in head. They are siblings rather than execution steps; only include references to resources that actually exist.</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>What is in the card</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>og:title</code></td>
+<td>Title</td>
+</tr>
+<tr>
+<td><code>og:description</code></td>
+<td>Description</td>
+</tr>
+<tr>
+<td><code>og:image</code></td>
+<td>Picture. Needs a <strong>full</strong> address with <code>https://</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> here it is <code>property</code>, not <code>name</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-9-1.svg" alt="Diagram 1: Meta tags, SEO, linking CSS and JS"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-9-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Everything that can live in <code>&lt;head&gt;</code>. <code>charset</code>, <code>viewport</code>, <code>title</code> and <code>description</code> are required. The rest depends on the task.</p>
 <hr>
-<h2 id="section-10">Connecting CSS via <code>&lt;link&gt;</code></h2>
-<p>Use the supplied <code>../css/style.css</code> and <code>../js/main.js</code> files. You do not need to author CSS/JS.</p>
-<p>We already used the <code>&lt;link&gt;</code> tag in lesson 4 - for the favicon. The same tag is used to connect an external CSS stylesheet file.</p>
-<pre><code class="language-html">&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;My website&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
-&lt;/head&gt;
+<h2 id="section-12">Connecting CSS</h2>
+<p><strong>In simple terms:</strong> HTML is the frame, CSS is the clothes. The clothes are sewn separately and &quot;put on&quot; the frame with one line:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
 </code></pre>
-<ul>
-<li><code>rel=&quot;stylesheet&quot;</code> tells the browser that the connected file is a stylesheet.</li>
-<li><code>href</code> is the path to the CSS file (following the same relative/absolute path rules we covered in lesson 3).</li>
-</ul>
-<p><strong>Placement in this course:</strong> connect the stylesheet inside <code>head</code>, after the metadata. The browser discovers the file before reading the body content. This is the course convention, rather than a claim that HTML forbids every other valid placement.</p>
-<p><strong>Important caveat for this course:</strong> the CSS syntax itself (what to write inside the <code>style.css</code> file) is beyond the scope of the &quot;HTML: in 10 lessons&quot; course - we only cover how to properly connect an external file to an HTML document, the technical foundation for future CSS study.</p>
-<hr>
-<h2 id="section-11">Connecting JS via <code>&lt;script&gt;</code></h2>
-<p>The <code>&lt;script&gt;</code> tag connects JavaScript code - either an external file or code directly inside the HTML document.</p>
-<h3 id="section-12">External file</h3>
-<pre><code class="language-html">&lt;script src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>Note: <code>&lt;script&gt;</code> is a <strong>paired</strong> tag (unlike <code>&lt;link&gt;</code>, which is self-closing), even when using the <code>src</code> attribute and nothing is written inside manually.</p>
-<h3 id="section-13">Code directly inside the tag (inline script)</h3>
-<pre><code class="language-html">&lt;script&gt;
-    console.log(&quot;Hello from the HTML document!&quot;);
-&lt;/script&gt;
-</code></pre>
-<p>This is used less often than external files - in real projects, JS code is usually placed in separate <code>.js</code> files (for the same reasons as CSS - easier maintenance, reuse across pages).</p>
-<h3 id="section-14">Where to place <code>&lt;script&gt;</code></h3>
-<p>There's an important practical consideration here. Previously it was common to place <code>&lt;script&gt;</code> at the very end of <code>&lt;body&gt;</code>, before the closing <code>&lt;/body&gt;</code> tag:</p>
-<pre><code class="language-html">&lt;body&gt;
-    &lt;!-- all page content --&gt;
-
-    &lt;script src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-</code></pre>
-<p><strong>Why this was done:</strong> the browser reads the HTML document sequentially from top to bottom. If <code>&lt;script&gt;</code> is in <code>&lt;head&gt;</code> without additional attributes, the browser <strong>stops reading</strong> the rest of the page until it fully loads and executes the script - this can noticeably slow down the display of visible content to the user. Placing at the end of <code>&lt;body&gt;</code> guarantees that all visible parts of the page have been read by the browser before the script loads.</p>
-<h3 id="section-15">Modern solution: <code>defer</code> and <code>async</code></h3>
-<p>Today a more flexible approach is more commonly used - the <code>&lt;script&gt;</code> tag stays in <code>&lt;head&gt;</code>, but with one of the special attributes:</p>
-<pre><code class="language-html">&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
-</code></pre>
-<pre><code class="language-html">&lt;script src=&quot;js/main.js&quot; async&gt;&lt;/script&gt;
-</code></pre>
-<p><strong><code>defer</code></strong> - the browser loads the script <strong>in parallel</strong> with reading the rest of the HTML (without stopping it), but <strong>executes</strong> the script only after the entire HTML document has been fully read. The execution order of multiple <code>defer</code> scripts is preserved as they appear in the code.</p>
-<p><strong><code>async</code></strong> - the browser also loads the script in parallel, but <strong>executes</strong> it as soon as loading completes - even if the rest of the HTML hasn't finished reading. This can happen at any unpredictable moment, and the execution order of multiple <code>async</code> scripts is <strong>not guaranteed</strong>.</p>
-<h3 id="section-16">When to use which (briefly, for general understanding)</h3>
 <table>
 <thead>
 <tr>
 <th>Attribute</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rel=&quot;stylesheet&quot;</code></td>
+<td>&quot;This is a style file&quot;</td>
+</tr>
+<tr>
+<td><code>href</code></td>
+<td>Path to the file - by the rules from Lesson 3</td>
+</tr>
+</tbody>
+</table>
+<p>It goes in <code>&lt;head&gt;</code>.</p>
+<p><strong>What you will see:</strong> the page immediately changes font, spacing and width - as written in the file. <strong>You do not need to write CSS in this course:</strong> the file <code>Lesson-9/css/style.css</code> is ready, just copy it.</p>
+<hr>
+<h2 id="section-13">Connecting JavaScript</h2>
+<p><strong>In simple terms:</strong> JavaScript is the house's wiring. It is connected with the <code>&lt;script&gt;</code> tag:</p>
+<pre><code class="language-html">&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+</code></pre>
+<p><code>&lt;script&gt;</code> is a <strong>paired</strong> tag, even if it is empty inside. Write <code>&lt;/script&gt;</code>.</p>
+<h3 id="section-14">Where to put it and why <code>defer</code></h3>
+<p>The browser reads HTML from top to bottom. When it meets a plain <code>&lt;script&gt;</code>, it <strong>stops</strong>, downloads and runs the script, and only then reads on. The page appears with a delay.</p>
+<table>
+<thead>
+<tr>
+<th>Notation</th>
+<th>How it works</th>
 <th>When to use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>defer</code></td>
-<td>For most scripts, especially when the script interacts with the page content (it needs the entire HTML to already be read)</td>
+<td><code>&lt;script src&gt;</code></td>
+<td>Stop reading the page, download, run</td>
+<td>The old way</td>
 </tr>
 <tr>
-<td><code>async</code></td>
-<td>For independent scripts where order doesn't matter and interaction with the rest of the page isn't needed (e.g., analytics counters)</td>
+<td><code>&lt;script src defer&gt;</code></td>
+<td>Download in parallel, run after the whole page is read, in order</td>
+<td><strong>Almost always</strong></td>
 </tr>
 <tr>
-<td>Without attributes, at the end of <code>&lt;body&gt;</code></td>
-<td>An older but still working and easy-to-understand option</td>
+<td><code>&lt;script src async&gt;</code></td>
+<td>Download in parallel, run as soon as it is ready</td>
+<td>Independent scripts: counters, analytics</td>
 </tr>
 </tbody>
 </table>
-<p><strong>This is also an overview-level topic in this course</strong> - a deep understanding of how JavaScript works and the correct choice between <code>defer</code>/<code>async</code> in complex cases comes with studying JavaScript itself, which is beyond the scope of this HTML course.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-9-2.svg" alt="Diagram 2: Meta tags, SEO, linking CSS and JS"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-9-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> This decision tree applies to external classic scripts. Defer preserves document order after parsing, async runs when ready, and neither attribute leaves parsing blocked by loading and execution.</p>
-<hr>
-<h3 id="section-17">Common beginner mistakes</h3>
+<p><strong>Course rule:</strong> <code>&lt;script src=&quot;...&quot; defer&gt;</code> in <code>&lt;head&gt;</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-9-2.svg" alt="Diagram 2: Meta tags, SEO, linking CSS and JS"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-9-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Three ways to connect a script. <code>defer</code> does not slow down the page and keeps the order of scripts.</p>
+<p><strong>How to check the script ran:</strong> the ready <code>main.js</code> writes a message to the console. Open DevTools → <strong>Console</strong> tab. You will see &quot;Lesson 9: the deferred script loaded.&quot; - the script is connected.</p>
+<h3 id="section-15">Typical beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -208,54 +232,29 @@
 </thead>
 <tbody>
 <tr>
-<td>Placing <code>&lt;script&gt;</code> at the start of <code>&lt;head&gt;</code> without <code>defer</code>/<code>async</code></td>
-<td>This slows page rendering - use <code>defer</code> or place the script at the end of <code>&lt;body&gt;</code></td>
+<td><code>&lt;script src=&quot;...&quot; /&gt;</code> without a closing tag</td>
+<td>Always <code>&lt;/script&gt;</code></td>
 </tr>
 <tr>
-<td>Confusing <code>&lt;link&gt;</code> (self-closing, for CSS) and <code>&lt;script&gt;</code> (paired, for JS)</td>
-<td><code>&lt;link&gt;</code> has no closing tag; <code>&lt;script&gt;</code> always does, even if empty inside</td>
+<td>Path <code>../css/style.css</code> for a file next to the page</td>
+<td>Path from the HTML file: <code>css/style.css</code></td>
 </tr>
 <tr>
-<td>Forgetting that both <code>defer</code> and <code>async</code> only work with external scripts (<code>src=&quot;...&quot;</code>) - not with code inside the tag</td>
-<td>For inline <code>&lt;script&gt;</code> without <code>src</code>, these attributes have no meaning</td>
+<td><code>&lt;link&gt;</code> for styles in <code>&lt;body&gt;</code></td>
+<td>In <code>&lt;head&gt;</code></td>
+</tr>
+<tr>
+<td><code>rel=&quot;style&quot;</code></td>
+<td>Correct: <code>rel=&quot;stylesheet&quot;</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-18">Mini-task</h2>
-<p>For this mini-task, copy the supplied CSS into <code>styles/main.css</code> and JS into <code>scripts/app.js</code> inside your own folder (create those folders). No CSS/JS authoring is required. Build the <code>&lt;head&gt;</code> of a document on your own, without peeking: with UTF-8 encoding, title &quot;Mini-task,&quot; viewport for responsiveness, a connected stylesheet <code>styles/main.css</code>, and a connected script <code>scripts/app.js</code> with the <code>defer</code> attribute.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-html">&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;Mini-task&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;styles/main.css&quot;&gt;
-    &lt;script src=&quot;scripts/app.js&quot; defer&gt;&lt;/script&gt;
-&lt;/head&gt;
-</code></pre>
+<h2 id="section-16">Mini-task 1</h2>
+<p>Without peeking, write the full <code>&lt;head&gt;</code> of the &quot;Club contacts&quot; page: encoding, viewport, tab title, description, icon, styles <code>css/style.css</code>, script <code>js/main.js</code> with <code>defer</code>. Solution is in the &quot;Answers&quot; section.</p>
 <hr>
-<h2 id="section-19">W3C Validator - checking code</h2>
-<p>HTML is maintained as the WHATWG Living Standard. Use <a href="https://validator.w3.org/nu/">Nu HTML Checker</a> to find markup conformance errors.</p>
-<p><strong>How to use it:</strong></p>
-<ol>
-<li>Open <a href="https://validator.w3.org/nu/">Nu HTML Checker</a>.</li>
-<li>Use the checker’s input selector to check a published URL, upload a file, or paste source text; select the input method appropriate to your work.</li>
-<li>Start the check - the validator will show a list of errors and warnings with the specific line of code indicated.</li>
-</ol>
-<p><strong>Typical errors the validator finds:</strong></p>
-<ul>
-<li>unclosed tags;</li>
-<li>duplicate <code>id</code> attributes on the page;</li>
-<li>incorrectly nested tags (e.g., <code>&lt;p&gt;</code> inside another <code>&lt;p&gt;</code>, which is forbidden by the spec);</li>
-<li>missing required attributes (e.g., <code>alt</code> on <code>&lt;img&gt;</code>);</li>
-<li>usage of deprecated/nonexistent tags and attributes.</li>
-</ul>
-<p><strong>Why this matters, not just a formality:</strong> invalid code can display &quot;seemingly fine&quot; in one browser simply because that browser is good at &quot;forgiving&quot; errors and guessing what you meant - but another browser (or screen reader, or search robot) may interpret the same invalid code completely differently, leading to unexpected visual and structural problems for a portion of your users.</p>
-<p><strong>Practical recommendation:</strong> run every major project through the validator (e.g., the final project of lesson 10) - this is an excellent habit that catches small but real errors invisible to the eye during normal browsing.</p>
-<hr>
-<h2 id="section-20">Project folder structure</h2>
-<p>The final practical block of the lesson - how to organize files of a real multi-page site so it's easy to navigate (for you and for anyone who opens your project later).</p>
-<p>The standard, widely adopted structure looks like this:</p>
+<h2 id="section-17">Project folders</h2>
+<p><strong>In simple terms:</strong> in a wardrobe clothes are sorted onto shelves: shirts separately, socks separately. A project works the same way.</p>
 <pre><code>my-website/
 ├── index.html
 ├── about.html
@@ -271,25 +270,62 @@
 │       └── github.svg
 └── favicon.ico
 </code></pre>
-<p>Principles of this organization:</p>
-<ul>
-<li><strong>HTML files</strong> for pages - directly in the project root folder (this simplifies paths in links like <code>&lt;a href=&quot;about.html&quot;&gt;</code>, as we covered in lesson 3).</li>
-<li><strong><code>css/</code></strong> - a separate folder for all stylesheet files.</li>
-<li><strong><code>js/</code></strong> - a separate folder for all scripts.</li>
-<li><strong><code>images/</code></strong> - a separate folder for all images; with many icons you can nest an <code>icons/</code> subfolder.</li>
-<li><strong><code>favicon.ico</code></strong> - often left in the project root (some browsers search for it there automatically, as we covered in lesson 4).</li>
-</ul>
-<p>Given this structure, the paths in your <code>index.html</code>'s <code>&lt;head&gt;</code> (sitting in the root) would look like:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
-&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
-&lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
-</code></pre>
-<p>And within pages:</p>
-<pre><code class="language-html">&lt;img src=&quot;images/hero-photo.jpg&quot; alt=&quot;Main photo on the page&quot;&gt;
-</code></pre>
-<p><strong>Why this structure matters now, before studying CSS/JS:</strong> when you start actively writing real styles and scripts, files scattered randomly across different places will quickly turn into chaos, making anything hard to find. Building the habit of tidy structure from your first learning projects will greatly ease the transition to more complex topics in the future.</p>
-<hr>
-<h3 id="section-21">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Root</td>
+<td>HTML pages and the site icon</td>
+</tr>
+<tr>
+<td><code>css/</code></td>
+<td>Style files</td>
+</tr>
+<tr>
+<td><code>js/</code></td>
+<td>Scripts</td>
+</tr>
+<tr>
+<td><code>images/</code></td>
+<td>Images</td>
+</tr>
+</tbody>
+</table>
+<p><strong>File names:</strong> Latin letters, lowercase, no spaces, words joined by hyphens: <code>hero-photo.jpg</code>, not <code>My Photo 1.JPG</code>.</p>
+<h3 id="section-18">How to check the files are connected</h3>
+<ol>
+<li>Open the page via Live Server.</li>
+<li>DevTools → <strong>Network</strong> tab → reload the page.</li>
+<li>Find <code>style.css</code> and <code>main.js</code> in the <strong>Status</strong> column:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Loaded</td>
+</tr>
+<tr>
+<td>304</td>
+<td>Taken from cache - also fine</td>
+</tr>
+<tr>
+<td>404</td>
+<td><strong>Not found</strong> - check the path and file name</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-19">Typical beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -299,42 +335,193 @@
 </thead>
 <tbody>
 <tr>
-<td>Dumping all files (HTML, CSS, images) mixed into one folder</td>
-<td>Separate by file type: <code>css/</code>, <code>js/</code>, <code>images/</code></td>
+<td>All files in one folder</td>
+<td>Sort them: <code>css/</code>, <code>js/</code>, <code>images/</code></td>
 </tr>
 <tr>
-<td>Using spaces or Cyrillic in file and folder names (e.g., <code>моя картинка.jpg</code>)</td>
-<td>Use Latin characters without spaces, usually lowercase with hyphens: <code>my-photo.jpg</code></td>
+<td>Spaces and non-Latin letters in names</td>
+<td><code>my-photo.jpg</code></td>
 </tr>
 <tr>
-<td>Changing the folder structure mid-project without updating all paths in HTML files</td>
-<td>Plan the structure in advance, and if you change it - check and update all related paths in <code>src</code>/<code>href</code></td>
+<td>Renamed a folder, forgot the paths</td>
+<td>Update all <code>href</code> and <code>src</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-22">Lesson summary</h2>
-<p>Today you learned:</p>
-<ul>
-<li>The <code>charset</code>, <code>description</code>, <code>viewport</code> meta tags - service information about the page: encoding, description for search engines, mobile responsiveness.</li>
-<li>Open Graph tags (<code>og:title</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code>) form a nice card when sharing a link on social networks.</li>
-<li>CSS connects via <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code>, JS via <code>&lt;script src=&quot;...&quot;&gt;</code>, with optional <code>defer</code>/<code>async</code> attributes for loading optimization.</li>
-<li>The W3C Validator checks code against official HTML standards and finds hidden errors.</li>
-<li>The standard project structure - HTML in the root, separate <code>css/</code>, <code>js/</code>, <code>images/</code> folders - makes site maintenance easier.</li>
-</ul>
-<h2 id="section-23">Independent practice</h2>
-<p>Copy the supplied <code>Lesson-9/css/style.css</code> and <code>Lesson-9/js/main.js</code> into the <code>css</code> and <code>js</code> folders of your own project. Place both HTML pages beside those folders and use <code>css/style.css</code> and <code>js/main.js</code> in HTML. The paths <code>../css/style.css</code> and <code>../js/main.js</code> above locate assets relative to the Markdown source, not your site.</p>
-<p>To check loading, open developer tools → Network and reload the page over HTTP. Find style.css and main.js and inspect Status: 200 means success, 304 means validated cache, 404 means not found. file:// has no HTTP status; use the local HTTP server introduced in the course.</p>
-<p>Prepare two linked pages with unique title/description, viewport and provided external CSS/JS files (use the study bundle; writing CSS/JS is not required). Check both with Nu HTML Checker.</p>
-<h3 id="section-24">Completion criteria</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> Both pages have unique title/description and viewport.</label></li>
-<li class="check"><label><input type="checkbox"> The supplied files are copied into css/style.css and js/main.js in your project and connected relative to the HTML pages.</label></li>
-<li class="check"><label><input type="checkbox"> Over HTTP, browser Network shows successful CSS/JS requests (200 or cached 304), with no 404.</label></li>
-<li class="check"><label><input type="checkbox"> Check both pages with Nu HTML Checker and test links separately.</label></li>
-</ul>
-<h3 id="section-25">Self-check questions</h3>
-<p>How do defer and async differ? What does a validator not check? Why is viewport alone insufficient for responsiveness?</p>
+<h2 id="section-20">Checking code</h2>
+<h3 id="section-21">Nu HTML Checker validator</h3>
+<p>The browser &quot;forgives&quot; errors and guesses what you meant. Another browser or a screen reader may guess differently. The validator finds errors you cannot see.</p>
+<ol>
+<li>Open <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>.</li>
+<li>Choose <strong>Text Input</strong> (paste code) or <strong>File Upload</strong> (upload a file).</li>
+<li>Click <strong>Check</strong>.</li>
+</ol>
+<p><strong>What it finds:</strong> unclosed tags, duplicate <code>id</code>s, <code>&lt;img&gt;</code> without <code>alt</code>, <code>&lt;p&gt;</code> inside <code>&lt;p&gt;</code>, non-existent attributes.</p>
+<p><strong>Goal:</strong> the message &quot;Document checking completed. No errors or warnings to show.&quot;</p>
+<h3 id="section-22">Lighthouse - an overall page score</h3>
+<p>Lighthouse is built into Chrome:</p>
+<ol>
+<li>Open the page via Live Server.</li>
+<li>DevTools → <strong>Lighthouse</strong> tab.</li>
+<li>Tick <strong>Accessibility</strong> and <strong>SEO</strong>, click <strong>Analyze page load</strong>.</li>
+</ol>
+<p>In a few seconds you get a score from 0 to 100 and a list of what to improve: no <code>description</code>, low contrast, no <code>alt</code>.</p>
+<p><strong>The validator and Lighthouse do not replace a manual check.</strong> Go through the page with the keyboard, as in Lesson 8.</p>
 <hr>
-<p><a href="index.html">Contents</a> · <a href="en-lesson-8.html">Previous</a> · <a href="en-lesson-10.html">Next</a> · <a href="../Lesson-9/practice.html">Practice</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a></p>
+<h2 id="section-23">Mini-task 2</h2>
+<p>Check this code in the validator. How many errors will it find, and which?</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Check&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 id=&quot;top&quot;&gt;Heading&lt;/h1&gt;
+    &lt;p id=&quot;top&quot;&gt;Paragraph &lt;p&gt;nested paragraph&lt;/p&gt;&lt;/p&gt;
+    &lt;img src=&quot;photo.jpg&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The answer is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-24">Lesson summary: cheat sheet</h2>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Page title - Site name&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;1–2 sentences about the page.&quot;&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;Title for the card&quot;&gt;
+    &lt;meta property=&quot;og:description&quot; content=&quot;Description for the card&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    &lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Notation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Description for search</td>
+<td><code>&lt;meta name=&quot;description&quot; content=&quot;...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Normal view on phones</td>
+<td><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Card in messengers</td>
+<td><code>&lt;meta property=&quot;og:...&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Styles</td>
+<td><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Script</td>
+<td><code>&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;</code></td>
+</tr>
+<tr>
+<td>Checking</td>
+<td>Nu HTML Checker, Lighthouse</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-25">Independent work</h2>
+<h3 id="section-26">Part 1. IDE task (graded by the platform)</h3>
+<p>Make the <strong>club home page</strong> with a complete <code>&lt;head&gt;</code>:</p>
+<ol>
+<li><code>charset</code>, <code>viewport</code> and <code>title</code>.</li>
+<li><code>description</code> - the page's own description.</li>
+<li><code>og:title</code> and <code>og:description</code>.</li>
+<li>A site icon <code>&lt;link rel=&quot;icon&quot;&gt;</code>.</li>
+<li>Styles: <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code>.</li>
+<li>Script: <code>&lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;</code>.</li>
+<li>In <code>&lt;body&gt;</code> - <code>header</code>, <code>main</code> with one <code>h1</code> and a paragraph, <code>footer</code>.</li>
+</ol>
+<p>Add styles and scripts only by connecting files: do not use the <code>&lt;style&gt;</code> tag.</p>
+<p>What the platform checks: the document skeleton, <code>viewport</code> with <code>width=device-width</code>, <code>description</code>, <code>og:title</code>, the icon, connection of <code>css/style.css</code> and <code>js/main.js</code> with <code>defer</code>, a closed <code>&lt;/script&gt;</code>, one <code>h1</code>, no <code>&lt;style&gt;</code>.</p>
+<h3 id="section-27">Part 2. Project on your computer</h3>
+<ol>
+<li>Copy <code>Lesson-9/css/style.css</code> and <code>Lesson-9/js/main.js</code> into the <code>css</code> and <code>js</code> folders of your project.</li>
+<li>Make two pages - <code>index.html</code> and <code>about.html</code> - each with its own <code>title</code> and <code>description</code>.</li>
+<li>Open them via Live Server. Check in Network: both files are 200 or 304.</li>
+<li>Check both pages in Nu HTML Checker - no errors.</li>
+<li>Run Lighthouse and write down the Accessibility and SEO scores.</li>
+</ol>
+<h3 id="section-28">Acceptance criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The IDE task is accepted.</label></li>
+<li class="check"><label><input type="checkbox"> Each page has its own <code>title</code> and <code>description</code>.</label></li>
+<li class="check"><label><input type="checkbox"> Both pages have <code>viewport</code>.</label></li>
+<li class="check"><label><input type="checkbox"> CSS and JS load without 404.</label></li>
+<li class="check"><label><input type="checkbox"> The script message is visible in the console.</label></li>
+<li class="check"><label><input type="checkbox"> The validator found no errors.</label></li>
+<li class="check"><label><input type="checkbox"> Files are sorted into folders, names in Latin letters without spaces.</label></li>
+</ul>
+<hr>
+<h2 id="section-29">Self-check questions</h2>
+<ol>
+<li>Where is <code>description</code> visible?</li>
+<li>Why does every page have its own description?</li>
+<li>What happens on a phone without <code>viewport</code>?</li>
+<li>How does <code>og:title</code> differ from <code>&lt;title&gt;</code>?</li>
+<li>Why does <code>og:image</code> need a full address?</li>
+<li>How do you connect a style file?</li>
+<li>Why is <code>&lt;script&gt;</code> always written with a closing tag?</li>
+<li>How does <code>defer</code> differ from <code>async</code>?</li>
+<li>What does status 404 in Network mean?</li>
+<li>Why use a validator if the page already looks fine?</li>
+</ol>
+<p>After the questions, take the <strong>lesson test</strong> on the platform: 12 questions, pass threshold 70%.</p>
+<hr>
+<h2 id="section-30">What's next</h2>
+<p>You know everything you need to build a real website. In Lesson 10 you will put it together from plan to publication on the internet, and your site will get an address you can send to friends.</p>
+<hr>
+<h2 id="section-31">Answers</h2>
+<p><strong>Review</strong></p>
+<ol>
+<li>Service information.</li>
+<li><code>css/style.css</code>.</li>
+<li><code>&lt;link rel=&quot;icon&quot; href=&quot;favicon.png&quot;&gt;</code>.</li>
+</ol>
+<p><strong>Mini-task 1</strong></p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Contacts - Web development club&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;How to contact the web development club: email, phone and sign-up form.&quot;&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    &lt;script src=&quot;js/main.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Mini-task 2.</strong> The validator will find:</p>
+<ol>
+<li>A duplicate <code>id=&quot;top&quot;</code>.</li>
+<li>A paragraph inside a paragraph: the browser closes the first <code>&lt;p&gt;</code> early, and the extra <code>&lt;/p&gt;</code> is left without a pair.</li>
+<li><code>&lt;img&gt;</code> has no <code>alt</code>.</li>
+</ol>
+<p><strong>Self-check questions</strong></p>
+<ol>
+<li>In search results under the title.</li>
+<li>Otherwise the search engine shows the same thing for different pages, and a person cannot tell them apart.</li>
+<li>The page appears as a shrunken copy of the desktop version.</li>
+<li><code>og:title</code> is the card title in social networks, <code>&lt;title&gt;</code> is the name of the tab and of the search result.</li>
+<li>The social network downloads the picture from its own server; a relative path means nothing to it.</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;</code> in <code>&lt;head&gt;</code>.</li>
+<li>It is a paired tag: without <code>&lt;/script&gt;</code> the browser treats all the code below as script.</li>
+<li><code>defer</code> runs scripts after the page is read and in order; <code>async</code> runs each as soon as it is ready, without order.</li>
+<li>The file was not found: an error in the path or the name.</li>
+<li>Another browser or a screen reader may interpret broken code differently.</li>
+</ol>
+<hr>
+<p><a href="index.html">Contents</a> · <a href="en-lesson-8.html">← Back</a> · <a href="en-lesson-10.html">Next →</a> · <a href="ru-lesson-9.html">RU</a> · <a href="en-lesson-9.html">EN</a> · <a href="uz-lesson-9.html">UZ</a> · <a href="../Lesson-9/practice.html">Practice</a></p>
 </article></main><footer><a href="../Lesson-9/en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

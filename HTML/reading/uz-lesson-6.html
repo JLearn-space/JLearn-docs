@@ -1,315 +1,542 @@
-<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Formalar qism-1 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Dars oxiriga qadar nimani o&#x27;rganasiz</a><a href="#section-3">Dars rejasi</a><a href="#section-4">&lt;form&gt; tegi: action va method</a><a href="#section-5">&lt;label&gt; va for/id bog&#x27;lanishi</a><a href="#section-8">input turlari qism 1: text, email, password</a><a href="#section-12">input turlari qism 2: number, date</a><a href="#section-16">checkbox va radio</a><a href="#section-21">Kichik topshiriq</a><a href="#section-22">placeholder vs value va required</a><a href="#section-28">Formani yuborish tugmasi</a><a href="#section-29">Dars xulosalari</a><a href="#section-30">Mustaqil ish</a></details></aside><article><h1 id="section-1">Formalar qism-1</h1>
-<p><a href="index.html">Mundarija</a> | <a href="uz-lesson-5.html">Oldingi dars</a> | <a href="uz-lesson-7.html">Keyingi dars</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Amaliyot: namuna</a></p>
+<!DOCTYPE html><html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Formalar qism-1 · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · O‘qish nashri · O‘zbekcha</p><a href="index.html">HTML — 10 darsda</a></header><main><aside><details open><summary>Dars mazmuni</summary><a href="#section-2">Bu sizga nima uchun kerak</a><a href="#section-3">Nimani o‘rganasiz</a><a href="#section-4">Takrorlash: 3- va 5-darslardan 3 savol</a><a href="#section-5">Reja</a><a href="#section-6">&lt;form&gt; tegi</a><a href="#section-7">Maydon imzosi: label, for, id</a><a href="#section-11">Maydon nomi: name</a><a href="#section-12">Maydon turlari</a><a href="#section-13">Katakchalar va o‘tkazgichlar</a><a href="#section-18">Mini-topshiriq 1</a><a href="#section-19">Maslahat va majburiylik</a><a href="#section-23">Yuborish: &lt;input type=&quot;submit&quot;&gt;</a><a href="#section-25">Mini-topshiriq 2</a><a href="#section-26">Dars yakuni: shpargalka</a><a href="#section-27">Mustaqil ish</a><a href="#section-31">O‘zini tekshirish uchun savollar</a><a href="#section-32">Keyin nima</a><a href="#section-33">Javoblar</a></details></aside><article><h1 id="section-1">Formalar qism-1</h1>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-5.html">← Orqaga</a> · <a href="uz-lesson-7.html">Keyingi →</a> · <a href="ru-lesson-6.html">RU</a> · <a href="en-lesson-6.html">EN</a> · <a href="uz-lesson-6.html">UZ</a> · <a href="../Lesson-6/practice.html">Amaliyot</a></p>
 <blockquote>
-<p><strong>Oldingi dars bilan bog'lanish:</strong> o'tgan darsda biz ma'lumotlarni jadvallar orqali ko'rsatishni o'rgandik. Bugun formalarga o‘tamiz: HTML formasi foydalanuvchi ma’lumot kiritishi va brauzer uni yuborishi uchun maydonlarni birlashtiradi. Oldin sahifalar faqat ma'lumot ko'rsatardi, endi uni qabul qilishni ham o'rganadi.</p>
+<p><strong>Oldingi dars bilan bog‘liqlik:</strong> 5-darsda ma’lumotlarni jadvallarda ko‘rsatdingiz. Bugun ma’lumotlarni <strong>yig‘ishni</strong> o‘rganamiz: kiritish maydonlari, imzolar, belgilash katakchalari, o‘tkazgichlar va yuborish tugmasi.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">Dars oxiriga qadar nimani o'rganasiz</h2>
+<h2 id="section-2">Bu sizga nima uchun kerak</h2>
+<p>Kursga yozilish, ro‘yxatdan o‘tish, qidiruv, do‘konda buyurtma - bularning hammasi formalar. Formasiz sayt faqat ma’lumot ko‘rsatadi, forma bilan esa uni qabul qila boshlaydi.</p>
+<p>Bugun to‘garakka yozilish formasini yig‘asiz va tugma bosilganda brauzer qanday ma’lumot yuborishini ko‘rasiz.</p>
+<hr>
+<h2 id="section-3">Nimani o‘rganasiz</h2>
 <ul>
-<li><code>&lt;form&gt;</code> tegi bilan forma yaratish va <code>action</code> hamda <code>method</code> atributlarini tushunish.</li>
-<li>Asosiy <code>input</code> turlarini ishlatish: text, email, password, number, date, checkbox, radio.</li>
-<li><code>label</code> ni <code>for</code>/<code>id</code> orqali maydon bilan to'g'ri bog'lash.</li>
-<li><code>placeholder</code> va <code>value</code> farqini tushunish.</li>
-<li><code>required</code> orqali maydonlarni majburiy qilish.</li>
+<li><code>&lt;form&gt;</code> tegi bilan forma yaratish va <code>get</code> yoki <code>post</code> usulini tanlash.</li>
+<li>Imzoni maydon bilan bog‘lash: <code>&lt;label for&gt;</code> va <code>id</code>.</li>
+<li>Ma’lumotlar serverga ketadigan <code>name</code> nomlarini berish.</li>
+<li>Maydon turlaridan foydalanish: <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code>, <code>tel</code>.</li>
+<li><code>value</code> qiymatli belgilash katakchalari (<code>checkbox</code>) va o‘tkazgichlar (<code>radio</code>) yaratish.</li>
+<li><code>placeholder</code> ni <code>value</code> dan farqlash, maydonni majburiy qilish (<code>required</code>).</li>
+<li>Brauzerga avtomatik to‘ldirishni maslahat berish (<code>autocomplete</code>).</li>
 </ul>
 <hr>
-<h2 id="section-3">Dars rejasi</h2>
+<h2 id="section-4">Takrorlash: 3- va 5-darslardan 3 savol</h2>
+<ol>
+<li>Elementning noyob nomi qaysi atribut bilan beriladi?</li>
+<li>Sahifada bir xil <code>id</code> li ikki element bo‘lishi mumkinmi?</li>
+<li>Jadvallarni nima uchun ishlatib bo‘lmaydi?</li>
+</ol>
+<p>Javoblar - dars oxirida.</p>
+<hr>
+<h2 id="section-5">Reja</h2>
 <table>
 <thead>
 <tr>
 <th>Bo‘lim</th>
-<th>Mazmuni</th>
+<th>Nima qilamiz</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>form tegi: action, method</td>
-<td>Nima uchun forma kerak, ma'lumotlar qayerga ketadi</td>
+<td><code>&lt;form&gt;</code> tegi</td>
+<td>Qog‘oz anketa</td>
 </tr>
 <tr>
-<td>label va for/id</td>
-<td>Yorliqni maydon bilan bog'lash - formalar qulayligining asosi</td>
+<td>Maydon imzosi</td>
+<td><code>label</code>, <code>for</code>, <code>id</code></td>
 </tr>
 <tr>
-<td>input turlari qism 1: text, email, password</td>
-<td>Matnli maydonlar</td>
+<td>Maydon nomi</td>
+<td><code>name</code></td>
 </tr>
 <tr>
-<td>input turlari qism 2: number, date</td>
-<td>Sonlar va sanalar</td>
+<td>Maydon turlari</td>
+<td>text, email, password, number, date, tel</td>
 </tr>
 <tr>
+<td>Katakchalar va o‘tkazgichlar</td>
 <td>checkbox va radio</td>
-<td>&quot;Bir nechtasini tanlash&quot; va &quot;bittasini tanlash&quot; farqi</td>
 </tr>
 <tr>
-<td>Kichik topshiriq</td>
-<td>Maydonni mustaqil yaratish</td>
+<td>Mini-topshiriq 1</td>
+<td>radio guruhi</td>
 </tr>
 <tr>
-<td>placeholder vs value, required</td>
-<td>Yangi boshlovchilar ko'p adashadigan joy</td>
+<td>Maslahat va majburiylik</td>
+<td><code>placeholder</code>, <code>value</code>, <code>required</code>, <code>autocomplete</code></td>
 </tr>
 <tr>
-<td>Xulosalar va amaliy topshiriq</td>
-<td>Mustahkamlash - aloqa formasini yig'amiz</td>
+<td>Yuborish</td>
+<td><code>input type=&quot;submit&quot;</code> va manzilda nima ko‘rinadi</td>
+</tr>
+<tr>
+<td>Mini-topshiriq 2</td>
+<td>Qidiruv formasi</td>
+</tr>
+<tr>
+<td>Mustaqil ish</td>
+<td>IDE topshirig‘i va to‘garakka yozilish</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4"><code>&lt;form&gt;</code> tegi: action va method</h2>
-<p><strong>Oddiy qilib aytganda:</strong> qog'oz anketani tasavvur qiling, uni to'ldirasiz va ma'lum xonaga topshirasiz. HTML da forma shunday ishlaydi: foydalanuvchi maydonlarni to'ldiradi, yuborilganda brauzer ma'lumotlarni ma'lum manzilga &quot;olib boradi&quot; (odatiy serverga, ularni qayta ishlaydi).</p>
-<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
-    &lt;!-- forma maydonlari shu yerda bo'ladi --&gt;
+<h2 id="section-6"><code>&lt;form&gt;</code> tegi</h2>
+<p><strong>Oddiy qilib aytganda:</strong> forma - qog‘oz anketa. Maydonlarni to‘ldirasiz va anketani kerakli xonaga eltasiz. HTML da brauzer ma’lumotlarni manzilga «eltadi».</p>
+<pre><code class="language-html">&lt;form action=&quot;/register&quot; method=&quot;get&quot;&gt;
+    &lt;!-- maydonlar --&gt;
 &lt;/form&gt;
 </code></pre>
-<ul>
-<li><strong><code>action</code></strong> — so‘rov manzili. O‘quv misolidagi <code>action</code> atributini yozmaslik joriy sahifaga yuborishni bildiradi. Bu kursda ishlaydigan forma qayta ishlovchisi yo‘q.</li>
-<li><strong><code>method</code></strong> - ma'lumotlarni qanday usulda yuborish. Ikki asosiy qiymat:
-<ul>
-<li><strong><code>get</code></strong> - ma'lumotlar to'g'ridan-to'g'ri brauzer manzil satriga qo'shiladi (URL da ko'rinadi), shaxsiy ma'lumotlar yo'qidagi qidiruv formalariga mos keladi.</li>
-<li><strong><code>post</code></strong> — ma’lumot so‘rov tanasida uzatiladi. Bu usul ro‘yxatdan o‘tish va xabar yuborishda ko‘p ishlatiladi, ammo o‘zi ma’lumotni shifrlamaydi. Bu darsda yuborishni kuzatish uchun <code>get</code> va faqat o‘ylab topilgan ma’lumotlardan foydalanamiz.</li>
-</ul>
-</li>
-</ul>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-6-1.svg" alt="Chizma 1: Formatlar qism-1"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-6-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Avval brauzer kiritilgan qiymatlarni tekshiradi: noto‘g‘ri bo‘lsa, foydalanuvchi tuzatadi. To‘g‘ri qiymatlardan yuboriladigan juftlar tayyorlanadi; GET ularni URLga, POST so‘rov tanasiga joylaydi. Bu sxema ma’lumotlar serverda albatta saqlanishini bildirmaydi.</p>
-<p><strong>Yuborish va xavfsizlik.</strong> POST ma’lumotlarni so‘rov tanasiga joylaydi, ammo shifrlamaydi. Uzatishda HTTPS himoya qiladi. Ishlaydigan qayta ishlovchi bo‘lmasa ham brauzer <code>action</code> manziliga so‘rov yuborishga urinadi; server xato qaytarishi, ma’lumotlar esa qayta ishlanmasligi va saqlanmasligi mumkin. Statik hostingda HTML o‘zi arizalarni saqlamaydi. Misollardagi <code>action</code> atributini yozmaslik joriy sahifaga yuborishni bildiradi: haqiqiy parol yoki shaxsiy ma’lumot yubormang.</p>
+<table>
+<thead>
+<tr>
+<th>Atribut</th>
+<th>Ma’nosi</th>
+<th>O‘xshatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>action</code></td>
+<td>Qayerga yuborish</td>
+<td>Xona raqami</td>
+</tr>
+<tr>
+<td><code>method=&quot;get&quot;</code></td>
+<td>Ma’lumotlar sahifa manzilida</td>
+<td>Konvert ustidagi yozuv: hamma ko‘radi</td>
+</tr>
+<tr>
+<td><code>method=&quot;post&quot;</code></td>
+<td>Ma’lumotlar so‘rov ichida</td>
+<td>Konvert ichidagi yozuv</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Xavfsizlik haqida muhim:</strong> <code>post</code> ma’lumotlarni manzildan yashiradi, lekin ularni <strong>shifrlamaydi</strong>. Uzatishni faqat sayt manzilidagi <code>https://</code> himoya qiladi.</p>
+<p><strong>Kursning o‘quv formalarida</strong> biz <code>method=&quot;get&quot;</code> yozamiz va <code>action</code> yozmaymiz: shunda forma o‘sha sahifaga yuboriladi va tugmani bosgandan keyin yuborilgan ma’lumotlarni to‘g‘ridan-to‘g‘ri manzil qatorida ko‘rasiz. Ular hech qayerga saqlanmaydi - bu o‘quv misoli. Faqat to‘qima ma’lumotlarni kiriting.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-6-1.svg" alt="Chizma 1: Formalar qism-1"></div><figcaption>Chizma 1 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-6-1.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> Avval brauzer maydonlarni tekshiradi. Hammasi to‘g‘ri bo‘lsa - <code>name=value</code> juftliklarini yig‘ib yuboradi: GET da - manzilda, POST da - so‘rov ichida.</p>
 <hr>
-<h2 id="section-5"><code>&lt;label&gt;</code> va <code>for</code>/<code>id</code> bog'lanishi</h2>
-<p>Bu, ehtimol, bugungi darsning eng muhim mavzusi - ko'pchilik yangi boshlovchilar uni o'tkazib yuboradi, va bejiz.</p>
-<p><strong>Oddiy qilib aytganda:</strong> <code>&lt;label&gt;</code> - bu forma maydonining yorlig'i, masalan, ism maydoni yonidagi &quot;Ism:&quot; yozuvi. Lekin oddiy matnni maydon yoniga joylashtirish yetarli emas. Yorliqni aniq maydon bilan <strong>bog'lash</strong> kerak.</p>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;username&quot;&gt;Foydalanuvchi nomi:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot;&gt;&lt;/p&gt;
+<h2 id="section-7">Maydon imzosi: <code>label</code>, <code>for</code>, <code>id</code></h2>
+<p><strong>Oddiy qilib aytganda:</strong> anketaning har bir maydonida yozuv bor: «Familiya», «Telefon». HTML da yozuv - <code>&lt;label&gt;</code>. Uni maydonga <strong>bog‘lash</strong> kerak.</p>
+<pre><code class="language-html">&lt;label for=&quot;name&quot;&gt;Ism&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot;&gt;
 </code></pre>
-<p>Bog'lanishni tushuntiramiz:</p>
-<ul>
-<li><code>&lt;label&gt;</code> ning <code>for</code> atributi bor, qiymati <code>&quot;username&quot;</code>.</li>
-<li><code>&lt;input&gt;</code> ning <code>id</code> atributi bor, <strong>aynan bir xil</strong> qiymat bilan - <code>&quot;username&quot;</code>.</li>
-</ul>
-<p>Ana shu qiymatlar mos kelishi yorliqni maydon bilan bog'laydi.</p>
-<p><strong>Agar vizual jihatdan yorliq qaysi maydonga tegishliligini tushunish oson bo'lsa, nima uchun bu kerak:</strong></p>
+<p>Bog‘lanish: imzodagi <code>for</code> = maydondagi <code>id</code>. Harfma-harf.</p>
+<p><strong>Bu nima beradi:</strong></p>
 <ol>
-<li><strong>Yorliqni bosish maydonni faollashtiradi.</strong> Sinab ko'ring - agar bog'lanish to'g'ri o'rnatilgan bo'lsa, &quot;Foydalanuvchi nomi:&quot; matnini bosish kursori kiritish maydoniga qo'yadi. Bu kichik elementlar, masalan, checkbox lar (tegishli bo‘limda) uchun juda foydali - yonidagi matnni bosish kichik kvadratchaga aniq tegishdan qulayroq.</li>
-<li><strong>Ekran o'quvchilari aynan shu bog'lanishdan foydalanadi.</strong> Usiz ko'zi ojiz foydalanuvchi kiritish maydoniga tushganda, nimani anglatishini tushunmaydi - ekran o'quvchisi shunchaki kontekstsiz &quot;matn maydoni&quot; deb aytadi.</li>
+<li><strong>Imzoni bosish kursorni maydonga qo‘yadi.</strong> Ayniqsa kichik katakchalar uchun qulay.</li>
+<li><strong>Ekran o‘quvchi imzoni o‘qiydi:</strong> «Ism, kiritish maydoni». Bog‘lanishsiz u faqat «kiritish maydoni» deydi.</li>
 </ol>
-<h3 id="section-6">Muqobil usul - input ni label ichiga o'rab olish</h3>
+<h3 id="section-8">Buzib ko‘ring</h3>
+<ol>
+<li>«Ism» so‘zini bosing - kursor maydonga sakradi.</li>
+<li><code>for=&quot;name&quot;</code> ni <code>for=&quot;nam&quot;</code> ga o‘zgartiring. Imzoni yana bosing. Kursor endi sakramaydi: bog‘lanish yo‘qoldi.</li>
+</ol>
+<h3 id="section-9">Ikkinchi usul: maydon imzo ichida</h3>
 <pre><code class="language-html">&lt;label&gt;
-    Foydalanuvchi nomi:
-    &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    Ism
+    &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
 &lt;/label&gt;
 </code></pre>
-<p>Bu yerda <code>id</code>/<code>for</code> kerak emas - ichki joylashuv o'zi bog'lanishni yaratadi. Ikkala usul ham to'g'ri, lekin <code>for</code>/<code>id</code> orqali aniq usul (birinchi variant) murakkab veb-qurilishda ko'proq tarqalgan va bashorat qilinadigan hisoblanadi - bu kursda asosan uni ishlatamiz.</p>
-<p><strong><code>&lt;input&gt;</code> dagi <code>name</code> atributi:</strong> e'tibor bering, maydonning <code>id</code> dan tashqari <code>name</code> atributi ham bor - bu <code>id</code> bilan <strong>bir xil narsa emas</strong>. <code>name</code> - maydon nomi, shu nom orqali ma'lumotlar forma yuborilganda serverga ketadi (serverdagi qayta ishlash aynan <code>name</code> bo'yicha o'qiydi). <code>id</code> - <code>&lt;label&gt;</code> bilan bog'lanish va stilizatsiya/skriptlar uchun ishlatiladi. Aniq label bog‘lanishi va yuborish ishlatilgan misollarimizda <strong>ikkala</strong> atribut kerak, ular (lekin shart emas) qiymatda mos kelishi mumkin.</p>
-<hr>
-<h3 id="section-7">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<p>Xuddi shunday ishlaydi. Kursda <code>for</code> va <code>id</code> li birinchi usuldan foydalanamiz: uni tekshirish tushunarliroq.</p>
+<h3 id="section-10">Yangi o‘rganuvchilarning tipik xatolari</h3>
 <table>
 <thead>
 <tr>
-<th>Xatolik</th>
+<th>Xato</th>
 <th>Qanday tuzatish</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;label&gt;</code> ni <code>&lt;input&gt;</code> yoniga <code>for</code>/<code>id</code> siz yozish</td>
-<td>Har doim aniq bog'lang: <code>label</code> da <code>for=&quot;ism&quot;</code> va <code>input</code> da <code>id=&quot;ism&quot;</code> bir xil qiymat bilan</td>
+<td>Imzo oddiy matn <code>&lt;p&gt;Ism&lt;/p&gt;</code></td>
+<td><code>&lt;label for&gt;</code> ishlating</td>
 </tr>
 <tr>
-<td><code>id</code> va <code>name</code> ni adashtirish, faqat bittasini ishlatish</td>
-<td>Maydonda ikkala atribut kerak: <code>id</code> - label bilan bog'lanish uchun, <code>name</code> - serverga ma'lumot yuborish uchun</td>
+<td><code>for</code> <code>id</code> ga mos emas</td>
+<td>Harfma-harf</td>
 </tr>
 <tr>
-<td>Bir nechta turli maydon uchun bir xil <code>id</code> ishlatish</td>
-<td>3-darsdan eslab qoling, <code>id</code> butun sahifada noyob bo'lishi kerak</td>
+<td>Bir xil <code>id</code> li ikki maydon</td>
+<td><code>id</code> sahifada noyob</td>
+</tr>
+<tr>
+<td>Imzo o‘rniga <code>placeholder</code></td>
+<td>Imzo doim kerak, <code>placeholder</code> kiritishda yo‘qoladi</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-8"><code>input</code> turlari qism 1: text, email, password</h2>
-<p><code>&lt;input&gt;</code> tegi - 4-darsdagi <code>&lt;img&gt;</code> kabi juftlikka kirmaydigan. Uning xulqi <code>type</code> atributiga qarab butunlay o'zgaradi.</p>
-<h3 id="section-9"><code>type=&quot;text&quot;</code> - oddiy bir qatorli matn maydoni</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;fullname&quot;&gt;To'liq ism:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;fullname&quot; name=&quot;fullname&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Asosiy tur - shunchaki to'g'ri burchakli maydon, bir qatorda istalgan matnni kiritish uchun.</p>
-<h3 id="section-10"><code>type=&quot;email&quot;</code> - email maydoni</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt; &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Vizual jihatdan oddiy matn maydoniga o'xshaydi, lekin brauzer kiritilgan matn email ga o'xshashligini <strong>avtomatik tekshiradi</strong> (<code>@</code> va manzil tuzilishini o'z ichiga oladi) - noto'g'ri email bilan formani yuborishga urinilganda brauzer o'zi ogohlantirish ko'rsatadi, JavaScript yozmasdan. Mobil qurilmalarda bunday maydon faollashtirilganda tezda <code>@</code> va <code>.com</code> ga kirish imkonini beruvchi maxsus klaviatura paydo bo'ladi.</p>
-<h3 id="section-11"><code>type=&quot;password&quot;</code> - parol maydoni</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;password&quot;&gt;Parol:&lt;/label&gt; &lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Foydalanuvchi kiritgan belgilar nuqta yoki yulduzcha sifatida ko'rsatiladi (••••••) - parol matni yelkasidan qarab turgan odamdan yashirin.</p>
-<hr>
-<h2 id="section-12"><code>input</code> turlari qism 2: number, date</h2>
-<h3 id="section-13"><code>type=&quot;number&quot;</code> - son maydoni</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;age&quot;&gt;Yosh:&lt;/label&gt; &lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Bu maydon sonli qiymatlar uchun mo‘ljallangan. Strelkalar va kiritish paytidagi oraliq belgilar brauzerga bog‘liq: minus belgisi yoki eksponent yozuvi qabul qilinishi mumkin. Shuning uchun bu “faqat raqam” bilan cheklash usuli emas. Qiymat chegaralarini keyingi darsda o‘rganamiz.</p>
-<h3 id="section-14"><code>type=&quot;date&quot;</code> - sana tanlash maydoni</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;birthday&quot;&gt;Tug'ilgan sana:&lt;/label&gt; &lt;input type=&quot;date&quot; id=&quot;birthday&quot; name=&quot;birthday&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Brauzer o'zi sanani tanlash uchun qulay vizual kalendar ko'rsatadi - bitta qator qo‘shimcha kodsiz. Serverga ketadigan sana formati har doim standartlashtirilgan (<code>YYYY-MM-DD</code>), vizual jihatdan turli mamlakatlarda kalendar turlicha ko'rsatilsa ham.</p>
-<hr>
-<h3 id="section-15">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<h2 id="section-11">Maydon nomi: <code>name</code></h2>
+<p><strong><code>id</code> va <code>name</code> - turli narsalar:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Xatolik</th>
+<th>Atribut</th>
+<th>Nima uchun</th>
+<th>O‘xshatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Sahifadagi imzo bilan bog‘lanish</td>
+<td>Zaldagi o‘rin raqami</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Qiymat serverga ketadigan nom</td>
+<td>Kotib uchun anketa grafasidagi yozuv</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>name</code> siz maydon yuborilmaydi.</strong> Brauzer uni shunchaki o‘tkazib yuboradi.</p>
+<p><code>method=&quot;get&quot;</code> bilan forma yuborilgandan keyin manzilda paydo bo‘ladi:</p>
+<pre><code>?name=Aziz&amp;email=aziz%40example.com
+</code></pre>
+<p>Bular <code>&amp;</code> bilan ajratilgan <code>nom=qiymat</code> juftliklari. <code>@</code> belgisini brauzer <code>%40</code> deb yozdi - manzilda maxsus belgilar shunday kodlanadi.</p>
+<hr>
+<h2 id="section-12">Maydon turlari</h2>
+<p>Kiritish maydoni - bo‘sh <code>&lt;input&gt;</code> elementi. Turini <code>type</code> atributi belgilaydi:</p>
+<table>
+<thead>
+<tr>
+<th>Tur</th>
+<th>Nima uchun</th>
+<th>Brauzer nima qiladi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>Oddiy matn</td>
+<td>Alohida hech narsa</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>Pochta</td>
+<td><code>@</code> borligini tekshiradi; telefonda - <code>@</code> li klaviatura</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Parol</td>
+<td>Belgilarni nuqtalar bilan yashiradi</td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>Son</td>
+<td>Yuqori-past strelkalar; harf kiritishga yo‘l qo‘ymaydi</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>Sana</td>
+<td>Kalendar ko‘rsatadi</td>
+</tr>
+<tr>
+<td><code>tel</code></td>
+<td>Telefon</td>
+<td>Telefonda - raqamli klaviatura</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-html">&lt;label for=&quot;email&quot;&gt;Pochta&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;&gt;
+
+&lt;label for=&quot;age&quot;&gt;Yosh&lt;/label&gt;
+&lt;input type=&quot;number&quot; id=&quot;age&quot; name=&quot;age&quot;&gt;
+
+&lt;label for=&quot;start&quot;&gt;Boshlanish sanasi&lt;/label&gt;
+&lt;input type=&quot;date&quot; id=&quot;start&quot; name=&quot;start&quot;&gt;
+</code></pre>
+<p><strong>Nimani ko‘rasiz:</strong> sana maydonida - kalendar belgisi. Yosh maydonida - strelkalar. Pochtaga «abc» kiritib formani yuborib ko‘ring: brauzer xato haqida maslahat ko‘rsatadi.</p>
+<p><strong><code>password</code> belgilarni faqat ekranda yashiradi.</strong> <code>https://</code> siz parol ochiq uzatiladi.</p>
+<hr>
+<h2 id="section-13">Katakchalar va o‘tkazgichlar</h2>
+<table>
+<thead>
+<tr>
+<th>Tur</th>
+<th>Nechtasini tanlash mumkin</th>
+<th>O‘xshatish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checkbox</code></td>
+<td>Istalgancha yoki hech biri</td>
+<td>Anketadagi «qiziqishlar» belgilari</td>
+</tr>
+<tr>
+<td><code>radio</code></td>
+<td>Guruhdan <strong>bittasi</strong></td>
+<td>Eski radio tugmalari: birini bossang, boshqasi chiqib ketadi</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-14"><code>checkbox</code> - mustaqil katakchalar</h3>
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; id=&quot;html&quot; name=&quot;topics&quot; value=&quot;html&quot;&gt;
+&lt;label for=&quot;html&quot;&gt;HTML&lt;/label&gt;
+
+&lt;input type=&quot;checkbox&quot; id=&quot;css&quot; name=&quot;topics&quot; value=&quot;css&quot;&gt;
+&lt;label for=&quot;css&quot;&gt;CSS&lt;/label&gt;
+</code></pre>
+<h3 id="section-15"><code>radio</code> - guruhdan bittasi</h3>
+<pre><code class="language-html">&lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+&lt;label for=&quot;morning&quot;&gt;Ertalab&lt;/label&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+&lt;label for=&quot;evening&quot;&gt;Kechqurun&lt;/label&gt;
+</code></pre>
+<p><strong>radio guruhini bir xil <code>name</code> birlashtiradi.</strong> <code>name</code> lar har xil bo‘lsa - ikkalasini tanlash mumkin, guruh buzilgan.</p>
+<p><strong><code>value</code></strong> - serverga nima ketadi. <code>value</code> siz brauzer tushunarsiz <code>on</code> yuboradi. <code>value</code> bilan - <code>time=evening</code>.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-6-2.svg" alt="Chizma 2: Formalar qism-1"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-6-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Sxemani qanday o‘qish kerak.</strong> Har bir shox - maydon turi va uning vazifasi. Sxema formadagi maydonlar tartibini belgilamaydi.</p>
+<h3 id="section-16">Buzib ko‘ring</h3>
+<p>Ikki o‘tkazgichga turli <code>name</code> bering: <code>name=&quot;time1&quot;</code> va <code>name=&quot;time2&quot;</code>. Endi ikkalasini birdaniga tanlash mumkin. Bir xil nomni qaytaring.</p>
+<h3 id="section-17">Yangi o‘rganuvchilarning tipik xatolari</h3>
+<table>
+<thead>
+<tr>
+<th>Xato</th>
 <th>Qanday tuzatish</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Email/sonlar uchun maxsus turlar o'rniga <code>type=&quot;text&quot;</code> ishlatish</td>
-<td><code>type=&quot;email&quot;</code>, <code>type=&quot;number&quot;</code>, <code>type=&quot;date&quot;</code> ishlating - ular kod qo'shmasdan ichki tekshiruv va qulay kiritish interfeysini beradi</td>
+<td>radio larda turli <code>name</code></td>
+<td>Bitta guruh - bitta <code>name</code></td>
 </tr>
 <tr>
-<td><code>type=&quot;email&quot;</code> o'zi xabar &quot;yuboradi&quot; deb kutish</td>
-<td>Bu faqat matn formatini tekshirish - yuborish faqat forma/server logikasi orqali amalga oshiriladi</td>
+<td>radio va checkbox da <code>value</code> yo‘q</td>
+<td><code>on</code> yuboriladi. <code>value</code> bering</td>
+</tr>
+<tr>
+<td>Bitta variant kerak joyda checkbox</td>
+<td>Bir nechtadan bittasi - <code>radio</code></td>
+</tr>
+<tr>
+<td>Maydonda <code>name</code> yo‘q</td>
+<td>Maydon yuborilmaydi</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-16"><code>checkbox</code> va radio</h2>
-<p>Bu bir-biriga o'xshash, lekin prinsipial jihatdan turli maydon turlari - ularni adashtirish yangi boshlovchilarning eng ko'p uchraydigan xatolaridan biri.</p>
-<h3 id="section-17"><code>type=&quot;checkbox&quot;</code> - bir nechtasini tanlash mumkin (yoki hech birini)</h3>
-<pre><code class="language-html">&lt;p&gt;Qiziqayotgan mavzuingizni tanlang:&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;checkbox&quot; id=&quot;html&quot; name=&quot;topics&quot; value=&quot;html&quot;&gt; &lt;label for=&quot;html&quot;&gt;HTML&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;checkbox&quot; id=&quot;css&quot; name=&quot;topics&quot; value=&quot;css&quot;&gt; &lt;label for=&quot;css&quot;&gt;CSS&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;checkbox&quot; id=&quot;js&quot; name=&quot;topics&quot; value=&quot;js&quot;&gt; &lt;label for=&quot;js&quot;&gt;JavaScript&lt;/label&gt;&lt;/p&gt;
-</code></pre>
-<p>Har bir checkbox boshqalardan mustaqil. Foydalanuvchi istalgan sonida variantlarni belgilashi mumkin, jumladan hech birini.</p>
-<h3 id="section-18"><code>type=&quot;radio&quot;</code> - guruhdan faqat bitta variant tanlash mumkin</h3>
-<pre><code class="language-html">&lt;p&gt;Tayyorgarlik darajangizni tanlang:&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt; &lt;label for=&quot;beginner&quot;&gt;Boshlang'ich&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;intermediate&quot; name=&quot;level&quot; value=&quot;intermediate&quot;&gt; &lt;label for=&quot;intermediate&quot;&gt;O'rta&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;advanced&quot; name=&quot;level&quot; value=&quot;advanced&quot;&gt; &lt;label for=&quot;advanced&quot;&gt;Yuqori&lt;/label&gt;&lt;/p&gt;
-</code></pre>
-<p><strong>Radio tugmalarini guruh qiladigan kalit moment:</strong> barcha variantlarning <strong>bir xil <code>name</code> atributi</strong> bor (misolda - <code>name=&quot;level&quot;</code>). Aynan <code>name</code> ning mos kelishi brauzerga &quot;bu bitta savolning variantlari - bittasini tanlash avtomatik boshqalarini tanlashni bekor qiladi&quot; degan signal beradi. Shu bilan birga har bir variantning <code>id</code> si <strong>turli</strong> (bo'lmasa label bilan bog'lanish buziladi).</p>
-<h3 id="section-19">checkbox/radio da <code>value</code> qiymati</h3>
-<p><code>value</code> atributi tanlangan variant serverga qanday qiymat yuborishini belgilaydi. Foydalanuvchiga ko'rinadigan matn <code>&lt;label&gt;</code> orqali belgilanadi, <code>value</code> emas - bu turli narsalar.</p>
+<h2 id="section-18">Mini-topshiriq 1</h2>
+<p>«Daraja» o‘tkazgichlar guruhini yarating: «Yangi boshlovchi» va «Tajribam bor». Faqat bittasini tanlash mumkin. Serverga <code>level=beginner</code> yoki <code>level=experienced</code> ketishi kerak. Yechim - «Javoblar» bo‘limida.</p>
 <hr>
-<h3 id="section-20">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
+<h2 id="section-19">Maslahat va majburiylik</h2>
+<h3 id="section-20"><code>placeholder</code> va <code>value</code></h3>
+<pre><code class="language-html">&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; placeholder=&quot;name@example.com&quot;&gt;
+&lt;input type=&quot;text&quot; id=&quot;city&quot; name=&quot;city&quot; value=&quot;Olmaliq&quot;&gt;
+</code></pre>
 <table>
 <thead>
 <tr>
-<th>Xatolik</th>
-<th>Qanday tuzatish</th>
+<th></th>
+<th><code>placeholder</code></th>
+<th><code>value</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>&quot;Barcha mos variantlarni tanlang&quot; savollari uchun <code>checkbox</code> o‘rniga <code>radio</code> ishlatish</td>
-<td>Ko'p tanlov uchun - <code>checkbox</code>, bitta tanlov uchun - <code>radio</code></td>
+<td>Bu nima</td>
+<td>Kulrang maslahat-namuna</td>
+<td>Maydondagi haqiqiy qiymat</td>
 </tr>
 <tr>
-<td>Bir guruh radio tugmalariga turlicha <code>name</code> qiymatlari berish</td>
-<td>Barcha radio tugmalari bir guruhdan <strong>bir xil</strong> <code>name</code> ga ega bo'lishi kerak - bo'lmasa guruh sifatida ishlamaydi</td>
+<td>Kiritishda</td>
+<td>Yo‘qoladi</td>
+<td>O‘chirib, almashtirish mumkin</td>
 </tr>
 <tr>
-<td>Checkbox maydonlariga bir xil <code>id</code> berish</td>
-<td>Har bir maydonning o'z noyob <code>id</code> si bo'lishi kerak, <code>name</code> bir xil bo‘lsa ham (masalan, <code>topics</code> misolida)</td>
+<td>Yuboriladimi?</td>
+<td>Yo‘q</td>
+<td>Ha</td>
 </tr>
 </tbody>
 </table>
+<p><code>placeholder</code> <code>&lt;label&gt;</code> ni <strong>almashtirmaydi</strong>: odam yoza boshlashi bilan maslahat yo‘qoladi va u maydon nima ekanini unutadi.</p>
+<h3 id="section-21"><code>required</code> - majburiy maydon</h3>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required&gt;
+</code></pre>
+<p><code>required</code> - <strong>qiymatsiz</strong> atribut. Maydon bo‘sh bo‘lsa, brauzer formani yubormaydi va maslahat ko‘rsatadi.</p>
+<h3 id="section-22"><code>autocomplete</code> - avtomatik to‘ldirishga yordam</h3>
+<pre><code class="language-html">&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot;&gt;
+&lt;input type=&quot;tel&quot; id=&quot;phone&quot; name=&quot;phone&quot; autocomplete=&quot;tel&quot;&gt;
+</code></pre>
+<p>Brauzer saqlangan pochta yoki telefonni qo‘yishni taklif qiladi. Foydalanuvchi yozishi shart emas.</p>
 <hr>
-<h2 id="section-21">Kichik topshiriq</h2>
-<p>Namunalarga qaramasdan, &quot;Sevimli ichimligingiz&quot; savoli uchun &quot;Choy&quot;, &quot;Kofe&quot;, &quot;Sharbat&quot; variantlari bilan uchta radio tugmadan iborat guruh yarating - to'g'ri <code>label</code>/<code>id</code> bog'lanishlari va umumiy <code>name</code> bilan.</p>
-<p><strong>Yechim:</strong></p>
-<pre><code class="language-html">&lt;p&gt;Sevimli ichimligingiz:&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;tea&quot; name=&quot;drink&quot; value=&quot;tea&quot;&gt; &lt;label for=&quot;tea&quot;&gt;Choy&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;coffee&quot; name=&quot;drink&quot; value=&quot;coffee&quot;&gt; &lt;label for=&quot;coffee&quot;&gt;Kofe&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;input type=&quot;radio&quot; id=&quot;juice&quot; name=&quot;drink&quot; value=&quot;juice&quot;&gt; &lt;label for=&quot;juice&quot;&gt;Sharbat&lt;/label&gt;&lt;/p&gt;
+<h2 id="section-23">Yuborish: <code>&lt;input type=&quot;submit&quot;&gt;</code></h2>
+<pre><code class="language-html">&lt;input type=&quot;submit&quot; value=&quot;Yozilish&quot;&gt;
 </code></pre>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Gorizontal aylantiriladigan chizma"><img src="diagrams/uz-lesson-6-2.svg" alt="Chizma 2: Formatlar qism-1"></div><figcaption>Chizma 2 · Gorizontal aylantiriladigan chizma<a href="diagrams/uz-lesson-6-2.svg">Chizmani alohida ochish</a></figcaption></figure><p><strong>Chizmani qanday o‘qish kerak:</strong> Har bir asosiy shox input turini, uning ichki yozuvi asosiy vazifasini bildiradi. checkbox lar mustaqil, bir xil name bilan birlashgan radio lar esa bir savolning yagona tanlovidir.</p>
-<hr>
-<h2 id="section-22"><code>placeholder</code> vs <code>value</code> va <code>required</code></h2>
-<p>Bu yana bir ko'p adashiladigan joy - ikki atribut, ikkalasi ham maydon ichida matn ko'rsatadi, lekin butunlay turlicha ishlaydi.</p>
-<h3 id="section-23"><code>placeholder</code> - namuna ko'rsatma, kiritishda yo'qoladi</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;search&quot;&gt;Qidirish:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;search&quot; name=&quot;search&quot; placeholder=&quot;Masalan: HTML kursi&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p><code>placeholder</code> matni <strong>bo'sh maydon ichida kulrang rangda</strong> kiritish formati ko'rsatmasi sifatida ko'rsatiladi - va foydalanuvchi yozishni boshlaganda <strong>avtomatik yo'qoladi</strong>. Foydalanuvchi hech narsa kiritmagan bo'lsa, u serverga <strong>yuborilmaydi</strong> - maydon bo'sh hisoblanadi.</p>
-<h3 id="section-24"><code>value</code> - maydonning haqiqiy qiymati, yuborilganda qoladi</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;city&quot;&gt;Shahar:&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;city&quot; name=&quot;city&quot; value=&quot;Toshkent&quot;&gt;&lt;/p&gt;
-</code></pre>
-<p>Qiymat yuborilishi maydonning forma ma’lumotlariga kirishiga bog‘liq: <code>name</code> kerak; tanlanmagan checkbox va radio yuborilmaydi. <code>name</code> berilgan oddiy matn maydoni joriy qiymatini, foydalanuvchi oldindan yozilgan qiymatni o‘zgartirmagan bo‘lsa ham, yuboradi.</p>
-<h3 id="section-25">Amalda taqqoslash</h3>
-<pre><code class="language-html">&lt;!-- placeholder: format ko'rsatmasi, kiritishda yo'qoladi, maydon bo'sh bo'lsa yuborilmaydi --&gt;
-&lt;p&gt;&lt;label for=&quot;hint-name&quot;&gt;Ism&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;hint-name&quot; name=&quot;hint_name&quot; placeholder=&quot;Ismingizni kiriting&quot;&gt;&lt;/p&gt;
-
-&lt;!-- value: haqiqiy oldindan to'ldirilgan qiymat, o'zgartirmasangiz o'zgacha yuboriladi --&gt;
-&lt;p&gt;&lt;label for=&quot;default-name&quot;&gt;Ism&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;default-name&quot; name=&quot;default_name&quot; value=&quot;Mehmon&quot;&gt;&lt;/p&gt;
-</code></pre>
-<h3 id="section-26"><code>required</code> - majburiy maydon</h3>
-<pre><code class="language-html">&lt;p&gt;&lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt; &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/p&gt;
-</code></pre>
-<p><code>required</code> atributi (qiymatsiz yoziladi) maydonni to'ldirish uchun majburiy qiladi - bo'sh majburiy maydon bilan formani yuborishga urinilganda brauzer o'zi ogohlantirish ko'rsatadi va formani yuborishga ruxsat bermaydi, yana JavaScript yozmasdan.</p>
-<hr>
-<h3 id="section-27">Yangi boshlovchilarning ko'p uchraydigan xatolari</h3>
-<table>
-<thead>
-<tr>
-<th>Xatolik</th>
-<th>Qanday tuzatish</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Maydon yorlig'i o'rniga <code>placeholder</code> ni ishlatish</td>
-<td><code>placeholder</code> format ko'rsatmasi, <code>label</code> almashtirmaydi; maydon yorlig'i har doim <code>&lt;label&gt;</code> orqali bo'lishi kerak</td>
-</tr>
-<tr>
-<td><code>placeholder</code> va <code>value</code> ni adashtirish - placeholder forma bilan yuboriladi deb kutish</td>
-<td>Eslab qoling: <code>placeholder</code> yo'qoladi va yuborilmaydi, <code>value</code> - haqiqiy tarkib, yuborishda qatnashuvchi, <code>name</code> berilgan maydondan yuboriladi</td>
-</tr>
-<tr>
-<td>Haqiqatan majburiy maydonlar uchun <code>required</code> ni unutish (masalan, ro'yxatdan o'tishda email)</td>
-<td>Maydon mantiqan bo'sh bo'la olmaydigan joylarga <code>required</code> qo'shing</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="section-28">Formani yuborish tugmasi</h2>
-<p><code>form</code> ichiga <code>&lt;input type=&quot;submit&quot; value=&quot;O‘quv formasini yuborish&quot;&gt;</code> qo‘shing. Bu tugma yaratadi: <code>type=&quot;submit&quot;</code> tekshirish va yuborishni boshlaydi, <code>value</code> esa tugma yozuvini belgilaydi. Bu tugmaga alohida <code>label</code> kerak emas. Keyingi darsda uni <code>button</code> bilan taqqoslaymiz.</p>
+<p>Tugmadagi <code>value</code> - undagi yozuv. <code>&lt;button&gt;</code> tegini 7-darsda ko‘ramiz.</p>
+<h3 id="section-24">To‘liq forma</h3>
 <pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
-    &lt;p&gt;&lt;label for=&quot;demo-name&quot;&gt;O‘quv ismi&lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;demo-name&quot; name=&quot;student&quot; required&gt;&lt;/p&gt;
-    &lt;input type=&quot;submit&quot; value=&quot;O‘quv formasini yuborish&quot;&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;name&quot;&gt;Ism&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; autocomplete=&quot;name&quot; required&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label for=&quot;email&quot;&gt;Pochta&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type=&quot;radio&quot; id=&quot;morning&quot; name=&quot;time&quot; value=&quot;morning&quot;&gt;
+        &lt;label for=&quot;morning&quot;&gt;Ertalab&lt;/label&gt;
+        &lt;input type=&quot;radio&quot; id=&quot;evening&quot; name=&quot;time&quot; value=&quot;evening&quot;&gt;
+        &lt;label for=&quot;evening&quot;&gt;Kechqurun&lt;/label&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Yozilish&quot;&gt;
+    &lt;/p&gt;
 &lt;/form&gt;
 </code></pre>
-<p>Faqat o‘ylab topilgan ma’lumotdan foydalaning: so‘rov joriy sahifaga yo‘naladi, parametrlar URLda ko‘rinadi. Bu misol arizani qayta ishlamaydi va saqlamaydi.</p>
-<hr>
-<h2 id="section-29">Dars xulosalari</h2>
-<p>Bugun siz o'rgandingiz:</p>
-<ul>
-<li><code>action</code> (qayerga yuborish) va <code>method</code> (<code>get</code>/<code>post</code>, qanday yuborish) atributlari bilan <code>&lt;form&gt;</code> - barcha maydonlar uchun konteyner.</li>
-<li><code>&lt;label&gt;</code> maydon bilan <code>for</code>/<code>id</code> orqali yoki maydonni ichiga joylash orqali bog‘lanadi - bu bosish qulayligiga va ekran o'quvchilari uchun qulaylikka ta'sir qiladi.</li>
-<li>Maxsus <code>input</code> turlari: <code>text</code>, <code>email</code> (format tekshiruvi), <code>password</code> (yashirin matn), <code>number</code> (sonli kiritish), <code>date</code> (vizual kalendar).</li>
-<li><code>checkbox</code> - bir nechta variantni tanlash mumkin (mustaqil maydonlar), <code>radio</code> - guruhdan faqat bitta (bir xil <code>name</code> orqali birlashtirilgan).</li>
-<li><code>placeholder</code> - yo'qoluvchi ko'rsatma, forma bilan yuborilmaydi; <code>value</code> - maydonning haqiqiy tarkibi, yuborishda qatnashuvchi, <code>name</code> berilgan maydondan yuboriladi.</li>
-<li><code>required</code> maydonni JavaScript yozmasdan majburiy qiladi.</li>
-</ul>
-<h2 id="section-30">Mustaqil ish</h2>
-<p>Kursga yozilish uchun o‘quv formasi yarating: ism, email, boshlanish sanasi, ikkita mustaqil checkbox va ikki variantli radio guruhi. Har bir maydonni label bilan bog‘lang; <code>name</code> va variantlar qiymatlarini belgilang. Ism va emailni majburiy qiling. Faqat o‘ylab topilgan ma’lumotlardan foydalaning. Tajriba uchun <code>method=&quot;get&quot;</code> ishlating, <code>action</code> atributini yozmang; lokal HTTP serverdan formani yuboring va manzildagi <code>name=value</code> juftlarini toping.</p>
-<h3 id="section-31">Tayyorlik mezonlari</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> Label bosilganda tegishli maydon faollashadi; id takrorlanmaydi.</label></li>
-<li class="check"><label><input type="checkbox"> Radio guruhida bitta variant tanlanadi; checkbox mustaqil.</label></li>
-<li class="check"><label><input type="checkbox"> Bo‘sh majburiy maydonlar yuborishni to‘xtatadi; tanlangan qiymatlar URLda ko‘rinadi.</label></li>
-</ul>
-<h3 id="section-32">Bilimingizni tekshiring</h3>
+<p>Har bir maydon <code>&lt;p&gt;</code> ga o‘ralgan - shunday qilib maydonlar ustma-ust turadi.</p>
+<p><strong>Tekshiruv:</strong></p>
 <ol>
-<li>name va id farqi nima?</li>
-<li>Nima uchun HTTPSsiz POST ma’lumotni himoya qilmaydi?</li>
-<li>Ishlaydigan qayta ishlovchisiz forma yuborilsa nima bo‘ladi?</li>
+<li>Bo‘sh maydonlar bilan «Yozilish» ni bosing. Brauzer formani yubormaydi va birinchi majburiy maydonda maslahat ko‘rsatadi.</li>
+<li>To‘qima ma’lumotlar bilan to‘ldirib yuboring. Manzil qatoriga qarang: <code>?name=Aziz&amp;email=aziz%40example.com&amp;time=evening</code>.</li>
 </ol>
 <hr>
-<p><a href="index.html">Mundarija</a> | <a href="uz-lesson-5.html">Oldingi dars</a> | <a href="uz-lesson-7.html">Keyingi dars</a> | <a href="ru-lesson-6.html">RU</a> | <a href="en-lesson-6.html">EN</a> | <a href="uz-lesson-6.html">UZ</a> | <a href="../Lesson-6/practice.html">Amaliyot: namuna</a></p>
-</article></main><footer><a href="../Lesson-6/uz/Formatlar%20qism-1.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>
+<h2 id="section-25">Mini-topshiriq 2</h2>
+<p>Qidiruv formasini yarating: «Nimani qidiramiz?» imzoli bitta majburiy maydon, maydon nomi <code>q</code>, «Topish» tugmasi. Usul - <code>get</code>. Yechim - «Javoblar» bo‘limida.</p>
+<hr>
+<h2 id="section-26">Dars yakuni: shpargalka</h2>
+<table>
+<thead>
+<tr>
+<th>Vazifa</th>
+<th>Yozuv</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forma</td>
+<td><code>&lt;form method=&quot;get&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Imzo</td>
+<td><code>&lt;label for=&quot;x&quot;&gt;</code> + <code>&lt;input id=&quot;x&quot;&gt;</code></td>
+</tr>
+<tr>
+<td>Yuborish uchun nom</td>
+<td><code>name=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Pochta / son / sana / telefon</td>
+<td><code>type=&quot;email&quot;</code> / <code>&quot;number&quot;</code> / <code>&quot;date&quot;</code> / <code>&quot;tel&quot;</code></td>
+</tr>
+<tr>
+<td>Bir nechta variant</td>
+<td><code>type=&quot;checkbox&quot;</code></td>
+</tr>
+<tr>
+<td>Guruhdan bittasi</td>
+<td>Bitta <code>name</code> li <code>type=&quot;radio&quot;</code></td>
+</tr>
+<tr>
+<td>Nima yuborish</td>
+<td><code>value=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Maslahat-namuna</td>
+<td><code>placeholder=&quot;...&quot;</code> (<code>label</code> o‘rniga emas)</td>
+</tr>
+<tr>
+<td>Majburiy</td>
+<td><code>required</code></td>
+</tr>
+<tr>
+<td>Avtomatik to‘ldirish</td>
+<td><code>autocomplete=&quot;email&quot;</code></td>
+</tr>
+<tr>
+<td>Tugma</td>
+<td><code>&lt;input type=&quot;submit&quot; value=&quot;Yozuv&quot;&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-27">Mustaqil ish</h2>
+<h3 id="section-28">1-qism. IDE topshirig‘i (platforma hisoblaydi)</h3>
+<p><code>method=&quot;get&quot;</code> bilan <strong>«To‘garakka yozilish»</strong> formasini yarating:</p>
+<ol>
+<li>Ism - <code>text</code>, majburiy.</li>
+<li>Pochta - <code>email</code>, majburiy.</li>
+<li>Boshlanish sanasi - <code>date</code>.</li>
+<li>Ikkita mustaqil <code>checkbox</code> katakchasi - qiziqtirgan mavzular.</li>
+<li>Ikkita <code>radio</code> dan iborat guruh - qulay vaqt. Guruhga bitta <code>name</code>.</li>
+<li><strong>Har bir</strong> maydonda - <code>&lt;label for&gt;</code>, har bir maydonda - <code>id</code> va <code>name</code>, katakcha va o‘tkazgichlarda - <code>value</code>.</li>
+<li><code>&lt;input type=&quot;submit&quot;&gt;</code> tugmasi.</li>
+</ol>
+<p><code>&lt;button&gt;</code> tegini hozircha ishlatmang - u 7-darsdan.</p>
+<p>Platforma nimani tekshiradi: <code>method=&quot;get&quot;</code> li forma, har bir <code>label for</code> ning mavjud <code>id</code> bilan bog‘lanishi, <code>text</code>, <code>email</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, <code>submit</code> turlari, kamida yettita imzo, <code>required</code>, <code>name</code> va <code>value</code> atributlari, <code>&lt;button&gt;</code> yo‘qligi.</p>
+<h3 id="section-29">2-qism. Kompyuterdagi loyiha</h3>
+<ol>
+<li>Formani to‘garak saytining kontaktlar sahifasiga qo‘shing.</li>
+<li>Sahifani Live Server orqali oching va formani bo‘sh yuboring - brauzer yuborishni to‘xtatishi kerak.</li>
+<li>To‘qima ma’lumotlar bilan yuboring va manzildan <code>name=value</code> juftliklarini toping.</li>
+</ol>
+<h3 id="section-30">Tayyorlik mezonlari</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> IDE topshirig‘i qabul qilingan.</label></li>
+<li class="check"><label><input type="checkbox"> Har bir imzoni bosish kursorni o‘z maydoniga qo‘yadi yoki katakchani belgilaydi.</label></li>
+<li class="check"><label><input type="checkbox"> Barcha <code>id</code> noyob.</label></li>
+<li class="check"><label><input type="checkbox"> radio guruhida faqat bittasi tanlanadi, katakchalar mustaqil.</label></li>
+<li class="check"><label><input type="checkbox"> Bo‘sh majburiy maydonlar formani yuborishga yo‘l qo‘ymaydi.</label></li>
+<li class="check"><label><input type="checkbox"> Yuborilgan qiymatlar manzilda ko‘rinadi.</label></li>
+</ul>
+<hr>
+<h2 id="section-31">O‘zini tekshirish uchun savollar</h2>
+<ol>
+<li><code>method=&quot;get&quot;</code> <code>method=&quot;post&quot;</code> dan nimasi bilan farq qiladi?</li>
+<li><code>post</code> ma’lumotlarni o‘zi himoya qiladimi?</li>
+<li>Imzoni maydon bilan qanday bog‘lash mumkin?</li>
+<li><code>id</code> <code>name</code> dan nimasi bilan farq qiladi?</li>
+<li>Yuborishda <code>name</code> siz maydonga nima bo‘ladi?</li>
+<li><code>checkbox</code> <code>radio</code> dan nimasi bilan farq qiladi?</li>
+<li>radio guruhida faqat bitta variant tanlanishini qanday ta’minlash mumkin?</li>
+<li>O‘tkazgichlarda <code>value</code> nima uchun?</li>
+<li>Nega <code>placeholder</code> <code>label</code> ni almashtirmaydi?</li>
+<li><code>required</code> nima qiladi?</li>
+</ol>
+<p>Savollardan keyin platformada <strong>dars testini</strong> topshiring: 12 ta savol, o‘tish chegarasi 70%.</p>
+<hr>
+<h2 id="section-32">Keyin nima</h2>
+<p>Forma ishlaydi, lekin unda hozircha oddiy maydonlar. 7-darsda ochiluvchi ro‘yxatlar, ko‘p qatorli matn, maydonlar guruhlari, <code>&lt;button&gt;</code> tugmalari va kiritish formatini tekshirishni qo‘shamiz.</p>
+<hr>
+<h2 id="section-33">Javoblar</h2>
+<p><strong>Takrorlash</strong></p>
+<ol>
+<li><code>id</code>.</li>
+<li>Yo‘q, <code>id</code> noyob.</li>
+<li>Sahifa joylashuvi uchun.</li>
+</ol>
+<p><strong>Mini-topshiriq 1</strong></p>
+<pre><code class="language-html">&lt;input type=&quot;radio&quot; id=&quot;beginner&quot; name=&quot;level&quot; value=&quot;beginner&quot;&gt;
+&lt;label for=&quot;beginner&quot;&gt;Yangi boshlovchi&lt;/label&gt;
+
+&lt;input type=&quot;radio&quot; id=&quot;experienced&quot; name=&quot;level&quot; value=&quot;experienced&quot;&gt;
+&lt;label for=&quot;experienced&quot;&gt;Tajribam bor&lt;/label&gt;
+</code></pre>
+<p><strong>Mini-topshiriq 2</strong></p>
+<pre><code class="language-html">&lt;form method=&quot;get&quot;&gt;
+    &lt;label for=&quot;q&quot;&gt;Nimani qidiramiz?&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;q&quot; name=&quot;q&quot; required&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Topish&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<p><strong>O‘zini tekshirish uchun savollar</strong></p>
+<ol>
+<li>GET ma’lumotlarni sahifa manziliga, POST - so‘rov ichiga qo‘yadi.</li>
+<li>Yo‘q. Uzatishni faqat HTTPS himoya qiladi.</li>
+<li><code>&lt;label&gt;</code> dagi <code>for</code> maydondagi <code>id</code> ga teng bo‘lishi kerak.</li>
+<li><code>id</code> sahifadagi imzo bilan bog‘laydi, <code>name</code> - yuborishdagi qiymat nomi.</li>
+<li>U yuborilmaydi.</li>
+<li>Checkbox - istalgancha variant, radio - guruhdan aynan bittasi.</li>
+<li>Guruhdagi barcha o‘tkazgichlarga bir xil <code>name</code> berish.</li>
+<li>Serverga <code>on</code> emas, tushunarli qiymat ketishi uchun.</li>
+<li>Maslahat kiritishda yo‘qoladi, ekran o‘quvchi esa uni imzo sifatida o‘qimasligi mumkin.</li>
+<li>Maydon bo‘sh ekan, formani yuborishga yo‘l qo‘ymaydi.</li>
+</ol>
+<hr>
+<p><a href="index.html">Mundarija</a> · <a href="uz-lesson-5.html">← Orqaga</a> · <a href="uz-lesson-7.html">Keyingi →</a> · <a href="ru-lesson-6.html">RU</a> · <a href="en-lesson-6.html">EN</a> · <a href="uz-lesson-6.html">UZ</a> · <a href="../Lesson-6/practice.html">Amaliyot</a></p>
+</article></main><footer><a href="../Lesson-6/uz/Formalar%20qism-1.md">Markdown manbasini ochish</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

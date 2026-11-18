@@ -1,0 +1,269 @@
+{
+  "lesson": 6,
+  "language": "uz",
+  "lesson_title": "Formalar. 1-qism",
+  "task": {
+    "title": "To‘garakka yozilish",
+    "language": "html",
+    "description": "method=\"get\" forma: ism (text, required), pochta (email, required), boshlanish sanasi (date), ikkita checkbox, bitta name li ikkita radio guruhi, input type=\"submit\" tugmasi. Har bir maydonda label for = id, name; checkbox va radio da - value. <button> siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <!-- Ism (text, required) -->\n            <!-- Pochta (email, required) -->\n            <!-- Boshlanish sanasi (date) -->\n            <!-- Ikkita checkbox: mavzular -->\n            <!-- Ikkita radio: vaqt (bitta name) -->\n            <!-- input type=\"submit\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "required",
+        "name=\"",
+        "value=\""
+      ],
+      "forbidden": [
+        "<button"
+      ],
+      "tags": {
+        "form": 1,
+        "label": 7,
+        "input": 8
+      },
+      "attrs": {
+        "input": [
+          "id",
+          "name",
+          "value"
+        ],
+        "label": [
+          "for"
+        ]
+      },
+      "for_id_pairs": true,
+      "input_types": [
+        "text",
+        "email",
+        "date",
+        "checkbox",
+        "radio",
+        "submit"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Imzo: <label for=\"email\">Pochta</label> va <input id=\"email\" ...> maydoni.",
+      "Majburiy maydon: required atributi.",
+      "radio guruhi: ikkalasida bir xil name, turli value.",
+      "Bu darsda tugma - <input type=\"submit\" value=\"Yozilish\">.",
+      "Har bir for mavjud id bilan mos kelishini tekshiring."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "for id bilan mos emas",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"mail\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "label siz matnli imzo",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                Ism\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "email yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "date yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"text\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "radio yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"checkbox\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "button tugmasi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <button type=\"submit\">Yozilish</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "required yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\">\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\">\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "get o‘rniga post",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"post\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n                <input type=\"submit\" value=\"Yozilish\">\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "submit yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form method=\"get\">\n            <p>\n                <label for=\"name\">Ism</label>\n                <input type=\"text\" id=\"name\" name=\"name\" autocomplete=\"name\" required>\n            </p>\n            <p>\n                <label for=\"email\">Pochta</label>\n                <input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\" required>\n            </p>\n            <p>\n                <label for=\"start\">Boshlanish sanasi</label>\n                <input type=\"date\" id=\"start\" name=\"start\">\n            </p>\n            <p>\n                <input type=\"checkbox\" id=\"topic-html\" name=\"topics\" value=\"html\">\n                <label for=\"topic-html\">HTML</label>\n                <input type=\"checkbox\" id=\"topic-css\" name=\"topics\" value=\"css\">\n                <label for=\"topic-css\">CSS</label>\n            </p>\n            <p>\n                <input type=\"radio\" id=\"morning\" name=\"time\" value=\"morning\">\n                <label for=\"morning\">Ertalab</label>\n                <input type=\"radio\" id=\"evening\" name=\"time\" value=\"evening\">\n                <label for=\"evening\">Kechqurun</label>\n            </p>\n            <p>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Imzoni maydon bilan qanday bog‘lash mumkin?",
+        "options": [
+          "<label name=\"x\"> va <input name=\"x\">",
+          "<label for=\"x\"> va <input id=\"x\">",
+          "<label id=\"x\"> va <input for=\"x\">",
+          "label ni maydondan keyin darhol qo‘yish"
+        ],
+        "answer": 1,
+        "explanation": "label dagi for maydondagi id ga teng."
+      },
+      {
+        "type": "single",
+        "question": "Bir nechtadan roppa-rosa bitta variant kerak bo‘lsa, qaysi maydon turini tanlash kerak?",
+        "options": [
+          "checkbox",
+          "radio",
+          "text",
+          "submit"
+        ],
+        "answer": 1,
+        "explanation": "radio - guruhdan bittasi."
+      },
+      {
+        "type": "single",
+        "question": "Yuborishda name atributisiz maydon bilan nima bo‘ladi?",
+        "options": [
+          "id nomi bilan yuboriladi",
+          "Yuborilmaydi",
+          "Forma umuman yuborilmaydi",
+          "on sifatida yuboriladi"
+        ],
+        "answer": 1,
+        "explanation": "name siz brauzer maydonni o‘tkazib yuboradi."
+      },
+      {
+        "type": "single",
+        "question": "method=\"post\" ma’lumotlarni shifrlab himoya qiladimi?",
+        "options": [
+          "Ha, doim",
+          "Yo‘q, faqat HTTPS shifrlaydi",
+          "Faqat parollarni",
+          "Faqat Chrome da"
+        ],
+        "answer": 1,
+        "explanation": "POST ma’lumotlarni manzildan yashiradi, lekin shifrlamaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "radio guruhi haqida nima to‘g‘ri?",
+        "options": [
+          "Barcha tugmachalarda bir xil name",
+          "Har birining o‘z id si",
+          "Har birining o‘z value si",
+          "Bir nechtasini tanlash mumkin"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Umumiy name guruhni birlashtiradi, id - imzo uchun, value - nimani yuborish."
+      },
+      {
+        "type": "multiple",
+        "question": "Brauzer type=\"email\" maydon bilan nima qiladi?",
+        "options": [
+          "Yuborishda @ borligini tekshiradi",
+          "Telefonda @ li klaviaturani ko‘rsatadi",
+          "Xat yuboradi",
+          "Manzilni shifrlaydi"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "email formatni tekshiradi va klaviaturani o‘zgartiradi, lekin o‘zi hech narsa yubormaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Nega placeholder label ni almashtirmaydi?",
+        "options": [
+          "Kiritishda maslahat yo‘qoladi",
+          "Ekran o‘quvchi uni imzo sifatida o‘qimasligi mumkin",
+          "Placeholder serverga yuboriladi",
+          "HTML da placeholder taqiqlangan"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Imzo doim kerak, placeholder - faqat misol."
+      },
+      {
+        "type": "matching",
+        "question": "Maydon turini vazifasi bilan moslang.",
+        "pairs": [
+          [
+            "password",
+            "Belgilarni yashiradi"
+          ],
+          [
+            "number",
+            "Strelkali sonlar"
+          ],
+          [
+            "date",
+            "Kalendar"
+          ],
+          [
+            "tel",
+            "Telefonda raqamli klaviatura"
+          ]
+        ],
+        "explanation": "Maydon turi brauzer xatti-harakatini o‘zgartiradi."
+      },
+      {
+        "type": "matching",
+        "question": "Atributni rol bilan moslang.",
+        "pairs": [
+          [
+            "name",
+            "Yuborishdagi qiymat nomi"
+          ],
+          [
+            "id",
+            "Imzo bilan bog‘lanish"
+          ],
+          [
+            "value",
+            "Serverga ketadigan qiymat"
+          ],
+          [
+            "required",
+            "Maydonni bo‘sh qoldirib bo‘lmaydi"
+          ]
+        ],
+        "explanation": "id - sahifa uchun, name va value - yuborish uchun."
+      },
+      {
+        "type": "input",
+        "question": "Formaning qaysi atributi yuborish usulini (get yoki post) beradi? Atribut nomini kiriting.",
+        "answers": [
+          "method"
+        ],
+        "case_sensitive": false,
+        "explanation": "method=\"get\" yoki method=\"post\"."
+      },
+      {
+        "type": "input",
+        "question": "method=\"get\" bilan yuborilgandan keyin manzilda: ?name=Aziz&time=evening. time maydonining qiymati qanday? Qiymatni kiriting.",
+        "answers": [
+          "evening"
+        ],
+        "case_sensitive": false,
+        "explanation": "name=value juftlari & bilan ajratiladi."
+      },
+      {
+        "type": "input",
+        "question": "Qiymatsiz qaysi atribut maydonni majburiy qiladi? Atribut nomini kiriting.",
+        "answers": [
+          "required"
+        ],
+        "case_sensitive": false,
+        "explanation": "required bo‘sh maydonni yuborishga yo‘l qo‘ymaydi."
+      }
+    ]
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "lesson": 3,
+  "language": "uz",
+  "lesson_title": "Havolalar va navigatsiya",
+  "task": {
+    "title": "To‘garakning bosh sahifasi",
+    "language": "html",
+    "description": "To‘garakning index.html sahifasini yasang: index.html, schedule.html, contacts.html ga nav menyusi; #about va #join langarli mundarija; shu id larga ega h2 bo‘limlar; «Qanday qo‘shilish mumkin» bo‘limida - mailto:, tel: (qo‘shib, + bilan) va rel=\"noopener noreferrer\" li yangi yorliqdagi tashqi https havola.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - To‘garak</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <!-- nav: index.html, schedule.html, contacts.html ga havolalar -->\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <!-- mundarija: #about va #join havolalari -->\n\n        <!-- h2 id=\"about\" bo‘limi -->\n\n        <!-- h2 id=\"join\" bo‘limi: mailto, tel, yangi yorliqdagi tashqi havola -->\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<title>",
+        "<nav",
+        "</nav>",
+        "id=\"about\"",
+        "id=\"join\"",
+        "href=\"mailto:",
+        "href=\"tel:+",
+        "href=\"https://",
+        "target=\"_blank\"",
+        "rel=\"noopener"
+      ],
+      "forbidden": [
+        "href=\"c:",
+        "file://",
+        "tel:+998 ",
+        "<table"
+      ],
+      "href_targets": [
+        "index.html",
+        "schedule.html",
+        "contacts.html",
+        "#about",
+        "#join"
+      ],
+      "h1_exact": 1,
+      "h2_required": 2
+    },
+    "hints": [
+      "Menyu: <nav><ul><li><a href=\"index.html\">...</a></li>...</ul></nav>.",
+      "Langar: <h2 id=\"about\"> va <a href=\"#about\"> havolasi.",
+      "href dagi telefon - qo‘shib yoziladi: href=\"tel:+998901112233\".",
+      "Tashqi havola: href=\"https://...\", target=\"_blank\", rel=\"noopener noreferrer\".",
+      "Diskdagi yo‘llar (C:\\...) va jadvallar ishlatilmaydi."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "# siz langar",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "bo‘limda id yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2>Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "menyu bandi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "diskdagi yo‘l",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"C:\\Users\\aziz\\club\\schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "mailto siz email",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "tel da bo‘shliqlar",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998 90 111 22 33\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "rel siz _blank",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "jadval bilan dars jadvali",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <table><tr><td>Chorshanba</td></tr></table>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "nav yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Bosh sahifa - Veb-dasturlash to‘garagi</title>\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        \n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Dars jadvali</a></li>\n                <li><a href=\"contacts.html\">Kontaktlar</a></li>\n            </ul>\n        \n    </header>\n    <main>\n        <h1>To‘garakka xush kelibsiz</h1>\n        <ul>\n            <li><a href=\"#about\">To‘garak haqida</a></li>\n            <li><a href=\"#join\">Qanday qo‘shilish mumkin</a></li>\n        </ul>\n        <section>\n            <h2 id=\"about\">To‘garak haqida</h2>\n            <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n        </section>\n        <section>\n            <h2 id=\"join\">Qanday qo‘shilish mumkin</h2>\n            <p>Pochta: <a href=\"mailto:club@example.com\">club@example.com</a></p>\n            <p>Telefon: <a href=\"tel:+998901112233\">+998 90 111-22-33</a></p>\n            <p><a href=\"https://developer.mozilla.org\" target=\"_blank\" rel=\"noopener noreferrer\">MDN qo‘llanmasi (yangi yorliq)</a></p>\n        </section>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Havola manzilini qaysi atribut beradi?",
+        "options": [
+          "src",
+          "href",
+          "link",
+          "url"
+        ],
+        "answer": 1,
+        "explanation": "href - hypertext reference, havola manzili."
+      },
+      {
+        "type": "single",
+        "question": "Fayl pages/ papkasida. Undan loyiha ildizidagi index.html ga qanday havola beriladi?",
+        "options": [
+          "index.html",
+          "/pages/index.html",
+          "../index.html",
+          "pages/index.html"
+        ],
+        "answer": 2,
+        "explanation": "../ bir papka yuqoriga ko‘taradi."
+      },
+      {
+        "type": "single",
+        "question": "Telefonga havola qanday to‘g‘ri yoziladi?",
+        "options": [
+          "href=\"+998901112233\"",
+          "href=\"tel:+998901112233\"",
+          "href=\"tel:+998 90 111 22 33\"",
+          "href=\"phone:998901112233\""
+        ],
+        "answer": 1,
+        "explanation": "tel: prefiksi va mamlakat kodi bilan qo‘shib yozilgan raqam."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi havola matni eng yaxshi?",
+        "options": [
+          "Bu yerni bosing",
+          "Havola",
+          "To‘garak mashg‘ulotlari jadvali",
+          "Shu yerda"
+        ],
+        "answer": 2,
+        "explanation": "Matn havola qayerga olib borishini tushuntirishi kerak."
+      },
+      {
+        "type": "multiple",
+        "question": "Shu sahifadagi bo‘limga o‘tish uchun nima kerak?",
+        "options": [
+          "Maqsad elementda id",
+          "Havolada href=\"#nom\"",
+          "target=\"_blank\"",
+          "rel=\"noopener\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Langar = maqsaddagi id + # va shu nom bilan havola."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yo‘llar nisbiy?",
+        "options": [
+          "about.html",
+          "../index.html",
+          "https://site.uz/about.html",
+          "images/photo.jpg"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Nisbiy yo‘l joriy fayldan hisoblanadi va https:// ni o‘z ichiga olmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Havolalardagi qaysilari xato?",
+        "options": [
+          "href=\"C:\\Users\\aziz\\about.html\"",
+          "about.html fayli uchun href=\"About.html\"",
+          "href=\"about.html\"",
+          "id=\"about\" li ikkita element"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Diskdagi yo‘l serverda ishlamaydi, registr muhim, id yagona bo‘lishi kerak."
+      },
+      {
+        "type": "matching",
+        "question": "Manzilni u olib boradigan joy bilan moslang.",
+        "pairs": [
+          [
+            "#about",
+            "Shu sahifa bo‘limi"
+          ],
+          [
+            "about.html",
+            "Yonidagi boshqa sahifa"
+          ],
+          [
+            "mailto:club@example.com",
+            "Pochta dasturi"
+          ],
+          [
+            "https://developer.mozilla.org",
+            "Boshqa sayt"
+          ]
+        ],
+        "explanation": "Prefiks va manzil shakli havola turini belgilaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Atributni uning roli bilan moslang.",
+        "pairs": [
+          [
+            "target=\"_blank\"",
+            "Yangi yorliqda ochish"
+          ],
+          [
+            "rel=\"noopener\"",
+            "Yangi yorliqqa sahifaga kirishni bermaslik"
+          ],
+          [
+            "rel=\"noreferrer\"",
+            "Foydalanuvchi qayerdan kelganini aytmaslik"
+          ]
+        ],
+        "explanation": "_blank ishlatsangiz, rel=\"noopener noreferrer\" qo‘shing."
+      },
+      {
+        "type": "input",
+        "question": "Bir papka yuqoriga ko‘tarilish uchun yo‘l boshida nima yoziladi? Faqat shu qismni kiriting.",
+        "answers": [
+          "../"
+        ],
+        "case_sensitive": false,
+        "explanation": "../ - «xonadan yo‘lakka chiqish»."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi atribut elementga langar uchun yagona nom beradi? Atribut nomini kiriting.",
+        "answers": [
+          "id"
+        ],
+        "case_sensitive": false,
+        "explanation": "id sahifada yagona."
+      },
+      {
+        "type": "input",
+        "question": "index.html sahifasida id=\"join\" bo‘limi bor. Shu papkadagi boshqa sahifadan unga qaysi href olib boradi?",
+        "answers": [
+          "index.html#join"
+        ],
+        "case_sensitive": false,
+        "explanation": "Avval fayl, keyin # va id."
+      }
+    ]
+  }
+}

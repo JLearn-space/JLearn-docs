@@ -1,258 +1,217 @@
 # Forms part 1
 
-[Contents](../../README.md) | [Previous](../../Lesson-5/en/Tables.md) | [Next](../../Lesson-7/en/Forms%20part%202.md) | [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-1.md) | [EN](../en/Forms%20part%201.md) | [UZ](../uz/Formatlar%20qism-1.md) | [Practice: example](../practice.html)
+[Contents](../../README.md) · [← Back](../../Lesson-5/en/Tables.md) · [Next →](../../Lesson-7/en/Forms%20part%202.md) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-1.md) · [EN](Forms%20part%201.md) · [UZ](../uz/Formalar%20qism-1.md) · [Practice](../practice.html)
 
-
-> **Connection with the previous lesson:** in the last lesson we learned to present data using tables. Today we move on to forms - the only way in plain HTML to collect information **from** the user (previously the page only displayed information; now it can also receive it).
+> **Link to the previous lesson:** in lesson 5 you displayed data in tables. Today we learn to **collect** data: input fields, labels, checkboxes, radio buttons and a submit button.
 
 ---
 
-## What you will learn by the end of the lesson
+## Why you need this
 
-- Create a form with the `<form>` tag and understand the `action` and `method` attributes.
-- Use the main `input` types: text, email, password, number, date, checkbox, radio.
-- Properly associate a `label` with a field using `for`/`id`.
-- Understand the difference between `placeholder` and `value`.
-- Make fields required using `required`.
+Signing up for a course, registration, search, an order in a shop - all of these are forms. Without forms a site only shows information; with a form it starts receiving it.
+
+Today you will build a club sign-up form and see what data the browser sends when the button is pressed.
+
+---
+
+## What you will learn
+
+- Create a form with the `<form>` tag and choose the `get` or `post` method.
+- Connect a label to a field: `<label for>` and `id`.
+- Give fields `name` values, under which data goes to the server.
+- Use field types: `text`, `email`, `password`, `number`, `date`, `tel`.
+- Make checkboxes (`checkbox`) and radio buttons (`radio`) with `value`.
+- Tell `placeholder` from `value`, make a field required (`required`).
+- Help the browser with autofill (`autocomplete`).
+
+---
+
+## Review: 3 questions from lessons 3 and 5
+
+1. Which attribute gives an element a unique name?
+2. Can two elements on a page have the same `id`?
+3. What must tables not be used for?
+
+Answers are at the end of the lesson.
 
 ---
 
 ## Lesson plan
 
-| Section                                    | Content                                         |
-| ---------------------------------------- | ----------------------------------------------- |
-| The form tag: action, method          | Why forms are needed, where data goes           |
-| label and for/id                      | Label-field association - the basis of form accessibility |
-| Input types pt.1: text, email, password | Text fields                                   |
-| Input types pt.2: number, date        | Numbers and dates                              |
-| checkbox and radio                    | The difference between "choose several" and "choose one" |
-| Mini-task                             | Build a field independently                    |
-| placeholder vs value, required        | A common beginner confusion                    |
-| Summary and practical task            | Reinforcement - building a feedback form       |
+| Section | What we do |
+| --- | --- |
+| The `<form>` tag | A paper form |
+| Field label | `label`, `for`, `id` |
+| Field name | `name` |
+| Field types | text, email, password, number, date, tel |
+| Checkboxes and radio buttons | checkbox and radio |
+| Mini-task 1 | A radio group |
+| Hints and required fields | `placeholder`, `value`, `required`, `autocomplete` |
+| Submitting | `input type="submit"` and what shows up in the address |
+| Mini-task 2 | A search form |
+| Independent work | IDE task and a club sign-up |
 
 ---
 
-## The `<form>` tag: action and method
+## The `<form>` tag
 
-**In simple terms:** imagine a paper form that you fill out and then bring to a specific office. An HTML form works the same way: the user fills in the fields, and upon submission the browser "takes" that data to a specific address (usually a server that processes it further).
+**In simple terms:** a form is a paper form. You fill in the fields and take it to the right office. In HTML, the browser "takes" the data to an address.
 
 ```html
-<form method="get">
-    <!-- form fields will go here -->
+<form action="/register" method="get">
+    <!-- fields -->
 </form>
 ```
 
-- **`action`** — the request destination. In the practice example omitting `action` targets the current page. This course does not provide a working form handler.
-- **`method`** - how to send the data. Two main values:
-    - **`get`** - data is appended directly to the browser's address bar (visible in the URL), suitable for search forms where there's no sensitive data.
-    - **`post`** — data travels in the request body. It is often used for registration and messages, but does not encrypt data by itself. In this lesson we use `get` with fictional data to observe submission.
+| Attribute | Meaning | Analogy |
+| --- | --- | --- |
+| `action` | Where to send it | The office number |
+| `method="get"` | Data goes in the page address | A note on the envelope: everyone sees it |
+| `method="post"` | Data goes inside the request | A note inside the envelope |
 
+**Important about security:** `post` hides data from the address but does **not encrypt** it. Only `https://` in the site address protects the transfer.
+
+**In this course's practice forms** we write `method="get"` and no `action`: then the form is sent to the same page, and after pressing the button you see the sent data right in the address bar. Nothing is stored anywhere - it's a practice example. Enter only made-up data.
 
 ```mermaid
 flowchart TD
-    A["User fills form fields"] --> B{"Input passes browser validation?"}
-    B -->|No| C["Show validation errors"]
-    B -->|Yes| D["Package data as name=value pairs"]
+    A["The user fills in the form"] --> B{"Did the input pass browser validation?"}
+    B -->|No| C["Show input errors"]
+    B -->|Yes| D["Prepare name=value pairs"]
     D --> E{"Method?"}
-    E -->|GET| F["Data in URL parameters"]
-    E -->|POST| G["Data in request body"]
-    F --> H["Send to action URL"]
+    E -->|GET| F["Data in the URL parameters"]
+    E -->|POST| G["Data in the request body"]
+    F --> H["Send the request to the action address"]
     G --> H
 ```
 
-**How to read this diagram:** Follow the validation branch first: invalid input stops submission. Valid input is packaged into name=value pairs and placed in the URL for GET or request body for POST; neither branch represents encryption.
-
-
-**Submission and security.** POST places data in the request body; it does not encrypt it. HTTPS protects data in transit. Even without a working handler the browser attempts a request to `action`; the server may return an error, and data will not be processed or saved. HTML on static hosting does not save submissions by itself. In these examples, omitting `action` targets the current page: do not submit real passwords or personal data.
+**How to read the diagram.** First the browser checks the fields. If everything is fine, it collects `name=value` pairs and sends them: with GET in the address, with POST inside the request.
 
 ---
 
-## `<label>` and the `for`/`id` association
+## Field label: `label`, `for`, `id`
 
-This is perhaps the most important topic of today's lesson - many beginners skip it, and that's a mistake.
-
-**In simple terms:** `<label>` is the caption for a form field, like "Name:" next to the name input field. But simply placing text near the field isn't enough. You need to **explicitly associate** the label with the specific field.
+**In simple terms:** every field on a paper form has a caption: "Surname", "Phone". In HTML the caption is a `<label>`. It needs to be **connected** to the field.
 
 ```html
-<label for="username">Username:</label>
-<input type="text" id="username" name="username">
+<label for="name">Name</label>
+<input type="text" id="name" name="name">
 ```
 
-Let's break down the association:
+The link: `for` on the label = `id` on the field. Letter for letter.
 
-- `<label>` has a `for` attribute with the value `"username"`.
-- `<input>` has an `id` attribute with the **exact same** value - `"username"`.
+**What this gives you:**
+1. **Clicking the label puts the cursor in the field.** Especially handy for small checkboxes.
+2. **A screen reader reads the label:** "Name, edit text". Without the link it just says "edit text".
 
-It's the matching of these values that binds the label to the field.
+### Try breaking it
 
-**Why this matters even when it's visually clear which field the label belongs to:**
+1. Click the word "Name" - the cursor jumps into the field.
+2. Change `for="name"` to `for="nam"`. Click the label again. The cursor no longer jumps: the link is lost.
 
-1. **Clicking the label focuses the field.** Try it - if the association is set up correctly, clicking the text "Username:" will place the cursor in the input field itself. This is especially useful for small elements like checkboxes (see the checkbox section) - clicking the nearby text is much easier than aiming precisely for a small square.
-2. **Screen readers use exactly this association.** Without it, a visually impaired user landing in the input field won't understand what it means - the screen reader will simply say "text field" with no context.
-
-### Alternative approach - wrapping input inside the label
+### The second way: the field inside the label
 
 ```html
 <label>
-    Username:
-    <input type="text" name="username">
+    Name
+    <input type="text" name="name">
 </label>
 ```
 
-Here `id`/`for` aren't needed - the nesting itself creates the association. Both approaches are correct, but the explicit `for`/`id` approach (the first variant) is considered more common and predictable for complex layouts - in this course we'll primarily use it.
-
-**The `name` attribute on `<input>`:** note that besides `id`, a field also has a `name` attribute - this is **not the same thing** as `id`. `name` is the field's name, under which data is sent to the server when the form is submitted (server-side processing reads data by `name`). `id` is used for association with `<label>` and for styling/scripting. Our examples with explicit labels and submission need **both** attributes, and they may (but don't have to) have the same value.
-
----
-
-### Common beginner mistakes
-
-| Mistake                                                 | How to fix                                                                               |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Writing `<label>` next to `<input>` without `for`/`id`  | Always explicitly associate: `for="name"` on `label` and `id="name"` on `input` with the same value |
-| Confusing `id` and `name`, using only one of them        | For explicit labels and submission use both: `id` for association with label, `name` for sending data to the server |
-| Using the same `id` for multiple different fields        | As we learned in lesson 3, `id` must be unique across the entire page                    |
-
----
-
-## Input types pt.1: text, email, password
-
-The `<input>` tag is void, like `<img>` from lesson 4. Its behavior changes completely depending on the `type` attribute.
-
-### `type="text"` - a regular single-line text field
-
-```html
-<label for="fullname">Full name:</label>
-<input type="text" id="fullname" name="fullname">
-```
-
-The basic type - simply a rectangular field for entering any text on a single line.
-
-### `type="email"` - an email field
-
-```html
-<label for="email">Email:</label>
-<input type="email" id="email" name="email">
-```
-
-Visually it looks like a regular text field, but the browser **automatically checks** that the entered text resembles an email (contains `@` and address structure) - when trying to submit a form with an invalid email, the browser will show a warning on its own, without a single line of JavaScript. On mobile devices, focusing on this field often brings up a special keyboard with quick access to `@` and `.com`.
-
-### `type="password"` - a password field
-
-```html
-<label for="password">Password:</label>
-<input type="password" id="password" name="password">
-```
-
-The characters the user types are displayed as dots or asterisks (••••••) - the actual password text is hidden from prying eyes looking over your shoulder.
-
----
-
-## Input types pt.2: number, date
-
-### `type="number"` - a number field
-
-```html
-<label for="age">Age:</label>
-<input type="number" id="age" name="age">
-```
-
-This control is intended for numeric values. Spinner controls and intermediate input depend on the browser: a minus sign or exponential notation may be accepted while typing. It is not a way to allow “digits only”. The next lesson covers range constraints.
-
-### `type="date"` - a date picker field
-
-```html
-<label for="birthday">Date of birth:</label>
-<input type="date" id="birthday" name="birthday">
-```
-
-The browser displays a convenient visual calendar for choosing a date - without a single line of additional code. The date format sent to the server is always standardized (`YYYY-MM-DD`), even though visually different countries display calendars differently.
-
----
+It works the same way. In this course we use the first way, with `for` and `id`: it's clearer to check.
 
 ### Common beginner mistakes
 
 | Mistake | How to fix |
 | --- | --- |
-| Using `type="text"` for email/numbers instead of specialized types | Use `type="email"`, `type="number"`, `type="date"` - they provide built-in validation and a convenient input interface without extra code |
-| Expecting `type="email"` to "send" an email by itself | This is just a text format check - submission only happens through form/server logic |
+| The label is plain text `<p>Name</p>` | Use `<label for>` |
+| `for` doesn't match `id` | Letter for letter |
+| Two fields with the same `id` | An `id` is unique on the page |
+| `placeholder` instead of a label | A label is always needed; `placeholder` disappears as you type |
 
 ---
 
-## `checkbox` and `radio`
+## Field name: `name`
 
-These are two similar but fundamentally different field types - confusing them is one of the most common beginner mistakes.
+**`id` and `name` are different things:**
 
-### `type="checkbox"` - choose several (or none)
+| Attribute | What for | Analogy |
+| --- | --- | --- |
+| `id` | Connects to the label on the page | Your seat number in a hall |
+| `name` | The name under which the value goes to the server | The caption of a form field for the clerk |
+
+**A field without `name` is not sent.** The browser simply skips it.
+
+After sending a form with `method="get"`, the address shows:
+
+```
+?name=Aziz&email=aziz%40example.com
+```
+
+These are `name=value` pairs separated by `&`. The browser wrote `@` as `%40` - that's how special characters are encoded in an address.
+
+---
+
+## Field types
+
+An input field is the void element `<input>`. Its type is set by the `type` attribute:
+
+| Type | What for | What the browser does |
+| --- | --- | --- |
+| `text` | Plain text | Nothing special |
+| `email` | Email | Checks for `@`; on a phone - a keyboard with `@` |
+| `password` | Password | Hides characters as dots |
+| `number` | A number | Up and down arrows; won't accept letters |
+| `date` | A date | Shows a calendar |
+| `tel` | A phone number | On a phone - a numeric keypad |
 
 ```html
-<p>Select the topics you're interested in:</p>
+<label for="email">Email</label>
+<input type="email" id="email" name="email">
 
+<label for="age">Age</label>
+<input type="number" id="age" name="age">
+
+<label for="start">Start date</label>
+<input type="date" id="start" name="start">
+```
+
+**What you will see:** a calendar icon in the date field. Arrows in the age field. Type "abc" into the email field and submit the form: the browser shows an error hint.
+
+**`password` hides characters only on screen.** Without `https://`, the password is sent in the open.
+
+---
+
+## Checkboxes and radio buttons
+
+| Type | How many can be chosen | Analogy |
+| --- | --- | --- |
+| `checkbox` | Any number or none | Ticks for "interests" on a form |
+| `radio` | Exactly **one** from the group | Buttons on an old radio: press one and the other pops out |
+
+### `checkbox` - independent boxes
+
+```html
 <input type="checkbox" id="html" name="topics" value="html">
-<label for="html">HTML</label><br>
+<label for="html">HTML</label>
 
 <input type="checkbox" id="css" name="topics" value="css">
-<label for="css">CSS</label><br>
-
-<input type="checkbox" id="js" name="topics" value="js">
-<label for="js">JavaScript</label>
+<label for="css">CSS</label>
 ```
 
-Each checkbox is independent of the others. The user can mark as many options as they like, including none.
-
-
-### `type="radio"` - choose only one option from a group
+### `radio` - one from the group
 
 ```html
-<p>Select your skill level:</p>
+<input type="radio" id="morning" name="time" value="morning">
+<label for="morning">Morning</label>
 
-<input type="radio" id="beginner" name="level" value="beginner">
-<label for="beginner">Beginner</label><br>
-
-<input type="radio" id="intermediate" name="level" value="intermediate">
-<label for="intermediate">Intermediate</label><br>
-
-<input type="radio" id="advanced" name="level" value="advanced">
-<label for="advanced">Advanced</label>
+<input type="radio" id="evening" name="time" value="evening">
+<label for="evening">Evening</label>
 ```
 
-**The key point that makes radio buttons a group:** all options have **the same `name` attribute** (in this example, `name="level"`). It's the matching `name` that tells the browser "these are options for the same question - selecting one automatically deselects the others." Meanwhile, the `id` for each option is **different** (otherwise the association with `label` would break).
+**A radio group is held together by the same `name`.** If the `name` values differ, you can choose both and the group is broken.
 
-
-### The `value` attribute on checkbox/radio
-
-The `value` attribute determines which specific value will be sent to the server if this option is selected. The text visible to the user is set through `<label>`, not through `value` - these are different things.
-
----
-
-### Common beginner mistakes
-
-| Mistake                                                                               | How to fix                                                                                             |
-| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| Using `radio` instead of `checkbox` for "select all that apply" questions            | For multiple selections use `checkbox`, for a single selection use `radio`                            |
-| Giving radio buttons in the same group different `name` values                       | All radio buttons in a group must have the **same** `name` - otherwise they won't work as a group    |
-| Giving checkbox fields the same `id`                                                 | Each field must have its own unique `id`, even if `name` matches (as in the `topics` example)         |
-
----
-
-## Mini-task
-
-On your own, without peeking at the examples, create a group of three radio buttons for the question "Your favorite drink" with options "Tea," "Coffee," "Juice" - with correct `label`/`id` associations and a shared `name`.
-
-**Solution:**
-
-```html
-<p>Your favorite drink:</p>
-
-<input type="radio" id="tea" name="drink" value="tea">
-<label for="tea">Tea</label><br>
-
-<input type="radio" id="coffee" name="drink" value="coffee">
-<label for="coffee">Coffee</label><br>
-
-<input type="radio" id="juice" name="drink" value="juice">
-<label for="juice">Juice</label>
-```
+**`value`** is what goes to the server. Without `value` the browser sends a meaningless `on`. With `value` - `time=evening`.
 
 ```mermaid
 mindmap
@@ -260,7 +219,7 @@ mindmap
     text
       Single-line text
     email
-      Validates email format
+      Email format check
     password
       Hidden characters
     number
@@ -268,116 +227,233 @@ mindmap
     date
       Date picker
     checkbox
-      Select multiple
+      Several independent options
     radio
-      Select one from group
+      One option from a group
 ```
 
-**How to read this diagram:** Branches classify input types and their main purpose. The labels summarize typical browser behavior; radio exclusivity depends on a shared name.
+**How to read the diagram.** Each branch is a field type and its purpose. The diagram doesn't set the order of fields in a form.
 
+### Try breaking it
 
----
-
-## `placeholder` vs `value`, and `required`
-
-This is another common confusion among beginners - two attributes that both show text inside a field but work completely differently.
-
-### `placeholder` - a hint example, disappears when typing
-
-```html
-<label for="search">Search:</label>
-<input type="text" id="search" name="search" placeholder="e.g., HTML course">
-```
-
-The `placeholder` text is displayed **in gray inside an empty field** as a format hint - and **automatically disappears** as soon as the user starts typing. If the user hasn't entered anything, it is **not sent** to the server - the field is considered empty in that case.
-
-### `value` - the actual field value, remains on submission
-
-```html
-<label for="city">City:</label>
-<input type="text" id="city" name="city" value="Tashkent">
-```
-
-Submission depends on whether a control contributes form data: it needs `name`; unchecked checkboxes and radio buttons are omitted. A regular text field with `name` contributes its current value, even if the user kept the prefilled value.
-
-### Practical comparison
-
-```html
-<!-- placeholder: format hint, disappears on typing, not sent if field is empty -->
-<label for="hint-name">Name</label>
-<input type="text" id="hint-name" name="hint_name" placeholder="Enter your name">
-
-<!-- value: actual pre-filled value, will be sent as-is if not changed -->
-<label for="default-name">Name</label>
-<input type="text" id="default-name" name="default_name" value="Guest">
-```
-
-
-### `required` - mandatory field
-
-```html
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" required>
-```
-
-The `required` attribute (written without a value) makes a field mandatory - when trying to submit a form with an empty required field, the browser will show a warning and won't allow submission, again without a single line of JavaScript.
-
----
+Give two radio buttons different `name` values: `name="time1"` and `name="time2"`. Now you can choose both at once. Put the same name back.
 
 ### Common beginner mistakes
 
-| Mistake                                                                                     | How to fix                                                                                               |
-| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| Using `placeholder` instead of `label` as the sole field caption                          | `placeholder` is a format hint, not a replacement for `label`; a field caption should always use `<label>` |
-| Confusing `placeholder` and `value` - expecting placeholder to be sent with the form        | Remember: `placeholder` disappears and is not sent; `value` is the actual content that will be sent       |
-| Forgetting `required` for fields that are truly mandatory (e.g., email during registration) | Add `required` where the field logically cannot be empty                                                  |
+| Mistake | How to fix |
+| --- | --- |
+| Radio buttons with different `name` | One group - one `name` |
+| No `value` on radio and checkbox | `on` is sent. Set a `value` |
+| A checkbox where only one option is allowed | One of several - `radio` |
+| A field without `name` | The field won't be sent |
 
 ---
 
-## A form submit control
+## Mini-task 1
 
-Inside `form`, add `<input type="submit" value="Submit practice form">`. This creates a button: `type="submit"` starts validation and submission, while `value` supplies its visible caption. This control does not need a separate `label`. The next lesson compares it with `button`.
+Make a "Level" radio group: "Beginner" and "I have experience". Only one can be chosen. The server should receive `level=beginner` or `level=experienced`. The solution is in the "Answers" section.
+
+---
+
+## Hints and required fields
+
+### `placeholder` and `value`
+
+```html
+<input type="email" id="email" name="email" placeholder="name@example.com">
+<input type="text" id="city" name="city" value="Almalyk">
+```
+
+| | `placeholder` | `value` |
+| --- | --- | --- |
+| What it is | A grey example hint | The real value in the field |
+| When typing | Disappears | Can be erased and replaced |
+| Is it sent? | No | Yes |
+
+`placeholder` does **not replace** a `<label>`: the hint disappears as soon as a person starts typing, and they forget what the field was for.
+
+### `required` - a required field
+
+```html
+<input type="text" id="name" name="name" required>
+```
+
+`required` is an attribute **without a value**. If the field is empty, the browser won't send the form and shows a hint.
+
+### `autocomplete` - helping autofill
+
+```html
+<input type="email" id="email" name="email" autocomplete="email">
+<input type="tel" id="phone" name="phone" autocomplete="tel">
+```
+
+The browser offers to fill in a saved email or phone number. The user doesn't have to type.
+
+---
+
+## Submitting: `<input type="submit">`
+
+```html
+<input type="submit" value="Sign up">
+```
+
+The `value` of the button is its text. We'll look at the `<button>` tag in lesson 7.
+
+### The whole form
 
 ```html
 <form method="get">
-    <label for="demo-name">Practice name</label>
-    <input type="text" id="demo-name" name="student" required>
-    <input type="submit" value="Submit practice form">
+    <p>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" required>
+    </p>
+    <p>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+    </p>
+    <p>
+        <input type="radio" id="morning" name="time" value="morning">
+        <label for="morning">Morning</label>
+        <input type="radio" id="evening" name="time" value="evening">
+        <label for="evening">Evening</label>
+    </p>
+    <p>
+        <input type="submit" value="Sign up">
+    </p>
 </form>
 ```
 
-Use fictional data: the request targets the current page and parameters appear in the URL. This example does not process or save an application.
+Each field is wrapped in a `<p>` - this puts the fields one under another.
+
+**Check it:**
+1. Press "Sign up" with empty fields. The browser won't send the form and shows a hint on the first required field.
+2. Fill it in with made-up data and send it. Look at the address bar: `?name=Aziz&email=aziz%40example.com&time=evening`.
 
 ---
 
-## Lesson summary
+## Mini-task 2
 
-Today you learned:
-
-- `<form>` with `action` (where to send) and `method` (`get`/`post`, how to send) attributes - a container for all fields.
-- `<label>` is associated via `for`/`id` or by wrapping its control - this affects both click convenience and screen reader accessibility.
-- Specialized `input` types: `text`, `email` (format validation), `password` (hidden text), `number` (numeric input), `date` (visual calendar).
-- `checkbox` - multiple options can be selected (independent fields), `radio` - only one from a group (unified by the same `name`).
-- `placeholder` - a disappearing hint, not sent with the form; `value` - the actual field content, sent when the named control contributes form data.
-- `required` makes a field mandatory without a single line of JavaScript.
-
-
-## Independent practice
-
-Build a practice course registration form: name, email, start date, two independent checkboxes and a radio group with two options. Associate every control with a label; assign `name` and option values. Make name and email required. Use fictional data only. For this experiment use `method="get"` and omit `action`; submit from a local HTTP server and find the `name=value` pairs in the address.
-
-### Completion criteria
-
-- [ ] Clicking each label activates its control; ids are unique.
-- [ ] Only one radio option can be selected; checkboxes are independent.
-- [ ] Empty required fields prevent submission; selected values appear in the URL.
-
-### Check your understanding
-
-1. How does name differ from id?
-2. Why does POST without HTTPS not protect data?
-3. What happens when a form is submitted without a working handler?
+Make a search form: one required field labelled "What are we looking for?", field name `q`, a "Find" button. Method `get`. The solution is in the "Answers" section.
 
 ---
 
-[Contents](../../README.md) | [Previous](../../Lesson-5/en/Tables.md) | [Next](../../Lesson-7/en/Forms%20part%202.md) | [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-1.md) | [EN](../en/Forms%20part%201.md) | [UZ](../uz/Formatlar%20qism-1.md) | [Practice: example](../practice.html)
+## Lesson summary: cheat sheet
+
+| Task | Code |
+| --- | --- |
+| Form | `<form method="get">` |
+| Label | `<label for="x">` + `<input id="x">` |
+| Name for sending | `name="..."` |
+| Email / number / date / phone | `type="email"` / `"number"` / `"date"` / `"tel"` |
+| Several options | `type="checkbox"` |
+| One from a group | `type="radio"` with one `name` |
+| What to send | `value="..."` |
+| Example hint | `placeholder="..."` (not instead of `label`) |
+| Required | `required` |
+| Autofill | `autocomplete="email"` |
+| Button | `<input type="submit" value="Text">` |
+
+---
+
+## Independent work
+
+### Part 1. IDE task (counted by the platform)
+
+Make a **"Club sign-up"** form with `method="get"`:
+
+1. Name - `text`, required.
+2. Email - `email`, required.
+3. Start date - `date`.
+4. Two independent `checkbox` boxes - topics of interest.
+5. A group of two `radio` buttons - a convenient time. One `name` for the group.
+6. **Every** field has a `<label for>`, every field has an `id` and a `name`, checkboxes and radio buttons have a `value`.
+7. An `<input type="submit">` button.
+
+Don't use the `<button>` tag yet - it's from lesson 7.
+
+What the platform checks: a form with `method="get"`, every `label for` linked to an existing `id`, the types `text`, `email`, `date`, `checkbox`, `radio`, `submit`, at least seven labels, `required`, `name` and `value` attributes, and no `<button>`.
+
+### Part 2. Project on your computer
+
+1. Add the form to the contacts page of the club site.
+2. Open the page with Live Server and submit the form empty - the browser should stop the submission.
+3. Submit it with made-up data and find the `name=value` pairs in the address.
+
+### Acceptance criteria
+
+- [ ] The IDE task is accepted.
+- [ ] Clicking each label puts the cursor in its field or ticks the box.
+- [ ] All `id` values are unique.
+- [ ] Only one option can be chosen in the radio group; checkboxes are independent.
+- [ ] Empty required fields prevent sending the form.
+- [ ] The sent values are visible in the address.
+
+---
+
+## Self-check questions
+
+1. How is `method="get"` different from `method="post"`?
+2. Does `post` protect data by itself?
+3. How do you connect a label to a field?
+4. How is `id` different from `name`?
+5. What happens to a field without `name` when the form is sent?
+6. How is `checkbox` different from `radio`?
+7. How do you make sure only one option can be chosen in a radio group?
+8. Why do radio buttons need a `value`?
+9. Why doesn't `placeholder` replace `label`?
+10. What does `required` do?
+
+After the questions, take the **lesson test** on the platform: 12 questions, 70% to pass.
+
+---
+
+## What's next
+
+The form works, but it only has simple fields so far. In lesson 7 we add drop-down lists, multi-line text, field groups, `<button>` buttons and input format validation.
+
+---
+
+## Answers
+
+**Review**
+
+1. `id`.
+2. No, an `id` is unique.
+3. For page layout.
+
+**Mini-task 1**
+
+```html
+<input type="radio" id="beginner" name="level" value="beginner">
+<label for="beginner">Beginner</label>
+
+<input type="radio" id="experienced" name="level" value="experienced">
+<label for="experienced">I have experience</label>
+```
+
+**Mini-task 2**
+
+```html
+<form method="get">
+    <label for="q">What are we looking for?</label>
+    <input type="text" id="q" name="q" required>
+    <input type="submit" value="Find">
+</form>
+```
+
+**Self-check questions**
+
+1. GET puts the data in the page address, POST puts it inside the request.
+2. No. Only HTTPS protects the transfer.
+3. The `for` on the `<label>` equals the `id` on the field.
+4. `id` connects to the label on the page, `name` is the name of the value when sending.
+5. It is not sent.
+6. Checkbox - any number of options, radio - exactly one from the group.
+7. Give all radio buttons in the group the same `name`.
+8. So the server receives a meaningful value instead of `on`.
+9. The hint disappears while typing, and a screen reader may not read it as a label.
+10. It prevents sending the form while the field is empty.
+
+---
+
+[Contents](../../README.md) · [← Back](../../Lesson-5/en/Tables.md) · [Next →](../../Lesson-7/en/Forms%20part%202.md) · [RU](../ru/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D1%87-1.md) · [EN](Forms%20part%201.md) · [UZ](../uz/Formalar%20qism-1.md) · [Practice](../practice.html)

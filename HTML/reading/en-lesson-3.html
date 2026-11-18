@@ -1,138 +1,171 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Links and navigation · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">What you will learn by the end of the lesson</a><a href="#section-3">Lesson plan</a><a href="#section-4">The &lt;a&gt; tag and href attribute</a><a href="#section-5">Absolute and relative paths</a><a href="#section-10">target=&quot;_blank&quot; - opening in a new tab</a><a href="#section-11">Anchor links - jumping to a page section</a><a href="#section-16">Links for email and phone</a><a href="#section-20">Mini-assignment</a><a href="#section-21">Building a multi-page website with consistent navigation</a><a href="#section-22">Lesson summary</a><a href="#section-23">Independent task: a club mini-site</a></details></aside><article><h1 id="section-1">Links and navigation</h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Links and navigation · JLearn</title><link rel="stylesheet" href="style.css"></head><body><header><p class="lesson-meta">JLearn · Reading edition · English</p><a href="index.html">HTML in 10 lessons</a></header><main><aside><details open><summary>On this page</summary><a href="#section-2">Why you need this</a><a href="#section-3">What you will learn</a><a href="#section-4">Review: 3 questions from lessons 1–2</a><a href="#section-5">Lesson plan</a><a href="#section-6">The &lt;a&gt; tag and the href attribute</a><a href="#section-7">File paths</a><a href="#section-12">Anchors: jumping to a page section</a><a href="#section-17">Email and phone</a><a href="#section-19">New tab: target=&quot;_blank&quot;</a><a href="#section-21">Mini-task 1</a><a href="#section-22">A three-page site</a><a href="#section-23">Mini-task 2</a><a href="#section-24">Lesson summary: cheat sheet</a><a href="#section-25">Independent work</a><a href="#section-29">Self-check questions</a><a href="#section-30">What&#x27;s next</a><a href="#section-31">Answers</a></details></aside><article><h1 id="section-1">Links and navigation</h1>
 <p><a href="index.html">Contents</a> · <a href="en-lesson-2.html">← Back</a> · <a href="en-lesson-4.html">Next →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Practice</a></p>
 <blockquote>
-<p><strong>Connection with the previous lesson:</strong> in the last lesson we learned to structure text and used the <code>&lt;nav&gt;</code> tag with placeholder links <code>href=&quot;#&quot;</code>. Today we understand how links actually work - and connect several HTML pages into a single website.</p>
+<p><strong>Link to the previous lesson:</strong> in lesson 2 you split the page into blocks and left <code>&lt;nav&gt;</code> empty. Today we fill it with real links and connect several pages into one site.</p>
 </blockquote>
 <hr>
-<h2 id="section-2">What you will learn by the end of the lesson</h2>
+<h2 id="section-2">Why you need this</h2>
+<p>A one-page site is a leaflet. A site of several pages connected by a menu is a book with a table of contents. Links turn separate files into a website.</p>
+<p>Today you will build a three-page mini-site and move between the pages with one click.</p>
+<hr>
+<h2 id="section-3">What you will learn</h2>
 <ul>
-<li>Create links with the <code>&lt;a&gt;</code> tag and understand the <code>href</code> attribute.</li>
-<li>Distinguish between absolute and relative paths and know when to use which.</li>
-<li>Open links in a new tab using <code>target=&quot;_blank&quot;</code>.</li>
-<li>Create anchor links - jumps to a specific place on the page.</li>
-<li>Make links for email and phone (<code>mailto:</code>, <code>tel:</code>).</li>
-<li>Build a multi-page website with consistent navigation from several HTML pages.</li>
+<li>Create a link with the <code>&lt;a&gt;</code> tag and the <code>href</code> attribute.</li>
+<li>Choose a path: absolute for other sites, relative for your own pages.</li>
+<li>Go up to a parent folder with <code>../</code>.</li>
+<li>Make anchors: jump to a page section with <code>id</code> and <code>#</code>.</li>
+<li>Create email (<code>mailto:</code>) and phone (<code>tel:</code>) links.</li>
+<li>Open a link in a new tab when it really helps.</li>
+<li>Use the same menu on every page of the site.</li>
 </ul>
 <hr>
-<h2 id="section-3">Lesson plan</h2>
+<h2 id="section-4">Review: 3 questions from lessons 1–2</h2>
+<ol>
+<li>What is the file name of a site's home page?</li>
+<li>Which block is meant for the site menu?</li>
+<li>Which list fits menu items when order doesn't matter?</li>
+</ol>
+<p>Answers are at the end of the lesson.</p>
+<hr>
+<h2 id="section-5">Lesson plan</h2>
 <table>
 <thead>
 <tr>
-<th>Topic</th>
-<th>Content</th>
+<th>Section</th>
+<th>What we do</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>The <code>&lt;a&gt;</code> tag and <code>href</code> attribute</td>
-<td>Basic link syntax</td>
+<td>The <code>&lt;a&gt;</code> tag</td>
+<td>A door and an address</td>
 </tr>
 <tr>
-<td>Absolute and relative paths</td>
-<td>The difference, when to use which, folder structure</td>
+<td>File paths</td>
+<td>A full address and &quot;two houses down&quot;</td>
 </tr>
 <tr>
-<td>target=&quot;_blank&quot;</td>
-<td>Opening in a new tab, security</td>
+<td>Anchors</td>
+<td>Bookmarks in a book</td>
 </tr>
 <tr>
-<td>Anchor links</td>
-<td>Jumping to a page section, id</td>
+<td>Email and phone</td>
+<td><code>mailto:</code> and <code>tel:</code></td>
 </tr>
 <tr>
-<td>mailto and tel</td>
-<td>Links for email and phone</td>
+<td>New tab</td>
+<td>When it is needed</td>
 </tr>
 <tr>
-<td>Mini-assignment</td>
-<td>Build a link on your own</td>
+<td>Mini-task 1</td>
+<td>Three links from memory</td>
 </tr>
 <tr>
-<td>Multi-page website</td>
-<td>Building 3 pages with consistent navigation</td>
+<td>A three-page site</td>
+<td>A shared menu</td>
 </tr>
 <tr>
-<td>Summary and practical assignment</td>
-<td>Reinforcement</td>
+<td>Mini-task 2</td>
+<td>A table of contents with anchors</td>
+</tr>
+<tr>
+<td>Independent work</td>
+<td>IDE task and a club mini-site</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-4">The <code>&lt;a&gt;</code> tag and <code>href</code> attribute</h2>
-<p><strong>In simple terms:</strong> imagine a book that says &quot;for more about this, see page 42.&quot; A link in HTML is the same thing, except instead of &quot;page 42&quot; you specify the address of another web page (or another place on the same page), and the transition happens with a single click.</p>
-<p>The <code>&lt;a&gt;</code> tag (anchor) is a paired tag that wraps text (or an image - covered in lesson 4), turning it into a clickable link.</p>
-<pre><code class="language-html">&lt;a href=&quot;https://www.google.com&quot;&gt;Go to Google&lt;/a&gt;
-</code></pre>
-<p>Here:</p>
-<ul>
-<li><code>&lt;a&gt;</code> - the link tag</li>
-<li><code>href</code> (hypertext reference) - an attribute indicating where the link leads - a <strong>required</strong> attribute, without it <code>&lt;a&gt;</code> won't function as a link</li>
-<li><code>Go to Google</code> - the visible link text the user clicks on</li>
-</ul>
-<p><strong>Analogy:</strong> <code>&lt;a&gt;</code> is a door, and <code>href</code> is the address that door leads to. Without an address, the door is just painted on the wall and doesn't open anywhere.</p>
-<hr>
-<h2 id="section-5">Absolute and relative paths</h2>
-<p>This is the key topic of the lesson - many beginners get confused right here.</p>
-<h3 id="section-6">Absolute path</h3>
-<p><strong>Absolute path</strong> is the full address, including the protocol (<code>https://</code>) and domain. Used for links to <strong>external</strong> websites - meaning not to pages of your own project.</p>
+<h2 id="section-6">The <code>&lt;a&gt;</code> tag and the <code>href</code> attribute</h2>
+<p><strong>In simple terms:</strong> a link is a door. <code>href</code> is the address it leads to. Without an address, the door is just painted on the wall.</p>
 <pre><code class="language-html">&lt;a href=&quot;https://www.wikipedia.org&quot;&gt;Wikipedia&lt;/a&gt;
-&lt;a href=&quot;https://github.com/Saydullayev017&quot;&gt;My GitHub&lt;/a&gt;
 </code></pre>
-<p><strong>Analogy:</strong> an absolute path is a full postal address with city and country: &quot;Uzbekistan, Tashkent, Amir Temur Street, 10.&quot; It's unambiguously understandable from any point in the world.</p>
-<h3 id="section-7">Relative path</h3>
-<p><strong>Relative path</strong> is an address specified <strong>relative to the current file</strong>. Used for links to <strong>your own</strong> pages within a single project.</p>
-<p><strong>Analogy:</strong> a relative path is like telling a neighbor &quot;go two houses down&quot; - only understandable if you're already standing near the starting point. If you're in another city, this instruction loses meaning - but a full address works from anywhere.</p>
-<p>Let's break it down using a project structure example:</p>
-<pre><code>html-course/
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;a&gt;</code></td>
+<td>A link (anchor)</td>
+</tr>
+<tr>
+<td><code>href=&quot;...&quot;</code></td>
+<td>Where it leads. Without it the link does not work</td>
+</tr>
+<tr>
+<td><code>Wikipedia</code></td>
+<td>The text people click</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What you will see:</strong> blue underlined text &quot;Wikipedia&quot;. The cursor turns into a hand over it. Click, and Wikipedia opens.</p>
+<p><strong>Link text should explain where it leads.</strong> &quot;Club schedule&quot; is good. &quot;Click here&quot; is bad: the text doesn't say what's behind the door.</p>
+<hr>
+<h2 id="section-7">File paths</h2>
+<h3 id="section-8">Absolute path - for other sites</h3>
+<p>A full address with <code>https://</code> and a domain:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://developer.mozilla.org&quot;&gt;MDN&lt;/a&gt;
+</code></pre>
+<p><strong>Analogy:</strong> a full postal address, &quot;10 Amir Temur Street, Almalyk, Uzbekistan&quot;. It is understood from anywhere in the world.</p>
+<h3 id="section-9">Relative path - for your own pages</h3>
+<p>A path <strong>from the current file</strong>. Analogy: &quot;go two houses down&quot;. It only works if you are standing in the right place.</p>
+<p>Take this project:</p>
+<pre><code>my-site/
 ├── index.html
 ├── about.html
-├── contact.html
+├── pages/
+│   └── schedule.html
 └── images/
     └── photo.jpg
 </code></pre>
-<p><strong>Link to a file in the same folder:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;
-</code></pre>
-<p>Just the file name - the browser looks for it next to the current file.</p>
-<p><strong>Link to a file in a nested folder:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;images/photo.jpg&quot;&gt;View photo&lt;/a&gt;
-</code></pre>
-<p><strong>Link to a file in a folder one level up</strong> (if you're inside <code>images/</code> and want to link to <code>index.html</code>):</p>
-<pre><code class="language-html">&lt;a href=&quot;../index.html&quot;&gt;Home&lt;/a&gt;
-</code></pre>
-<p><code>../</code> means &quot;go up one level&quot; - like stepping out of a room into a hallway.</p>
-<p><strong>Link to the site root/main page:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;
-</code></pre>
-<p>A leading slash means &quot;site root&quot; - if you have a site like <code>mysite.uz</code>, the <code>/</code> link will go to <code>mysite.uz</code>, not to an adjacent file.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-3-1.svg" alt="Diagram 1: Links and navigation"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-3-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> Read each labelled arrow as a path starting at the current file. A leading slash starts at the server root, whereas ../ moves up one directory.</p>
-<h3 id="section-8">When to use which</h3>
 <table>
 <thead>
 <tr>
-<th>Situation</th>
-<th>Which path</th>
+<th>From</th>
+<th>To</th>
+<th><code>href</code></th>
+<th>How to read it</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Link to another page of your own project</td>
-<td>Relative</td>
+<td><code>index.html</code></td>
+<td><code>about.html</code></td>
+<td><code>about.html</code></td>
+<td>Next to it, in the same folder</td>
 </tr>
 <tr>
-<td>Link to an external site (social media, Wikipedia, another site)</td>
-<td>Absolute</td>
+<td><code>index.html</code></td>
+<td><code>schedule.html</code></td>
+<td><code>pages/schedule.html</code></td>
+<td>Go into the <code>pages</code> folder</td>
 </tr>
 <tr>
-<td>Link to an image within your project</td>
-<td>Relative</td>
+<td><code>pages/schedule.html</code></td>
+<td><code>index.html</code></td>
+<td><code>../index.html</code></td>
+<td>Go up one level out of <code>pages</code></td>
+</tr>
+<tr>
+<td><code>pages/schedule.html</code></td>
+<td><code>photo.jpg</code></td>
+<td><code>../images/photo.jpg</code></td>
+<td>Go up, then into <code>images</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Practical choice:</strong> an absolute URL for your own page is valid, but during local development it points to the published domain. Relative paths let you test local files and move the project together. <code>/about.html</code> starts at the domain root; for a site hosted in a subdirectory it may lead somewhere unexpected.</p>
-<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-3-2.svg" alt="Diagram 2: Links and navigation"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-3-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read this diagram:</strong> The branches classify destinations: a fragment, a local file, a web address, an email application or a phone application. They are alternatives, not a sequence of actions.</p>
-<hr>
-<h3 id="section-9">Common beginner mistakes</h3>
+<p><code>../</code> means &quot;step out of the room into the hallway&quot;.</p>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-3-1.svg" alt="Diagram 1: Links and navigation"></div><figcaption>Diagram 1 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-3-1.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> Every path starts from the current file's folder. No prefix - the same folder; a folder name - go inside; <code>../</code> - go up. A path starting with <code>/</code> counts from the site root: we don't use it in this course.</p>
+<p><strong>Course rule:</strong> your own pages - relative paths, other sites - absolute.</p>
+<h3 id="section-10">Try breaking it</h3>
+<ol>
+<li>In the link <code>href=&quot;about.html&quot;</code>, write <code>href=&quot;About.html&quot;</code>. The link may work on your computer but not on a server, where letter case matters. Always write the file name exactly, preferably in lowercase.</li>
+<li>Remove the extension: <code>href=&quot;about&quot;</code>. Click the link. What does the browser show?</li>
+</ol>
+<h3 id="section-11">Common beginner mistakes</h3>
 <table>
 <thead>
 <tr>
@@ -142,294 +175,357 @@
 </thead>
 <tbody>
 <tr>
-<td>Unexpectedly visiting the published site while testing local pages: <code>href=&quot;https://mysite.ru/about.html&quot;</code></td>
-<td>Use relative paths for pages within your project: <code>href=&quot;about.html&quot;</code></td>
+<td><code>href=&quot;C:\Users\...\about.html&quot;</code></td>
+<td>A disk path works only on your computer. Write <code>about.html</code></td>
 </tr>
 <tr>
-<td>Confusing <code>/about.html</code> (from site root) and <code>about.html</code> (from current folder)</td>
-<td>Remember: a leading slash means &quot;from site root,&quot; without a slash means &quot;from current file&quot;</td>
+<td><code>href=&quot;about&quot;</code> without an extension</td>
+<td>The full name: <code>about.html</code></td>
 </tr>
 <tr>
-<td>Forgetting the <code>.html</code> extension in the link: <code>href=&quot;about&quot;</code></td>
-<td>Specify the full file name with the extension: <code>href=&quot;about.html&quot;</code></td>
+<td><code>About.html</code> instead of <code>about.html</code></td>
+<td>The name in the link matches the file letter for letter</td>
 </tr>
 <tr>
-<td>Getting the file name case wrong: <code>href=&quot;About.html&quot;</code> instead of <code>about.html</code></td>
-<td>On most servers (especially Linux/GitHub Pages), case matters - the link name must exactly match the file name</td>
+<td>A link <code>index.html</code> from <code>pages/</code></td>
+<td>You need to go up: <code>../index.html</code></td>
+</tr>
+<tr>
+<td>Spaces in a file name</td>
+<td>Name files without spaces: <code>my-page.html</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="section-10"><code>target=&quot;_blank&quot;</code> - opening in a new tab</h2>
-<p>By default, a link opens in the same window/tab, replacing the current page. If you want the page to open in a <strong>new</strong> tab (for example, when navigating to an external site, so the user doesn't lose your site) - use the <code>target=&quot;_blank&quot;</code> attribute.</p>
-<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; target=&quot;_blank&quot;&gt;My GitHub&lt;/a&gt;
+<h2 id="section-12">Anchors: jumping to a page section</h2>
+<p><strong>In simple terms:</strong> an anchor is a bookmark in a book. First you put in the bookmark, then you open the book right at it.</p>
+<p><strong>Step 1.</strong> Give the section a unique name with <code>id</code>:</p>
+<pre><code class="language-html">&lt;h2 id=&quot;schedule&quot;&gt;Schedule&lt;/h2&gt;
 </code></pre>
-<p><strong>What <code>rel</code> does:</strong> <code>noopener</code> prevents the new tab from accessing the original through <code>window.opener</code>. Modern browsers already imply this behavior for <code>_blank</code>; writing it explicitly documents the intention. <code>noreferrer</code> also suppresses the referring page’s address. Course examples use both values; they perform different jobs.</p>
-<pre><code class="language-html">&lt;a href=&quot;https://github.com/Saydullayev017&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;My GitHub&lt;/a&gt;
+<p><strong>Step 2.</strong> Make a link with <code>#</code> before that name:</p>
+<pre><code class="language-html">&lt;a href=&quot;#schedule&quot;&gt;Go to the schedule&lt;/a&gt;
 </code></pre>
-<p><strong>Recommendation:</strong> keep the same tab by default. Use <code>_blank</code> when a new tab helps the task and announce it in the link text: “MDN (new tab)”. HTML also allows <code>_blank</code> for internal links; an external link does not automatically need a new tab.</p>
-<hr>
-<h2 id="section-11">Anchor links - jumping to a page section</h2>
-<p>Sometimes you don't need to navigate to another page, but rather move to a specific <strong>place on the same (or different) page</strong> - for example, to a particular section of a long article.</p>
-<p>This is done in two steps.</p>
-<p><strong>Step 1.</strong> Give the element you want to jump to a unique identifier using the <code>id</code> attribute:</p>
-<pre><code class="language-html">&lt;h2 id=&quot;section2&quot;&gt;Section 2. Forms&lt;/h2&gt;
-</code></pre>
-<p><strong>Step 2.</strong> Create a link to that <code>id</code> by placing a hash symbol <code>#</code> before the name:</p>
-<pre><code class="language-html">&lt;a href=&quot;#section2&quot;&gt;Go to section 2&lt;/a&gt;
-</code></pre>
-<p>When clicked, the browser will smoothly (or instantly, depending on settings) scroll the page to the element with <code>id=&quot;section2&quot;</code>.</p>
-<h3 id="section-12">Example: table of contents for a long article</h3>
+<p><strong>What you will see:</strong> click, and the page scrolls to the &quot;Schedule&quot; heading.</p>
+<h3 id="section-13">A table of contents for a long page</h3>
 <pre><code class="language-html">&lt;nav&gt;
     &lt;h2&gt;Contents&lt;/h2&gt;
     &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;#history&quot;&gt;History&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;About the club&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#schedule&quot;&gt;Schedule&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/nav&gt;
 
-&lt;article&gt;
-    &lt;h2 id=&quot;intro&quot;&gt;Introduction&lt;/h2&gt;
-    &lt;p&gt;Introduction text...&lt;/p&gt;
+&lt;section&gt;
+    &lt;h2 id=&quot;about&quot;&gt;About the club&lt;/h2&gt;
+    &lt;p&gt;We learn to build websites.&lt;/p&gt;
+&lt;/section&gt;
 
-    &lt;h2 id=&quot;history&quot;&gt;History&lt;/h2&gt;
-    &lt;p&gt;History text...&lt;/p&gt;
-
-    &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-    &lt;p&gt;Concluding text...&lt;/p&gt;
-&lt;/article&gt;
+&lt;section&gt;
+    &lt;h2 id=&quot;schedule&quot;&gt;Schedule&lt;/h2&gt;
+    &lt;p&gt;Every Wednesday at 15:00.&lt;/p&gt;
+&lt;/section&gt;
 </code></pre>
-<h3 id="section-13">Anchor link to a section on another page</h3>
-<p>Same principle, just specify the file first, then <code>#</code> and <code>id</code>:</p>
-<pre><code class="language-html">&lt;a href=&quot;about.html#history&quot;&gt;Company history&lt;/a&gt;
+<h3 id="section-14">An anchor on another page</h3>
+<p>First the file, then <code>#</code> and the <code>id</code>:</p>
+<pre><code class="language-html">&lt;a href=&quot;schedule.html#wednesday&quot;&gt;Wednesday session&lt;/a&gt;
 </code></pre>
-<p>This will open <code>about.html</code> and immediately scroll to the element with <code>id=&quot;history&quot;</code>.</p>
-<h3 id="section-14">Returning to the top of the page</h3>
-<p>A common pattern - a &quot;back to top&quot; link at the end of a long page:</p>
-<pre><code class="language-html">&lt;a href=&quot;#top&quot;&gt;Back to top ↑&lt;/a&gt;
-</code></pre>
-<p>(Provided that somewhere at the top of the page there's an element with <code>id=&quot;top&quot;</code>, for example <code>&lt;body id=&quot;top&quot;&gt;</code> or the first heading.)</p>
-<p><strong>Important rule about <code>id</code>:</strong> the <code>id</code> value must be <strong>unique across the entire page</strong> - there cannot be two elements with the same <code>id</code>. This distinguishes <code>id</code> from <code>class</code> (we'll discuss <code>class</code> in detail starting with the CSS lesson).</p>
+<p><code>schedule.html</code> opens right at the section with <code>id=&quot;wednesday&quot;</code>.</p>
+<h3 id="section-15">Rules for <code>id</code></h3>
+<ul>
+<li>An <code>id</code> is <strong>unique</strong> on the page: two elements with the same <code>id</code> is an error.</li>
+<li>No spaces: <code>id=&quot;schedule-2&quot;</code>, not <code>id=&quot;schedule 2&quot;</code>.</li>
+<li>In a link on the same page - always with <code>#</code>.</li>
+</ul>
+<h3 id="section-16">Try breaking it</h3>
+<p>Remove the <code>#</code> from the link: <code>href=&quot;schedule&quot;</code>. Click it. The browser now looks for a <strong>file</strong> named <code>schedule</code> and can't find it.</p>
 <hr>
-<h3 id="section-15">Common beginner mistakes</h3>
-<table>
-<thead>
-<tr>
-<th>Mistake</th>
-<th>How to fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Forgetting the <code>#</code> symbol before the name in the link: <code>href=&quot;section2&quot;</code></td>
-<td>For an anchor link on the same page, always write <code>href=&quot;#section2&quot;</code></td>
-</tr>
-<tr>
-<td>Using the same <code>id</code> for multiple elements</td>
-<td>Each <code>id</code> on the page must be unique</td>
-</tr>
-<tr>
-<td>Using spaces in the <code>id</code> value: <code>id=&quot;section 2&quot;</code></td>
-<td>The <code>id</code> value is written without spaces, typically <code>camelCase</code> or with a hyphen: <code>id=&quot;section2&quot;</code> or <code>id=&quot;section-2&quot;</code></td>
-</tr>
-<tr>
-<td>Confusing <code>id</code> (unique, for a single element) and <code>class</code> (for a group of elements, covered later)</td>
-<td>Anchor links use <code>id</code>, not <code>class</code></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="section-16">Links for email and phone</h2>
-<h3 id="section-17"><code>mailto:</code> - open email client with a pre-filled recipient</h3>
-<pre><code class="language-html">&lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;Write us an email&lt;/a&gt;
-</code></pre>
-<p>When clicked, the browser will open the default email application on the device (e.g., Outlook, Gmail) with the &quot;To&quot; field already filled in.</p>
-<p>You can set the email subject right away:</p>
-<pre><code class="language-html">&lt;a href=&quot;mailto:info@saydullayev.fun?subject=Question about the course&quot;&gt;Write us an email&lt;/a&gt;
-</code></pre>
-<h3 id="section-18"><code>tel:</code> - open the phone/calling app</h3>
-<pre><code class="language-html">&lt;a href=&quot;tel:+998901234567&quot;&gt;+998 90 123-45-67&lt;/a&gt;
-</code></pre>
-<p>Especially useful on mobile devices - when clicked, the phone will immediately offer to make a call to this number. It's recommended to provide the number in international format (with <code>+</code> and country code), without spaces or parentheses inside the <code>href</code> attribute itself - you can format it however you like in the visible link text.</p>
-<hr>
-<h3 id="section-19">Common beginner mistakes</h3>
-<table>
-<thead>
-<tr>
-<th>Mistake</th>
-<th>How to fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Forgetting <code>mailto:</code> and <code>tel:</code> before the address: <code>href=&quot;info@site.uz&quot;</code></td>
-<td>Always include the protocol: <code>href=&quot;mailto:info@site.uz&quot;</code></td>
-</tr>
-<tr>
-<td>Including spaces in the phone number inside <code>href</code>: <code>href=&quot;tel:+998 90 123 45 67&quot;</code></td>
-<td>Inside the attribute, write the number without spaces: <code>href=&quot;tel:+998901234567&quot;</code> - format only in the visible text</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="section-20">Mini-assignment</h2>
-<p>On your own, without looking at the examples, create:</p>
-<ol>
-<li>A link to the file <code>contact.html</code> in the same folder.</li>
-<li>A link to the external site <code>https://developer.mozilla.org</code>, opening in a new tab, with security protection.</li>
-<li>A call link for the number +998901112233.</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-html">&lt;a href=&quot;contact.html&quot;&gt;Contact&lt;/a&gt;
-
-&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN&lt;/a&gt;
-
+<h2 id="section-17">Email and phone</h2>
+<pre><code class="language-html">&lt;a href=&quot;mailto:club@example.com&quot;&gt;club@example.com&lt;/a&gt;
 &lt;a href=&quot;tel:+998901112233&quot;&gt;+998 90 111-22-33&lt;/a&gt;
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Link</th>
+<th>What happens on click</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mailto:</code></td>
+<td>The mail app opens with the address filled in</td>
+</tr>
+<tr>
+<td><code>tel:</code></td>
+<td>The phone offers to make a call</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule for <code>tel:</code>:</strong> in <code>href</code>, write the number without spaces, with <code>+</code> and the country code. In the visible text, format it for easy reading.</p>
+<p>If no mail app is set up on the computer, clicking <code>mailto:</code> may open nothing. That is not an error in your HTML.</p>
+<h3 id="section-18">Common beginner mistakes</h3>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>How to fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>href=&quot;club@example.com&quot;</code></td>
+<td>The prefix is needed: <code>mailto:club@example.com</code></td>
+</tr>
+<tr>
+<td><code>href=&quot;tel:+998 90 111 22 33&quot;</code></td>
+<td>No spaces: <code>tel:+998901112233</code></td>
+</tr>
+<tr>
+<td>Real personal data in a practice project</td>
+<td>Use made-up data: <code>example.com</code></td>
+</tr>
+</tbody>
+</table>
 <hr>
-<h2 id="section-21">Building a multi-page website with consistent navigation</h2>
-<p>Now let's apply all the link tags for what they were made for - connecting several pages into a single website. We'll create three pages: <code>index.html</code>, <code>about.html</code>, <code>contact.html</code> - with the same navigation menu on each.</p>
-<p>Folder structure:</p>
-<pre><code>html-course/
+<h2 id="section-19">New tab: <code>target=&quot;_blank&quot;</code></h2>
+<p>By default a link opens <strong>in the same tab</strong>. That is the right behaviour: the user decides where to open a link (&quot;Back&quot; button, middle mouse button).</p>
+<p>Sometimes a new tab really helps, for example a reference page that shouldn't interrupt filling in a form. Then:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN (opens in a new tab)&lt;/a&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target=&quot;_blank&quot;</code></td>
+<td>Open in a new tab</td>
+</tr>
+<tr>
+<td><code>rel=&quot;noopener&quot;</code></td>
+<td>The new tab gets no access to your page</td>
+</tr>
+<tr>
+<td><code>rel=&quot;noreferrer&quot;</code></td>
+<td>Don't tell the site where the user came from</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Course rule:</strong> if you use <code>_blank</code>, always add <code>rel=&quot;noopener noreferrer&quot;</code> and warn in the link text: &quot;(new tab)&quot;.</p>
+<h3 id="section-20">Which <code>href</code> to choose</h3>
+<figure><div class="diagram-viewport" role="region" tabindex="0" aria-label="Diagram with horizontal scrolling"><img src="diagrams/en-lesson-3-2.svg" alt="Diagram 2: Links and navigation"></div><figcaption>Diagram 2 · Diagram with horizontal scrolling<a href="diagrams/en-lesson-3-2.svg">Open diagram separately</a></figcaption></figure><p><strong>How to read the diagram.</strong> First decide where the user should land, then choose the <code>href</code>. A link to another page can also lead to one of its sections: <code>about.html#history</code>.</p>
+<hr>
+<h2 id="section-21">Mini-task 1</h2>
+<p>Without looking, create three links:</p>
+<ol>
+<li>To the file <code>contact.html</code> in the same folder.</li>
+<li>To <code>https://developer.mozilla.org</code> in a new tab, with protection and a warning.</li>
+<li>A call to +998 90 111-22-33.</li>
+</ol>
+<p>The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-22">A three-page site</h2>
+<p>Let's build a club site:</p>
+<pre><code>club-site/
 ├── index.html
-├── about.html
-└── contact.html
+├── schedule.html
+└── contacts.html
+</code></pre>
+<p><strong>The main rule:</strong> the same menu on <strong>every</strong> page.</p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;schedule.html&quot;&gt;Schedule&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;contacts.html&quot;&gt;Contacts&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
 </code></pre>
 <p><strong>The <code>index.html</code> file:</strong></p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Home - My Site&lt;/title&gt;
+    &lt;title&gt;Home - Web development club&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
     &lt;header&gt;
-        &lt;h1&gt;My Learning Site&lt;/h1&gt;
+        &lt;p&gt;Web development club&lt;/p&gt;
         &lt;nav&gt;
             &lt;ul&gt;
                 &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;schedule.html&quot;&gt;Schedule&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;contacts.html&quot;&gt;Contacts&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/nav&gt;
     &lt;/header&gt;
-
     &lt;main&gt;
-        &lt;h2&gt;Welcome!&lt;/h2&gt;
-        &lt;p&gt;This is the home page of my learning project, which I'm building in the &quot;HTML: in 10 lessons&quot; course.&lt;/p&gt;
-        &lt;p&gt;Want to learn more? Go to the &lt;a href=&quot;about.html&quot;&gt;&quot;About&quot;&lt;/a&gt; section.&lt;/p&gt;
+        &lt;h1&gt;Welcome to the club&lt;/h1&gt;
+        &lt;p&gt;We learn to build websites from scratch. See the next session in the &lt;a href=&quot;schedule.html&quot;&gt;schedule&lt;/a&gt;.&lt;/p&gt;
     &lt;/main&gt;
-
     &lt;footer&gt;
-        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 My Learning Site.&lt;/small&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 Web development club&lt;/small&gt;&lt;/p&gt;
     &lt;/footer&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p><strong>The <code>about.html</code> file:</strong></p>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;About - My Site&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;header&gt;
-        &lt;h1&gt;My Learning Site&lt;/h1&gt;
-        &lt;nav&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/nav&gt;
-    &lt;/header&gt;
-
-    &lt;main&gt;
-        &lt;h2&gt;About&lt;/h2&gt;
-        &lt;p&gt;I'm building this site as part of an HTML course to practically reinforce all the topics I've learned.&lt;/p&gt;
-        &lt;p&gt;You can view the project's source code on &lt;a href=&quot;https://github.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-    &lt;/main&gt;
-
-    &lt;footer&gt;
-        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 My Learning Site.&lt;/small&gt;&lt;/p&gt;
-    &lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p><strong>The <code>contact.html</code> file:</strong></p>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Contact - My Site&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;header&gt;
-        &lt;h1&gt;My Learning Site&lt;/h1&gt;
-        &lt;nav&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;contact.html&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/nav&gt;
-    &lt;/header&gt;
-
-    &lt;main&gt;
-        &lt;h2&gt;Contact&lt;/h2&gt;
-        &lt;p&gt;Reach me using any convenient method:&lt;/p&gt;
-        &lt;ul&gt;
-            &lt;li&gt;Email: &lt;a href=&quot;mailto:info@saydullayev.fun&quot;&gt;info@saydullayev.fun&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;Phone: &lt;a href=&quot;tel:+998901234567&quot;&gt;+998 90 123-45-67&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/main&gt;
-
-    &lt;footer&gt;
-        &lt;p&gt;&lt;small&gt;&amp;copy; 2026 My Learning Site.&lt;/small&gt;&lt;/p&gt;
-    &lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p><strong>Try it yourself:</strong> create all three files, open <code>index.html</code> via Live Server, and click through all the menu links - make sure the navigation works between all three pages in both directions.</p>
-<p>Notice: the <code>&lt;nav&gt;</code> menu is <strong>exactly the same</strong> on all three pages - this is standard practice (in the future, when you learn more advanced technologies, repeating blocks can be extracted into a single file, but at the pure HTML level we just copy this block to each page for now).</p>
+<p>The <code>schedule.html</code> and <code>contacts.html</code> pages are built the same way: the same <code>header</code> with the same menu, their own <code>title</code>, their own <code>h1</code> and their own content. Give the schedule as a list, and the contacts as <code>mailto:</code> and <code>tel:</code> links.</p>
+<p><strong>What you will see:</strong> three pages with the same menu at the top. Click the menu items and the pages change.</p>
+<p><strong>How to test the site:</strong> from <strong>every</strong> page, click <strong>every</strong> menu item. 3 pages × 3 links = 9 transitions. All 9 must work.</p>
 <hr>
-<h2 id="section-22">Lesson summary</h2>
-<p>Today you learned:</p>
+<h2 id="section-23">Mini-task 2</h2>
+<p>On the <code>index.html</code> page, add a two-item table of contents that leads to the &quot;About the club&quot; and &quot;How to join&quot; sections on the same page. The solution is in the &quot;Answers&quot; section.</p>
+<hr>
+<h2 id="section-24">Lesson summary: cheat sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Link</td>
+<td><code>&lt;a href=&quot;address&quot;&gt;Clear text&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Another site</td>
+<td><code>href=&quot;https://site.uz&quot;</code></td>
+</tr>
+<tr>
+<td>Your page next to it</td>
+<td><code>href=&quot;about.html&quot;</code></td>
+</tr>
+<tr>
+<td>Page in a subfolder</td>
+<td><code>href=&quot;pages/schedule.html&quot;</code></td>
+</tr>
+<tr>
+<td>Page one level up</td>
+<td><code>href=&quot;../index.html&quot;</code></td>
+</tr>
+<tr>
+<td>Section on this page</td>
+<td><code>id=&quot;about&quot;</code> + <code>href=&quot;#about&quot;</code></td>
+</tr>
+<tr>
+<td>Section of another page</td>
+<td><code>href=&quot;schedule.html#wednesday&quot;</code></td>
+</tr>
+<tr>
+<td>Email / phone</td>
+<td><code>href=&quot;mailto:...&quot;</code> / <code>href=&quot;tel:+998...&quot;</code></td>
+</tr>
+<tr>
+<td>New tab</td>
+<td><code>target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;</code> + a warning</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-25">Independent work</h2>
+<h3 id="section-26">Part 1. IDE task (counted by the platform)</h3>
+<p>Make the <strong>club home page</strong> <code>index.html</code>:</p>
+<ol>
+<li>A full document: DOCTYPE, <code>lang</code>, UTF-8, <code>title</code>.</li>
+<li>A <code>&lt;header&gt;</code> with a <code>&lt;nav&gt;</code> menu of three links: <code>index.html</code>, <code>schedule.html</code>, <code>contacts.html</code>.</li>
+<li>One <code>&lt;h1&gt;</code> in <code>&lt;main&gt;</code>.</li>
+<li>A table of contents of two anchor links: <code>#about</code> and <code>#join</code>.</li>
+<li>Two sections with the headings <code>&lt;h2 id=&quot;about&quot;&gt;</code> and <code>&lt;h2 id=&quot;join&quot;&gt;</code>.</li>
+<li>In the &quot;How to join&quot; section:
 <ul>
-<li><code>&lt;a&gt;</code> creates a hyperlink when it has <code>href</code>; without <code>href</code> it is not an active hyperlink.</li>
-<li>Absolute path (with <code>https://</code>) - for external websites, relative path - for pages within your own project.</li>
-<li><code>_blank</code> opens a new browsing context, usually a tab. Use it deliberately and tell the user; <code>noopener</code> and <code>noreferrer</code> do different jobs.</li>
-<li>Anchor links (<code>href=&quot;#id&quot;</code>) navigate to a specific place on the page via the <code>id</code> on the target element.</li>
-<li><code>mailto:</code> and <code>tel:</code> create links for quickly sending an email or making a call.</li>
-<li>You built your first multi-page website with a unified navigation menu.</li>
+<li>an email link (<code>mailto:</code>);</li>
+<li>a phone link (<code>tel:</code> without spaces, with <code>+</code>);</li>
+<li>an external link to any site with <code>https://</code>, in a new tab, with <code>rel=&quot;noopener noreferrer&quot;</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Don't use tables or images.</p>
+<p>What the platform checks: the document skeleton, <code>nav</code>, all five link addresses, both <code>id</code> values, <code>mailto:</code>, <code>tel:+</code> without spaces, an external <code>https://</code> link with <code>target=&quot;_blank&quot;</code> and <code>rel=&quot;noopener</code>, one <code>h1</code>, at least two <code>h2</code>, and no disk paths.</p>
+<h3 id="section-27">Part 2. Project on your computer</h3>
+<ol>
+<li>Create a <code>club-site</code> folder and three pages: <code>index.html</code>, <code>schedule.html</code>, <code>contacts.html</code>.</li>
+<li>The same menu on every page, each with its own <code>title</code> and <code>h1</code>.</li>
+<li>The schedule as a list. On the contacts page - <code>mailto:</code> and <code>tel:</code>.</li>
+<li>From <code>schedule.html</code>, link to the <code>#join</code> section of the home page.</li>
+<li>Check all 9 menu transitions and all anchors. Write down the errors you found and how you fixed them.</li>
+</ol>
+<h3 id="section-28">Acceptance criteria</h3>
+<ul>
+<li class="check"><label><input type="checkbox"> The IDE task is accepted.</label></li>
+<li class="check"><label><input type="checkbox"> All 9 menu transitions lead to the right pages.</label></li>
+<li class="check"><label><input type="checkbox"> File names in <code>href</code> match the files letter for letter.</label></li>
+<li class="check"><label><input type="checkbox"> No paths like <code>C:\Users\...</code>.</label></li>
+<li class="check"><label><input type="checkbox"> All <code>id</code> values are unique; anchors lead to the right sections.</label></li>
+<li class="check"><label><input type="checkbox"> Every link's text explains where it leads.</label></li>
+<li class="check"><label><input type="checkbox"> <code>mailto:</code> and <code>tel:</code> are written correctly; the data is made up.</label></li>
 </ul>
 <hr>
-<h2 id="section-23">Independent task: a club mini-site</h2>
-<p>Create a study or hobby club website in a separate folder. Write your own content and structure from these requirements; use the worked example only as a reference. Use lessons 1–3: no images, CSS, tables or forms.</p>
+<h2 id="section-29">Self-check questions</h2>
 <ol>
-<li>Create <code>index.html</code>, <code>schedule.html</code> and <code>contacts.html</code>, each with the same three-link menu.</li>
-<li>Give pages different <code>title</code> values and main headings. Present the schedule as a list, not a table.</li>
-<li>On the home page, add two sections and a table of contents with fragment links. Link to one section from another page too.</li>
-<li>Add an external reference link and <code>mailto:</code> and <code>tel:</code> links with fictional details on the contacts page. Use a new tab only when justified and announce it in the text.</li>
-<li>Test every menu item from every page and every fragment link. Record errors and their fixes.</li>
+<li>What happens to a link without <code>href</code>?</li>
+<li>When do you need an absolute path, and when a relative one?</li>
+<li>What does <code>../</code> mean in a path?</li>
+<li>Why won't a link with <code>C:\Users\...</code> work on a website?</li>
+<li>How is the link <code>href=&quot;#about&quot;</code> different from <code>href=&quot;about.html&quot;</code>?</li>
+<li>Why can't two elements have the same <code>id</code>?</li>
+<li>How do you link to the <code>#join</code> section of <code>index.html</code> from another page?</li>
+<li>How do you write a phone number correctly in <code>tel:</code>?</li>
+<li>Why add <code>rel=&quot;noopener noreferrer&quot;</code> next to <code>target=&quot;_blank&quot;</code>?</li>
+<li>Why is &quot;Click here&quot; bad link text?</li>
 </ol>
-<h3 id="section-24">Completion criteria</h3>
-<ul>
-<li class="check"><label><input type="checkbox"> All nine menu transitions (three per page) lead to the intended files.</label></li>
-<li class="check"><label><input type="checkbox"> File names, extensions and case match <code>href</code>; no paths such as <code>C:\Users\...</code> are used.</label></li>
-<li class="check"><label><input type="checkbox"> Each page has unique <code>id</code> values; fragments reach the right sections.</label></li>
-<li class="check"><label><input type="checkbox"> Link text explains the destination; new-tab behavior is announced.</label></li>
-<li class="check"><label><input type="checkbox"> <code>mailto:</code> and <code>tel:</code> use the correct schemes; a missing configured app is not an HTML error.</label></li>
-</ul>
-<h3 id="section-25">Check your understanding</h3>
+<p>After the questions, take the <strong>lesson test</strong> on the platform: 12 questions, 70% to pass.</p>
+<hr>
+<h2 id="section-30">What's next</h2>
+<p>The site moves between pages, but it only has text. In lesson 4 we will add images with captions, audio and video, and a site icon on the tab.</p>
+<hr>
+<h2 id="section-31">Answers</h2>
+<p><strong>Review</strong></p>
 <ol>
-<li>How do <code>about.html</code>, <code>../about.html</code> and <code>/about.html</code> differ?</li>
-<li>What happens if you remove <code>#</code> from a fragment link?</li>
-<li>Why does an external link not necessarily need <code>_blank</code>?</li>
+<li><code>index.html</code>.</li>
+<li><code>&lt;nav&gt;</code>.</li>
+<li><code>&lt;ul&gt;</code>.</li>
 </ol>
-<p>If a transition fails, fix it and repeat the check from the same starting page. Continue after all criteria pass.</p>
+<p><strong>Mini-task 1</strong></p>
+<pre><code class="language-html">&lt;a href=&quot;contact.html&quot;&gt;Contacts&lt;/a&gt;
+&lt;a href=&quot;https://developer.mozilla.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MDN (opens in a new tab)&lt;/a&gt;
+&lt;a href=&quot;tel:+998901112233&quot;&gt;+998 90 111-22-33&lt;/a&gt;
+</code></pre>
+<p><strong>Mini-task 2</strong></p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;h2&gt;Contents&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;About the club&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#join&quot;&gt;How to join&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;about&quot;&gt;About the club&lt;/h2&gt;
+    &lt;p&gt;We learn to build websites from scratch.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+    &lt;h2 id=&quot;join&quot;&gt;How to join&lt;/h2&gt;
+    &lt;p&gt;Write to us by email.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Self-check questions</strong></p>
+<ol>
+<li>It won't work as a link: it is just text.</li>
+<li>Absolute - for other sites, relative - for pages of your own project.</li>
+<li>Go up one folder.</li>
+<li>The server has no <code>C:</code> drive and none of your folders.</li>
+<li><code>#about</code> is a section on this page, <code>about.html</code> is another file.</li>
+<li>The browser won't know which one to jump to. An <code>id</code> is a unique name.</li>
+<li><code>href=&quot;index.html#join&quot;</code>.</li>
+<li>Without spaces, with <code>+</code> and the country code: <code>tel:+998901112233</code>.</li>
+<li>So the new tab gets no access to your page and doesn't learn where the user came from.</li>
+<li>The text doesn't say where the link leads. Screen readers often read the list of links separately from the text.</li>
+</ol>
 <hr>
 <p><a href="index.html">Contents</a> · <a href="en-lesson-2.html">← Back</a> · <a href="en-lesson-4.html">Next →</a> · <a href="ru-lesson-3.html">RU</a> · <a href="en-lesson-3.html">EN</a> · <a href="uz-lesson-3.html">UZ</a> · <a href="../Lesson-3/practice.html">Practice</a></p>
 </article></main><footer><a href="../Lesson-3/en/Links%20and%20navigation.md">Open Markdown source</a> · © 2026 Javlonbek Saydullaev · CC BY-NC-SA 4.0</footer><script>if(innerWidth<900)document.querySelector("aside details").open=false;</script></body></html>

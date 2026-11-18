@@ -1,0 +1,260 @@
+{
+  "lesson": 7,
+  "language": "en",
+  "lesson_title": "Forms. Part 2",
+  "task": {
+    "title": "Participant form",
+    "language": "html",
+    "description": "A form with method=\"get\": two fieldsets with legend; the card number is required, exactly 7 digits (pattern); a textarea with initial text; a select with two optgroups and selected; every field has label for = id; buttons button type=\"submit\" and type=\"reset\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <!-- fieldset + legend \"Personal details\": card number (pattern 7 digits, required), textarea \"About me\" -->\n            <!-- fieldset + legend \"Track\": select with two optgroups and selected -->\n            <!-- button type=\"submit\" and button type=\"reset\" -->\n        </form>\n    </main>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "<form",
+        "method=\"get\"",
+        "<select",
+        "<optgroup",
+        "selected",
+        "</textarea>",
+        "pattern=\"",
+        "{7}",
+        "required",
+        "type=\"reset\""
+      ],
+      "tags": {
+        "fieldset": 2,
+        "legend": 2,
+        "optgroup": 2,
+        "option": 3,
+        "textarea": 1,
+        "label": 3,
+        "button": 2
+      },
+      "for_id_pairs": true,
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "Group: <fieldset><legend>Personal details</legend> ... </fieldset>.",
+      "Card number: pattern=\"[0-9]{7}\" and required.",
+      "The initial text of a textarea goes between the tags: <textarea>Text</textarea>.",
+      "List: <select> with <optgroup label=\"...\"> and one <option selected>.",
+      "Buttons: <button type=\"submit\"> and <button type=\"reset\">."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no pattern",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "pattern for 6 digits",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{6}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "one fieldset",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no legend",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <p>Personal details</p>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no optgroup",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        \n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        \n                        \n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        \n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no selected",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\">HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "textarea with value",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\" value=\"Student\">\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "button without type",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button>Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no reset",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"course\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "label not connected",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Participant form</title>\n</head>\n<body>\n    <main>\n        <h1>Participant form</h1>\n        <form method=\"get\">\n            <fieldset>\n                <legend>Personal details</legend>\n                <p>\n                    <label for=\"student-id\">Student card number (7 digits)</label>\n                    <input type=\"text\" id=\"student-id\" name=\"student-id\" pattern=\"[0-9]{7}\" inputmode=\"numeric\" required>\n                </p>\n                <p>\n                    <label for=\"about\">About me</label>\n                    <textarea id=\"about\" name=\"about\" rows=\"4\" maxlength=\"300\">I am a first-year student.</textarea>\n                </p>\n            </fieldset>\n            <fieldset>\n                <legend>Track</legend>\n                <p>\n                    <label for=\"courses\">What do you want to learn</label>\n                    <select id=\"course\" name=\"course\">\n                        <optgroup label=\"Frontend\">\n                            <option value=\"html\" selected>HTML</option>\n                            <option value=\"css\">CSS</option>\n                        </optgroup>\n                        <optgroup label=\"Backend\">\n                            <option value=\"php\">PHP</option>\n                            <option value=\"sql\">SQL</option>\n                        </optgroup>\n                    </select>\n                </p>\n            </fieldset>\n            <p>\n                <button type=\"submit\">Submit the form</button>\n                <button type=\"reset\">Reset</button>\n            </p>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Where is the initial text of a textarea written?",
+        "options": [
+          "In the value attribute",
+          "Between the <textarea> and </textarea> tags",
+          "In placeholder",
+          "In the text attribute"
+        ],
+        "answer": 1,
+        "explanation": "textarea is a paired tag; the text goes between the tags."
+      },
+      {
+        "type": "single",
+        "question": "What does a type=\"reset\" button do?",
+        "options": [
+          "Clears all fields",
+          "Restores the fields' initial values",
+          "Submits the form",
+          "Reloads the page"
+        ],
+        "answer": 1,
+        "explanation": "reset restores the values set in the HTML."
+      },
+      {
+        "type": "single",
+        "question": "How does a <button> without type behave inside a form?",
+        "options": [
+          "It does nothing",
+          "Like submit - it submits the form",
+          "Like reset",
+          "It throws an error"
+        ],
+        "answer": 1,
+        "explanation": "That is why a button always gets a type."
+      },
+      {
+        "type": "single",
+        "question": "What does pattern=\"[0-9]{7}\" mean?",
+        "options": [
+          "Up to 7 digits",
+          "Exactly 7 digits",
+          "At least 7 characters",
+          "Any 7 characters"
+        ],
+        "answer": 1,
+        "explanation": "[0-9] is a digit, {7} is exactly 7 times."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about fieldset and legend?",
+        "options": [
+          "legend is the group heading",
+          "legend comes first inside fieldset",
+          "A screen reader reads the legend before the group's fields",
+          "fieldset replaces label"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Every field still needs a label inside a fieldset."
+      },
+      {
+        "type": "multiple",
+        "question": "Which attributes check input in the browser?",
+        "options": [
+          "min and max",
+          "maxlength",
+          "pattern",
+          "placeholder"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "placeholder is only an example hint."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about <option value=\"almalyk\">Almalyk</option>?",
+        "options": [
+          "The user sees \"Almalyk\"",
+          "almalyk is sent to the server",
+          "\"Almalyk\" is sent to the server",
+          "selected would preselect it"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "The text is shown, the value is sent."
+      },
+      {
+        "type": "matching",
+        "question": "Match the element with its purpose.",
+        "pairs": [
+          [
+            "<select>",
+            "Choice from ready options"
+          ],
+          [
+            "<datalist>",
+            "Suggestions, you can type your own"
+          ],
+          [
+            "<textarea>",
+            "Multi-line text"
+          ],
+          [
+            "<optgroup>",
+            "A group of options in a list"
+          ]
+        ],
+        "explanation": "Choose the element by the type of answer."
+      },
+      {
+        "type": "matching",
+        "question": "Match the button type with its action.",
+        "pairs": [
+          [
+            "submit",
+            "Check and send"
+          ],
+          [
+            "reset",
+            "Restore initial values"
+          ],
+          [
+            "button",
+            "Does nothing by itself"
+          ]
+        ],
+        "explanation": "Always write the type explicitly."
+      },
+      {
+        "type": "input",
+        "question": "Which attribute preselects a list option? Enter the attribute name.",
+        "answers": [
+          "selected"
+        ],
+        "case_sensitive": false,
+        "explanation": "<option selected>."
+      },
+      {
+        "type": "input",
+        "question": "Which tag gives a heading to a group of fields inside fieldset? Enter the tag name without brackets.",
+        "answers": [
+          "legend"
+        ],
+        "case_sensitive": false,
+        "explanation": "legend comes first inside fieldset."
+      },
+      {
+        "type": "input",
+        "question": "Which input type creates a slider? Enter the type value.",
+        "answers": [
+          "range"
+        ],
+        "case_sensitive": false,
+        "explanation": "<input type=\"range\" min=\"0\" max=\"10\">."
+      }
+    ]
+  }
+}

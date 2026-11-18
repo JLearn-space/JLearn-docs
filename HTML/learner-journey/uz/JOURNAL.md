@@ -116,7 +116,7 @@ Har papka o‘z resurslari bilan ko‘chiriladi. Alohida mini-vazifa mini.html d
 
 ## 6-dars
 
-**Manba:** `Lesson-6/uz/Formatlar qism-1.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
+**Manba:** `Lesson-6/uz/Formalar qism-1.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
 
 **Yaratilgan fayllar:** `index.html`, `mini.html`.
 
@@ -137,7 +137,7 @@ Har papka o‘z resurslari bilan ko‘chiriladi. Alohida mini-vazifa mini.html d
 
 ## 7-dars
 
-**Manba:** `Lesson-7/uz/Formatlar qism-2.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
+**Manba:** `Lesson-7/uz/Formalar qism-2.md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
 
 **Yaratilgan fayllar:** `index.html`, `mini.html`.
 
@@ -158,7 +158,7 @@ Har papka o‘z resurslari bilan ko‘chiriladi. Alohida mini-vazifa mini.html d
 
 ## 8-dars
 
-**Manba:** `Lesson-8/uz/Mavjudlik (a11y).md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
+**Manba:** `Lesson-8/uz/Foydalanish qulayligi (a11y).md`. Matn, misollar va ikki Mermaid sxemasi ko‘rib chiqildi; har sxemadan keyin “Chizmani qanday o‘qish kerak” izohi qo‘shildi.
 
 **Yaratilgan fayllar:** `images/github-icon.svg`, `index.html`, `mini.html`.
 

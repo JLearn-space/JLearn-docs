@@ -1,0 +1,290 @@
+{
+  "lesson": 10,
+  "language": "uz",
+  "lesson_title": "Yakuniy loyiha",
+  "task": {
+    "title": "O‘z saytingizning kontaktlar sahifasi",
+    "language": "html",
+    "description": "O‘z klubingiz, to‘garagingiz yoki kutubxonangizning contact.html sahifasini yasang (Azizning portfoliosini emas): viewport va description li to‘liq head; #main havolasi va main id=\"main\"; index.html, about.html, projects.html, contact.html ga menyuli header; bitta h1; caption va scope col/row li jadval; fieldset, legend, label li ikkita maydon (bittasi email) va button type=\"submit\" li method=\"get\" forma; footer.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <!-- viewport, title, description -->\n</head>\n<body>\n    <!-- «Asosiy mazmunga o‘tish» havolasi -->\n    <!-- menyuli header: index.html, about.html, projects.html, contact.html -->\n    <!-- main id=\"main\": h1, jadval (caption, scope col va row), forma (fieldset, legend, label li 2 maydon, bittasi email, button submit) -->\n    <!-- footer -->\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<!DOCTYPE html>",
+        "<html lang=\"",
+        "<meta charset=\"utf-8\"",
+        "name=\"viewport\"",
+        "name=\"description\"",
+        "<title>",
+        "<header",
+        "<nav",
+        "<footer",
+        "id=\"main\"",
+        "<caption",
+        "<fieldset",
+        "<legend",
+        "method=\"get\""
+      ],
+      "forbidden": [
+        "<div",
+        "role=\"button\"",
+        "tabindex=\"1\"",
+        "tabindex=\"2\"",
+        "tabindex=\"3\"",
+        "href=\"c:",
+        "Азиз",
+        "aziz"
+      ],
+      "tags": {
+        "table": 1,
+        "th": 3,
+        "label": 2,
+        "input": 2,
+        "li": 4
+      },
+      "href_targets": [
+        "#main",
+        "index.html",
+        "about.html",
+        "projects.html",
+        "contact.html"
+      ],
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "input_types": [
+        "email"
+      ],
+      "for_id_pairs": true,
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "head da: charset, viewport, o‘z title va description ingiz.",
+      "body ning birinchi qatori: <a href=\"#main\">Asosiy mazmunga o‘tish</a>; main da - id=\"main\".",
+      "4 sahifali menyu: index.html, about.html, projects.html, contact.html.",
+      "Jadval: caption, sarlavha qatorida th scope=\"col\", qatorlar boshida th scope=\"row\".",
+      "Forma: method=\"get\", fieldset + legend, label for = id, type=\"email\", <button type=\"submit\">.",
+      "Mavzu - o‘zingizniki: klub, to‘garak, kutubxona. Namuna matnini ko‘chirmang."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "namuna nusxasi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - Azizning portfoliosi</title>\n    <meta name=\"description\" content=\"Azizning portfoliosi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>Azizning portfoliosi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 Azizning portfoliosi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "o‘tkazib yuborish havolasi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "description yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "caption yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "scope=\"row\" yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th>Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th>Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "legend yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "menyu bandi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "header o‘rniga div",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <div>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </div>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "email yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"text\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "submit tugmasi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h2>Sinov mashg‘ulotiga yozilish</h2>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"button\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "ikkita h1",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <meta name=\"description\" content=\"«Ruh» shaxmat klubi bilan qanday bog‘lanish: ish vaqti, telefon va sinov mashg‘ulotiga yozilish formasi.\">\n</head>\n<body>\n    <a href=\"#main\">Asosiy mazmunga o‘tish</a>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"about.html\">Klub haqida</a></li>\n                <li><a href=\"projects.html\">Turnirlar</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main id=\"main\">\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Klubning ish vaqti</caption>\n            <thead>\n                <tr>\n                    <th scope=\"col\">Kun</th>\n                    <th scope=\"col\">Vaqt</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th scope=\"row\">Seshanba</th>\n                    <td>16:00-19:00</td>\n                </tr>\n                <tr>\n                    <th scope=\"row\">Shanba</th>\n                    <td>10:00-14:00</td>\n                </tr>\n            </tbody>\n        </table>\n        <section>\n            <h1>Sinov mashg‘ulotiga yozilish</h1>\n            <p>O‘quv forma: ma’lumotlar sahifa manzilida paydo bo‘ladi va hech qayerga yuborilmaydi.</p>\n            <form method=\"get\">\n                <fieldset>\n                    <legend>Ma’lumotlaringiz</legend>\n                    <p>\n                        <label for=\"name\">Ism</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </p>\n                    <p>\n                        <label for=\"email\">Pochta</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </p>\n                </fieldset>\n                <p><button type=\"submit\">Yozilish</button></p>\n            </form>\n        </section>\n    </main>\n    <footer>\n        <p><small>&copy; 2026 «Ruh» shaxmat klubi</small></p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Sayt yaratishda birinchi nima qilinadi?",
+        "options": [
+          "CSS yoziladi",
+          "Sayt xaritasi va sahifalar rejasi tuziladi",
+          "GitHub da nashr qilinadi",
+          "Shriftlar tanlanadi"
+        ],
+        "answer": 1,
+        "explanation": "Rejani koddan ko‘ra qog‘ozda tuzatish arzonroq."
+      },
+      {
+        "type": "single",
+        "question": "Bir xil 4 havolali menyuga ega 4 sahifali saytda menyuning nechta o‘tishini tekshirish kerak?",
+        "options": [
+          "4",
+          "8",
+          "12",
+          "16"
+        ],
+        "answer": 3,
+        "explanation": "4 sahifa × 4 havola = 16."
+      },
+      {
+        "type": "single",
+        "question": "GitHub Pages uchun bosh sahifa qanday nomlanishi kerak?",
+        "options": [
+          "home.html",
+          "main.html",
+          "index.html",
+          "start.html"
+        ],
+        "answer": 2,
+        "explanation": "GitHub Pages sukut bo‘yicha index.html ni ochadi."
+      },
+      {
+        "type": "single",
+        "question": "Lokal rasm ko‘rinadi, nashrdan keyin esa - yo‘q. Eng ehtimolli sabab?",
+        "options": [
+          "Sekin internet",
+          "Fayl nomidagi harflar registri src bilan mos emas",
+          "GitHub rasmlarni qo‘llab-quvvatlamaydi",
+          "CSS yo‘q"
+        ],
+        "answer": 1,
+        "explanation": "Serverda Photo.jpg va photo.jpg - turli fayllar."
+      },
+      {
+        "type": "multiple",
+        "question": "Yakuniy imtihonda nima topshiriladi?",
+        "options": [
+          "Sayt boshlang‘ich fayllari",
+          "Ommaviy havola",
+          "Tekshiruvlar jurnali",
+          "GitHub paroli"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Parol hech kimga berilmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Saytning har bir sahifasida nima turlicha bo‘lishi kerak?",
+        "options": [
+          "title",
+          "meta description",
+          "h1",
+          "nav menyusi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Menyu bir xil, sarlavha va tavsif esa o‘ziniki."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi xatolar GitHub Pages da nashrni buzadi?",
+        "options": [
+          "Bepul tarifda yopiq repozitoriy",
+          "Ichki papkadagi index.html",
+          "C:\\Users\\... yo‘llari",
+          "Nisbiy yo‘llar"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Nisbiy yo‘llar - to‘g‘ri."
+      },
+      {
+        "type": "matching",
+        "question": "Yig‘ish qadamini unda qo‘shiladigan narsa bilan moslang.",
+        "pairs": [
+          [
+            "Skelet",
+            "header, nav, main, footer"
+          ],
+          [
+            "Media",
+            "alt li img, figure, favicon"
+          ],
+          [
+            "Meta-teglar",
+            "viewport, description, CSS, JS"
+          ],
+          [
+            "Qulaylik",
+            "O‘tkazib yuborish havolasi, aria-label"
+          ]
+        ],
+        "explanation": "Sayt qatlamma-qatlam yig‘iladi: tuzilmadan tafsilotlarga."
+      },
+      {
+        "type": "matching",
+        "question": "Loyiha hujjatini vazifasi bilan moslang.",
+        "pairs": [
+          [
+            "PLAN.md",
+            "Sayt xaritasi va sahifalar rejasi"
+          ],
+          [
+            "CHECKLIST.md",
+            "Nashrdan oldingi tekshiruvlar ro‘yxati"
+          ],
+          [
+            "JOURNAL.md",
+            "O‘tkazilgan tekshiruvlar va tuzatishlar yozuvi"
+          ]
+        ],
+        "explanation": "Hujjatlar ish jarayonini ko‘rsatadi."
+      },
+      {
+        "type": "input",
+        "question": "Yakuniy imtihondan o‘tish uchun 100 dan necha ball kerak? Sonni kiriting.",
+        "answers": [
+          "80"
+        ],
+        "case_sensitive": false,
+        "explanation": "O‘tish 80 balldan."
+      },
+      {
+        "type": "input",
+        "question": "GitHub ning statik saytlar uchun bepul xostingi qanday nomlanadi? Nomini kiriting.",
+        "answers": [
+          "GitHub Pages",
+          "github pages",
+          "Pages"
+        ],
+        "case_sensitive": false,
+        "explanation": "Settings → Pages."
+      },
+      {
+        "type": "input",
+        "question": "Ma’lumotlar joriy sahifaga ketishi uchun o‘quv loyihada formaning qaysi atributi yozilmaydi? Atribut nomini kiriting.",
+        "answers": [
+          "action"
+        ],
+        "case_sensitive": false,
+        "explanation": "action siz forma joriy manzilga yuboriladi."
+      }
+    ]
+  }
+}

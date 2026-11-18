@@ -1,113 +1,125 @@
 # Meta tags, SEO, linking CSS and JS
 
-[Contents](../../README.md) · [Previous](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Next](../../Lesson-10/en/Final%20project%20from%20planning%20to%20publication.md) · [Practice](../practice.html) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md)
+[Contents](../../README.md) · [← Back](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Next →](../../Lesson-10/en/Final%20project%20from%20planning%20to%20publication.md) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Practice](../practice.html)
 
-> **Connection to the previous lesson:** in the previous lesson we covered accessibility for people. Today we figure out how to make a page understandable for **search engines and other sites** - and also prepare the technical groundwork for connecting CSS and JavaScript, which will be the focus beyond the scope of this course.
+> **Link to the previous lesson:** in Lesson 8 you made the page clear to people. Today we make it clear to **search engines, phones and social networks**, connect ready-made style and script files, and check the code with a validator.
 
 ---
 
-## What you will learn by the end of the lesson
+## Why you need this
 
-- Configure key meta tags: `charset`, `description`, `viewport`.
-- Understand Open Graph basics - how a site looks when shared on social networks.
-- Connect external CSS and JS files via `<link>` and `<script>`.
-- Understand the difference between `defer` and `async` when connecting scripts.
-- Check code validity through the W3C Validator.
-- Organize a project folder structure following standard practices.
+You sent a link to your site to a friend on Telegram. What will they see: a bare link, or a card with a title, description and picture? Your site showed up in Google - what is written under the title? On a phone the page opened tiny and you have to zoom in with your fingers?
+
+All of this is solved by a few lines in `<head>`. Today you will finish the page's "technical passport".
+
+---
+
+## What you will learn
+
+- Write a page description for search engines: `meta name="description"`.
+- Turn on a normal view on phones: `meta name="viewport"`.
+- Make a card for social networks: Open Graph.
+- Connect a ready style file: `<link rel="stylesheet">`.
+- Connect a ready script: `<script src defer>`.
+- Arrange project files into folders.
+- Check code with a validator and Lighthouse.
+
+---
+
+## Review: 3 questions from Lessons 1, 3 and 4
+
+1. What goes in `<head>`: visible content or service information?
+2. How do you link to `style.css` in the `css` folder if the HTML sits next to that folder?
+3. Which tag did we use to connect the site icon?
+
+Answers are at the end of the lesson.
 
 ---
 
 ## Lesson plan
 
-| Section                                         | Content                         |
-| -------------------------------------------- | -------------------------------- |
-| Meta tags: charset, description, viewport | Service information about the page |
-| Open Graph (overview)                     | How the page looks on social networks |
-| Connecting CSS via link                   | Syntax, where to place it       |
-| Connecting JS via script                  | Syntax, defer/async overview     |
-| Mini-task                                  | Build head on your own          |
-| W3C Validator                              | Checking code for errors        |
-| Project folder structure                   | Standard file organization      |
-| Summary and practical task                | Reinforcement                   |
+| Section | What we do |
+| --- | --- |
+| Meta tags | The page's technical passport |
+| Description and viewport | For Google and phones |
+| Open Graph | A card in messengers |
+| Connecting CSS | Clothes for the frame |
+| Connecting JS | Wiring, `defer` and `async` |
+| Mini-task 1 | A complete `<head>` |
+| Project folders | Order in your files |
+| Checking code | Validator and Lighthouse |
+| Mini-task 2 | Find errors with the validator |
+| Independent work | IDE task and two pages |
 
 ---
 
-## Meta tags: charset, description, viewport
+## Meta tags
 
-HTML is maintained as the WHATWG Living Standard. Nu HTML Checker checks markup conformance, not full accessibility, working links or SEO quality; test these separately. Viewport does not automatically make fixed-size media or tables responsive. Here, defer refers to external classic scripts and has no effect on inline code. Async executes when loading completes and execution can proceed; it does not preserve script order. Create the referenced CSS/JS files before testing their connections.
+**In simple terms:** in Lesson 1 we called `<head>` the house's technical passport. Meta tags are the lines of this passport: encoding, description, display rules.
 
+A meta tag is an empty `<meta>` element in `<head>`. It is not visible on the page.
 
-We already encountered one meta tag in the very first lesson - `<meta charset="UTF-8">`. Today we'll cover this topic completely and add several more important tags that live inside `<head>`.
-
-**In simple terms:** meta tags are like a label on product packaging: the product itself (the visible content of the page) is what you hold in your hands, and on the label there's additional information - ingredients, expiration date, barcode. This information is not part of the product itself, but is critically important for the store, warehouse, and customer to handle it correctly.
-
-### `<meta charset="UTF-8">` - encoding (review)
+### Encoding (review)
 
 ```html
 <meta charset="UTF-8">
 ```
 
-As we covered in lesson 1, this line tells the browser what encoding the document's text is stored in - UTF-8 supports virtually all languages in the world, including Cyrillic.
+It is the first line in `<head>`.
 
-### `<meta name="description" content="...">` - page description
+### Description: `description`
 
 ```html
-<meta name="description" content="The 'HTML: in 10 lessons' course - 10 lessons for those who want to learn web development from scratch and publish their first website.">
+<meta name="description" content="Web development club in Almalyk: we teach HTML from scratch, classes on Wednesdays.">
 ```
 
-Write a concise, accurate page description. Meta description has no fixed length limit: the search engine may select page text and truncate the snippet to the available width.
+**Where you see it:** in search results under the blue title. The search engine may take your text or write its own, but a good description raises the chance yours is used.
 
-- appears in Google/Yandex search results below the link title - this is what people actually read when deciding whether to click on your site in search results;
-- is sometimes used by social networks when a link is shared (more in block 2).
+**How to write it:**
+- 1–2 sentences, up to about 160 characters;
+- **its own** for every page;
+- what the page is about and why to visit it.
 
-**Analogy:** if `<title>` is the book title on the cover, then `description` is the blurb on the back of the cover that helps someone in a bookstore decide whether to pick up the book to read.
-
-### `<meta name="viewport" content="width=device-width, initial-scale=1.0">` - mobile responsiveness
+### Phone screen: `viewport`
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-This is arguably the most technically important meta tag of the modern web. Without it, mobile browsers display the page as if it were designed for a wide desktop screen (usually around 980px), then **scale everything down** to fit on the small phone screen - as a result, everything looks tiny, and the user has to stretch the text with their fingers.
+**In simple terms:** without this line the phone thinks the page was made for a computer and shows it as a shrunken copy. With it, the page says: "Page width = screen width, scale 1:1".
 
-- `width=device-width` tells the browser "use the device's actual screen width," not an imaginary wide desktop width.
-- `initial-scale=1.0` sets the initial zoom level to 100% (without automatic shrinking).
+**Try it:** open the page in DevTools → the phone icon (Toggle device toolbar). Remove `viewport` and reload. The text became tiny. Put the line back.
 
-**Important to understand now, before studying CSS:** this tag alone doesn't make a site "responsive" in the full sense (responsiveness is primarily CSS work that you'll study later), but without it **no** responsive layout done later via CSS will work correctly on mobile devices. This is a fundamental setting, without which everything else is meaningless.
+`viewport` does not make the layout responsive by itself - that needs CSS. But without `viewport`, responsive CSS will not work on a phone.
 
----
+### Typical beginner mistakes
 
-### Common beginner mistakes
-
-| Mistake|How to fix|
-|---|---|
-|Forgetting `viewport` - site looks tiny and unreadable on phones|Add `<meta name="viewport" content="width=device-width, initial-scale=1.0">` to the `<head>` of every project|
-|Assuming a fixed description length guarantees a snippet|Write an accurate summary; search engines may select page text and truncate to available width.|
-|Confusing `description` with visible text on the page|`description` is not displayed anywhere on the page itself - it's purely service information for search engines and social networks|
+| Mistake | How to fix |
+| --- | --- |
+| The same `description` on all pages | Its own description for each |
+| A 500-character description | 1–2 sentences |
+| No `viewport` | Add it to every document |
+| `<meta>` in `<body>` | Only in `<head>` |
 
 ---
 
-## Open Graph (overview)
+## Open Graph: a card for social networks
 
-When you send a site link to a friend on Telegram, WhatsApp, or share it on Facebook, a nice card with an image, title, and description often appears. This works thanks to **Open Graph** - a set of meta tags originally created by Facebook but now supported by most platforms.
+When a link is pasted into Telegram or Facebook, they look for special Open Graph meta tags:
 
 ```html
-<meta property="og:title" content="HTML: in 10 lessons - a course for beginners">
-<meta property="og:description" content="10 lessons from scratch to publishing your first website independently.">
-<meta property="og:image" content="https://saydullayev.fun/images/course-preview.jpg">
-<meta property="og:url" content="https://saydullayev.fun/html-course">
+<meta property="og:title" content="Web development club">
+<meta property="og:description" content="We teach HTML from scratch. Classes on Wednesdays.">
+<meta property="og:image" content="https://example.com/images/preview.jpg">
 ```
 
-Let's break down the main tags:
+| Tag | What is in the card |
+| --- | --- |
+| `og:title` | Title |
+| `og:description` | Description |
+| `og:image` | Picture. Needs a **full** address with `https://` |
 
-- **`og:title`** - the title shown on the card (can differ from the browser tab's `<title>` - often made more "sales-oriented").
-- **`og:description`** - the description on the card (similar to `meta description`, but specifically for social networks).
-- **`og:image`** - the image shown on the card (important: must specify an **absolute** path including `https://`, since social networks "download" this image from their own servers, not through the user's browser).
-- **`og:url`** - the canonical (primary) page URL.
-
-**Important syntax feature:** notice - here the `property` attribute is used instead of `name` as in regular meta tags from block 1. This is because Open Graph is technically based on a different standard (RDFa), but for practical use you just need to remember: Open Graph uses `property`, regular meta tags use `name`.
-
-**This is a topic we're only covering at an overview level** - in this course we won't dive deep into all possible Open Graph tag variations (there are quite many - content type, locale, author, etc.), but it's important that you now know where those nice preview cards come from when sharing links, and know how to add a basic set for your project.
+**Note:** here it is `property`, not `name`.
 
 ```mermaid
 flowchart LR
@@ -122,166 +134,83 @@ flowchart LR
 
 ```
 
-**How to read this diagram:** Arrows list metadata and resource references that can appear in head. They are siblings rather than execution steps; only include references to resources that actually exist.
-
-
----
-
-## Connecting CSS via `<link>`
-
-Use the supplied `../css/style.css` and `../js/main.js` files. You do not need to author CSS/JS.
-
-We already used the `<link>` tag in lesson 4 - for the favicon. The same tag is used to connect an external CSS stylesheet file.
-
-```html
-<head>
-    <meta charset="UTF-8">
-    <title>My website</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-```
-
-- `rel="stylesheet"` tells the browser that the connected file is a stylesheet.
-- `href` is the path to the CSS file (following the same relative/absolute path rules we covered in lesson 3).
-
-**Placement in this course:** connect the stylesheet inside `head`, after the metadata. The browser discovers the file before reading the body content. This is the course convention, rather than a claim that HTML forbids every other valid placement.
-
-**Important caveat for this course:** the CSS syntax itself (what to write inside the `style.css` file) is beyond the scope of the "HTML: in 10 lessons" course - we only cover how to properly connect an external file to an HTML document, the technical foundation for future CSS study.
+**How to read the diagram.** Everything that can live in `<head>`. `charset`, `viewport`, `title` and `description` are required. The rest depends on the task.
 
 ---
 
-## Connecting JS via `<script>`
+## Connecting CSS
 
-The `<script>` tag connects JavaScript code - either an external file or code directly inside the HTML document.
-
-### External file
+**In simple terms:** HTML is the frame, CSS is the clothes. The clothes are sewn separately and "put on" the frame with one line:
 
 ```html
-<script src="js/main.js"></script>
+<link rel="stylesheet" href="css/style.css">
 ```
 
-Note: `<script>` is a **paired** tag (unlike `<link>`, which is self-closing), even when using the `src` attribute and nothing is written inside manually.
+| Attribute | What it means |
+| --- | --- |
+| `rel="stylesheet"` | "This is a style file" |
+| `href` | Path to the file - by the rules from Lesson 3 |
 
-### Code directly inside the tag (inline script)
+It goes in `<head>`.
 
-```html
-<script>
-    console.log("Hello from the HTML document!");
-</script>
-```
+**What you will see:** the page immediately changes font, spacing and width - as written in the file. **You do not need to write CSS in this course:** the file `Lesson-9/css/style.css` is ready, just copy it.
 
-This is used less often than external files - in real projects, JS code is usually placed in separate `.js` files (for the same reasons as CSS - easier maintenance, reuse across pages).
+---
 
-### Where to place `<script>`
+## Connecting JavaScript
 
-There's an important practical consideration here. Previously it was common to place `<script>` at the very end of `<body>`, before the closing `</body>` tag:
-
-```html
-<body>
-    <!-- all page content -->
-
-    <script src="js/main.js"></script>
-</body>
-```
-
-**Why this was done:** the browser reads the HTML document sequentially from top to bottom. If `<script>` is in `<head>` without additional attributes, the browser **stops reading** the rest of the page until it fully loads and executes the script - this can noticeably slow down the display of visible content to the user. Placing at the end of `<body>` guarantees that all visible parts of the page have been read by the browser before the script loads.
-
-### Modern solution: `defer` and `async`
-
-Today a more flexible approach is more commonly used - the `<script>` tag stays in `<head>`, but with one of the special attributes:
+**In simple terms:** JavaScript is the house's wiring. It is connected with the `<script>` tag:
 
 ```html
 <script src="js/main.js" defer></script>
 ```
 
-```html
-<script src="js/main.js" async></script>
-```
+`<script>` is a **paired** tag, even if it is empty inside. Write `</script>`.
 
-**`defer`** - the browser loads the script **in parallel** with reading the rest of the HTML (without stopping it), but **executes** the script only after the entire HTML document has been fully read. The execution order of multiple `defer` scripts is preserved as they appear in the code.
+### Where to put it and why `defer`
 
-**`async`** - the browser also loads the script in parallel, but **executes** it as soon as loading completes - even if the rest of the HTML hasn't finished reading. This can happen at any unpredictable moment, and the execution order of multiple `async` scripts is **not guaranteed**.
+The browser reads HTML from top to bottom. When it meets a plain `<script>`, it **stops**, downloads and runs the script, and only then reads on. The page appears with a delay.
 
-### When to use which (briefly, for general understanding)
+| Notation | How it works | When to use |
+| --- | --- | --- |
+| `<script src>` | Stop reading the page, download, run | The old way |
+| `<script src defer>` | Download in parallel, run after the whole page is read, in order | **Almost always** |
+| `<script src async>` | Download in parallel, run as soon as it is ready | Independent scripts: counters, analytics |
 
-|Attribute|When to use|
-|---|---|
-|`defer`|For most scripts, especially when the script interacts with the page content (it needs the entire HTML to already be read)|
-|`async`|For independent scripts where order doesn't matter and interaction with the rest of the page isn't needed (e.g., analytics counters)|
-|Without attributes, at the end of `<body>`|An older but still working and easy-to-understand option|
-
-**This is also an overview-level topic in this course** - a deep understanding of how JavaScript works and the correct choice between `defer`/`async` in complex cases comes with studying JavaScript itself, which is beyond the scope of this HTML course.
+**Course rule:** `<script src="..." defer>` in `<head>`.
 
 ```mermaid
 flowchart TD
  A["External classic script"] --> B{"Loading attribute?"}
- B -->|defer| C["Fetch in parallel; run after parsing, in order"]
- B -->|async| D["Fetch in parallel; run when ready, no order guarantee"]
- B -->|Neither| E["Pause parser to fetch and execute"]
+ B -->|defer| C["Download in parallel; run after parsing, in order"]
+ B -->|async| D["Download in parallel; run when ready, order not guaranteed"]
+ B -->|Neither| E["Stop parsing to download and run"]
 ```
 
-**How to read this diagram:** This decision tree applies to external classic scripts. Defer preserves document order after parsing, async runs when ready, and neither attribute leaves parsing blocked by loading and execution.
+**How to read the diagram.** Three ways to connect a script. `defer` does not slow down the page and keeps the order of scripts.
 
+**How to check the script ran:** the ready `main.js` writes a message to the console. Open DevTools → **Console** tab. You will see "Lesson 9: the deferred script loaded." - the script is connected.
 
----
+### Typical beginner mistakes
 
-### Common beginner mistakes
-
-| Mistake|How to fix|
-|---|---|
-|Placing `<script>` at the start of `<head>` without `defer`/`async`|This slows page rendering - use `defer` or place the script at the end of `<body>`|
-|Confusing `<link>` (self-closing, for CSS) and `<script>` (paired, for JS)|`<link>` has no closing tag; `<script>` always does, even if empty inside|
-|Forgetting that both `defer` and `async` only work with external scripts (`src="..."`) - not with code inside the tag|For inline `<script>` without `src`, these attributes have no meaning|
-
----
-
-## Mini-task
-
-For this mini-task, copy the supplied CSS into `styles/main.css` and JS into `scripts/app.js` inside your own folder (create those folders). No CSS/JS authoring is required. Build the `<head>` of a document on your own, without peeking: with UTF-8 encoding, title "Mini-task," viewport for responsiveness, a connected stylesheet `styles/main.css`, and a connected script `scripts/app.js` with the `defer` attribute.
-
-**Solution:**
-
-```html
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini-task</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <script src="scripts/app.js" defer></script>
-</head>
-```
+| Mistake | How to fix |
+| --- | --- |
+| `<script src="..." />` without a closing tag | Always `</script>` |
+| Path `../css/style.css` for a file next to the page | Path from the HTML file: `css/style.css` |
+| `<link>` for styles in `<body>` | In `<head>` |
+| `rel="style"` | Correct: `rel="stylesheet"` |
 
 ---
 
-## W3C Validator - checking code
+## Mini-task 1
 
-HTML is maintained as the WHATWG Living Standard. Use [Nu HTML Checker](https://validator.w3.org/nu/) to find markup conformance errors.
-
-**How to use it:**
-
-1. Open [Nu HTML Checker](https://validator.w3.org/nu/).
-2. Use the checker’s input selector to check a published URL, upload a file, or paste source text; select the input method appropriate to your work.
-3. Start the check - the validator will show a list of errors and warnings with the specific line of code indicated.
-
-**Typical errors the validator finds:**
-
-- unclosed tags;
-- duplicate `id` attributes on the page;
-- incorrectly nested tags (e.g., `<p>` inside another `<p>`, which is forbidden by the spec);
-- missing required attributes (e.g., `alt` on `<img>`);
-- usage of deprecated/nonexistent tags and attributes.
-
-**Why this matters, not just a formality:** invalid code can display "seemingly fine" in one browser simply because that browser is good at "forgiving" errors and guessing what you meant - but another browser (or screen reader, or search robot) may interpret the same invalid code completely differently, leading to unexpected visual and structural problems for a portion of your users.
-
-**Practical recommendation:** run every major project through the validator (e.g., the final project of lesson 10) - this is an excellent habit that catches small but real errors invisible to the eye during normal browsing.
+Without peeking, write the full `<head>` of the "Club contacts" page: encoding, viewport, tab title, description, icon, styles `css/style.css`, script `js/main.js` with `defer`. Solution is in the "Answers" section.
 
 ---
 
-## Project folder structure
+## Project folders
 
-The final practical block of the lesson - how to organize files of a real multi-page site so it's easy to navigate (for you and for anyone who opens your project later).
-
-The standard, widely adopted structure looks like this:
+**In simple terms:** in a wardrobe clothes are sorted onto shelves: shirts separately, socks separately. A project works the same way.
 
 ```
 my-website/
@@ -300,73 +229,216 @@ my-website/
 └── favicon.ico
 ```
 
-Principles of this organization:
+| Where | What |
+| --- | --- |
+| Root | HTML pages and the site icon |
+| `css/` | Style files |
+| `js/` | Scripts |
+| `images/` | Images |
 
-- **HTML files** for pages - directly in the project root folder (this simplifies paths in links like `<a href="about.html">`, as we covered in lesson 3).
-- **`css/`** - a separate folder for all stylesheet files.
-- **`js/`** - a separate folder for all scripts.
-- **`images/`** - a separate folder for all images; with many icons you can nest an `icons/` subfolder.
-- **`favicon.ico`** - often left in the project root (some browsers search for it there automatically, as we covered in lesson 4).
+**File names:** Latin letters, lowercase, no spaces, words joined by hyphens: `hero-photo.jpg`, not `My Photo 1.JPG`.
 
-Given this structure, the paths in your `index.html`'s `<head>` (sitting in the root) would look like:
+### How to check the files are connected
+
+1. Open the page via Live Server.
+2. DevTools → **Network** tab → reload the page.
+3. Find `style.css` and `main.js` in the **Status** column:
+
+| Status | Meaning |
+| --- | --- |
+| 200 | Loaded |
+| 304 | Taken from cache - also fine |
+| 404 | **Not found** - check the path and file name |
+
+### Typical beginner mistakes
+
+| Mistake | How to fix |
+| --- | --- |
+| All files in one folder | Sort them: `css/`, `js/`, `images/` |
+| Spaces and non-Latin letters in names | `my-photo.jpg` |
+| Renamed a folder, forgot the paths | Update all `href` and `src` |
+
+---
+
+## Checking code
+
+### Nu HTML Checker validator
+
+The browser "forgives" errors and guesses what you meant. Another browser or a screen reader may guess differently. The validator finds errors you cannot see.
+
+1. Open [validator.w3.org/nu](https://validator.w3.org/nu/).
+2. Choose **Text Input** (paste code) or **File Upload** (upload a file).
+3. Click **Check**.
+
+**What it finds:** unclosed tags, duplicate `id`s, `<img>` without `alt`, `<p>` inside `<p>`, non-existent attributes.
+
+**Goal:** the message "Document checking completed. No errors or warnings to show."
+
+### Lighthouse - an overall page score
+
+Lighthouse is built into Chrome:
+
+1. Open the page via Live Server.
+2. DevTools → **Lighthouse** tab.
+3. Tick **Accessibility** and **SEO**, click **Analyze page load**.
+
+In a few seconds you get a score from 0 to 100 and a list of what to improve: no `description`, low contrast, no `alt`.
+
+**The validator and Lighthouse do not replace a manual check.** Go through the page with the keyboard, as in Lesson 8.
+
+---
+
+## Mini-task 2
+
+Check this code in the validator. How many errors will it find, and which?
 
 ```html
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js" defer></script>
-<link rel="icon" href="favicon.ico">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check</title>
+</head>
+<body>
+    <h1 id="top">Heading</h1>
+    <p id="top">Paragraph <p>nested paragraph</p></p>
+    <img src="photo.jpg">
+</body>
+</html>
 ```
 
-And within pages:
+The answer is in the "Answers" section.
+
+---
+
+## Lesson summary: cheat sheet
 
 ```html
-<img src="images/hero-photo.jpg" alt="Main photo on the page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page title - Site name</title>
+    <meta name="description" content="1–2 sentences about the page.">
+    <meta property="og:title" content="Title for the card">
+    <meta property="og:description" content="Description for the card">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
 ```
 
-**Why this structure matters now, before studying CSS/JS:** when you start actively writing real styles and scripts, files scattered randomly across different places will quickly turn into chaos, making anything hard to find. Building the habit of tidy structure from your first learning projects will greatly ease the transition to more complex topics in the future.
+| Task | Notation |
+| --- | --- |
+| Description for search | `<meta name="description" content="...">` |
+| Normal view on phones | `<meta name="viewport" content="width=device-width, initial-scale=1.0">` |
+| Card in messengers | `<meta property="og:...">` |
+| Styles | `<link rel="stylesheet" href="css/style.css">` |
+| Script | `<script src="js/main.js" defer></script>` |
+| Checking | Nu HTML Checker, Lighthouse |
 
 ---
 
-### Common beginner mistakes
+## Independent work
 
-| Mistake                                                                                   | How to fix                                                                                              |
-| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Dumping all files (HTML, CSS, images) mixed into one folder                             | Separate by file type: `css/`, `js/`, `images/`                                                          |
-| Using spaces or Cyrillic in file and folder names (e.g., `моя картинка.jpg`)            | Use Latin characters without spaces, usually lowercase with hyphens: `my-photo.jpg`                       |
-| Changing the folder structure mid-project without updating all paths in HTML files       | Plan the structure in advance, and if you change it - check and update all related paths in `src`/`href`  |
+### Part 1. IDE task (graded by the platform)
 
----
+Make the **club home page** with a complete `<head>`:
 
-## Lesson summary
+1. `charset`, `viewport` and `title`.
+2. `description` - the page's own description.
+3. `og:title` and `og:description`.
+4. A site icon `<link rel="icon">`.
+5. Styles: `<link rel="stylesheet" href="css/style.css">`.
+6. Script: `<script src="js/main.js" defer></script>`.
+7. In `<body>` - `header`, `main` with one `h1` and a paragraph, `footer`.
 
-Today you learned:
+Add styles and scripts only by connecting files: do not use the `<style>` tag.
 
-- The `charset`, `description`, `viewport` meta tags - service information about the page: encoding, description for search engines, mobile responsiveness.
-- Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`) form a nice card when sharing a link on social networks.
-- CSS connects via `<link rel="stylesheet">`, JS via `<script src="...">`, with optional `defer`/`async` attributes for loading optimization.
-- The W3C Validator checks code against official HTML standards and finds hidden errors.
-- The standard project structure - HTML in the root, separate `css/`, `js/`, `images/` folders - makes site maintenance easier.
+What the platform checks: the document skeleton, `viewport` with `width=device-width`, `description`, `og:title`, the icon, connection of `css/style.css` and `js/main.js` with `defer`, a closed `</script>`, one `h1`, no `<style>`.
 
+### Part 2. Project on your computer
 
+1. Copy `Lesson-9/css/style.css` and `Lesson-9/js/main.js` into the `css` and `js` folders of your project.
+2. Make two pages - `index.html` and `about.html` - each with its own `title` and `description`.
+3. Open them via Live Server. Check in Network: both files are 200 or 304.
+4. Check both pages in Nu HTML Checker - no errors.
+5. Run Lighthouse and write down the Accessibility and SEO scores.
 
-## Independent practice
+### Acceptance criteria
 
-Copy the supplied `Lesson-9/css/style.css` and `Lesson-9/js/main.js` into the `css` and `js` folders of your own project. Place both HTML pages beside those folders and use `css/style.css` and `js/main.js` in HTML. The paths `../css/style.css` and `../js/main.js` above locate assets relative to the Markdown source, not your site.
-
-To check loading, open developer tools → Network and reload the page over HTTP. Find style.css and main.js and inspect Status: 200 means success, 304 means validated cache, 404 means not found. file:// has no HTTP status; use the local HTTP server introduced in the course.
-
-Prepare two linked pages with unique title/description, viewport and provided external CSS/JS files (use the study bundle; writing CSS/JS is not required). Check both with Nu HTML Checker.
-
-### Completion criteria
-
-- [ ] Both pages have unique title/description and viewport.
-- [ ] The supplied files are copied into css/style.css and js/main.js in your project and connected relative to the HTML pages.
-- [ ] Over HTTP, browser Network shows successful CSS/JS requests (200 or cached 304), with no 404.
-- [ ] Check both pages with Nu HTML Checker and test links separately.
-
-### Self-check questions
-
-How do defer and async differ? What does a validator not check? Why is viewport alone insufficient for responsiveness?
+- [ ] The IDE task is accepted.
+- [ ] Each page has its own `title` and `description`.
+- [ ] Both pages have `viewport`.
+- [ ] CSS and JS load without 404.
+- [ ] The script message is visible in the console.
+- [ ] The validator found no errors.
+- [ ] Files are sorted into folders, names in Latin letters without spaces.
 
 ---
 
-[Contents](../../README.md) · [Previous](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Next](../../Lesson-10/en/Final%20project%20from%20planning%20to%20publication.md) · [Practice](../practice.html) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](../en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md)
+## Self-check questions
+
+1. Where is `description` visible?
+2. Why does every page have its own description?
+3. What happens on a phone without `viewport`?
+4. How does `og:title` differ from `<title>`?
+5. Why does `og:image` need a full address?
+6. How do you connect a style file?
+7. Why is `<script>` always written with a closing tag?
+8. How does `defer` differ from `async`?
+9. What does status 404 in Network mean?
+10. Why use a validator if the page already looks fine?
+
+After the questions, take the **lesson test** on the platform: 12 questions, pass threshold 70%.
+
+---
+
+## What's next
+
+You know everything you need to build a real website. In Lesson 10 you will put it together from plan to publication on the internet, and your site will get an address you can send to friends.
+
+---
+
+## Answers
+
+**Review**
+
+1. Service information.
+2. `css/style.css`.
+3. `<link rel="icon" href="favicon.png">`.
+
+**Mini-task 1**
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts - Web development club</title>
+    <meta name="description" content="How to contact the web development club: email, phone and sign-up form.">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+```
+
+**Mini-task 2.** The validator will find:
+1. A duplicate `id="top"`.
+2. A paragraph inside a paragraph: the browser closes the first `<p>` early, and the extra `</p>` is left without a pair.
+3. `<img>` has no `alt`.
+
+**Self-check questions**
+
+1. In search results under the title.
+2. Otherwise the search engine shows the same thing for different pages, and a person cannot tell them apart.
+3. The page appears as a shrunken copy of the desktop version.
+4. `og:title` is the card title in social networks, `<title>` is the name of the tab and of the search result.
+5. The social network downloads the picture from its own server; a relative path means nothing to it.
+6. `<link rel="stylesheet" href="css/style.css">` in `<head>`.
+7. It is a paired tag: without `</script>` the browser treats all the code below as script.
+8. `defer` runs scripts after the page is read and in order; `async` runs each as soon as it is ready, without order.
+9. The file was not found: an error in the path or the name.
+10. Another browser or a screen reader may interpret broken code differently.
+
+---
+
+[Contents](../../README.md) · [← Back](../../Lesson-8/en/Accessibility%20%28a11y%29.md) · [Next →](../../Lesson-10/en/Final%20project%20from%20planning%20to%20publication.md) · [RU](../ru/%D0%9C%D0%B5%D1%82%D0%B0-%D1%82%D0%B5%D0%B3%D0%B8%2C%20SEO%2C%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C%20%D1%81%20CSS%2C%20JS.md) · [EN](Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [UZ](../uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Practice](../practice.html)
