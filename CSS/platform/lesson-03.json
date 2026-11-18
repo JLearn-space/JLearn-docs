@@ -1,0 +1,250 @@
+{
+  "lesson": 3,
+  "language": "ru",
+  "lesson_title": "Цвет, единицы, шрифты и фон",
+  "task": {
+    "title": "Цвет, шрифты и фон",
+    "language": "html",
+    "description": "Добавьте классы site-header шапке и notice первому абзацу. В <style>: body - font-family с sans-serif в конце, line-height без единиц, color в hex; h1 - font-size в rem; .site-header - linear-gradient и белый текст; .notice - полупрозрачный фон. единицы px в этом задании не используйте.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <!-- <style>: body, h1, .site-header, .notice -->\n</head>\n<body>\n    <header>\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p>Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "font-family:",
+        "sans-serif",
+        "line-height:",
+        "rem;",
+        "linear-gradient(",
+        "class=\"site-header\"",
+        "class=\"notice\"",
+        ".site-header {",
+        ".notice {",
+        " / "
+      ],
+      "forbidden": [
+        "style=\"",
+        "px;",
+        "px)"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Шрифт с запасными: font-family: \"Inter\", Arial, sans-serif;",
+      "Интервал без единиц: line-height: 1.6;",
+      "Размер в rem: h1 { font-size: 2rem; }",
+      "Градиент: background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);",
+      "Полупрозрачный фон: background-color: rgb(254 226 226 / 70%);",
+      "Единицы px в этом задании не используются: только rem."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет sans-serif",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "h1 в px",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 32px;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет градиента",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-color: #1e3a8a;\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет класса notice в HTML",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p>Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет line-height",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "line-height в px",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6px;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет полупрозрачности",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: #fee2e2;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "стиль в атрибуте",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\" style=\"color: red;\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какой цвет задаёт #ffffff?",
+        "options": [
+          "Чёрный",
+          "Белый",
+          "Красный",
+          "Серый"
+        ],
+        "answer": 1,
+        "explanation": "Все три канала на максимуме - белый."
+      },
+      {
+        "type": "single",
+        "question": "Чему равен 1.5rem при стандартном размере шрифта страницы 16px?",
+        "options": [
+          "15px",
+          "16px",
+          "24px",
+          "32px"
+        ],
+        "answer": 2,
+        "explanation": "1.5 × 16 = 24px."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно записать межстрочный интервал?",
+        "options": [
+          "line-height: 1.6px;",
+          "line-height: 1.6;",
+          "line-height = 1.6;",
+          "line-spacing: 1.6;"
+        ],
+        "answer": 1,
+        "explanation": "line-height без единиц - пропорционален размеру шрифта."
+      },
+      {
+        "type": "single",
+        "question": "От какого файла считается путь в url() внутри css/style.css?",
+        "options": [
+          "От HTML-страницы",
+          "От CSS-файла",
+          "От корня диска",
+          "От папки images"
+        ],
+        "answer": 1,
+        "explanation": "Поэтому из css/ нужно подняться: ../images/x.jpg."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи задают один и тот же тёмно-серый цвет?",
+        "options": [
+          "#333333",
+          "#333",
+          "rgb(51 51 51)",
+          "#3333"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "#333 - сокращение #333333, 0x33 = 51."
+      },
+      {
+        "type": "multiple",
+        "question": "Почему размеры шрифтов лучше в rem?",
+        "options": [
+          "Растут, если пользователь увеличил шрифт в браузере",
+          "Легко пересчитать: делить px на 16",
+          "Работают только в Chrome",
+          "Одинаковая точка отсчёта на всей странице"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "rem зависит от размера шрифта страницы."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про font-family: \"Inter\", Arial, sans-serif?",
+        "options": [
+          "Браузер возьмёт первый доступный шрифт",
+          "sans-serif - общее семейство на крайний случай",
+          "Будут использованы все три сразу",
+          "Название из нескольких слов пишут в кавычках"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Список - запасные варианты по порядку."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте единицу и точку отсчёта.",
+        "pairs": [
+          [
+            "rem",
+            "Шрифт страницы"
+          ],
+          [
+            "em",
+            "Шрифт самого элемента"
+          ],
+          [
+            "%",
+            "Размер родителя"
+          ],
+          [
+            "vw",
+            "Ширина окна"
+          ]
+        ],
+        "explanation": "Относительные единицы зависят от разного."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте свойство и действие.",
+        "pairs": [
+          [
+            "font-weight",
+            "Насыщенность (жирность)"
+          ],
+          [
+            "text-align",
+            "Выравнивание"
+          ],
+          [
+            "text-transform",
+            "Регистр букв"
+          ],
+          [
+            "background-size",
+            "Размер фоновой картинки"
+          ]
+        ],
+        "explanation": "Свойства текста и фона."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение background-size заполняет весь блок картинкой без искажения? Введите значение.",
+        "answers": [
+          "cover"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-size: cover;"
+      },
+      {
+        "type": "input",
+        "question": "Какой минимальный контраст нужен обычному тексту? Введите в формате N:1.",
+        "answers": [
+          "4.5:1",
+          "4,5:1"
+        ],
+        "case_sensitive": false,
+        "explanation": "WCAG AA."
+      },
+      {
+        "type": "input",
+        "question": "Какая функция создаёт линейный градиент? Введите имя функции без скобок.",
+        "answers": [
+          "linear-gradient"
+        ],
+        "case_sensitive": false,
+        "explanation": "linear-gradient(135deg, #1e3a8a, #7c3aed)"
+      }
+    ]
+  }
+}

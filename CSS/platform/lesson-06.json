@@ -1,0 +1,254 @@
+{
+  "lesson": 6,
+  "language": "ru",
+  "lesson_title": "Grid",
+  "task": {
+    "title": "Макет страницы и галерея на Grid",
+    "language": "html",
+    "description": "Добавьте классы. .page - display: grid с grid-template-areas (header, main, aside, footer); каждому блоку - grid-area; .gallery - repeat(auto-fit, minmax(..., 1fr)) и gap; .featured - grid-column: span 2. Без float и style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <!-- <style>: .page (grid-template-areas), области, .gallery, .featured -->\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main>\n        <h1>Галерея проектов</h1>\n        <div>\n            <img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside>\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer>\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"page\"",
+        "class=\"gallery\"",
+        "class=\"featured\"",
+        ".page {",
+        ".gallery {",
+        ".featured {",
+        "display: grid;",
+        "grid-template-areas:",
+        "grid-area: header;",
+        "grid-area: main;",
+        "grid-area: aside;",
+        "grid-area: footer;",
+        "repeat(auto-fit",
+        "minmax(",
+        "1fr",
+        "gap:",
+        "span 2"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\"",
+        "grid-area: \""
+      ],
+      "tags": {
+        "img": 4
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Макет: .page { display: grid; grid-template-areas: \"header header\" \"main aside\" \"footer footer\"; }",
+      "Блок занимает область: .page-main { grid-area: main; } - без кавычек.",
+      "Адаптивная галерея: grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));",
+      "На два столбца: .featured { grid-column: span 2; }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "grid-area в кавычках",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: \"main\";\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет областей",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "фиксированное число столбцов",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(4, 200px);\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет span",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет класса featured",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет области footer",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Галерея проектов</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Кружок веб-разработки</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Галерея проектов</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"Форма записи в кружок\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Ближайшие занятия</h2>\n        <p>Среда, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Кружок</p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Чем Grid отличается от Flexbox?",
+        "options": [
+          "Grid работает только с картинками",
+          "Grid раскладывает по строкам и столбцам сразу",
+          "Flexbox новее",
+          "Grid не поддерживает gap"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox - одна ось, Grid - две."
+      },
+      {
+        "type": "single",
+        "question": "Что делает grid-template-columns: 250px 1fr;?",
+        "options": [
+          "Два столбца по 250px",
+          "Левый 250px, правый - всё оставшееся место",
+          "Один столбец 250px",
+          "Три столбца"
+        ],
+        "answer": 1,
+        "explanation": "fr - доля свободного места."
+      },
+      {
+        "type": "single",
+        "question": "Как растянуть элемент на всю ширину сетки?",
+        "options": [
+          "grid-column: 1 / -1;",
+          "width: 100fr;",
+          "grid-row: span all;",
+          "grid-area: full;"
+        ],
+        "answer": 0,
+        "explanation": "От первой линии до последней."
+      },
+      {
+        "type": "single",
+        "question": "Почему repeat(4, 220px) плох для телефона?",
+        "options": [
+          "Столбцы станут квадратными",
+          "Четыре столбца по 220px не помещаются - появится прокрутка",
+          "Grid не работает на телефонах",
+          "Пропадут промежутки"
+        ],
+        "answer": 1,
+        "explanation": "Лучше auto-fit и minmax."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про grid-template-areas?",
+        "options": [
+          "В каждой строке столько имён, сколько столбцов",
+          "Области должны быть прямоугольниками",
+          "Точка обозначает пустую клетку",
+          "Имена пишут в grid-area в кавычках"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grid-area: main; - без кавычек."
+      },
+      {
+        "type": "multiple",
+        "question": "Что делает repeat(auto-fit, minmax(220px, 1fr))?",
+        "options": [
+          "Подбирает число столбцов под ширину",
+          "Столбец не уже 220px",
+          "Растягивает столбцы на всю ширину",
+          "Всегда делает 4 столбца"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Адаптивная сетка без медиазапросов."
+      },
+      {
+        "type": "multiple",
+        "question": "Для чего удобнее Grid?",
+        "options": [
+          "Галерея ровными рядами",
+          "Макет страницы с колонками",
+          "Один ряд кнопок",
+          "Сетка карточек"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Один ряд - Flexbox."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и результат.",
+        "pairs": [
+          [
+            "repeat(3, 1fr)",
+            "Три равных столбца"
+          ],
+          [
+            "2fr 1fr",
+            "Левый вдвое шире"
+          ],
+          [
+            "grid-column: span 2",
+            "Элемент на два столбца"
+          ],
+          [
+            "grid-area: main",
+            "Элемент в области main"
+          ]
+        ],
+        "explanation": "Основные приёмы Grid."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и инструмент.",
+        "pairs": [
+          [
+            "Меню в шапке",
+            "Flexbox"
+          ],
+          [
+            "Галерея фото",
+            "Grid"
+          ],
+          [
+            "Кнопка по центру блока",
+            "Flexbox"
+          ],
+          [
+            "Макет: шапка, колонки, подвал",
+            "Grid"
+          ]
+        ],
+        "explanation": "Одна ось - Flexbox, две - Grid."
+      },
+      {
+        "type": "input",
+        "question": "Какая единица в Grid обозначает долю свободного места? Введите единицу.",
+        "answers": [
+          "fr"
+        ],
+        "case_sensitive": false,
+        "explanation": "1fr 2fr"
+      },
+      {
+        "type": "input",
+        "question": "Какая функция задаёт минимальную и максимальную ширину столбца? Введите имя функции без скобок.",
+        "answers": [
+          "minmax"
+        ],
+        "case_sensitive": false,
+        "explanation": "minmax(220px, 1fr)"
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство задаёт элементу его область макета? Введите имя свойства.",
+        "answers": [
+          "grid-area"
+        ],
+        "case_sensitive": false,
+        "explanation": "grid-area: header;"
+      }
+    ]
+  }
+}

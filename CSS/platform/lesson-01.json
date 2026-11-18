@@ -1,0 +1,249 @@
+{
+  "lesson": 1,
+  "language": "ru",
+  "lesson_title": "Введение в CSS. Синтаксис и подключение",
+  "task": {
+    "title": "Первая стилизация",
+    "language": "html",
+    "description": "Добавьте в head тег <style>: body - background-color и font-family; h1, h2 одним правилом - color; p - font-size в px; хотя бы один комментарий /* */. Атрибут style=\"\" не используйте. Стиль записи: свойство: значение;",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <!-- Добавьте сюда тег <style> -->\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<style>",
+        "</style>",
+        "body {",
+        "background-color:",
+        "font-family:",
+        "h1, h2",
+        "color:",
+        "p {",
+        "font-size:",
+        "px;",
+        "/*",
+        "*/"
+      ],
+      "forbidden": [
+        "style=\"",
+        "<font",
+        "<center"
+      ],
+      "h1_exact": 1,
+      "h2_required": 1,
+      "tags": {
+        "p": 2,
+        "style": 1
+      }
+    },
+    "hints": [
+      "Внутри <head>: <style> ... </style>.",
+      "Правило для фона: body { background-color: #f4f6fb; font-family: Arial, sans-serif; }",
+      "Группа: h1, h2 { color: navy; } - запятая и пробел.",
+      "Размер абзацев: p { font-size: 18px; }",
+      "Комментарий в CSS: /* текст */.",
+      "Атрибут style=\"\" у тегов не используйте."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        /* Общий вид страницы */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет <style>",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <!-- Добавьте сюда тег <style> -->\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "стили в атрибуте style",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <!-- Добавьте сюда тег <style> -->\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p style=\"font-size: 18px;\">Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "нет группы h1, h2",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        /* Общий вид страницы */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет фона",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        /* Общий вид страницы */\n        body {\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "размер без px",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        /* Общий вид страницы */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет комментария",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "HTML-комментарий вместо CSS",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        <!-- Общий вид страницы -->\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет font-family",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Моя первая стилизация</title>\n    <style>\n        /* Общий вид страницы */\n        body {\n            background-color: #f4f6fb;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Кружок веб-разработки</h1>\n    <p>Учимся делать сайты с нуля.</p>\n    <h2>Расписание</h2>\n    <p>Каждую среду в 15:00.</p>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "За что отвечает CSS?",
+        "options": [
+          "За структуру и смысл страницы",
+          "За внешний вид страницы",
+          "За базу данных",
+          "За поведение по кликам"
+        ],
+        "answer": 1,
+        "explanation": "HTML - что на странице, CSS - как это выглядит."
+      },
+      {
+        "type": "single",
+        "question": "Какой способ подключения CSS правильный для сайта из нескольких страниц?",
+        "options": [
+          "Атрибут style",
+          "Тег <style> на каждой странице",
+          "Внешний файл через <link>",
+          "Комментарий в HTML"
+        ],
+        "answer": 2,
+        "explanation": "Один файл подключается ко всем страницам."
+      },
+      {
+        "type": "single",
+        "question": "Что в правиле p { color: red; } является селектором?",
+        "options": [
+          "p",
+          "color",
+          "red",
+          "{ }"
+        ],
+        "answer": 0,
+        "explanation": "Селектор выбирает, к каким элементам применить правило."
+      },
+      {
+        "type": "single",
+        "question": "Как пишется комментарий в CSS?",
+        "options": [
+          "<!-- текст -->",
+          "// текст",
+          "/* текст */",
+          "# текст"
+        ],
+        "answer": 2,
+        "explanation": "В CSS комментарий - между /* и */."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи - правильные объявления?",
+        "options": [
+          "color: red;",
+          "font-size: 20px;",
+          "color = red;",
+          "font-size 20px;"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Свойство, двоеточие, значение, точка с запятой."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про изменения в DevTools?",
+        "options": [
+          "Видны сразу",
+          "Исчезают после F5",
+          "Сохраняются в файл",
+          "Удобны для подбора значений"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "DevTools - примерочная: файл не меняется."
+      },
+      {
+        "type": "multiple",
+        "question": "Что нужно у тега <link> для подключения стилей?",
+        "options": [
+          "rel=\"stylesheet\"",
+          "href с путём к файлу",
+          "type=\"text/javascript\"",
+          "src=\"style.css\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "<link rel=\"stylesheet\" href=\"css/style.css\">."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте способ подключения и область действия.",
+        "pairs": [
+          [
+            "style=\"\"",
+            "Один элемент"
+          ],
+          [
+            "<style>",
+            "Одна страница"
+          ],
+          [
+            "<link> на файл",
+            "Все страницы, где подключён"
+          ]
+        ],
+        "explanation": "Чем шире область, тем удобнее поддерживать."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте часть правила и название.",
+        "pairs": [
+          [
+            "h1",
+            "Селектор"
+          ],
+          [
+            "color",
+            "Свойство"
+          ],
+          [
+            "navy",
+            "Значение"
+          ],
+          [
+            "color: navy;",
+            "Объявление"
+          ]
+        ],
+        "explanation": "Правило = селектор + блок объявлений."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство меняет цвет фона? Введите имя свойства.",
+        "answers": [
+          "background-color"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-color: #f4f6fb;"
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство меняет размер текста? Введите имя свойства.",
+        "answers": [
+          "font-size"
+        ],
+        "case_sensitive": false,
+        "explanation": "font-size: 18px;"
+      },
+      {
+        "type": "input",
+        "question": "Каким символом разделяют селекторы, чтобы применить одно правило к нескольким тегам? Введите символ.",
+        "answers": [
+          ","
+        ],
+        "case_sensitive": false,
+        "explanation": "h1, h2, h3 { ... }"
+      }
+    ]
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "lesson": 1,
+  "language": "en",
+  "lesson_title": "Introduction to CSS. Syntax and linking",
+  "task": {
+    "title": "First styling",
+    "language": "html",
+    "description": "Add a <style> tag to head: body - background-color and font-family; h1, h2 in one rule - color; p - font-size in px; at least one /* */ comment. Do not use the style=\"\" attribute. Code style: property: value;",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <!-- Add the tag here: <style> -->\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<style>",
+        "</style>",
+        "body {",
+        "background-color:",
+        "font-family:",
+        "h1, h2",
+        "color:",
+        "p {",
+        "font-size:",
+        "px;",
+        "/*",
+        "*/"
+      ],
+      "forbidden": [
+        "style=\"",
+        "<font",
+        "<center"
+      ],
+      "h1_exact": 1,
+      "h2_required": 1,
+      "tags": {
+        "p": 2,
+        "style": 1
+      }
+    },
+    "hints": [
+      "Inside <head>: <style> ... </style>.",
+      "A rule for the background: body { background-color: #f4f6fb; font-family: Arial, sans-serif; }",
+      "Group: h1, h2 { color: navy; } - a comma and a space.",
+      "Paragraph size: p { font-size: 18px; }",
+      "A comment in CSS: /* text */.",
+      "Do not use the style=\"\" attribute on tags."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        /* General page look */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no <style>",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <!-- Add the tag here: <style> -->\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "styles in the style attribute",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <!-- Add the tag here: <style> -->\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p style=\"font-size: 18px;\">We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "no h1, h2 group",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        /* General page look */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no background",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        /* General page look */\n        body {\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "size without px",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        /* General page look */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no comment",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "an HTML comment instead of CSS",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        <!-- General page look -->\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no font-family",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My first styling</title>\n    <style>\n        /* General page look */\n        body {\n            background-color: #f4f6fb;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Web development club</h1>\n    <p>We learn to build websites from scratch.</p>\n    <h2>Schedule</h2>\n    <p>Every Wednesday at 15:00.</p>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is CSS responsible for?",
+        "options": [
+          "The structure and meaning of the page",
+          "The appearance of the page",
+          "The database",
+          "Behavior on clicks"
+        ],
+        "answer": 1,
+        "explanation": "HTML is what is on the page, CSS is how it looks."
+      },
+      {
+        "type": "single",
+        "question": "Which way of connecting CSS is right for a site with several pages?",
+        "options": [
+          "The style attribute",
+          "A <style> tag on every page",
+          "An external file via <link>",
+          "A comment in HTML"
+        ],
+        "answer": 2,
+        "explanation": "One file is connected to all pages."
+      },
+      {
+        "type": "single",
+        "question": "What is the selector in the rule p { color: red; }?",
+        "options": [
+          "p",
+          "color",
+          "red",
+          "{ }"
+        ],
+        "answer": 0,
+        "explanation": "The selector chooses which elements the rule applies to."
+      },
+      {
+        "type": "single",
+        "question": "How is a comment written in CSS?",
+        "options": [
+          "<!-- text -->",
+          "// text",
+          "/* text */",
+          "# text"
+        ],
+        "answer": 2,
+        "explanation": "In CSS a comment goes between /* and */."
+      },
+      {
+        "type": "multiple",
+        "question": "Which of these are correct declarations?",
+        "options": [
+          "color: red;",
+          "font-size: 20px;",
+          "color = red;",
+          "font-size 20px;"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Property, colon, value, semicolon."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about changes in DevTools?",
+        "options": [
+          "Visible immediately",
+          "Disappear after F5",
+          "Are saved to the file",
+          "Handy for picking values"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "DevTools is a fitting room: the file does not change."
+      },
+      {
+        "type": "multiple",
+        "question": "What does the <link> tag need to connect styles?",
+        "options": [
+          "rel=\"stylesheet\"",
+          "href with the path to the file",
+          "type=\"text/javascript\"",
+          "src=\"style.css\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "<link rel=\"stylesheet\" href=\"css/style.css\">."
+      },
+      {
+        "type": "matching",
+        "question": "Match the way of connecting with its scope.",
+        "pairs": [
+          [
+            "style=\"\"",
+            "One element"
+          ],
+          [
+            "<style>",
+            "One page"
+          ],
+          [
+            "<link> to a file",
+            "Every page where it is connected"
+          ]
+        ],
+        "explanation": "The wider the scope, the easier it is to maintain."
+      },
+      {
+        "type": "matching",
+        "question": "Match the part of the rule with its name.",
+        "pairs": [
+          [
+            "h1",
+            "Selector"
+          ],
+          [
+            "color",
+            "Property"
+          ],
+          [
+            "navy",
+            "Value"
+          ],
+          [
+            "color: navy;",
+            "Declaration"
+          ]
+        ],
+        "explanation": "Rule = selector + declaration block."
+      },
+      {
+        "type": "input",
+        "question": "Which property changes the background color? Enter the property name.",
+        "answers": [
+          "background-color"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-color: #f4f6fb;"
+      },
+      {
+        "type": "input",
+        "question": "Which property changes the text size? Enter the property name.",
+        "answers": [
+          "font-size"
+        ],
+        "case_sensitive": false,
+        "explanation": "font-size: 18px;"
+      },
+      {
+        "type": "input",
+        "question": "Which character separates selectors to apply one rule to several tags? Enter the character.",
+        "answers": [
+          ","
+        ],
+        "case_sensitive": false,
+        "explanation": "h1, h2, h3 { ... }"
+      }
+    ]
+  }
+}

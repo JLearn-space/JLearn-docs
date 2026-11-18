@@ -1,0 +1,246 @@
+{
+  "lesson": 5,
+  "language": "uz",
+  "lesson_title": "Flexbox",
+  "task": {
+    "title": "Flexbox dagi shapka va kartochkalar qatori",
+    "language": "html",
+    "description": "site-header, menu, cards, card sinflarini qo‘shing. .site-header - flex, space-between, align-items: center; .menu - flex, gap, list-style: none; .cards - flex, flex-wrap: wrap, gap; .card - uch qiymatli flex. float va style=\"\" siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <!-- <style>: .site-header, .menu, .cards, .card -->\n</head>\n<body>\n    <header>\n        <p>To‘garak</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div>\n            <article><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"menu\"",
+        "class=\"cards\"",
+        "class=\"card\"",
+        ".site-header {",
+        ".menu {",
+        ".cards {",
+        ".card {",
+        "display: flex;",
+        "justify-content: space-between;",
+        "align-items: center;",
+        "gap:",
+        "flex-wrap: wrap;",
+        "flex: 1",
+        "list-style: none;"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Shapka: .site-header { display: flex; justify-content: space-between; align-items: center; }",
+      "Menyu: .menu { display: flex; gap: 16px; list-style: none; }",
+      "Kartochkalar qatori: .cards { display: flex; flex-wrap: wrap; gap: 24px; }",
+      "Kartochka: .card { flex: 1 1 240px; }",
+      "float va style=\"\" ni ishlatmang."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "space-between yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "o‘tkazish yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "flex o‘rniga float",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            float: left;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "card sinfi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "markerlar olib tashlanmagan",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "tekislash yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak loyihalari</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>To‘garak</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"news.html\">Yangiliklar</a></li>\n                <li><a href=\"join.html\">Yozilish</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>To‘rt sahifali sayt.</p></article>\n            <article class=\"card\"><h2>Kafe</h2><p>Menyu va buyurtma formasi.</p></article>\n            <article class=\"card\"><h2>Kutubxona</h2><p>Katalog va ish jadvali.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "display: flex kimga beriladi?",
+        "options": [
+          "Har bir elementga",
+          "Konteynerga",
+          "Faqat body ga",
+          "<flex> tegiga"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox ota elementda yoqiladi."
+      },
+      {
+        "type": "single",
+        "question": "justify-content: space-between nima qiladi?",
+        "options": [
+          "Hammasi markazda",
+          "Chetdagilari chetlarga, qolgan joy teng",
+          "Hammasi boshiga",
+          "Oraliqlar chetlarda ham teng"
+        ],
+        "answer": 1,
+        "explanation": "space-between - «orasida»."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi xususiyat elementlarni yangi qatorga o‘tkazadi?",
+        "options": [
+          "flex-direction: column",
+          "flex-wrap: wrap",
+          "gap: 16px",
+          "align-items: wrap"
+        ],
+        "answer": 1,
+        "explanation": "Sukut bo‘yicha flex-wrap: nowrap."
+      },
+      {
+        "type": "single",
+        "question": "Nega blokda align-items: center vertikal markazlashi ishlamaydi?",
+        "options": [
+          "display: block yo‘q",
+          "Konteynerda mazmundan katta balandlik yo‘q",
+          "gap yo‘q",
+          "Elementlar kam"
+        ],
+        "answer": 1,
+        "explanation": "min-height bering."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi xususiyatlar konteynerga beriladi?",
+        "options": [
+          "justify-content",
+          "gap",
+          "flex-wrap",
+          "flex"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "flex - element xususiyati."
+      },
+      {
+        "type": "multiple",
+        "question": "Elementni ikki o‘q bo‘yicha markazga qo‘yish uchun nima kerak?",
+        "options": [
+          "display: flex",
+          "justify-content: center",
+          "align-items: center",
+          "float: center"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Va konteynerda balandlik."
+      },
+      {
+        "type": "multiple",
+        "question": "flex: 1 1 240px haqida nima to‘g‘ri?",
+        "options": [
+          "Element o‘sishi mumkin",
+          "Element siqilishi mumkin",
+          "Istalgan kenglik 240px",
+          "Kenglik doim roppa-rosa 240px"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grow, shrink, basis."
+      },
+      {
+        "type": "matching",
+        "question": "justify-content qiymatini natija bilan moslang.",
+        "pairs": [
+          [
+            "flex-start",
+            "Boshiga"
+          ],
+          [
+            "center",
+            "Markazga"
+          ],
+          [
+            "flex-end",
+            "Oxiriga"
+          ],
+          [
+            "space-evenly",
+            "Barcha oraliqlar teng"
+          ]
+        ],
+        "explanation": "justify-content asosiy o‘q bo‘ylab taqsimlaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Xususiyatni o‘q bilan moslang.",
+        "pairs": [
+          [
+            "justify-content",
+            "Asosiy o‘q"
+          ],
+          [
+            "align-items",
+            "Ko‘ndalang o‘q"
+          ],
+          [
+            "flex-direction",
+            "Asosiy o‘q yo‘nalishini beradi"
+          ]
+        ],
+        "explanation": "column da asosiy o‘q vertikal."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi xususiyat flex-elementlar orasidagi oraliqlarni chetlarda ortiqcha chekinishsiz beradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "gap"
+        ],
+        "case_sensitive": false,
+        "explanation": "gap: 16px;"
+      },
+      {
+        "type": "input",
+        "question": "flex-direction ning qaysi qiymati elementlarni ustunga qo‘yadi? Qiymatni kiriting.",
+        "answers": [
+          "column"
+        ],
+        "case_sensitive": false,
+        "explanation": "flex-direction: column;"
+      },
+      {
+        "type": "input",
+        "question": "Ro‘yxat markerlarini qanday olib tashlash mumkin? E’lonni to‘liq kiriting, masalan property: value;",
+        "answers": [
+          "list-style: none;",
+          "list-style: none",
+          "list-style-type: none;",
+          "list-style-type: none"
+        ],
+        "case_sensitive": false,
+        "explanation": "list-style: none;"
+      }
+    ]
+  }
+}

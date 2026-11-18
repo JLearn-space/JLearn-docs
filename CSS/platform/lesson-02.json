@@ -1,0 +1,253 @@
+{
+  "lesson": 2,
+  "language": "ru",
+  "lesson_title": "Селекторы и каскад",
+  "task": {
+    "title": "Новости кружка: классы и вложенность",
+    "language": "html",
+    "description": "Дайте двум article класс card, третьей - card featured. Напишите в <style> правила .card, .card.featured, nav a и ul > li. Без !important, id-селекторов и style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <!-- <style>: .card, .card.featured, nav a, ul > li -->\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article>\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article>\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article>\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"card\"",
+        "class=\"card featured\"",
+        ".card {",
+        ".card.featured {",
+        "nav a {",
+        "ul > li {"
+      ],
+      "forbidden": [
+        "!important",
+        "style=\"",
+        " id=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "attrs": {
+        "article": [
+          "class"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "В HTML класс без точки: <article class=\"card\">.",
+      "Два класса через пробел: class=\"card featured\".",
+      "Элемент с двумя классами в CSS: .card.featured { ... } - без пробела.",
+      "Ссылки внутри меню: nav a { ... }; прямые дети: ul > li { ... }.",
+      "Не используйте !important, # и атрибут style=\"\"."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "точка в атрибуте class",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\".card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\".card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "пробел в .card .featured",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card .featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "!important",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7 !important;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "id-селектор",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        #title, nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1 id=\"title\">Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет класса featured",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет nav a",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет ul > li",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "стиль в атрибуте",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Главная</a></li>\n            <li><a href=\"news.html\">Новости</a></li>\n        </ul>\n    </nav>\n    <h1>Новости кружка</h1>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>Новый набор</h2>\n        <p>Записывайтесь до пятницы.</p>\n    </article>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>Перенос занятия</h2>\n        <p>Среда переносится на четверг.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Итоговая выставка</h2>\n        <p>Покажем проекты 25 декабря.</p>\n    </article>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Как выбрать в CSS все элементы с классом notice?",
+        "options": [
+          "notice",
+          ".notice",
+          "#notice",
+          "<notice>"
+        ],
+        "answer": 1,
+        "explanation": "Класс в CSS - через точку."
+      },
+      {
+        "type": "single",
+        "question": "Какой селектор специфичнее?",
+        "options": [
+          "p",
+          "nav a",
+          ".notice",
+          "ul li"
+        ],
+        "answer": 2,
+        "explanation": "Класс (0-1-0) сильнее любого количества тегов."
+      },
+      {
+        "type": "single",
+        "question": "Два правила с одинаковым селектором p задают разный цвет. Какое победит?",
+        "options": [
+          "Верхнее",
+          "Нижнее",
+          "Случайное",
+          "Ни одно"
+        ],
+        "answer": 1,
+        "explanation": "При равной специфичности побеждает правило ниже в коде."
+      },
+      {
+        "type": "single",
+        "question": "Какое свойство НЕ наследуется?",
+        "options": [
+          "color",
+          "font-family",
+          "background-color",
+          "line-height"
+        ],
+        "answer": 2,
+        "explanation": "Фон, рамки и отступы не наследуются."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи правильно дают элементу два класса?",
+        "options": [
+          "class=\"card featured\"",
+          "class=\"card, featured\"",
+          "class=\".card .featured\"",
+          "class=\"featured card\""
+        ],
+        "answer": [
+          0,
+          3
+        ],
+        "explanation": "Классы через пробел, без точек, порядок не важен."
+      },
+      {
+        "type": "multiple",
+        "question": "По каким вопросам браузер решает спор правил?",
+        "options": [
+          "!important",
+          "Специфичность",
+          "Порядок в коде",
+          "Длина названия класса"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Важность, затем специфичность, затем порядок."
+      },
+      {
+        "type": "multiple",
+        "question": "Почему для оформления лучше класс, а не id?",
+        "options": [
+          "Класс можно повторить",
+          "id слишком сильный в споре правил",
+          "id не работает в CSS",
+          "Класс легче перебить при необходимости"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "id работает, но мешает поддерживать стили."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте селектор и кого он выбирает.",
+        "pairs": [
+          [
+            "nav a",
+            "Ссылки где угодно внутри nav"
+          ],
+          [
+            "ul > li",
+            "Прямые дети ul"
+          ],
+          [
+            "h2 + p",
+            "Абзац сразу после h2"
+          ],
+          [
+            ".btn.primary",
+            "Элемент с обоими классами"
+          ]
+        ],
+        "explanation": "Пробел, > и + задают разные связи."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте селектор и специфичность.",
+        "pairs": [
+          [
+            "p",
+            "0-0-1"
+          ],
+          [
+            ".card",
+            "0-1-0"
+          ],
+          [
+            "#title",
+            "1-0-0"
+          ],
+          [
+            "p.notice",
+            "0-1-1"
+          ]
+        ],
+        "explanation": "Счёт: id - классы - теги."
+      },
+      {
+        "type": "input",
+        "question": "Каким символом в CSS обозначают id? Введите символ.",
+        "answers": [
+          "#"
+        ],
+        "case_sensitive": false,
+        "explanation": "#main-title { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Какой символ выбирает только прямых детей? Введите символ.",
+        "answers": [
+          ">"
+        ],
+        "case_sensitive": false,
+        "explanation": "ul > li"
+      },
+      {
+        "type": "input",
+        "question": "Посчитайте специфичность селектора .menu a. Введите в формате 0-0-0.",
+        "answers": [
+          "0-1-1",
+          "0,1,1",
+          "0 1 1"
+        ],
+        "case_sensitive": false,
+        "explanation": "Один класс и один тег."
+      }
+    ]
+  }
+}

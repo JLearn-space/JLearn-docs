@@ -1,0 +1,270 @@
+{
+  "lesson": 10,
+  "language": "uz",
+  "lesson_title": "Yakuniy loyiha",
+  "task": {
+    "title": "O‘z saytingizning kontaktlar sahifasini bezash",
+    "language": "html",
+    "description": "Sahifani <style> da bezang: o‘zgaruvchilar va var() li :root; * box-sizing; img max-width: 100%; main max-width va margin: 0 auto; body > header - sticky, flex, column, 600px dan row; jadval border-collapse; input width: 100% va font: inherit; outline li :focus-visible; prefers-color-scheme: dark orqali tungi mavzu; harakat faqat prefers-reduced-motion: no-preference da.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <!-- <style>: o‘zgaruvchilar, asos, shapka, jadval, forma, fokus, moslashuvchanlik, tungi mavzu, harakat -->\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        ":root {",
+        "var(--",
+        "box-sizing: border-box;",
+        "max-width: 100%;",
+        "margin: 0 auto;",
+        "body > header",
+        "position: sticky;",
+        "display: flex;",
+        "flex-direction: column;",
+        "flex-direction: row;",
+        "@media (min-width: 600px)",
+        "border-collapse: collapse;",
+        "width: 100%;",
+        "font: inherit;",
+        ":focus-visible",
+        "outline:",
+        "prefers-color-scheme: dark",
+        "prefers-reduced-motion: no-preference"
+      ],
+      "forbidden": [
+        "!important",
+        "outline: none",
+        "outline: 0",
+        "@media (max-width",
+        "style=\"",
+        "Азиз",
+        "aziz"
+      ],
+      "for_id_pairs": true,
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "O‘zgaruvchilar: :root { --primary: ...; } va color: var(--primary);",
+      "Sayt shapkasi: body > header { position: sticky; top: 0; display: flex; flex-direction: column; }",
+      "600px dan: @media (min-width: 600px) { body > header { flex-direction: row; } }",
+      "Jadval: border-collapse: collapse; maydonlar: width: 100%; font: inherit;",
+      "Fokus: input:focus-visible, button:focus-visible { outline: 3px solid ...; }",
+      "Tungi mavzu: @media (prefers-color-scheme: dark) { :root { ... } }",
+      "Harakat: @media (prefers-reduced-motion: no-preference) { transition ... }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "outline: none",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: none;\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "desktop-first",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (max-width: 599px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "tungi mavzu yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no-preference siz harakat",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media screen {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "!important",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary) !important;\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "maydonlar shriftni meros olmaydi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "namuna nusxasi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - Azizning portfoliosi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Azizning portfoliosi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "o‘zgaruvchilar yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Kontaktlar - «Ruh» shaxmat klubi</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: #1c1917;\n            background-color: #f7f7f2;\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: #f7f7f2;\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: #14532d;\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid #ea580c;\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>«Ruh» shaxmat klubi</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"contact.html\">Kontaktlar</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Kontaktlar</h1>\n        <table>\n            <caption>Ish vaqti</caption>\n            <tr><th scope=\"col\">Kun</th><th scope=\"col\">Vaqt</th></tr>\n            <tr><th scope=\"row\">Seshanba</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Ism</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Yozilish</button>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Yakuniy loyiha uslublar fayli nimadan boshlanadi?",
+        "options": [
+          "Animatsiyalardan",
+          "O‘zgaruvchilar va asosdan",
+          "Media so‘rovlardan",
+          "Tungi mavzudan"
+        ],
+        "answer": 1,
+        "explanation": "Mo‘yqalamdan oldin palitra."
+      },
+      {
+        "type": "single",
+        "question": "Qoidalarni qayta yozmasdan tungi mavzuni qanday qilish mumkin?",
+        "options": [
+          "Butun faylni nusxalash",
+          "@media (prefers-color-scheme: dark) da o‘zgaruvchilarni qayta belgilash",
+          "!important qo‘shish",
+          "JavaScript orqali"
+        ],
+        "answer": 1,
+        "explanation": "Qoidalar ranglarni var() orqali oladi."
+      },
+      {
+        "type": "single",
+        "question": "Forma maydonlarida font: inherit nima uchun?",
+        "options": [
+          "Qalin qilish",
+          "Maydonlar sukut bo‘yicha sahifa shriftini meros olmaydi",
+          "Maydonni kattalashtirish",
+          "Ramkani olib tashlash"
+        ],
+        "answer": 1,
+        "explanation": "Aks holda maydonlar «begona» ko‘rinadi."
+      },
+      {
+        "type": "single",
+        "question": "Nashrdan keyin uslublar paydo bo‘lmadi. Birinchi nimani tekshirish kerak?",
+        "options": [
+          "Fon rangi",
+          "Network dagi style.css statusi va yo‘ldagi harflar registri",
+          "Sahifalar soni",
+          "Brauzer versiyasi"
+        ],
+        "answer": 1,
+        "explanation": "404 - yo‘l yoki registr xatosi."
+      },
+      {
+        "type": "multiple",
+        "question": "Nashrdan oldin nimani tekshirish kerak?",
+        "options": [
+          "320px da gorizontal aylantirish yo‘q",
+          "Tab da fokus ko‘rinadi",
+          "Kontrast ≥ 4.5:1",
+          "CSS dagi qatorlar soni"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Harakatni ham, validatorni ham."
+      },
+      {
+        "type": "multiple",
+        "question": "Namunadagi menyuni o‘tkazib yuborish havolasi haqida nima to‘g‘ri?",
+        "options": [
+          "Yuqori chet ortida yashirin",
+          "Fokusda paydo bo‘ladi",
+          "display: none bilan o‘chirilgan",
+          "Klaviatura foydalanuvchilariga yordam beradi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "display: none uni klaviaturadan ham yashirgan bo‘lardi."
+      },
+      {
+        "type": "multiple",
+        "question": "Yakuniy loyiha uslublari uchun qaysi qoidalar to‘g‘ri?",
+        "options": [
+          "min-width orqali mobile-first",
+          "Animatsiyalar prefers-reduced-motion: no-preference ichida",
+          "Chiroy uchun outline: none",
+          "Ranglar o‘zgaruvchilar orqali"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Fokusni olib tashlab bo‘lmaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Uslublar fayli qatlamini misol bilan moslang.",
+        "pairs": [
+          [
+            "Asos",
+            ":root va box-sizing"
+          ],
+          [
+            "Joylashuv",
+            "Flexbox da shapka, Grid da to‘r"
+          ],
+          [
+            "Komponentlar",
+            "Jadval va forma"
+          ],
+          [
+            "Holatlar",
+            ":hover va :focus-visible"
+          ]
+        ],
+        "explanation": "Qatlamlar umumiydan xususiyga boradi."
+      },
+      {
+        "type": "matching",
+        "question": "Xususiyatni vazifa bilan moslang.",
+        "pairs": [
+          [
+            "border-collapse: collapse",
+            "Kataklar orasida bitta ramka"
+          ],
+          [
+            "overflow-wrap: anywhere",
+            "Uzun email ni ko‘chirish"
+          ],
+          [
+            "cursor: pointer",
+            "Tugma ustida qo‘l-kursor"
+          ],
+          [
+            "position: sticky",
+            "Yopishqoq shapka"
+          ]
+        ],
+        "explanation": "«Komponentlar» va «Joylashuv» qadamlaridagi usullar."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi selektor faqat sayt shapkasini - body ning to‘g‘ridan-to‘g‘ri bolasini tanlaydi? Selektorni kiriting.",
+        "answers": [
+          "body > header",
+          "body>header"
+        ],
+        "case_sensitive": false,
+        "explanation": "body > header"
+      },
+      {
+        "type": "input",
+        "question": "Yakuniy imtihondan o‘tish uchun 100 dan necha ball kerak? Sonni kiriting.",
+        "answers": [
+          "80"
+        ],
+        "case_sensitive": false,
+        "explanation": "O‘tish 80 balldan."
+      },
+      {
+        "type": "input",
+        "question": "Gorizontal aylantirish yo‘qligi qaysi minimal ekran kengligida (px) tekshiriladi? Sonni kiriting.",
+        "answers": [
+          "320",
+          "320px"
+        ],
+        "case_sensitive": false,
+        "explanation": "Eng tor telefonlar."
+      }
+    ]
+  }
+}

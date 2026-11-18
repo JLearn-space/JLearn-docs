@@ -1,0 +1,250 @@
+{
+  "lesson": 3,
+  "language": "uz",
+  "lesson_title": "Rang, birliklar, shriftlar va fon",
+  "task": {
+    "title": "Rang, shriftlar va fon",
+    "language": "html",
+    "description": "Shapkaga site-header, birinchi abzatsga notice sinfini qo‘shing. <style> da: body - oxirida sans-serif li font-family, birliksiz line-height, hex dagi color; h1 - rem dagi font-size; .site-header - linear-gradient va oq matn; .notice - yarim shaffof fon. Bu topshiriqda px birliklarini ishlatmang.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <!-- <style>: body, h1, .site-header, .notice -->\n</head>\n<body>\n    <header>\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p>Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "font-family:",
+        "sans-serif",
+        "line-height:",
+        "rem;",
+        "linear-gradient(",
+        "class=\"site-header\"",
+        "class=\"notice\"",
+        ".site-header {",
+        ".notice {",
+        " / "
+      ],
+      "forbidden": [
+        "style=\"",
+        "px;",
+        "px)"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Zaxirali shrift: font-family: \"Inter\", Arial, sans-serif;",
+      "Birliksiz interval: line-height: 1.6;",
+      "rem dagi o‘lcham: h1 { font-size: 2rem; }",
+      "Gradient: background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);",
+      "Yarim shaffof fon: background-color: rgb(254 226 226 / 70%);",
+      "Bu topshiriqda px birliklari ishlatilmaydi: faqat rem."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "sans-serif yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "h1 px da",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 32px;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "gradient yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-color: #1e3a8a;\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "HTML da notice sinfi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p>Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "line-height yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "line-height px da",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6px;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "yarim shaffoflik yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: #fee2e2;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "atributdagi uslub",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Veb-dasturlash to‘garagi</h1>\n    </header>\n    <main>\n        <p class=\"notice\" style=\"color: red;\">Chorshanbadagi mashg‘ulot payshanbaga ko‘chiriladi.</p>\n        <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "#ffffff qaysi rangni beradi?",
+        "options": [
+          "Qora",
+          "Oq",
+          "Qizil",
+          "Kulrang"
+        ],
+        "answer": 1,
+        "explanation": "Uchala kanal maksimumda - oq."
+      },
+      {
+        "type": "single",
+        "question": "Sahifa shriftining standart o‘lchami 16px bo‘lsa, 1.5rem nechaga teng?",
+        "options": [
+          "15px",
+          "16px",
+          "24px",
+          "32px"
+        ],
+        "answer": 2,
+        "explanation": "1.5 × 16 = 24px."
+      },
+      {
+        "type": "single",
+        "question": "Qatorlararo interval qanday to‘g‘ri yoziladi?",
+        "options": [
+          "line-height: 1.6px;",
+          "line-height: 1.6;",
+          "line-height = 1.6;",
+          "line-spacing: 1.6;"
+        ],
+        "answer": 1,
+        "explanation": "Birliksiz line-height - shrift o‘lchamiga mutanosib."
+      },
+      {
+        "type": "single",
+        "question": "css/style.css ichidagi url() dagi yo‘l qaysi fayldan hisoblanadi?",
+        "options": [
+          "HTML sahifadan",
+          "CSS fayldan",
+          "Disk ildizidan",
+          "images papkasidan"
+        ],
+        "answer": 1,
+        "explanation": "Shuning uchun css/ dan yuqoriga ko‘tarilish kerak: ../images/x.jpg."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar bir xil to‘q kulrang rangni beradi?",
+        "options": [
+          "#333333",
+          "#333",
+          "rgb(51 51 51)",
+          "#3333"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "#333 - #333333 ning qisqartmasi, 0x33 = 51."
+      },
+      {
+        "type": "multiple",
+        "question": "Nega shrift o‘lchamlari rem da yaxshiroq?",
+        "options": [
+          "Foydalanuvchi brauzerda shriftni kattalashtirsa, o‘sadi",
+          "Qayta hisoblash oson: px ni 16 ga bo‘lish",
+          "Faqat Chrome da ishlaydi",
+          "Butun sahifada bir xil hisoblash nuqtasi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "rem sahifa shrifti o‘lchamiga bog‘liq."
+      },
+      {
+        "type": "multiple",
+        "question": "font-family: \"Inter\", Arial, sans-serif haqida nima to‘g‘ri?",
+        "options": [
+          "Brauzer birinchi mavjud shriftni oladi",
+          "sans-serif - so‘nggi chora sifatidagi umumiy oila",
+          "Uchalasi birdaniga ishlatiladi",
+          "Bir necha so‘zli nom qo‘shtirnoqda yoziladi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Ro‘yxat - tartib bo‘yicha zaxira variantlar."
+      },
+      {
+        "type": "matching",
+        "question": "Birlikni hisoblash nuqtasi bilan moslang.",
+        "pairs": [
+          [
+            "rem",
+            "Sahifa shrifti"
+          ],
+          [
+            "em",
+            "Elementning o‘z shrifti"
+          ],
+          [
+            "%",
+            "Ota element o‘lchami"
+          ],
+          [
+            "vw",
+            "Oyna kengligi"
+          ]
+        ],
+        "explanation": "Nisbiy birliklar turli narsalarga bog‘liq."
+      },
+      {
+        "type": "matching",
+        "question": "Xususiyatni harakat bilan moslang.",
+        "pairs": [
+          [
+            "font-weight",
+            "Qalinlik"
+          ],
+          [
+            "text-align",
+            "Tekislash"
+          ],
+          [
+            "text-transform",
+            "Harflar registri"
+          ],
+          [
+            "background-size",
+            "Fon rasmi o‘lchami"
+          ]
+        ],
+        "explanation": "Matn va fon xususiyatlari."
+      },
+      {
+        "type": "input",
+        "question": "background-size ning qaysi qiymati butun blokni rasm bilan buzilmasdan to‘ldiradi? Qiymatni kiriting.",
+        "answers": [
+          "cover"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-size: cover;"
+      },
+      {
+        "type": "input",
+        "question": "Oddiy matnga qanday minimal kontrast kerak? N:1 formatida kiriting.",
+        "answers": [
+          "4.5:1",
+          "4,5:1"
+        ],
+        "case_sensitive": false,
+        "explanation": "WCAG AA."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi funksiya chiziqli gradient yaratadi? Funksiya nomini qavslarsiz kiriting.",
+        "answers": [
+          "linear-gradient"
+        ],
+        "case_sensitive": false,
+        "explanation": "linear-gradient(135deg, #1e3a8a, #7c3aed)"
+      }
+    ]
+  }
+}

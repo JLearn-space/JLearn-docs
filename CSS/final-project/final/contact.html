@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Портфолио Азиза</title>
+    <meta name="description" content="Как связаться с Азизом: почта, Telegram, телефон и учебная форма обратной связи.">
+    <meta property="og:title" content="Контакты - Портфолио Азиза">
+    <meta property="og:description" content="Как связаться с Азизом: почта, Telegram, телефон и учебная форма обратной связи.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header>
+        <p><strong>Азиз - начинающий веб-разработчик</strong></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">Обо мне</a></li>
+                <li><a href="projects.html">Проекты</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main">
+        <h1>Контакты</h1>
+        <section>
+            <h2>Как со мной связаться</h2>
+            <ul>
+                <li>Почта: <a href="mailto:aziz@example.com">aziz@example.com</a></li>
+                <li>Телефон: <a href="tel:+998901112233">+998 90 111-22-33</a></li>
+            </ul>
+            <table>
+                <caption>Когда я отвечаю</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Способ</th>
+                        <th scope="col">Контакт</th>
+                        <th scope="col">Время ответа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Почта</th>
+                        <td><a href="mailto:aziz@example.com">aziz@example.com</a></td>
+                        <td>В течение суток</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Telegram</th>
+                        <td><a href="https://t.me/example">@example</a></td>
+                        <td>Несколько часов</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Телефон</th>
+                        <td><a href="tel:+998901112233">+998 90 111-22-33</a></td>
+                        <td>Будни, 9:00-18:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Написать сообщение</h2>
+            <p>Учебная форма: вводите только вымышленные данные. После отправки значения появятся в адресе страницы, сообщение никуда не доставляется.</p>
+            <form method="get">
+                <fieldset>
+                    <legend>Обратная связь</legend>
+                    <p>
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" name="name" autocomplete="name" maxlength="50" required>
+                    </p>
+                    <p>
+                        <label for="email">Почта</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </p>
+                    <p>
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" rows="5" maxlength="500" required></textarea>
+                    </p>
+                </fieldset>
+                <p><button type="submit">Отправить</button></p>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p><small>&copy; 2026 Азиз. Сайт сделан на курсе «HTML за 10 уроков».</small></p>
+        <p><a href="https://t.me/example" aria-label="Telegram Азиза"><img src="images/telegram.svg" alt="" width="24" height="24"></a></p>
+    </footer>
+</body>
+</html>

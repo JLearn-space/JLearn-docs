@@ -1,0 +1,249 @@
+{
+  "lesson": 1,
+  "language": "uz",
+  "lesson_title": "CSS ga kirish. Sintaksis va ulash",
+  "task": {
+    "title": "Birinchi bezash",
+    "language": "html",
+    "description": "head ga <style> tegini qo‘shing: body - background-color va font-family; h1, h2 bitta qoida bilan - color; p - px dagi font-size; kamida bitta /* */ izohi. style=\"\" atributini ishlatmang. Yozuv uslubi: xususiyat: qiymat;",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <!-- Bu yerga tegni qo‘shing: <style> -->\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>\n",
+    "rules": {
+      "required": [
+        "<style>",
+        "</style>",
+        "body {",
+        "background-color:",
+        "font-family:",
+        "h1, h2",
+        "color:",
+        "p {",
+        "font-size:",
+        "px;",
+        "/*",
+        "*/"
+      ],
+      "forbidden": [
+        "style=\"",
+        "<font",
+        "<center"
+      ],
+      "h1_exact": 1,
+      "h2_required": 1,
+      "tags": {
+        "p": 2,
+        "style": 1
+      }
+    },
+    "hints": [
+      "<head> ichida: <style> ... </style>.",
+      "Fon uchun qoida: body { background-color: #f4f6fb; font-family: Arial, sans-serif; }",
+      "Guruh: h1, h2 { color: navy; } - vergul va bo‘shliq.",
+      "Abzatslar o‘lchami: p { font-size: 18px; }",
+      "CSS dagi izoh: /* matn */.",
+      "Teglarda style=\"\" atributini ishlatmang."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "<style> yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <!-- Bu yerga tegni qo‘shing: <style> -->\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "uslublar style atributida",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <!-- Bu yerga tegni qo‘shing: <style> -->\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p style=\"font-size: 18px;\">Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>\n"
+      },
+      {
+        "mistake": "h1, h2 guruhi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "fon yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "px siz o‘lcham",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "izoh yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "CSS o‘rniga HTML izohi",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        <!-- Sahifaning umumiy ko‘rinishi -->\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      },
+      {
+        "mistake": "font-family yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "CSS nima uchun javob beradi?",
+        "options": [
+          "Sahifa tuzilmasi va ma’nosi uchun",
+          "Sahifaning tashqi ko‘rinishi uchun",
+          "Ma’lumotlar bazasi uchun",
+          "Bosishdagi xatti-harakat uchun"
+        ],
+        "answer": 1,
+        "explanation": "HTML - sahifada nima bor, CSS - u qanday ko‘rinadi."
+      },
+      {
+        "type": "single",
+        "question": "Bir necha sahifali sayt uchun CSS ni ulashning qaysi usuli to‘g‘ri?",
+        "options": [
+          "style atributi",
+          "Har bir sahifada <style> tegi",
+          "<link> orqali tashqi fayl",
+          "HTML dagi izoh"
+        ],
+        "answer": 2,
+        "explanation": "Bitta fayl barcha sahifalarga ulanadi."
+      },
+      {
+        "type": "single",
+        "question": "p { color: red; } qoidasida nima selektor?",
+        "options": [
+          "p",
+          "color",
+          "red",
+          "{ }"
+        ],
+        "answer": 0,
+        "explanation": "Selektor qoidani qaysi elementlarga qo‘llashni tanlaydi."
+      },
+      {
+        "type": "single",
+        "question": "CSS da izoh qanday yoziladi?",
+        "options": [
+          "<!-- matn -->",
+          "// matn",
+          "/* matn */",
+          "# matn"
+        ],
+        "answer": 2,
+        "explanation": "CSS da izoh - /* va */ orasida."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar to‘g‘ri e’lonlar?",
+        "options": [
+          "color: red;",
+          "font-size: 20px;",
+          "color = red;",
+          "font-size 20px;"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Xususiyat, ikki nuqta, qiymat, nuqtali vergul."
+      },
+      {
+        "type": "multiple",
+        "question": "DevTools dagi o‘zgarishlar haqida nima to‘g‘ri?",
+        "options": [
+          "Darhol ko‘rinadi",
+          "F5 dan keyin yo‘qoladi",
+          "Faylga saqlanadi",
+          "Qiymatlarni tanlash uchun qulay"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "DevTools - kiyib ko‘rish xonasi: fayl o‘zgarmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Uslublarni ulash uchun <link> tegida nima kerak?",
+        "options": [
+          "rel=\"stylesheet\"",
+          "Faylga yo‘lli href",
+          "type=\"text/javascript\"",
+          "src=\"style.css\""
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "<link rel=\"stylesheet\" href=\"css/style.css\">."
+      },
+      {
+        "type": "matching",
+        "question": "Ulash usulini ta’sir doirasi bilan moslang.",
+        "pairs": [
+          [
+            "style=\"\"",
+            "Bitta element"
+          ],
+          [
+            "<style>",
+            "Bitta sahifa"
+          ],
+          [
+            "Faylga <link>",
+            "U ulangan barcha sahifalar"
+          ]
+        ],
+        "explanation": "Doira qancha keng bo‘lsa, qo‘llab-quvvatlash shuncha qulay."
+      },
+      {
+        "type": "matching",
+        "question": "Qoida qismini nomi bilan moslang.",
+        "pairs": [
+          [
+            "h1",
+            "Selektor"
+          ],
+          [
+            "color",
+            "Xususiyat"
+          ],
+          [
+            "navy",
+            "Qiymat"
+          ],
+          [
+            "color: navy;",
+            "E’lon"
+          ]
+        ],
+        "explanation": "Qoida = selektor + e’lonlar bloki."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi xususiyat fon rangini o‘zgartiradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "background-color"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-color: #f4f6fb;"
+      },
+      {
+        "type": "input",
+        "question": "Qaysi xususiyat matn o‘lchamini o‘zgartiradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "font-size"
+        ],
+        "case_sensitive": false,
+        "explanation": "font-size: 18px;"
+      },
+      {
+        "type": "input",
+        "question": "Bitta qoidani bir nechta tegga qo‘llash uchun selektorlar qaysi belgi bilan ajratiladi? Belgini kiriting.",
+        "answers": [
+          ","
+        ],
+        "case_sensitive": false,
+        "explanation": "h1, h2, h3 { ... }"
+      }
+    ]
+  }
+}

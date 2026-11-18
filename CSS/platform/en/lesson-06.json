@@ -1,0 +1,254 @@
+{
+  "lesson": 6,
+  "language": "en",
+  "lesson_title": "Grid",
+  "task": {
+    "title": "A page layout and a gallery with Grid",
+    "language": "html",
+    "description": "Add the classes. .page - display: grid with grid-template-areas (header, main, aside, footer); each block gets a grid-area; .gallery - repeat(auto-fit, minmax(..., 1fr)) and gap; .featured - grid-column: span 2. No float and no style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <!-- <style>: .page (grid-template-areas), areas, .gallery, .featured -->\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Project gallery</h1>\n        <div>\n            <img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside>\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer>\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"page\"",
+        "class=\"gallery\"",
+        "class=\"featured\"",
+        ".page {",
+        ".gallery {",
+        ".featured {",
+        "display: grid;",
+        "grid-template-areas:",
+        "grid-area: header;",
+        "grid-area: main;",
+        "grid-area: aside;",
+        "grid-area: footer;",
+        "repeat(auto-fit",
+        "minmax(",
+        "1fr",
+        "gap:",
+        "span 2"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\"",
+        "grid-area: \""
+      ],
+      "tags": {
+        "img": 4
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Layout: .page { display: grid; grid-template-areas: \"header header\" \"main aside\" \"footer footer\"; }",
+      "A block takes an area: .page-main { grid-area: main; } - no quotes.",
+      "Responsive gallery: grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));",
+      "Across two columns: .featured { grid-column: span 2; }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "grid-area in quotes",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: \"main\";\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no areas",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a fixed number of columns",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(4, 200px);\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no span",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no featured class",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no footer area",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Project gallery</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Web development club</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Project gallery</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"A club sign-up form\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Upcoming classes</h2>\n        <p>Wednesday, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 Club</p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How does Grid differ from Flexbox?",
+        "options": [
+          "Grid works only with images",
+          "Grid lays out by rows and columns at once",
+          "Flexbox is newer",
+          "Grid does not support gap"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox is one axis, Grid is two."
+      },
+      {
+        "type": "single",
+        "question": "What does grid-template-columns: 250px 1fr; do?",
+        "options": [
+          "Two 250px columns",
+          "Left 250px, right - all the remaining space",
+          "One 250px column",
+          "Three columns"
+        ],
+        "answer": 1,
+        "explanation": "fr is a share of the free space."
+      },
+      {
+        "type": "single",
+        "question": "How do you stretch an item across the full grid width?",
+        "options": [
+          "grid-column: 1 / -1;",
+          "width: 100fr;",
+          "grid-row: span all;",
+          "grid-area: full;"
+        ],
+        "answer": 0,
+        "explanation": "From the first line to the last."
+      },
+      {
+        "type": "single",
+        "question": "Why is repeat(4, 220px) bad for a phone?",
+        "options": [
+          "The columns become square",
+          "Four 220px columns do not fit - a scrollbar appears",
+          "Grid does not work on phones",
+          "The gaps disappear"
+        ],
+        "answer": 1,
+        "explanation": "auto-fit and minmax are better."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about grid-template-areas?",
+        "options": [
+          "Each string has as many names as there are columns",
+          "Areas must be rectangles",
+          "A dot marks an empty cell",
+          "Names in grid-area are written in quotes"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grid-area: main; - no quotes."
+      },
+      {
+        "type": "multiple",
+        "question": "What does repeat(auto-fit, minmax(220px, 1fr)) do?",
+        "options": [
+          "Fits the number of columns to the width",
+          "A column is no narrower than 220px",
+          "Stretches the columns to the full width",
+          "Always makes 4 columns"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A responsive grid without media queries."
+      },
+      {
+        "type": "multiple",
+        "question": "What is Grid more convenient for?",
+        "options": [
+          "A gallery in neat rows",
+          "A page layout with columns",
+          "A single row of buttons",
+          "A grid of cards"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "A single row - Flexbox."
+      },
+      {
+        "type": "matching",
+        "question": "Match the notation with the result.",
+        "pairs": [
+          [
+            "repeat(3, 1fr)",
+            "Three equal columns"
+          ],
+          [
+            "2fr 1fr",
+            "The left one twice as wide"
+          ],
+          [
+            "grid-column: span 2",
+            "An item across two columns"
+          ],
+          [
+            "grid-area: main",
+            "An item in the main area"
+          ]
+        ],
+        "explanation": "The main Grid techniques."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the tool.",
+        "pairs": [
+          [
+            "A menu in the header",
+            "Flexbox"
+          ],
+          [
+            "A photo gallery",
+            "Grid"
+          ],
+          [
+            "A button in the center of a block",
+            "Flexbox"
+          ],
+          [
+            "Layout: header, columns, footer",
+            "Grid"
+          ]
+        ],
+        "explanation": "One axis - Flexbox, two - Grid."
+      },
+      {
+        "type": "input",
+        "question": "Which Grid unit stands for a share of free space? Enter the unit.",
+        "answers": [
+          "fr"
+        ],
+        "case_sensitive": false,
+        "explanation": "1fr 2fr"
+      },
+      {
+        "type": "input",
+        "question": "Which function sets a column's minimum and maximum width? Enter the function name without parentheses.",
+        "answers": [
+          "minmax"
+        ],
+        "case_sensitive": false,
+        "explanation": "minmax(220px, 1fr)"
+      },
+      {
+        "type": "input",
+        "question": "Which property gives an item its layout area? Enter the property name.",
+        "answers": [
+          "grid-area"
+        ],
+        "case_sensitive": false,
+        "explanation": "grid-area: header;"
+      }
+    ]
+  }
+}

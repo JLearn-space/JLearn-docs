@@ -1,0 +1,246 @@
+{
+  "lesson": 5,
+  "language": "en",
+  "lesson_title": "Flexbox",
+  "task": {
+    "title": "A header and a row of cards with Flexbox",
+    "language": "html",
+    "description": "Add the classes site-header, menu, cards, card. .site-header - flex, space-between, align-items: center; .menu - flex, gap, list-style: none; .cards - flex, flex-wrap: wrap, gap; .card - flex with three values. No float and no style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <!-- <style>: .site-header, .menu, .cards, .card -->\n</head>\n<body>\n    <header>\n        <p>Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div>\n            <article><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"menu\"",
+        "class=\"cards\"",
+        "class=\"card\"",
+        ".site-header {",
+        ".menu {",
+        ".cards {",
+        ".card {",
+        "display: flex;",
+        "justify-content: space-between;",
+        "align-items: center;",
+        "gap:",
+        "flex-wrap: wrap;",
+        "flex: 1",
+        "list-style: none;"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Header: .site-header { display: flex; justify-content: space-between; align-items: center; }",
+      "Menu: .menu { display: flex; gap: 16px; list-style: none; }",
+      "Row of cards: .cards { display: flex; flex-wrap: wrap; gap: 24px; }",
+      "Card: .card { flex: 1 1 240px; }",
+      "Do not use float or style=\"\"."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no space-between",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no wrapping",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "float instead of flex",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            float: left;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no card class",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "bullets not removed",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no alignment",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club projects</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Club</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"news.html\">News</a></li>\n                <li><a href=\"join.html\">Sign-up</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Portfolio</h2><p>A four-page site.</p></article>\n            <article class=\"card\"><h2>Café</h2><p>A menu and an order form.</p></article>\n            <article class=\"card\"><h2>Library</h2><p>A catalog and a schedule.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Who gets display: flex?",
+        "options": [
+          "Each item",
+          "The container",
+          "Only body",
+          "A <flex> tag"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox is turned on at the parent."
+      },
+      {
+        "type": "single",
+        "question": "What does justify-content: space-between do?",
+        "options": [
+          "Everything centered",
+          "Outer items to the edges, the rest of the space evenly",
+          "Everything to the start",
+          "Gaps are equal at the edges too"
+        ],
+        "answer": 1,
+        "explanation": "space-between means \"between\"."
+      },
+      {
+        "type": "single",
+        "question": "Which property wraps items onto a new line?",
+        "options": [
+          "flex-direction: column",
+          "flex-wrap: wrap",
+          "gap: 16px",
+          "align-items: wrap"
+        ],
+        "answer": 1,
+        "explanation": "The default is flex-wrap: nowrap."
+      },
+      {
+        "type": "single",
+        "question": "Why does vertical centering with align-items: center not work on a block?",
+        "options": [
+          "There is no display: block",
+          "The container is no taller than its content",
+          "There is no gap",
+          "Too few items"
+        ],
+        "answer": 1,
+        "explanation": "Set min-height."
+      },
+      {
+        "type": "multiple",
+        "question": "Which properties are set on the container?",
+        "options": [
+          "justify-content",
+          "gap",
+          "flex-wrap",
+          "flex"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "flex is an item property."
+      },
+      {
+        "type": "multiple",
+        "question": "What do you need to center an item on both axes?",
+        "options": [
+          "display: flex",
+          "justify-content: center",
+          "align-items: center",
+          "float: center"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "And a height on the container."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about flex: 1 1 240px?",
+        "options": [
+          "The item can grow",
+          "The item can shrink",
+          "Preferred width 240px",
+          "The width is always exactly 240px"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grow, shrink, basis."
+      },
+      {
+        "type": "matching",
+        "question": "Match the justify-content value with the result.",
+        "pairs": [
+          [
+            "flex-start",
+            "To the start"
+          ],
+          [
+            "center",
+            "To the center"
+          ],
+          [
+            "flex-end",
+            "To the end"
+          ],
+          [
+            "space-evenly",
+            "All gaps are equal"
+          ]
+        ],
+        "explanation": "justify-content distributes along the main axis."
+      },
+      {
+        "type": "matching",
+        "question": "Match the property with the axis.",
+        "pairs": [
+          [
+            "justify-content",
+            "Main axis"
+          ],
+          [
+            "align-items",
+            "Cross axis"
+          ],
+          [
+            "flex-direction",
+            "Sets the direction of the main axis"
+          ]
+        ],
+        "explanation": "In column the main axis is vertical."
+      },
+      {
+        "type": "input",
+        "question": "Which property sets gaps between flex items without extra space at the edges? Enter the property name.",
+        "answers": [
+          "gap"
+        ],
+        "case_sensitive": false,
+        "explanation": "gap: 16px;"
+      },
+      {
+        "type": "input",
+        "question": "Which flex-direction value puts items in a column? Enter the value.",
+        "answers": [
+          "column"
+        ],
+        "case_sensitive": false,
+        "explanation": "flex-direction: column;"
+      },
+      {
+        "type": "input",
+        "question": "How do you remove list bullets? Enter the whole declaration, e.g. property: value;",
+        "answers": [
+          "list-style: none;",
+          "list-style: none",
+          "list-style-type: none;",
+          "list-style-type: none"
+        ],
+        "case_sensitive": false,
+        "explanation": "list-style: none;"
+      }
+    ]
+  }
+}

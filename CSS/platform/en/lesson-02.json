@@ -1,0 +1,253 @@
+{
+  "lesson": 2,
+  "language": "en",
+  "lesson_title": "Selectors and the cascade",
+  "task": {
+    "title": "Club news: classes and nesting",
+    "language": "html",
+    "description": "Give two articles the class card, and the third one card featured. Write the rules .card, .card.featured, nav a and ul > li in <style>. No !important, id selectors or style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <!-- <style>: .card, .card.featured, nav a, ul > li -->\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article>\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article>\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article>\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"card\"",
+        "class=\"card featured\"",
+        ".card {",
+        ".card.featured {",
+        "nav a {",
+        "ul > li {"
+      ],
+      "forbidden": [
+        "!important",
+        "style=\"",
+        " id=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "attrs": {
+        "article": [
+          "class"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "In HTML a class has no dot: <article class=\"card\">.",
+      "Two classes separated by a space: class=\"card featured\".",
+      "An element with two classes in CSS: .card.featured { ... } - no space.",
+      "Links inside the menu: nav a { ... }; direct children: ul > li { ... }.",
+      "Do not use !important, # or the style=\"\" attribute."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "a dot in the class attribute",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\".card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\".card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a space in .card .featured",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card .featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "!important",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7 !important;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "an id selector",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        #title, nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1 id=\"title\">Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no featured class",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no nav a",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no ul > li",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a style in an attribute",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Home</a></li>\n            <li><a href=\"news.html\">News</a></li>\n        </ul>\n    </nav>\n    <h1>Club news</h1>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>New intake</h2>\n        <p>Sign up before Friday.</p>\n    </article>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>Class rescheduled</h2>\n        <p>Wednesday moves to Thursday.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Final exhibition</h2>\n        <p>We will show the projects on December 25.</p>\n    </article>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How do you select all elements with the class notice in CSS?",
+        "options": [
+          "notice",
+          ".notice",
+          "#notice",
+          "<notice>"
+        ],
+        "answer": 1,
+        "explanation": "A class in CSS is written with a dot."
+      },
+      {
+        "type": "single",
+        "question": "Which selector is more specific?",
+        "options": [
+          "p",
+          "nav a",
+          ".notice",
+          "ul li"
+        ],
+        "answer": 2,
+        "explanation": "A class (0-1-0) beats any number of tags."
+      },
+      {
+        "type": "single",
+        "question": "Two rules with the same selector p set different colors. Which one wins?",
+        "options": [
+          "The upper one",
+          "The lower one",
+          "A random one",
+          "Neither"
+        ],
+        "answer": 1,
+        "explanation": "With equal specificity the rule lower in the code wins."
+      },
+      {
+        "type": "single",
+        "question": "Which property is NOT inherited?",
+        "options": [
+          "color",
+          "font-family",
+          "background-color",
+          "line-height"
+        ],
+        "answer": 2,
+        "explanation": "Backgrounds, borders and spacing are not inherited."
+      },
+      {
+        "type": "multiple",
+        "question": "Which notations correctly give an element two classes?",
+        "options": [
+          "class=\"card featured\"",
+          "class=\"card, featured\"",
+          "class=\".card .featured\"",
+          "class=\"featured card\""
+        ],
+        "answer": [
+          0,
+          3
+        ],
+        "explanation": "Classes separated by spaces, no dots, order does not matter."
+      },
+      {
+        "type": "multiple",
+        "question": "Which questions does the browser use to settle a rule argument?",
+        "options": [
+          "!important",
+          "Specificity",
+          "Order in the code",
+          "The length of the class name"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Importance, then specificity, then order."
+      },
+      {
+        "type": "multiple",
+        "question": "Why is a class better than an id for styling?",
+        "options": [
+          "A class can be repeated",
+          "An id is too strong in rule arguments",
+          "An id does not work in CSS",
+          "A class is easier to override when needed"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "An id works, but it makes styles hard to maintain."
+      },
+      {
+        "type": "matching",
+        "question": "Match the selector with what it selects.",
+        "pairs": [
+          [
+            "nav a",
+            "Links anywhere inside nav"
+          ],
+          [
+            "ul > li",
+            "Direct children of ul"
+          ],
+          [
+            "h2 + p",
+            "A paragraph right after h2"
+          ],
+          [
+            ".btn.primary",
+            "An element with both classes"
+          ]
+        ],
+        "explanation": "A space, > and + set different relationships."
+      },
+      {
+        "type": "matching",
+        "question": "Match the selector with its specificity.",
+        "pairs": [
+          [
+            "p",
+            "0-0-1"
+          ],
+          [
+            ".card",
+            "0-1-0"
+          ],
+          [
+            "#title",
+            "1-0-0"
+          ],
+          [
+            "p.notice",
+            "0-1-1"
+          ]
+        ],
+        "explanation": "Score: id - classes - tags."
+      },
+      {
+        "type": "input",
+        "question": "Which character marks an id in CSS? Enter the character.",
+        "answers": [
+          "#"
+        ],
+        "case_sensitive": false,
+        "explanation": "#main-title { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Which character selects only direct children? Enter the character.",
+        "answers": [
+          ">"
+        ],
+        "case_sensitive": false,
+        "explanation": "ul > li"
+      },
+      {
+        "type": "input",
+        "question": "Calculate the specificity of the selector .menu a. Enter it in the 0-0-0 format.",
+        "answers": [
+          "0-1-1",
+          "0,1,1",
+          "0 1 1"
+        ],
+        "case_sensitive": false,
+        "explanation": "One class and one tag."
+      }
+    ]
+  }
+}

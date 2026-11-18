@@ -1,0 +1,250 @@
+{
+  "lesson": 3,
+  "language": "en",
+  "lesson_title": "Color, units, fonts and background",
+  "task": {
+    "title": "Color, fonts and background",
+    "language": "html",
+    "description": "Add the class site-header to the header and notice to the first paragraph. In <style>: body - font-family with sans-serif at the end, line-height without units, color in hex; h1 - font-size in rem; .site-header - linear-gradient and white text; .notice - a semi-transparent background. Do not use px units in this task.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <!-- <style>: body, h1, .site-header, .notice -->\n</head>\n<body>\n    <header>\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p>Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "font-family:",
+        "sans-serif",
+        "line-height:",
+        "rem;",
+        "linear-gradient(",
+        "class=\"site-header\"",
+        "class=\"notice\"",
+        ".site-header {",
+        ".notice {",
+        " / "
+      ],
+      "forbidden": [
+        "style=\"",
+        "px;",
+        "px)"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "A font with fallbacks: font-family: \"Inter\", Arial, sans-serif;",
+      "Line height without units: line-height: 1.6;",
+      "A size in rem: h1 { font-size: 2rem; }",
+      "Gradient: background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);",
+      "Semi-transparent background: background-color: rgb(254 226 226 / 70%);",
+      "px units are not used in this task: rem only."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no sans-serif",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "h1 in px",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 32px;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no gradient",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-color: #1e3a8a;\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no notice class in the HTML",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p>Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no line-height",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "line-height in px",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6px;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no semi-transparency",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: #fee2e2;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a style in an attribute",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\" style=\"color: red;\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which color does #ffffff set?",
+        "options": [
+          "Black",
+          "White",
+          "Red",
+          "Gray"
+        ],
+        "answer": 1,
+        "explanation": "All three channels at maximum - white."
+      },
+      {
+        "type": "single",
+        "question": "What does 1.5rem equal with the standard page font size of 16px?",
+        "options": [
+          "15px",
+          "16px",
+          "24px",
+          "32px"
+        ],
+        "answer": 2,
+        "explanation": "1.5 × 16 = 24px."
+      },
+      {
+        "type": "single",
+        "question": "How do you write line height correctly?",
+        "options": [
+          "line-height: 1.6px;",
+          "line-height: 1.6;",
+          "line-height = 1.6;",
+          "line-spacing: 1.6;"
+        ],
+        "answer": 1,
+        "explanation": "line-height without units is proportional to the font size."
+      },
+      {
+        "type": "single",
+        "question": "Which file is the path in url() inside css/style.css relative to?",
+        "options": [
+          "The HTML page",
+          "The CSS file",
+          "The disk root",
+          "The images folder"
+        ],
+        "answer": 1,
+        "explanation": "That is why you go up from css/: ../images/x.jpg."
+      },
+      {
+        "type": "multiple",
+        "question": "Which notations set the same dark gray?",
+        "options": [
+          "#333333",
+          "#333",
+          "rgb(51 51 51)",
+          "#3333"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "#333 is short for #333333, 0x33 = 51."
+      },
+      {
+        "type": "multiple",
+        "question": "Why are font sizes better in rem?",
+        "options": [
+          "They grow if the user enlarges the font in the browser",
+          "Easy to convert: divide px by 16",
+          "They work only in Chrome",
+          "The same reference point across the whole page"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "rem depends on the page font size."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about font-family: \"Inter\", Arial, sans-serif?",
+        "options": [
+          "The browser takes the first available font",
+          "sans-serif is a generic family as a last resort",
+          "All three are used at once",
+          "A name of several words is written in quotes"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "The list is fallbacks in order."
+      },
+      {
+        "type": "matching",
+        "question": "Match the unit with what it is relative to.",
+        "pairs": [
+          [
+            "rem",
+            "The page font"
+          ],
+          [
+            "em",
+            "The element's own font"
+          ],
+          [
+            "%",
+            "The parent's size"
+          ],
+          [
+            "vw",
+            "The window width"
+          ]
+        ],
+        "explanation": "Relative units depend on different things."
+      },
+      {
+        "type": "matching",
+        "question": "Match the property with what it does.",
+        "pairs": [
+          [
+            "font-weight",
+            "Weight (boldness)"
+          ],
+          [
+            "text-align",
+            "Alignment"
+          ],
+          [
+            "text-transform",
+            "Letter case"
+          ],
+          [
+            "background-size",
+            "Background image size"
+          ]
+        ],
+        "explanation": "Text and background properties."
+      },
+      {
+        "type": "input",
+        "question": "Which background-size value fills the whole block with the image without distortion? Enter the value.",
+        "answers": [
+          "cover"
+        ],
+        "case_sensitive": false,
+        "explanation": "background-size: cover;"
+      },
+      {
+        "type": "input",
+        "question": "What minimum contrast does normal text need? Enter it in the N:1 format.",
+        "answers": [
+          "4.5:1",
+          "4,5:1"
+        ],
+        "case_sensitive": false,
+        "explanation": "WCAG AA."
+      },
+      {
+        "type": "input",
+        "question": "Which function creates a linear gradient? Enter the function name without parentheses.",
+        "answers": [
+          "linear-gradient"
+        ],
+        "case_sensitive": false,
+        "explanation": "linear-gradient(135deg, #1e3a8a, #7c3aed)"
+      }
+    ]
+  }
+}

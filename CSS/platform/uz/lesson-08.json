@@ -1,0 +1,246 @@
+{
+  "lesson": 8,
+  "language": "uz",
+  "lesson_title": "Moslashuvchan sahifa",
+  "task": {
+    "title": "Moslashuvchan sahifa: mobile-first",
+    "language": "html",
+    "description": "meta viewport va site-header, cards sinflarini qo‘shing. img - max-width: 100%, height: auto; h1 - clamp(); .site-header - telefonda column, 600px dan row; .cards - 1fr, 600px dan repeat(2, 1fr), 900px dan repeat(3, 1fr). Faqat @media (min-width: ...).",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <!-- viewport -->\n    <title>Loyihalar</title>\n    <!-- <style>: img, h1, .site-header, .cards + @media (min-width: ...) -->\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div>\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "name=\"viewport\"",
+        "width=device-width",
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"cards\"",
+        "max-width: 100%;",
+        "height: auto;",
+        "clamp(",
+        "flex-direction: column;",
+        "flex-direction: row;",
+        "grid-template-columns: 1fr;",
+        "repeat(2, 1fr)",
+        "repeat(3, 1fr)",
+        "@media (min-width: 600px)",
+        "@media (min-width: 900px)"
+      ],
+      "forbidden": [
+        "@media (max-width",
+        "style=\""
+      ],
+      "tags": {
+        "img": 3
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "head da: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "Elastik rasmlar: img { max-width: 100%; height: auto; }",
+      "Asosiy uslublar - telefon uchun, keyin @media (min-width: 600px) { ... } va @media (min-width: 900px) { ... }.",
+      "Ustunlar: grid-template-columns: 1fr; → repeat(2, 1fr) → repeat(3, 1fr).",
+      "Silliq sarlavha: font-size: clamp(1.75rem, 4vw + 1rem, 3rem);"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "viewport yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "max-width orqali desktop-first",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (max-width: 899px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "rasmlar elastik emas",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "clamp yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: 3rem;\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "qatorga o‘tish yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "uchta ustun yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Loyihalar</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n        <nav><a href=\"index.html\">Bosh sahifa</a> <a href=\"join.html\">Yozilish</a></nav>\n    </header>\n    <main>\n        <h1>Ishtirokchilar loyihalari</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"800\" height=\"500\"><h2>Kafe</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"800\" height=\"500\"><h2>Kutubxona</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Mobile-first nimani bildiradi?",
+        "options": [
+          "Sayt faqat telefonlar uchun",
+          "Asosiy uslublar telefon uchun, keng ekranlar uchun qo‘shamiz",
+          "Avval ilova yasaymiz",
+          "max-width orqali media so‘rovlar"
+        ],
+        "answer": 1,
+        "explanation": "Va media so‘rovlar min-width orqali."
+      },
+      {
+        "type": "single",
+        "question": "@media (min-width: 600px) nimani bildiradi?",
+        "options": [
+          "Ekran 600px dan tor",
+          "Ekran 600px va undan keng",
+          "Roppa-rosa 600px",
+          "Balandlik 600px"
+        ],
+        "answer": 1,
+        "explanation": "min-width - minimal kenglik."
+      },
+      {
+        "type": "single",
+        "question": "meta viewport siz telefonda nima bo‘ladi?",
+        "options": [
+          "Hech narsa o‘zgarmaydi",
+          "Sahifa kichraytirilgan ko‘rinadi, media so‘rovlar ishlamaydi",
+          "Rasmlar yo‘qoladi",
+          "Sayt ochilmaydi"
+        ],
+        "answer": 1,
+        "explanation": "Telefon o‘zini ~980px li ekrandek tutadi."
+      },
+      {
+        "type": "single",
+        "question": "Media so‘rovlar: min-width: 900px, keyin min-width: 600px. Birinchisi 3 ta, ikkinchisi 2 ta bersa, 1200px ekranda nechta ustun bo‘ladi?",
+        "options": [
+          "3",
+          "2",
+          "1",
+          "5"
+        ],
+        "answer": 1,
+        "explanation": "Pastki qoida bosib ketadi: kichikdan kattaga!"
+      },
+      {
+        "type": "multiple",
+        "question": "Rasmlar ekrandan chiqmasligi va yassilanmasligi uchun nima kerak?",
+        "options": [
+          "max-width: 100%",
+          "height: auto",
+          "width: 1200px",
+          "position: absolute"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Elastik rasmlar."
+      },
+      {
+        "type": "multiple",
+        "question": "clamp(1.75rem, 4vw + 1rem, 3rem) haqida nima to‘g‘ri?",
+        "options": [
+          "1.75rem dan kichik emas",
+          "3rem dan katta emas",
+          "Oyna kengligi bilan o‘sadi",
+          "Doim 4vw"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Minimum, istalgan, maksimum."
+      },
+      {
+        "type": "multiple",
+        "question": "Sinish nuqtalarini qanday tanlash kerak?",
+        "options": [
+          "Sahifa buziladigan joyda",
+          "Har bir telefon modeli uchun",
+          "Oynani cho‘zib tekshirish",
+          "Qancha ko‘p bo‘lsa, shuncha yaxshi"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Boshlash uchun ikkitasi yetarli."
+      },
+      {
+        "type": "matching",
+        "question": "Media so‘rovni ma’nosi bilan moslang.",
+        "pairs": [
+          [
+            "(min-width: 600px)",
+            "Ekran 600px va undan keng"
+          ],
+          [
+            "(max-width: 599px)",
+            "Ekran 600px dan tor"
+          ],
+          [
+            "(prefers-color-scheme: dark)",
+            "Tizimda tungi mavzu"
+          ]
+        ],
+        "explanation": "Media so‘rov - uslublarni qo‘llash sharti."
+      },
+      {
+        "type": "matching",
+        "question": "Telefondagi buzilishni yechim bilan moslang.",
+        "pairs": [
+          [
+            "Rasm chiqib ketadi",
+            "max-width: 100%"
+          ],
+          [
+            "Juda katta sarlavha",
+            "clamp()"
+          ],
+          [
+            "Menyu qatorga sig‘maydi",
+            "Telefonda flex-direction: column"
+          ],
+          [
+            "Sahifa mayda",
+            "meta viewport"
+          ]
+        ],
+        "explanation": "Har bir buzilishga - o‘z vositasi."
+      },
+      {
+        "type": "input",
+        "question": "«Avval telefon uchun uslublar» yondashuvi qanday nomlanadi? Nomini lotin harflarida kiriting.",
+        "answers": [
+          "mobile-first",
+          "mobile first"
+        ],
+        "case_sensitive": false,
+        "explanation": "Mobile-first."
+      },
+      {
+        "type": "input",
+        "question": "Media so‘rovni qaysi CSS qoidasi boshlaydi? Uni @ belgisi bilan kiriting.",
+        "answers": [
+          "@media"
+        ],
+        "case_sensitive": false,
+        "explanation": "@media (min-width: 600px) { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Qaysi funksiya minimum va maksimumli o‘lchamni beradi? Funksiya nomini qavslarsiz kiriting.",
+        "answers": [
+          "clamp"
+        ],
+        "case_sensitive": false,
+        "explanation": "clamp(min, istalgan, max)"
+      }
+    ]
+  }
+}

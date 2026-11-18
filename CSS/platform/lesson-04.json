@@ -1,0 +1,251 @@
+{
+  "lesson": 4,
+  "language": "ru",
+  "lesson_title": "Box model",
+  "task": {
+    "title": "Карточки и кнопка: box model",
+    "language": "html",
+    "description": "Добавьте классы container, card, btn. В <style>: * { box-sizing: border-box; }; .container - max-width и margin: 0 auto; .card - padding, border, border-radius, margin-bottom; .btn - display: inline-block, padding из двух значений, border-radius. Без <br> и style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <!-- <style>: *, .container, .card, .btn -->\n</head>\n<body>\n    <main>\n        <h1>Новости кружка</h1>\n        <article>\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article>\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\">Записаться</a>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "* {",
+        "box-sizing: border-box;",
+        "class=\"container\"",
+        "class=\"card\"",
+        "class=\"btn\"",
+        ".container {",
+        ".card {",
+        ".btn {",
+        "max-width:",
+        "margin: 0 auto;",
+        "padding:",
+        "border:",
+        "border-radius:",
+        "margin-bottom:",
+        "display: inline-block;"
+      ],
+      "forbidden": [
+        "<br",
+        "style=\""
+      ],
+      "tags": {
+        "article": 2
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Первое правило: * { box-sizing: border-box; }",
+      "Колонка по центру: .container { max-width: 720px; margin: 0 auto; }",
+      "Карточка: padding, border: 1px solid #cbd5e1; border-radius, margin-bottom.",
+      "Кнопка-ссылка: display: inline-block; padding: 12px 24px;",
+      "Отступы задавайте через margin, а не <br>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет border-box",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет центрирования",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "width вместо max-width",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "ссылка inline",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "отступы через br",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <br><br>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет класса btn",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\">Записаться</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет скругления",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Новости кружка</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Новости кружка</h1>\n        <article class=\"card\">\n            <h2>Новый набор</h2>\n            <p>Записывайтесь до пятницы.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Итоговая выставка</h2>\n            <p>Покажем проекты 25 декабря.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какой слой блока находится между рамкой и содержимым?",
+        "options": [
+          "margin",
+          "padding",
+          "border",
+          "outline"
+        ],
+        "answer": 1,
+        "explanation": "padding - внутренний отступ."
+      },
+      {
+        "type": "single",
+        "question": "Что значит padding: 10px 20px;?",
+        "options": [
+          "Все стороны 10px",
+          "Сверху-снизу 10px, слева-справа 20px",
+          "Слева 10px, справа 20px",
+          "Сверху 10px, снизу 20px"
+        ],
+        "answer": 1,
+        "explanation": "Два значения: вертикаль, затем горизонталь."
+      },
+      {
+        "type": "single",
+        "question": "Какой ширины блок с width: 300px; padding: 20px; без box-sizing: border-box?",
+        "options": [
+          "300px",
+          "320px",
+          "340px",
+          "260px"
+        ],
+        "answer": 2,
+        "explanation": "300 + 20 + 20."
+      },
+      {
+        "type": "single",
+        "question": "Как поставить блок с max-width по центру?",
+        "options": [
+          "text-align: center;",
+          "margin: 0 auto;",
+          "padding: auto;",
+          "align: center;"
+        ],
+        "answer": 1,
+        "explanation": "Автоматические боковые отступы делятся поровну."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про display: inline?",
+        "options": [
+          "Элемент стоит в строке с текстом",
+          "width и height не работают",
+          "Начинается с новой строки",
+          "Вертикальные margin не раздвигают строки"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Для размеров нужен inline-block или block."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про box-sizing: border-box?",
+        "options": [
+          "width включает padding",
+          "width включает border",
+          "width включает margin",
+          "Обычно задают для всех элементов через *"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "margin всегда снаружи ширины."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие теги по умолчанию блочные?",
+        "options": [
+          "<p>",
+          "<section>",
+          "<a>",
+          "<strong>"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "a и strong - строчные."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте слой и аналогию с картиной.",
+        "pairs": [
+          [
+            "Содержимое",
+            "Рисунок"
+          ],
+          [
+            "padding",
+            "Паспарту внутри рамы"
+          ],
+          [
+            "border",
+            "Рама"
+          ],
+          [
+            "margin",
+            "Расстояние до соседних картин"
+          ]
+        ],
+        "explanation": "Слои вложены снаружи внутрь."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте свойство и действие.",
+        "pairs": [
+          [
+            "border-radius",
+            "Скругляет углы"
+          ],
+          [
+            "box-shadow",
+            "Добавляет тень"
+          ],
+          [
+            "max-width",
+            "Ограничивает ширину сверху"
+          ],
+          [
+            "display: none",
+            "Скрывает элемент"
+          ]
+        ],
+        "explanation": "Свойства оформления блока."
+      },
+      {
+        "type": "input",
+        "question": "Два блока друг над другом: margin-bottom: 30px и margin-top: 20px. Какое расстояние между ними в px? Введите число.",
+        "answers": [
+          "30",
+          "30px"
+        ],
+        "case_sensitive": false,
+        "explanation": "Вертикальные margin схлопываются: побеждает больший."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение border-radius превращает квадрат в круг? Введите значение.",
+        "answers": [
+          "50%"
+        ],
+        "case_sensitive": false,
+        "explanation": "border-radius: 50%;"
+      },
+      {
+        "type": "input",
+        "question": "Какое значение display нужно ссылке, чтобы у неё работали padding и размеры, а она оставалась в строке? Введите значение.",
+        "answers": [
+          "inline-block"
+        ],
+        "case_sensitive": false,
+        "explanation": "display: inline-block;"
+      }
+    ]
+  }
+}

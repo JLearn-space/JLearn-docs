@@ -1,0 +1,249 @@
+{
+  "lesson": 9,
+  "language": "ru",
+  "lesson_title": "Состояния, переходы, анимации и переменные",
+  "task": {
+    "title": "Живой интерфейс: состояния и анимации",
+    "language": "html",
+    "description": "Добавьте классы hero, btn, card, required-label. В <style>: :root с --primary и ещё одной переменной, var(); .btn:hover и .btn:focus-visible с outline; .card:hover - translateY; @keyframes fade-in; .required-label::after с content. Все transition и animation: fade-in у .hero - внутри @media (prefers-reduced-motion: no-preference). outline: none не используйте.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <!-- <style>: :root, .btn (:hover, :focus-visible), .card:hover, @keyframes, .hero, .required-label::after, prefers-reduced-motion -->\n</head>\n<body>\n    <section>\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\">Записаться</a>\n    </section>\n    <main>\n        <article><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        ":root {",
+        "--primary:",
+        "var(--primary)",
+        "transition:",
+        ".btn:hover",
+        ".btn:focus-visible",
+        "outline:",
+        "translateY(",
+        "@keyframes fade-in",
+        "animation: fade-in",
+        "::after",
+        "content:",
+        "prefers-reduced-motion: no-preference",
+        "class=\"hero\"",
+        "class=\"btn\"",
+        "class=\"card\"",
+        "class=\"required-label\""
+      ],
+      "forbidden": [
+        "outline: none",
+        "outline: 0",
+        "style=\""
+      ],
+      "for_id_pairs": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "Переменные: :root { --primary: #1e3a8a; } и background-color: var(--primary);",
+      "Фокус: .btn:focus-visible { outline: 3px solid #f59e0b; } - outline: none нельзя.",
+      "Плавность: transition: background-color 0.2s ease; - на обычном состоянии, внутри no-preference.",
+      "Подъём: .card:hover { transform: translateY(-4px); }",
+      "Анимация: @keyframes fade-in { from {...} to {...} }, а .hero { animation: fade-in 0.6s; } - внутри no-preference.",
+      "Звёздочка: .required-label::after { content: \" *\"; }",
+      "Движение только тем, кто не против: @media (prefers-reduced-motion: no-preference) { ... }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "outline: none",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: none;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет focus-visible",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:active {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет переменных",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: #1e3a8a;\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "движение вне no-preference, выключение через * в reduce",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: reduce) {\n            * { animation: none; }\n        }\n\n        @media (min-width: 0) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет content",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "сдвиг через margin",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            margin-top: -4px;\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n                animation: fade-in 0.6s ease-out;\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет анимации",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        :root {\n            --primary: #1e3a8a;\n            --primary-dark: #172554;\n            --radius: 12px;\n        }\n\n        .btn {\n            background-color: var(--primary);\n            color: white;\n            border-radius: var(--radius);\n        }\n\n        .btn:hover {\n            background-color: var(--primary-dark);\n        }\n\n        .btn:focus-visible {\n            outline: 3px solid #f59e0b;\n            outline-offset: 2px;\n        }\n\n        .card:hover {\n            transform: translateY(-4px);\n        }\n\n        @keyframes fade-in {\n            from {\n                opacity: 0;\n            }\n\n            to {\n                opacity: 1;\n            }\n        }\n\n        .required-label::after {\n            content: \" *\";\n            color: #b91c1c;\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            .btn {\n                transition: background-color 0.2s ease;\n            }\n\n            .card {\n                transition: transform 0.2s ease;\n            }\n\n            .hero {\n            }\n        }\n    </style>\n</head>\n<body>\n    <section class=\"hero\">\n        <h1>Кружок веб-разработки</h1>\n        <a href=\"join.html\" class=\"btn\">Записаться</a>\n    </section>\n    <main>\n        <article class=\"card\"><h2>Курс HTML</h2><p>10 уроков.</p></article>\n        <article class=\"card\"><h2>Курс CSS</h2><p>10 уроков.</p></article>\n        <form method=\"get\">\n            <label class=\"required-label\" for=\"email\">Почта</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required>\n            <button type=\"submit\" class=\"btn\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Как правильно использовать переменную --primary?",
+        "options": [
+          "color: --primary;",
+          "color: var(--primary);",
+          "color: $primary;",
+          "color: var(primary);"
+        ],
+        "answer": 1,
+        "explanation": "var() и два дефиса."
+      },
+      {
+        "type": "single",
+        "question": "Что делать с рамкой фокуса?",
+        "options": [
+          "Убрать outline: none",
+          "Оформить через :focus-visible",
+          "Заменить на :hover",
+          "Ничего не делать никогда"
+        ],
+        "answer": 1,
+        "explanation": "Пользователь клавиатуры должен видеть фокус."
+      },
+      {
+        "type": "single",
+        "question": "Где писать transition, чтобы переход был плавным в обе стороны?",
+        "options": [
+          "На :hover",
+          "На обычном состоянии элемента",
+          "В @keyframes",
+          "В :root"
+        ],
+        "answer": 1,
+        "explanation": "Тогда плавно и туда, и обратно."
+      },
+      {
+        "type": "single",
+        "question": "Что выберет tr:nth-child(even)?",
+        "options": [
+          "Нечётные строки",
+          "Чётные строки",
+          "Первую строку",
+          "Последнюю строку"
+        ],
+        "answer": 1,
+        "explanation": "even - чётные: 2, 4, 6."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про ::after?",
+        "options": [
+          "Нужен content",
+          "Появляется после содержимого элемента",
+          "Подходит для важного текста",
+          "Пишется с двумя двоеточиями"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Только для украшений."
+      },
+      {
+        "type": "multiple",
+        "question": "Почему для подъёма карточки берут transform, а не margin?",
+        "options": [
+          "Не сдвигает соседей",
+          "Работает плавнее",
+          "margin не анимируется вообще",
+          "Браузер не пересчитывает раскладку"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "transform - самый дешёвый способ движения."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие свойства частей анимации?",
+        "options": [
+          "@keyframes задаёт сценарий",
+          "from и to - начальный и конечный кадр",
+          "animation применяет сценарий к элементу",
+          "transition обязателен для @keyframes"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "transition и animation - разные механизмы."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте псевдокласс и момент.",
+        "pairs": [
+          [
+            ":hover",
+            "Курсор над элементом"
+          ],
+          [
+            ":focus-visible",
+            "Фокус с клавиатуры"
+          ],
+          [
+            ":active",
+            "В момент нажатия"
+          ],
+          [
+            ":last-child",
+            "Последний ребёнок"
+          ]
+        ],
+        "explanation": "Псевдоклассы - состояния и положения."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте функцию transform и действие.",
+        "pairs": [
+          [
+            "translateY(-4px)",
+            "Сдвиг вверх"
+          ],
+          [
+            "scale(1.05)",
+            "Увеличение"
+          ],
+          [
+            "rotate(10deg)",
+            "Поворот"
+          ]
+        ],
+        "explanation": "transform меняет вид, не трогая соседей."
+      },
+      {
+        "type": "input",
+        "question": "В каком селекторе объявляют глобальные переменные CSS? Введите селектор.",
+        "answers": [
+          ":root"
+        ],
+        "case_sensitive": false,
+        "explanation": ":root { --primary: ...; }"
+      },
+      {
+        "type": "input",
+        "question": "Каким значением prefers-reduced-motion включают анимации только тем, кто не просил уменьшить движение? Введите значение.",
+        "answers": [
+          "no-preference"
+        ],
+        "case_sensitive": false,
+        "explanation": "@media (prefers-reduced-motion: no-preference) { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Какое правило создаёт сценарий анимации? Введите его со знаком @.",
+        "answers": [
+          "@keyframes"
+        ],
+        "case_sensitive": false,
+        "explanation": "@keyframes fade-in { ... }"
+      }
+    ]
+  }
+}

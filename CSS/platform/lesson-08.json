@@ -1,0 +1,246 @@
+{
+  "lesson": 8,
+  "language": "ru",
+  "lesson_title": "Адаптивная вёрстка",
+  "task": {
+    "title": "Адаптивная страница: mobile-first",
+    "language": "html",
+    "description": "Добавьте meta viewport и классы site-header, cards. img - max-width: 100%, height: auto; h1 - clamp(); .site-header - column на телефоне, row от 600px; .cards - 1fr, от 600px repeat(2, 1fr), от 900px repeat(3, 1fr). Только @media (min-width: ...).",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <!-- viewport -->\n    <title>Проекты</title>\n    <!-- <style>: img, h1, .site-header, .cards + @media (min-width: ...) -->\n</head>\n<body>\n    <header>\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div>\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "name=\"viewport\"",
+        "width=device-width",
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"cards\"",
+        "max-width: 100%;",
+        "height: auto;",
+        "clamp(",
+        "flex-direction: column;",
+        "flex-direction: row;",
+        "grid-template-columns: 1fr;",
+        "repeat(2, 1fr)",
+        "repeat(3, 1fr)",
+        "@media (min-width: 600px)",
+        "@media (min-width: 900px)"
+      ],
+      "forbidden": [
+        "@media (max-width",
+        "style=\""
+      ],
+      "tags": {
+        "img": 3
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "В head: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "Резиновые картинки: img { max-width: 100%; height: auto; }",
+      "Базовые стили - для телефона, потом @media (min-width: 600px) { ... } и @media (min-width: 900px) { ... }.",
+      "Колонки: grid-template-columns: 1fr; → repeat(2, 1fr) → repeat(3, 1fr).",
+      "Плавный заголовок: font-size: clamp(1.75rem, 4vw + 1rem, 3rem);"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет viewport",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "desktop-first через max-width",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (max-width: 899px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "картинки не резиновые",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет clamp",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: 3rem;\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет перехода в ряд",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет трёх колонок",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Проекты</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок веб-разработки</p>\n        <nav><a href=\"index.html\">Главная</a> <a href=\"join.html\">Запись</a></nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"Сайт-портфолио на ноутбуке\" width=\"800\" height=\"500\"><h2>Портфолио</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"Меню кафе на телефоне\" width=\"800\" height=\"500\"><h2>Кафе</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"Каталог библиотеки\" width=\"800\" height=\"500\"><h2>Библиотека</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что значит mobile-first?",
+        "options": [
+          "Сайт только для телефонов",
+          "Базовые стили для телефона, для широких экранов добавляем",
+          "Сначала делаем приложение",
+          "Медиазапросы через max-width"
+        ],
+        "answer": 1,
+        "explanation": "И медиазапросы через min-width."
+      },
+      {
+        "type": "single",
+        "question": "Что значит @media (min-width: 600px)?",
+        "options": [
+          "Экран уже 600px",
+          "Экран 600px и шире",
+          "Ровно 600px",
+          "Высота 600px"
+        ],
+        "answer": 1,
+        "explanation": "min-width - минимальная ширина."
+      },
+      {
+        "type": "single",
+        "question": "Что будет на телефоне без meta viewport?",
+        "options": [
+          "Ничего не изменится",
+          "Страница покажется уменьшенной, медиазапросы не сработают",
+          "Пропадут картинки",
+          "Сайт не откроется"
+        ],
+        "answer": 1,
+        "explanation": "Телефон притворится экраном ~980px."
+      },
+      {
+        "type": "single",
+        "question": "Медиазапросы min-width: 900px, затем min-width: 600px. Сколько колонок на экране 1200px, если первый задаёт 3, второй - 2?",
+        "options": [
+          "3",
+          "2",
+          "1",
+          "5"
+        ],
+        "answer": 1,
+        "explanation": "Нижнее правило перебивает: от меньшего к большему!"
+      },
+      {
+        "type": "multiple",
+        "question": "Что нужно, чтобы картинки не вылезали за экран и не сплющивались?",
+        "options": [
+          "max-width: 100%",
+          "height: auto",
+          "width: 1200px",
+          "position: absolute"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Резиновые картинки."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про clamp(1.75rem, 4vw + 1rem, 3rem)?",
+        "options": [
+          "Не меньше 1.75rem",
+          "Не больше 3rem",
+          "Растёт с шириной окна",
+          "Всегда 4vw"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Минимум, желаемое, максимум."
+      },
+      {
+        "type": "multiple",
+        "question": "Как выбирать точки перелома?",
+        "options": [
+          "Там, где ломается вёрстка",
+          "Под каждую модель телефона",
+          "Проверять, растягивая окно",
+          "Чем больше, тем лучше"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Для начала хватает двух."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте медиазапрос и смысл.",
+        "pairs": [
+          [
+            "(min-width: 600px)",
+            "Экран 600px и шире"
+          ],
+          [
+            "(max-width: 599px)",
+            "Экран уже 600px"
+          ],
+          [
+            "(prefers-color-scheme: dark)",
+            "В системе тёмная тема"
+          ]
+        ],
+        "explanation": "Медиазапрос - условие применения стилей."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте поломку на телефоне и решение.",
+        "pairs": [
+          [
+            "Картинка вылезает",
+            "max-width: 100%"
+          ],
+          [
+            "Огромный заголовок",
+            "clamp()"
+          ],
+          [
+            "Меню не помещается в ряд",
+            "flex-direction: column на телефоне"
+          ],
+          [
+            "Страница мелкая",
+            "meta viewport"
+          ]
+        ],
+        "explanation": "Для каждой поломки - свой инструмент."
+      },
+      {
+        "type": "input",
+        "question": "Как называется подход «сначала стили для телефона»? Введите название латиницей.",
+        "answers": [
+          "mobile-first",
+          "mobile first"
+        ],
+        "case_sensitive": false,
+        "explanation": "Mobile-first."
+      },
+      {
+        "type": "input",
+        "question": "Какое правило CSS начинает медиазапрос? Введите его со знаком @.",
+        "answers": [
+          "@media"
+        ],
+        "case_sensitive": false,
+        "explanation": "@media (min-width: 600px) { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Какая функция задаёт размер с минимумом и максимумом? Введите имя функции без скобок.",
+        "answers": [
+          "clamp"
+        ],
+        "case_sensitive": false,
+        "explanation": "clamp(min, желаемое, max)"
+      }
+    ]
+  }
+}

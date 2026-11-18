@@ -1,0 +1,270 @@
+{
+  "lesson": 10,
+  "language": "en",
+  "lesson_title": "Final project",
+  "task": {
+    "title": "Styling the contacts page of your own site",
+    "language": "html",
+    "description": "Style the page in <style>: :root with variables and var(); * box-sizing; img max-width: 100%; main max-width and margin: 0 auto; body > header - sticky, flex, column, row from 600px; table border-collapse; input width: 100% and font: inherit; :focus-visible with outline; a dark theme via prefers-color-scheme: dark; motion only in prefers-reduced-motion: no-preference.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <!-- <style>: variables, base, header, table, form, focus, responsiveness, dark theme, motion -->\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        ":root {",
+        "var(--",
+        "box-sizing: border-box;",
+        "max-width: 100%;",
+        "margin: 0 auto;",
+        "body > header",
+        "position: sticky;",
+        "display: flex;",
+        "flex-direction: column;",
+        "flex-direction: row;",
+        "@media (min-width: 600px)",
+        "border-collapse: collapse;",
+        "width: 100%;",
+        "font: inherit;",
+        ":focus-visible",
+        "outline:",
+        "prefers-color-scheme: dark",
+        "prefers-reduced-motion: no-preference"
+      ],
+      "forbidden": [
+        "!important",
+        "outline: none",
+        "outline: 0",
+        "@media (max-width",
+        "style=\"",
+        "Азиз",
+        "aziz"
+      ],
+      "for_id_pairs": true,
+      "scope_values": [
+        "col",
+        "row"
+      ],
+      "button_submit": true,
+      "h1_exact": 1
+    },
+    "hints": [
+      "Variables: :root { --primary: ...; } and color: var(--primary);",
+      "Site header: body > header { position: sticky; top: 0; display: flex; flex-direction: column; }",
+      "From 600px: @media (min-width: 600px) { body > header { flex-direction: row; } }",
+      "Table: border-collapse: collapse; fields: width: 100%; font: inherit;",
+      "Focus: input:focus-visible, button:focus-visible { outline: 3px solid ...; }",
+      "Dark theme: @media (prefers-color-scheme: dark) { :root { ... } }",
+      "Motion: @media (prefers-reduced-motion: no-preference) { transition ... }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "outline: none",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: none;\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "desktop-first",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (max-width: 599px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no dark theme",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "motion without no-preference",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media screen {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "!important",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary) !important;\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "fields do not inherit the font",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a copy of the sample",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Aziz's portfolio</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: var(--text);\n            background-color: var(--bg);\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: var(--bg);\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: var(--primary);\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid var(--accent);\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Aziz's portfolio</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no variables",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Contacts - Rook Chess Club</title>\n    <style>\n        :root {\n            --primary: #14532d;\n            --bg: #f7f7f2;\n            --text: #1c1917;\n            --accent: #ea580c;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        body {\n            margin: 0;\n            font-family: Georgia, serif;\n            line-height: 1.6;\n            color: #1c1917;\n            background-color: #f7f7f2;\n        }\n\n        main {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 16px;\n        }\n\n        body > header {\n            position: sticky;\n            top: 0;\n            display: flex;\n            flex-direction: column;\n            background-color: #f7f7f2;\n        }\n\n        table {\n            width: 100%;\n            border-collapse: collapse;\n        }\n\n        input {\n            width: 100%;\n            font: inherit;\n        }\n\n        button {\n            background-color: #14532d;\n            color: white;\n            font: inherit;\n        }\n\n        input:focus-visible, button:focus-visible {\n            outline: 3px solid #ea580c;\n        }\n\n        @media (min-width: 600px) {\n            body > header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n        }\n\n        @media (prefers-color-scheme: dark) {\n            :root {\n                --bg: #1c1917;\n                --text: #f5f5f4;\n            }\n        }\n\n        @media (prefers-reduced-motion: no-preference) {\n            button {\n                transition: background-color 0.2s ease;\n            }\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <p>Rook Chess Club</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Contacts</h1>\n        <table>\n            <caption>Opening hours</caption>\n            <tr><th scope=\"col\">Day</th><th scope=\"col\">Time</th></tr>\n            <tr><th scope=\"row\">Tuesday</th><td>16:00-19:00</td></tr>\n        </table>\n        <form method=\"get\">\n            <label for=\"name\">Name</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required>\n            <button type=\"submit\">Sign up</button>\n        </form>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does the final project's style file start with?",
+        "options": [
+          "With animations",
+          "With variables and the base",
+          "With media queries",
+          "With the dark theme"
+        ],
+        "answer": 1,
+        "explanation": "The palette before the brush."
+      },
+      {
+        "type": "single",
+        "question": "How do you make a dark theme without rewriting rules?",
+        "options": [
+          "Copy the whole file",
+          "Redefine the variables in @media (prefers-color-scheme: dark)",
+          "Add !important",
+          "Via JavaScript"
+        ],
+        "answer": 1,
+        "explanation": "Rules take colors via var()."
+      },
+      {
+        "type": "single",
+        "question": "Why font: inherit on form fields?",
+        "options": [
+          "To make it bold",
+          "Fields do not inherit the page font by default",
+          "To enlarge the field",
+          "To remove the border"
+        ],
+        "answer": 1,
+        "explanation": "Otherwise the fields look \"foreign\"."
+      },
+      {
+        "type": "single",
+        "question": "The styles did not appear after publishing. What do you check first?",
+        "options": [
+          "The background color",
+          "The status of style.css in Network and the letter case in the path",
+          "The number of pages",
+          "The browser version"
+        ],
+        "answer": 1,
+        "explanation": "404 means a path or letter-case error."
+      },
+      {
+        "type": "multiple",
+        "question": "What do you check before publishing?",
+        "options": [
+          "No horizontal scrolling at 320px",
+          "Focus is visible with Tab",
+          "Contrast ≥ 4.5:1",
+          "The number of lines in the CSS"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "And motion, and the validator."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about the skip-menu link in the sample?",
+        "options": [
+          "Hidden past the top edge",
+          "Appears on focus",
+          "Removed with display: none",
+          "Helps keyboard users"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "display: none would hide it from the keyboard too."
+      },
+      {
+        "type": "multiple",
+        "question": "Which rules are right for the final project's styles?",
+        "options": [
+          "Mobile first via min-width",
+          "Animations inside prefers-reduced-motion: no-preference",
+          "outline: none for looks",
+          "Colors via variables"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Focus must not be removed."
+      },
+      {
+        "type": "matching",
+        "question": "Match the style file layer with an example.",
+        "pairs": [
+          [
+            "Base",
+            ":root and box-sizing"
+          ],
+          [
+            "Layout",
+            "Header with Flexbox, grid with Grid"
+          ],
+          [
+            "Components",
+            "Table and form"
+          ],
+          [
+            "States",
+            ":hover and :focus-visible"
+          ]
+        ],
+        "explanation": "Layers go from general to specific."
+      },
+      {
+        "type": "matching",
+        "question": "Match the property with the task.",
+        "pairs": [
+          [
+            "border-collapse: collapse",
+            "One border between cells"
+          ],
+          [
+            "overflow-wrap: anywhere",
+            "Wrapping a long email"
+          ],
+          [
+            "cursor: pointer",
+            "A hand cursor over the button"
+          ],
+          [
+            "position: sticky",
+            "Sticky header"
+          ]
+        ],
+        "explanation": "Techniques from the \"Components\" and \"Layout\" steps."
+      },
+      {
+        "type": "input",
+        "question": "Which selector picks only the site header, a direct child of body? Enter the selector.",
+        "answers": [
+          "body > header",
+          "body>header"
+        ],
+        "case_sensitive": false,
+        "explanation": "body > header"
+      },
+      {
+        "type": "input",
+        "question": "How many points out of 100 are needed to pass the final exam? Enter a number.",
+        "answers": [
+          "80"
+        ],
+        "case_sensitive": false,
+        "explanation": "A pass is from 80 points."
+      },
+      {
+        "type": "input",
+        "question": "At what minimum screen width in px do you check for no horizontal scrolling? Enter a number.",
+        "answers": [
+          "320",
+          "320px"
+        ],
+        "case_sensitive": false,
+        "explanation": "The narrowest phones."
+      }
+    ]
+  }
+}

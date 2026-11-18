@@ -1,0 +1,251 @@
+{
+  "lesson": 4,
+  "language": "en",
+  "lesson_title": "Box model",
+  "task": {
+    "title": "Cards and a button: box model",
+    "language": "html",
+    "description": "Add the classes container, card, btn. In <style>: * { box-sizing: border-box; }; .container - max-width and margin: 0 auto; .card - padding, border, border-radius, margin-bottom; .btn - display: inline-block, padding with two values, border-radius. No <br> and no style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <!-- <style>: *, .container, .card, .btn -->\n</head>\n<body>\n    <main>\n        <h1>Club news</h1>\n        <article>\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article>\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\">Sign up</a>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "* {",
+        "box-sizing: border-box;",
+        "class=\"container\"",
+        "class=\"card\"",
+        "class=\"btn\"",
+        ".container {",
+        ".card {",
+        ".btn {",
+        "max-width:",
+        "margin: 0 auto;",
+        "padding:",
+        "border:",
+        "border-radius:",
+        "margin-bottom:",
+        "display: inline-block;"
+      ],
+      "forbidden": [
+        "<br",
+        "style=\""
+      ],
+      "tags": {
+        "article": 2
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "The first rule: * { box-sizing: border-box; }",
+      "A centered column: .container { max-width: 720px; margin: 0 auto; }",
+      "Card: padding, border: 1px solid #cbd5e1; border-radius, margin-bottom.",
+      "Link button: display: inline-block; padding: 12px 24px;",
+      "Set spacing with margin, not <br>."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no border-box",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no centering",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "width instead of max-width",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "an inline link",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "spacing via br",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <br><br>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no btn class",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\">Sign up</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no rounding",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club news</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>Club news</h1>\n        <article class=\"card\">\n            <h2>New intake</h2>\n            <p>Sign up before Friday.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Final exhibition</h2>\n            <p>We will show the projects on December 25.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Sign up</a>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which layer of a block sits between the border and the content?",
+        "options": [
+          "margin",
+          "padding",
+          "border",
+          "outline"
+        ],
+        "answer": 1,
+        "explanation": "padding is the inner spacing."
+      },
+      {
+        "type": "single",
+        "question": "What does padding: 10px 20px; mean?",
+        "options": [
+          "All sides 10px",
+          "10px top and bottom, 20px left and right",
+          "10px left, 20px right",
+          "10px top, 20px bottom"
+        ],
+        "answer": 1,
+        "explanation": "Two values: vertical, then horizontal."
+      },
+      {
+        "type": "single",
+        "question": "How wide is a block with width: 300px; padding: 20px; without box-sizing: border-box?",
+        "options": [
+          "300px",
+          "320px",
+          "340px",
+          "260px"
+        ],
+        "answer": 2,
+        "explanation": "300 + 20 + 20."
+      },
+      {
+        "type": "single",
+        "question": "How do you center a block with max-width?",
+        "options": [
+          "text-align: center;",
+          "margin: 0 auto;",
+          "padding: auto;",
+          "align: center;"
+        ],
+        "answer": 1,
+        "explanation": "Automatic side margins are split equally."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about display: inline?",
+        "options": [
+          "The element sits in the line with the text",
+          "width and height do not work",
+          "It starts on a new line",
+          "Vertical margins do not push lines apart"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Sizes need inline-block or block."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about box-sizing: border-box?",
+        "options": [
+          "width includes padding",
+          "width includes border",
+          "width includes margin",
+          "It is usually set for all elements via *"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "margin is always outside the width."
+      },
+      {
+        "type": "multiple",
+        "question": "Which tags are block-level by default?",
+        "options": [
+          "<p>",
+          "<section>",
+          "<a>",
+          "<strong>"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "a and strong are inline."
+      },
+      {
+        "type": "matching",
+        "question": "Match the layer with the picture analogy.",
+        "pairs": [
+          [
+            "Content",
+            "The picture itself"
+          ],
+          [
+            "padding",
+            "The mat inside the frame"
+          ],
+          [
+            "border",
+            "The frame"
+          ],
+          [
+            "margin",
+            "The distance to neighboring pictures"
+          ]
+        ],
+        "explanation": "The layers are nested from the outside in."
+      },
+      {
+        "type": "matching",
+        "question": "Match the property with what it does.",
+        "pairs": [
+          [
+            "border-radius",
+            "Rounds the corners"
+          ],
+          [
+            "box-shadow",
+            "Adds a shadow"
+          ],
+          [
+            "max-width",
+            "Caps the width"
+          ],
+          [
+            "display: none",
+            "Hides the element"
+          ]
+        ],
+        "explanation": "Block styling properties."
+      },
+      {
+        "type": "input",
+        "question": "Two blocks one above the other: margin-bottom: 30px and margin-top: 20px. What is the distance between them in px? Enter a number.",
+        "answers": [
+          "30",
+          "30px"
+        ],
+        "case_sensitive": false,
+        "explanation": "Vertical margins collapse: the larger one wins."
+      },
+      {
+        "type": "input",
+        "question": "Which border-radius value turns a square into a circle? Enter the value.",
+        "answers": [
+          "50%"
+        ],
+        "case_sensitive": false,
+        "explanation": "border-radius: 50%;"
+      },
+      {
+        "type": "input",
+        "question": "Which display value does a link need so that padding and sizes work while it stays in the line? Enter the value.",
+        "answers": [
+          "inline-block"
+        ],
+        "case_sensitive": false,
+        "explanation": "display: inline-block;"
+      }
+    ]
+  }
+}

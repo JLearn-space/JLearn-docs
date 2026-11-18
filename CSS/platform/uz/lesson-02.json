@@ -1,0 +1,253 @@
+{
+  "lesson": 2,
+  "language": "uz",
+  "lesson_title": "Selektorlar va kaskad",
+  "task": {
+    "title": "To‘garak yangiliklari: sinflar va ichma-ichlik",
+    "language": "html",
+    "description": "Ikkita article ga card sinfini, uchinchisiga - card featured ni bering. <style> da .card, .card.featured, nav a va ul > li qoidalarini yozing. !important, id-selektorlar va style=\"\" siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <!-- <style>: .card, .card.featured, nav a, ul > li -->\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article>\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article>\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article>\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"card\"",
+        "class=\"card featured\"",
+        ".card {",
+        ".card.featured {",
+        "nav a {",
+        "ul > li {"
+      ],
+      "forbidden": [
+        "!important",
+        "style=\"",
+        " id=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "attrs": {
+        "article": [
+          "class"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "HTML da sinf nuqtasiz: <article class=\"card\">.",
+      "Ikki sinf bo‘shliq bilan: class=\"card featured\".",
+      "CSS da ikki sinfli element: .card.featured { ... } - bo‘shliqsiz.",
+      "Menyu ichidagi havolalar: nav a { ... }; to‘g‘ridan-to‘g‘ri bolalar: ul > li { ... }.",
+      "!important, # va style=\"\" atributini ishlatmang."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "class atributida nuqta",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\".card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\".card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": ".card .featured da bo‘shliq",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card .featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "!important",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7 !important;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "id-selektor",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        #title, nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1 id=\"title\">To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "featured sinfi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "nav a yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "ul > li yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      },
+      {
+        "mistake": "atributdagi uslub",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        .card {\n            background-color: #eef2ff;\n            color: #1e3a8a;\n        }\n\n        .card.featured {\n            background-color: #fef3c7;\n        }\n\n        nav a {\n            color: #1e3a8a;\n        }\n\n        ul > li {\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <nav>\n        <ul>\n            <li><a href=\"index.html\">Bosh sahifa</a></li>\n            <li><a href=\"news.html\">Yangiliklar</a></li>\n        </ul>\n    </nav>\n    <h1>To‘garak yangiliklari</h1>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>Yangi qabul</h2>\n        <p>Jumagacha yoziling.</p>\n    </article>\n    <article class=\"card\" style=\"color: red;\">\n        <h2>Mashg‘ulot ko‘chirildi</h2>\n        <p>Chorshanba payshanbaga ko‘chiriladi.</p>\n    </article>\n    <article class=\"card featured\">\n        <h2>Yakuniy ko‘rgazma</h2>\n        <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n    </article>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "CSS da notice sinfli barcha elementlarni qanday tanlash mumkin?",
+        "options": [
+          "notice",
+          ".notice",
+          "#notice",
+          "<notice>"
+        ],
+        "answer": 1,
+        "explanation": "CSS da sinf - nuqta orqali."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi selektor spetsifikroq?",
+        "options": [
+          "p",
+          "nav a",
+          ".notice",
+          "ul li"
+        ],
+        "answer": 2,
+        "explanation": "Sinf (0-1-0) istalgan miqdordagi tegdan kuchli."
+      },
+      {
+        "type": "single",
+        "question": "Bir xil p selektorli ikki qoida turli rang beradi. Qaysi biri yutadi?",
+        "options": [
+          "Yuqoridagisi",
+          "Pastdagisi",
+          "Tasodifiysi",
+          "Hech biri"
+        ],
+        "answer": 1,
+        "explanation": "Spetsifiklik teng bo‘lsa, kodda pastroqdagi qoida yutadi."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi xususiyat meros BO‘LMAYDI?",
+        "options": [
+          "color",
+          "font-family",
+          "background-color",
+          "line-height"
+        ],
+        "answer": 2,
+        "explanation": "Fon, ramkalar va chekinishlar meros bo‘lmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar elementga ikkita sinfni to‘g‘ri beradi?",
+        "options": [
+          "class=\"card featured\"",
+          "class=\"card, featured\"",
+          "class=\".card .featured\"",
+          "class=\"featured card\""
+        ],
+        "answer": [
+          0,
+          3
+        ],
+        "explanation": "Sinflar bo‘shliq bilan, nuqtasiz, tartib muhim emas."
+      },
+      {
+        "type": "multiple",
+        "question": "Brauzer qoidalar bahsini qaysi savollar bo‘yicha hal qiladi?",
+        "options": [
+          "!important",
+          "Spetsifiklik",
+          "Koddagi tartib",
+          "Sinf nomining uzunligi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Muhimlik, keyin spetsifiklik, keyin tartib."
+      },
+      {
+        "type": "multiple",
+        "question": "Nega bezash uchun id emas, sinf yaxshiroq?",
+        "options": [
+          "Sinfni takrorlash mumkin",
+          "id qoidalar bahsida haddan tashqari kuchli",
+          "id CSS da ishlamaydi",
+          "Kerak bo‘lsa sinfni bosib ketish osonroq"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "id ishlaydi, lekin uslublarni qo‘llab-quvvatlashga xalaqit beradi."
+      },
+      {
+        "type": "matching",
+        "question": "Selektorni u tanlaydigan elementlar bilan moslang.",
+        "pairs": [
+          [
+            "nav a",
+            "nav ichidagi istalgan joydagi havolalar"
+          ],
+          [
+            "ul > li",
+            "ul ning to‘g‘ridan-to‘g‘ri bolalari"
+          ],
+          [
+            "h2 + p",
+            "h2 dan darhol keyingi abzats"
+          ],
+          [
+            ".btn.primary",
+            "Ikkala sinfi bor element"
+          ]
+        ],
+        "explanation": "Bo‘shliq, > va + turli bog‘lanishlarni beradi."
+      },
+      {
+        "type": "matching",
+        "question": "Selektorni spetsifiklik bilan moslang.",
+        "pairs": [
+          [
+            "p",
+            "0-0-1"
+          ],
+          [
+            ".card",
+            "0-1-0"
+          ],
+          [
+            "#title",
+            "1-0-0"
+          ],
+          [
+            "p.notice",
+            "0-1-1"
+          ]
+        ],
+        "explanation": "Hisob: id - sinflar - teglar."
+      },
+      {
+        "type": "input",
+        "question": "CSS da id qaysi belgi bilan belgilanadi? Belgini kiriting.",
+        "answers": [
+          "#"
+        ],
+        "case_sensitive": false,
+        "explanation": "#main-title { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Qaysi belgi faqat to‘g‘ridan-to‘g‘ri bolalarni tanlaydi? Belgini kiriting.",
+        "answers": [
+          ">"
+        ],
+        "case_sensitive": false,
+        "explanation": "ul > li"
+      },
+      {
+        "type": "input",
+        "question": ".menu a selektorining spetsifikligini hisoblang. 0-0-0 formatida kiriting.",
+        "answers": [
+          "0-1-1",
+          "0,1,1",
+          "0 1 1"
+        ],
+        "case_sensitive": false,
+        "explanation": "Bitta sinf va bitta teg."
+      }
+    ]
+  }
+}

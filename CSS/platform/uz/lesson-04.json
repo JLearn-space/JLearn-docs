@@ -1,0 +1,251 @@
+{
+  "lesson": 4,
+  "language": "uz",
+  "lesson_title": "Box model",
+  "task": {
+    "title": "Kartochkalar va tugma: box model",
+    "language": "html",
+    "description": "container, card, btn sinflarini qo‘shing. <style> da: * { box-sizing: border-box; }; .container - max-width va margin: 0 auto; .card - padding, border, border-radius, margin-bottom; .btn - display: inline-block, ikki qiymatli padding, border-radius. <br> va style=\"\" siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <!-- <style>: *, .container, .card, .btn -->\n</head>\n<body>\n    <main>\n        <h1>To‘garak yangiliklari</h1>\n        <article>\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article>\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\">Yozilish</a>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "* {",
+        "box-sizing: border-box;",
+        "class=\"container\"",
+        "class=\"card\"",
+        "class=\"btn\"",
+        ".container {",
+        ".card {",
+        ".btn {",
+        "max-width:",
+        "margin: 0 auto;",
+        "padding:",
+        "border:",
+        "border-radius:",
+        "margin-bottom:",
+        "display: inline-block;"
+      ],
+      "forbidden": [
+        "<br",
+        "style=\""
+      ],
+      "tags": {
+        "article": 2
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Birinchi qoida: * { box-sizing: border-box; }",
+      "Markazdagi ustun: .container { max-width: 720px; margin: 0 auto; }",
+      "Kartochka: padding, border: 1px solid #cbd5e1; border-radius, margin-bottom.",
+      "Tugma-havola: display: inline-block; padding: 12px 24px;",
+      "Chekinishlarni <br> bilan emas, margin bilan bering."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "border-box yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "markazlash yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "max-width o‘rniga width",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "inline havola",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "br orqali chekinishlar",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <br><br>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "btn sinfi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            border-radius: 12px;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            border-radius: 8px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "yumaloqlash yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak yangiliklari</title>\n    <style>\n        * {\n            box-sizing: border-box;\n        }\n\n        .container {\n            max-width: 720px;\n            margin: 0 auto;\n            padding: 0 16px;\n        }\n\n        .card {\n            padding: 16px;\n            border: 1px solid #cbd5e1;\n            margin-bottom: 24px;\n        }\n\n        .btn {\n            display: inline-block;\n            padding: 12px 24px;\n            background-color: #1e3a8a;\n            color: white;\n            text-decoration: none;\n        }\n    </style>\n</head>\n<body>\n    <main class=\"container\">\n        <h1>To‘garak yangiliklari</h1>\n        <article class=\"card\">\n            <h2>Yangi qabul</h2>\n            <p>Jumagacha yoziling.</p>\n        </article>\n        <article class=\"card\">\n            <h2>Yakuniy ko‘rgazma</h2>\n            <p>Loyihalarni 25-dekabrda ko‘rsatamiz.</p>\n        </article>\n        <a href=\"join.html\" class=\"btn\">Yozilish</a>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Blokning qaysi qatlami ramka va mazmun orasida joylashgan?",
+        "options": [
+          "margin",
+          "padding",
+          "border",
+          "outline"
+        ],
+        "answer": 1,
+        "explanation": "padding - ichki chekinish."
+      },
+      {
+        "type": "single",
+        "question": "padding: 10px 20px; nimani bildiradi?",
+        "options": [
+          "Barcha tomonlar 10px",
+          "Yuqori-pastdan 10px, chap-o‘ngdan 20px",
+          "Chapdan 10px, o‘ngdan 20px",
+          "Yuqoridan 10px, pastdan 20px"
+        ],
+        "answer": 1,
+        "explanation": "Ikki qiymat: vertikal, keyin gorizontal."
+      },
+      {
+        "type": "single",
+        "question": "box-sizing: border-box siz width: 300px; padding: 20px; li blok qanday kenglikda?",
+        "options": [
+          "300px",
+          "320px",
+          "340px",
+          "260px"
+        ],
+        "answer": 2,
+        "explanation": "300 + 20 + 20."
+      },
+      {
+        "type": "single",
+        "question": "max-width li blokni qanday markazga qo‘yish mumkin?",
+        "options": [
+          "text-align: center;",
+          "margin: 0 auto;",
+          "padding: auto;",
+          "align: center;"
+        ],
+        "answer": 1,
+        "explanation": "Avtomatik yon chekinishlar teng bo‘linadi."
+      },
+      {
+        "type": "multiple",
+        "question": "display: inline haqida nima to‘g‘ri?",
+        "options": [
+          "Element matn bilan bir qatorda turadi",
+          "width va height ishlamaydi",
+          "Yangi qatordan boshlanadi",
+          "Vertikal margin lar qatorlarni surmaydi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "O‘lchamlar uchun inline-block yoki block kerak."
+      },
+      {
+        "type": "multiple",
+        "question": "box-sizing: border-box haqida nima to‘g‘ri?",
+        "options": [
+          "width padding ni o‘z ichiga oladi",
+          "width border ni o‘z ichiga oladi",
+          "width margin ni o‘z ichiga oladi",
+          "Odatda * orqali barcha elementlarga beriladi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "margin doim kenglikdan tashqarida."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi teglar sukut bo‘yicha blokli?",
+        "options": [
+          "<p>",
+          "<section>",
+          "<a>",
+          "<strong>"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "a va strong - qator elementlari."
+      },
+      {
+        "type": "matching",
+        "question": "Qatlamni rasm o‘xshatishi bilan moslang.",
+        "pairs": [
+          [
+            "Mazmun",
+            "Rasmning o‘zi"
+          ],
+          [
+            "padding",
+            "Ramka ichidagi paspartu"
+          ],
+          [
+            "border",
+            "Ramka"
+          ],
+          [
+            "margin",
+            "Qo‘shni rasmlargacha masofa"
+          ]
+        ],
+        "explanation": "Qatlamlar tashqaridan ichkariga joylashgan."
+      },
+      {
+        "type": "matching",
+        "question": "Xususiyatni harakat bilan moslang.",
+        "pairs": [
+          [
+            "border-radius",
+            "Burchaklarni yumaloqlaydi"
+          ],
+          [
+            "box-shadow",
+            "Soya qo‘shadi"
+          ],
+          [
+            "max-width",
+            "Kenglikni yuqoridan cheklaydi"
+          ],
+          [
+            "display: none",
+            "Elementni yashiradi"
+          ]
+        ],
+        "explanation": "Blokni bezash xususiyatlari."
+      },
+      {
+        "type": "input",
+        "question": "Bir-birining ustidagi ikki blok: margin-bottom: 30px va margin-top: 20px. Ular orasidagi masofa necha px? Sonni kiriting.",
+        "answers": [
+          "30",
+          "30px"
+        ],
+        "case_sensitive": false,
+        "explanation": "Vertikal margin lar qo‘shilib ketadi: kattarog‘i yutadi."
+      },
+      {
+        "type": "input",
+        "question": "border-radius ning qaysi qiymati kvadratni doiraga aylantiradi? Qiymatni kiriting.",
+        "answers": [
+          "50%"
+        ],
+        "case_sensitive": false,
+        "explanation": "border-radius: 50%;"
+      },
+      {
+        "type": "input",
+        "question": "Havolada padding va o‘lchamlar ishlashi, u esa qatorda qolishi uchun display ning qaysi qiymati kerak? Qiymatni kiriting.",
+        "answers": [
+          "inline-block"
+        ],
+        "case_sensitive": false,
+        "explanation": "display: inline-block;"
+      }
+    ]
+  }
+}

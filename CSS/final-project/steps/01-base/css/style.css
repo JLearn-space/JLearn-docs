@@ -1,0 +1,70 @@
+/* Портфолио Азиза - стили итогового проекта курса CSS. */
+
+/* ===== 1. Основа ===== */
+:root {
+    --primary: #1e3a8a;
+    --primary-dark: #172554;
+    --accent: #f59e0b;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --radius: 12px;
+    --shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 96px;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+h1, h2 {
+    line-height: 1.2;
+    color: var(--primary);
+}
+
+h1 {
+    font-size: clamp(1.75rem, 4vw + 1rem, 2.75rem);
+}
+
+a {
+    color: var(--primary);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+.skip-link {
+    position: absolute;
+    left: 16px;
+    top: -48px;
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: white;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 8px;
+}

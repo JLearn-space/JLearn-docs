@@ -1,0 +1,249 @@
+{
+  "lesson": 7,
+  "language": "en",
+  "lesson_title": "Positioning elements",
+  "task": {
+    "title": "A sticky header, a badge and a \"Back to top\" button",
+    "language": "html",
+    "description": "Add the classes. .site-header - sticky, top: 0, a background, z-index; .card - position: relative; .badge - position: absolute in a corner; .to-top - position: fixed, right and bottom; html - scroll-padding-top.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <!-- <style>: html, .site-header, .card, .badge, .to-top -->\n</head>\n<body id=\"top\">\n    <header>\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article>\n            <span>New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\">Back to top</a>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"card\"",
+        "class=\"badge\"",
+        "class=\"to-top\"",
+        ".site-header {",
+        ".card {",
+        ".badge {",
+        ".to-top {",
+        "position: sticky;",
+        "top: 0;",
+        "z-index:",
+        "position: relative;",
+        "position: absolute;",
+        "position: fixed;",
+        "right:",
+        "bottom:",
+        "scroll-padding-top:"
+      ],
+      "forbidden": [
+        "style=\"",
+        "z-index: 99999"
+      ],
+      "href_targets": [
+        "#top"
+      ],
+      "h1_exact": 1
+    },
+    "hints": [
+      "Sticky header: position: sticky; top: 0; background-color: white; z-index: 10;",
+      "Anchor for the badge: .card { position: relative; }",
+      "Badge: .badge { position: absolute; top: 12px; right: 12px; }",
+      "Button: .to-top { position: fixed; right: 24px; bottom: 24px; }",
+      "Anchors under the header: html { scroll-padding-top: 80px; }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-padding-top: 80px;\n        }\n\n        .site-header {\n            position: sticky;\n            top: 0;\n            background-color: white;\n            z-index: 10;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no relative anchor",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-padding-top: 80px;\n        }\n\n        .site-header {\n            position: sticky;\n            top: 0;\n            background-color: white;\n            z-index: 10;\n        }\n\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      },
+      {
+        "mistake": "sticky without top",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-padding-top: 80px;\n        }\n\n        .site-header {\n            position: sticky;\n            background-color: white;\n            z-index: 10;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      },
+      {
+        "mistake": "fixed instead of sticky",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-margin-top: 80px;\n        }\n\n        .site-header {\n            position: fixed;\n            top: 0;\n            background-color: white;\n            z-index: 10;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no scroll-padding-top",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n\n        .site-header {\n            position: sticky;\n            top: 0;\n            background-color: white;\n            z-index: 10;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      },
+      {
+        "mistake": "a huge z-index",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-padding-top: 80px;\n        }\n\n        .site-header {\n            position: sticky;\n            top: 0;\n            background-color: white;\n            z-index: 999999;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span class=\"badge\">New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no badge class",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club courses</title>\n    <style>\n        html {\n            scroll-padding-top: 80px;\n        }\n\n        .site-header {\n            position: sticky;\n            top: 0;\n            background-color: white;\n            z-index: 10;\n        }\n\n        .card {\n            position: relative;\n        }\n\n        .badge {\n            position: absolute;\n            top: 12px;\n            right: 12px;\n        }\n\n        .to-top {\n            position: fixed;\n            right: 24px;\n            bottom: 24px;\n        }\n    </style>\n</head>\n<body id=\"top\">\n    <header class=\"site-header\">\n        <p>Web development club</p>\n    </header>\n    <main>\n        <h1>Club courses</h1>\n        <article class=\"card\">\n            <span>New</span>\n            <h2>Course: CSS</h2>\n            <p>10 lessons with tasks.</p>\n        </article>\n    </main>\n    <a href=\"#top\" class=\"to-top\">Back to top</a>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What position value do elements have by default?",
+        "options": [
+          "relative",
+          "static",
+          "absolute",
+          "block"
+        ],
+        "answer": 1,
+        "explanation": "static is the normal flow."
+      },
+      {
+        "type": "single",
+        "question": "What is position: absolute measured from?",
+        "options": [
+          "Always from the browser window",
+          "From the nearest ancestor whose position is not static",
+          "From its own normal place",
+          "Always from body"
+        ],
+        "answer": 1,
+        "explanation": "If there is no such ancestor - from the page."
+      },
+      {
+        "type": "single",
+        "question": "What does top: 10px do on an element with position: relative?",
+        "options": [
+          "Moves it up by 10px",
+          "Moves it down by 10px",
+          "Nothing",
+          "Stretches it by 10px"
+        ],
+        "answer": 1,
+        "explanation": "It pushes away from the top - that is, down."
+      },
+      {
+        "type": "single",
+        "question": "What position does a button have that always stays in a screen corner while scrolling?",
+        "options": [
+          "relative",
+          "absolute",
+          "fixed",
+          "static"
+        ],
+        "answer": 2,
+        "explanation": "fixed is measured from the window."
+      },
+      {
+        "type": "multiple",
+        "question": "What does a header need to stick to the top?",
+        "options": [
+          "position: sticky",
+          "top: 0",
+          "float: top",
+          "A background so text does not show through"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "And a parent taller than the header."
+      },
+      {
+        "type": "multiple",
+        "question": "Which elements drop out of the flow?",
+        "options": [
+          "position: absolute",
+          "position: fixed",
+          "position: relative",
+          "position: static"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "relative keeps its place."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about z-index?",
+        "options": [
+          "A larger number is higher",
+          "Does not work with position: static",
+          "A short scale is better: 1, 10, 100",
+          "Works only on images"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "And on flex and grid children."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the position value.",
+        "pairs": [
+          [
+            "A badge in a card corner",
+            "absolute"
+          ],
+          [
+            "An anchor for the badge",
+            "relative"
+          ],
+          [
+            "A \"Back to top\" button",
+            "fixed"
+          ],
+          [
+            "A sticky header",
+            "sticky"
+          ]
+        ],
+        "explanation": "Each case has its own value."
+      },
+      {
+        "type": "matching",
+        "question": "Match the notation with its meaning.",
+        "pairs": [
+          [
+            "inset: 0",
+            "Stretch over the whole parent"
+          ],
+          [
+            "scroll-padding-top",
+            "Offset when jumping to an anchor"
+          ],
+          [
+            "z-index: 100",
+            "Top layer"
+          ],
+          [
+            "right: 24px",
+            "Distance from the right edge"
+          ]
+        ],
+        "explanation": "Positioning properties."
+      },
+      {
+        "type": "input",
+        "question": "Which position value does the parent need so that an absolute badge sits in its corner? Enter the value.",
+        "answers": [
+          "relative"
+        ],
+        "case_sensitive": false,
+        "explanation": "position: relative;"
+      },
+      {
+        "type": "input",
+        "question": "Which property controls which element lies on top? Enter the property name.",
+        "answers": [
+          "z-index"
+        ],
+        "case_sensitive": false,
+        "explanation": "z-index: 10;"
+      },
+      {
+        "type": "input",
+        "question": "Which shorthand property replaces top: 0; right: 0; bottom: 0; left: 0;? Enter the declaration, e.g. property: value;",
+        "answers": [
+          "inset: 0;",
+          "inset: 0"
+        ],
+        "case_sensitive": false,
+        "explanation": "inset: 0;"
+      }
+    ]
+  }
+}

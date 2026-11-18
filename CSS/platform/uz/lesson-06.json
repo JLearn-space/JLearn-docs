@@ -1,0 +1,254 @@
+{
+  "lesson": 6,
+  "language": "uz",
+  "lesson_title": "Grid",
+  "task": {
+    "title": "Grid dagi sahifa maketi va galereya",
+    "language": "html",
+    "description": "Sinflarni qo‘shing. .page - grid-template-areas li display: grid (header, main, aside, footer); har bir blokka - grid-area; .gallery - repeat(auto-fit, minmax(..., 1fr)) va gap; .featured - grid-column: span 2. float va style=\"\" siz.",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <!-- <style>: .page (grid-template-areas), sohalar, .gallery, .featured -->\n</head>\n<body>\n    <header>\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main>\n        <h1>Loyihalar galereyasi</h1>\n        <div>\n            <img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside>\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer>\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"page\"",
+        "class=\"gallery\"",
+        "class=\"featured\"",
+        ".page {",
+        ".gallery {",
+        ".featured {",
+        "display: grid;",
+        "grid-template-areas:",
+        "grid-area: header;",
+        "grid-area: main;",
+        "grid-area: aside;",
+        "grid-area: footer;",
+        "repeat(auto-fit",
+        "minmax(",
+        "1fr",
+        "gap:",
+        "span 2"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\"",
+        "grid-area: \""
+      ],
+      "tags": {
+        "img": 4
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Maket: .page { display: grid; grid-template-areas: \"header header\" \"main aside\" \"footer footer\"; }",
+      "Blok sohani egallaydi: .page-main { grid-area: main; } - qo‘shtirnoqsiz.",
+      "Moslashuvchan galereya: grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));",
+      "Ikki ustunga: .featured { grid-column: span 2; }"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "qo‘shtirnoqdagi grid-area",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: \"main\";\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "sohalar yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "qat’iy ustunlar soni",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(4, 200px);\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "span yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "featured sinfi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n        .page-footer {\n            grid-area: footer;\n        }\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      },
+      {
+        "mistake": "footer sohasi yo‘q",
+        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Loyihalar galereyasi</title>\n    <style>\n        .page {\n            display: grid;\n            grid-template-columns: 1fr 260px;\n            grid-template-areas:\n                \"header header\"\n                \"main   aside\"\n                \"footer footer\";\n            gap: 16px;\n        }\n\n        .page-header {\n            grid-area: header;\n        }\n\n        .page-main {\n            grid-area: main;\n        }\n\n        .page-aside {\n            grid-area: aside;\n        }\n\n\n        .gallery {\n            display: grid;\n            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n            gap: 16px;\n        }\n\n        .featured {\n            grid-column: span 2;\n        }\n    </style>\n</head>\n<body class=\"page\">\n    <header class=\"page-header\">\n        <p>Veb-dasturlash to‘garagi</p>\n    </header>\n    <main class=\"page-main\">\n        <h1>Loyihalar galereyasi</h1>\n        <div class=\"gallery\">\n            <img class=\"featured\" src=\"images/1.jpg\" alt=\"Noutbukdagi portfolio sayti\" width=\"400\" height=\"250\">\n            <img src=\"images/2.jpg\" alt=\"Telefondagi kafe menyusi\" width=\"200\" height=\"250\">\n            <img src=\"images/3.jpg\" alt=\"Kutubxona katalogi\" width=\"200\" height=\"250\">\n            <img src=\"images/4.jpg\" alt=\"To‘garakka yozilish formasi\" width=\"200\" height=\"250\">\n        </div>\n    </main>\n    <aside class=\"page-aside\">\n        <h2>Yaqin mashg‘ulotlar</h2>\n        <p>Chorshanba, 15:00.</p>\n    </aside>\n    <footer class=\"page-footer\">\n        <p>&copy; 2026 To‘garak</p>\n    </footer>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Grid Flexbox dan nimasi bilan farq qiladi?",
+        "options": [
+          "Grid faqat rasmlar bilan ishlaydi",
+          "Grid birdaniga qatorlar va ustunlar bo‘yicha joylashtiradi",
+          "Flexbox yangiroq",
+          "Grid gap ni qo‘llab-quvvatlamaydi"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox - bitta o‘q, Grid - ikkita."
+      },
+      {
+        "type": "single",
+        "question": "grid-template-columns: 250px 1fr; nima qiladi?",
+        "options": [
+          "250px dan ikkita ustun",
+          "Chapdagisi 250px, o‘ngdagisi - qolgan butun joy",
+          "Bitta 250px ustun",
+          "Uchta ustun"
+        ],
+        "answer": 1,
+        "explanation": "fr - bo‘sh joy ulushi."
+      },
+      {
+        "type": "single",
+        "question": "Elementni to‘rning butun kengligiga qanday cho‘zish mumkin?",
+        "options": [
+          "grid-column: 1 / -1;",
+          "width: 100fr;",
+          "grid-row: span all;",
+          "grid-area: full;"
+        ],
+        "answer": 0,
+        "explanation": "Birinchi chiziqdan oxirgisigacha."
+      },
+      {
+        "type": "single",
+        "question": "Nega repeat(4, 220px) telefon uchun yomon?",
+        "options": [
+          "Ustunlar kvadrat bo‘lib qoladi",
+          "220px dan to‘rtta ustun sig‘maydi - aylantirish paydo bo‘ladi",
+          "Grid telefonlarda ishlamaydi",
+          "Oraliqlar yo‘qoladi"
+        ],
+        "answer": 1,
+        "explanation": "auto-fit va minmax yaxshiroq."
+      },
+      {
+        "type": "multiple",
+        "question": "grid-template-areas haqida nima to‘g‘ri?",
+        "options": [
+          "Har bir qatorda ustunlar sonicha nom",
+          "Sohalar to‘rtburchak bo‘lishi kerak",
+          "Nuqta bo‘sh katakni bildiradi",
+          "grid-area da nomlar qo‘shtirnoqda yoziladi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grid-area: main; - qo‘shtirnoqsiz."
+      },
+      {
+        "type": "multiple",
+        "question": "repeat(auto-fit, minmax(220px, 1fr)) nima qiladi?",
+        "options": [
+          "Ustunlar sonini kenglikka moslaydi",
+          "Ustun 220px dan tor emas",
+          "Ustunlarni butun kenglikka cho‘zadi",
+          "Doim 4 ta ustun qiladi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Media so‘rovlarsiz moslashuvchan to‘r."
+      },
+      {
+        "type": "multiple",
+        "question": "Grid nima uchun qulayroq?",
+        "options": [
+          "Tekis qatorli galereya",
+          "Ustunli sahifa maketi",
+          "Bitta qator tugmalar",
+          "Kartochkalar to‘ri"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Bitta qator - Flexbox."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuvni natija bilan moslang.",
+        "pairs": [
+          [
+            "repeat(3, 1fr)",
+            "Uchta teng ustun"
+          ],
+          [
+            "2fr 1fr",
+            "Chapdagisi ikki baravar keng"
+          ],
+          [
+            "grid-column: span 2",
+            "Ikki ustunli element"
+          ],
+          [
+            "grid-area: main",
+            "main sohasidagi element"
+          ]
+        ],
+        "explanation": "Grid ning asosiy usullari."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifani vosita bilan moslang.",
+        "pairs": [
+          [
+            "Shapkadagi menyu",
+            "Flexbox"
+          ],
+          [
+            "Foto galereya",
+            "Grid"
+          ],
+          [
+            "Blok markazidagi tugma",
+            "Flexbox"
+          ],
+          [
+            "Maket: shapka, ustunlar, futer",
+            "Grid"
+          ]
+        ],
+        "explanation": "Bitta o‘q - Flexbox, ikkita - Grid."
+      },
+      {
+        "type": "input",
+        "question": "Grid da qaysi birlik bo‘sh joy ulushini bildiradi? Birlikni kiriting.",
+        "answers": [
+          "fr"
+        ],
+        "case_sensitive": false,
+        "explanation": "1fr 2fr"
+      },
+      {
+        "type": "input",
+        "question": "Qaysi funksiya ustunning minimal va maksimal kengligini beradi? Funksiya nomini qavslarsiz kiriting.",
+        "answers": [
+          "minmax"
+        ],
+        "case_sensitive": false,
+        "explanation": "minmax(220px, 1fr)"
+      },
+      {
+        "type": "input",
+        "question": "Qaysi xususiyat elementga maketdagi sohasini beradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "grid-area"
+        ],
+        "case_sensitive": false,
+        "explanation": "grid-area: header;"
+      }
+    ]
+  }
+}

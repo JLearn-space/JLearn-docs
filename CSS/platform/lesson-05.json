@@ -1,0 +1,246 @@
+{
+  "lesson": 5,
+  "language": "ru",
+  "lesson_title": "Flexbox",
+  "task": {
+    "title": "Шапка и ряд карточек на Flexbox",
+    "language": "html",
+    "description": "Добавьте классы site-header, menu, cards, card. .site-header - flex, space-between, align-items: center; .menu - flex, gap, list-style: none; .cards - flex, flex-wrap: wrap, gap; .card - flex из трёх значений. Без float и style=\"\".",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <!-- <style>: .site-header, .menu, .cards, .card -->\n</head>\n<body>\n    <header>\n        <p>Кружок</p>\n        <nav>\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div>\n            <article><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"menu\"",
+        "class=\"cards\"",
+        "class=\"card\"",
+        ".site-header {",
+        ".menu {",
+        ".cards {",
+        ".card {",
+        "display: flex;",
+        "justify-content: space-between;",
+        "align-items: center;",
+        "gap:",
+        "flex-wrap: wrap;",
+        "flex: 1",
+        "list-style: none;"
+      ],
+      "forbidden": [
+        "float:",
+        "style=\""
+      ],
+      "tags": {
+        "article": 3
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "Шапка: .site-header { display: flex; justify-content: space-between; align-items: center; }",
+      "Меню: .menu { display: flex; gap: 16px; list-style: none; }",
+      "Ряд карточек: .cards { display: flex; flex-wrap: wrap; gap: 24px; }",
+      "Карточка: .card { flex: 1 1 240px; }",
+      "float и style=\"\" не используйте."
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "нет space-between",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет переноса",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "float вместо flex",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            float: left;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет класса card",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "маркеры не убраны",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "нет выравнивания",
+        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Проекты кружка</title>\n    <style>\n        .site-header {\n            display: flex;\n            justify-content: space-between;\n        }\n\n        .menu {\n            display: flex;\n            gap: 16px;\n            list-style: none;\n        }\n\n        .cards {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 24px;\n        }\n\n        .card {\n            flex: 1 1 240px;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Кружок</p>\n        <nav>\n            <ul class=\"menu\">\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"news.html\">Новости</a></li>\n                <li><a href=\"join.html\">Запись</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <h1>Проекты участников</h1>\n        <div class=\"cards\">\n            <article class=\"card\"><h2>Портфолио</h2><p>Сайт из четырёх страниц.</p></article>\n            <article class=\"card\"><h2>Кафе</h2><p>Меню и форма заказа.</p></article>\n            <article class=\"card\"><h2>Библиотека</h2><p>Каталог и расписание.</p></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Кому задают display: flex?",
+        "options": [
+          "Каждому элементу",
+          "Контейнеру",
+          "Только body",
+          "Тегу <flex>"
+        ],
+        "answer": 1,
+        "explanation": "Flexbox включают у родителя."
+      },
+      {
+        "type": "single",
+        "question": "Что делает justify-content: space-between?",
+        "options": [
+          "Всё по центру",
+          "Крайние к краям, остальное место поровну",
+          "Всё к началу",
+          "Промежутки равны и у краёв"
+        ],
+        "answer": 1,
+        "explanation": "space-between - «между»."
+      },
+      {
+        "type": "single",
+        "question": "Какое свойство переносит элементы на новую строку?",
+        "options": [
+          "flex-direction: column",
+          "flex-wrap: wrap",
+          "gap: 16px",
+          "align-items: wrap"
+        ],
+        "answer": 1,
+        "explanation": "По умолчанию flex-wrap: nowrap."
+      },
+      {
+        "type": "single",
+        "question": "Почему у блока не работает вертикальное центрирование align-items: center?",
+        "options": [
+          "Нет display: block",
+          "У контейнера нет высоты больше содержимого",
+          "Нет gap",
+          "Мало элементов"
+        ],
+        "answer": 1,
+        "explanation": "Задайте min-height."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие свойства задают контейнеру?",
+        "options": [
+          "justify-content",
+          "gap",
+          "flex-wrap",
+          "flex"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "flex - свойство элемента."
+      },
+      {
+        "type": "multiple",
+        "question": "Что нужно, чтобы поставить элемент в центр по двум осям?",
+        "options": [
+          "display: flex",
+          "justify-content: center",
+          "align-items: center",
+          "float: center"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "И высота у контейнера."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про flex: 1 1 240px?",
+        "options": [
+          "Элемент может расти",
+          "Элемент может сжиматься",
+          "Желаемая ширина 240px",
+          "Ширина всегда ровно 240px"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "grow, shrink, basis."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте значение justify-content и результат.",
+        "pairs": [
+          [
+            "flex-start",
+            "К началу"
+          ],
+          [
+            "center",
+            "По центру"
+          ],
+          [
+            "flex-end",
+            "К концу"
+          ],
+          [
+            "space-evenly",
+            "Все промежутки равны"
+          ]
+        ],
+        "explanation": "justify-content распределяет вдоль главной оси."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте свойство и ось.",
+        "pairs": [
+          [
+            "justify-content",
+            "Главная ось"
+          ],
+          [
+            "align-items",
+            "Поперечная ось"
+          ],
+          [
+            "flex-direction",
+            "Задаёт направление главной оси"
+          ]
+        ],
+        "explanation": "В column главная ось вертикальна."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство задаёт промежутки между flex-элементами без лишних отступов по краям? Введите имя свойства.",
+        "answers": [
+          "gap"
+        ],
+        "case_sensitive": false,
+        "explanation": "gap: 16px;"
+      },
+      {
+        "type": "input",
+        "question": "Какое значение flex-direction ставит элементы столбиком? Введите значение.",
+        "answers": [
+          "column"
+        ],
+        "case_sensitive": false,
+        "explanation": "flex-direction: column;"
+      },
+      {
+        "type": "input",
+        "question": "Как убрать маркеры у списка? Введите объявление целиком, например property: value;",
+        "answers": [
+          "list-style: none;",
+          "list-style: none",
+          "list-style-type: none;",
+          "list-style-type: none"
+        ],
+        "case_sensitive": false,
+        "explanation": "list-style: none;"
+      }
+    ]
+  }
+}

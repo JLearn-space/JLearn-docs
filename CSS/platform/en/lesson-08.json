@@ -1,0 +1,246 @@
+{
+  "lesson": 8,
+  "language": "en",
+  "lesson_title": "Responsive layout",
+  "task": {
+    "title": "A responsive page: mobile first",
+    "language": "html",
+    "description": "Add meta viewport and the classes site-header, cards. img - max-width: 100%, height: auto; h1 - clamp(); .site-header - column on a phone, row from 600px; .cards - 1fr, repeat(2, 1fr) from 600px, repeat(3, 1fr) from 900px. Only @media (min-width: ...).",
+    "starter_code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <!-- viewport -->\n    <title>Projects</title>\n    <!-- <style>: img, h1, .site-header, .cards + @media (min-width: ...) -->\n</head>\n<body>\n    <header>\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div>\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "rules": {
+      "required": [
+        "name=\"viewport\"",
+        "width=device-width",
+        "<style>",
+        "class=\"site-header\"",
+        "class=\"cards\"",
+        "max-width: 100%;",
+        "height: auto;",
+        "clamp(",
+        "flex-direction: column;",
+        "flex-direction: row;",
+        "grid-template-columns: 1fr;",
+        "repeat(2, 1fr)",
+        "repeat(3, 1fr)",
+        "@media (min-width: 600px)",
+        "@media (min-width: 900px)"
+      ],
+      "forbidden": [
+        "@media (max-width",
+        "style=\""
+      ],
+      "tags": {
+        "img": 3
+      },
+      "attrs": {
+        "img": [
+          "alt"
+        ]
+      },
+      "h1_exact": 1
+    },
+    "hints": [
+      "In head: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "Fluid images: img { max-width: 100%; height: auto; }",
+      "Base styles are for the phone, then @media (min-width: 600px) { ... } and @media (min-width: 900px) { ... }.",
+      "Columns: grid-template-columns: 1fr; → repeat(2, 1fr) → repeat(3, 1fr).",
+      "A smooth heading: font-size: clamp(1.75rem, 4vw + 1rem, 3rem);"
+    ],
+    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>",
+    "wrong_solutions": [
+      {
+        "mistake": "no viewport",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "desktop first via max-width",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (max-width: 899px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "images are not fluid",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no clamp",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: 3rem;\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no switch to a row",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      },
+      {
+        "mistake": "no three columns",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Projects</title>\n    <style>\n        img {\n            max-width: 100%;\n            height: auto;\n        }\n\n        h1 {\n            font-size: clamp(1.75rem, 4vw + 1rem, 3rem);\n        }\n\n        .site-header {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: 1fr;\n            gap: 16px;\n        }\n\n        @media (min-width: 600px) {\n            .site-header {\n                flex-direction: row;\n                justify-content: space-between;\n            }\n\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n\n        @media (min-width: 900px) {\n            .cards {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <p>Web development club</p>\n        <nav><a href=\"index.html\">Home</a> <a href=\"join.html\">Sign-up</a></nav>\n    </header>\n    <main>\n        <h1>Members' projects</h1>\n        <div class=\"cards\">\n            <article><img src=\"images/1.jpg\" alt=\"A portfolio site on a laptop\" width=\"800\" height=\"500\"><h2>Portfolio</h2></article>\n            <article><img src=\"images/2.jpg\" alt=\"A café menu on a phone\" width=\"800\" height=\"500\"><h2>Café</h2></article>\n            <article><img src=\"images/3.jpg\" alt=\"A library catalog\" width=\"800\" height=\"500\"><h2>Library</h2></article>\n        </div>\n    </main>\n</body>\n</html>"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does mobile first mean?",
+        "options": [
+          "A site only for phones",
+          "Base styles for the phone, additions for wide screens",
+          "Build an app first",
+          "Media queries via max-width"
+        ],
+        "answer": 1,
+        "explanation": "And media queries with min-width."
+      },
+      {
+        "type": "single",
+        "question": "What does @media (min-width: 600px) mean?",
+        "options": [
+          "The screen is narrower than 600px",
+          "The screen is 600px or wider",
+          "Exactly 600px",
+          "A height of 600px"
+        ],
+        "answer": 1,
+        "explanation": "min-width is the minimum width."
+      },
+      {
+        "type": "single",
+        "question": "What happens on a phone without meta viewport?",
+        "options": [
+          "Nothing changes",
+          "The page looks shrunken, media queries do not work",
+          "Images disappear",
+          "The site does not open"
+        ],
+        "answer": 1,
+        "explanation": "The phone pretends to be a ~980px screen."
+      },
+      {
+        "type": "single",
+        "question": "Media queries min-width: 900px, then min-width: 600px. How many columns are there on a 1200px screen if the first sets 3 and the second sets 2?",
+        "options": [
+          "3",
+          "2",
+          "1",
+          "5"
+        ],
+        "answer": 1,
+        "explanation": "The lower rule overrides: from smaller to larger!"
+      },
+      {
+        "type": "multiple",
+        "question": "What do images need so they do not stick out of the screen or get squashed?",
+        "options": [
+          "max-width: 100%",
+          "height: auto",
+          "width: 1200px",
+          "position: absolute"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Fluid images."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about clamp(1.75rem, 4vw + 1rem, 3rem)?",
+        "options": [
+          "No smaller than 1.75rem",
+          "No larger than 3rem",
+          "Grows with the window width",
+          "Always 4vw"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Minimum, preferred, maximum."
+      },
+      {
+        "type": "multiple",
+        "question": "How do you choose breakpoints?",
+        "options": [
+          "Where the layout breaks",
+          "For every phone model",
+          "Check by stretching the window",
+          "The more, the better"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Two are enough to start."
+      },
+      {
+        "type": "matching",
+        "question": "Match the media query with its meaning.",
+        "pairs": [
+          [
+            "(min-width: 600px)",
+            "The screen is 600px or wider"
+          ],
+          [
+            "(max-width: 599px)",
+            "The screen is narrower than 600px"
+          ],
+          [
+            "(prefers-color-scheme: dark)",
+            "The system uses a dark theme"
+          ]
+        ],
+        "explanation": "A media query is a condition for applying styles."
+      },
+      {
+        "type": "matching",
+        "question": "Match the phone breakage with the fix.",
+        "pairs": [
+          [
+            "An image sticks out",
+            "max-width: 100%"
+          ],
+          [
+            "A huge heading",
+            "clamp()"
+          ],
+          [
+            "The menu does not fit in a row",
+            "flex-direction: column on a phone"
+          ],
+          [
+            "The page is tiny",
+            "meta viewport"
+          ]
+        ],
+        "explanation": "Each breakage has its own tool."
+      },
+      {
+        "type": "input",
+        "question": "What is the \"phone styles first\" approach called? Enter the name.",
+        "answers": [
+          "mobile-first",
+          "mobile first"
+        ],
+        "case_sensitive": false,
+        "explanation": "Mobile-first."
+      },
+      {
+        "type": "input",
+        "question": "Which CSS rule starts a media query? Enter it with the @ sign.",
+        "answers": [
+          "@media"
+        ],
+        "case_sensitive": false,
+        "explanation": "@media (min-width: 600px) { ... }"
+      },
+      {
+        "type": "input",
+        "question": "Which function sets a size with a minimum and a maximum? Enter the function name without parentheses.",
+        "answers": [
+          "clamp"
+        ],
+        "case_sensitive": false,
+        "explanation": "clamp(min, preferred, max)"
+      }
+    ]
+  }
+}
