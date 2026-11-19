@@ -1,0 +1,298 @@
+{
+  "lesson": 2,
+  "language": "en",
+  "lesson_title": "Data types and operators",
+  "task": {
+    "title": "Shopping receipt",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "The platform sets the order data: price (number), quantityText (a string, as from a form) and discountPercent (number). Declare with const: quantity - the quantity as a number via Number(); subtotal - price × quantity; discount - the discount in so'm (discountPercent per cent of subtotal); total - the amount to pay; isExpensive - true if total is greater than 100000; receipt - the string \"Total: <total> UZS\" built with a template string. Print receipt to the console. The code is checked on several data sets, so do not write ready-made numbers.",
+    "starter_code": "// The platform sets the order data:\n// const price = 45000;         // price per item, so'm\n// const quantityText = \"3\";    // quantity from a form - it is a string!\n// const discountPercent = 10;  // discount, %\n// The code will be checked on other data too - calculate with expressions.\n\n// 1. quantity - the quantity as a number\n\n// 2. subtotal - price × quantity\n\n// 3. discount - the discount in so'm\n\n// 4. total - the amount to pay\n\n// 5. isExpensive - is total greater than 100000?\n\n// 6. receipt - \"Total: ... UZS\" with a template string, print to the console\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const price = 45000;\nconst quantityText = \"3\";\nconst discountPercent = 10;",
+    "tests": [
+      {
+        "name": "quantity is the number 3",
+        "check": "quantity === 3 && typeof quantity === \"number\"",
+        "fail": "quantityText is a string. Convert it: const quantity = Number(quantityText);"
+      },
+      {
+        "name": "The quantity is converted with Number(quantityText)",
+        "check": "/Number\\(\\s*quantityText\\s*\\)/.test(__code)",
+        "fail": "Use Number(quantityText)."
+      },
+      {
+        "name": "subtotal = 135000",
+        "check": "subtotal === 135000",
+        "fail": "subtotal = price * quantity."
+      },
+      {
+        "name": "discount = 13500",
+        "check": "discount === 13500",
+        "fail": "The discount in so'm: subtotal * discountPercent / 100."
+      },
+      {
+        "name": "total = 121500",
+        "check": "total === 121500",
+        "fail": "total = subtotal - discount."
+      },
+      {
+        "name": "isExpensive is the boolean true",
+        "check": "isExpensive === true",
+        "fail": "isExpensive = total > 100000; - a comparison is already true or false."
+      },
+      {
+        "name": "receipt equals \"Total: 121500 UZS\"",
+        "check": "receipt === \"Total: 121500 UZS\"",
+        "fail": "Check the text: Total, colon, space, number, space, UZS."
+      },
+      {
+        "name": "receipt is built with a template string containing ${total}",
+        "check": "/`[^`]*\\$\\{\\s*total\\s*\\}[^`]*`/.test(__code)",
+        "fail": "Use backticks: `Total: ${total} UZS`."
+      },
+      {
+        "name": "The receipt is printed to the console",
+        "check": "__logs.includes(receipt)",
+        "fail": "Add console.log(receipt);"
+      },
+      {
+        "name": "Another order: 20000 × \"7\" with a 5% discount = 133000",
+        "setup": "const price = 20000;\nconst quantityText = \"7\";\nconst discountPercent = 5;",
+        "check": "total === 133000 && receipt === \"Total: 133000 UZS\" && isExpensive === true",
+        "fail": "The result is wrong on other data: do not write ready numbers, calculate through the variables."
+      },
+      {
+        "name": "Exactly 100000 is not greater than 100000",
+        "setup": "const price = 50000;\nconst quantityText = \"2\";\nconst discountPercent = 0;",
+        "check": "total === 100000 && isExpensive === false",
+        "fail": "\"Greater than\" is >, not >=."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "There is an error in the code - read its text in the console."
+      }
+    ],
+    "hints": [
+      "const quantity = Number(quantityText);",
+      "Percent of a number: subtotal * discountPercent / 100.",
+      "A comparison already gives true or false: const isExpensive = total > 100000;",
+      "A template string uses backticks: `Total: ${total} UZS`.",
+      "The platform runs the code on several orders - a written-in 121500 only works for the first one."
+    ],
+    "solution": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\n\nconsole.log(receipt);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// 1. quantity - the quantity as a number\n"
+      },
+      {
+        "mistake": "the quantity stayed a string",
+        "code": "const quantity = quantityText;\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "ready-made numbers instead of expressions",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = 135000;\nconst discount = 13500;\nconst total = 121500;\nconst isExpensive = true;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "discount in per cent instead of so'm",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = discountPercent;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": ">= instead of >",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total >= 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "joining with + instead of a template string",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = \"Total: \" + total + \" UZS\";\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "isExpensive as a string",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = \"true\";\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "the receipt is not printed",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does typeof \"42\" return?",
+        "options": [
+          "\"number\"",
+          "\"string\"",
+          "\"boolean\"",
+          "\"undefined\""
+        ],
+        "answer": 1,
+        "explanation": "A value in quotes is a string, even if it contains digits."
+      },
+      {
+        "type": "single",
+        "question": "What does console.log(\"5\" + 3); print?",
+        "options": [
+          "8",
+          "\"53\"",
+          "NaN",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "+ with a string joins: the result is the string \"53\"."
+      },
+      {
+        "type": "input",
+        "question": "What is 17 % 5? Type the number.",
+        "answers": [
+          "2"
+        ],
+        "case_sensitive": false,
+        "explanation": "17 = 5 × 3 + 2, the remainder is 2."
+      },
+      {
+        "type": "multiple",
+        "question": "Which values have the type number?",
+        "options": [
+          "3.14",
+          "-7",
+          "\"10\"",
+          "NaN"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "NaN is a special value of type number; \"10\" is a string."
+      },
+      {
+        "type": "matching",
+        "question": "Match the value with its type.",
+        "pairs": [
+          [
+            "true",
+            "boolean"
+          ],
+          [
+            "\"Anna\"",
+            "string"
+          ],
+          [
+            "0",
+            "number"
+          ],
+          [
+            "let x; → x",
+            "undefined"
+          ]
+        ],
+        "explanation": "typeof shows the same names."
+      },
+      {
+        "type": "single",
+        "question": "How do you correctly get a number from quantityText = \"4\"?",
+        "options": [
+          "quantityText.number",
+          "Number(quantityText)",
+          "typeof quantityText",
+          "quantityText + 0"
+        ],
+        "answer": 1,
+        "explanation": "Number() converts a string to a number; + 0 would join into \"40\"."
+      },
+      {
+        "type": "single",
+        "question": "What does this print: const name = \"Timur\"; console.log(`Hello, ${name}!`);",
+        "options": [
+          "Hello, ${name}!",
+          "Hello, Timur!",
+          "Hello, name!",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "Inside backticks ${...} is replaced with the value."
+      },
+      {
+        "type": "multiple",
+        "question": "Which expressions give true?",
+        "options": [
+          "5 === 5",
+          "5 === \"5\"",
+          "5 !== \"5\"",
+          "3 >= 3"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "=== compares value and type: the number 5 is not equal to the string \"5\"."
+      },
+      {
+        "type": "input",
+        "question": "Which property returns the number of characters in a string? Type the property name.",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "\"JavaScript\".length is 10."
+      },
+      {
+        "type": "single",
+        "question": "What does this print: let s = \" yes \"; s.trim(); console.log(s.length);",
+        "options": [
+          "3",
+          "5",
+          "0",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "trim() returns a new string, s did not change: it has 5 characters."
+      },
+      {
+        "type": "matching",
+        "question": "Match the expression with the result when let n = 10.",
+        "pairs": [
+          [
+            "n += 5",
+            "15"
+          ],
+          [
+            "n - 4",
+            "6"
+          ],
+          [
+            "n % 3",
+            "1"
+          ],
+          [
+            "n ** 2",
+            "100"
+          ]
+        ],
+        "explanation": "+= adds, - subtracts, % is the remainder, ** is the exponent."
+      },
+      {
+        "type": "single",
+        "question": "What does Number(\"12px\") return?",
+        "options": [
+          "12",
+          "\"12\"",
+          "NaN",
+          "0"
+        ],
+        "answer": 2,
+        "explanation": "The string is not made only of digits - the conversion fails and the result is NaN."
+      }
+    ]
+  }
+}

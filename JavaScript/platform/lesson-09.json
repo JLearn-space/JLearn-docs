@@ -1,0 +1,326 @@
+{
+  "lesson": 9,
+  "language": "ru",
+  "lesson_title": "Формы, хранение данных и запросы",
+  "task": {
+    "title": "Список дел с сохранением",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Список дел</title>\n</head>\n<body>\n    <main>\n        <h1>Список дел</h1>\n        <form id=\"todo-form\" novalidate>\n            <label for=\"todo-input\">Новая задача</label>\n            <input id=\"todo-input\" name=\"title\" type=\"text\" aria-describedby=\"todo-error\">\n            <p id=\"todo-error\" class=\"error\" hidden></p>\n            <button type=\"submit\">Добавить</button>\n        </form>\n        <p id=\"todo-empty\">Задач пока нет</p>\n        <ul id=\"todo-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "Сделайте список дел. loadTodos() читает массив строк из localStorage по ключу \"todos\" через JSON.parse в try / catch; нет данных или они испорчены - пустой массив. renderTodos() выводит каждую задачу как li.todo с span.todo__title и кнопкой button.todo__delete «Удалить»; #todo-empty виден, только когда задач нет. Отправка #todo-form без перезагрузки: значение #todo-input после trim(); пусто - в #todo-error текст «Введите задачу», ошибка видна, у поля aria-invalid=\"true\"; иначе задача добавляется, сохраняется через JSON.stringify, поле очищается, ошибка скрывается, aria-invalid убирается. Один обработчик на #todo-list удаляет задачу по кнопке из списка и из localStorage.",
+    "starter_code": "// На странице: #todo-form, #todo-input, #todo-error, #todo-empty, #todo-list\n\nconst STORAGE_KEY = \"todos\";\n\n// 1. loadTodos() - JSON.parse в try / catch, иначе []\n\n// 2. saveTodos() - JSON.stringify в localStorage\n\n// 3. renderTodos() - li.todo > span.todo__title + button.todo__delete; #todo-empty\n\n// 4. let todos = loadTodos(); renderTodos();\n\n// 5. submit: preventDefault, trim, ошибка или добавление\n\n// 6. Удаление: один обработчик на #todo-list\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "onsubmit",
+      "innerHTML",
+      ".style."
+    ],
+    "tests": [
+      {
+        "name": "Начало: задач нет, видно «Задач пока нет»",
+        "check": "document.querySelectorAll(\"#todo-list li\").length === 0 && document.querySelector(\"#todo-empty\").hidden === false",
+        "fail": "Без сохранённых данных loadTodos() возвращает [] - список пуст, сообщение видно."
+      },
+      {
+        "name": "Добавление: «  Учить JS  » → задача «Учить JS»",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"  Учить JS  \"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return [...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Учить JS\"; })()",
+        "fail": "Обработчик submit на форме, значение input.value.trim(), затем добавить, сохранить и отрисовать."
+      },
+      {
+        "name": "Отправка не перезагружает страницу",
+        "check": "(() => { document.querySelector(\"#todo-input\").value = \"Учить JS\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })().defaultPrevented === true",
+        "fail": "Первой строкой обработчика: event.preventDefault();"
+      },
+      {
+        "name": "После добавления поле пустое, «Задач пока нет» скрыто",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"Учить JS\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return document.querySelector(\"#todo-input\").value === \"\" && document.querySelector(\"#todo-empty\").hidden === true; })()",
+        "fail": "form.reset(); и emptyMessage.hidden = todos.length > 0;"
+      },
+      {
+        "name": "Задачи сохраняются в localStorage",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"Первая\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); (() => { document.querySelector(\"#todo-input\").value = \"Вторая\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return JSON.stringify(JSON.parse(localStorage.getItem(\"todos\"))) === JSON.stringify([\"Первая\", \"Вторая\"]); })()",
+        "fail": "localStorage.setItem(\"todos\", JSON.stringify(todos));"
+      },
+      {
+        "name": "Пустой ввод: ошибка «Введите задачу», aria-invalid, задача не добавлена",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"   \"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); const e = document.querySelector(\"#todo-error\"); return e.hidden === false && e.textContent === \"Введите задачу\" && document.querySelector(\"#todo-input\").getAttribute(\"aria-invalid\") === \"true\" && document.querySelectorAll(\"#todo-list li\").length === 0; })()",
+        "fail": "Проверьте title === \"\" после trim(); покажите ошибку и выйдите через return."
+      },
+      {
+        "name": "После исправления ошибка исчезает",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); (() => { document.querySelector(\"#todo-input\").value = \"Задача\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return document.querySelector(\"#todo-error\").hidden === true && document.querySelector(\"#todo-input\").getAttribute(\"aria-invalid\") !== \"true\"; })()",
+        "fail": "При успешной отправке: errorElement.hidden = true; input.removeAttribute(\"aria-invalid\");"
+      },
+      {
+        "name": "Сохранённые задачи загружаются при открытии",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Прочитать урок\", \"Сделать задание\"]));",
+        "check": "[...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Прочитать урок|Сделать задание\" && document.querySelector(\"#todo-empty\").hidden === true",
+        "fail": "При загрузке: let todos = loadTodos(); renderTodos();"
+      },
+      {
+        "name": "Испорченные данные не ломают страницу",
+        "setup": "localStorage.setItem(\"todos\", \"{oops\");",
+        "check": "__error === null && document.querySelectorAll(\"#todo-list li\").length === 0",
+        "fail": "Оберните JSON.parse в try / catch и верните [] в catch."
+      },
+      {
+        "name": "У задачи есть кнопка «Удалить»",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Прочитать урок\", \"Сделать задание\"]));",
+        "check": "(() => { const b = document.querySelectorAll(\"#todo-list li.todo button.todo__delete\"); return b.length === 2 && b[0].textContent === \"Удалить\" && b[0].type === \"button\"; })()",
+        "fail": "В каждый li добавьте <button type=\"button\" class=\"todo__delete\">Удалить</button>."
+      },
+      {
+        "name": "Удаление первой задачи",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Прочитать урок\", \"Сделать задание\"]));",
+        "check": "(() => { document.querySelector(\"#todo-list .todo__delete\").click(); return [...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Сделать задание\" && JSON.stringify(JSON.parse(localStorage.getItem(\"todos\"))) === JSON.stringify([\"Сделать задание\"]); })()",
+        "fail": "Удалите задачу из массива, сохраните и перерисуйте."
+      },
+      {
+        "name": "Удаление всех задач возвращает «Задач пока нет»",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Прочитать урок\", \"Сделать задание\"]));",
+        "check": "(() => { document.querySelector(\"#todo-list .todo__delete\").click(); document.querySelector(\"#todo-list .todo__delete\").click(); return document.querySelectorAll(\"#todo-list li\").length === 0 && document.querySelector(\"#todo-empty\").hidden === false; })()",
+        "fail": "После удаления вызовите renderTodos() - он обновит сообщение о пустом списке."
+      },
+      {
+        "name": "Удаление работает после добавления (делегирование)",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"Новая\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); document.querySelector(\"#todo-list .todo__delete\").click(); return document.querySelectorAll(\"#todo-list li\").length === 0; })()",
+        "fail": "Один обработчик на #todo-list и event.target.closest(\".todo__delete\")."
+      },
+      {
+        "name": "Используются JSON.parse, JSON.stringify и try / catch",
+        "check": "/JSON\\.parse\\(/.test(__code) && /JSON\\.stringify\\(/.test(__code) && /\\btry\\s*\\{/.test(__code) && /\\bcatch\\b/.test(__code)",
+        "fail": "localStorage хранит строки: JSON.stringify при сохранении, JSON.parse в try / catch при чтении."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Прочитайте текст ошибки; частая причина - null из-за опечатки в селекторе."
+      }
+    ],
+    "hints": [
+      "Чтение: try { const saved = JSON.parse(localStorage.getItem(\"todos\")); return Array.isArray(saved) ? saved : []; } catch (error) { return []; }",
+      "Порядок: сначала объявите функции, затем let todos = loadTodos(); renderTodos();",
+      "Сообщение о пустом списке: emptyMessage.hidden = todos.length > 0;",
+      "В обработчике submit первой строкой - event.preventDefault();",
+      "Индекс задачи сохраните в data-index кнопки, удаление - todos.filter((title, i) => i !== index).",
+      "После любого изменения todos: saveTodos(); renderTodos();"
+    ],
+    "solution": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "const STORAGE_KEY = \"todos\";\n"
+      },
+      {
+        "mistake": "нет preventDefault",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "нет trim",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value;\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "JSON.parse без try / catch",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n    return Array.isArray(saved) ? saved : [];\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "массив сохраняется без JSON.stringify",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, todos);\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "сохранённые задачи не загружаются",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = [];\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "ошибка без aria-invalid",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "ошибка не скрывается после исправления",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "удаление без сохранения",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "сообщение о пустом списке не обновляется",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "поле не очищается",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Удалить\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Введите задачу\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "На какой элемент вешают обработчик отправки формы?",
+        "options": [
+          "На кнопку submit (click)",
+          "На форму (submit)",
+          "На document (keydown)",
+          "На поле ввода (input)"
+        ],
+        "answer": 1,
+        "explanation": "submit ловит и клик по кнопке, и Enter в поле."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт без event.preventDefault() в обработчике submit?",
+        "options": [
+          "Ничего",
+          "Форма отправится, и страница перезагрузится",
+          "Появится ошибка",
+          "Поля очистятся"
+        ],
+        "answer": 1,
+        "explanation": "Это действие формы по умолчанию."
+      },
+      {
+        "type": "multiple",
+        "question": "Что делает сообщение об ошибке в форме доступным?",
+        "options": [
+          "Текст рядом с полем, понятно что исправить",
+          "Связь через aria-describedby",
+          "aria-invalid=\"true\" у поля",
+          "Только красная рамка без текста"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Цвет без текста не прочитает экранная читалка."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт localStorage.getItem(\"theme\"), если такой ключ не сохранялся?",
+        "options": [
+          "undefined",
+          "\"\"",
+          "null",
+          "Ошибку"
+        ],
+        "answer": 2,
+        "explanation": "Для отсутствующего ключа getItem возвращает null."
+      },
+      {
+        "type": "single",
+        "question": "Что сохранится: localStorage.setItem(\"count\", 5); typeof localStorage.getItem(\"count\")?",
+        "options": [
+          "\"number\"",
+          "\"string\"",
+          "\"object\"",
+          "\"undefined\""
+        ],
+        "answer": 1,
+        "explanation": "localStorage хранит только строки."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте метод и результат.",
+        "pairs": [
+          [
+            "JSON.stringify([1, 2])",
+            "Строка \"[1,2]\""
+          ],
+          [
+            "JSON.parse(\"[1,2]\")",
+            "Массив [1, 2]"
+          ],
+          [
+            "JSON.parse(\"{oops\")",
+            "SyntaxError"
+          ]
+        ],
+        "explanation": "Испорченную строку читают в try / catch."
+      },
+      {
+        "type": "multiple",
+        "question": "Что нельзя хранить в localStorage?",
+        "options": [
+          "Пароли",
+          "Данные банковских карт",
+          "Токены входа",
+          "Выбранную тему оформления"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Хранилище доступно любому скрипту на странице."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт после блока catch?",
+        "options": [
+          "Программа остановится",
+          "Программа продолжит выполнение после try / catch",
+          "Страница перезагрузится",
+          "Код из try выполнится снова"
+        ],
+        "answer": 1,
+        "explanation": "catch перехватывает ошибку, и работа продолжается."
+      },
+      {
+        "type": "input",
+        "question": "Каким ключевым словом объявляют функцию, внутри которой можно использовать await? Введите слово.",
+        "answers": [
+          "async"
+        ],
+        "case_sensitive": true,
+        "explanation": "async function loadCourses() { const response = await fetch(...); }"
+      },
+      {
+        "type": "single",
+        "question": "Сервер ответил 404. Что сделает fetch?",
+        "options": [
+          "Выбросит ошибку",
+          "Вернёт response с ok: false - ошибку нужно выбросить самому",
+          "Повторит запрос",
+          "Вернёт null"
+        ],
+        "answer": 1,
+        "explanation": "fetch выбрасывает ошибку только при сбое сети."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте состояние загрузки и текст для пользователя.",
+        "pairs": [
+          [
+            "До ответа",
+            "Загрузка..."
+          ],
+          [
+            "Ошибка сети или сервера",
+            "Не удалось загрузить. Попробуйте обновить страницу."
+          ],
+          [
+            "Пустой массив",
+            "Пока ничего нет"
+          ]
+        ],
+        "explanation": "Пользователь всегда понимает, что происходит."
+      },
+      {
+        "type": "single",
+        "question": "Страница открыта двойным кликом (file://), fetch(\"data/courses.json\") не работает. Что делать?",
+        "options": [
+          "Переименовать файл",
+          "Запустить локальный сервер, например Live Server",
+          "Убрать await",
+          "Использовать innerHTML"
+        ],
+        "answer": 1,
+        "explanation": "Браузер блокирует запросы со страниц file://."
+      }
+    ]
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "lesson": 6,
+  "language": "uz",
+  "lesson_title": "Massivlar va obyektlar",
+  "task": {
+    "title": "Baholar jurnali",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Platforma { name, score } obyektlaridan iborat students massivini beradi. Kiruvchi massivni o‘zgartirmaydigan sof funksiyalar yozing: getAverage(list) - Math.round bilan yaxlitlangan o‘rtacha ball, bo‘sh massiv uchun 0; getExcellentNames(list) - 90 va undan yuqori ball olgan o‘quvchilar ismlari massivi; findStudent(list, name) - o‘quvchi obyekti yoki undefined; addStudent(list, name, score) - { name, score } qo‘shilgan yangi massiv. reduce, filter, map, find va spread ... dan foydalaning.",
+    "starter_code": "// Platforma beradi:\n// const students = [\n//     { name: \"Anna\", score: 92 },\n//     { name: \"Timur\", score: 78 },\n//     { name: \"Lola\", score: 65 },\n//     { name: \"Sardor\", score: 95 },\n// ];\n// Funksiyalar boshqa massivlarda, jumladan bo‘sh massivda ham tekshiriladi.\n\n// 1. getAverage(list) - reduce, Math.round, bo‘sh massiv → 0\n\n// 2. getExcellentNames(list) - filter + map, balli 90 dan yuqorilar ismlari\n\n// 3. findStudent(list, name) - find\n\n// 4. addStudent(list, name, score) - ... orqali yangi massiv\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const students = [\n    { name: \"Anna\", score: 92 },\n    { name: \"Timur\", score: 78 },\n    { name: \"Lola\", score: 65 },\n    { name: \"Sardor\", score: 95 },\n];",
+    "tests": [
+      {
+        "name": "getAverage(students) = 83 (82.5 yaxlitlangan)",
+        "check": "getAverage(students) === 83",
+        "fail": "Yig‘indi reduce bilan, list.length ga bo‘ling, Math.round bilan yaxlitlang."
+      },
+      {
+        "name": "getAverage boshqa massivda: 70 va 81 → 76",
+        "check": "getAverage([{ name: \"A\", score: 70 }, { name: \"B\", score: 81 }]) === 76",
+        "fail": "students bo‘yicha emas, list parametri bo‘yicha hisoblang."
+      },
+      {
+        "name": "getAverage([]) = 0",
+        "check": "getAverage([]) === 0",
+        "fail": "Bo‘sh massivda bo‘lish NaN beradi - oldindan 0 qaytaring: if (list.length === 0) { return 0; }"
+      },
+      {
+        "name": "getExcellentNames(students) → [\"Anna\", \"Sardor\"]",
+        "check": "JSON.stringify(getExcellentNames(students)) === JSON.stringify([\"Anna\", \"Sardor\"])",
+        "fail": "score >= 90 bo‘yicha filter, keyin map((student) => student.name)."
+      },
+      {
+        "name": "Chegara: 90 ball - a’lochi",
+        "check": "JSON.stringify(getExcellentNames([{ name: \"Ira\", score: 90 }, { name: \"Oleg\", score: 89 }])) === JSON.stringify([\"Ira\"])",
+        "fail": "«90 va yuqori» - bu >=."
+      },
+      {
+        "name": "getExcellentNames([]) → []",
+        "check": "Array.isArray(getExcellentNames([])) && getExcellentNames([]).length === 0",
+        "fail": "filter va map ishlatilsa, bo‘sh massiv uchun bo‘sh massiv qaytadi."
+      },
+      {
+        "name": "findStudent o‘quvchini topadi",
+        "check": "findStudent(students, \"Timur\") === students[1]",
+        "fail": "list.find((student) => student.name === name)"
+      },
+      {
+        "name": "O‘quvchi bo‘lmasa, findStudent undefined qaytaradi",
+        "check": "findStudent(students, \"Ira\") === undefined",
+        "fail": "find o‘zi undefined qaytaradi - filter massiv qaytarardi."
+      },
+      {
+        "name": "addStudent o‘quvchi qo‘shilgan yangi massiv qaytaradi",
+        "check": "(() => { const next = addStudent(students, \"Ira\", 88); return next.length === 5 && next[4].name === \"Ira\" && next[4].score === 88 && next !== students; })()",
+        "fail": "return [...list, { name, score }];"
+      },
+      {
+        "name": "addStudent asl massivni o‘zgartirmaydi",
+        "check": "(() => { const before = JSON.stringify(students); addStudent(students, \"Ira\", 88); return JSON.stringify(students) === before; })()",
+        "fail": "push asl massivni o‘zgartiradi. Yangisini yarating: [...list, ...]."
+      },
+      {
+        "name": "reduce, filter, map, find va ... ishlatilgan",
+        "check": "/\\.reduce\\(/.test(__code) && /\\.filter\\(/.test(__code) && /\\.map\\(/.test(__code) && /\\.find\\(/.test(__code) && /\\[\\s*\\.\\.\\./.test(__code)",
+        "fail": "Vazifani qo‘lda yozilgan sikllarsiz, massiv metodlari bilan yeching."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Kodda xato bor - uning matnini konsolda o‘qing."
+      }
+    ],
+    "hints": [
+      "Yig‘indi: list.reduce((sum, student) => sum + student.score, 0) - 0 ni unutmang.",
+      "Bo‘sh massiv: if (list.length === 0) { return 0; }",
+      "Zanjir: list.filter(...).map((student) => student.name)",
+      "Qidiruv: list.find((student) => student.name === name)",
+      "Yangi massiv: [...list, { name, score }] - { name: name, score: score } ning qisqa yozuvi."
+    ],
+    "solution": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. getAverage(list)\n"
+      },
+      {
+        "mistake": "bo‘sh massiv tekshirilmagan",
+        "code": "function getAverage(list) {\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": "yaxlitlash yo‘q",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return total / list.length;\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": "list o‘rniga students bo‘yicha hisoblaydi",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = students.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / students.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": "ismlar o‘rniga obyektlar qaytaradi",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": ">= o‘rniga >",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score > 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": "find o‘rniga filter",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.filter((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      },
+      {
+        "mistake": "push asl massivni o‘zgartiradi",
+        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    list.push({ name, score });\n    return list;\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "const a = [\"x\", \"y\", \"z\"]; a[1] nimani qaytaradi?",
+        "options": [
+          "\"x\"",
+          "\"y\"",
+          "\"z\"",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "Indekslar noldan sanaladi."
+      },
+      {
+        "type": "input",
+        "question": "arr massivining oxirgi elementini qanday olish mumkin? Ifodani kiriting.",
+        "answers": [
+          "arr[arr.length - 1]",
+          "arr[arr.length-1]",
+          "arr.at(-1)"
+        ],
+        "case_sensitive": true,
+        "explanation": "Oxirgi indeks - length - 1."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: const cart = []; cart.push(\"pishloq\"); console.log(cart.length);",
+        "options": [
+          "0",
+          "1",
+          "Xato: cart - konstanta",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "const o‘zgaruvchini qayta tayinlashni taqiqlaydi, massiv ichini o‘zgartirishni emas."
+      },
+      {
+        "type": "matching",
+        "question": "Metodni u qaytaradigan narsa bilan moslashtiring.",
+        "pairs": [
+          [
+            "map",
+            "Xuddi shu uzunlikdagi yangi massiv"
+          ],
+          [
+            "filter",
+            "Mos elementli yangi massiv"
+          ],
+          [
+            "find",
+            "Bitta element yoki undefined"
+          ],
+          [
+            "reduce",
+            "Bitta qiymat"
+          ]
+        ],
+        "explanation": "Ularning hech biri asl massivni o‘zgartirmaydi."
+      },
+      {
+        "type": "single",
+        "question": "[1, 2, 3].map((n) => n * 10) nimani qaytaradi?",
+        "options": [
+          "60",
+          "[10, 20, 30]",
+          "[1, 2, 3]",
+          "10"
+        ],
+        "answer": 1,
+        "explanation": "map har bir elementni o‘zgartiradi."
+      },
+      {
+        "type": "single",
+        "question": "[5, 12, 8, 20].filter((n) => n > 10) nimani qaytaradi?",
+        "options": [
+          "[12, 20]",
+          "12",
+          "[true, false]",
+          "2"
+        ],
+        "answer": 0,
+        "explanation": "filter funksiya true qaytargan elementlarni qoldiradi."
+      },
+      {
+        "type": "input",
+        "question": "[3, 4, 5].reduce((sum, n) => sum + n, 0) nechaga teng? Sonni kiriting.",
+        "answers": [
+          "12"
+        ],
+        "case_sensitive": false,
+        "explanation": "0 + 3 + 4 + 5 = 12."
+      },
+      {
+        "type": "multiple",
+        "question": "user obyektining name xususiyatini o‘qishning qaysi usullari to‘g‘ri?",
+        "options": [
+          "user.name",
+          "user[\"name\"]",
+          "const name = \"name\" bo‘lganda user[name]",
+          "user->name"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Nuqta yoki satrli kvadrat qavslar; JavaScript’da -> yo‘q."
+      },
+      {
+        "type": "single",
+        "question": "[{ id: 1 }, { id: 2 }].find((x) => x.id === 3) nimani qaytaradi?",
+        "options": [
+          "null",
+          "[]",
+          "undefined",
+          "Xato"
+        ],
+        "answer": 2,
+        "explanation": "Hech narsa topilmasa, find undefined qaytaradi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi amallar asl massivni o‘zgartiradi?",
+        "options": [
+          "push",
+          "pop",
+          "map",
+          "filter",
+          "arr[0] = 1"
+        ],
+        "answer": [
+          0,
+          1,
+          4
+        ],
+        "explanation": "map va filter yangi massiv qaytaradi."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: const user = { name: \"Anna\", age: 15 }; const { age } = user; console.log(age);",
+        "options": [
+          "{ age: 15 }",
+          "15",
+          "\"age\"",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "Destrukturizatsiya user.age qiymatli age konstantasini yaratadi."
+      },
+      {
+        "type": "matching",
+        "question": "const a = [1, 2] bo‘lganda yozuvni natija bilan moslashtiring.",
+        "pairs": [
+          [
+            "[...a, 3]",
+            "[1, 2, 3]"
+          ],
+          [
+            "[0, ...a]",
+            "[0, 1, 2]"
+          ],
+          [
+            "a.length",
+            "2"
+          ]
+        ],
+        "explanation": "Spread elementlarni yangi massivga yoyadi."
+      }
+    ]
+  }
+}

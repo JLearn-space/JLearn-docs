@@ -1,0 +1,307 @@
+{
+  "lesson": 8,
+  "language": "ru",
+  "lesson_title": "События",
+  "task": {
+    "title": "Интерактивная страница",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Интерактивная страница</title>\n</head>\n<body>\n    <main>\n        <h1>Курс JavaScript</h1>\n\n        <section class=\"likes\">\n            <button type=\"button\" id=\"like-btn\">Нравится</button>\n            <span id=\"like-count\">0</span>\n        </section>\n\n        <button type=\"button\" id=\"theme-toggle\" aria-pressed=\"false\">Тёмная тема</button>\n\n        <section class=\"faq\" id=\"faq\">\n            <h2>Вопросы</h2>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">Сколько уроков в курсе?</button>\n                <p class=\"faq__answer\" hidden>10 уроков.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">Нужен ли опыт программирования?</button>\n                <p class=\"faq__answer\" hidden>Нет, достаточно курсов HTML и CSS.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\"><span>Где проходить задания?</span></button>\n                <p class=\"faq__answer\" hidden>В IDE на платформе JLearn.</p>\n            </div>\n        </section>\n\n        <label for=\"comment\">Комментарий</label>\n        <textarea id=\"comment\" maxlength=\"100\"></textarea>\n        <p id=\"comment-counter\">0 / 100</p>\n    </main>\n</body>\n</html>",
+    "description": "Оживите страницу. 1) Клик по #like-btn увеличивает число в #like-count на 1. 2) Клик по #theme-toggle переключает у body класс theme-dark и ставит кнопке aria-pressed \"true\" или \"false\". 3) Один обработчик на #faq (делегирование): клик по .faq__question показывает или скрывает .faq__answer своего .faq__item и обновляет aria-expanded. 4) Escape на странице закрывает все ответы и ставит aria-expanded=\"false\". 5) При вводе в #comment в #comment-counter пишется \"12 / 100\". Только addEventListener; onclick, innerHTML и element.style не используйте.",
+    "starter_code": "// Разметка уже на странице: #like-btn, #like-count, #theme-toggle,\n// #faq с блоками .faq__item (.faq__question + .faq__answer), #comment, #comment-counter.\n\n// 1. Лайки: let likes = 0; клик → +1\n\n// 2. Тема: класс theme-dark у body, aria-pressed у кнопки\n\n// 3. Вопросы: ОДИН обработчик на #faq, event.target.closest(\".faq__question\")\n\n// 4. Escape закрывает все ответы\n\n// 5. Счётчик символов: событие input\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown",
+      "oninput"
+    ],
+    "tests": [
+      {
+        "name": "Один клик по «Нравится» → 1",
+        "check": "(() => { document.querySelector(\"#like-btn\").click(); return document.querySelector(\"#like-count\").textContent === \"1\"; })()",
+        "fail": "В обработчике увеличьте likes и запишите в #like-count: likeCount.textContent = String(likes);"
+      },
+      {
+        "name": "Три клика → 3",
+        "check": "(() => { const b = document.querySelector(\"#like-btn\"); b.click(); b.click(); b.click(); return document.querySelector(\"#like-count\").textContent === \"3\"; })()",
+        "fail": "Объявите let likes = 0; СНАРУЖИ обработчика, иначе счёт каждый раз начинается заново."
+      },
+      {
+        "name": "Тема: один клик включает theme-dark и aria-pressed=\"true\"",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); return document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"true\"; })()",
+        "fail": "const isDark = document.body.classList.toggle(\"theme-dark\"); themeButton.setAttribute(\"aria-pressed\", String(isDark));"
+      },
+      {
+        "name": "Тема: второй клик выключает",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); b.click(); return !document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"false\"; })()",
+        "fail": "Используйте toggle, а не add."
+      },
+      {
+        "name": "Клик по вопросу открывает ответ и ставит aria-expanded=\"true\"",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return document.querySelectorAll(\".faq__answer\")[0].hidden === false && document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"true\" && document.querySelectorAll(\".faq__answer\")[1].hidden === true; })()",
+        "fail": "Найдите ответ своего блока: question.closest(\".faq__item\").querySelector(\".faq__answer\")."
+      },
+      {
+        "name": "Повторный клик закрывает ответ",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[1].click(); document.querySelectorAll(\".faq__question\")[1].click(); return document.querySelectorAll(\".faq__answer\")[1].hidden === true && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Переключайте: answer.hidden = !answer.hidden и aria-expanded по новому состоянию."
+      },
+      {
+        "name": "Клик по span внутри кнопки тоже работает",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[2].querySelector(\"span\").click(); return document.querySelectorAll(\".faq__answer\")[2].hidden === false; })()",
+        "fail": "event.target может быть вложенным элементом - используйте event.target.closest(\".faq__question\")."
+      },
+      {
+        "name": "Вопрос, добавленный после загрузки, работает (делегирование)",
+        "check": "(() => { const item = document.createElement(\"div\"); item.className = \"faq__item\"; const q = document.createElement(\"button\"); q.type = \"button\"; q.className = \"faq__question\"; q.setAttribute(\"aria-expanded\", \"false\"); q.textContent = \"Новый?\"; const a = document.createElement(\"p\"); a.className = \"faq__answer\"; a.hidden = true; a.textContent = \"Да\"; item.append(q, a); document.querySelector(\"#faq\").append(item); q.click(); return a.hidden === false && q.getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Повесьте ОДИН обработчик на #faq, а не на каждую кнопку: тогда новые вопросы тоже работают."
+      },
+      {
+        "name": "Клик по заголовку «Вопросы» ничего не ломает",
+        "check": "(() => { document.querySelector(\"#faq h2\").click(); return __error === null && [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden); })()",
+        "fail": "Если клик не по вопросу, closest вернёт null - выйдите из обработчика: if (!question) { return; }"
+      },
+      {
+        "name": "Escape закрывает все ответы",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.querySelectorAll(\".faq__question\")[1].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden) && [...document.querySelectorAll(\".faq__question\")].every((q) => q.getAttribute(\"aria-expanded\") === \"false\"); })()",
+        "fail": "document.addEventListener(\"keydown\", ...) и проверка event.key === \"Escape\"."
+      },
+      {
+        "name": "Другие клавиши не закрывают ответы",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Enter\", bubbles: true })); return document.querySelectorAll(\".faq__answer\")[0].hidden === false; })()",
+        "fail": "Закрывайте только при event.key === \"Escape\"."
+      },
+      {
+        "name": "Счётчик символов: «JavaScript» → \"10 / 100\"",
+        "check": "(() => { const c = document.querySelector(\"#comment\"); c.value = \"JavaScript\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); return document.querySelector(\"#comment-counter\").textContent === \"10 / 100\"; })()",
+        "fail": "Событие input: commentCounter.textContent = `${comment.value.length} / 100`;"
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Ошибка с null - проверьте селекторы."
+      }
+    ],
+    "hints": [
+      "Счётчик лайков: let likes = 0; снаружи обработчика.",
+      "classList.toggle возвращает true, если класс добавлен: const isDark = document.body.classList.toggle(\"theme-dark\");",
+      "aria-атрибуты - строки: setAttribute(\"aria-pressed\", String(isDark)).",
+      "Делегирование: faq.addEventListener(\"click\", (event) => { const question = event.target.closest(\".faq__question\"); if (!question) { return; } ... });",
+      "Ответ своего блока: question.closest(\".faq__item\").querySelector(\".faq__answer\")",
+      "Escape: document.addEventListener(\"keydown\", (event) => { if (event.key === \"Escape\") { ... } });"
+    ],
+    "solution": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. Лайки\n"
+      },
+      {
+        "mistake": "счётчик объявлен внутри обработчика",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlikeButton.addEventListener(\"click\", () => {\n    let likes = 0;\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "add вместо toggle",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    document.body.classList.add(\"theme-dark\");\n    const isDark = true;\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-pressed не обновляется",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "обработчик на каждой кнопке вместо делегирования",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfor (const question of faq.querySelectorAll(\".faq__question\")) question.addEventListener(\"click\", () => {\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "event.target без closest",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target;\n    if (!question.classList.contains(\"faq__question\")) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "нет проверки на null",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-expanded не обновляется",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "любая клавиша закрывает",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "счётчик по событию change",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"change\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "onclick вместо addEventListener",
+        "code": "// 1. Лайки\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.onclick = (() => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Тема\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Вопросы: один обработчик на #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape закрывает все ответы\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Счётчик символов\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Какая запись подписывает кнопку btn на клик правильно?",
+        "options": [
+          "btn.addEventListener(\"click\", handleClick);",
+          "btn.addEventListener(\"click\", handleClick());",
+          "btn.addEventListener(click, handleClick);",
+          "btn.click = handleClick;"
+        ],
+        "answer": 0,
+        "explanation": "Функцию передают без скобок; тип события - строка."
+      },
+      {
+        "type": "single",
+        "question": "Почему при let likes = 0; внутри обработчика на странице всегда 1?",
+        "options": [
+          "Ошибка браузера",
+          "Переменная создаётся заново с нулём при каждом клике",
+          "textContent не работает с числами",
+          "Нужен const"
+        ],
+        "answer": 1,
+        "explanation": "Состояние хранят снаружи обработчика."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство объекта события содержит элемент, на котором произошло событие? Введите event.<свойство>.",
+        "answers": [
+          "event.target",
+          "target"
+        ],
+        "case_sensitive": true,
+        "explanation": "event.target - самый глубокий элемент, по которому кликнули."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте событие и момент.",
+        "pairs": [
+          [
+            "click",
+            "Нажатие на элемент"
+          ],
+          [
+            "input",
+            "Каждое изменение значения поля"
+          ],
+          [
+            "keydown",
+            "Нажатие клавиши"
+          ],
+          [
+            "submit",
+            "Отправка формы"
+          ]
+        ],
+        "explanation": "Тип события - первый аргумент addEventListener."
+      },
+      {
+        "type": "single",
+        "question": "Как проверить, что нажата клавиша Escape?",
+        "options": [
+          "event.key === \"Escape\"",
+          "event.target === \"Escape\"",
+          "event.type === \"Escape\"",
+          "event.escape === true"
+        ],
+        "answer": 0,
+        "explanation": "event.key - название клавиши."
+      },
+      {
+        "type": "single",
+        "question": "Что делает event.preventDefault() в обработчике клика по ссылке?",
+        "options": [
+          "Удаляет ссылку",
+          "Отменяет переход по ссылке",
+          "Останавливает все скрипты",
+          "Перезагружает страницу"
+        ],
+        "answer": 1,
+        "explanation": "Отменяется действие браузера по умолчанию."
+      },
+      {
+        "type": "single",
+        "question": "Что такое всплытие событий?",
+        "options": [
+          "Событие поднимается от целевого элемента к его родителям",
+          "Событие переходит к соседним элементам",
+          "Окно с сообщением",
+          "Повтор события каждую секунду"
+        ],
+        "answer": 0,
+        "explanation": "Поэтому клик по кнопке можно поймать на её контейнере."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие преимущества даёт делегирование событий?",
+        "options": [
+          "Один обработчик вместо многих",
+          "Работает для элементов, добавленных позже",
+          "Не нужен JavaScript",
+          "Не нужна проверка, по чему кликнули"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Проверка нужна: event.target.closest(...)."
+      },
+      {
+        "type": "single",
+        "question": "Зачем в делегировании event.target.closest(\".item\"), а не просто event.target?",
+        "options": [
+          "closest работает быстрее",
+          "Клик может прийти по вложенному элементу (span, иконка), closest найдёт саму .item",
+          "event.target всегда null",
+          "Так требует CSS"
+        ],
+        "answer": 1,
+        "explanation": "closest ищет от самого элемента вверх по родителям."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие решения делают раскрывающийся блок доступным?",
+        "options": [
+          "Кнопка <button type=\"button\">",
+          "aria-expanded на кнопке",
+          "hidden у скрытого содержимого",
+          "<div> с обработчиком клика"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "div не получает фокус и не нажимается с клавиатуры."
+      },
+      {
+        "type": "input",
+        "question": "Какое значение даёт String(true)? Введите его.",
+        "answers": [
+          "true",
+          "\"true\""
+        ],
+        "case_sensitive": true,
+        "explanation": "aria-атрибуты - строки, поэтому значения превращают через String()."
+      },
+      {
+        "type": "single",
+        "question": "Почему в курсе не используют атрибут onclick=\"...\"?",
+        "options": [
+          "Он не работает",
+          "Он смешивает код с разметкой; обработчики живут в JS-файле",
+          "Он работает только в Firefox",
+          "Он медленнее"
+        ],
+        "answer": 1,
+        "explanation": "Как style=\"\" в CSS: разделяем HTML и поведение."
+      }
+    ]
+  }
+}

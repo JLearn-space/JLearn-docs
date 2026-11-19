@@ -1,0 +1,325 @@
+{
+  "lesson": 3,
+  "language": "en",
+  "lesson_title": "Conditions",
+  "task": {
+    "title": "A grade and admission to an olympiad",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "The platform sets score (0–100) and age. Declare let grade and with an if / else if / else chain assign a numeric grade: 90 and above - 5, from 75 - 4, from 60 - 3, below - 2. Declare const canEnter - admission to an olympiad: age from 14 and score from 60. Declare const status with a ternary operator: \"Admitted\" or \"Not admitted\". Print with a template string: Grade: 4. Admitted. Use strict comparisons only.",
+    "starter_code": "// The platform sets:\n// const score = 87;  // score 0–100\n// const age = 15;    // age\n// The code will be checked on other values too.\n\n// 1. let grade - grade 5, 4, 3 or 2 with if / else if / else\n\n// 2. const canEnter - age from 14 AND score from 60\n\n// 3. const status - \"Admitted\" or \"Not admitted\" with a ternary operator\n\n// 4. Output: Grade: 4. Admitted\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const score = 87;\nconst age = 15;",
+    "tests": [
+      {
+        "name": "87 points → grade 4",
+        "check": "grade === 4",
+        "fail": "Check the chain: 87 >= 75 but less than 90."
+      },
+      {
+        "name": "95 points → 5",
+        "setup": "const score = 95;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "Check the strictest condition first: score >= 90."
+      },
+      {
+        "name": "Boundary: 90 points → 5",
+        "setup": "const score = 90;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "\"90 and above\" is >=, not >."
+      },
+      {
+        "name": "Boundary: 75 → 4, and 74 → 3",
+        "setup": "const score = 75;\nconst age = 15;",
+        "check": "grade === 4",
+        "fail": "\"From 75\" is score >= 75."
+      },
+      {
+        "name": "74 points → 3",
+        "setup": "const score = 74;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "74 is less than 75 but not less than 60 - that is 3."
+      },
+      {
+        "name": "Boundary: 60 → 3, and 59 → 2",
+        "setup": "const score = 60;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "\"From 60\" is score >= 60."
+      },
+      {
+        "name": "59 points → 2",
+        "setup": "const score = 59;\nconst age = 15;",
+        "check": "grade === 2 && typeof grade === \"number\"",
+        "fail": "Below 60 - the else branch, grade 2 (a number, no quotes)."
+      },
+      {
+        "name": "87 points and age 15 - admitted",
+        "check": "canEnter === true && status === \"Admitted\"",
+        "fail": "canEnter = age >= 14 && score >= 60;"
+      },
+      {
+        "name": "Age 13 and 95 points - not admitted",
+        "setup": "const score = 95;\nconst age = 13;",
+        "check": "canEnter === false && status === \"Not admitted\"",
+        "fail": "BOTH conditions are needed: the && operator, not ||."
+      },
+      {
+        "name": "Admission boundaries: age 14 and 60 points - admitted",
+        "setup": "const score = 60;\nconst age = 14;",
+        "check": "canEnter === true && status === \"Admitted\"",
+        "fail": "\"From 14\" and \"from 60\" are >=."
+      },
+      {
+        "name": "else if is used",
+        "check": "/\\belse\\s+if\\s*\\(/.test(__code)",
+        "fail": "Write the grade choice as an if / else if / else chain."
+      },
+      {
+        "name": "status is chosen with a ternary operator",
+        "check": "/\\bstatus\\s*=\\s*[^;]*\\?[^;]*:/.test(__code)",
+        "fail": "const status = canEnter ? \"Admitted\" : \"Not admitted\";"
+      },
+      {
+        "name": "Strict comparisons only",
+        "check": "!/[^=!<>]==(?!=)|!=(?!=)/.test(__code)",
+        "fail": "Replace == with ===, and != with !==."
+      },
+      {
+        "name": "The console shows \"Grade: 4. Admitted\"",
+        "check": "__logs.includes(\"Grade: 4. Admitted\")",
+        "fail": "console.log(`Grade: ${grade}. ${status}`);"
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "There is an error in the code - read its text in the console."
+      }
+    ],
+    "hints": [
+      "Declare let grade; before if, and only assign in the branches: grade = 5;",
+      "Order: first score >= 90, then >= 75, then >= 60, else at the end.",
+      "The grade is a number: grade = 5; without quotes.",
+      "Admission: const canEnter = age >= 14 && score >= 60;",
+      "Ternary operator: condition ? \"Admitted\" : \"Not admitted\"",
+      "Template string: `Grade: ${grade}. ${status}`"
+    ],
+    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// 1. let grade\n"
+      },
+      {
+        "mistake": "wrong order of conditions",
+        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "> instead of >= at the 90 boundary",
+        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "grade as a string",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "|| instead of &&",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "age > 14",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "if/else instead of a ternary",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Admitted\";\n} else {\n    status = \"Not admitted\";\n}\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "loose comparison",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "separate ifs instead of else if",
+        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "no output",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does this code print: const t = 30; if (t > 25) { console.log(\"Hot\"); } else { console.log(\"Warm\"); }",
+        "options": [
+          "Hot",
+          "Warm",
+          "Hot and Warm",
+          "Nothing"
+        ],
+        "answer": 0,
+        "explanation": "30 > 25 is true, the first branch runs and else is skipped."
+      },
+      {
+        "type": "single",
+        "question": "score = 95. What does this print: if (score >= 60) { console.log(\"Pass\"); } else if (score >= 90) { console.log(\"Excellent\"); }",
+        "options": [
+          "Excellent",
+          "Pass",
+          "Pass and Excellent",
+          "Nothing"
+        ],
+        "answer": 1,
+        "explanation": "The first matching branch runs. Strict conditions go first."
+      },
+      {
+        "type": "input",
+        "question": "Which operator means \"AND\"? Type it.",
+        "answers": [
+          "&&"
+        ],
+        "case_sensitive": false,
+        "explanation": "a && b is true only if both are true."
+      },
+      {
+        "type": "multiple",
+        "question": "Which values are falsy?",
+        "options": [
+          "0",
+          "\"\"",
+          "\"0\"",
+          "null",
+          "\"false\""
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Non-empty strings, even \"0\" and \"false\", are truthy."
+      },
+      {
+        "type": "single",
+        "question": "How do you correctly write \"hour from 6 to 11 inclusive\"?",
+        "options": [
+          "6 <= hour <= 11",
+          "hour >= 6 && hour <= 11",
+          "hour >= 6 || hour <= 11",
+          "hour === 6...11"
+        ],
+        "answer": 1,
+        "explanation": "Two comparisons joined with &&. 6 <= hour <= 11 is always true."
+      },
+      {
+        "type": "single",
+        "question": "What does this print: const age = 20; console.log(age >= 18 ? \"Adult\" : \"Child\");",
+        "options": [
+          "Adult",
+          "Child",
+          "true",
+          "An error"
+        ],
+        "answer": 0,
+        "explanation": "The condition is true - the value before the colon is taken."
+      },
+      {
+        "type": "matching",
+        "question": "Match the expression with the result.",
+        "pairs": [
+          [
+            "true && false",
+            "false"
+          ],
+          [
+            "true || false",
+            "true"
+          ],
+          [
+            "!true",
+            "false"
+          ],
+          [
+            "!0",
+            "true"
+          ]
+        ],
+        "explanation": "!0 is true because 0 is falsy."
+      },
+      {
+        "type": "single",
+        "question": "What happens in if (role = \"admin\") { ... }?",
+        "options": [
+          "role is compared with \"admin\"",
+          "Assignment: role becomes \"admin\", the block runs",
+          "A syntax error",
+          "The block never runs"
+        ],
+        "answer": 1,
+        "explanation": "= assigns. Comparison needs ===."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about switch?",
+        "options": [
+          "It compares the value with ===",
+          "break exits the switch",
+          "default runs if no case matched",
+          "It is handy for ranges like score >= 90"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Ranges need if / else if."
+      },
+      {
+        "type": "single",
+        "question": "In a switch, break is missing after case \"mon\". What happens when day = \"mon\"?",
+        "options": [
+          "Only case \"mon\" runs",
+          "Execution continues into the next case",
+          "An error",
+          "default runs"
+        ],
+        "answer": 1,
+        "explanation": "Without break execution \"falls through\"."
+      },
+      {
+        "type": "input",
+        "question": "How many branches run in an if / else if / else chain? Type a number.",
+        "answers": [
+          "1",
+          "one"
+        ],
+        "case_sensitive": false,
+        "explanation": "Exactly one - the first matching one or else."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the construct.",
+        "pairs": [
+          [
+            "Choose one of two values",
+            "Ternary operator"
+          ],
+          [
+            "Score ranges",
+            "if / else if"
+          ],
+          [
+            "Exact days of the week",
+            "switch"
+          ]
+        ],
+        "explanation": "Each construct suits its own task."
+      }
+    ]
+  }
+}

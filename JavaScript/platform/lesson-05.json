@@ -1,0 +1,309 @@
+{
+  "lesson": 5,
+  "language": "ru",
+  "lesson_title": "Функции",
+  "task": {
+    "title": "Набор функций для оценок и цен",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Напишите функции, которые возвращают результат через return и ничего не печатают: isEven(number) - объявлением function, true для чётного числа; getGrade(score) - 5 для 90 и выше, 4 от 75, 3 от 60, иначе 2; formatPrice(amount, currency) - строка \"45000 сум\", валюта по умолчанию \"сум\"; square - стрелочная функция в константе, квадрат числа; countVowels(word) - число гласных a, e, i, o, u без учёта регистра. Вызовы для проверки можно вывести в консоль после функций.",
+    "starter_code": "// 1. function isEven(number) - true, если число чётное\n\n// 2. function getGrade(score) - оценка 5, 4, 3 или 2\n\n// 3. function formatPrice(amount, currency = ...) - \"45000 сум\"\n\n// 4. const square = ... - стрелочная функция, квадрат числа\n\n// 5. function countVowels(word) - число гласных a, e, i, o, u\n\n// Проверка:\n// console.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      ".split(",
+      ".match(",
+      ".replace(",
+      ".filter(",
+      ".reduce("
+    ],
+    "tests": [
+      {
+        "name": "isEven: 4 и 0 - чётные, 7 - нет",
+        "check": "isEven(4) === true && isEven(0) === true && isEven(7) === false",
+        "fail": "return number % 2 === 0; - сравнение уже даёт true или false."
+      },
+      {
+        "name": "isEven работает с отрицательными: -3 - нечётное, -8 - чётное",
+        "check": "isEven(-3) === false && isEven(-8) === true",
+        "fail": "-3 % 2 равно -1, а не 1. Проверяйте остаток на 0: number % 2 === 0."
+      },
+      {
+        "name": "isEven объявлена через function",
+        "check": "/\\bfunction\\s+isEven\\s*\\(/.test(__code)",
+        "fail": "function isEven(number) { ... }"
+      },
+      {
+        "name": "getGrade: 95 → 5, 90 → 5, 89 → 4",
+        "check": "getGrade(95) === 5 && getGrade(90) === 5 && getGrade(89) === 4",
+        "fail": "Порядок проверок: сначала >= 90."
+      },
+      {
+        "name": "getGrade: 75 → 4, 74 → 3, 60 → 3, 59 → 2, 0 → 2",
+        "check": "getGrade(75) === 4 && getGrade(74) === 3 && getGrade(60) === 3 && getGrade(59) === 2 && getGrade(0) === 2",
+        "fail": "Проверьте границы >= 75 и >= 60 и что оценка - число."
+      },
+      {
+        "name": "formatPrice(45000) → \"45000 сум\"",
+        "check": "formatPrice(45000) === \"45000 сум\"",
+        "fail": "Значение по умолчанию: function formatPrice(amount, currency = \"сум\")."
+      },
+      {
+        "name": "formatPrice(20, \"$\") → \"20 $\"",
+        "check": "formatPrice(20, \"$\") === \"20 $\"",
+        "fail": "Используйте параметр currency в шаблонной строке."
+      },
+      {
+        "name": "У currency значение по умолчанию \"сум\"",
+        "check": "/currency\\s*=\\s*\"сум\"/.test(__code)",
+        "fail": "Задайте значение в списке параметров: currency = \"сум\"."
+      },
+      {
+        "name": "square: 5 → 25, -3 → 9, 0 → 0",
+        "check": "square(5) === 25 && square(-3) === 9 && square(0) === 0",
+        "fail": "const square = (x) => x * x;"
+      },
+      {
+        "name": "square - стрелочная функция в константе",
+        "check": "/\\bconst\\s+square\\s*=\\s*\\(?\\s*\\w+\\s*\\)?\\s*=>/.test(__code)",
+        "fail": "Запишите стрелкой: const square = (x) => ...;"
+      },
+      {
+        "name": "countVowels: \"JavaScript\" → 3, \"EDUCATION\" → 5, \"rhythm\" → 0, \"\" → 0",
+        "check": "countVowels(\"JavaScript\") === 3 && countVowels(\"EDUCATION\") === 5 && countVowels(\"rhythm\") === 0 && countVowels(\"\") === 0",
+        "fail": "Счётчик внутри функции, for...of по word, char.toLowerCase(), return count."
+      },
+      {
+        "name": "Функции возвращают результат, а не печатают",
+        "check": "(() => { const before = __logs.length; isEven(2); getGrade(80); formatPrice(1); square(2); countVowels(\"ab\"); return __logs.length === before; })()",
+        "fail": "Уберите console.log из тел функций - результат отдаётся через return."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "В коде ошибка - прочитайте её текст в консоли."
+      }
+    ],
+    "hints": [
+      "Функция возвращает результат: return ...; Без return вызов даёт undefined.",
+      "Чётность: number % 2 === 0 - работает и для отрицательных.",
+      "В getGrade удобен ранний выход: if (score >= 90) { return 5; }",
+      "Значение по умолчанию: function formatPrice(amount, currency = \"сум\")",
+      "Стрелка: const square = (x) => x * x;",
+      "Счётчик гласных объявляйте внутри функции, иначе второй вызов продолжит старый счёт."
+    ],
+    "solution": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. function isEven(number)\n"
+      },
+      {
+        "mistake": "console.log вместо return",
+        "code": "function isEven(number) {\n    console.log(number % 2 === 0);\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "нечётность через % 2 === 1",
+        "code": "function isEven(number) {\n    return number % 2 !== 1;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "isEven стрелкой вместо function",
+        "code": "const isEven = (number) => number % 2 === 0;\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "неверный порядок проверок",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "нет значения по умолчанию",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency) {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "стрелка с фигурными скобками без return",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => { x * x; };\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "square объявлением function",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nfunction square(x) {\n    return x * x;\n}\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "счётчик снаружи функции",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nlet count = 0;\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "печать внутри функции",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    console.log(amount);\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что выведет: function hi() { console.log(\"Привет\"); } hi; ",
+        "options": [
+          "Привет",
+          "Ничего: функция не вызвана",
+          "undefined",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "Вызов - всегда со скобками: hi()."
+      },
+      {
+        "type": "matching",
+        "question": "В записи function greet(name) { ... } greet(\"Анна\"); сопоставьте понятия.",
+        "pairs": [
+          [
+            "name",
+            "Параметр"
+          ],
+          [
+            "\"Анна\"",
+            "Аргумент"
+          ],
+          [
+            "greet(\"Анна\")",
+            "Вызов"
+          ],
+          [
+            "{ ... }",
+            "Тело функции"
+          ]
+        ],
+        "explanation": "Параметр - имя в объявлении, аргумент - значение при вызове."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: function f(x) { console.log(x * 2); } const r = f(5); console.log(r);",
+        "options": [
+          "10 и 10",
+          "10 и undefined",
+          "undefined и 10",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "f печатает 10, но ничего не возвращает - r равно undefined."
+      },
+      {
+        "type": "input",
+        "question": "Какое ключевое слово возвращает результат из функции? Введите его.",
+        "answers": [
+          "return"
+        ],
+        "case_sensitive": true,
+        "explanation": "return значение; - результат вызова."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт getCost(150000)? function getCost(t) { if (t >= 100000) { return 0; } return 15000; }",
+        "options": [
+          "0",
+          "15000",
+          "0 и 15000",
+          "undefined"
+        ],
+        "answer": 0,
+        "explanation": "После return функция завершается, вторая строка не выполняется."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: function price(a, c = \"сум\") { return `${a} ${c}`; } console.log(price(500));",
+        "options": [
+          "500 undefined",
+          "500 сум",
+          "500",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "Аргумент не передан - используется значение по умолчанию."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи - корректные стрелочные функции, возвращающие удвоенное число?",
+        "options": [
+          "const double = (n) => n * 2;",
+          "const double = (n) => { return n * 2; };",
+          "const double = (n) => { n * 2; };",
+          "const double = n => n * 2;"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "С фигурными скобками нужен явный return. Скобки вокруг одного параметра можно опустить."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: function calc() { const result = 42; } calc(); console.log(result);",
+        "options": [
+          "42",
+          "undefined",
+          "ReferenceError: result is not defined",
+          "null"
+        ],
+        "answer": 2,
+        "explanation": "Переменная внутри функции снаружи не видна."
+      },
+      {
+        "type": "single",
+        "question": "Какая функция чистая?",
+        "options": [
+          "function add(a, b) { return a + b; }",
+          "function add(a) { total += a; }",
+          "function show(a) { console.log(a); }",
+          "function next() { counter++; return counter; }"
+        ],
+        "answer": 0,
+        "explanation": "Результат зависит только от аргументов, снаружи ничего не меняется."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие имена функций соответствуют стилю курса?",
+        "options": [
+          "getTotal",
+          "isEven",
+          "total",
+          "formatPrice"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Функция - действие: глагол или вопрос is/has/can. total - имя для значения."
+      },
+      {
+        "type": "input",
+        "question": "Что вернёт square(-4), если const square = (x) => x * x;? Введите число.",
+        "answers": [
+          "16"
+        ],
+        "case_sensitive": false,
+        "explanation": "-4 × -4 = 16."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и инструмент.",
+        "pairs": [
+          [
+            "Отдать результат программе",
+            "return"
+          ],
+          [
+            "Показать значение человеку",
+            "console.log"
+          ],
+          [
+            "Подставить значение, если аргумент не передан",
+            "Значение по умолчанию"
+          ]
+        ],
+        "explanation": "return - для программы, console.log - для отладки."
+      }
+    ]
+  }
+}

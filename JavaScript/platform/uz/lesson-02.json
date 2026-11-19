@@ -1,0 +1,298 @@
+{
+  "lesson": 2,
+  "language": "uz",
+  "lesson_title": "Ma’lumot turlari va operatorlar",
+  "task": {
+    "title": "Xarid cheki",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Platforma buyurtma ma’lumotlarini beradi: price (son), quantityText (formadagidek satr) va discountPercent (son). const orqali e’lon qiling: quantity - Number() orqali songa aylantirilgan miqdor; subtotal - narx × miqdor; discount - so‘mdagi chegirma (subtotal ning discountPercent foizi); total - to‘lanadigan summa; isExpensive - total 100000 dan katta bo‘lsa true; receipt - shablon satr bilan yig‘ilgan \"Jami: <total> so‘m\" satri. receipt ni konsolga chiqaring. Kod bir nechta ma’lumotlar to‘plamida tekshiriladi, shuning uchun tayyor sonlarni yozmang.",
+    "starter_code": "// Buyurtma ma’lumotlarini platforma beradi:\n// const price = 45000;         // bitta mahsulot narxi, so‘m\n// const quantityText = \"3\";    // formadan kelgan miqdor - bu satr!\n// const discountPercent = 10;  // chegirma, %\n// Kod boshqa ma’lumotlarda ham tekshiriladi - ifodalar bilan hisoblang.\n\n// 1. quantity - miqdor son ko‘rinishida\n\n// 2. subtotal - narx × miqdor\n\n// 3. discount - so‘mdagi chegirma\n\n// 4. total - to‘lanadigan summa\n\n// 5. isExpensive - total 100000 dan kattami?\n\n// 6. receipt - \"Jami: ... so‘m\" shablon satr bilan, konsolga chiqaring\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const price = 45000;\nconst quantityText = \"3\";\nconst discountPercent = 10;",
+    "tests": [
+      {
+        "name": "quantity - 3 soni",
+        "check": "quantity === 3 && typeof quantity === \"number\"",
+        "fail": "quantityText - satr. Uni aylantiring: const quantity = Number(quantityText);"
+      },
+      {
+        "name": "Miqdor Number(quantityText) orqali aylantirilgan",
+        "check": "/Number\\(\\s*quantityText\\s*\\)/.test(__code)",
+        "fail": "Number(quantityText) dan foydalaning."
+      },
+      {
+        "name": "subtotal = 135000",
+        "check": "subtotal === 135000",
+        "fail": "subtotal = price * quantity."
+      },
+      {
+        "name": "discount = 13500",
+        "check": "discount === 13500",
+        "fail": "So‘mdagi chegirma: subtotal * discountPercent / 100."
+      },
+      {
+        "name": "total = 121500",
+        "check": "total === 121500",
+        "fail": "total = subtotal - discount."
+      },
+      {
+        "name": "isExpensive - true mantiqiy qiymati",
+        "check": "isExpensive === true",
+        "fail": "isExpensive = total > 100000; - solishtirish natijasi allaqachon true yoki false."
+      },
+      {
+        "name": "receipt \"Jami: 121500 so‘m\" ga teng",
+        "check": "receipt === \"Jami: 121500 so‘m\"",
+        "fail": "Matnni tekshiring: Jami, ikki nuqta, bo‘sh joy, son, bo‘sh joy, so‘m."
+      },
+      {
+        "name": "receipt ${total} li shablon satr bilan yig‘ilgan",
+        "check": "/`[^`]*\\$\\{\\s*total\\s*\\}[^`]*`/.test(__code)",
+        "fail": "Teskari qo‘shtirnoqdan foydalaning: `Jami: ${total} so‘m`."
+      },
+      {
+        "name": "Chek konsolga chiqarilgan",
+        "check": "__logs.includes(receipt)",
+        "fail": "console.log(receipt); qo‘shing."
+      },
+      {
+        "name": "Boshqa buyurtma: 20000 × \"7\" 5% chegirma bilan = 133000",
+        "setup": "const price = 20000;\nconst quantityText = \"7\";\nconst discountPercent = 5;",
+        "check": "total === 133000 && receipt === \"Jami: 133000 so‘m\" && isExpensive === true",
+        "fail": "Boshqa ma’lumotlarda natija noto‘g‘ri: tayyor sonlarni yozmang, o‘zgaruvchilar orqali hisoblang."
+      },
+      {
+        "name": "Aynan 100000 - bu 100000 dan katta emas",
+        "setup": "const price = 50000;\nconst quantityText = \"2\";\nconst discountPercent = 0;",
+        "check": "total === 100000 && isExpensive === false",
+        "fail": "«Katta» - bu > , >= emas."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Kodda xato bor - uning matnini konsolda o‘qing."
+      }
+    ],
+    "hints": [
+      "const quantity = Number(quantityText);",
+      "Sonning foizi: subtotal * discountPercent / 100.",
+      "Solishtirish allaqachon true yoki false beradi: const isExpensive = total > 100000;",
+      "Shablon satr - teskari qo‘shtirnoqda: `Jami: ${total} so‘m`.",
+      "Platforma kodni bir nechta buyurtmada ishga tushiradi - yozib qo‘yilgan 121500 faqat birinchisida ishlaydi."
+    ],
+    "solution": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Jami: ${total} so‘m`;\n\nconsole.log(receipt);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. quantity - miqdor son ko‘rinishida\n"
+      },
+      {
+        "mistake": "miqdor satrligicha qoldi",
+        "code": "const quantity = quantityText;\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Jami: ${total} so‘m`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "ifodalar o‘rniga tayyor sonlar",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = 135000;\nconst discount = 13500;\nconst total = 121500;\nconst isExpensive = true;\nconst receipt = `Jami: ${total} so‘m`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "chegirma so‘mda emas, foizda",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = discountPercent;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Jami: ${total} so‘m`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "> o‘rniga >=",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total >= 100000;\nconst receipt = `Jami: ${total} so‘m`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "shablon satr o‘rniga + bilan birlashtirish",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = \"Jami: \" + total + \" so‘m\";\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "isExpensive satr ko‘rinishida",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = \"true\";\nconst receipt = `Jami: ${total} so‘m`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "chek chiqarilmagan",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Jami: ${total} so‘m`;\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "typeof \"42\" nimani qaytaradi?",
+        "options": [
+          "\"number\"",
+          "\"string\"",
+          "\"boolean\"",
+          "\"undefined\""
+        ],
+        "answer": 1,
+        "explanation": "Qo‘shtirnoqdagi qiymat - satr, ichida raqamlar bo‘lsa ham."
+      },
+      {
+        "type": "single",
+        "question": "console.log(\"5\" + 3); nimani chiqaradi?",
+        "options": [
+          "8",
+          "\"53\"",
+          "NaN",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Satr bilan + birlashtiradi: natija - \"53\" satri."
+      },
+      {
+        "type": "input",
+        "question": "17 % 5 nechaga teng? Sonni kiriting.",
+        "answers": [
+          "2"
+        ],
+        "case_sensitive": false,
+        "explanation": "17 = 5 × 3 + 2, qoldiq 2."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi qiymatlar number turiga ega?",
+        "options": [
+          "3.14",
+          "-7",
+          "\"10\"",
+          "NaN"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "NaN - number turining maxsus qiymati; \"10\" - satr."
+      },
+      {
+        "type": "matching",
+        "question": "Qiymatni uning turi bilan moslashtiring.",
+        "pairs": [
+          [
+            "true",
+            "boolean"
+          ],
+          [
+            "\"Anna\"",
+            "string"
+          ],
+          [
+            "0",
+            "number"
+          ],
+          [
+            "let x; → x",
+            "undefined"
+          ]
+        ],
+        "explanation": "typeof ham xuddi shu nomlarni ko‘rsatadi."
+      },
+      {
+        "type": "single",
+        "question": "quantityText = \"4\" satridan sonni qanday to‘g‘ri olish mumkin?",
+        "options": [
+          "quantityText.number",
+          "Number(quantityText)",
+          "typeof quantityText",
+          "quantityText + 0"
+        ],
+        "answer": 1,
+        "explanation": "Number() satrni songa aylantiradi; + 0 \"40\" birlashmasini beradi."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: const name = \"Timur\"; console.log(`Salom, ${name}!`);",
+        "options": [
+          "Salom, ${name}!",
+          "Salom, Timur!",
+          "Salom, name!",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Teskari qo‘shtirnoqda ${...} qiymat bilan almashtiriladi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi ifodalar true beradi?",
+        "options": [
+          "5 === 5",
+          "5 === \"5\"",
+          "5 !== \"5\"",
+          "3 >= 3"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "=== qiymat va turni solishtiradi: 5 soni \"5\" satriga teng emas."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi xususiyat satrdagi belgilar sonini qaytaradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "\"JavaScript\".length 10 ga teng."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: let s = \" ha \"; s.trim(); console.log(s.length);",
+        "options": [
+          "2",
+          "4",
+          "0",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "trim() yangi satr qaytaradi, s o‘zgarmadi: unda 4 ta belgi bor."
+      },
+      {
+        "type": "matching",
+        "question": "let n = 10 bo‘lganda yozuvni natija bilan moslashtiring.",
+        "pairs": [
+          [
+            "n += 5",
+            "15"
+          ],
+          [
+            "n - 4",
+            "6"
+          ],
+          [
+            "n % 3",
+            "1"
+          ],
+          [
+            "n ** 2",
+            "100"
+          ]
+        ],
+        "explanation": "+= qo‘shadi, - ayiradi, % - qoldiq, ** - daraja."
+      },
+      {
+        "type": "single",
+        "question": "Number(\"12px\") nimani qaytaradi?",
+        "options": [
+          "12",
+          "\"12\"",
+          "NaN",
+          "0"
+        ],
+        "answer": 2,
+        "explanation": "Satr to‘liq raqamlardan iborat emas - aylantirish muvaffaqiyatsiz, natija NaN."
+      }
+    ]
+  }
+}

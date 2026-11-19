@@ -1,0 +1,263 @@
+{
+  "lesson": 1,
+  "language": "uz",
+  "lesson_title": "JavaScript ga kirish. Birinchi dastur",
+  "task": {
+    "title": "O‘quvchi kartochkasi",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Ismingiz bilan studentName konstantasini va \"JavaScript\" qiymatli courseName konstantasini e’lon qiling. let orqali 0 qiymatli lessonsDone o‘zgaruvchisini e’lon qiling, keyin alohida qatorda unga 1 qiymatini bering. Konsolga ism, kurs nomi va o‘tilgan darslar sonini chiqaring. var ishlatmang.",
+    "starter_code": "// O‘quvchi kartochkasi\n\n// 1. studentName konstantasi - ismingiz (qo‘shtirnoqdagi satr)\n\n// 2. courseName konstantasi - \"JavaScript\"\n\n// 3. let orqali lessonsDone o‘zgaruvchisi, boshlang‘ich qiymati 0\n\n// 4. Dars o‘tildi: lessonsDone ga 1 qiymatini bering\n\n// 5. Konsolga studentName, courseName va lessonsDone ni chiqaring\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "tests": [
+      {
+        "name": "studentName konstantasida bo‘sh bo‘lmagan satr bor",
+        "check": "typeof studentName === \"string\" && studentName.trim().length > 0",
+        "fail": "const studentName = \"Ismingiz\"; deb e’lon qiling - ism qo‘shtirnoqda."
+      },
+      {
+        "name": "studentName const orqali e’lon qilingan",
+        "check": "/\\bconst\\s+studentName\\b/.test(__code)",
+        "fail": "Ism dastur davomida o‘zgarmaydi, shuning uchun let emas, const kerak."
+      },
+      {
+        "name": "courseName konstantasi \"JavaScript\" ga teng",
+        "check": "courseName === \"JavaScript\" && /\\bconst\\s+courseName\\b/.test(__code)",
+        "fail": "const courseName = \"JavaScript\"; kerak - harflar registri muhim."
+      },
+      {
+        "name": "lessonsDone let orqali 0 qiymat bilan e’lon qilingan",
+        "check": "/\\blet\\s+lessonsDone\\s*=\\s*0\\s*;/.test(__code)",
+        "fail": "let lessonsDone = 0; deb e’lon qiling - qiymat keyin o‘zgaradi, shuning uchun let."
+      },
+      {
+        "name": "O‘zgartirilgandan keyin lessonsDone 1 ga teng",
+        "check": "lessonsDone === 1 && /\\blessonsDone\\s*=\\s*1\\s*;/.test(__code)",
+        "fail": "Alohida qatorda yangi qiymat bering: lessonsDone = 1; - let siz."
+      },
+      {
+        "name": "Konsolga ism, kurs va darslar soni chiqarilgan",
+        "check": "__logs.some((l) => l.includes(studentName)) && __logs.some((l) => l.includes(courseName)) && __logs.some((l) => /(^|\\D)1(\\D|$)/.test(l))",
+        "fail": "O‘zgartirishdan keyin studentName, courseName va lessonsDone uchun console.log(...) dan foydalaning."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Kodda xato bor. Uning matnini o‘qing: qiymat berishdagi TypeError lessonsDone const orqali e’lon qilinganini bildiradi."
+      }
+    ],
+    "hints": [
+      "Satr qo‘shtirnoqda yoziladi: const studentName = \"Anna\";",
+      "const - qiymat o‘zgarmaydi, let - o‘zgaradi. Kursda var ishlatilmaydi.",
+      "Qiymatni o‘zgartirish let siz yoziladi: lessonsDone = 1;",
+      "Konsolga chiqarish: console.log(\"O‘quvchi:\", studentName);",
+      "Har bir ko‘rsatma oxirida ; qo‘ying"
+    ],
+    "solution": "// O‘quvchi kartochkasi\n\nconst studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\n\n// Birinchi dars o‘tildi\nlessonsDone = 1;\n\nconsole.log(\"O‘quvchi:\", studentName);\nconsole.log(\"Kurs:\", courseName);\nconsole.log(\"O‘tilgan darslar:\", lessonsDone);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// O‘quvchi kartochkasi\n\n// 1. studentName konstantasi - ismingiz (qo‘shtirnoqdagi satr)\n"
+      },
+      {
+        "mistake": "let va const o‘rniga var",
+        "code": "var studentName = \"Anna\";\nvar courseName = \"JavaScript\";\nvar lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "ism let orqali e’lon qilingan",
+        "code": "let studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "lessonsDone const orqali - o‘zgartirishda xato",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nconst lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "qiymat o‘zgartirilmagan",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "qiymat berish o‘rniga takroriy e’lon",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "konsolga chiqarish yo‘q",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\n"
+      },
+      {
+        "mistake": "kurs nomi kichik harf bilan",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"javascript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "JavaScript sahifada nima uchun javob beradi?",
+        "options": [
+          "Tuzilma va ma’no uchun",
+          "Tashqi ko‘rinish uchun",
+          "Xatti-harakat uchun: foydalanuvchi harakatlariga javob va sahifani o‘zgartirish",
+          "Saytni serverda saqlash uchun"
+        ],
+        "answer": 2,
+        "explanation": "HTML - tuzilma, CSS - ko‘rinish, JavaScript - xatti-harakat."
+      },
+      {
+        "type": "single",
+        "question": "js/main.js faylini sahifaga qanday to‘g‘ri ulash mumkin?",
+        "options": [
+          "<script src=\"js/main.js\" defer></script>",
+          "<link rel=\"script\" href=\"js/main.js\">",
+          "<script href=\"js/main.js\"></script>",
+          "<js src=\"js/main.js\">"
+        ],
+        "answer": 0,
+        "explanation": "Tashqi fayl src atributli <script> tegi bilan ulanadi; defer kodni HTML tahlil qilingach bajaradi."
+      },
+      {
+        "type": "single",
+        "question": "defer atributi nima qiladi?",
+        "options": [
+          "Skriptni o‘chiradi",
+          "Skriptni brauzer butun HTML ni tahlil qilgandan keyin bajaradi",
+          "Skriptni CSS yuklanishidan oldin bajaradi",
+          "Kodni foydalanuvchidan yashiradi"
+        ],
+        "answer": 1,
+        "explanation": "defer bilan skript parallel yuklanadi va hujjat tahlil qilingach bajariladi."
+      },
+      {
+        "type": "input",
+        "question": "Konsolga xabar qaysi buyruq bilan chiqariladi? Buyruq nomini qavslarsiz kiriting.",
+        "answers": [
+          "console.log"
+        ],
+        "case_sensitive": true,
+        "explanation": "console.log(\"Salom\"); - DevTools konsoliga chiqarish."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi e’lonlar kurs uslubida yozilgan?",
+        "options": [
+          "const city = \"Toshkent\";",
+          "let score = 0;",
+          "var age = 20;",
+          "const 2name = \"Anna\";"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Kursda var ishlatilmaydi, nom raqam bilan boshlanmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Nima bo‘ladi: const year = 2025; year = 2026;",
+        "options": [
+          "year 2026 bo‘ladi",
+          "TypeError: konstantaga yangi qiymat berib bo‘lmaydi",
+          "year 4051 bo‘ladi",
+          "Hech narsa, ikkinchi qator o‘tkazib yuboriladi"
+        ],
+        "answer": 1,
+        "explanation": "Konstantani e’londan keyin o‘zgartirib bo‘lmaydi. O‘zgaruvchan qiymat uchun let kerak."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuvni uning ma’nosi bilan moslashtiring.",
+        "pairs": [
+          [
+            "let count = 0;",
+            "O‘zgaruvchi e’lon qilish"
+          ],
+          [
+            "count = 5;",
+            "Yangi qiymat berish"
+          ],
+          [
+            "// matn",
+            "Qator oxirigacha izoh"
+          ],
+          [
+            "console.log(count);",
+            "Qiymatni konsolga chiqarish"
+          ]
+        ],
+        "explanation": "E’lon let yoki const bilan bir marta yoziladi, qiymat berish - ularsiz."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi o‘zgaruvchi nomlari to‘g‘ri?",
+        "options": [
+          "userName",
+          "user_name",
+          "user-name",
+          "let"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Chiziqcha minusni bildiradi, let esa band qilingan so‘z. Kursda camelCase ishlatamiz: userName."
+      },
+      {
+        "type": "single",
+        "question": "JavaScript userName va username ni farqlaydimi?",
+        "options": [
+          "Yo‘q, bu bitta o‘zgaruvchi",
+          "Ha, bu ikki xil o‘zgaruvchi",
+          "Faqat qat’iy rejimda",
+          "Faqat Chrome brauzerida"
+        ],
+        "answer": 1,
+        "explanation": "JavaScript harflar registrini farqlaydi."
+      },
+      {
+        "type": "input",
+        "question": "Windows’dagi Chrome va Edge’da DevTools qaysi tugma bilan ochiladi? Tugma nomini kiriting.",
+        "answers": [
+          "F12"
+        ],
+        "case_sensitive": false,
+        "explanation": "F12 yoki Ctrl+Shift+J (Mac’da - Cmd+Option+J) konsolni ochadi."
+      },
+      {
+        "type": "single",
+        "question": "Konsolda qizil qator: ReferenceError: scor is not defined. Bu nimani anglatadi?",
+        "options": [
+          "Brauzer eskirgan",
+          "E’lon qilinmagan nom ishlatilgan: ehtimol score da xato yozilgan",
+          "Fayl topilmadi",
+          "Qiymat nolga teng"
+        ],
+        "answer": 1,
+        "explanation": "ReferenceError - mavjud bo‘lmagan nomga murojaat. Yozilishini e’lon bilan solishtiring."
+      },
+      {
+        "type": "matching",
+        "question": "Texnologiyani u javob beradigan savol bilan moslashtiring.",
+        "pairs": [
+          [
+            "HTML",
+            "Sahifada nima bor?"
+          ],
+          [
+            "CSS",
+            "U qanday ko‘rinadi?"
+          ],
+          [
+            "JavaScript",
+            "Foydalanuvchi harakat qilsa nima bo‘ladi?"
+          ]
+        ],
+        "explanation": "Uchala texnologiya birga ishlaydi, har biri o‘z faylida."
+      }
+    ]
+  }
+}

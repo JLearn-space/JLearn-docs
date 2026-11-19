@@ -1,0 +1,293 @@
+{
+  "lesson": 4,
+  "language": "ru",
+  "lesson_title": "Циклы",
+  "task": {
+    "title": "Таблица умножения, сумма чётных и гласные",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Платформа задаёт число n и слово word. 1) Циклом for выведите 10 строк таблицы умножения для n в формате \"5 x 1 = 5\" … \"5 x 10 = 50\" (шаблонной строкой). 2) В let evenSum посчитайте сумму чётных чисел от 1 до n включительно. 3) В let vowelCount посчитайте гласные a, e, i, o, u в word циклом for...of без учёта регистра.",
+    "starter_code": "// Платформа задаёт:\n// const n = 5;\n// const word = \"JavaScript\";\n// Код проверят и на других значениях.\n\n// 1. Таблица умножения для n: 10 строк \"5 x 1 = 5\"\n\n// 2. let evenSum - сумма чётных чисел от 1 до n\n\n// 3. let vowelCount - гласные a, e, i, o, u в word (for...of)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      ".split(",
+      ".match(",
+      ".replace(",
+      ".filter(",
+      ".reduce("
+    ],
+    "setup": "const n = 5;\nconst word = \"JavaScript\";",
+    "tests": [
+      {
+        "name": "Таблица для 5: 10 строк от \"5 x 1 = 5\" до \"5 x 10 = 50\"",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `5 x ${idx + 1} = ${5 * (idx + 1)}`); })()",
+        "fail": "Нужно ровно 10 строк вида `${n} x ${i} = ${n * i}` - пробелы вокруг x и =."
+      },
+      {
+        "name": "Таблица для 7",
+        "setup": "const n = 7;\nconst word = \"JavaScript\";",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `7 x ${idx + 1} = ${7 * (idx + 1)}`); })()",
+        "fail": "Используйте n, а не число 5."
+      },
+      {
+        "name": "n = 5: evenSum = 6 (2 + 4)",
+        "check": "evenSum === 6",
+        "fail": "Накопитель: let evenSum = 0; до цикла, evenSum += i; для чётных i."
+      },
+      {
+        "name": "n = 10: evenSum = 30",
+        "setup": "const n = 10;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 30",
+        "fail": "Включите n в диапазон: i <= n."
+      },
+      {
+        "name": "n = 1: evenSum = 0",
+        "setup": "const n = 1;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 0",
+        "fail": "Чётных чисел от 1 до 1 нет - сумма 0."
+      },
+      {
+        "name": "\"JavaScript\": 3 гласные",
+        "check": "vowelCount === 3",
+        "fail": "Счётчик: let vowelCount = 0; до цикла, vowelCount++; для гласных."
+      },
+      {
+        "name": "\"EDUCATION\": 5 гласных (заглавные)",
+        "setup": "const n = 5;\nconst word = \"EDUCATION\";",
+        "check": "vowelCount === 5",
+        "fail": "Приведите символ к нижнему регистру: char.toLowerCase()."
+      },
+      {
+        "name": "\"rhythm\": 0 гласных",
+        "setup": "const n = 5;\nconst word = \"rhythm\";",
+        "check": "vowelCount === 0",
+        "fail": "y - не гласная в этом задании; в слове без гласных счётчик 0."
+      },
+      {
+        "name": "Используется цикл for",
+        "check": "/\\bfor\\s*\\(\\s*let\\s+\\w+\\s*=/.test(__code)",
+        "fail": "Таблицу и сумму считайте циклом for (let i = 1; ...)."
+      },
+      {
+        "name": "Используется for...of по word",
+        "check": "/\\bfor\\s*\\(\\s*const\\s+\\w+\\s+of\\s+word\\s*\\)/.test(__code)",
+        "fail": "for (const char of word) { ... }"
+      },
+      {
+        "name": "Программа завершается без ошибок",
+        "check": "__error === null",
+        "fail": "Ошибка или бесконечный цикл: проверьте, что условие цикла когда-нибудь станет false."
+      }
+    ],
+    "hints": [
+      "Таблица: for (let i = 1; i <= 10; i++) { console.log(`${n} x ${i} = ${n * i}`); }",
+      "Чётное число: i % 2 === 0.",
+      "Накопитель и счётчик объявляйте через let ДО цикла.",
+      "Перебор слова: for (const char of word) { ... }",
+      "Проверка гласной: \"aeiou\".includes(char.toLowerCase())."
+    ],
+    "solution": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. Таблица умножения для n\n"
+      },
+      {
+        "mistake": "таблица всегда для 5",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "таблица на 9 строк",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "n не входит в диапазон",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "накопитель внутри цикла",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "регистр не учитывается",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "for вместо for...of для слова",
+        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "бесконечный цикл",
+        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "input",
+        "question": "Сколько раз выполнится тело цикла for (let i = 0; i < 5; i++)? Введите число.",
+        "answers": [
+          "5"
+        ],
+        "case_sensitive": false,
+        "explanation": "i принимает значения 0, 1, 2, 3, 4."
+      },
+      {
+        "type": "single",
+        "question": "Когда проверяется условие в for (let i = 1; i <= 3; i++)?",
+        "options": [
+          "Один раз в начале",
+          "Перед каждой итерацией",
+          "После цикла",
+          "Только при break"
+        ],
+        "answer": 1,
+        "explanation": "Если условие false - цикл заканчивается."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: let sum = 0; for (let i = 1; i <= 4; i++) { sum += i; } console.log(sum);",
+        "options": [
+          "4",
+          "10",
+          "0",
+          "1234"
+        ],
+        "answer": 1,
+        "explanation": "1 + 2 + 3 + 4 = 10."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте команду и действие.",
+        "pairs": [
+          [
+            "break",
+            "Завершить весь цикл"
+          ],
+          [
+            "continue",
+            "Перейти к следующей итерации"
+          ],
+          [
+            "i++",
+            "Увеличить счётчик на 1"
+          ]
+        ],
+        "explanation": "break - выход, continue - пропуск шага."
+      },
+      {
+        "type": "single",
+        "question": "Почему этот цикл бесконечный: let i = 1; while (i <= 5) { console.log(i); }",
+        "options": [
+          "Нет break",
+          "i не меняется, условие всегда true",
+          "while нельзя использовать с числами",
+          "Нет точки с запятой"
+        ],
+        "answer": 1,
+        "explanation": "Добавьте i++ в тело цикла."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие циклы выведут числа 1, 2, 3?",
+        "options": [
+          "for (let i = 1; i <= 3; i++) { console.log(i); }",
+          "for (let i = 1; i < 3; i++) { console.log(i); }",
+          "let i = 1; while (i <= 3) { console.log(i); i++; }",
+          "for (let i = 0; i < 3; i++) { console.log(i + 1); }"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Второй цикл остановится на 2."
+      },
+      {
+        "type": "single",
+        "question": "Что попадает в char в цикле for (const char of \"кот\")?",
+        "options": [
+          "Вся строка",
+          "Индексы 0, 1, 2",
+          "Символы к, о, т по очереди",
+          "Длина строки"
+        ],
+        "answer": 2,
+        "explanation": "for...of перебирает символы строки."
+      },
+      {
+        "type": "single",
+        "question": "Где объявлять накопитель let total = 0;?",
+        "options": [
+          "Внутри тела цикла",
+          "До цикла",
+          "После цикла",
+          "В условии цикла"
+        ],
+        "answer": 1,
+        "explanation": "Внутри цикла он обнулялся бы на каждой итерации."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и подходящий цикл.",
+        "pairs": [
+          [
+            "Повторить ровно 10 раз",
+            "for"
+          ],
+          [
+            "Повторять, пока сумма меньше 200000",
+            "while"
+          ],
+          [
+            "Перебрать буквы слова",
+            "for...of"
+          ]
+        ],
+        "explanation": "Выбор цикла зависит от того, известно ли число шагов."
+      },
+      {
+        "type": "input",
+        "question": "Что выведет: let s = \"\"; for (let i = 0; i < 3; i++) { s += \"*\"; } console.log(s);",
+        "answers": [
+          "***"
+        ],
+        "case_sensitive": false,
+        "explanation": "Накопитель строки: три звёздочки."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие числа выведет: for (let i = 1; i <= 6; i++) { if (i % 3 === 0) { continue; } console.log(i); }",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "6"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "3 и 6 пропускаются; 5 тоже выводится, но его нет среди вариантов."
+      },
+      {
+        "type": "single",
+        "question": "Какую ошибку покажет платформа при бесконечном цикле?",
+        "options": [
+          "SyntaxError",
+          "ReferenceError",
+          "Script execution timed out",
+          "TypeError"
+        ],
+        "answer": 2,
+        "explanation": "Время выполнения ограничено, цикл прерывается."
+      }
+    ]
+  }
+}

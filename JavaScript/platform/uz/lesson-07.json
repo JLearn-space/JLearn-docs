@@ -1,0 +1,291 @@
+{
+  "lesson": 7,
+  "language": "uz",
+  "lesson_title": "DOM: elementlarni topish va o‘zgartirish",
+  "task": {
+    "title": "Kurslar katalogi",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>JLearn kurslari</title>\n</head>\n<body>\n    <main>\n        <h1>JLearn kurslari</h1>\n        <p id=\"course-count\">Yuklanmoqda...</p>\n        <ul id=\"course-list\" class=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada bo‘sh #course-list ro‘yxati va #course-count abzatsi bor. Platforma { id, title, lessons, isNew } obyektlaridan iborat courses massivini beradi. renderCourses(list) funksiyasini yozing: #course-list ni tozalang; har bir kurs uchun course klassli, \"HTML - 10 ta dars\" matnli va id dan olingan data-id li li yarating; isNew: true kurslarga course--new klassini qo‘shing; #course-count ga massiv uzunligi bo‘yicha \"Kurslar: N\" yozing. Oxirida renderCourses(courses) ni chaqiring. innerHTML va element.style ishlatmang.",
+    "starter_code": "// Platforma beradi:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// Sahifada: <p id=\"course-count\"> va bo‘sh <ul id=\"course-list\">\n\nfunction renderCourses(list) {\n    // 1. #course-list va #course-count ni toping\n\n    // 2. Ro‘yxatni tozalang\n\n    // 3. Har bir kurs uchun: li.course, \"HTML - 10 ta dars\" matni, data-id, course--new\n\n    // 4. Hisoblagich: \"Kurslar: 3\"\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "innerHTML",
+      "outerHTML",
+      "insertAdjacentHTML",
+      ".style.",
+      "document.write"
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "Sahifada 3 ta li.course elementi",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "Har bir kurs uchun li yarating, course klassini qo‘shing va append orqali #course-list ga qo‘ying."
+      },
+      {
+        "name": "Birinchisining matni: \"HTML - 10 ta dars\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"HTML - 10 ta dars\"",
+        "fail": "item.textContent = `${course.title} - ${course.lessons} ta dars`;"
+      },
+      {
+        "name": "Elementlarda data-id bor",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.dataset.id).join(\",\") === \"html,css,js\"",
+        "fail": "item.dataset.id = course.id;"
+      },
+      {
+        "name": "course--new klassi faqat JavaScript’da",
+        "check": "(() => { const fresh = document.querySelectorAll(\".course--new\"); return fresh.length === 1 && fresh[0].dataset.id === \"js\"; })()",
+        "fail": "if (course.isNew) { item.classList.add(\"course--new\"); }"
+      },
+      {
+        "name": "Hisoblagich: \"Kurslar: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Kurslar: 3\"",
+        "fail": "count.textContent = `Kurslar: ${list.length}`;"
+      },
+      {
+        "name": "Qayta chaqirish ro‘yxatni ikkilantirmaydi",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); return document.querySelectorAll(\"#course-list li.course\").length === 1 && document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"Python - 12 ta dars\" && document.querySelector(\"#course-count\").textContent === \"Kurslar: 1\"; })()",
+        "fail": "Chizishdan oldin ro‘yxatni tozalang: container.textContent = \"\"; va list parametridan foydalaning."
+      },
+      {
+        "name": "Bo‘sh massiv: ro‘yxat bo‘sh, \"Kurslar: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelectorAll(\"#course-list li.course\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Kurslar: 0\"; })()",
+        "fail": "Bo‘sh massivda sikl bajarilmaydi - lekin tozalash va hisoblagich ishlashi kerak."
+      },
+      {
+        "name": "Matn belgilash sifatida emas, matn sifatida chiqadi",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Hack</b>\", lessons: 1, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Hack</b> - 1 ta dars\" && li.querySelector(\"b\") === null; })()",
+        "fail": "innerHTML emas, textContent dan foydalaning."
+      },
+      {
+        "name": "Elementlar createElement va append bilan yaratiladi",
+        "check": "/createElement\\(\\s*\"li\"\\s*\\)/.test(__code) && /\\.append\\(/.test(__code)",
+        "fail": "document.createElement(\"li\") va container.append(item)."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "null xatosi - selektorlarni tekshiring: #course-list, #course-count."
+      }
+    ],
+    "hints": [
+      "const container = document.querySelector(\"#course-list\");",
+      "Tozalash: container.textContent = \"\";",
+      "Yaratish: const item = document.createElement(\"li\"); item.classList.add(\"course\");",
+      "data-id: item.dataset.id = course.id;",
+      "Qo‘yish: container.append(item);",
+      "Hisoblagich parametr bo‘yicha: `Kurslar: ${list.length}`"
+    ],
+    "solution": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "function renderCourses(list) {\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "createElement o‘rniga innerHTML",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    container.innerHTML = list.map((c) => `<li class=\"course\" data-id=\"${c.id}\">${c.title} - ${c.lessons} ta dars</li>`).join(\"\");\n    document.querySelector(\"#course-count\").textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "ro‘yxat tozalanmaydi",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "list o‘rniga courses ishlatilgan",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of courses) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "course--new klassi yo‘q",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "yangilik style orqali",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.style.fontWeight = \"bold\";\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "data-id yo‘q",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "hisoblagich - qat’iy son",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = \"Kurslar: 3\";\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "selektorda xato",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#courses-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "DOM nima?",
+        "options": [
+          "index.html fayli",
+          "Brauzer HTML dan quradigan obyektlar daraxti",
+          "JavaScript kutubxonasi",
+          "DevTools bo‘limi"
+        ],
+        "answer": 1,
+        "explanation": "JavaScript DOM ni o‘zgartiradi; fayl esa avvalgidek qoladi."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuvni u topadigan narsa bilan moslashtiring.",
+        "pairs": [
+          [
+            "querySelector(\"#menu\")",
+            "id si menu bo‘lgan element"
+          ],
+          [
+            "querySelector(\".card\")",
+            "card klassli birinchi element"
+          ],
+          [
+            "querySelectorAll(\"nav a\")",
+            "nav ichidagi barcha havolalar"
+          ]
+        ],
+        "explanation": "Selektorlar - CSS dagi bilan bir xil."
+      },
+      {
+        "type": "single",
+        "question": "Bunday element bo‘lmasa, document.querySelector(\".nope\") nimani qaytaradi?",
+        "options": [
+          "undefined",
+          "null",
+          "Bo‘sh satr",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "querySelector null qaytaradi; uning xususiyatlariga murojaat TypeError beradi."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun foydalanuvchi ma’lumotidagi matn innerHTML emas, textContent orqali chiqariladi?",
+        "options": [
+          "textContent tezroq chiqadi",
+          "innerHTML satrdagi belgilash va begona kodni bajaradi (XSS)",
+          "innerHTML Chrome’da ishlamaydi",
+          "textContent stil qo‘shadi"
+        ],
+        "answer": 1,
+        "explanation": "textContent matnni o‘zicha ko‘rsatadi."
+      },
+      {
+        "type": "multiple",
+        "question": "classList da qaysi metodlar bor?",
+        "options": [
+          "add",
+          "remove",
+          "toggle",
+          "contains",
+          "paint"
+        ],
+        "answer": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "explanation": "classList klasslarni boshqaradi, bezakni esa CSS belgilaydi."
+      },
+      {
+        "type": "single",
+        "question": "card.classList.toggle(\"active\") ikki marta chaqirildi. Boshida active klassi bo‘lmagan bo‘lsa, endi bormi?",
+        "options": [
+          "Bor",
+          "Yo‘q",
+          "Xato",
+          "Ikkita active klassi bo‘ladi"
+        ],
+        "answer": 1,
+        "explanation": "Birinchi chaqiruv qo‘shadi, ikkinchisi olib tashlaydi."
+      },
+      {
+        "type": "input",
+        "question": "el elementining data-lessons atributini qanday o‘qish mumkin? Ifodani kiriting.",
+        "answers": [
+          "el.dataset.lessons",
+          "el.getAttribute(\"data-lessons\")",
+          "el.getAttribute('data-lessons')"
+        ],
+        "case_sensitive": true,
+        "explanation": "dataset barcha data-atributlarni saqlaydi; qiymat doim satr."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun ko‘rinish element.style emas, classList orqali o‘zgartiriladi?",
+        "options": [
+          "style mavjud emas",
+          "Stillar CSS da qoladi: ularni bekor qilish, moslashtirish va topish mumkin",
+          "classList 100 marta tezroq",
+          "style faqat rang bilan ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "element.style style=\"\" atributiga yozadi - CSS kursida undan voz kechganmiz."
+      },
+      {
+        "type": "matching",
+        "question": "Element yaratish qadamlari: qadamni yozuv bilan moslashtiring.",
+        "pairs": [
+          [
+            "1. Yaratish",
+            "document.createElement(\"li\")"
+          ],
+          [
+            "2. To‘ldirish",
+            "item.textContent = \"...\""
+          ],
+          [
+            "3. Qo‘yish",
+            "list.append(item)"
+          ]
+        ],
+        "explanation": "append siz element faqat xotirada mavjud."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun renderCourses funksiyasi chizishdan oldin ro‘yxatni tozalaydi?",
+        "options": [
+          "Yuklanishni tezlashtirish uchun",
+          "Qayta chaqirilganda elementlar ikkilanmasligi uchun",
+          "Aks holda append ishlamaydi",
+          "Buni HTML talab qiladi"
+        ],
+        "answer": 1,
+        "explanation": "Render ro‘yxatni joriy ma’lumotlardan qayta quradi."
+      },
+      {
+        "type": "input",
+        "question": "Elementning qaysi xususiyati uni ekran o‘qish dasturlaridan ham yashiradi? Xususiyat nomini kiriting.",
+        "answers": [
+          "hidden"
+        ],
+        "case_sensitive": true,
+        "explanation": "element.hidden = true;"
+      },
+      {
+        "type": "multiple",
+        "question": "«Cannot set properties of null» xatosi nima uchun paydo bo‘lishi mumkin?",
+        "options": [
+          "Selektorda xato",
+          "defer siz skript HTML tahlil qilinishidan oldin bajarilgan",
+          "Bu sahifada element yo‘q",
+          "Matn juda uzun"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Uchala holatda ham querySelector null qaytargan."
+      }
+    ]
+  }
+}

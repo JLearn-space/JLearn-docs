@@ -1,0 +1,7 @@
+[
+    { "title": "Первая страница за час", "category": "html", "date": "3 марта" },
+    { "title": "Формы без ошибок", "category": "html", "date": "5 марта" },
+    { "title": "Flexbox на практике", "category": "css", "date": "10 марта" },
+    { "title": "Grid-галерея", "category": "css", "date": "17 марта" },
+    { "title": "Оживляем меню", "category": "js", "date": "24 марта" }
+]

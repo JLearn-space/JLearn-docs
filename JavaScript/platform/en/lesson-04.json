@@ -1,0 +1,293 @@
+{
+  "lesson": 4,
+  "language": "en",
+  "lesson_title": "Loops",
+  "task": {
+    "title": "Multiplication table, sum of evens and vowels",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "The platform sets a number n and a word word. 1) With a for loop print 10 lines of the multiplication table for n in the format \"5 x 1 = 5\" … \"5 x 10 = 50\" (with a template string). 2) In let evenSum calculate the sum of even numbers from 1 to n inclusive. 3) In let vowelCount count the vowels a, e, i, o, u in word with a for...of loop, ignoring case.",
+    "starter_code": "// The platform sets:\n// const n = 5;\n// const word = \"JavaScript\";\n// The code will be checked on other values too.\n\n// 1. Multiplication table for n: 10 lines \"5 x 1 = 5\"\n\n// 2. let evenSum - sum of even numbers from 1 to n\n\n// 3. let vowelCount - vowels a, e, i, o, u in word (for...of)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      ".split(",
+      ".match(",
+      ".replace(",
+      ".filter(",
+      ".reduce("
+    ],
+    "setup": "const n = 5;\nconst word = \"JavaScript\";",
+    "tests": [
+      {
+        "name": "Table for 5: 10 lines from \"5 x 1 = 5\" to \"5 x 10 = 50\"",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `5 x ${idx + 1} = ${5 * (idx + 1)}`); })()",
+        "fail": "You need exactly 10 lines like `${n} x ${i} = ${n * i}` - spaces around x and =."
+      },
+      {
+        "name": "Table for 7",
+        "setup": "const n = 7;\nconst word = \"JavaScript\";",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `7 x ${idx + 1} = ${7 * (idx + 1)}`); })()",
+        "fail": "Use n, not the number 5."
+      },
+      {
+        "name": "n = 5: evenSum = 6 (2 + 4)",
+        "check": "evenSum === 6",
+        "fail": "Accumulator: let evenSum = 0; before the loop, evenSum += i; for even i."
+      },
+      {
+        "name": "n = 10: evenSum = 30",
+        "setup": "const n = 10;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 30",
+        "fail": "Include n in the range: i <= n."
+      },
+      {
+        "name": "n = 1: evenSum = 0",
+        "setup": "const n = 1;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 0",
+        "fail": "There are no even numbers from 1 to 1 - the sum is 0."
+      },
+      {
+        "name": "\"JavaScript\": 3 vowels",
+        "check": "vowelCount === 3",
+        "fail": "Counter: let vowelCount = 0; before the loop, vowelCount++; for vowels."
+      },
+      {
+        "name": "\"EDUCATION\": 5 vowels (capitals)",
+        "setup": "const n = 5;\nconst word = \"EDUCATION\";",
+        "check": "vowelCount === 5",
+        "fail": "Bring the character to lower case: char.toLowerCase()."
+      },
+      {
+        "name": "\"rhythm\": 0 vowels",
+        "setup": "const n = 5;\nconst word = \"rhythm\";",
+        "check": "vowelCount === 0",
+        "fail": "y is not a vowel in this task; a word without vowels gives 0."
+      },
+      {
+        "name": "A for loop is used",
+        "check": "/\\bfor\\s*\\(\\s*let\\s+\\w+\\s*=/.test(__code)",
+        "fail": "Calculate the table and the sum with for (let i = 1; ...)."
+      },
+      {
+        "name": "for...of over word is used",
+        "check": "/\\bfor\\s*\\(\\s*const\\s+\\w+\\s+of\\s+word\\s*\\)/.test(__code)",
+        "fail": "for (const char of word) { ... }"
+      },
+      {
+        "name": "The program finishes without errors",
+        "check": "__error === null",
+        "fail": "An error or an infinite loop: check that the loop condition becomes false at some point."
+      }
+    ],
+    "hints": [
+      "Table: for (let i = 1; i <= 10; i++) { console.log(`${n} x ${i} = ${n * i}`); }",
+      "An even number: i % 2 === 0.",
+      "Declare the accumulator and the counter with let BEFORE the loop.",
+      "Going through the word: for (const char of word) { ... }",
+      "Vowel check: \"aeiou\".includes(char.toLowerCase())."
+    ],
+    "solution": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// 1. Multiplication table for n\n"
+      },
+      {
+        "mistake": "the table is always for 5",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "a 9-line table",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "n is not in the range",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "accumulator inside the loop",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "case is not ignored",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "for instead of for...of for the word",
+        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "infinite loop",
+        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "input",
+        "question": "How many times does the body of for (let i = 0; i < 5; i++) run? Type a number.",
+        "answers": [
+          "5"
+        ],
+        "case_sensitive": false,
+        "explanation": "i takes the values 0, 1, 2, 3, 4."
+      },
+      {
+        "type": "single",
+        "question": "When is the condition checked in for (let i = 1; i <= 3; i++)?",
+        "options": [
+          "Once at the start",
+          "Before every iteration",
+          "After the loop",
+          "Only on break"
+        ],
+        "answer": 1,
+        "explanation": "If the condition is false - the loop ends."
+      },
+      {
+        "type": "single",
+        "question": "What does this print: let sum = 0; for (let i = 1; i <= 4; i++) { sum += i; } console.log(sum);",
+        "options": [
+          "4",
+          "10",
+          "0",
+          "1234"
+        ],
+        "answer": 1,
+        "explanation": "1 + 2 + 3 + 4 = 10."
+      },
+      {
+        "type": "matching",
+        "question": "Match the command with the action.",
+        "pairs": [
+          [
+            "break",
+            "End the whole loop"
+          ],
+          [
+            "continue",
+            "Move to the next iteration"
+          ],
+          [
+            "i++",
+            "Increase the counter by 1"
+          ]
+        ],
+        "explanation": "break - exit, continue - skip a step."
+      },
+      {
+        "type": "single",
+        "question": "Why is this loop infinite: let i = 1; while (i <= 5) { console.log(i); }",
+        "options": [
+          "There is no break",
+          "i does not change, the condition is always true",
+          "while cannot be used with numbers",
+          "There is no semicolon"
+        ],
+        "answer": 1,
+        "explanation": "Add i++ to the loop body."
+      },
+      {
+        "type": "multiple",
+        "question": "Which loops print the numbers 1, 2, 3?",
+        "options": [
+          "for (let i = 1; i <= 3; i++) { console.log(i); }",
+          "for (let i = 1; i < 3; i++) { console.log(i); }",
+          "let i = 1; while (i <= 3) { console.log(i); i++; }",
+          "for (let i = 0; i < 3; i++) { console.log(i + 1); }"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "The second loop stops at 2."
+      },
+      {
+        "type": "single",
+        "question": "What goes into char in the loop for (const char of \"cat\")?",
+        "options": [
+          "The whole string",
+          "The indexes 0, 1, 2",
+          "The characters c, a, t in turn",
+          "The string length"
+        ],
+        "answer": 2,
+        "explanation": "for...of goes through the characters of a string."
+      },
+      {
+        "type": "single",
+        "question": "Where do you declare the accumulator let total = 0;?",
+        "options": [
+          "Inside the loop body",
+          "Before the loop",
+          "After the loop",
+          "In the loop condition"
+        ],
+        "answer": 1,
+        "explanation": "Inside the loop it would reset on every iteration."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the suitable loop.",
+        "pairs": [
+          [
+            "Repeat exactly 10 times",
+            "for"
+          ],
+          [
+            "Repeat while the sum is less than 200000",
+            "while"
+          ],
+          [
+            "Go through the letters of a word",
+            "for...of"
+          ]
+        ],
+        "explanation": "The choice depends on whether the number of steps is known."
+      },
+      {
+        "type": "input",
+        "question": "What does this print: let s = \"\"; for (let i = 0; i < 3; i++) { s += \"*\"; } console.log(s);",
+        "answers": [
+          "***"
+        ],
+        "case_sensitive": false,
+        "explanation": "A string accumulator: three stars."
+      },
+      {
+        "type": "multiple",
+        "question": "Which numbers does this print: for (let i = 1; i <= 6; i++) { if (i % 3 === 0) { continue; } console.log(i); }",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "6"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "3 and 6 are skipped; 5 is printed too, but it is not among the options."
+      },
+      {
+        "type": "single",
+        "question": "Which error does the platform show for an infinite loop?",
+        "options": [
+          "SyntaxError",
+          "ReferenceError",
+          "Script execution timed out",
+          "TypeError"
+        ],
+        "answer": 2,
+        "explanation": "The run time is limited, so the loop is stopped."
+      }
+    ]
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "lesson": 3,
+  "language": "ru",
+  "lesson_title": "Условия",
+  "task": {
+    "title": "Оценка и допуск к олимпиаде",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Платформа задаёт score (балл 0–100) и age (возраст). Объявите let grade и цепочкой if / else if / else присвойте оценку числом: 90 и выше - 5, от 75 - 4, от 60 - 3, ниже - 2. Объявите const canEnter - допуск к олимпиаде: возраст от 14 и балл от 60. Объявите const status тернарным оператором: \"Допущен\" или \"Не допущен\". Выведите в консоль шаблонной строкой: Оценка: 4. Допущен. Используйте только строгие сравнения.",
+    "starter_code": "// Платформа задаёт:\n// const score = 87;  // балл 0–100\n// const age = 15;    // возраст\n// Код проверят и на других значениях.\n\n// 1. let grade - оценка 5, 4, 3 или 2 через if / else if / else\n\n// 2. const canEnter - возраст от 14 И балл от 60\n\n// 3. const status - \"Допущен\" или \"Не допущен\" тернарным оператором\n\n// 4. Вывод: Оценка: 4. Допущен\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const score = 87;\nconst age = 15;",
+    "tests": [
+      {
+        "name": "87 баллов → оценка 4",
+        "check": "grade === 4",
+        "fail": "Проверьте цепочку: 87 >= 75, но меньше 90."
+      },
+      {
+        "name": "95 баллов → 5",
+        "setup": "const score = 95;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "Первым проверяйте самое строгое условие: score >= 90."
+      },
+      {
+        "name": "Граница: 90 баллов → 5",
+        "setup": "const score = 90;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "«90 и выше» - это >=, а не >."
+      },
+      {
+        "name": "Граница: 75 → 4, а 74 → 3",
+        "setup": "const score = 75;\nconst age = 15;",
+        "check": "grade === 4",
+        "fail": "«От 75» - это score >= 75."
+      },
+      {
+        "name": "74 балла → 3",
+        "setup": "const score = 74;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "74 меньше 75, но не меньше 60 - это 3."
+      },
+      {
+        "name": "Граница: 60 → 3, а 59 → 2",
+        "setup": "const score = 60;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "«От 60» - это score >= 60."
+      },
+      {
+        "name": "59 баллов → 2",
+        "setup": "const score = 59;\nconst age = 15;",
+        "check": "grade === 2 && typeof grade === \"number\"",
+        "fail": "Ниже 60 - ветка else, оценка 2 (число, без кавычек)."
+      },
+      {
+        "name": "87 баллов и 15 лет - допущен",
+        "check": "canEnter === true && status === \"Допущен\"",
+        "fail": "canEnter = age >= 14 && score >= 60;"
+      },
+      {
+        "name": "13 лет и 95 баллов - не допущен",
+        "setup": "const score = 95;\nconst age = 13;",
+        "check": "canEnter === false && status === \"Не допущен\"",
+        "fail": "Нужны ОБА условия: оператор &&, а не ||."
+      },
+      {
+        "name": "Границы допуска: 14 лет и 60 баллов - допущен",
+        "setup": "const score = 60;\nconst age = 14;",
+        "check": "canEnter === true && status === \"Допущен\"",
+        "fail": "«От 14» и «от 60» - это >=."
+      },
+      {
+        "name": "Используется else if",
+        "check": "/\\belse\\s+if\\s*\\(/.test(__code)",
+        "fail": "Запишите выбор оценки цепочкой if / else if / else."
+      },
+      {
+        "name": "status выбран тернарным оператором",
+        "check": "/\\bstatus\\s*=\\s*[^;]*\\?[^;]*:/.test(__code)",
+        "fail": "const status = canEnter ? \"Допущен\" : \"Не допущен\";"
+      },
+      {
+        "name": "Только строгие сравнения",
+        "check": "!/[^=!<>]==(?!=)|!=(?!=)/.test(__code)",
+        "fail": "Замените == на ===, а != на !==."
+      },
+      {
+        "name": "В консоли «Оценка: 4. Допущен»",
+        "check": "__logs.includes(\"Оценка: 4. Допущен\")",
+        "fail": "console.log(`Оценка: ${grade}. ${status}`);"
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "В коде ошибка - прочитайте её текст в консоли."
+      }
+    ],
+    "hints": [
+      "Объявите let grade; до if, а в ветках только присваивайте: grade = 5;",
+      "Порядок: сначала score >= 90, потом >= 75, потом >= 60, в конце else.",
+      "Оценка - число: grade = 5; без кавычек.",
+      "Допуск: const canEnter = age >= 14 && score >= 60;",
+      "Тернарный оператор: условие ? \"Допущен\" : \"Не допущен\"",
+      "Шаблонная строка: `Оценка: ${grade}. ${status}`"
+    ],
+    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. let grade\n"
+      },
+      {
+        "mistake": "неверный порядок условий",
+        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "> вместо >= на границе 90",
+        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "оценка строкой",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "|| вместо &&",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "возраст > 14",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "if/else вместо тернарного",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Допущен\";\n} else {\n    status = \"Не допущен\";\n}\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "нестрогое сравнение",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "отдельные if вместо else if",
+        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "нет вывода",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что выведет код: const t = 30; if (t > 25) { console.log(\"Жарко\"); } else { console.log(\"Тепло\"); }",
+        "options": [
+          "Жарко",
+          "Тепло",
+          "Жарко и Тепло",
+          "Ничего"
+        ],
+        "answer": 0,
+        "explanation": "30 > 25 - true, выполняется первая ветка, else пропускается."
+      },
+      {
+        "type": "single",
+        "question": "score = 95. Что выведет: if (score >= 60) { console.log(\"Зачёт\"); } else if (score >= 90) { console.log(\"Отлично\"); }",
+        "options": [
+          "Отлично",
+          "Зачёт",
+          "Зачёт и Отлично",
+          "Ничего"
+        ],
+        "answer": 1,
+        "explanation": "Выполняется первая подходящая ветка. Строгие условия ставят первыми."
+      },
+      {
+        "type": "input",
+        "question": "Какой оператор означает «И»? Введите его.",
+        "answers": [
+          "&&"
+        ],
+        "case_sensitive": false,
+        "explanation": "a && b - true, только если истинны оба."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие значения falsy?",
+        "options": [
+          "0",
+          "\"\"",
+          "\"0\"",
+          "null",
+          "\"false\""
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Непустые строки, даже \"0\" и \"false\", - truthy."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно записать «hour от 6 до 11 включительно»?",
+        "options": [
+          "6 <= hour <= 11",
+          "hour >= 6 && hour <= 11",
+          "hour >= 6 || hour <= 11",
+          "hour === 6...11"
+        ],
+        "answer": 1,
+        "explanation": "Два сравнения через &&. Запись 6 <= hour <= 11 всегда даёт true."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: const age = 20; console.log(age >= 18 ? \"Взрослый\" : \"Детский\");",
+        "options": [
+          "Взрослый",
+          "Детский",
+          "true",
+          "Ошибку"
+        ],
+        "answer": 0,
+        "explanation": "Условие истинно - берётся значение до двоеточия."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте выражение и результат.",
+        "pairs": [
+          [
+            "true && false",
+            "false"
+          ],
+          [
+            "true || false",
+            "true"
+          ],
+          [
+            "!true",
+            "false"
+          ],
+          [
+            "!0",
+            "true"
+          ]
+        ],
+        "explanation": "!0 - true, потому что 0 - falsy."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт в if (role = \"admin\") { ... }?",
+        "options": [
+          "Сравнение role с \"admin\"",
+          "Присваивание: role станет \"admin\", блок выполнится",
+          "Синтаксическая ошибка",
+          "Блок не выполнится никогда"
+        ],
+        "answer": 1,
+        "explanation": "= присваивает. Для сравнения нужен ===."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про switch?",
+        "options": [
+          "Сравнивает значение через ===",
+          "break выходит из switch",
+          "default выполняется, если ни один case не подошёл",
+          "Удобен для диапазонов вроде score >= 90"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Для диапазонов нужен if / else if."
+      },
+      {
+        "type": "single",
+        "question": "В switch пропущен break после case \"пн\". Что будет при day = \"пн\"?",
+        "options": [
+          "Выполнится только case \"пн\"",
+          "Выполнение продолжится в следующем case",
+          "Ошибка",
+          "Выполнится default"
+        ],
+        "answer": 1,
+        "explanation": "Без break выполнение «проваливается» дальше."
+      },
+      {
+        "type": "input",
+        "question": "Сколько веток выполнится в цепочке if / else if / else? Введите число.",
+        "answers": [
+          "1",
+          "одна",
+          "один"
+        ],
+        "case_sensitive": false,
+        "explanation": "Ровно одна - первая подходящая или else."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и конструкцию.",
+        "pairs": [
+          [
+            "Выбрать одно из двух значений",
+            "Тернарный оператор"
+          ],
+          [
+            "Диапазоны баллов",
+            "if / else if"
+          ],
+          [
+            "Точные значения дня недели",
+            "switch"
+          ]
+        ],
+        "explanation": "Каждая конструкция удобна для своей задачи."
+      }
+    ]
+  }
+}

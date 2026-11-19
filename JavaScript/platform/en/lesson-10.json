@@ -1,0 +1,328 @@
+{
+  "lesson": 10,
+  "language": "en",
+  "lesson_title": "Final project - an interactive website",
+  "task": {
+    "title": "Club events page",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club events</title>\n</head>\n<body>\n    <header class=\"site-header\">\n        <a class=\"logo\" href=\"index.html\">Club</a>\n        <button type=\"button\" class=\"menu-toggle\" aria-expanded=\"false\" aria-controls=\"site-nav\">Menu</button>\n        <nav id=\"site-nav\" class=\"site-nav\" aria-label=\"Main navigation\">\n            <ul>\n                <li><a href=\"index.html\">Home</a></li>\n                <li><a href=\"schedule.html\">Events</a></li>\n                <li><a href=\"contact.html\">Contacts</a></li>\n            </ul>\n        </nav>\n        <button type=\"button\" class=\"theme-toggle\" aria-pressed=\"false\">Dark theme</button>\n    </header>\n    <main>\n        <h1>Events</h1>\n        <div class=\"filters\" role=\"group\" aria-label=\"Filter by category\">\n            <button type=\"button\" data-filter=\"all\" aria-pressed=\"true\">All</button>\n            <button type=\"button\" data-filter=\"html\" aria-pressed=\"false\">HTML</button>\n            <button type=\"button\" data-filter=\"css\" aria-pressed=\"false\">CSS</button>\n            <button type=\"button\" data-filter=\"js\" aria-pressed=\"false\">JavaScript</button>\n        </div>\n        <p id=\"events-status\" role=\"status\"></p>\n        <div id=\"events\" class=\"events\"></div>\n    </main>\n</body>\n</html>",
+    "description": "The platform sets an array events of objects { title, category, date }. 1) Menu: a click on .menu-toggle toggles the class is-open on #site-nav and the button's aria-expanded; Escape closes the open menu and returns focus to the button. 2) Theme: on load from localStorage under the key \"theme\" - \"dark\" gives body the class theme-dark and .theme-toggle aria-pressed=\"true\"; a click toggles the theme and saves \"dark\" or \"light\". 3) renderEvents(list): clears #events, for every event - an article.event with data-category, an h3 and a p.event__date; #events-status shows \"Shown: N\" or \"No events in this category yet\". All are shown on load. 4) One handler on .filters: a button with data-filter shows the events of that category (all - all of them), aria-pressed=\"true\" only on the pressed button.",
+    "starter_code": "// The platform sets the events array:\n// { title: \"Your first page in an hour\", category: \"html\", date: \"3 March\" }, ...\n// On the page: .menu-toggle, #site-nav, .theme-toggle, .filters with [data-filter] buttons,\n// #events-status, #events\n\n// 1. Menu: is-open, aria-expanded, Escape + returning focus\n\n// 2. Theme: localStorage \"theme\", the class theme-dark, aria-pressed\n\n// 3. renderEvents(list): article.event, h3, p.event__date, counter\n\n// 4. Filter: one handler on .filters, aria-pressed\n\n// On load: renderEvents(events);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown"
+    ],
+    "setup": "const events = [\n    {\n        title: \"Your first page in an hour\",\n        category: \"html\",\n        date: \"3 March\"\n    },\n    {\n        title: \"Flexbox in practice\",\n        category: \"css\",\n        date: \"10 March\"\n    },\n    {\n        title: \"Grid gallery\",\n        category: \"css\",\n        date: \"17 March\"\n    },\n    {\n        title: \"Bringing a menu to life\",\n        category: \"js\",\n        date: \"24 March\"\n    }\n];",
+    "tests": [
+      {
+        "name": "Menu: a click opens it, aria-expanded=\"true\"",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); return document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "nav.classList.toggle(\"is-open\", isOpen); menuToggle.setAttribute(\"aria-expanded\", String(isOpen));"
+      },
+      {
+        "name": "Menu: a second click closes it",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\".menu-toggle\").click(); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Toggle the state, do not only open."
+      },
+      {
+        "name": "Escape closes the menu and returns focus to the button",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\"#site-nav a\").focus(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\" && document.activeElement === document.querySelector(\".menu-toggle\"); })()",
+        "fail": "On Escape: close the menu and menuToggle.focus();"
+      },
+      {
+        "name": "The default theme is light",
+        "check": "!document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"false\"",
+        "fail": "Without a saved value the theme is light."
+      },
+      {
+        "name": "A saved dark theme is restored",
+        "setup": "const events = [\n    {\n        title: \"Your first page in an hour\",\n        category: \"html\",\n        date: \"3 March\"\n    },\n    {\n        title: \"Flexbox in practice\",\n        category: \"css\",\n        date: \"10 March\"\n    },\n    {\n        title: \"Grid gallery\",\n        category: \"css\",\n        date: \"17 March\"\n    },\n    {\n        title: \"Bringing a menu to life\",\n        category: \"js\",\n        date: \"24 March\"\n    }\n];\nlocalStorage.setItem(\"theme\", \"dark\");",
+        "check": "document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\"",
+        "fail": "On load read localStorage.getItem(\"theme\") and apply the theme."
+      },
+      {
+        "name": "A click turns on the dark theme and saves \"dark\"",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); return document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\" && localStorage.getItem(\"theme\") === \"dark\"; })()",
+        "fail": "localStorage.setItem(\"theme\", next);"
+      },
+      {
+        "name": "A second click saves \"light\"",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); document.querySelector(\".theme-toggle\").click(); return !document.body.classList.contains(\"theme-dark\") && localStorage.getItem(\"theme\") === \"light\"; })()",
+        "fail": "Save both values: \"dark\" and \"light\"."
+      },
+      {
+        "name": "On load all 4 events are shown and \"Shown: 4\"",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Shown: 4\"",
+        "fail": "At the end of the code call renderEvents(events);"
+      },
+      {
+        "name": "Card: h3, p.event__date and data-category",
+        "check": "(() => { const c = document.querySelectorAll(\"#events article.event\")[1]; return c.querySelector(\"h3\").textContent === \"Flexbox in practice\" && c.querySelector(\"p.event__date\").textContent === \"10 March\" && c.dataset.category === \"css\"; })()",
+        "fail": "article.event > h3 + p.event__date, card.dataset.category = item.category;"
+      },
+      {
+        "name": "CSS filter: 2 events, \"Shown: 2\"",
+        "check": "(() => { document.querySelector('[data-filter=\"css\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 2 && [...document.querySelectorAll(\"#events article.event\")].every((c) => c.dataset.category === \"css\") && document.querySelector(\"#events-status\").textContent === \"Shown: 2\"; })()",
+        "fail": "events.filter((item) => item.category === category) and renderEvents(list)."
+      },
+      {
+        "name": "aria-pressed=\"true\" only on the pressed button",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return [...document.querySelectorAll(\"[data-filter]\")].map((b) => b.getAttribute(\"aria-pressed\")).join(\",\") === \"false,false,false,true\"; })()",
+        "fail": "For every button: other.setAttribute(\"aria-pressed\", String(other === button));"
+      },
+      {
+        "name": "The \"All\" button brings back all events",
+        "check": "(() => { document.querySelector('[data-filter=\"html\"]').click(); document.querySelector('[data-filter=\"all\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Shown: 4\"; })()",
+        "fail": "For all, show the whole events array."
+      },
+      {
+        "name": "Empty category: a message and an empty list",
+        "setup": "const events = [\n    {\n        title: \"Your first page in an hour\",\n        category: \"html\",\n        date: \"3 March\"\n    },\n    {\n        title: \"Flexbox in practice\",\n        category: \"css\",\n        date: \"10 March\"\n    },\n    {\n        title: \"Grid gallery\",\n        category: \"css\",\n        date: \"17 March\"\n    }\n];",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 0 && document.querySelector(\"#events-status\").textContent === \"No events in this category yet\"; })()",
+        "fail": "If list.length === 0 - the text \"No events in this category yet\"."
+      },
+      {
+        "name": "Another data set",
+        "setup": "const events = [\n    {\n        title: \"Forms\",\n        category: \"html\",\n        date: \"1 April\"\n    }\n];",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 1 && document.querySelector(\"#events-status\").textContent === \"Shown: 1\" && document.querySelectorAll(\"#events article.event\")[0].querySelector(\"h3\").textContent === \"Forms\"",
+        "fail": "Use the events array and the list parameter, not ready-made values."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Read the error text; a common cause is null from a typo in a selector."
+      }
+    ],
+    "hints": [
+      "Menu: nav.classList.toggle(\"is-open\", isOpen) and aria-expanded via String(isOpen).",
+      "Escape: if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) { ...; menuToggle.focus(); }",
+      "Theme on load: applyTheme(localStorage.getItem(\"theme\") === \"dark\" ? \"dark\" : \"light\");",
+      "renderEvents clears the container first: container.textContent = \"\";",
+      "Filter: const button = event.target.closest(\"[data-filter]\"); if (!button) { return; }",
+      "An empty list - a separate text in #events-status."
+    ],
+    "solution": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// 1. Menu\n"
+      },
+      {
+        "mistake": "Escape does not return focus",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "aria-expanded is not updated",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "the theme is not restored",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(\"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "the theme is not saved",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "the container is not cleared",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "no empty state",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "aria-pressed is not removed from other buttons",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    button.setAttribute(\"aria-pressed\", \"true\");\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "\"All\" is not handled",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "the filter hides cards via style",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    for (const card of document.querySelectorAll(\"#events article\")) {\n        card.style.display = category === \"all\" || card.dataset.category === category ? \"\" : \"none\";\n    }\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "no initial render",
+        "code": "// 1. Menu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Theme\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Events\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"No events in this category yet\"\n        : `Shown: ${list.length}`;\n}\n\n// 4. Filter\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How do you connect the modules' entry point to a page?",
+        "options": [
+          "<script src=\"js/main.js\" defer></script>",
+          "<script type=\"module\" src=\"js/main.js\"></script>",
+          "<link rel=\"module\" href=\"js/main.js\">",
+          "<module src=\"js/main.js\">"
+        ],
+        "answer": 1,
+        "explanation": "type=\"module\" turns on import / export; modules already behave like defer."
+      },
+      {
+        "type": "single",
+        "question": "How do you import the function initMenu from menu.js in the same folder?",
+        "options": [
+          "import initMenu from menu;",
+          "import { initMenu } from \"./menu.js\";",
+          "require(\"menu\").initMenu;",
+          "include \"menu.js\";"
+        ],
+        "answer": 1,
+        "explanation": "A path with ./ and the .js extension, the name in curly braces."
+      },
+      {
+        "type": "input",
+        "question": "Which keyword makes a function available to other modules? Type the word.",
+        "answers": [
+          "export"
+        ],
+        "case_sensitive": true,
+        "explanation": "export function initMenu() { ... }"
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about modules?",
+        "options": [
+          "They run after the HTML is parsed",
+          "Each file has its own variables",
+          "They work when the page is opened via file://",
+          "They need a local server or hosting"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Like fetch, modules are blocked on file://."
+      },
+      {
+        "type": "single",
+        "question": "Why does initContactForm start with if (!form) { return; }?",
+        "options": [
+          "It is faster",
+          "main.js is connected to all pages, but the form exists on only one - without the check there would be a null error",
+          "export requires it",
+          "So that the form is submitted"
+        ],
+        "answer": 1,
+        "explanation": "Every init... quietly leaves if its elements are missing."
+      },
+      {
+        "type": "single",
+        "question": "What should you do after closing the menu with Escape?",
+        "options": [
+          "Reload the page",
+          "Return focus to the menu button",
+          "Remove the button",
+          "Scroll the page to the top"
+        ],
+        "answer": 1,
+        "explanation": "A keyboard user continues from where they were."
+      },
+      {
+        "type": "matching",
+        "question": "Match the part of the project with its job.",
+        "pairs": [
+          [
+            "allEvents",
+            "Stores all the data"
+          ],
+          [
+            "applyFilter",
+            "Picks part of the data"
+          ],
+          [
+            "renderEvents",
+            "Draws the list it is given"
+          ]
+        ],
+        "explanation": "Data, selection and rendering are separated."
+      },
+      {
+        "type": "single",
+        "question": "What is progressive enhancement?",
+        "options": [
+          "The website updates automatically",
+          "The basic content is available without JavaScript, and the script makes it more convenient",
+          "Code is written gradually",
+          "Animations turn on one by one"
+        ],
+        "answer": 1,
+        "explanation": "Rules that hide content apply only with the js class."
+      },
+      {
+        "type": "multiple",
+        "question": "How can you set a breakpoint?",
+        "options": [
+          "Sources → click a line number",
+          "A debugger; line in the code",
+          "console.log",
+          "Ctrl+Shift+R"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "console.log prints a value but does not stop execution."
+      },
+      {
+        "type": "single",
+        "question": "On GitHub Pages js/Menu.js does not load, although everything worked locally. The likely cause?",
+        "options": [
+          "Pages does not support JavaScript",
+          "The file is named menu.js: Pages is case-sensitive",
+          "innerHTML is needed",
+          "The file is too large"
+        ],
+        "answer": 1,
+        "explanation": "Menu.js and menu.js are different files on the server."
+      },
+      {
+        "type": "single",
+        "question": "Why might fetch(\"/data/events.json\") not work on GitHub Pages?",
+        "options": [
+          "JSON is forbidden",
+          "The path starts from the domain root, but the website lives in a repository subfolder",
+          "await is needed twice",
+          "fetch does not work over https"
+        ],
+        "answer": 1,
+        "explanation": "Use a relative path: data/events.json."
+      },
+      {
+        "type": "matching",
+        "question": "Match the check with the DevTools tool.",
+        "pairs": [
+          [
+            "Script errors",
+            "Console"
+          ],
+          [
+            "404s for .js and .json",
+            "Network"
+          ],
+          [
+            "What is saved in localStorage",
+            "Application"
+          ],
+          [
+            "Classes and aria-* after a click",
+            "Elements"
+          ]
+        ],
+        "explanation": "Each tab covers its own part of the check."
+      }
+    ]
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "lesson": 4,
+  "language": "uz",
+  "lesson_title": "Sikllar",
+  "task": {
+    "title": "Ko‘paytirish jadvali, juftlar yig‘indisi va unlilar",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Platforma n sonini va word so‘zini beradi. 1) for sikli bilan n uchun ko‘paytirish jadvalining 10 ta qatorini \"5 x 1 = 5\" … \"5 x 10 = 50\" ko‘rinishida chiqaring (shablon satr bilan). 2) let evenSum da 1 dan n gacha (u ham kiradi) juft sonlar yig‘indisini hisoblang. 3) let vowelCount da word dagi a, e, i, o, u unlilarini for...of sikli bilan registrni hisobga olmay sanang.",
+    "starter_code": "// Platforma beradi:\n// const n = 5;\n// const word = \"JavaScript\";\n// Kod boshqa qiymatlarda ham tekshiriladi.\n\n// 1. n uchun ko‘paytirish jadvali: 10 ta \"5 x 1 = 5\" qatori\n\n// 2. let evenSum - 1 dan n gacha juft sonlar yig‘indisi\n\n// 3. let vowelCount - word dagi a, e, i, o, u unlilari (for...of)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      ".split(",
+      ".match(",
+      ".replace(",
+      ".filter(",
+      ".reduce("
+    ],
+    "setup": "const n = 5;\nconst word = \"JavaScript\";",
+    "tests": [
+      {
+        "name": "5 uchun jadval: \"5 x 1 = 5\" dan \"5 x 10 = 50\" gacha 10 qator",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `5 x ${idx + 1} = ${5 * (idx + 1)}`); })()",
+        "fail": "Aynan 10 ta `${n} x ${i} = ${n * i}` qatori kerak - x va = atrofida bo‘sh joy."
+      },
+      {
+        "name": "7 uchun jadval",
+        "setup": "const n = 7;\nconst word = \"JavaScript\";",
+        "check": "(() => { const rows = __logs.filter((l) => /^\\d+ x \\d+ = \\d+$/.test(l)); return rows.length === 10 && rows.every((l, idx) => l === `7 x ${idx + 1} = ${7 * (idx + 1)}`); })()",
+        "fail": "5 sonini emas, n ni ishlating."
+      },
+      {
+        "name": "n = 5: evenSum = 6 (2 + 4)",
+        "check": "evenSum === 6",
+        "fail": "To‘plovchi: sikldan oldin let evenSum = 0;, juft i uchun evenSum += i;."
+      },
+      {
+        "name": "n = 10: evenSum = 30",
+        "setup": "const n = 10;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 30",
+        "fail": "n ni oraliqqa kiriting: i <= n."
+      },
+      {
+        "name": "n = 1: evenSum = 0",
+        "setup": "const n = 1;\nconst word = \"JavaScript\";",
+        "check": "evenSum === 0",
+        "fail": "1 dan 1 gacha juft son yo‘q - yig‘indi 0."
+      },
+      {
+        "name": "\"JavaScript\": 3 ta unli",
+        "check": "vowelCount === 3",
+        "fail": "Hisoblagich: sikldan oldin let vowelCount = 0;, unlilar uchun vowelCount++;."
+      },
+      {
+        "name": "\"EDUCATION\": 5 ta unli (katta harflar)",
+        "setup": "const n = 5;\nconst word = \"EDUCATION\";",
+        "check": "vowelCount === 5",
+        "fail": "Belgini kichik harfga keltiring: char.toLowerCase()."
+      },
+      {
+        "name": "\"rhythm\": 0 ta unli",
+        "setup": "const n = 5;\nconst word = \"rhythm\";",
+        "check": "vowelCount === 0",
+        "fail": "Bu topshiriqda y unli emas; unlisiz so‘zda hisoblagich 0."
+      },
+      {
+        "name": "for sikli ishlatilgan",
+        "check": "/\\bfor\\s*\\(\\s*let\\s+\\w+\\s*=/.test(__code)",
+        "fail": "Jadval va yig‘indini for (let i = 1; ...) sikli bilan hisoblang."
+      },
+      {
+        "name": "word bo‘yicha for...of ishlatilgan",
+        "check": "/\\bfor\\s*\\(\\s*const\\s+\\w+\\s+of\\s+word\\s*\\)/.test(__code)",
+        "fail": "for (const char of word) { ... }"
+      },
+      {
+        "name": "Dastur xatosiz tugaydi",
+        "check": "__error === null",
+        "fail": "Xato yoki cheksiz sikl: sikl sharti qachondir false bo‘lishini tekshiring."
+      }
+    ],
+    "hints": [
+      "Jadval: for (let i = 1; i <= 10; i++) { console.log(`${n} x ${i} = ${n * i}`); }",
+      "Juft son: i % 2 === 0.",
+      "To‘plovchi va hisoblagichni sikldan OLDIN let bilan e’lon qiling.",
+      "So‘zni aylanib chiqish: for (const char of word) { ... }",
+      "Unlini tekshirish: \"aeiou\".includes(char.toLowerCase())."
+    ],
+    "solution": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. n uchun ko‘paytirish jadvali\n"
+      },
+      {
+        "mistake": "jadval doim 5 uchun",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "jadval 9 qatorli",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "n oraliqqa kirmaydi",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "to‘plovchi sikl ichida",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "registr hisobga olinmagan",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "so‘z uchun for...of o‘rniga for",
+        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
+      },
+      {
+        "mistake": "cheksiz sikl",
+        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "input",
+        "question": "for (let i = 0; i < 5; i++) sikli tanasi necha marta bajariladi? Sonni kiriting.",
+        "answers": [
+          "5"
+        ],
+        "case_sensitive": false,
+        "explanation": "i 0, 1, 2, 3, 4 qiymatlarini oladi."
+      },
+      {
+        "type": "single",
+        "question": "for (let i = 1; i <= 3; i++) da shart qachon tekshiriladi?",
+        "options": [
+          "Boshida bir marta",
+          "Har iteratsiyadan oldin",
+          "Sikldan keyin",
+          "Faqat break da"
+        ],
+        "answer": 1,
+        "explanation": "Shart false bo‘lsa - sikl tugaydi."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: let sum = 0; for (let i = 1; i <= 4; i++) { sum += i; } console.log(sum);",
+        "options": [
+          "4",
+          "10",
+          "0",
+          "1234"
+        ],
+        "answer": 1,
+        "explanation": "1 + 2 + 3 + 4 = 10."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruqni amal bilan moslashtiring.",
+        "pairs": [
+          [
+            "break",
+            "Butun siklni tugatish"
+          ],
+          [
+            "continue",
+            "Keyingi iteratsiyaga o‘tish"
+          ],
+          [
+            "i++",
+            "Hisoblagichni 1 ga oshirish"
+          ]
+        ],
+        "explanation": "break - chiqish, continue - qadamni o‘tkazish."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun bu sikl cheksiz: let i = 1; while (i <= 5) { console.log(i); }",
+        "options": [
+          "break yo‘q",
+          "i o‘zgarmaydi, shart doim true",
+          "while ni sonlar bilan ishlatib bo‘lmaydi",
+          "Nuqtali vergul yo‘q"
+        ],
+        "answer": 1,
+        "explanation": "Sikl tanasiga i++ qo‘shing."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi sikllar 1, 2, 3 sonlarini chiqaradi?",
+        "options": [
+          "for (let i = 1; i <= 3; i++) { console.log(i); }",
+          "for (let i = 1; i < 3; i++) { console.log(i); }",
+          "let i = 1; while (i <= 3) { console.log(i); i++; }",
+          "for (let i = 0; i < 3; i++) { console.log(i + 1); }"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Ikkinchi sikl 2 da to‘xtaydi."
+      },
+      {
+        "type": "single",
+        "question": "for (const char of \"non\") siklida char ga nima tushadi?",
+        "options": [
+          "Butun satr",
+          "0, 1, 2 indekslari",
+          "n, o, n belgilari navbat bilan",
+          "Satr uzunligi"
+        ],
+        "answer": 2,
+        "explanation": "for...of satr belgilarini aylanib chiqadi."
+      },
+      {
+        "type": "single",
+        "question": "let total = 0; to‘plovchisi qayerda e’lon qilinadi?",
+        "options": [
+          "Sikl tanasi ichida",
+          "Sikldan oldin",
+          "Sikldan keyin",
+          "Sikl shartida"
+        ],
+        "answer": 1,
+        "explanation": "Sikl ichida u har iteratsiyada nolga tushardi."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifani mos sikl bilan moslashtiring.",
+        "pairs": [
+          [
+            "Aynan 10 marta takrorlash",
+            "for"
+          ],
+          [
+            "Yig‘indi 200000 dan kichik ekan takrorlash",
+            "while"
+          ],
+          [
+            "So‘z harflarini aylanib chiqish",
+            "for...of"
+          ]
+        ],
+        "explanation": "Sikl tanlovi qadamlar soni ma’lum yoki yo‘qligiga bog‘liq."
+      },
+      {
+        "type": "input",
+        "question": "Nima chiqadi: let s = \"\"; for (let i = 0; i < 3; i++) { s += \"*\"; } console.log(s);",
+        "answers": [
+          "***"
+        ],
+        "case_sensitive": false,
+        "explanation": "Satr to‘plovchisi: uchta yulduzcha."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi sonlar chiqadi: for (let i = 1; i <= 6; i++) { if (i % 3 === 0) { continue; } console.log(i); }",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "6"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "3 va 6 o‘tkazib yuboriladi; 5 ham chiqadi, lekin u variantlarda yo‘q."
+      },
+      {
+        "type": "single",
+        "question": "Cheksiz siklda platforma qaysi xatoni ko‘rsatadi?",
+        "options": [
+          "SyntaxError",
+          "ReferenceError",
+          "Script execution timed out",
+          "TypeError"
+        ],
+        "answer": 2,
+        "explanation": "Bajarilish vaqti cheklangan, sikl to‘xtatiladi."
+      }
+    ]
+  }
+}

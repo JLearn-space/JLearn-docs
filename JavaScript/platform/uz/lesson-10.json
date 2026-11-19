@@ -1,0 +1,328 @@
+{
+  "lesson": 10,
+  "language": "uz",
+  "lesson_title": "Yakuniy loyiha - interaktiv sayt",
+  "task": {
+    "title": "To‘garak afishasi",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garak afishasi</title>\n</head>\n<body>\n    <header class=\"site-header\">\n        <a class=\"logo\" href=\"index.html\">To‘garak</a>\n        <button type=\"button\" class=\"menu-toggle\" aria-expanded=\"false\" aria-controls=\"site-nav\">Menyu</button>\n        <nav id=\"site-nav\" class=\"site-nav\" aria-label=\"Asosiy navigatsiya\">\n            <ul>\n                <li><a href=\"index.html\">Bosh sahifa</a></li>\n                <li><a href=\"schedule.html\">Afisha</a></li>\n                <li><a href=\"contact.html\">Aloqa</a></li>\n            </ul>\n        </nav>\n        <button type=\"button\" class=\"theme-toggle\" aria-pressed=\"false\">Qorong‘i mavzu</button>\n    </header>\n    <main>\n        <h1>Afisha</h1>\n        <div class=\"filters\" role=\"group\" aria-label=\"Toifa bo‘yicha filtr\">\n            <button type=\"button\" data-filter=\"all\" aria-pressed=\"true\">Hammasi</button>\n            <button type=\"button\" data-filter=\"html\" aria-pressed=\"false\">HTML</button>\n            <button type=\"button\" data-filter=\"css\" aria-pressed=\"false\">CSS</button>\n            <button type=\"button\" data-filter=\"js\" aria-pressed=\"false\">JavaScript</button>\n        </div>\n        <p id=\"events-status\" role=\"status\"></p>\n        <div id=\"events\" class=\"events\"></div>\n    </main>\n</body>\n</html>",
+    "description": "Platforma { title, category, date } obyektlaridan iborat events massivini beradi. 1) Menyu: .menu-toggle ga bosish #site-nav dagi is-open klassini va tugmaning aria-expanded ini almashtiradi; Escape ochiq menyuni yopadi va fokusni tugmaga qaytaradi. 2) Mavzu: yuklanganda localStorage dan \"theme\" kaliti bo‘yicha - \"dark\" body ga theme-dark klassini va .theme-toggle ga aria-pressed=\"true\" beradi; bosish mavzuni almashtiradi va \"dark\" yoki \"light\" ni saqlaydi. 3) renderEvents(list): #events ni tozalaydi, har bir tadbir uchun - data-category li, h3 va p.event__date li article.event; #events-status da \"Ko‘rsatilgan: N\" yoki \"Bu toifada hozircha tadbirlar yo‘q\". Yuklanganda hammasi ko‘rsatiladi. 4) .filters ga bitta ishlov beruvchi: data-filter li tugma shu toifa tadbirlarini ko‘rsatadi (all - hammasini), aria-pressed=\"true\" faqat bosilgan tugmada.",
+    "starter_code": "// Platforma events massivini beradi:\n// { title: \"Bir soatda birinchi sahifa\", category: \"html\", date: \"3-mart\" }, ...\n// Sahifada: .menu-toggle, #site-nav, .theme-toggle, [data-filter] tugmali .filters,\n// #events-status, #events\n\n// 1. Menyu: is-open, aria-expanded, Escape + fokusni qaytarish\n\n// 2. Mavzu: localStorage \"theme\", theme-dark klassi, aria-pressed\n\n// 3. renderEvents(list): article.event, h3, p.event__date, hisoblagich\n\n// 4. Filtr: .filters ga bitta ishlov beruvchi, aria-pressed\n\n// Yuklanganda: renderEvents(events);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown"
+    ],
+    "setup": "const events = [\n    {\n        title: \"Bir soatda birinchi sahifa\",\n        category: \"html\",\n        date: \"3-mart\"\n    },\n    {\n        title: \"Flexbox amaliyotda\",\n        category: \"css\",\n        date: \"10-mart\"\n    },\n    {\n        title: \"Grid-galereya\",\n        category: \"css\",\n        date: \"17-mart\"\n    },\n    {\n        title: \"Menyuni jonlantiramiz\",\n        category: \"js\",\n        date: \"24-mart\"\n    }\n];",
+    "tests": [
+      {
+        "name": "Menyu: bosish ochadi, aria-expanded=\"true\"",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); return document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "nav.classList.toggle(\"is-open\", isOpen); menuToggle.setAttribute(\"aria-expanded\", String(isOpen));"
+      },
+      {
+        "name": "Menyu: ikkinchi bosish yopadi",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\".menu-toggle\").click(); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Faqat ochmang, holatni almashtiring."
+      },
+      {
+        "name": "Escape menyuni yopadi va fokusni tugmaga qaytaradi",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\"#site-nav a\").focus(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\" && document.activeElement === document.querySelector(\".menu-toggle\"); })()",
+        "fail": "Escape da: menyuni yopish va menuToggle.focus();"
+      },
+      {
+        "name": "Standart mavzu yorug‘",
+        "check": "!document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"false\"",
+        "fail": "Saqlangan qiymat bo‘lmasa, mavzu yorug‘."
+      },
+      {
+        "name": "Saqlangan qorong‘i mavzu tiklanadi",
+        "setup": "const events = [\n    {\n        title: \"Bir soatda birinchi sahifa\",\n        category: \"html\",\n        date: \"3-mart\"\n    },\n    {\n        title: \"Flexbox amaliyotda\",\n        category: \"css\",\n        date: \"10-mart\"\n    },\n    {\n        title: \"Grid-galereya\",\n        category: \"css\",\n        date: \"17-mart\"\n    },\n    {\n        title: \"Menyuni jonlantiramiz\",\n        category: \"js\",\n        date: \"24-mart\"\n    }\n];\nlocalStorage.setItem(\"theme\", \"dark\");",
+        "check": "document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\"",
+        "fail": "Yuklanganda localStorage.getItem(\"theme\") ni o‘qing va mavzuni qo‘llang."
+      },
+      {
+        "name": "Bosish qorong‘i mavzuni yoqadi va \"dark\" ni saqlaydi",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); return document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\" && localStorage.getItem(\"theme\") === \"dark\"; })()",
+        "fail": "localStorage.setItem(\"theme\", next);"
+      },
+      {
+        "name": "Ikkinchi bosish \"light\" ni saqlaydi",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); document.querySelector(\".theme-toggle\").click(); return !document.body.classList.contains(\"theme-dark\") && localStorage.getItem(\"theme\") === \"light\"; })()",
+        "fail": "Ikkala qiymatni saqlang: \"dark\" va \"light\"."
+      },
+      {
+        "name": "Yuklanganda 4 ta tadbir va «Ko‘rsatilgan: 4»",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Ko‘rsatilgan: 4\"",
+        "fail": "Kod oxirida renderEvents(events); ni chaqiring."
+      },
+      {
+        "name": "Kartochka: h3, p.event__date va data-category",
+        "check": "(() => { const c = document.querySelectorAll(\"#events article.event\")[1]; return c.querySelector(\"h3\").textContent === \"Flexbox amaliyotda\" && c.querySelector(\"p.event__date\").textContent === \"10-mart\" && c.dataset.category === \"css\"; })()",
+        "fail": "article.event > h3 + p.event__date, card.dataset.category = item.category;"
+      },
+      {
+        "name": "CSS filtri: 2 ta tadbir, «Ko‘rsatilgan: 2»",
+        "check": "(() => { document.querySelector('[data-filter=\"css\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 2 && [...document.querySelectorAll(\"#events article.event\")].every((c) => c.dataset.category === \"css\") && document.querySelector(\"#events-status\").textContent === \"Ko‘rsatilgan: 2\"; })()",
+        "fail": "events.filter((item) => item.category === category) va renderEvents(list)."
+      },
+      {
+        "name": "aria-pressed=\"true\" faqat bosilgan tugmada",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return [...document.querySelectorAll(\"[data-filter]\")].map((b) => b.getAttribute(\"aria-pressed\")).join(\",\") === \"false,false,false,true\"; })()",
+        "fail": "Har bir tugma uchun: other.setAttribute(\"aria-pressed\", String(other === button));"
+      },
+      {
+        "name": "«Hammasi» tugmasi barcha tadbirlarni qaytaradi",
+        "check": "(() => { document.querySelector('[data-filter=\"html\"]').click(); document.querySelector('[data-filter=\"all\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Ko‘rsatilgan: 4\"; })()",
+        "fail": "all uchun butun events massivini ko‘rsating."
+      },
+      {
+        "name": "Bo‘sh toifa: xabar va bo‘sh ro‘yxat",
+        "setup": "const events = [\n    {\n        title: \"Bir soatda birinchi sahifa\",\n        category: \"html\",\n        date: \"3-mart\"\n    },\n    {\n        title: \"Flexbox amaliyotda\",\n        category: \"css\",\n        date: \"10-mart\"\n    },\n    {\n        title: \"Grid-galereya\",\n        category: \"css\",\n        date: \"17-mart\"\n    }\n];",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 0 && document.querySelector(\"#events-status\").textContent === \"Bu toifada hozircha tadbirlar yo‘q\"; })()",
+        "fail": "list.length === 0 bo‘lsa - «Bu toifada hozircha tadbirlar yo‘q» matni."
+      },
+      {
+        "name": "Boshqa ma’lumotlar to‘plami",
+        "setup": "const events = [\n    {\n        title: \"Formalar\",\n        category: \"html\",\n        date: \"1-aprel\"\n    }\n];",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 1 && document.querySelector(\"#events-status\").textContent === \"Ko‘rsatilgan: 1\" && document.querySelectorAll(\"#events article.event\")[0].querySelector(\"h3\").textContent === \"Formalar\"",
+        "fail": "Tayyor qiymatlar emas, events massivi va list parametridan foydalaning."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Xato matnini o‘qing; tez-tez uchraydigan sabab - selektordagi xato tufayli null."
+      }
+    ],
+    "hints": [
+      "Menyu: nav.classList.toggle(\"is-open\", isOpen) va String(isOpen) orqali aria-expanded.",
+      "Escape: if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) { ...; menuToggle.focus(); }",
+      "Yuklanganda mavzu: applyTheme(localStorage.getItem(\"theme\") === \"dark\" ? \"dark\" : \"light\");",
+      "renderEvents avval konteynerni tozalaydi: container.textContent = \"\";",
+      "Filtr: const button = event.target.closest(\"[data-filter]\"); if (!button) { return; }",
+      "Bo‘sh ro‘yxat - #events-status da alohida matn."
+    ],
+    "solution": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. Menyu\n"
+      },
+      {
+        "mistake": "Escape fokusni qaytarmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "aria-expanded yangilanmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "mavzu tiklanmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(\"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "mavzu saqlanmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "konteyner tozalanmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "bo‘sh holat yo‘q",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "boshqa tugmalardan aria-pressed olinmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    button.setAttribute(\"aria-pressed\", \"true\");\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "«Hammasi» qayta ishlanmaydi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "filtr kartochkalarni style orqali yashiradi",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    for (const card of document.querySelectorAll(\"#events article\")) {\n        card.style.display = category === \"all\" || card.dataset.category === category ? \"\" : \"none\";\n    }\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "boshlang‘ich chizish yo‘q",
+        "code": "// 1. Menyu\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Mavzu\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. Tadbirlar\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"Bu toifada hozircha tadbirlar yo‘q\"\n        : `Ko‘rsatilgan: ${list.length}`;\n}\n\n// 4. Filtr\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Modullarning kirish nuqtasi sahifaga qanday ulanadi?",
+        "options": [
+          "<script src=\"js/main.js\" defer></script>",
+          "<script type=\"module\" src=\"js/main.js\"></script>",
+          "<link rel=\"module\" href=\"js/main.js\">",
+          "<module src=\"js/main.js\">"
+        ],
+        "answer": 1,
+        "explanation": "type=\"module\" import / export ni yoqadi; modullarda defer allaqachon yoqilgan."
+      },
+      {
+        "type": "single",
+        "question": "Xuddi shu papkadagi menu.js dan initMenu funksiyasini qanday import qilish mumkin?",
+        "options": [
+          "import initMenu from menu;",
+          "import { initMenu } from \"./menu.js\";",
+          "require(\"menu\").initMenu;",
+          "include \"menu.js\";"
+        ],
+        "answer": 1,
+        "explanation": "./ va .js kengaytmali yo‘l, nom jingalak qavslarda."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi kalit so‘z funksiyani boshqa modullar uchun ochiq qiladi? So‘zni kiriting.",
+        "answers": [
+          "export"
+        ],
+        "case_sensitive": true,
+        "explanation": "export function initMenu() { ... }"
+      },
+      {
+        "type": "multiple",
+        "question": "Modullar haqida nima to‘g‘ri?",
+        "options": [
+          "HTML tahlil qilingach bajariladi",
+          "Har bir faylning o‘z o‘zgaruvchilari bor",
+          "Sahifa file:// orqali ochilganda ishlaydi",
+          "Mahalliy server yoki hosting kerak"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "fetch kabi, modullar file:// da bloklanadi."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun initContactForm funksiyasi if (!form) { return; } bilan boshlanadi?",
+        "options": [
+          "Bu tezroq",
+          "main.js barcha sahifalarga ulangan, forma esa faqat bittasida - tekshiruvsiz null xatosi bo‘ladi",
+          "Buni export talab qiladi",
+          "Forma yuborilishi uchun"
+        ],
+        "answer": 1,
+        "explanation": "Har bir init... o‘z elementlari bo‘lmasa jimgina chiqadi."
+      },
+      {
+        "type": "single",
+        "question": "Menyu Escape bilan yopilgandan keyin nima qilish kerak?",
+        "options": [
+          "Sahifani qayta yuklash",
+          "Fokusni menyu tugmasiga qaytarish",
+          "Tugmani olib tashlash",
+          "Sahifani yuqoriga aylantirish"
+        ],
+        "answer": 1,
+        "explanation": "Klaviatura foydalanuvchisi qayerda bo‘lsa, o‘sha yerdan davom etadi."
+      },
+      {
+        "type": "matching",
+        "question": "Loyiha qismini uning vazifasi bilan moslashtiring.",
+        "pairs": [
+          [
+            "allEvents",
+            "Barcha ma’lumotlarni saqlaydi"
+          ],
+          [
+            "applyFilter",
+            "Ma’lumotlarning bir qismini tanlaydi"
+          ],
+          [
+            "renderEvents",
+            "Berilgan ro‘yxatni chizadi"
+          ]
+        ],
+        "explanation": "Ma’lumotlar, tanlov va chizish ajratilgan."
+      },
+      {
+        "type": "single",
+        "question": "Progressiv yaxshilash nima?",
+        "options": [
+          "Sayt avtomatik yangilanadi",
+          "Asosiy tarkib JavaScript’siz mavjud, skript esa uni qulayroq qiladi",
+          "Kod asta-sekin yoziladi",
+          "Animatsiyalar navbat bilan yoqiladi"
+        ],
+        "answer": 1,
+        "explanation": "Tarkibni yashiradigan qoidalar faqat js klassi bilan amal qiladi."
+      },
+      {
+        "type": "multiple",
+        "question": "To‘xtash nuqtasini qanday qo‘yish mumkin?",
+        "options": [
+          "Sources → qator raqamiga bosish",
+          "Koddagi debugger; qatori",
+          "console.log",
+          "Ctrl+Shift+R"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "console.log qiymatni chiqaradi, lekin bajarilishni to‘xtatmaydi."
+      },
+      {
+        "type": "single",
+        "question": "GitHub Pages’da js/Menu.js yuklanmayapti, mahalliy ravishda esa hammasi ishlagan. Ehtimoliy sabab?",
+        "options": [
+          "Pages JavaScript’ni qo‘llab-quvvatlamaydi",
+          "Fayl menu.js deb nomlangan: Pages registrni farqlaydi",
+          "innerHTML kerak",
+          "Fayl juda katta"
+        ],
+        "answer": 1,
+        "explanation": "Serverda Menu.js va menu.js - turli fayllar."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun fetch(\"/data/events.json\") GitHub Pages’da ishlamasligi mumkin?",
+        "options": [
+          "JSON taqiqlangan",
+          "Yo‘l domen ildizidan boshlanadi, sayt esa repozitoriyning ichki papkasida turadi",
+          "await ikki marta kerak",
+          "fetch https da ishlamaydi"
+        ],
+        "answer": 1,
+        "explanation": "Nisbiy yo‘ldan foydalaning: data/events.json."
+      },
+      {
+        "type": "matching",
+        "question": "Tekshiruvni DevTools vositasi bilan moslashtiring.",
+        "pairs": [
+          [
+            "Skript xatolari",
+            "Console"
+          ],
+          [
+            ".js va .json uchun 404",
+            "Network"
+          ],
+          [
+            "localStorage da nima saqlangan",
+            "Application"
+          ],
+          [
+            "Bosishdan keyingi klasslar va aria-*",
+            "Elements"
+          ]
+        ],
+        "explanation": "Har bir bo‘lim tekshiruvning o‘z qismiga javob beradi."
+      }
+    ]
+  }
+}

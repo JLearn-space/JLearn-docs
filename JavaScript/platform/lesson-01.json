@@ -1,0 +1,181 @@
+{
+  "lesson": 1,
+  "language": "ru",
+  "lesson_title": "Введение в JavaScript. Первая программа",
+  "task": {
+    "title": "Карточка ученика",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Объявите константу studentName со своим именем и константу courseName со значением \"JavaScript\". Объявите переменную lessonsDone через let со значением 0, затем на отдельной строке присвойте ей 1. Выведите в консоль имя, название курса и число пройденных уроков. var не используйте.",
+    "starter_code": "// Карточка ученика\n\n// 1. Константа studentName - ваше имя (строка в двойных кавычках)\n\n// 2. Константа courseName - \"JavaScript\"\n\n// 3. Переменная lessonsDone через let, начальное значение 0\n\n// 4. Урок пройден: присвойте lessonsDone значение 1\n\n// 5. Выведите в консоль studentName, courseName и lessonsDone\n",
+    "timeout_ms": 2000,
+    "forbidden": ["var "],
+    "tests": [
+      {
+        "name": "Константа studentName содержит непустую строку",
+        "check": "typeof studentName === \"string\" && studentName.trim().length > 0",
+        "fail": "Объявите const studentName = \"Ваше имя\"; - имя в кавычках."
+      },
+      {
+        "name": "studentName объявлена через const",
+        "check": "/\\bconst\\s+studentName\\b/.test(__code)",
+        "fail": "Имя не меняется во время программы, поэтому нужна const, а не let."
+      },
+      {
+        "name": "Константа courseName равна \"JavaScript\"",
+        "check": "courseName === \"JavaScript\" && /\\bconst\\s+courseName\\b/.test(__code)",
+        "fail": "Нужно const courseName = \"JavaScript\"; - регистр букв важен."
+      },
+      {
+        "name": "lessonsDone объявлена через let со значением 0",
+        "check": "/\\blet\\s+lessonsDone\\s*=\\s*0\\s*;/.test(__code)",
+        "fail": "Объявите let lessonsDone = 0; - значение потом изменится, поэтому let."
+      },
+      {
+        "name": "После изменения lessonsDone равна 1",
+        "check": "lessonsDone === 1 && /\\blessonsDone\\s*=\\s*1\\s*;/.test(__code)",
+        "fail": "На отдельной строке присвойте новое значение: lessonsDone = 1; - без let."
+      },
+      {
+        "name": "В консоль выведены имя, курс и число уроков",
+        "check": "__logs.some((l) => l.includes(studentName)) && __logs.some((l) => l.includes(courseName)) && __logs.some((l) => /(^|\\D)1(\\D|$)/.test(l))",
+        "fail": "Используйте console.log(...) для studentName, courseName и lessonsDone после изменения."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "В коде ошибка. Прочитайте её текст: TypeError при присваивании значит, что lessonsDone объявлена через const."
+      }
+    ],
+    "hints": [
+      "Строка пишется в кавычках: const studentName = \"Анна\";",
+      "const - значение не меняется, let - меняется. var в курсе не используется.",
+      "Изменение значения пишется без let: lessonsDone = 1;",
+      "Вывод в консоль: console.log(\"Ученик:\", studentName);",
+      "В конце каждой инструкции ставьте ;"
+    ],
+    "solution": "// Карточка ученика\n\nconst studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\n\n// Первый урок пройден\nlessonsDone = 1;\n\nconsole.log(\"Ученик:\", studentName);\nconsole.log(\"Курс:\", courseName);\nconsole.log(\"Пройдено уроков:\", lessonsDone);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// Карточка ученика\n\n// 1. Константа studentName - ваше имя (строка в двойных кавычках)\n"
+      },
+      {
+        "mistake": "var вместо let и const",
+        "code": "var studentName = \"Анна\";\nvar courseName = \"JavaScript\";\nvar lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "имя объявлено через let",
+        "code": "let studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "lessonsDone через const - ошибка при изменении",
+        "code": "const studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nconst lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "значение не изменено",
+        "code": "const studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "повторное объявление вместо присваивания",
+        "code": "const studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "нет вывода в консоль",
+        "code": "const studentName = \"Анна\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\n"
+      },
+      {
+        "mistake": "курс с маленькой буквы",
+        "code": "const studentName = \"Анна\";\nconst courseName = \"javascript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "За что на странице отвечает JavaScript?",
+        "options": ["За структуру и смысл", "За внешний вид", "За поведение: реакцию на действия пользователя и изменение страницы", "За хранение сайта на сервере"],
+        "answer": 2,
+        "explanation": "HTML - структура, CSS - внешний вид, JavaScript - поведение."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно подключить файл js/main.js к странице?",
+        "options": ["<script src=\"js/main.js\" defer></script>", "<link rel=\"script\" href=\"js/main.js\">", "<script href=\"js/main.js\"></script>", "<js src=\"js/main.js\">"],
+        "answer": 0,
+        "explanation": "Внешний файл подключают тегом <script> с атрибутом src; defer запускает код после разбора HTML."
+      },
+      {
+        "type": "single",
+        "question": "Что делает атрибут defer?",
+        "options": ["Отключает скрипт", "Запускает скрипт после того, как браузер разобрал весь HTML", "Запускает скрипт раньше загрузки CSS", "Скрывает код от пользователя"],
+        "answer": 1,
+        "explanation": "С defer скрипт загружается параллельно и выполняется, когда документ уже разобран."
+      },
+      {
+        "type": "input",
+        "question": "Какой командой выводят сообщение в консоль? Введите имя команды без скобок.",
+        "answers": ["console.log"],
+        "case_sensitive": true,
+        "explanation": "console.log(\"Привет\"); - вывод в консоль DevTools."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие объявления написаны в стиле курса?",
+        "options": ["const city = \"Ташкент\";", "let score = 0;", "var age = 20;", "const 2name = \"Анна\";"],
+        "answer": [0, 1],
+        "explanation": "var в курсе не используется, имя не может начинаться с цифры."
+      },
+      {
+        "type": "single",
+        "question": "Что произойдёт: const year = 2025; year = 2026;",
+        "options": ["year станет 2026", "Ошибка TypeError: константе нельзя присвоить новое значение", "year станет 4051", "Ничего, вторая строка пропускается"],
+        "answer": 1,
+        "explanation": "Константу после объявления изменить нельзя. Для изменяемого значения нужна let."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и её смысл.",
+        "pairs": [["let count = 0;", "Объявить переменную"], ["count = 5;", "Присвоить новое значение"], ["// текст", "Комментарий до конца строки"], ["console.log(count);", "Вывести значение в консоль"]],
+        "explanation": "Объявление пишется один раз с let или const, присваивание - без них."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие имена переменных допустимы?",
+        "options": ["userName", "user_name", "user-name", "let"],
+        "answer": [0, 1],
+        "explanation": "Дефис означает минус, а let - зарезервированное слово. В курсе используем camelCase: userName."
+      },
+      {
+        "type": "single",
+        "question": "Различает ли JavaScript userName и username?",
+        "options": ["Нет, это одна переменная", "Да, это две разные переменные", "Только в строгом режиме", "Только в браузере Chrome"],
+        "answer": 1,
+        "explanation": "JavaScript чувствителен к регистру букв."
+      },
+      {
+        "type": "input",
+        "question": "Какой клавишей в Chrome и Edge на Windows открывают DevTools? Введите название клавиши.",
+        "answers": ["F12"],
+        "case_sensitive": false,
+        "explanation": "F12 или Ctrl+Shift+J (на Mac - Cmd+Option+J) открывают консоль."
+      },
+      {
+        "type": "single",
+        "question": "В консоли красная строка: ReferenceError: scor is not defined. Что это значит?",
+        "options": ["Браузер устарел", "Используется имя, которое не объявлено: скорее всего, опечатка в score", "Файл не найден", "Значение равно нулю"],
+        "answer": 1,
+        "explanation": "ReferenceError - обращение к несуществующему имени. Сверьте написание с объявлением."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте технологию и вопрос, на который она отвечает.",
+        "pairs": [["HTML", "Что на странице?"], ["CSS", "Как это выглядит?"], ["JavaScript", "Что происходит при действиях пользователя?"]],
+        "explanation": "Три технологии работают вместе, каждая в своём файле."
+      }
+    ]
+  }
+}

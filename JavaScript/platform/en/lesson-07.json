@@ -1,0 +1,291 @@
+{
+  "lesson": 7,
+  "language": "en",
+  "lesson_title": "DOM: finding and changing elements",
+  "task": {
+    "title": "Course catalogue",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>JLearn courses</title>\n</head>\n<body>\n    <main>\n        <h1>JLearn courses</h1>\n        <p id=\"course-count\">Loading...</p>\n        <ul id=\"course-list\" class=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "The page has an empty list #course-list and a paragraph #course-count. The platform sets an array courses of objects { id, title, lessons, isNew }. Write a function renderCourses(list): clear #course-list; for every course create an li with the class course, the text \"HTML - 10 lessons\" and data-id from id; add the class course--new to courses with isNew: true; write \"Courses: N\" into #course-count from the array length. At the end call renderCourses(courses). Do not use innerHTML or element.style.",
+    "starter_code": "// The platform sets:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// On the page: <p id=\"course-count\"> and an empty <ul id=\"course-list\">\n\nfunction renderCourses(list) {\n    // 1. Find #course-list and #course-count\n\n    // 2. Clear the list\n\n    // 3. For every course: li.course, text \"HTML - 10 lessons\", data-id, course--new\n\n    // 4. Counter: \"Courses: 3\"\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "innerHTML",
+      "outerHTML",
+      "insertAdjacentHTML",
+      ".style.",
+      "document.write"
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "The page has 3 li.course elements",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "For every course create an li, add the class course and insert it into #course-list with append."
+      },
+      {
+        "name": "The first one's text: \"HTML - 10 lessons\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"HTML - 10 lessons\"",
+        "fail": "item.textContent = `${course.title} - ${course.lessons} lessons`;"
+      },
+      {
+        "name": "The elements have data-id",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.dataset.id).join(\",\") === \"html,css,js\"",
+        "fail": "item.dataset.id = course.id;"
+      },
+      {
+        "name": "The class course--new only on JavaScript",
+        "check": "(() => { const fresh = document.querySelectorAll(\".course--new\"); return fresh.length === 1 && fresh[0].dataset.id === \"js\"; })()",
+        "fail": "if (course.isNew) { item.classList.add(\"course--new\"); }"
+      },
+      {
+        "name": "Counter: \"Courses: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Courses: 3\"",
+        "fail": "count.textContent = `Courses: ${list.length}`;"
+      },
+      {
+        "name": "Calling it again does not double the list",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); return document.querySelectorAll(\"#course-list li.course\").length === 1 && document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"Python - 12 lessons\" && document.querySelector(\"#course-count\").textContent === \"Courses: 1\"; })()",
+        "fail": "Clear the list before rendering: container.textContent = \"\"; and use the list parameter."
+      },
+      {
+        "name": "Empty array: the list is empty, \"Courses: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelectorAll(\"#course-list li.course\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Courses: 0\"; })()",
+        "fail": "With an empty array the loop does not run - but the clearing and the counter must still work."
+      },
+      {
+        "name": "Text is output as text, not markup",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Hack</b>\", lessons: 1, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Hack</b> - 1 lessons\" && li.querySelector(\"b\") === null; })()",
+        "fail": "Use textContent, not innerHTML."
+      },
+      {
+        "name": "Elements are created with createElement and append",
+        "check": "/createElement\\(\\s*\"li\"\\s*\\)/.test(__code) && /\\.append\\(/.test(__code)",
+        "fail": "document.createElement(\"li\") and container.append(item)."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "A null error - check the selectors: #course-list, #course-count."
+      }
+    ],
+    "hints": [
+      "const container = document.querySelector(\"#course-list\");",
+      "Clearing: container.textContent = \"\";",
+      "Creating: const item = document.createElement(\"li\"); item.classList.add(\"course\");",
+      "data-id: item.dataset.id = course.id;",
+      "Inserting: container.append(item);",
+      "Counter from the parameter: `Courses: ${list.length}`"
+    ],
+    "solution": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "function renderCourses(list) {\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "innerHTML instead of createElement",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    container.innerHTML = list.map((c) => `<li class=\"course\" data-id=\"${c.id}\">${c.title} - ${c.lessons} lessons</li>`).join(\"\");\n    document.querySelector(\"#course-count\").textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "the list is not cleared",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "uses courses instead of list",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of courses) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "no course--new class",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "newness via style",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.style.fontWeight = \"bold\";\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "no data-id",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "the counter is a fixed number",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = \"Courses: 3\";\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "a typo in the selector",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#courses-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is the DOM?",
+        "options": [
+          "The index.html file",
+          "The tree of objects the browser builds from HTML",
+          "A JavaScript library",
+          "A DevTools tab"
+        ],
+        "answer": 1,
+        "explanation": "JavaScript changes the DOM; the file stays the same."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with what it finds.",
+        "pairs": [
+          [
+            "querySelector(\"#menu\")",
+            "The element with id menu"
+          ],
+          [
+            "querySelector(\".card\")",
+            "The first element with the class card"
+          ],
+          [
+            "querySelectorAll(\"nav a\")",
+            "All links inside nav"
+          ]
+        ],
+        "explanation": "The selectors are the same as in CSS."
+      },
+      {
+        "type": "single",
+        "question": "What does document.querySelector(\".nope\") return if there is no such element?",
+        "options": [
+          "undefined",
+          "null",
+          "An empty string",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "querySelector returns null; accessing its properties gives a TypeError."
+      },
+      {
+        "type": "single",
+        "question": "Why is text from user data output with textContent and not innerHTML?",
+        "options": [
+          "textContent prints faster",
+          "innerHTML runs the markup and someone else's code from the string (XSS)",
+          "innerHTML does not work in Chrome",
+          "textContent adds styles"
+        ],
+        "answer": 1,
+        "explanation": "textContent shows the text as it is."
+      },
+      {
+        "type": "multiple",
+        "question": "Which methods does classList have?",
+        "options": [
+          "add",
+          "remove",
+          "toggle",
+          "contains",
+          "paint"
+        ],
+        "answer": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "explanation": "classList manages classes, and CSS defines the styling."
+      },
+      {
+        "type": "single",
+        "question": "card.classList.toggle(\"active\") was called twice. Is the active class there if it was not there at first?",
+        "options": [
+          "Yes",
+          "No",
+          "An error",
+          "There will be two active classes"
+        ],
+        "answer": 1,
+        "explanation": "The first call adds it, the second removes it."
+      },
+      {
+        "type": "input",
+        "question": "How do you read the data-lessons attribute of the element el? Type the expression.",
+        "answers": [
+          "el.dataset.lessons",
+          "el.getAttribute(\"data-lessons\")",
+          "el.getAttribute('data-lessons')"
+        ],
+        "case_sensitive": true,
+        "explanation": "dataset holds all data attributes; the value is always a string."
+      },
+      {
+        "type": "single",
+        "question": "Why is appearance changed with classList and not element.style?",
+        "options": [
+          "style does not exist",
+          "Styles stay in CSS: they can be overridden, adapted and found",
+          "classList is 100 times faster",
+          "style only works with colour"
+        ],
+        "answer": 1,
+        "explanation": "element.style writes to the style=\"\" attribute - which we gave up in the CSS course."
+      },
+      {
+        "type": "matching",
+        "question": "Steps of creating an element: match the step with the code.",
+        "pairs": [
+          [
+            "1. Create",
+            "document.createElement(\"li\")"
+          ],
+          [
+            "2. Fill",
+            "item.textContent = \"...\""
+          ],
+          [
+            "3. Insert",
+            "list.append(item)"
+          ]
+        ],
+        "explanation": "Without append the element exists only in memory."
+      },
+      {
+        "type": "single",
+        "question": "Why does renderCourses clear the list before rendering?",
+        "options": [
+          "To speed up loading",
+          "So that calling it again does not double the elements",
+          "Otherwise append does not work",
+          "HTML requires it"
+        ],
+        "answer": 1,
+        "explanation": "Render rebuilds the list from the current data."
+      },
+      {
+        "type": "input",
+        "question": "Which element property hides it from screen readers too? Type the property name.",
+        "answers": [
+          "hidden"
+        ],
+        "case_sensitive": true,
+        "explanation": "element.hidden = true;"
+      },
+      {
+        "type": "multiple",
+        "question": "Why might the error \"Cannot set properties of null\" appear?",
+        "options": [
+          "A typo in the selector",
+          "A script without defer ran before the HTML was parsed",
+          "The element does not exist on this page",
+          "The text is too long"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "In all three cases querySelector returned null."
+      }
+    ]
+  }
+}

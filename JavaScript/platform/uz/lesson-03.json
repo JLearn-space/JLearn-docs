@@ -1,0 +1,326 @@
+{
+  "lesson": 3,
+  "language": "uz",
+  "lesson_title": "Shartlar",
+  "task": {
+    "title": "Baho va olimpiadaga ruxsat",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Platforma score (0–100 ball) va age (yosh) ni beradi. let grade e’lon qiling va if / else if / else zanjiri bilan son ko‘rinishidagi baho bering: 90 va yuqori - 5, 75 dan - 4, 60 dan - 3, pastroq - 2. const canEnter - olimpiadaga ruxsat: yosh 14 dan va ball 60 dan. Ternar operator bilan const status: \"Ruxsat berildi\" yoki \"Ruxsat berilmadi\". Konsolga shablon satr bilan chiqaring: Baho: 4. Ruxsat berildi. Faqat qat’iy solishtirishlardan foydalaning.",
+    "starter_code": "// Platforma beradi:\n// const score = 87;  // ball 0–100\n// const age = 15;    // yosh\n// Kod boshqa qiymatlarda ham tekshiriladi.\n\n// 1. let grade - if / else if / else orqali 5, 4, 3 yoki 2 baho\n\n// 2. const canEnter - yosh 14 dan VA ball 60 dan\n\n// 3. const status - ternar operator bilan \"Ruxsat berildi\" yoki \"Ruxsat berilmadi\"\n\n// 4. Chiqarish: Baho: 4. Ruxsat berildi\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const score = 87;\nconst age = 15;",
+    "tests": [
+      {
+        "name": "87 ball → 4 baho",
+        "check": "grade === 4",
+        "fail": "Zanjirni tekshiring: 87 >= 75, lekin 90 dan kichik."
+      },
+      {
+        "name": "95 ball → 5",
+        "setup": "const score = 95;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "Avval eng qat’iy shartni tekshiring: score >= 90."
+      },
+      {
+        "name": "Chegara: 90 ball → 5",
+        "setup": "const score = 90;\nconst age = 15;",
+        "check": "grade === 5",
+        "fail": "«90 va yuqori» - bu >= , > emas."
+      },
+      {
+        "name": "Chegara: 75 → 4, 74 esa → 3",
+        "setup": "const score = 75;\nconst age = 15;",
+        "check": "grade === 4",
+        "fail": "«75 dan» - bu score >= 75."
+      },
+      {
+        "name": "74 ball → 3",
+        "setup": "const score = 74;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "74 75 dan kichik, lekin 60 dan kichik emas - bu 3."
+      },
+      {
+        "name": "Chegara: 60 → 3, 59 esa → 2",
+        "setup": "const score = 60;\nconst age = 15;",
+        "check": "grade === 3",
+        "fail": "«60 dan» - bu score >= 60."
+      },
+      {
+        "name": "59 ball → 2",
+        "setup": "const score = 59;\nconst age = 15;",
+        "check": "grade === 2 && typeof grade === \"number\"",
+        "fail": "60 dan past - else tarmog‘i, baho 2 (son, qo‘shtirnoqsiz)."
+      },
+      {
+        "name": "87 ball va 15 yosh - ruxsat berildi",
+        "check": "canEnter === true && status === \"Ruxsat berildi\"",
+        "fail": "canEnter = age >= 14 && score >= 60;"
+      },
+      {
+        "name": "13 yosh va 95 ball - ruxsat berilmadi",
+        "setup": "const score = 95;\nconst age = 13;",
+        "check": "canEnter === false && status === \"Ruxsat berilmadi\"",
+        "fail": "IKKALA shart ham kerak: || emas, && operatori."
+      },
+      {
+        "name": "Ruxsat chegaralari: 14 yosh va 60 ball - ruxsat berildi",
+        "setup": "const score = 60;\nconst age = 14;",
+        "check": "canEnter === true && status === \"Ruxsat berildi\"",
+        "fail": "«14 dan» va «60 dan» - bu >=."
+      },
+      {
+        "name": "else if ishlatilgan",
+        "check": "/\\belse\\s+if\\s*\\(/.test(__code)",
+        "fail": "Baho tanlashni if / else if / else zanjiri bilan yozing."
+      },
+      {
+        "name": "status ternar operator bilan tanlangan",
+        "check": "/\\bstatus\\s*=\\s*[^;]*\\?[^;]*:/.test(__code)",
+        "fail": "const status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";"
+      },
+      {
+        "name": "Faqat qat’iy solishtirishlar",
+        "check": "!/[^=!<>]==(?!=)|!=(?!=)/.test(__code)",
+        "fail": "== ni === ga, != ni !== ga almashtiring."
+      },
+      {
+        "name": "Konsolda «Baho: 4. Ruxsat berildi»",
+        "check": "__logs.includes(\"Baho: 4. Ruxsat berildi\")",
+        "fail": "console.log(`Baho: ${grade}. ${status}`);"
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Kodda xato bor - uning matnini konsolda o‘qing."
+      }
+    ],
+    "hints": [
+      "let grade; ni if dan oldin e’lon qiling, tarmoqlarda faqat qiymat bering: grade = 5;",
+      "Tartib: avval score >= 90, keyin >= 75, keyin >= 60, oxirida else.",
+      "Baho - son: grade = 5; qo‘shtirnoqsiz.",
+      "Ruxsat: const canEnter = age >= 14 && score >= 60;",
+      "Ternar operator: shart ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\"",
+      "Shablon satr: `Baho: ${grade}. ${status}`"
+    ],
+    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. let grade\n"
+      },
+      {
+        "mistake": "shartlar tartibi noto‘g‘ri",
+        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "90 chegarasida >= o‘rniga >",
+        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "baho satr ko‘rinishida",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "&& o‘rniga ||",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "yosh > 14",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "ternar o‘rniga if/else",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Ruxsat berildi\";\n} else {\n    status = \"Ruxsat berilmadi\";\n}\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "qat’iy bo‘lmagan solishtirish",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "else if o‘rniga alohida if lar",
+        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
+      },
+      {
+        "mistake": "chiqarish yo‘q",
+        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Kod nimani chiqaradi: const t = 30; if (t > 25) { console.log(\"Issiq\"); } else { console.log(\"Iliq\"); }",
+        "options": [
+          "Issiq",
+          "Iliq",
+          "Issiq va Iliq",
+          "Hech narsa"
+        ],
+        "answer": 0,
+        "explanation": "30 > 25 - true, birinchi tarmoq bajariladi, else o‘tkazib yuboriladi."
+      },
+      {
+        "type": "single",
+        "question": "score = 95. Nima chiqadi: if (score >= 60) { console.log(\"Qabul\"); } else if (score >= 90) { console.log(\"A’lo\"); }",
+        "options": [
+          "A’lo",
+          "Qabul",
+          "Qabul va A’lo",
+          "Hech narsa"
+        ],
+        "answer": 1,
+        "explanation": "Birinchi mos tarmoq bajariladi. Qat’iy shartlar birinchi qo‘yiladi."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi operator «VA» ni bildiradi? Uni kiriting.",
+        "answers": [
+          "&&"
+        ],
+        "case_sensitive": false,
+        "explanation": "a && b faqat ikkalasi rost bo‘lsa true."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi qiymatlar falsy?",
+        "options": [
+          "0",
+          "\"\"",
+          "\"0\"",
+          "null",
+          "\"false\""
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Bo‘sh bo‘lmagan satrlar, hatto \"0\" va \"false\" ham - truthy."
+      },
+      {
+        "type": "single",
+        "question": "«hour 6 dan 11 gacha (ular ham kiradi)» qanday to‘g‘ri yoziladi?",
+        "options": [
+          "6 <= hour <= 11",
+          "hour >= 6 && hour <= 11",
+          "hour >= 6 || hour <= 11",
+          "hour === 6...11"
+        ],
+        "answer": 1,
+        "explanation": "&& orqali ikkita solishtirish. 6 <= hour <= 11 doim true beradi."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: const age = 20; console.log(age >= 18 ? \"Katta\" : \"Bola\");",
+        "options": [
+          "Katta",
+          "Bola",
+          "true",
+          "Xato"
+        ],
+        "answer": 0,
+        "explanation": "Shart rost - ikki nuqtadan oldingi qiymat olinadi."
+      },
+      {
+        "type": "matching",
+        "question": "Ifodani natija bilan moslashtiring.",
+        "pairs": [
+          [
+            "true && false",
+            "false"
+          ],
+          [
+            "true || false",
+            "true"
+          ],
+          [
+            "!true",
+            "false"
+          ],
+          [
+            "!0",
+            "true"
+          ]
+        ],
+        "explanation": "!0 - true, chunki 0 - falsy."
+      },
+      {
+        "type": "single",
+        "question": "if (role = \"admin\") { ... } da nima bo‘ladi?",
+        "options": [
+          "role \"admin\" bilan solishtiriladi",
+          "Qiymat berish: role \"admin\" bo‘ladi, blok bajariladi",
+          "Sintaksis xatosi",
+          "Blok hech qachon bajarilmaydi"
+        ],
+        "answer": 1,
+        "explanation": "= qiymat beradi. Solishtirish uchun === kerak."
+      },
+      {
+        "type": "multiple",
+        "question": "switch haqida nima to‘g‘ri?",
+        "options": [
+          "Qiymatni === orqali solishtiradi",
+          "break switch dan chiqaradi",
+          "Hech bir case mos kelmasa default bajariladi",
+          "score >= 90 kabi oraliqlar uchun qulay"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Oraliqlar uchun if / else if kerak."
+      },
+      {
+        "type": "single",
+        "question": "switch da case \"dush\" dan keyin break tushib qolgan. day = \"dush\" bo‘lsa nima bo‘ladi?",
+        "options": [
+          "Faqat case \"dush\" bajariladi",
+          "Bajarilish keyingi case da davom etadi",
+          "Xato",
+          "default bajariladi"
+        ],
+        "answer": 1,
+        "explanation": "break siz bajarilish keyingisiga «tushib ketadi»."
+      },
+      {
+        "type": "input",
+        "question": "if / else if / else zanjirida nechta tarmoq bajariladi? Sonni kiriting.",
+        "answers": [
+          "1",
+          "bitta",
+          "bir"
+        ],
+        "case_sensitive": false,
+        "explanation": "Faqat bittasi - birinchi mos keladigani yoki else."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifani konstruksiya bilan moslashtiring.",
+        "pairs": [
+          [
+            "Ikki qiymatdan birini tanlash",
+            "Ternar operator"
+          ],
+          [
+            "Ball oraliqlari",
+            "if / else if"
+          ],
+          [
+            "Hafta kunlarining aniq qiymatlari",
+            "switch"
+          ]
+        ],
+        "explanation": "Har bir konstruksiya o‘z vazifasiga mos."
+      }
+    ]
+  }
+}

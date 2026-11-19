@@ -1,0 +1,263 @@
+{
+  "lesson": 1,
+  "language": "en",
+  "lesson_title": "Introduction to JavaScript. First program",
+  "task": {
+    "title": "Student card",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Declare a constant studentName with your name and a constant courseName with the value \"JavaScript\". Declare a variable lessonsDone with let and the value 0, then on a separate line assign it 1. Print the name, the course name and the number of finished lessons to the console. Do not use var.",
+    "starter_code": "// Student card\n\n// 1. Constant studentName - your name (a string in double quotes)\n\n// 2. Constant courseName - \"JavaScript\"\n\n// 3. Variable lessonsDone with let, initial value 0\n\n// 4. Lesson done: assign lessonsDone the value 1\n\n// 5. Print studentName, courseName and lessonsDone to the console\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "tests": [
+      {
+        "name": "The constant studentName holds a non-empty string",
+        "check": "typeof studentName === \"string\" && studentName.trim().length > 0",
+        "fail": "Declare const studentName = \"Your name\"; - the name in quotes."
+      },
+      {
+        "name": "studentName is declared with const",
+        "check": "/\\bconst\\s+studentName\\b/.test(__code)",
+        "fail": "The name does not change during the program, so it needs const, not let."
+      },
+      {
+        "name": "The constant courseName equals \"JavaScript\"",
+        "check": "courseName === \"JavaScript\" && /\\bconst\\s+courseName\\b/.test(__code)",
+        "fail": "You need const courseName = \"JavaScript\"; - letter case matters."
+      },
+      {
+        "name": "lessonsDone is declared with let and the value 0",
+        "check": "/\\blet\\s+lessonsDone\\s*=\\s*0\\s*;/.test(__code)",
+        "fail": "Declare let lessonsDone = 0; - the value will change later, so let."
+      },
+      {
+        "name": "After the change lessonsDone equals 1",
+        "check": "lessonsDone === 1 && /\\blessonsDone\\s*=\\s*1\\s*;/.test(__code)",
+        "fail": "On a separate line assign the new value: lessonsDone = 1; - without let."
+      },
+      {
+        "name": "The console shows the name, the course and the number of lessons",
+        "check": "__logs.some((l) => l.includes(studentName)) && __logs.some((l) => l.includes(courseName)) && __logs.some((l) => /(^|\\D)1(\\D|$)/.test(l))",
+        "fail": "Use console.log(...) for studentName, courseName and lessonsDone after the change."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "There is an error in the code. Read it: a TypeError on assignment means lessonsDone was declared with const."
+      }
+    ],
+    "hints": [
+      "A string is written in quotes: const studentName = \"Anna\";",
+      "const - the value does not change, let - it changes. The course does not use var.",
+      "Changing a value is written without let: lessonsDone = 1;",
+      "Printing to the console: console.log(\"Student:\", studentName);",
+      "End every statement with ;"
+    ],
+    "solution": "// Student card\n\nconst studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\n\n// The first lesson is done\nlessonsDone = 1;\n\nconsole.log(\"Student:\", studentName);\nconsole.log(\"Course:\", courseName);\nconsole.log(\"Lessons done:\", lessonsDone);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// Student card\n\n// 1. Constant studentName - your name (a string in double quotes)\n"
+      },
+      {
+        "mistake": "var instead of let and const",
+        "code": "var studentName = \"Anna\";\nvar courseName = \"JavaScript\";\nvar lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "the name is declared with let",
+        "code": "let studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "lessonsDone with const - error on change",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nconst lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "the value is not changed",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "a second declaration instead of assignment",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      },
+      {
+        "mistake": "no console output",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\n"
+      },
+      {
+        "mistake": "the course in lower case",
+        "code": "const studentName = \"Anna\";\nconst courseName = \"javascript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is JavaScript responsible for on a page?",
+        "options": [
+          "Structure and meaning",
+          "Appearance",
+          "Behaviour: reacting to user actions and changing the page",
+          "Storing the website on a server"
+        ],
+        "answer": 2,
+        "explanation": "HTML - structure, CSS - appearance, JavaScript - behaviour."
+      },
+      {
+        "type": "single",
+        "question": "How do you correctly connect the file js/main.js to a page?",
+        "options": [
+          "<script src=\"js/main.js\" defer></script>",
+          "<link rel=\"script\" href=\"js/main.js\">",
+          "<script href=\"js/main.js\"></script>",
+          "<js src=\"js/main.js\">"
+        ],
+        "answer": 0,
+        "explanation": "An external file is connected with <script> and the src attribute; defer runs the code after the HTML is parsed."
+      },
+      {
+        "type": "single",
+        "question": "What does the defer attribute do?",
+        "options": [
+          "Disables the script",
+          "Runs the script after the browser has parsed the whole HTML",
+          "Runs the script before CSS loads",
+          "Hides the code from the user"
+        ],
+        "answer": 1,
+        "explanation": "With defer the script downloads in parallel and runs when the document is already parsed."
+      },
+      {
+        "type": "input",
+        "question": "Which command prints a message to the console? Type the command name without parentheses.",
+        "answers": [
+          "console.log"
+        ],
+        "case_sensitive": true,
+        "explanation": "console.log(\"Hello\"); - output to the DevTools console."
+      },
+      {
+        "type": "multiple",
+        "question": "Which declarations follow the course style?",
+        "options": [
+          "const city = \"Tashkent\";",
+          "let score = 0;",
+          "var age = 20;",
+          "const 2name = \"Anna\";"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "The course does not use var, and a name cannot start with a digit."
+      },
+      {
+        "type": "single",
+        "question": "What happens: const year = 2025; year = 2026;",
+        "options": [
+          "year becomes 2026",
+          "TypeError: a constant cannot be assigned a new value",
+          "year becomes 4051",
+          "Nothing, the second line is skipped"
+        ],
+        "answer": 1,
+        "explanation": "A constant cannot be changed after declaration. A changing value needs let."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with its meaning.",
+        "pairs": [
+          [
+            "let count = 0;",
+            "Declare a variable"
+          ],
+          [
+            "count = 5;",
+            "Assign a new value"
+          ],
+          [
+            "// text",
+            "Comment until the end of the line"
+          ],
+          [
+            "console.log(count);",
+            "Print the value to the console"
+          ]
+        ],
+        "explanation": "A declaration is written once with let or const, an assignment - without them."
+      },
+      {
+        "type": "multiple",
+        "question": "Which variable names are valid?",
+        "options": [
+          "userName",
+          "user_name",
+          "user-name",
+          "let"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "A hyphen means minus, and let is a reserved word. The course uses camelCase: userName."
+      },
+      {
+        "type": "single",
+        "question": "Does JavaScript distinguish userName and username?",
+        "options": [
+          "No, it is one variable",
+          "Yes, they are two different variables",
+          "Only in strict mode",
+          "Only in Chrome"
+        ],
+        "answer": 1,
+        "explanation": "JavaScript is case-sensitive."
+      },
+      {
+        "type": "input",
+        "question": "Which key opens DevTools in Chrome and Edge on Windows? Type the key name.",
+        "answers": [
+          "F12"
+        ],
+        "case_sensitive": false,
+        "explanation": "F12 or Ctrl+Shift+J (Cmd+Option+J on Mac) opens the console."
+      },
+      {
+        "type": "single",
+        "question": "The console shows a red line: ReferenceError: scor is not defined. What does it mean?",
+        "options": [
+          "The browser is outdated",
+          "A name is used that was not declared: most likely a typo in score",
+          "The file was not found",
+          "The value equals zero"
+        ],
+        "answer": 1,
+        "explanation": "ReferenceError - a reference to a name that does not exist. Compare the spelling with the declaration."
+      },
+      {
+        "type": "matching",
+        "question": "Match the technology with the question it answers.",
+        "pairs": [
+          [
+            "HTML",
+            "What is on the page?"
+          ],
+          [
+            "CSS",
+            "How does it look?"
+          ],
+          [
+            "JavaScript",
+            "What happens when the user acts?"
+          ]
+        ],
+        "explanation": "The three technologies work together, each in its own file."
+      }
+    ]
+  }
+}

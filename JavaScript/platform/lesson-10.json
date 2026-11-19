@@ -1,0 +1,328 @@
+{
+  "lesson": 10,
+  "language": "ru",
+  "lesson_title": "Итоговый проект - интерактивный сайт",
+  "task": {
+    "title": "Афиша кружка",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Афиша кружка</title>\n</head>\n<body>\n    <header class=\"site-header\">\n        <a class=\"logo\" href=\"index.html\">Кружок</a>\n        <button type=\"button\" class=\"menu-toggle\" aria-expanded=\"false\" aria-controls=\"site-nav\">Меню</button>\n        <nav id=\"site-nav\" class=\"site-nav\" aria-label=\"Основная навигация\">\n            <ul>\n                <li><a href=\"index.html\">Главная</a></li>\n                <li><a href=\"schedule.html\">Афиша</a></li>\n                <li><a href=\"contact.html\">Контакты</a></li>\n            </ul>\n        </nav>\n        <button type=\"button\" class=\"theme-toggle\" aria-pressed=\"false\">Тёмная тема</button>\n    </header>\n    <main>\n        <h1>Афиша</h1>\n        <div class=\"filters\" role=\"group\" aria-label=\"Фильтр по категории\">\n            <button type=\"button\" data-filter=\"all\" aria-pressed=\"true\">Все</button>\n            <button type=\"button\" data-filter=\"html\" aria-pressed=\"false\">HTML</button>\n            <button type=\"button\" data-filter=\"css\" aria-pressed=\"false\">CSS</button>\n            <button type=\"button\" data-filter=\"js\" aria-pressed=\"false\">JavaScript</button>\n        </div>\n        <p id=\"events-status\" role=\"status\"></p>\n        <div id=\"events\" class=\"events\"></div>\n    </main>\n</body>\n</html>",
+    "description": "Платформа задаёт массив events из объектов { title, category, date }. 1) Меню: клик по .menu-toggle переключает класс is-open у #site-nav и aria-expanded кнопки; Escape закрывает открытое меню и возвращает фокус на кнопку. 2) Тема: при загрузке из localStorage по ключу \"theme\" - \"dark\" даёт body класс theme-dark и aria-pressed=\"true\" у .theme-toggle; клик переключает тему и сохраняет \"dark\" или \"light\". 3) renderEvents(list): очищает #events, для каждого события - article.event с data-category, h3 и p.event__date; в #events-status - \"Показано: N\" или \"В этой категории пока нет событий\". При загрузке показаны все. 4) Один обработчик на .filters: кнопка с data-filter показывает события категории (all - все), aria-pressed=\"true\" только у нажатой кнопки.",
+    "starter_code": "// Платформа задаёт массив events:\n// { title: \"Первая страница за час\", category: \"html\", date: \"3 марта\" }, ...\n// На странице: .menu-toggle, #site-nav, .theme-toggle, .filters с кнопками [data-filter],\n// #events-status, #events\n\n// 1. Меню: is-open, aria-expanded, Escape + возврат фокуса\n\n// 2. Тема: localStorage \"theme\", класс theme-dark, aria-pressed\n\n// 3. renderEvents(list): article.event, h3, p.event__date, счётчик\n\n// 4. Фильтр: один обработчик на .filters, aria-pressed\n\n// При загрузке: renderEvents(events);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown"
+    ],
+    "setup": "const events = [\n    {\n        title: \"Первая страница за час\",\n        category: \"html\",\n        date: \"3 марта\"\n    },\n    {\n        title: \"Flexbox на практике\",\n        category: \"css\",\n        date: \"10 марта\"\n    },\n    {\n        title: \"Grid-галерея\",\n        category: \"css\",\n        date: \"17 марта\"\n    },\n    {\n        title: \"Оживляем меню\",\n        category: \"js\",\n        date: \"24 марта\"\n    }\n];",
+    "tests": [
+      {
+        "name": "Меню: клик открывает, aria-expanded=\"true\"",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); return document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "nav.classList.toggle(\"is-open\", isOpen); menuToggle.setAttribute(\"aria-expanded\", String(isOpen));"
+      },
+      {
+        "name": "Меню: второй клик закрывает",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\".menu-toggle\").click(); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Переключайте состояние, а не только открывайте."
+      },
+      {
+        "name": "Escape закрывает меню и возвращает фокус на кнопку",
+        "check": "(() => { document.querySelector(\".menu-toggle\").click(); document.querySelector(\"#site-nav a\").focus(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return !document.querySelector(\"#site-nav\").classList.contains(\"is-open\") && document.querySelector(\".menu-toggle\").getAttribute(\"aria-expanded\") === \"false\" && document.activeElement === document.querySelector(\".menu-toggle\"); })()",
+        "fail": "При Escape: закрыть меню и menuToggle.focus();"
+      },
+      {
+        "name": "Тема по умолчанию светлая",
+        "check": "!document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"false\"",
+        "fail": "Без сохранённого значения тема светлая."
+      },
+      {
+        "name": "Сохранённая тёмная тема восстанавливается",
+        "setup": "const events = [\n    {\n        title: \"Первая страница за час\",\n        category: \"html\",\n        date: \"3 марта\"\n    },\n    {\n        title: \"Flexbox на практике\",\n        category: \"css\",\n        date: \"10 марта\"\n    },\n    {\n        title: \"Grid-галерея\",\n        category: \"css\",\n        date: \"17 марта\"\n    },\n    {\n        title: \"Оживляем меню\",\n        category: \"js\",\n        date: \"24 марта\"\n    }\n];\nlocalStorage.setItem(\"theme\", \"dark\");",
+        "check": "document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\"",
+        "fail": "При загрузке прочитайте localStorage.getItem(\"theme\") и примените тему."
+      },
+      {
+        "name": "Клик включает тёмную тему и сохраняет \"dark\"",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); return document.body.classList.contains(\"theme-dark\") && document.querySelector(\".theme-toggle\").getAttribute(\"aria-pressed\") === \"true\" && localStorage.getItem(\"theme\") === \"dark\"; })()",
+        "fail": "localStorage.setItem(\"theme\", next);"
+      },
+      {
+        "name": "Второй клик сохраняет \"light\"",
+        "check": "(() => { document.querySelector(\".theme-toggle\").click(); document.querySelector(\".theme-toggle\").click(); return !document.body.classList.contains(\"theme-dark\") && localStorage.getItem(\"theme\") === \"light\"; })()",
+        "fail": "Сохраняйте оба значения: \"dark\" и \"light\"."
+      },
+      {
+        "name": "При загрузке показаны все 4 события и «Показано: 4»",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Показано: 4\"",
+        "fail": "В конце кода вызовите renderEvents(events);"
+      },
+      {
+        "name": "Карточка: h3, p.event__date и data-category",
+        "check": "(() => { const c = document.querySelectorAll(\"#events article.event\")[1]; return c.querySelector(\"h3\").textContent === \"Flexbox на практике\" && c.querySelector(\"p.event__date\").textContent === \"10 марта\" && c.dataset.category === \"css\"; })()",
+        "fail": "article.event > h3 + p.event__date, card.dataset.category = item.category;"
+      },
+      {
+        "name": "Фильтр CSS: 2 события, «Показано: 2»",
+        "check": "(() => { document.querySelector('[data-filter=\"css\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 2 && [...document.querySelectorAll(\"#events article.event\")].every((c) => c.dataset.category === \"css\") && document.querySelector(\"#events-status\").textContent === \"Показано: 2\"; })()",
+        "fail": "events.filter((item) => item.category === category) и renderEvents(list)."
+      },
+      {
+        "name": "aria-pressed=\"true\" только у нажатой кнопки",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return [...document.querySelectorAll(\"[data-filter]\")].map((b) => b.getAttribute(\"aria-pressed\")).join(\",\") === \"false,false,false,true\"; })()",
+        "fail": "Для каждой кнопки: other.setAttribute(\"aria-pressed\", String(other === button));"
+      },
+      {
+        "name": "Кнопка «Все» возвращает все события",
+        "check": "(() => { document.querySelector('[data-filter=\"html\"]').click(); document.querySelector('[data-filter=\"all\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 4 && document.querySelector(\"#events-status\").textContent === \"Показано: 4\"; })()",
+        "fail": "Для all показывайте весь массив events."
+      },
+      {
+        "name": "Пустая категория: сообщение и пустой список",
+        "setup": "const events = [\n    {\n        title: \"Первая страница за час\",\n        category: \"html\",\n        date: \"3 марта\"\n    },\n    {\n        title: \"Flexbox на практике\",\n        category: \"css\",\n        date: \"10 марта\"\n    },\n    {\n        title: \"Grid-галерея\",\n        category: \"css\",\n        date: \"17 марта\"\n    }\n];",
+        "check": "(() => { document.querySelector('[data-filter=\"js\"]').click(); return document.querySelectorAll(\"#events article.event\").length === 0 && document.querySelector(\"#events-status\").textContent === \"В этой категории пока нет событий\"; })()",
+        "fail": "Если list.length === 0 - текст «В этой категории пока нет событий»."
+      },
+      {
+        "name": "Другой набор данных",
+        "setup": "const events = [\n    {\n        title: \"Формы\",\n        category: \"html\",\n        date: \"1 апреля\"\n    }\n];",
+        "check": "document.querySelectorAll(\"#events article.event\").length === 1 && document.querySelector(\"#events-status\").textContent === \"Показано: 1\" && document.querySelectorAll(\"#events article.event\")[0].querySelector(\"h3\").textContent === \"Формы\"",
+        "fail": "Используйте массив events и параметр list, а не готовые значения."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Прочитайте текст ошибки; частая причина - null из-за опечатки в селекторе."
+      }
+    ],
+    "hints": [
+      "Меню: nav.classList.toggle(\"is-open\", isOpen) и aria-expanded через String(isOpen).",
+      "Escape: if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) { ...; menuToggle.focus(); }",
+      "Тема при загрузке: applyTheme(localStorage.getItem(\"theme\") === \"dark\" ? \"dark\" : \"light\");",
+      "renderEvents сначала очищает контейнер: container.textContent = \"\";",
+      "Фильтр: const button = event.target.closest(\"[data-filter]\"); if (!button) { return; }",
+      "Пустой список - отдельный текст в #events-status."
+    ],
+    "solution": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. Меню\n"
+      },
+      {
+        "mistake": "Escape не возвращает фокус",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "aria-expanded не обновляется",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "тема не восстанавливается",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(\"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "тема не сохраняется",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "контейнер не очищается",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "нет пустого состояния",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "aria-pressed не снимается с других кнопок",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    button.setAttribute(\"aria-pressed\", \"true\");\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "«Все» не обрабатывается",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "фильтр прячет карточки через style",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    for (const card of document.querySelectorAll(\"#events article\")) {\n        card.style.display = category === \"all\" || card.dataset.category === category ? \"\" : \"none\";\n    }\n});\n\nrenderEvents(events);\n"
+      },
+      {
+        "mistake": "нет начальной отрисовки",
+        "code": "// 1. Меню\nconst menuToggle = document.querySelector(\".menu-toggle\");\nconst nav = document.querySelector(\"#site-nav\");\n\nfunction setMenuOpen(isOpen) {\n    nav.classList.toggle(\"is-open\", isOpen);\n    menuToggle.setAttribute(\"aria-expanded\", String(isOpen));\n}\n\nmenuToggle.addEventListener(\"click\", () => {\n    setMenuOpen(!nav.classList.contains(\"is-open\"));\n});\n\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key === \"Escape\" && nav.classList.contains(\"is-open\")) {\n        setMenuOpen(false);\n        menuToggle.focus();\n    }\n});\n\n// 2. Тема\nconst THEME_KEY = \"theme\";\nconst themeToggle = document.querySelector(\".theme-toggle\");\n\nfunction applyTheme(theme) {\n    const isDark = theme === \"dark\";\n    document.body.classList.toggle(\"theme-dark\", isDark);\n    themeToggle.setAttribute(\"aria-pressed\", String(isDark));\n}\n\napplyTheme(localStorage.getItem(THEME_KEY) === \"dark\" ? \"dark\" : \"light\");\n\nthemeToggle.addEventListener(\"click\", () => {\n    const next = document.body.classList.contains(\"theme-dark\") ? \"light\" : \"dark\";\n    localStorage.setItem(THEME_KEY, next);\n    applyTheme(next);\n});\n\n// 3. События\nfunction renderEvents(list) {\n    const container = document.querySelector(\"#events\");\n    const status = document.querySelector(\"#events-status\");\n    container.textContent = \"\";\n\n    for (const item of list) {\n        const card = document.createElement(\"article\");\n        card.classList.add(\"event\");\n        card.dataset.category = item.category;\n\n        const title = document.createElement(\"h3\");\n        title.textContent = item.title;\n\n        const date = document.createElement(\"p\");\n        date.classList.add(\"event__date\");\n        date.textContent = item.date;\n\n        card.append(title, date);\n        container.append(card);\n    }\n\n    status.textContent = list.length === 0\n        ? \"В этой категории пока нет событий\"\n        : `Показано: ${list.length}`;\n}\n\n// 4. Фильтр\nconst filters = document.querySelector(\".filters\");\n\nfilters.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\"[data-filter]\");\n    if (!button) {\n        return;\n    }\n\n    for (const other of filters.querySelectorAll(\"[data-filter]\")) {\n        other.setAttribute(\"aria-pressed\", String(other === button));\n    }\n\n    const category = button.dataset.filter;\n    const list = category === \"all\"\n        ? events\n        : events.filter((item) => item.category === category);\n    renderEvents(list);\n});\n\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Как подключить точку входа модулей к странице?",
+        "options": [
+          "<script src=\"js/main.js\" defer></script>",
+          "<script type=\"module\" src=\"js/main.js\"></script>",
+          "<link rel=\"module\" href=\"js/main.js\">",
+          "<module src=\"js/main.js\">"
+        ],
+        "answer": 1,
+        "explanation": "type=\"module\" включает import / export; defer у модулей уже включён."
+      },
+      {
+        "type": "single",
+        "question": "Как импортировать функцию initMenu из файла menu.js в той же папке?",
+        "options": [
+          "import initMenu from menu;",
+          "import { initMenu } from \"./menu.js\";",
+          "require(\"menu\").initMenu;",
+          "include \"menu.js\";"
+        ],
+        "answer": 1,
+        "explanation": "Путь с ./ и расширением .js, имя в фигурных скобках."
+      },
+      {
+        "type": "input",
+        "question": "Каким ключевым словом функцию делают доступной для других модулей? Введите слово.",
+        "answers": [
+          "export"
+        ],
+        "case_sensitive": true,
+        "explanation": "export function initMenu() { ... }"
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про модули?",
+        "options": [
+          "Выполняются после разбора HTML",
+          "У каждого файла свои переменные",
+          "Работают при открытии страницы через file://",
+          "Нужен локальный сервер или хостинг"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Как и fetch, модули блокируются на file://."
+      },
+      {
+        "type": "single",
+        "question": "Почему функция initContactForm начинается с проверки if (!form) { return; }?",
+        "options": [
+          "Так быстрее",
+          "main.js подключён ко всем страницам, а форма есть только на одной - без проверки будет ошибка null",
+          "Этого требует export",
+          "Чтобы форма отправлялась"
+        ],
+        "answer": 1,
+        "explanation": "Каждый init... тихо выходит, если его элементов нет."
+      },
+      {
+        "type": "single",
+        "question": "Что сделать после закрытия меню по Escape?",
+        "options": [
+          "Перезагрузить страницу",
+          "Вернуть фокус на кнопку меню",
+          "Убрать кнопку",
+          "Прокрутить страницу вверх"
+        ],
+        "answer": 1,
+        "explanation": "Пользователь клавиатуры продолжает с того места, где был."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте часть проекта и её задачу.",
+        "pairs": [
+          [
+            "allEvents",
+            "Хранит все данные"
+          ],
+          [
+            "applyFilter",
+            "Выбирает часть данных"
+          ],
+          [
+            "renderEvents",
+            "Рисует переданный список"
+          ]
+        ],
+        "explanation": "Данные, отбор и отрисовка разделены."
+      },
+      {
+        "type": "single",
+        "question": "Что такое прогрессивное улучшение?",
+        "options": [
+          "Сайт обновляется автоматически",
+          "Базовое содержимое доступно без JavaScript, а скрипт делает его удобнее",
+          "Код пишется постепенно",
+          "Анимации включаются по очереди"
+        ],
+        "answer": 1,
+        "explanation": "Правила, скрывающие содержимое, действуют только при классе js."
+      },
+      {
+        "type": "multiple",
+        "question": "Какими способами можно поставить точку останова?",
+        "options": [
+          "Sources → клик по номеру строки",
+          "Строка debugger; в коде",
+          "console.log",
+          "Ctrl+Shift+R"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "console.log выводит значение, но не останавливает выполнение."
+      },
+      {
+        "type": "single",
+        "question": "На GitHub Pages не загружается js/Menu.js, хотя локально всё работало. Вероятная причина?",
+        "options": [
+          "Pages не поддерживает JavaScript",
+          "Файл называется menu.js: Pages различает регистр",
+          "Нужен innerHTML",
+          "Слишком большой файл"
+        ],
+        "answer": 1,
+        "explanation": "Menu.js и menu.js - разные файлы на сервере."
+      },
+      {
+        "type": "single",
+        "question": "Почему fetch(\"/data/events.json\") может не работать на GitHub Pages?",
+        "options": [
+          "JSON запрещён",
+          "Путь от корня домена, а сайт лежит в подпапке репозитория",
+          "Нужен await дважды",
+          "fetch не работает на https"
+        ],
+        "answer": 1,
+        "explanation": "Используйте относительный путь: data/events.json."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте проверку и инструмент DevTools.",
+        "pairs": [
+          [
+            "Ошибки скриптов",
+            "Console"
+          ],
+          [
+            "404 для .js и .json",
+            "Network"
+          ],
+          [
+            "Что сохранено в localStorage",
+            "Application"
+          ],
+          [
+            "Классы и aria-* после клика",
+            "Elements"
+          ]
+        ],
+        "explanation": "Каждая вкладка отвечает за свою часть проверки."
+      }
+    ]
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "lesson": 7,
+  "language": "ru",
+  "lesson_title": "DOM: поиск и изменение элементов",
+  "task": {
+    "title": "Каталог курсов",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Курсы JLearn</title>\n</head>\n<body>\n    <main>\n        <h1>Курсы JLearn</h1>\n        <p id=\"course-count\">Загрузка...</p>\n        <ul id=\"course-list\" class=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "На странице есть пустой список #course-list и абзац #course-count. Платформа задаёт массив courses из объектов { id, title, lessons, isNew }. Напишите функцию renderCourses(list): очистите #course-list; для каждого курса создайте li с классом course, текстом \"HTML - 10 уроков\" и data-id из id; курсам с isNew: true добавьте класс course--new; в #course-count запишите \"Курсов: N\" по длине массива. В конце вызовите renderCourses(courses). innerHTML и element.style не используйте.",
+    "starter_code": "// Платформа задаёт:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// На странице: <p id=\"course-count\"> и пустой <ul id=\"course-list\">\n\nfunction renderCourses(list) {\n    // 1. Найдите #course-list и #course-count\n\n    // 2. Очистите список\n\n    // 3. Для каждого курса: li.course, текст \"HTML - 10 уроков\", data-id, course--new\n\n    // 4. Счётчик: \"Курсов: 3\"\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "innerHTML",
+      "outerHTML",
+      "insertAdjacentHTML",
+      ".style.",
+      "document.write"
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "На странице 3 элемента li.course",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "Для каждого курса создайте li, добавьте класс course и вставьте в #course-list через append."
+      },
+      {
+        "name": "Текст первого: \"HTML - 10 уроков\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"HTML - 10 уроков\"",
+        "fail": "item.textContent = `${course.title} - ${course.lessons} уроков`;"
+      },
+      {
+        "name": "У элементов есть data-id",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.dataset.id).join(\",\") === \"html,css,js\"",
+        "fail": "item.dataset.id = course.id;"
+      },
+      {
+        "name": "Класс course--new только у JavaScript",
+        "check": "(() => { const fresh = document.querySelectorAll(\".course--new\"); return fresh.length === 1 && fresh[0].dataset.id === \"js\"; })()",
+        "fail": "if (course.isNew) { item.classList.add(\"course--new\"); }"
+      },
+      {
+        "name": "Счётчик: \"Курсов: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Курсов: 3\"",
+        "fail": "count.textContent = `Курсов: ${list.length}`;"
+      },
+      {
+        "name": "Повторный вызов не задваивает список",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); return document.querySelectorAll(\"#course-list li.course\").length === 1 && document.querySelectorAll(\"#course-list li.course\")[0].textContent === \"Python - 12 уроков\" && document.querySelector(\"#course-count\").textContent === \"Курсов: 1\"; })()",
+        "fail": "Очистите список перед отрисовкой: container.textContent = \"\"; и используйте параметр list."
+      },
+      {
+        "name": "Пустой массив: список пуст, \"Курсов: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelectorAll(\"#course-list li.course\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Курсов: 0\"; })()",
+        "fail": "При пустом массиве цикл не выполнится - но очистка и счётчик должны сработать."
+      },
+      {
+        "name": "Текст выводится как текст, а не разметка",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Хак</b>\", lessons: 1, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Хак</b> - 1 уроков\" && li.querySelector(\"b\") === null; })()",
+        "fail": "Используйте textContent, а не innerHTML."
+      },
+      {
+        "name": "Элементы создаются через createElement и append",
+        "check": "/createElement\\(\\s*\"li\"\\s*\\)/.test(__code) && /\\.append\\(/.test(__code)",
+        "fail": "document.createElement(\"li\") и container.append(item)."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Ошибка с null - проверьте селекторы: #course-list, #course-count."
+      }
+    ],
+    "hints": [
+      "const container = document.querySelector(\"#course-list\");",
+      "Очистка: container.textContent = \"\";",
+      "Создание: const item = document.createElement(\"li\"); item.classList.add(\"course\");",
+      "data-id: item.dataset.id = course.id;",
+      "Вставка: container.append(item);",
+      "Счётчик по параметру: `Курсов: ${list.length}`"
+    ],
+    "solution": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "function renderCourses(list) {\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "innerHTML вместо createElement",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    container.innerHTML = list.map((c) => `<li class=\"course\" data-id=\"${c.id}\">${c.title} - ${c.lessons} уроков</li>`).join(\"\");\n    document.querySelector(\"#course-count\").textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "список не очищается",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "используется courses вместо list",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of courses) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "нет класса course--new",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "новизна через style",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.style.fontWeight = \"bold\";\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "нет data-id",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "счётчик - фиксированное число",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = \"Курсов: 3\";\n}\n\nrenderCourses(courses);\n"
+      },
+      {
+        "mistake": "опечатка в селекторе",
+        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#courses-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} уроков`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Курсов: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое DOM?",
+        "options": [
+          "Файл index.html",
+          "Дерево объектов, которое браузер строит из HTML",
+          "Библиотека для JavaScript",
+          "Вкладка DevTools"
+        ],
+        "answer": 1,
+        "explanation": "JavaScript меняет DOM; файл при этом остаётся прежним."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и что она найдёт.",
+        "pairs": [
+          [
+            "querySelector(\"#menu\")",
+            "Элемент с id menu"
+          ],
+          [
+            "querySelector(\".card\")",
+            "Первый элемент с классом card"
+          ],
+          [
+            "querySelectorAll(\"nav a\")",
+            "Все ссылки внутри nav"
+          ]
+        ],
+        "explanation": "Селекторы - те же, что в CSS."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт document.querySelector(\".nope\"), если такого элемента нет?",
+        "options": [
+          "undefined",
+          "null",
+          "Пустую строку",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "querySelector возвращает null; обращение к его свойствам даёт TypeError."
+      },
+      {
+        "type": "single",
+        "question": "Почему текст из данных пользователя выводят через textContent, а не innerHTML?",
+        "options": [
+          "textContent быстрее печатается",
+          "innerHTML выполнит разметку и чужой код из строки (XSS)",
+          "innerHTML не работает в Chrome",
+          "textContent добавляет стили"
+        ],
+        "answer": 1,
+        "explanation": "textContent показывает текст как есть."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие методы есть у classList?",
+        "options": [
+          "add",
+          "remove",
+          "toggle",
+          "contains",
+          "paint"
+        ],
+        "answer": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "explanation": "classList управляет классами, а оформление задаёт CSS."
+      },
+      {
+        "type": "single",
+        "question": "card.classList.toggle(\"active\") вызвали дважды. Есть ли класс active, если сначала его не было?",
+        "options": [
+          "Есть",
+          "Нет",
+          "Ошибка",
+          "Будет два класса active"
+        ],
+        "answer": 1,
+        "explanation": "Первый вызов добавит, второй уберёт."
+      },
+      {
+        "type": "input",
+        "question": "Как прочитать атрибут data-lessons элемента el? Введите выражение.",
+        "answers": [
+          "el.dataset.lessons",
+          "el.getAttribute(\"data-lessons\")",
+          "el.getAttribute('data-lessons')"
+        ],
+        "case_sensitive": true,
+        "explanation": "dataset хранит все data-атрибуты; значение - всегда строка."
+      },
+      {
+        "type": "single",
+        "question": "Почему внешний вид меняют через classList, а не element.style?",
+        "options": [
+          "style не существует",
+          "Стили остаются в CSS: их можно переопределить, адаптировать и найти",
+          "classList работает быстрее в 100 раз",
+          "style работает только с цветом"
+        ],
+        "answer": 1,
+        "explanation": "element.style пишет в атрибут style=\"\" - от него мы отказались в курсе CSS."
+      },
+      {
+        "type": "matching",
+        "question": "Расставьте шаги создания элемента: сопоставьте шаг и запись.",
+        "pairs": [
+          [
+            "1. Создать",
+            "document.createElement(\"li\")"
+          ],
+          [
+            "2. Наполнить",
+            "item.textContent = \"...\""
+          ],
+          [
+            "3. Вставить",
+            "list.append(item)"
+          ]
+        ],
+        "explanation": "Без append элемент существует только в памяти."
+      },
+      {
+        "type": "single",
+        "question": "Зачем функция renderCourses очищает список перед отрисовкой?",
+        "options": [
+          "Чтобы ускорить загрузку",
+          "Чтобы при повторном вызове элементы не задваивались",
+          "Иначе append не работает",
+          "Так требует HTML"
+        ],
+        "answer": 1,
+        "explanation": "Render заново строит список из текущих данных."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство элемента скрывает его и для экранных читалок? Введите имя свойства.",
+        "answers": [
+          "hidden"
+        ],
+        "case_sensitive": true,
+        "explanation": "element.hidden = true;"
+      },
+      {
+        "type": "multiple",
+        "question": "Почему может появиться ошибка «Cannot set properties of null»?",
+        "options": [
+          "Опечатка в селекторе",
+          "Скрипт без defer выполнился до разбора HTML",
+          "Элемента нет на этой странице",
+          "Слишком длинный текст"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Во всех трёх случаях querySelector вернул null."
+      }
+    ]
+  }
+}

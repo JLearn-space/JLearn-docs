@@ -1,0 +1,298 @@
+{
+  "lesson": 2,
+  "language": "ru",
+  "lesson_title": "Типы данных и операторы",
+  "task": {
+    "title": "Чек покупки",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Платформа задаёт данные заказа: price (число), quantityText (строка, как из формы) и discountPercent (число). Объявите через const: quantity - количество числом через Number(); subtotal - цена × количество; discount - скидка в сумах (discountPercent процентов от subtotal); total - к оплате; isExpensive - true, если total больше 100000; receipt - строка \"Итого: <total> сум\", собранная шаблонной строкой. Выведите receipt в консоль. Код проверяется на нескольких наборах данных, поэтому готовые числа не вписывайте.",
+    "starter_code": "// Данные заказа задаёт платформа:\n// const price = 45000;         // цена за штуку, сум\n// const quantityText = \"3\";    // количество из формы - это строка!\n// const discountPercent = 10;  // скидка, %\n// Код проверят и на других данных - считайте выражениями.\n\n// 1. quantity - количество числом\n\n// 2. subtotal - цена × количество\n\n// 3. discount - скидка в сумах\n\n// 4. total - сумма к оплате\n\n// 5. isExpensive - total больше 100000?\n\n// 6. receipt - \"Итого: ... сум\" шаблонной строкой, вывести в консоль\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var "
+    ],
+    "setup": "const price = 45000;\nconst quantityText = \"3\";\nconst discountPercent = 10;",
+    "tests": [
+      {
+        "name": "quantity - число 3",
+        "check": "quantity === 3 && typeof quantity === \"number\"",
+        "fail": "quantityText - строка. Превратите её: const quantity = Number(quantityText);"
+      },
+      {
+        "name": "Количество превращено через Number(quantityText)",
+        "check": "/Number\\(\\s*quantityText\\s*\\)/.test(__code)",
+        "fail": "Используйте Number(quantityText)."
+      },
+      {
+        "name": "subtotal = 135000",
+        "check": "subtotal === 135000",
+        "fail": "subtotal = price * quantity."
+      },
+      {
+        "name": "discount = 13500",
+        "check": "discount === 13500",
+        "fail": "Скидка в сумах: subtotal * discountPercent / 100."
+      },
+      {
+        "name": "total = 121500",
+        "check": "total === 121500",
+        "fail": "total = subtotal - discount."
+      },
+      {
+        "name": "isExpensive - логическое значение true",
+        "check": "isExpensive === true",
+        "fail": "isExpensive = total > 100000; - результат сравнения уже true или false."
+      },
+      {
+        "name": "receipt равна \"Итого: 121500 сум\"",
+        "check": "receipt === \"Итого: 121500 сум\"",
+        "fail": "Проверьте текст: Итого, двоеточие, пробел, число, пробел, сум."
+      },
+      {
+        "name": "receipt собрана шаблонной строкой с ${total}",
+        "check": "/`[^`]*\\$\\{\\s*total\\s*\\}[^`]*`/.test(__code)",
+        "fail": "Используйте обратные кавычки: `Итого: ${total} сум`."
+      },
+      {
+        "name": "Чек выведен в консоль",
+        "check": "__logs.includes(receipt)",
+        "fail": "Добавьте console.log(receipt);"
+      },
+      {
+        "name": "Другой заказ: 20000 × \"7\" со скидкой 5% = 133000",
+        "setup": "const price = 20000;\nconst quantityText = \"7\";\nconst discountPercent = 5;",
+        "check": "total === 133000 && receipt === \"Итого: 133000 сум\" && isExpensive === true",
+        "fail": "На других данных результат неверный: не вписывайте готовые числа, считайте через переменные."
+      },
+      {
+        "name": "Ровно 100000 - это не больше 100000",
+        "setup": "const price = 50000;\nconst quantityText = \"2\";\nconst discountPercent = 0;",
+        "check": "total === 100000 && isExpensive === false",
+        "fail": "«Больше» - это >, а не >=."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "В коде ошибка - прочитайте её текст в консоли."
+      }
+    ],
+    "hints": [
+      "const quantity = Number(quantityText);",
+      "Процент от числа: subtotal * discountPercent / 100.",
+      "Сравнение уже даёт true или false: const isExpensive = total > 100000;",
+      "Шаблонная строка - в обратных кавычках: `Итого: ${total} сум`.",
+      "Платформа запускает код на нескольких заказах - вписанное число 121500 сработает только на первом."
+    ],
+    "solution": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\n\nconsole.log(receipt);\n",
+    "wrong_solutions": [
+      {
+        "mistake": "стартовый код без изменений",
+        "code": "// 1. quantity - количество числом\n"
+      },
+      {
+        "mistake": "количество осталось строкой",
+        "code": "const quantity = quantityText;\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "готовые числа вместо выражений",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = 135000;\nconst discount = 13500;\nconst total = 121500;\nconst isExpensive = true;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "скидка в процентах вместо сумов",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = discountPercent;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": ">= вместо >",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total >= 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "склейка через + вместо шаблонной строки",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = \"Итого: \" + total + \" сум\";\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "isExpensive строкой",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = \"true\";\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
+      },
+      {
+        "mistake": "чек не выведен",
+        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что вернёт typeof \"42\"?",
+        "options": [
+          "\"number\"",
+          "\"string\"",
+          "\"boolean\"",
+          "\"undefined\""
+        ],
+        "answer": 1,
+        "explanation": "Значение в кавычках - строка, даже если внутри цифры."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет console.log(\"5\" + 3);?",
+        "options": [
+          "8",
+          "\"53\"",
+          "NaN",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "+ со строкой склеивает: результат - строка \"53\"."
+      },
+      {
+        "type": "input",
+        "question": "Чему равно 17 % 5? Введите число.",
+        "answers": [
+          "2"
+        ],
+        "case_sensitive": false,
+        "explanation": "17 = 5 × 3 + 2, остаток 2."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие значения имеют тип number?",
+        "options": [
+          "3.14",
+          "-7",
+          "\"10\"",
+          "NaN"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "NaN - особое значение типа number; \"10\" - строка."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте значение и его тип.",
+        "pairs": [
+          [
+            "true",
+            "boolean"
+          ],
+          [
+            "\"Анна\"",
+            "string"
+          ],
+          [
+            "0",
+            "number"
+          ],
+          [
+            "let x; → x",
+            "undefined"
+          ]
+        ],
+        "explanation": "typeof покажет эти же названия."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно получить число из строки quantityText = \"4\"?",
+        "options": [
+          "quantityText.number",
+          "Number(quantityText)",
+          "typeof quantityText",
+          "quantityText + 0"
+        ],
+        "answer": 1,
+        "explanation": "Number() превращает строку в число; + 0 даст склейку \"40\"."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: const name = \"Тимур\"; console.log(`Привет, ${name}!`);",
+        "options": [
+          "Привет, ${name}!",
+          "Привет, Тимур!",
+          "Привет, name!",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "В обратных кавычках ${...} заменяется значением."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие выражения дают true?",
+        "options": [
+          "5 === 5",
+          "5 === \"5\"",
+          "5 !== \"5\"",
+          "3 >= 3"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "=== сравнивает и значение, и тип: число 5 не равно строке \"5\"."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство возвращает число символов в строке? Введите имя свойства.",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "\"JavaScript\".length равно 10."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет: let s = \" да \"; s.trim(); console.log(s.length);",
+        "options": [
+          "2",
+          "4",
+          "0",
+          "Ошибку"
+        ],
+        "answer": 1,
+        "explanation": "trim() возвращает новую строку, а s не изменилась: в ней 4 символа."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и результат при let n = 10.",
+        "pairs": [
+          [
+            "n += 5",
+            "15"
+          ],
+          [
+            "n - 4",
+            "6"
+          ],
+          [
+            "n % 3",
+            "1"
+          ],
+          [
+            "n ** 2",
+            "100"
+          ]
+        ],
+        "explanation": "+= прибавляет, - вычитает, % - остаток, ** - степень."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт Number(\"12px\")?",
+        "options": [
+          "12",
+          "\"12\"",
+          "NaN",
+          "0"
+        ],
+        "answer": 2,
+        "explanation": "Строка не целиком из цифр - превращение не удалось, результат NaN."
+      }
+    ]
+  }
+}

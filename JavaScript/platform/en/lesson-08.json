@@ -1,0 +1,307 @@
+{
+  "lesson": 8,
+  "language": "en",
+  "lesson_title": "Events",
+  "task": {
+    "title": "An interactive page",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Interactive page</title>\n</head>\n<body>\n    <main>\n        <h1>JavaScript course</h1>\n\n        <section class=\"likes\">\n            <button type=\"button\" id=\"like-btn\">Like</button>\n            <span id=\"like-count\">0</span>\n        </section>\n\n        <button type=\"button\" id=\"theme-toggle\" aria-pressed=\"false\">Dark theme</button>\n\n        <section class=\"faq\" id=\"faq\">\n            <h2>Questions</h2>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">How many lessons are in the course?</button>\n                <p class=\"faq__answer\" hidden>10 lessons.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">Do I need programming experience?</button>\n                <p class=\"faq__answer\" hidden>No, the HTML and CSS courses are enough.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\"><span>Where do I do the tasks?</span></button>\n                <p class=\"faq__answer\" hidden>In the IDE on the JLearn platform.</p>\n            </div>\n        </section>\n\n        <label for=\"comment\">Comment</label>\n        <textarea id=\"comment\" maxlength=\"100\"></textarea>\n        <p id=\"comment-counter\">0 / 100</p>\n    </main>\n</body>\n</html>",
+    "description": "Bring the page to life. 1) A click on #like-btn increases the number in #like-count by 1. 2) A click on #theme-toggle toggles the class theme-dark on body and sets the button's aria-pressed to \"true\" or \"false\". 3) One handler on #faq (delegation): a click on .faq__question shows or hides the .faq__answer of its own .faq__item and updates aria-expanded. 4) Escape on the page closes all answers and sets aria-expanded=\"false\". 5) Typing in #comment writes \"12 / 100\" into #comment-counter. Only addEventListener; do not use onclick, innerHTML or element.style.",
+    "starter_code": "// The markup is already on the page: #like-btn, #like-count, #theme-toggle,\n// #faq with .faq__item blocks (.faq__question + .faq__answer), #comment, #comment-counter.\n\n// 1. Likes: let likes = 0; click → +1\n\n// 2. Theme: the class theme-dark on body, aria-pressed on the button\n\n// 3. Questions: ONE handler on #faq, event.target.closest(\".faq__question\")\n\n// 4. Escape closes all answers\n\n// 5. Character counter: the input event\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown",
+      "oninput"
+    ],
+    "tests": [
+      {
+        "name": "One click on \"Like\" → 1",
+        "check": "(() => { document.querySelector(\"#like-btn\").click(); return document.querySelector(\"#like-count\").textContent === \"1\"; })()",
+        "fail": "In the handler increase likes and write it into #like-count: likeCount.textContent = String(likes);"
+      },
+      {
+        "name": "Three clicks → 3",
+        "check": "(() => { const b = document.querySelector(\"#like-btn\"); b.click(); b.click(); b.click(); return document.querySelector(\"#like-count\").textContent === \"3\"; })()",
+        "fail": "Declare let likes = 0; OUTSIDE the handler, otherwise counting starts over every time."
+      },
+      {
+        "name": "Theme: one click turns on theme-dark and aria-pressed=\"true\"",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); return document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"true\"; })()",
+        "fail": "const isDark = document.body.classList.toggle(\"theme-dark\"); themeButton.setAttribute(\"aria-pressed\", String(isDark));"
+      },
+      {
+        "name": "Theme: a second click turns it off",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); b.click(); return !document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"false\"; })()",
+        "fail": "Use toggle, not add."
+      },
+      {
+        "name": "A click on a question opens the answer and sets aria-expanded=\"true\"",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return document.querySelectorAll(\".faq__answer\")[0].hidden === false && document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"true\" && document.querySelectorAll(\".faq__answer\")[1].hidden === true; })()",
+        "fail": "Find the answer of its own block: question.closest(\".faq__item\").querySelector(\".faq__answer\")."
+      },
+      {
+        "name": "A second click closes the answer",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[1].click(); document.querySelectorAll(\".faq__question\")[1].click(); return document.querySelectorAll(\".faq__answer\")[1].hidden === true && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Toggle: answer.hidden = !answer.hidden and aria-expanded from the new state."
+      },
+      {
+        "name": "A click on a span inside the button works too",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[2].querySelector(\"span\").click(); return document.querySelectorAll(\".faq__answer\")[2].hidden === false; })()",
+        "fail": "event.target can be a nested element - use event.target.closest(\".faq__question\")."
+      },
+      {
+        "name": "A question added after loading works (delegation)",
+        "check": "(() => { const item = document.createElement(\"div\"); item.className = \"faq__item\"; const q = document.createElement(\"button\"); q.type = \"button\"; q.className = \"faq__question\"; q.setAttribute(\"aria-expanded\", \"false\"); q.textContent = \"New?\"; const a = document.createElement(\"p\"); a.className = \"faq__answer\"; a.hidden = true; a.textContent = \"Yes\"; item.append(q, a); document.querySelector(\"#faq\").append(item); q.click(); return a.hidden === false && q.getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Attach ONE handler to #faq, not one per button: then new questions work too."
+      },
+      {
+        "name": "A click on the \"Questions\" heading breaks nothing",
+        "check": "(() => { document.querySelector(\"#faq h2\").click(); return __error === null && [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden); })()",
+        "fail": "If the click is not on a question, closest returns null - leave the handler: if (!question) { return; }"
+      },
+      {
+        "name": "Escape closes all answers",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.querySelectorAll(\".faq__question\")[1].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden) && [...document.querySelectorAll(\".faq__question\")].every((q) => q.getAttribute(\"aria-expanded\") === \"false\"); })()",
+        "fail": "document.addEventListener(\"keydown\", ...) and a check event.key === \"Escape\"."
+      },
+      {
+        "name": "Other keys do not close the answers",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Enter\", bubbles: true })); return document.querySelectorAll(\".faq__answer\")[0].hidden === false; })()",
+        "fail": "Close only when event.key === \"Escape\"."
+      },
+      {
+        "name": "Character counter: \"JavaScript\" → \"10 / 100\"",
+        "check": "(() => { const c = document.querySelector(\"#comment\"); c.value = \"JavaScript\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); return document.querySelector(\"#comment-counter\").textContent === \"10 / 100\"; })()",
+        "fail": "The input event: commentCounter.textContent = `${comment.value.length} / 100`;"
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "A null error - check the selectors."
+      }
+    ],
+    "hints": [
+      "Like counter: let likes = 0; outside the handler.",
+      "classList.toggle returns true if the class was added: const isDark = document.body.classList.toggle(\"theme-dark\");",
+      "aria attributes are strings: setAttribute(\"aria-pressed\", String(isDark)).",
+      "Delegation: faq.addEventListener(\"click\", (event) => { const question = event.target.closest(\".faq__question\"); if (!question) { return; } ... });",
+      "The answer of its own block: question.closest(\".faq__item\").querySelector(\".faq__answer\")",
+      "Escape: document.addEventListener(\"keydown\", (event) => { if (event.key === \"Escape\") { ... } });"
+    ],
+    "solution": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "// 1. Likes\n"
+      },
+      {
+        "mistake": "the counter is declared inside the handler",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlikeButton.addEventListener(\"click\", () => {\n    let likes = 0;\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "add instead of toggle",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    document.body.classList.add(\"theme-dark\");\n    const isDark = true;\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-pressed is not updated",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "a handler on every button instead of delegation",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfor (const question of faq.querySelectorAll(\".faq__question\")) question.addEventListener(\"click\", () => {\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "event.target without closest",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target;\n    if (!question.classList.contains(\"faq__question\")) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "no null check",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-expanded is not updated",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "any key closes",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "the counter uses the change event",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"change\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "onclick instead of addEventListener",
+        "code": "// 1. Likes\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.onclick = (() => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Theme\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Questions: one handler on #faq\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape closes all answers\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Character counter\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which line correctly subscribes the button btn to clicks?",
+        "options": [
+          "btn.addEventListener(\"click\", handleClick);",
+          "btn.addEventListener(\"click\", handleClick());",
+          "btn.addEventListener(click, handleClick);",
+          "btn.click = handleClick;"
+        ],
+        "answer": 0,
+        "explanation": "The function is passed without parentheses; the event type is a string."
+      },
+      {
+        "type": "single",
+        "question": "Why is the page always showing 1 when let likes = 0; is inside the handler?",
+        "options": [
+          "A browser bug",
+          "The variable is created anew with zero on every click",
+          "textContent does not work with numbers",
+          "const is needed"
+        ],
+        "answer": 1,
+        "explanation": "State is stored outside the handler."
+      },
+      {
+        "type": "input",
+        "question": "Which property of the event object holds the element the event happened on? Type event.<property>.",
+        "answers": [
+          "event.target",
+          "target"
+        ],
+        "case_sensitive": true,
+        "explanation": "event.target is the deepest element that was clicked."
+      },
+      {
+        "type": "matching",
+        "question": "Match the event with the moment.",
+        "pairs": [
+          [
+            "click",
+            "Pressing an element"
+          ],
+          [
+            "input",
+            "Every change of a field's value"
+          ],
+          [
+            "keydown",
+            "Pressing a key"
+          ],
+          [
+            "submit",
+            "Submitting a form"
+          ]
+        ],
+        "explanation": "The event type is the first argument of addEventListener."
+      },
+      {
+        "type": "single",
+        "question": "How do you check that the Escape key was pressed?",
+        "options": [
+          "event.key === \"Escape\"",
+          "event.target === \"Escape\"",
+          "event.type === \"Escape\"",
+          "event.escape === true"
+        ],
+        "answer": 0,
+        "explanation": "event.key is the name of the key."
+      },
+      {
+        "type": "single",
+        "question": "What does event.preventDefault() do in a click handler on a link?",
+        "options": [
+          "Removes the link",
+          "Cancels following the link",
+          "Stops all scripts",
+          "Reloads the page"
+        ],
+        "answer": 1,
+        "explanation": "The browser's default action is cancelled."
+      },
+      {
+        "type": "single",
+        "question": "What is event bubbling?",
+        "options": [
+          "The event rises from the target element to its parents",
+          "The event passes to sibling elements",
+          "A message window",
+          "The event repeats every second"
+        ],
+        "answer": 0,
+        "explanation": "That is why a click on a button can be caught on its container."
+      },
+      {
+        "type": "multiple",
+        "question": "What advantages does event delegation give?",
+        "options": [
+          "One handler instead of many",
+          "It works for elements added later",
+          "No JavaScript is needed",
+          "No need to check what was clicked"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "The check is needed: event.target.closest(...)."
+      },
+      {
+        "type": "single",
+        "question": "Why event.target.closest(\".item\") in delegation and not just event.target?",
+        "options": [
+          "closest is faster",
+          "The click may come from a nested element (span, icon); closest finds the .item itself",
+          "event.target is always null",
+          "CSS requires it"
+        ],
+        "answer": 1,
+        "explanation": "closest searches from the element itself up through its parents."
+      },
+      {
+        "type": "multiple",
+        "question": "Which choices make an expanding section accessible?",
+        "options": [
+          "A <button type=\"button\">",
+          "aria-expanded on the button",
+          "hidden on the hidden content",
+          "A <div> with a click handler"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A div does not get focus and cannot be pressed from the keyboard."
+      },
+      {
+        "type": "input",
+        "question": "What value does String(true) give? Type it.",
+        "answers": [
+          "true",
+          "\"true\""
+        ],
+        "case_sensitive": true,
+        "explanation": "aria attributes are strings, so values are converted with String()."
+      },
+      {
+        "type": "single",
+        "question": "Why does the course not use the onclick=\"...\" attribute?",
+        "options": [
+          "It does not work",
+          "It mixes code with markup; handlers live in the JS file",
+          "It only works in Firefox",
+          "It is slower"
+        ],
+        "answer": 1,
+        "explanation": "Like style=\"\" in CSS: we keep HTML and behaviour apart."
+      }
+    ]
+  }
+}

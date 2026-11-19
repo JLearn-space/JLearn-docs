@@ -1,0 +1,307 @@
+{
+  "lesson": 8,
+  "language": "uz",
+  "lesson_title": "Hodisalar",
+  "task": {
+    "title": "Interaktiv sahifa",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Interaktiv sahifa</title>\n</head>\n<body>\n    <main>\n        <h1>JavaScript kursi</h1>\n\n        <section class=\"likes\">\n            <button type=\"button\" id=\"like-btn\">Yoqdi</button>\n            <span id=\"like-count\">0</span>\n        </section>\n\n        <button type=\"button\" id=\"theme-toggle\" aria-pressed=\"false\">Qorong‘i mavzu</button>\n\n        <section class=\"faq\" id=\"faq\">\n            <h2>Savollar</h2>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">Kursda nechta dars bor?</button>\n                <p class=\"faq__answer\" hidden>10 ta dars.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\">Dasturlash tajribasi kerakmi?</button>\n                <p class=\"faq__answer\" hidden>Yo‘q, HTML va CSS kurslari yetarli.</p>\n            </div>\n            <div class=\"faq__item\">\n                <button type=\"button\" class=\"faq__question\" aria-expanded=\"false\"><span>Topshiriqlar qayerda bajariladi?</span></button>\n                <p class=\"faq__answer\" hidden>JLearn platformasidagi IDE da.</p>\n            </div>\n        </section>\n\n        <label for=\"comment\">Izoh</label>\n        <textarea id=\"comment\" maxlength=\"100\"></textarea>\n        <p id=\"comment-counter\">0 / 100</p>\n    </main>\n</body>\n</html>",
+    "description": "Sahifani jonlantiring. 1) #like-btn ga bosish #like-count dagi sonni 1 ga oshiradi. 2) #theme-toggle ga bosish body dagi theme-dark klassini almashtiradi va tugmaga aria-pressed ni \"true\" yoki \"false\" qilib qo‘yadi. 3) #faq ga bitta ishlov beruvchi (delegatsiya): .faq__question ga bosish o‘z .faq__item idagi .faq__answer ni ko‘rsatadi yoki yashiradi va aria-expanded ni yangilaydi. 4) Sahifada Escape barcha javoblarni yopadi va aria-expanded=\"false\" qo‘yadi. 5) #comment ga kiritishda #comment-counter ga \"12 / 100\" yoziladi. Faqat addEventListener; onclick, innerHTML va element.style ishlatmang.",
+    "starter_code": "// Belgilash sahifada bor: #like-btn, #like-count, #theme-toggle,\n// .faq__item bloklari bilan #faq (.faq__question + .faq__answer), #comment, #comment-counter.\n\n// 1. Layklar: let likes = 0; bosish → +1\n\n// 2. Mavzu: body da theme-dark klassi, tugmada aria-pressed\n\n// 3. Savollar: #faq ga BITTA ishlov beruvchi, event.target.closest(\".faq__question\")\n\n// 4. Escape barcha javoblarni yopadi\n\n// 5. Belgilar hisoblagichi: input hodisasi\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "innerHTML",
+      ".style.",
+      "onkeydown",
+      "oninput"
+    ],
+    "tests": [
+      {
+        "name": "«Yoqdi» ga bir bosish → 1",
+        "check": "(() => { document.querySelector(\"#like-btn\").click(); return document.querySelector(\"#like-count\").textContent === \"1\"; })()",
+        "fail": "Ishlov beruvchida likes ni oshiring va #like-count ga yozing: likeCount.textContent = String(likes);"
+      },
+      {
+        "name": "Uch bosish → 3",
+        "check": "(() => { const b = document.querySelector(\"#like-btn\"); b.click(); b.click(); b.click(); return document.querySelector(\"#like-count\").textContent === \"3\"; })()",
+        "fail": "let likes = 0; ni ishlov beruvchidan TASHQARIDA e’lon qiling, aks holda hisob har safar qaytadan boshlanadi."
+      },
+      {
+        "name": "Mavzu: bir bosish theme-dark va aria-pressed=\"true\" ni yoqadi",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); return document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"true\"; })()",
+        "fail": "const isDark = document.body.classList.toggle(\"theme-dark\"); themeButton.setAttribute(\"aria-pressed\", String(isDark));"
+      },
+      {
+        "name": "Mavzu: ikkinchi bosish o‘chiradi",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); b.click(); return !document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"false\"; })()",
+        "fail": "add emas, toggle ishlating."
+      },
+      {
+        "name": "Savolga bosish javobni ochadi va aria-expanded=\"true\" qo‘yadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return document.querySelectorAll(\".faq__answer\")[0].hidden === false && document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"true\" && document.querySelectorAll(\".faq__answer\")[1].hidden === true; })()",
+        "fail": "O‘z blokining javobini toping: question.closest(\".faq__item\").querySelector(\".faq__answer\")."
+      },
+      {
+        "name": "Takroriy bosish javobni yopadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[1].click(); document.querySelectorAll(\".faq__question\")[1].click(); return document.querySelectorAll(\".faq__answer\")[1].hidden === true && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Almashtiring: answer.hidden = !answer.hidden va yangi holat bo‘yicha aria-expanded."
+      },
+      {
+        "name": "Tugma ichidagi span ga bosish ham ishlaydi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[2].querySelector(\"span\").click(); return document.querySelectorAll(\".faq__answer\")[2].hidden === false; })()",
+        "fail": "event.target ichki element bo‘lishi mumkin - event.target.closest(\".faq__question\") dan foydalaning."
+      },
+      {
+        "name": "Yuklangandan keyin qo‘shilgan savol ishlaydi (delegatsiya)",
+        "check": "(() => { const item = document.createElement(\"div\"); item.className = \"faq__item\"; const q = document.createElement(\"button\"); q.type = \"button\"; q.className = \"faq__question\"; q.setAttribute(\"aria-expanded\", \"false\"); q.textContent = \"Yangi?\"; const a = document.createElement(\"p\"); a.className = \"faq__answer\"; a.hidden = true; a.textContent = \"Ha\"; item.append(q, a); document.querySelector(\"#faq\").append(item); q.click(); return a.hidden === false && q.getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Har bir tugmaga emas, #faq ga BITTA ishlov beruvchi qo‘ying: shunda yangi savollar ham ishlaydi."
+      },
+      {
+        "name": "«Savollar» sarlavhasiga bosish hech narsani buzmaydi",
+        "check": "(() => { document.querySelector(\"#faq h2\").click(); return __error === null && [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden); })()",
+        "fail": "Bosish savolga bo‘lmasa, closest null qaytaradi - ishlov beruvchidan chiqing: if (!question) { return; }"
+      },
+      {
+        "name": "Escape barcha javoblarni yopadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.querySelectorAll(\".faq__question\")[1].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\", bubbles: true })); return [...document.querySelectorAll(\".faq__answer\")].every((a) => a.hidden) && [...document.querySelectorAll(\".faq__question\")].every((q) => q.getAttribute(\"aria-expanded\") === \"false\"); })()",
+        "fail": "document.addEventListener(\"keydown\", ...) va event.key === \"Escape\" tekshiruvi."
+      },
+      {
+        "name": "Boshqa tugmalar javoblarni yopmaydi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Enter\", bubbles: true })); return document.querySelectorAll(\".faq__answer\")[0].hidden === false; })()",
+        "fail": "Faqat event.key === \"Escape\" bo‘lganda yoping."
+      },
+      {
+        "name": "Belgilar hisoblagichi: «JavaScript» → \"10 / 100\"",
+        "check": "(() => { const c = document.querySelector(\"#comment\"); c.value = \"JavaScript\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); return document.querySelector(\"#comment-counter\").textContent === \"10 / 100\"; })()",
+        "fail": "input hodisasi: commentCounter.textContent = `${comment.value.length} / 100`;"
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "null xatosi - selektorlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "Layklar hisoblagichi: let likes = 0; ishlov beruvchidan tashqarida.",
+      "Klass qo‘shilgan bo‘lsa, classList.toggle true qaytaradi: const isDark = document.body.classList.toggle(\"theme-dark\");",
+      "aria-atributlar - satrlar: setAttribute(\"aria-pressed\", String(isDark)).",
+      "Delegatsiya: faq.addEventListener(\"click\", (event) => { const question = event.target.closest(\".faq__question\"); if (!question) { return; } ... });",
+      "O‘z blokining javobi: question.closest(\".faq__item\").querySelector(\".faq__answer\")",
+      "Escape: document.addEventListener(\"keydown\", (event) => { if (event.key === \"Escape\") { ... } });"
+    ],
+    "solution": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. Layklar\n"
+      },
+      {
+        "mistake": "hisoblagich ishlov beruvchi ichida e’lon qilingan",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlikeButton.addEventListener(\"click\", () => {\n    let likes = 0;\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "toggle o‘rniga add",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    document.body.classList.add(\"theme-dark\");\n    const isDark = true;\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-pressed yangilanmaydi",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "delegatsiya o‘rniga har bir tugmada ishlov beruvchi",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfor (const question of faq.querySelectorAll(\".faq__question\")) question.addEventListener(\"click\", () => {\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "closest siz event.target",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target;\n    if (!question.classList.contains(\"faq__question\")) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "null tekshiruvi yo‘q",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "aria-expanded yangilanmaydi",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "istalgan tugma yopadi",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "hisoblagich change hodisasida",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.addEventListener(\"click\", () => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"change\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      },
+      {
+        "mistake": "addEventListener o‘rniga onclick",
+        "code": "// 1. Layklar\nconst likeButton = document.querySelector(\"#like-btn\");\nconst likeCount = document.querySelector(\"#like-count\");\nlet likes = 0;\n\nlikeButton.onclick = (() => {\n    likes++;\n    likeCount.textContent = String(likes);\n});\n\n// 2. Mavzu\nconst themeButton = document.querySelector(\"#theme-toggle\");\n\nthemeButton.addEventListener(\"click\", () => {\n    const isDark = document.body.classList.toggle(\"theme-dark\");\n    themeButton.setAttribute(\"aria-pressed\", String(isDark));\n});\n\n// 3. Savollar: #faq ga bitta ishlov beruvchi\nconst faq = document.querySelector(\"#faq\");\n\nfaq.addEventListener(\"click\", (event) => {\n    const question = event.target.closest(\".faq__question\");\n    if (!question) {\n        return;\n    }\n\n    const answer = question.closest(\".faq__item\").querySelector(\".faq__answer\");\n    const willOpen = answer.hidden;\n\n    answer.hidden = !willOpen;\n    question.setAttribute(\"aria-expanded\", String(willOpen));\n});\n\n// 4. Escape barcha javoblarni yopadi\ndocument.addEventListener(\"keydown\", (event) => {\n    if (event.key !== \"Escape\") {\n        return;\n    }\n    for (const item of faq.querySelectorAll(\".faq__item\")) {\n        item.querySelector(\".faq__answer\").hidden = true;\n        item.querySelector(\".faq__question\").setAttribute(\"aria-expanded\", \"false\");\n    }\n});\n\n// 5. Belgilar hisoblagichi\nconst comment = document.querySelector(\"#comment\");\nconst commentCounter = document.querySelector(\"#comment-counter\");\n\ncomment.addEventListener(\"input\", () => {\n    commentCounter.textContent = `${comment.value.length} / 100`;\n});\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Qaysi yozuv btn tugmasini bosishga to‘g‘ri obuna qiladi?",
+        "options": [
+          "btn.addEventListener(\"click\", handleClick);",
+          "btn.addEventListener(\"click\", handleClick());",
+          "btn.addEventListener(click, handleClick);",
+          "btn.click = handleClick;"
+        ],
+        "answer": 0,
+        "explanation": "Funksiya qavssiz beriladi; hodisa turi - satr."
+      },
+      {
+        "type": "single",
+        "question": "Ishlov beruvchi ichida let likes = 0; bo‘lsa, nima uchun sahifada doim 1 turadi?",
+        "options": [
+          "Brauzer xatosi",
+          "O‘zgaruvchi har bosishda nol bilan qaytadan yaratiladi",
+          "textContent sonlar bilan ishlamaydi",
+          "const kerak"
+        ],
+        "answer": 1,
+        "explanation": "Holat ishlov beruvchidan tashqarida saqlanadi."
+      },
+      {
+        "type": "input",
+        "question": "Hodisa obyektining qaysi xususiyati hodisa sodir bo‘lgan elementni saqlaydi? event.<xususiyat> ko‘rinishida kiriting.",
+        "answers": [
+          "event.target",
+          "target"
+        ],
+        "case_sensitive": true,
+        "explanation": "event.target - bosilgan eng chuqur element."
+      },
+      {
+        "type": "matching",
+        "question": "Hodisani payt bilan moslashtiring.",
+        "pairs": [
+          [
+            "click",
+            "Elementga bosish"
+          ],
+          [
+            "input",
+            "Maydon qiymatining har bir o‘zgarishi"
+          ],
+          [
+            "keydown",
+            "Tugmani bosish"
+          ],
+          [
+            "submit",
+            "Formani yuborish"
+          ]
+        ],
+        "explanation": "Hodisa turi - addEventListener ning birinchi argumenti."
+      },
+      {
+        "type": "single",
+        "question": "Escape tugmasi bosilganini qanday tekshirish mumkin?",
+        "options": [
+          "event.key === \"Escape\"",
+          "event.target === \"Escape\"",
+          "event.type === \"Escape\"",
+          "event.escape === true"
+        ],
+        "answer": 0,
+        "explanation": "event.key - tugma nomi."
+      },
+      {
+        "type": "single",
+        "question": "Havolaga bosish ishlov beruvchisidagi event.preventDefault() nima qiladi?",
+        "options": [
+          "Havolani o‘chiradi",
+          "Havola bo‘yicha o‘tishni bekor qiladi",
+          "Barcha skriptlarni to‘xtatadi",
+          "Sahifani qayta yuklaydi"
+        ],
+        "answer": 1,
+        "explanation": "Brauzerning standart amali bekor qilinadi."
+      },
+      {
+        "type": "single",
+        "question": "Hodisalar ko‘tarilishi nima?",
+        "options": [
+          "Hodisa maqsadli elementdan ota-onalariga ko‘tariladi",
+          "Hodisa qo‘shni elementlarga o‘tadi",
+          "Xabar oynasi",
+          "Hodisaning har soniyada takrorlanishi"
+        ],
+        "answer": 0,
+        "explanation": "Shuning uchun tugmaga bosishni uning konteynerida ushlash mumkin."
+      },
+      {
+        "type": "multiple",
+        "question": "Hodisalar delegatsiyasi qanday afzalliklar beradi?",
+        "options": [
+          "Ko‘p o‘rniga bitta ishlov beruvchi",
+          "Keyin qo‘shilgan elementlar uchun ishlaydi",
+          "JavaScript kerak emas",
+          "Nimaga bosilganini tekshirish shart emas"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Tekshiruv kerak: event.target.closest(...)."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun delegatsiyada shunchaki event.target emas, event.target.closest(\".item\")?",
+        "options": [
+          "closest tezroq ishlaydi",
+          "Bosish ichki elementdan (span, belgi) kelishi mumkin, closest .item ning o‘zini topadi",
+          "event.target doim null",
+          "Buni CSS talab qiladi"
+        ],
+        "answer": 1,
+        "explanation": "closest elementning o‘zidan boshlab ota-onalar bo‘ylab yuqoriga qidiradi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yechimlar ochiladigan blokni qulay qiladi?",
+        "options": [
+          "<button type=\"button\"> tugmasi",
+          "Tugmadagi aria-expanded",
+          "Yashirin tarkibdagi hidden",
+          "Bosish ishlov beruvchili <div>"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "div fokus olmaydi va klaviaturadan bosilmaydi."
+      },
+      {
+        "type": "input",
+        "question": "String(true) qanday qiymat beradi? Uni kiriting.",
+        "answers": [
+          "true",
+          "\"true\""
+        ],
+        "case_sensitive": true,
+        "explanation": "aria-atributlar - satrlar, shuning uchun qiymatlar String() orqali aylantiriladi."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun kursda onclick=\"...\" atributi ishlatilmaydi?",
+        "options": [
+          "U ishlamaydi",
+          "U kodni belgilash bilan aralashtiradi; ishlov beruvchilar JS faylda yashaydi",
+          "U faqat Firefox’da ishlaydi",
+          "U sekinroq"
+        ],
+        "answer": 1,
+        "explanation": "CSS dagi style=\"\" kabi: HTML va xatti-harakatni ajratamiz."
+      }
+    ]
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "lesson": 9,
+  "language": "en",
+  "lesson_title": "Forms, storage and requests",
+  "task": {
+    "title": "A to-do list that is saved",
+    "language": "javascript",
+    "environment": "dom",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To-do list</title>\n</head>\n<body>\n    <main>\n        <h1>To-do list</h1>\n        <form id=\"todo-form\" novalidate>\n            <label for=\"todo-input\">New task</label>\n            <input id=\"todo-input\" name=\"title\" type=\"text\" aria-describedby=\"todo-error\">\n            <p id=\"todo-error\" class=\"error\" hidden></p>\n            <button type=\"submit\">Add</button>\n        </form>\n        <p id=\"todo-empty\">No tasks yet</p>\n        <ul id=\"todo-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "Make a to-do list. loadTodos() reads an array of strings from localStorage under the key \"todos\" with JSON.parse inside try / catch; no data or broken data - an empty array. renderTodos() outputs each task as li.todo with span.todo__title and a button.todo__delete \"Delete\"; #todo-empty is visible only when there are no tasks. Submitting #todo-form without a reload: the #todo-input value after trim(); empty - the text \"Enter a task\" in #todo-error, the error is visible, the field has aria-invalid=\"true\"; otherwise the task is added and saved with JSON.stringify, the field is cleared, the error is hidden and aria-invalid is removed. One handler on #todo-list deletes a task by its button from the list and from localStorage.",
+    "starter_code": "// On the page: #todo-form, #todo-input, #todo-error, #todo-empty, #todo-list\n\nconst STORAGE_KEY = \"todos\";\n\n// 1. loadTodos() - JSON.parse inside try / catch, otherwise []\n\n// 2. saveTodos() - JSON.stringify into localStorage\n\n// 3. renderTodos() - li.todo > span.todo__title + button.todo__delete; #todo-empty\n\n// 4. let todos = loadTodos(); renderTodos();\n\n// 5. submit: preventDefault, trim, an error or adding\n\n// 6. Deleting: one handler on #todo-list\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "onclick",
+      "onsubmit",
+      "innerHTML",
+      ".style."
+    ],
+    "tests": [
+      {
+        "name": "Start: no tasks, \"No tasks yet\" is visible",
+        "check": "document.querySelectorAll(\"#todo-list li\").length === 0 && document.querySelector(\"#todo-empty\").hidden === false",
+        "fail": "Without saved data loadTodos() returns [] - the list is empty and the message is visible."
+      },
+      {
+        "name": "Adding: \"  Learn JS  \" → the task \"Learn JS\"",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"  Learn JS  \"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return [...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Learn JS\"; })()",
+        "fail": "A submit handler on the form, the value input.value.trim(), then add, save and render."
+      },
+      {
+        "name": "Submitting does not reload the page",
+        "check": "(() => { document.querySelector(\"#todo-input\").value = \"Learn JS\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })().defaultPrevented === true",
+        "fail": "First line of the handler: event.preventDefault();"
+      },
+      {
+        "name": "After adding the field is empty and \"No tasks yet\" is hidden",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"Learn JS\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return document.querySelector(\"#todo-input\").value === \"\" && document.querySelector(\"#todo-empty\").hidden === true; })()",
+        "fail": "form.reset(); and emptyMessage.hidden = todos.length > 0;"
+      },
+      {
+        "name": "Tasks are saved in localStorage",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"First\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); (() => { document.querySelector(\"#todo-input\").value = \"Second\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return JSON.stringify(JSON.parse(localStorage.getItem(\"todos\"))) === JSON.stringify([\"First\", \"Second\"]); })()",
+        "fail": "localStorage.setItem(\"todos\", JSON.stringify(todos));"
+      },
+      {
+        "name": "Empty input: the error \"Enter a task\", aria-invalid, the task is not added",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"   \"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); const e = document.querySelector(\"#todo-error\"); return e.hidden === false && e.textContent === \"Enter a task\" && document.querySelector(\"#todo-input\").getAttribute(\"aria-invalid\") === \"true\" && document.querySelectorAll(\"#todo-list li\").length === 0; })()",
+        "fail": "Check title === \"\" after trim(); show the error and leave with return."
+      },
+      {
+        "name": "After fixing, the error disappears",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); (() => { document.querySelector(\"#todo-input\").value = \"Task\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); return document.querySelector(\"#todo-error\").hidden === true && document.querySelector(\"#todo-input\").getAttribute(\"aria-invalid\") !== \"true\"; })()",
+        "fail": "On a successful submit: errorElement.hidden = true; input.removeAttribute(\"aria-invalid\");"
+      },
+      {
+        "name": "Saved tasks load on opening",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Read the lesson\", \"Do the task\"]));",
+        "check": "[...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Read the lesson|Do the task\" && document.querySelector(\"#todo-empty\").hidden === true",
+        "fail": "On load: let todos = loadTodos(); renderTodos();"
+      },
+      {
+        "name": "Broken data does not break the page",
+        "setup": "localStorage.setItem(\"todos\", \"{oops\");",
+        "check": "__error === null && document.querySelectorAll(\"#todo-list li\").length === 0",
+        "fail": "Wrap JSON.parse in try / catch and return [] in catch."
+      },
+      {
+        "name": "A task has a \"Delete\" button",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Read the lesson\", \"Do the task\"]));",
+        "check": "(() => { const b = document.querySelectorAll(\"#todo-list li.todo button.todo__delete\"); return b.length === 2 && b[0].textContent === \"Delete\" && b[0].type === \"button\"; })()",
+        "fail": "Add <button type=\"button\" class=\"todo__delete\">Delete</button> to every li."
+      },
+      {
+        "name": "Deleting the first task",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Read the lesson\", \"Do the task\"]));",
+        "check": "(() => { document.querySelector(\"#todo-list .todo__delete\").click(); return [...document.querySelectorAll(\"#todo-list li.todo .todo__title\")].map((s) => s.textContent).join(\"|\") === \"Do the task\" && JSON.stringify(JSON.parse(localStorage.getItem(\"todos\"))) === JSON.stringify([\"Do the task\"]); })()",
+        "fail": "Remove the task from the array, save and re-render."
+      },
+      {
+        "name": "Deleting all tasks brings back \"No tasks yet\"",
+        "setup": "localStorage.setItem(\"todos\", JSON.stringify([\"Read the lesson\", \"Do the task\"]));",
+        "check": "(() => { document.querySelector(\"#todo-list .todo__delete\").click(); document.querySelector(\"#todo-list .todo__delete\").click(); return document.querySelectorAll(\"#todo-list li\").length === 0 && document.querySelector(\"#todo-empty\").hidden === false; })()",
+        "fail": "After deleting call renderTodos() - it updates the empty-list message."
+      },
+      {
+        "name": "Deleting works after adding (delegation)",
+        "check": "(() => { (() => { document.querySelector(\"#todo-input\").value = \"New\"; const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#todo-form\").dispatchEvent(ev); return ev; })(); document.querySelector(\"#todo-list .todo__delete\").click(); return document.querySelectorAll(\"#todo-list li\").length === 0; })()",
+        "fail": "One handler on #todo-list and event.target.closest(\".todo__delete\")."
+      },
+      {
+        "name": "JSON.parse, JSON.stringify and try / catch are used",
+        "check": "/JSON\\.parse\\(/.test(__code) && /JSON\\.stringify\\(/.test(__code) && /\\btry\\s*\\{/.test(__code) && /\\bcatch\\b/.test(__code)",
+        "fail": "localStorage stores strings: JSON.stringify when saving, JSON.parse inside try / catch when reading."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Read the error text; a common cause is null from a typo in a selector."
+      }
+    ],
+    "hints": [
+      "Reading: try { const saved = JSON.parse(localStorage.getItem(\"todos\")); return Array.isArray(saved) ? saved : []; } catch (error) { return []; }",
+      "Order: declare the functions first, then let todos = loadTodos(); renderTodos();",
+      "The empty-list message: emptyMessage.hidden = todos.length > 0;",
+      "First line of the submit handler: event.preventDefault();",
+      "Store the task index in the button's data-index; delete with todos.filter((title, i) => i !== index).",
+      "After every change of todos: saveTodos(); renderTodos();"
+    ],
+    "solution": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n",
+    "wrong_solutions": [
+      {
+        "mistake": "starter code unchanged",
+        "code": "const STORAGE_KEY = \"todos\";\n"
+      },
+      {
+        "mistake": "no preventDefault",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "no trim",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value;\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "JSON.parse without try / catch",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n    return Array.isArray(saved) ? saved : [];\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "the array is saved without JSON.stringify",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, todos);\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "saved tasks are not loaded",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = [];\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "an error without aria-invalid",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "the error is not hidden after fixing",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "deleting without saving",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "the empty-list message is not updated",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n    form.reset();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      },
+      {
+        "mistake": "the field is not cleared",
+        "code": "const STORAGE_KEY = \"todos\";\n\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst errorElement = document.querySelector(\"#todo-error\");\nconst emptyMessage = document.querySelector(\"#todo-empty\");\nconst list = document.querySelector(\"#todo-list\");\n\nfunction loadTodos() {\n    try {\n        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));\n        return Array.isArray(saved) ? saved : [];\n    } catch (error) {\n        return [];\n    }\n}\n\nfunction saveTodos() {\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));\n}\n\nfunction renderTodos() {\n    list.textContent = \"\";\n\n    for (let index = 0; index < todos.length; index++) {\n        const title = todos[index];\n        const item = document.createElement(\"li\");\n        item.classList.add(\"todo\");\n\n        const text = document.createElement(\"span\");\n        text.classList.add(\"todo__title\");\n        text.textContent = title;\n\n        const button = document.createElement(\"button\");\n        button.type = \"button\";\n        button.classList.add(\"todo__delete\");\n        button.textContent = \"Delete\";\n        button.dataset.index = String(index);\n\n        item.append(text, button);\n        list.append(item);\n    }\n\n    emptyMessage.hidden = todos.length > 0;\n}\n\nlet todos = loadTodos();\nrenderTodos();\n\nform.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    const title = input.value.trim();\n\n    if (title === \"\") {\n        errorElement.textContent = \"Enter a task\";\n        errorElement.hidden = false;\n        input.setAttribute(\"aria-invalid\", \"true\");\n        input.focus();\n        return;\n    }\n\n    errorElement.textContent = \"\";\n    errorElement.hidden = true;\n    input.removeAttribute(\"aria-invalid\");\n\n    todos = [...todos, title];\n    saveTodos();\n    renderTodos();\n});\n\nlist.addEventListener(\"click\", (event) => {\n    const button = event.target.closest(\".todo__delete\");\n    if (!button) {\n        return;\n    }\n    const index = Number(button.dataset.index);\n    todos = todos.filter((title, i) => i !== index);\n    saveTodos();\n    renderTodos();\n});\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which element gets the form submission handler?",
+        "options": [
+          "The submit button (click)",
+          "The form (submit)",
+          "document (keydown)",
+          "The input field (input)"
+        ],
+        "answer": 1,
+        "explanation": "submit catches both a click on the button and Enter in a field."
+      },
+      {
+        "type": "single",
+        "question": "What happens without event.preventDefault() in the submit handler?",
+        "options": [
+          "Nothing",
+          "The form is submitted and the page reloads",
+          "An error appears",
+          "The fields are cleared"
+        ],
+        "answer": 1,
+        "explanation": "That is the form's default action."
+      },
+      {
+        "type": "multiple",
+        "question": "What makes a form error message accessible?",
+        "options": [
+          "Text next to the field saying what to fix",
+          "A link via aria-describedby",
+          "aria-invalid=\"true\" on the field",
+          "Only a red border with no text"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A screen reader cannot read colour without text."
+      },
+      {
+        "type": "single",
+        "question": "What does localStorage.getItem(\"theme\") return if that key was never saved?",
+        "options": [
+          "undefined",
+          "\"\"",
+          "null",
+          "An error"
+        ],
+        "answer": 2,
+        "explanation": "For a missing key getItem returns null."
+      },
+      {
+        "type": "single",
+        "question": "What is saved: localStorage.setItem(\"count\", 5); typeof localStorage.getItem(\"count\")?",
+        "options": [
+          "\"number\"",
+          "\"string\"",
+          "\"object\"",
+          "\"undefined\""
+        ],
+        "answer": 1,
+        "explanation": "localStorage stores only strings."
+      },
+      {
+        "type": "matching",
+        "question": "Match the method with the result.",
+        "pairs": [
+          [
+            "JSON.stringify([1, 2])",
+            "The string \"[1,2]\""
+          ],
+          [
+            "JSON.parse(\"[1,2]\")",
+            "The array [1, 2]"
+          ],
+          [
+            "JSON.parse(\"{oops\")",
+            "SyntaxError"
+          ]
+        ],
+        "explanation": "A broken string is read inside try / catch."
+      },
+      {
+        "type": "multiple",
+        "question": "What must not be stored in localStorage?",
+        "options": [
+          "Passwords",
+          "Bank card data",
+          "Login tokens",
+          "The chosen theme"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "The storage is available to any script on the page."
+      },
+      {
+        "type": "single",
+        "question": "What happens after the catch block?",
+        "options": [
+          "The program stops",
+          "The program continues after try / catch",
+          "The page reloads",
+          "The try code runs again"
+        ],
+        "answer": 1,
+        "explanation": "catch catches the error and work continues."
+      },
+      {
+        "type": "input",
+        "question": "Which keyword declares a function in which you can use await? Type the word.",
+        "answers": [
+          "async"
+        ],
+        "case_sensitive": true,
+        "explanation": "async function loadCourses() { const response = await fetch(...); }"
+      },
+      {
+        "type": "single",
+        "question": "The server responded with 404. What does fetch do?",
+        "options": [
+          "Throws an error",
+          "Returns a response with ok: false - you have to throw the error yourself",
+          "Repeats the request",
+          "Returns null"
+        ],
+        "answer": 1,
+        "explanation": "fetch only throws an error on a network failure."
+      },
+      {
+        "type": "matching",
+        "question": "Match the loading state with the text for the user.",
+        "pairs": [
+          [
+            "Before the response",
+            "Loading..."
+          ],
+          [
+            "A network or server error",
+            "Could not load. Try refreshing the page."
+          ],
+          [
+            "An empty array",
+            "Nothing here yet"
+          ]
+        ],
+        "explanation": "The user always understands what is happening."
+      },
+      {
+        "type": "single",
+        "question": "A page opened by double-clicking (file://) cannot fetch(\"data/courses.json\"). What should you do?",
+        "options": [
+          "Rename the file",
+          "Run a local server, for example Live Server",
+          "Remove await",
+          "Use innerHTML"
+        ],
+        "answer": 1,
+        "explanation": "The browser blocks requests from file:// pages."
+      }
+    ]
+  }
+}

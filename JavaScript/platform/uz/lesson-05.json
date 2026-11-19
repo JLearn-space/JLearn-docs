@@ -1,0 +1,309 @@
+{
+  "lesson": 5,
+  "language": "uz",
+  "lesson_title": "Funksiyalar",
+  "task": {
+    "title": "Baho va narxlar uchun funksiyalar to‘plami",
+    "language": "javascript",
+    "environment": "console",
+    "html": null,
+    "description": "Natijani return orqali qaytaradigan va hech narsa chiqarmaydigan funksiyalar yozing: isEven(number) - function e’loni bilan, juft son uchun true; getGrade(score) - 90 va yuqori uchun 5, 75 dan 4, 60 dan 3, aks holda 2; formatPrice(amount, currency) - \"45000 so‘m\" satri, valyuta standart bo‘yicha \"so‘m\"; square - konstantadagi strelkali funksiya, sonning kvadrati; countVowels(word) - a, e, i, o, u unlilari soni, registrni hisobga olmay. Funksiyalardan keyin tekshirish chaqiruvlarini chiqarishingiz mumkin.",
+    "starter_code": "// 1. function isEven(number) - son juft bo‘lsa true\n\n// 2. function getGrade(score) - 5, 4, 3 yoki 2 baho\n\n// 3. function formatPrice(amount, currency = ...) - \"45000 so‘m\"\n\n// 4. const square = ... - strelkali funksiya, sonning kvadrati\n\n// 5. function countVowels(word) - a, e, i, o, u unlilari soni\n\n// Tekshirish:\n// console.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      ".split(",
+      ".match(",
+      ".replace(",
+      ".filter(",
+      ".reduce("
+    ],
+    "tests": [
+      {
+        "name": "isEven: 4 va 0 - juft, 7 - yo‘q",
+        "check": "isEven(4) === true && isEven(0) === true && isEven(7) === false",
+        "fail": "return number % 2 === 0; - solishtirish allaqachon true yoki false beradi."
+      },
+      {
+        "name": "isEven manfiylar bilan ishlaydi: -3 - toq, -8 - juft",
+        "check": "isEven(-3) === false && isEven(-8) === true",
+        "fail": "-3 % 2 -1 ga teng, 1 ga emas. Qoldiqni 0 bilan tekshiring: number % 2 === 0."
+      },
+      {
+        "name": "isEven function orqali e’lon qilingan",
+        "check": "/\\bfunction\\s+isEven\\s*\\(/.test(__code)",
+        "fail": "function isEven(number) { ... }"
+      },
+      {
+        "name": "getGrade: 95 → 5, 90 → 5, 89 → 4",
+        "check": "getGrade(95) === 5 && getGrade(90) === 5 && getGrade(89) === 4",
+        "fail": "Tekshirishlar tartibi: avval >= 90."
+      },
+      {
+        "name": "getGrade: 75 → 4, 74 → 3, 60 → 3, 59 → 2, 0 → 2",
+        "check": "getGrade(75) === 4 && getGrade(74) === 3 && getGrade(60) === 3 && getGrade(59) === 2 && getGrade(0) === 2",
+        "fail": ">= 75 va >= 60 chegaralarini va baho son ekanini tekshiring."
+      },
+      {
+        "name": "formatPrice(45000) → \"45000 so‘m\"",
+        "check": "formatPrice(45000) === \"45000 so‘m\"",
+        "fail": "Standart qiymat: function formatPrice(amount, currency = \"so‘m\")."
+      },
+      {
+        "name": "formatPrice(20, \"$\") → \"20 $\"",
+        "check": "formatPrice(20, \"$\") === \"20 $\"",
+        "fail": "Shablon satrda currency parametridan foydalaning."
+      },
+      {
+        "name": "currency ning standart qiymati \"so‘m\"",
+        "check": "/currency\\s*=\\s*\"so‘m\"/.test(__code)",
+        "fail": "Qiymatni parametrlar ro‘yxatida bering: currency = \"so‘m\"."
+      },
+      {
+        "name": "square: 5 → 25, -3 → 9, 0 → 0",
+        "check": "square(5) === 25 && square(-3) === 9 && square(0) === 0",
+        "fail": "const square = (x) => x * x;"
+      },
+      {
+        "name": "square - konstantadagi strelkali funksiya",
+        "check": "/\\bconst\\s+square\\s*=\\s*\\(?\\s*\\w+\\s*\\)?\\s*=>/.test(__code)",
+        "fail": "Strelka bilan yozing: const square = (x) => ...;"
+      },
+      {
+        "name": "countVowels: \"JavaScript\" → 3, \"EDUCATION\" → 5, \"rhythm\" → 0, \"\" → 0",
+        "check": "countVowels(\"JavaScript\") === 3 && countVowels(\"EDUCATION\") === 5 && countVowels(\"rhythm\") === 0 && countVowels(\"\") === 0",
+        "fail": "Funksiya ichida hisoblagich, word bo‘yicha for...of, char.toLowerCase(), return count."
+      },
+      {
+        "name": "Funksiyalar natijani qaytaradi, chiqarmaydi",
+        "check": "(() => { const before = __logs.length; isEven(2); getGrade(80); formatPrice(1); square(2); countVowels(\"ab\"); return __logs.length === before; })()",
+        "fail": "Funksiya tanalaridan console.log ni olib tashlang - natija return orqali qaytariladi."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Kodda xato bor - uning matnini konsolda o‘qing."
+      }
+    ],
+    "hints": [
+      "Funksiya natija qaytaradi: return ...; return siz chaqiruv undefined beradi.",
+      "Juftlik: number % 2 === 0 - manfiylar uchun ham ishlaydi.",
+      "getGrade da erta chiqish qulay: if (score >= 90) { return 5; }",
+      "Standart qiymat: function formatPrice(amount, currency = \"so‘m\")",
+      "Strelka: const square = (x) => x * x;",
+      "Unlilar hisoblagichini funksiya ichida e’lon qiling, aks holda ikkinchi chaqiruv eski hisobni davom ettiradi."
+    ],
+    "solution": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
+    "wrong_solutions": [
+      {
+        "mistake": "boshlang‘ich kod o‘zgarishsiz",
+        "code": "// 1. function isEven(number)\n"
+      },
+      {
+        "mistake": "return o‘rniga console.log",
+        "code": "function isEven(number) {\n    console.log(number % 2 === 0);\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "toqlik % 2 === 1 orqali",
+        "code": "function isEven(number) {\n    return number % 2 !== 1;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "isEven function emas, strelka bilan",
+        "code": "const isEven = (number) => number % 2 === 0;\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "tekshirishlar tartibi noto‘g‘ri",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "standart qiymat yo‘q",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency) {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "return siz jingalak qavsli strelka",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => { x * x; };\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "square function e’loni bilan",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nfunction square(x) {\n    return x * x;\n}\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "hisoblagich funksiyadan tashqarida",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nlet count = 0;\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      },
+      {
+        "mistake": "funksiya ichida chiqarish",
+        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    console.log(amount);\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
+      }
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Nima chiqadi: function hi() { console.log(\"Salom\"); } hi; ",
+        "options": [
+          "Salom",
+          "Hech narsa: funksiya chaqirilmagan",
+          "undefined",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Chaqiruv - doim qavs bilan: hi()."
+      },
+      {
+        "type": "matching",
+        "question": "function greet(name) { ... } greet(\"Anna\"); yozuvida tushunchalarni moslashtiring.",
+        "pairs": [
+          [
+            "name",
+            "Parametr"
+          ],
+          [
+            "\"Anna\"",
+            "Argument"
+          ],
+          [
+            "greet(\"Anna\")",
+            "Chaqiruv"
+          ],
+          [
+            "{ ... }",
+            "Funksiya tanasi"
+          ]
+        ],
+        "explanation": "Parametr - e’londagi nom, argument - chaqiruvdagi qiymat."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: function f(x) { console.log(x * 2); } const r = f(5); console.log(r);",
+        "options": [
+          "10 va 10",
+          "10 va undefined",
+          "undefined va 10",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "f 10 ni chiqaradi, lekin hech narsa qaytarmaydi - r undefined ga teng."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi kalit so‘z funksiyadan natijani qaytaradi? Uni kiriting.",
+        "answers": [
+          "return"
+        ],
+        "case_sensitive": true,
+        "explanation": "return qiymat; - chaqiruv natijasi."
+      },
+      {
+        "type": "single",
+        "question": "getCost(150000) nimani qaytaradi? function getCost(t) { if (t >= 100000) { return 0; } return 15000; }",
+        "options": [
+          "0",
+          "15000",
+          "0 va 15000",
+          "undefined"
+        ],
+        "answer": 0,
+        "explanation": "return dan keyin funksiya tugaydi, ikkinchi qator bajarilmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: function price(a, c = \"so‘m\") { return `${a} ${c}`; } console.log(price(500));",
+        "options": [
+          "500 undefined",
+          "500 so‘m",
+          "500",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Argument berilmagan - standart qiymat ishlatiladi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar ikkilangan sonni qaytaradigan to‘g‘ri strelkali funksiyalar?",
+        "options": [
+          "const double = (n) => n * 2;",
+          "const double = (n) => { return n * 2; };",
+          "const double = (n) => { n * 2; };",
+          "const double = n => n * 2;"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Jingalak qavslar bilan aniq return kerak. Bitta parametr atrofidagi qavslarni tushirib qoldirish mumkin."
+      },
+      {
+        "type": "single",
+        "question": "Nima chiqadi: function calc() { const result = 42; } calc(); console.log(result);",
+        "options": [
+          "42",
+          "undefined",
+          "ReferenceError: result is not defined",
+          "null"
+        ],
+        "answer": 2,
+        "explanation": "Funksiya ichidagi o‘zgaruvchi tashqarida ko‘rinmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi funksiya sof?",
+        "options": [
+          "function add(a, b) { return a + b; }",
+          "function add(a) { total += a; }",
+          "function show(a) { console.log(a); }",
+          "function next() { counter++; return counter; }"
+        ],
+        "answer": 0,
+        "explanation": "Natija faqat argumentlarga bog‘liq, tashqarida hech narsa o‘zgarmaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi funksiya nomlari kurs uslubiga mos?",
+        "options": [
+          "getTotal",
+          "isEven",
+          "total",
+          "formatPrice"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Funksiya - amal: fe’l yoki is/has/can savoli. total - qiymat uchun nom."
+      },
+      {
+        "type": "input",
+        "question": "const square = (x) => x * x; bo‘lsa, square(-4) nimani qaytaradi? Sonni kiriting.",
+        "answers": [
+          "16"
+        ],
+        "case_sensitive": false,
+        "explanation": "-4 × -4 = 16."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifani vosita bilan moslashtiring.",
+        "pairs": [
+          [
+            "Natijani dasturga berish",
+            "return"
+          ],
+          [
+            "Qiymatni odamga ko‘rsatish",
+            "console.log"
+          ],
+          [
+            "Argument berilmasa qiymat qo‘yish",
+            "Standart qiymat"
+          ]
+        ],
+        "explanation": "return - dastur uchun, console.log - nosozliklarni tuzatish uchun."
+      }
+    ]
+  }
+}
