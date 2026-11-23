@@ -50,6 +50,8 @@ Answers are at the end of the lesson.
 | `localStorage` | The browser's memory |
 | JSON | An array to a string and back |
 | `try` / `catch` | An error does not break the page |
+| Asynchrony | Why the program waits for an answer |
+
 | `fetch` and `async` / `await` | Data from a file or a server |
 | Three states | Loading, error, empty |
 | Mini-task 2 | Remember the theme |
@@ -145,6 +147,33 @@ input[aria-invalid="true"] {
 
 > **Checking in the browser is for convenience, not protection.** Anyone can turn off JavaScript or send a request bypassing the form. Real data validation is always repeated on the server.
 
+### How the check works: a diagram
+
+```mermaid
+flowchart TD
+    A["The user clicked «Subscribe»"] --> B["preventDefault: the page does not reload"]
+    B --> C["Read value and remove spaces: trim"]
+    C --> D{"Is the field empty?"}
+    D -->|Yes| E["showError: «Enter your email»<br>and return"]
+    D -->|No| F{"Is there an @ sign?"}
+    F -->|No| G["showError: «The address must contain @»<br>and return"]
+    F -->|Yes| H["clearError, send, reset"]
+```
+
+**How to read the diagram.** The checks go one after another, like the `if` chain from Lesson 3. The first error found is shown, and the handler leaves at once with `return`. Only a form without errors reaches sending.
+
+### Common checks
+
+| What we check | Condition | Message |
+| --- | --- | --- |
+| The field is filled in | `value.trim() === ""` | "Enter your name" |
+| Minimum length | `value.trim().length < 2` | "The name must be at least 2 letters" |
+| A number in a range | `age < 7 \|\| age > 99`, where `age = Number(input.value)` | "Age - from 7 to 99" |
+| It is a number at all | `Number.isNaN(age)` | "Enter your age in digits" |
+| A checkbox is ticked | `!checkbox.checked` | "Please confirm your consent" |
+
+A field's value is **always a string**, even for `<input type="number">`. Before comparing it with a number, convert it with `Number()` - Lesson 2.
+
 ---
 
 ## Mini-task 1
@@ -173,6 +202,33 @@ To look at the storage: DevTools → **Application** → **Local Storage**.
 | Visible to any script on the page | **Never** store passwords, tokens, card data |
 | Tied to the browser | The data is not there on another device |
 
+### A typical scenario: remember a setting
+
+`localStorage` is almost always used in one pattern - **read on load, write on change**:
+
+```mermaid
+flowchart LR
+    A["The page has loaded"] --> B["getItem: anything saved?"]
+    B --> C["Apply it to the page"]
+    D["The user changed something"] --> E["Update the page"]
+    E --> F["setItem: save"]
+```
+
+An example with a visit counter. Remember: storage gives back a string or `null`.
+
+```js
+const saved = localStorage.getItem("visits");     // "3" or null
+const visits = saved === null ? 1 : Number(saved) + 1;
+localStorage.setItem("visits", String(visits));
+console.log(`You are here for time number ${visits}`);
+```
+
+| Page opening | `saved` | `visits` | What is written |
+| --- | --- | --- | --- |
+| First | `null` | 1 | `"1"` |
+| Second | `"1"` | 2 | `"2"` |
+| Third | `"2"` | 3 | `"3"` |
+
 ---
 
 ## JSON
@@ -196,6 +252,27 @@ console.log(saved[0]);                // "Read the lesson"
 | `JSON.parse(text)` | A string → an array / object |
 
 The JSON format is stricter than JavaScript: keys and strings use only double quotes, no trailing comma, no comments. Data from servers comes in JSON too.
+
+### The data's path there and back
+
+```mermaid
+flowchart LR
+    A["An array in the program<br>[«Read the lesson»]"] -->|"JSON.stringify"| B["A string<br>'[«Read the lesson»]'"]
+    B -->|"setItem"| C["localStorage"]
+    C -->|"getItem"| D["A string"]
+    D -->|"JSON.parse"| E["An array again"]
+```
+
+**How to read the diagram.** In storage data lies only as a string. So before writing, the array is "packed" into a string, and after reading it is "unpacked" back.
+
+| JavaScript object | JSON |
+| --- | --- |
+| `{ name: "Anna" }` - a key without quotes is fine | `{ "name": "Anna" }` - the key **only** in double quotes |
+| `'text'` - single quotes are fine | Only `"text"` |
+| A comma after the last element is fine | Not allowed |
+| Functions and `undefined` can be stored | Not allowed: they disappear |
+
+A common mistake is to forget `JSON.parse` and treat the string as an array: `saved[0]` gives the first **character** `"["`, not the first task.
 
 ---
 
@@ -227,6 +304,52 @@ You can "throw" your own error with `throw` - it will be useful below:
 ```js
 throw new Error("The server responded with an error");
 ```
+
+---
+
+## Asynchrony: why the program waits
+
+Until now every line ran instantly. A request to a server is different: the answer may come in 50 milliseconds, in 5 seconds or not at all. If the browser stood and waited, the page would "freeze": buttons would not press, scrolling would not work.
+
+**In simple terms:** a promise is a pager in a café. You place an order, they give you a pager and **do not keep you at the counter**: you can sit down, talk, look at your phone. When the order is ready, the pager vibrates - and you pick up your food. If the dish has run out, the pager tells you that too.
+
+| In the café | In JavaScript |
+| --- | --- |
+| Place an order | Call `fetch(url)` |
+| Get a pager | Get a **promise** |
+| Do your own things | The browser runs the rest of the code and reacts to clicks |
+| The pager buzzes: the order is ready | The promise is **fulfilled** - the answer has arrived |
+| The pager buzzes: no dish | The promise is **rejected** - a network error |
+| Go and pick it up | `await` - get the result |
+
+A promise has three states:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: fetch(url)
+    Pending --> Fulfilled: the answer arrived
+    Pending --> Rejected: no network
+    Fulfilled --> [*]: await returns response
+    Rejected --> [*]: await throws an error → catch
+```
+
+**How to read the diagram.** Right after `fetch` is called the promise is "pending". Then it moves into one of two final states and never changes again. `await` waits exactly for this move.
+
+### The order of execution
+
+The same effect as `setTimeout` in Lesson 5 - the code does **not stop** at the request:
+
+```js
+console.log("1. Starting the download");
+
+fetch("data/courses.json").then(() => {
+    console.log("3. The answer arrived");
+});
+
+console.log("2. The code goes on");
+```
+
+The console shows `1`, `2`, `3` - not in the order of the lines. The notation `.then(...)` is the older way to say "when the promise is fulfilled, call the function". In this course we use the clearer `await`: it lets you write asynchronous code from top to bottom, like ordinary code.
 
 ---
 
@@ -263,6 +386,33 @@ The `data/courses.json` file:
 ```
 
 > **`fetch` does not work with `file://`.** If you open the page by double-clicking it, the browser blocks the request. Run a local server: in VS Code - the **Live Server** extension (the "Go Live" button). On GitHub Pages everything just works.
+
+### What happens inside `loadCourses`: step by step
+
+| Step | Line | What happens | What the rest of the page does |
+| --- | --- | --- | --- |
+| 1 | `loadCourses();` | The function starts | - |
+| 2 | `await fetch(...)` | The request is sent, the function is **paused** | Works: clicks, scrolling, other code |
+| 3 | The answer arrives | The function continues, `response` holds the answer object | - |
+| 4 | `await response.json()` | The body is read and turned into an array | Works again |
+| 5 | `console.log(courses)` | The array is ready | - |
+
+The pause applies **only** to this function. That is why `await` is allowed only inside a function marked `async`: the browser must know which function may be paused.
+
+### What is in `response`
+
+| Property or method | Example value | Why |
+| --- | --- | --- |
+| `response.ok` | `true` | A quick check: all is well |
+| `response.status` | `200`, `404`, `500` | The exact response code |
+| `await response.json()` | An array or an object | The data from JSON |
+| `await response.text()` | A string | If plain text arrived |
+
+| Code | Meaning | What to tell the user |
+| --- | --- | --- |
+| `200` | All is fine | Show the data |
+| `404` | Address not found | "Data not found" |
+| `500` | An error on the server | "The service is temporarily unavailable" |
 
 ---
 
@@ -310,6 +460,29 @@ flowchart TD
 `fetch` itself only throws an error on a network problem. A `404` response is "a response with an error successfully received", so we check `response.ok` by hand and throw an error with `throw` to get into `catch`.
 
 Give the status element `role="status"` - the screen reader will announce "Loading..." and the error message.
+
+### Try to break it
+
+1. Remove `event.preventDefault()` from the `submit` handler. What happens to the page and to the console output?
+2. Save the array without `JSON.stringify`: `localStorage.setItem("todos", todos)`. Look in Application at what was written.
+3. Remove `await` before `fetch` and print `response`. What did you see instead of the answer?
+4. Change the address to `data/coursess.json`. Which of the three states did the page show, and what is the response `status`?
+5. In DevTools → **Network** choose **Offline** and reload the page. Did `catch` fire?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| The handler is on the button, not the form | Enter in a field does not send the form | `form.addEventListener("submit", ...)` |
+| No `preventDefault()` | The page reloads, the data is lost | The first line of the handler |
+| `input.value` without `trim()` | Spaces pass the emptiness check | `input.value.trim()` |
+| A number from a field without `Number()` | Comparison and addition work as with strings | `Number(input.value)` |
+| `setItem("todos", todos)` with an array | The string `"a,b"` was written, the structure is lost | `JSON.stringify(todos)` |
+| `getItem` without `JSON.parse` | We treat a string as an array | `JSON.parse(...)` inside `try / catch` |
+| No `response.ok` check | A `404` answer counts as success | `if (!response.ok) throw new Error(...)` |
+| `await` in an ordinary function | `SyntaxError` | `async function ...` |
+| The page is opened as `file://` | `fetch` is blocked | Live Server or GitHub Pages |
+| A password or token in `localStorage` | Any script on the page can read it | Do not keep secrets in the browser |
 
 ---
 

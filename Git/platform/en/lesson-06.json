@@ -1,0 +1,270 @@
+{
+  "lesson": 6,
+  "language": "en",
+  "lesson_title": "Branches",
+  "task": {
+    "title": "Three branches for the portfolio",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the ~/portfolio folder on the main branch, the history has 3 commits, and the heading in index.html has a typo: Ana instead of Anna. Write the commands one per line: 1) Look at the list of branches. 2) Create the feature/contacts branch from main and switch to it with one command. 3) Create the file contacts.html with the text <h1>Contacts</h1> and commit it. 4) Append the line <p>Email: anna@example.com</p> to contacts.html and make the second commit. 5) Go back to main and create the fix/titel branch (exactly with the typo in the name), switching to it. 6) Overwrite index.html with two lines: <h1>Anna Karimova</h1> and <p>Frontend developer</p> - and make a commit. 7) Rename the fix/titel branch to fix/title. 8) Go back to main, create the experiment branch, overwrite style.css with the line body { background: black; } and make a commit. 9) Go back to main and delete the experiment branch (it is not merged - you will need to force the deletion). 10) Look at the graph of all branches (git log --oneline --graph --all) and at git status. At the end you are on main, the repository has exactly three branches: main, feature/contacts, fix/title, the working directory is clean, and main itself has not changed.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in the ~/portfolio folder on the main branch, the history has 3 commits.\n\n# 1. Look at the list of branches\n\n# 2. Create the feature/contacts branch and switch to it\n\n# 3. Commit 1: the file contacts.html with the heading <h1>Contacts</h1>\n\n# 4. Commit 2: append a line with the email to contacts.html\n\n# 5. Go back to main and create the fix/titel branch (with the typo!)\n\n# 6. Overwrite index.html: <h1>Anna Karimova</h1> and <p>Frontend developer</p>, commit\n\n# 7. Rename the fix/titel branch to fix/title\n\n# 8. From main: the experiment branch, one commit in style.css\n\n# 9. Go back to main and delete experiment (it is not merged!)\n\n# 10. Look at the graph of all branches and at git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Ana Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "The feature/contacts branch: exactly 2 new commits on top of main",
+        "check": "repo !== null && repo.tip(\"feature/contacts\") !== null && repo.isAncestor(\"main\", \"feature/contacts\") && repo.log(\"feature/contacts\").length === repo.log(\"main\").length + 2",
+        "fail": "Create the branch from main while you are on main (git switch -c feature/contacts) and make exactly two commits in it."
+      },
+      {
+        "name": "Both commits of feature/contacts change contacts.html",
+        "check": "(() => { const a = repo.commit(\"feature/contacts\"), b = repo.commit(\"feature/contacts~1\"); return typeof b.files[\"contacts.html\"] === \"string\" && b.files[\"contacts.html\"].includes(\"<h1>Contacts</h1>\") && typeof a.files[\"contacts.html\"] === \"string\" && a.files[\"contacts.html\"] !== b.files[\"contacts.html\"] && a.files[\"contacts.html\"].split(\"\\n\").filter((s) => s.trim()).length >= 2; })()",
+        "fail": "Commit 1 is the new file contacts.html with <h1>Contacts</h1> (do not forget git add). Commit 2 is the email line appended with >>."
+      },
+      {
+        "name": "The fix/title branch: one commit right from main with the fixed heading",
+        "check": "repo.tip(\"fix/title\") !== null && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<p>Frontend developer</p>\") && repo.commit(\"fix/title\").files[\"index.html\"] !== repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "Before creating fix/titel, go back to main (git switch main). The branch has one commit: index.html with <h1>Anna Karimova</h1> and <p>Frontend developer</p>."
+      },
+      {
+        "name": "The branch was created as fix/titel and renamed - fix/titel no longer exists",
+        "check": "repo.reflog().includes(\"checkout: moving from main to fix/titel\") && !repo.branches().includes(\"fix/titel\")",
+        "fail": "Create the branch exactly with the typo: git switch -c fix/titel. Then rename it: git branch -m fix/title (do not create a second branch)."
+      },
+      {
+        "name": "main has not changed: it has no commits from other branches",
+        "check": "repo.tip(\"main\") !== null && !repo.isAncestor(\"feature/contacts\", \"main\") && !repo.isAncestor(\"fix/title\", \"main\") && repo.log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "Commits must be made in the new branches, not on main: git branch only creates a branch, git switch switches to it (or git switch -c does both)."
+      },
+      {
+        "name": "The experiment branch had a commit, and the branch is deleted",
+        "check": "(() => { const r = repo.reflog(); const i = r.indexOf(\"checkout: moving from main to experiment\"); return i > 0 && r.slice(0, i).some((m, k) => m.startsWith(\"commit\") && r.slice(k + 1, i).every((x) => !x.startsWith(\"checkout\"))) && !repo.branches().includes(\"experiment\"); })()",
+        "fail": "Create experiment from main, make a commit in it, go back to main and delete the branch: git branch -d will refuse, you need git branch -D experiment."
+      },
+      {
+        "name": "The repository has exactly three branches: main, feature/contacts, fix/title",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"])",
+        "fail": "Look at git branch: delete extra branches, create missing ones, fix the typo in the name with git branch -m."
+      },
+      {
+        "name": "You finished on the main branch",
+        "check": "repo.branch === \"main\"",
+        "fail": "With your last switch, go back to main: git switch main."
+      },
+      {
+        "name": "The working directory is clean",
+        "check": "repo.status().clean",
+        "fail": "All changes must be committed in their branches: git status on main must answer nothing to commit, working tree clean."
+      },
+      {
+        "name": "On main the working directory has no contacts.html, and index.html is the main version",
+        "check": "!sim.exists(\"~/portfolio/contacts.html\") && sim.read(\"~/portfolio/index.html\") === repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "contacts.html will appear on main only after a merge (lesson 7). If the file is still there, it was not committed in feature/contacts."
+      },
+      {
+        "name": "git log --oneline --graph --all was run",
+        "check": "__commands.some((c) => /^git log\\b/.test(c.cmd) && c.cmd.includes(\"--graph\") && c.cmd.includes(\"--all\"))",
+        "fail": "Look at the graph of all branches: git log --oneline --graph --all."
+      },
+      {
+        "name": "A different project (4 commits on main): the branches and main are checked again",
+        "check": "repo.branch === \"main\" && repo.status().clean && JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"]) && repo.log(\"main\").length === 4 && repo.log(\"feature/contacts\").length === 6 && repo.isAncestor(\"main\", \"feature/contacts\") && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && !sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "The solution must work for any history of main: create branches from main and do not change main.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna Karimowa</h1>\" > index.html\necho \"<p>Web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: #222; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<h1>About me</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\n`, { quiet: true });\n"
+      },
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in the echo commands."
+      }
+    ],
+    "hints": [
+      "Create a branch and switch to it at once: git switch -c feature/contacts. A plain git branch name creates the branch but does not switch to it.",
+      "A new file must be added before the first commit: git add contacts.html. The second commit can be made with git commit -am.",
+      "Create every new branch from main: first git switch main, then git switch -c name.",
+      "Rename the current branch: git branch -m fix/title - run it while you are on fix/titel.",
+      "git branch -d experiment will refuse to delete an unmerged branch (not fully merged). To force it: git branch -D experiment. You cannot delete the branch you are on - first git switch main."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is a branch in Git?",
+        "options": [
+          "A full copy of all project files in a separate folder",
+          "A movable pointer (bookmark) to a commit",
+          "A separate repository inside .git",
+          "A list of modified files"
+        ],
+        "answer": 1,
+        "explanation": "A branch is just a name that points to a commit. Creating a branch means writing a new bookmark, no files are copied."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git branch\n  feature/contacts\n* main\n  fix/title",
+        "options": [
+          "You are on the feature/contacts branch",
+          "You are on the main branch, there are three branches in total",
+          "The main branch is deleted",
+          "main is the only branch with commits"
+        ],
+        "answer": 1,
+        "explanation": "The asterisk * marks the current branch - the one HEAD points to."
+      },
+      {
+        "type": "input",
+        "question": "Enter the whole command: create the feature/menu branch and switch to it at once (with the modern command).",
+        "answers": [
+          "git switch -c feature/menu"
+        ],
+        "case_sensitive": true,
+        "explanation": "git switch -c = git branch feature/menu + git switch feature/menu. The old form is git checkout -b feature/menu."
+      },
+      {
+        "type": "matching",
+        "question": "Match the command with the result.",
+        "pairs": [
+          [
+            "git branch -d old",
+            "Delete a branch if its commits are already merged"
+          ],
+          [
+            "git branch -D old",
+            "Force-delete a branch, even with unmerged commits"
+          ],
+          [
+            "git branch -m new",
+            "Rename the current branch"
+          ],
+          [
+            "git switch -",
+            "Go back to the previous branch"
+          ]
+        ],
+        "explanation": "-d is a safe deletion, -D is a forced one, -m is renaming (move), switch - jumps back like cd -."
+      },
+      {
+        "type": "single",
+        "question": "You are on main. You ran git branch feature/blog and made a commit right away. Where will the commit be?",
+        "options": [
+          "In the feature/blog branch",
+          "In the main branch",
+          "In both branches",
+          "Git will show an error"
+        ],
+        "answer": 1,
+        "explanation": "git branch only creates a branch and does not switch to it. HEAD still points to main, so the commit goes there."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git branch -d experiment\nerror: the branch 'experiment' is not fully merged\nhint: If you are sure you want to delete it, run 'git branch -D experiment'",
+        "options": [
+          "The branch is deleted",
+          "The branch is not deleted: it has commits that are not in the current branch",
+          "The experiment branch does not exist",
+          "You must switch to experiment first"
+        ],
+        "answer": 1,
+        "explanation": "-d protects you from losing work. If you really do not need the commits - git branch -D experiment."
+      },
+      {
+        "type": "multiple",
+        "question": "You are on feature/contacts, where contacts.html is committed. You ran git switch main. What will happen?",
+        "options": [
+          "contacts.html will disappear from the working directory",
+          "The commits of the feature/contacts branch will be deleted",
+          "HEAD will point to main",
+          "The files in the folder will be as in the last commit of main"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Switching makes the files in the folder match the snapshot of the other branch. The commits of feature/contacts stay in the repository - go back to the branch, and the file appears again."
+      },
+      {
+        "type": "single",
+        "question": "You changed style.css (without committing) on main and ran git switch feature/contacts. style.css is the same in both branches. What will happen?",
+        "options": [
+          "An error: commit the changes first",
+          "The switch will work, and the change in style.css will move with you",
+          "The change will be lost",
+          "Git will make a commit automatically"
+        ],
+        "answer": 1,
+        "explanation": "Uncommitted changes belong to the working directory, not to a branch. If the file is the same in the branches, Git carries the changes over. The would be overwritten error happens when the file differs between the branches."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git status\nHEAD detached at c0adb88",
+        "options": [
+          "The repository is broken",
+          "HEAD points right to a commit, not to a branch",
+          "The branch c0adb88 is created",
+          "The commit c0adb88 is deleted"
+        ],
+        "answer": 1,
+        "explanation": "A detached HEAD means you are looking at an old commit. To go back: git switch main; to keep the commits made here: git switch -c new-branch."
+      },
+      {
+        "type": "multiple",
+        "question": "Which branch names are good according to the common rules?",
+        "options": [
+          "feature/contact-form",
+          "fix/header-typo",
+          "New branch",
+          "my branch",
+          "feature/dark-theme"
+        ],
+        "answer": [
+          0,
+          1,
+          4
+        ],
+        "explanation": "Latin letters, lowercase, hyphens instead of spaces, a feature/ or fix/ prefix. Git does not accept spaces at all: is not a valid branch name."
+      },
+      {
+        "type": "matching",
+        "question": "Match the old git checkout command with the modern one.",
+        "pairs": [
+          [
+            "git checkout main",
+            "git switch main"
+          ],
+          [
+            "git checkout -b feature/x",
+            "git switch -c feature/x"
+          ],
+          [
+            "git checkout c0adb88",
+            "git switch --detach c0adb88"
+          ],
+          [
+            "git checkout -- index.html",
+            "git restore index.html"
+          ]
+        ],
+        "explanation": "checkout can do everything at once, so it was split into switch (branches) and restore (files). You will meet the old form in other people's instructions."
+      },
+      {
+        "type": "input",
+        "question": "Enter the whole command: show the one-line history of all branches with a graph.",
+        "answers": [
+          "git log --oneline --graph --all",
+          "git log --oneline --all --graph",
+          "git log --graph --oneline --all",
+          "git log --graph --all --oneline",
+          "git log --all --oneline --graph",
+          "git log --all --graph --oneline"
+        ],
+        "case_sensitive": true,
+        "explanation": "--all shows all branches, not only the current one; --graph shows the branch lines on the left; --oneline shows each commit on one line."
+      }
+    ]
+  }
+}

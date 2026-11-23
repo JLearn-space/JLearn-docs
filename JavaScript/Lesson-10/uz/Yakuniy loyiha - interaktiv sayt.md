@@ -1,6 +1,6 @@
 # Yakuniy loyiha - interaktiv sayt
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Formalar,%20ma'lumotlarni%20saqlash%20va%20so'rovlar.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](../en/Final%20project%20-%20an%20interactive%20website.md) · [UZ](Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Formalar,%20ma'lumotlarni%20saqlash%20va%20so'rovlar.md) · [Keyingi kurs: jQuery →](https://github.com/JLearn-space/JLearn-docs/tree/main/jQuery) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](../en/Final%20project%20-%20an%20interactive%20website.md) · [UZ](Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
 
 > **Barcha kurslar bilan bog‘liqlik:** HTML kursida to‘rt sahifali sayt qurdingiz, CSS kursida uni bezadingiz. Endi sayt jonlanadi: telefondagi menyu, eslab qolinadigan qorong‘i mavzu, ma’lumotlar faylidan filtr bilan yuklanadigan tadbirlar ro‘yxati va tekshiruvli forma. Oxirida yangilanishni GitHub Pages’da e’lon qilasiz.
 
@@ -21,6 +21,8 @@ Dars natijasi - ko‘rsatishdan uyalmaydigan portfolio sayti.
 - Loyihani yig‘ish: menyu, mavzu, filtrli ma’lumotlar, forma.
 - JavaScript’siz ham ishlaydigan sayt yaratish.
 - DevTools’da kodni tuzatish: konsol, to‘xtash nuqtalari, `debugger`.
+- Konsoldagi xato xabarlarini o‘qish va sababni qayerdan qidirishni tushunish.
+
 - E’lon qilishdan oldin saytni tekshirish va GitHub Pages’ni yangilash.
 
 ---
@@ -79,6 +81,27 @@ Kod yozishdan oldin har bir o‘zaro ta’sirni jadvalda tasvirlang. Bu HTML kur
 | `#contact-form` | `submit` | Maydonlardagi xatolar yoki minnatdorchilik | `aria-invalid`, `role="status"` | Yo‘q |
 
 Jadval qatorini to‘ldirib bo‘lmasa - demak, xatti-harakat hali o‘ylab chiqilmagan. «O‘qish dasturi uchun holat» ustuni qulaylikni koddan keyin emas, oldin eslatadi.
+
+### Bitta o‘zaro ta’sir boshidan oxirigacha
+
+Jadvalning har bir qatori - 7–9-darslardagi o‘sha zanjir: **hodisa → holatni o‘zgartirish → sahifani yangilash → (saqlash)**. Mana mavzu haqidagi qator:
+
+```mermaid
+sequenceDiagram
+    participant U as Foydalanuvchi
+    participant B as Mavzu tugmasi
+    participant JS as theme.js
+    participant P as Sahifa
+    participant S as localStorage
+    U->>B: click
+    B->>JS: ishlovchini chaqirish
+    JS->>P: classList.toggle("theme-dark")
+    JS->>B: aria-pressed = "true"
+    JS->>S: setItem("theme", "dark")
+    Note over JS,S: keyingi yuklanishda<br>initTheme getItem("theme") ni o‘qiydi
+```
+
+**Sxemani qanday o‘qish kerak.** Vaqt yuqoridan pastga boradi, strelkalar - kim kimga nima uzatadi. Ishlovchi tashqi ko‘rinishni **ham**, ekran o‘qiydigan dastur uchun atributni **ham**, xotirani **ham** o‘zgartiradi. Qadamlardan birini unutsangiz, eslab qolinmaydigan mavzu yoki holatini ekran o‘qiydigan dastur bilmaydigan tugma hosil bo‘ladi.
 
 ---
 
@@ -164,6 +187,29 @@ export function initContactForm() {
 ```
 
 Shunda qolgan sahifalarda konsolda `null` xatolari bo‘lmaydi.
+
+### Modullar o‘zaro qanday bog‘langan
+
+```mermaid
+flowchart TD
+    H["index.html<br>script type=module"] --> M["main.js"]
+    M -->|"import initMenu"| A["menu.js"]
+    M -->|"import initTheme"| B["theme.js"]
+    M -->|"import initEvents"| C["events.js"]
+    M -->|"import initContactForm"| D["form.js"]
+    C -->|"fetch"| J["data/events.json"]
+    B -->|"getItem / setItem"| S["localStorage"]
+```
+
+**Sxemani qanday o‘qish kerak.** HTML faqat `main.js` haqida biladi. Qolgan fayllarni brauzer `import` ga ergashib o‘zi yuklaydi. Strelkalar bir tomonga boradi: `menu.js` `theme.js` haqida hech narsa bilmaydi, shuning uchun bitta moduldagi xatoni boshqalariga tegmasdan oson topish mumkin.
+
+| Modullar bilan xato | Console dagi xabar | Qanday tuzatish |
+| --- | --- | --- |
+| `type="module"` yo‘q | `Cannot use import statement outside a module` | `<script type="module" src="js/main.js">` |
+| Yo‘l `./` siz yoki `.js` siz | `Failed to resolve module specifier` | `import { initMenu } from "./menu.js"` |
+| Funksiya oldida `export` unutilgan | `does not provide an export named` | `export function initMenu() {...}` |
+| Fayl nomida xato | Network yorlig‘ida `404` | Fayl nomi va yo‘lni solishtirish |
+| Sahifa `file://` sifatida ochilgan | CORS xatosi | Live Server |
 
 ---
 
@@ -357,6 +403,34 @@ JavaScript’siz `<html>` da `js` klassi yo‘q - menyu shunchaki ochiq, barcha 
 
 Xatoni qidirish tartibi: Console dagi xabarni o‘qish → qatorga o‘tish → biroz yuqoriroqqa to‘xtash nuqtasi qo‘yish → o‘zgaruvchilar qiymatini ko‘rish → qiymat birinchi marta kutilgandan boshqacha bo‘lgan joyni topish.
 
+### Xatoni qidirish tartibi: sxema
+
+```mermaid
+flowchart TD
+    A["Nimadir ishlamayapti"] --> B{"Console da qizil qator bormi?"}
+    B -->|Ha| C["Xabarni o‘qish,<br>fayl va qatorni bosish"]
+    B -->|Yo‘q| D{"Ishlovchi umuman chaqiriladimi?"}
+    D -->|"Bilmayman"| E["Ishlovchi boshida console.log"]
+    E --> D
+    D -->|Yo‘q| F["Selektor va hodisa nomini tekshirish"]
+    D -->|Ha| G["Ishlovchida to‘xtash nuqtasi"]
+    C --> G
+    G --> H["F10 bilan qadamma-qadam yurish,<br>qiymatlarni ko‘rish"]
+    H --> I["Qiymat birinchi marta<br>noto‘g‘ri bo‘lgan qatorni topish"]
+```
+
+### Xato xabarlarini qanday o‘qish kerak
+
+| Xabar | Oddiy so‘z bilan ma’nosi | Qayerdan qidirish |
+| --- | --- | --- |
+| `Cannot read properties of null (reading 'addEventListener')` | `querySelector` hech narsa topmadi | Selektor va element shu sahifada borligi |
+| `X is not defined` | O‘zgaruvchi e’lon qilinmagan yoki xato yozilgan | O‘zgaruvchi nomi, `import` |
+| `X is not a function` | Funksiya bo‘lmagan narsani chaqiryapsiz | Qavslar, metod nomi, `export` |
+| `Assignment to constant variable` | `const` ni o‘zgartiryapsiz | `let` kerak - yoki yangi o‘zgaruvchi |
+| `Unexpected token` | Sintaksis: qavs, vergul, qo‘shtirnoq | Xabardagi qator va undan yuqoridagi qator |
+| `Failed to fetch` | So‘rov yetib bormadi | `file://`, manzil, tarmoq |
+| `Unexpected token '<' ... is not valid JSON` | JSON o‘rniga HTML sahifa keldi (ko‘pincha 404) | Network yorlig‘ida `.json` ga yo‘l |
+
 ---
 
 ## Qabul qilish
@@ -405,6 +479,30 @@ git push
 | `js/Menu.js` da 404 | GitHub Pages registrni farqlaydi: `Menu.js` va `menu.js` - turli fayllar |
 | `fetch` ma’lumotlarni topmaydi | Yo‘l `/` bilan boshlanadi: Pages’da sayt repozitoriyning ichki papkasida turadi. Nisbiy yo‘llardan foydalaning: `data/events.json` |
 | Skriptning eski versiyasi | Brauzer keshi: **Ctrl+Shift+R** bilan yangilang |
+
+### Buzib ko‘ring (topshirishdan oldin)
+
+Yaxshi loyiha kutilmagan holatlarga bardosh beradi. Saytingizni navbat bilan tekshiring:
+
+1. JavaScript ni o‘chiring (DevTools → **Ctrl+Shift+P** → «Disable JavaScript»). Menyu, matn va havolalar mavjudmi?
+2. `data/events.json` nomini o‘zgartiring. Sahifa bo‘shliq o‘rniga tushunarli xato xabarini ko‘rsatadimi?
+3. Local Storage ni tozalang va sahifani yangilang. Standart mavzu xatolarsiz qo‘llandimi?
+4. Bo‘sh formani, keyin ism o‘rniga bo‘shliqli formani yuboring. Maydonlar yonida xabarlar ko‘rinadimi?
+5. Saytni faqat klaviatura bilan aylanib chiqing: Tab, Enter, Escape. Menyuni ochib-yopish, filtrni almashtirish mumkinmi?
+6. Forma va tadbirlar ro‘yxati bo‘lmagan «Biz haqimizda» sahifasini oching. Console tozami?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `init...` funksiyasi element bor-yo‘qligini tekshirmaydi | Formasiz sahifalarda Console da: `Cannot read properties of null (reading 'addEventListener')` | Funksiya boshida `if (!form) { return; }` |
+| `.site-nav` CSS da `js` klassisiz yashirilgan | JavaScript’siz navigatsiyani ochib bo‘lmaydi | Faqat `.js .site-nav` ostida yashiring |
+| `is-open` klassi o‘zgaradi, `aria-expanded` esa yo‘q | O‘qish dasturi doim menyu yopiq deb aytadi | Ikkalasini bitta `setOpen` funksiyasida o‘zgartiring |
+| Escape dan keyin fokus qaytmaydi | Klaviatura foydalanuvchisi sahifada «adashib qoladi» | Menyu yopilgandan keyin `toggle.focus()` |
+| `getItem("theme") === true` | Qayta yuklangandan keyin mavzu doim och rangda | `localStorage` satrlarni saqlaydi: `=== "dark"` |
+| `renderEvents` da `container.textContent = ""` yo‘q | Filtrning har bir bosilishida kartochkalar eskilariga qo‘shiladi | Chizishdan oldin konteynerni tozalang |
+| `try / catch` siz `fetch` | Console da `Uncaught (in promise) TypeError: Failed to fetch`, holat abadiy «Yuklanmoqda...» | `try / catch` va `#events-status` da tushunarli matn |
+| Unutilgan `console.log` va `debugger;` | Console axlatga to‘ladi, DevTools ochiq bo‘lsa kod to‘xtaydi | Topshirishdan oldin o‘chiring |
 
 ---
 
@@ -512,4 +610,4 @@ Yangi kurslarni [jlearn.space](https://jlearn.space) da kuzatib boring.
 
 ---
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Formalar,%20ma'lumotlarni%20saqlash%20va%20so'rovlar.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](../en/Final%20project%20-%20an%20interactive%20website.md) · [UZ](Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Formalar,%20ma'lumotlarni%20saqlash%20va%20so'rovlar.md) · [Keyingi kurs: jQuery →](https://github.com/JLearn-space/JLearn-docs/tree/main/jQuery) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](../en/Final%20project%20-%20an%20interactive%20website.md) · [UZ](Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)

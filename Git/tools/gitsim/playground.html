@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Учебный терминал Git - JLearn</title>
+    <style>
+        :root {
+            --bg: #0f1419;
+            --panel: #161b22;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --accent: #3fb950;
+            --prompt: #58a6ff;
+            --error: #ff7b72;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: system-ui, sans-serif;
+        }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background-color: var(--panel);
+            border-bottom: 1px solid #30363d;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        button {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #30363d;
+            border-radius: 0.4rem;
+            background-color: #21262d;
+            color: var(--text);
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:hover,
+        button:focus-visible {
+            border-color: var(--prompt);
+        }
+
+        #screen {
+            flex: 1;
+            margin: 0;
+            padding: 1rem;
+            overflow-y: auto;
+            font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .cmd {
+            color: var(--prompt);
+        }
+
+        .err {
+            color: var(--error);
+        }
+
+        form {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+            padding: 0.75rem 1rem;
+            background-color: var(--panel);
+            border-top: 1px solid #30363d;
+        }
+
+        label {
+            color: var(--accent);
+            font-family: ui-monospace, Menlo, monospace;
+            white-space: nowrap;
+            padding-bottom: 0.45rem;
+        }
+
+        textarea {
+            flex: 1;
+            min-height: 2.4rem;
+            max-height: 40vh;
+            padding: 0.45rem 0.6rem;
+            border: 1px solid #30363d;
+            border-radius: 0.4rem;
+            background-color: var(--bg);
+            color: var(--text);
+            font: 0.9rem ui-monospace, Menlo, monospace;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Учебный терминал Git</h1>
+            <p>Симулятор курса «Git: за 10 уроков». Всё хранится в памяти страницы: обновление страницы начинает заново.</p>
+        </div>
+        <div>
+            <button type="button" id="reset">Начать заново</button>
+            <button type="button" id="help">Подсказка</button>
+        </div>
+    </header>
+    <pre id="screen" aria-live="polite"></pre>
+    <form id="form">
+        <label for="input" id="prompt">student:~$</label>
+        <textarea id="input" rows="1" spellcheck="false" autocomplete="off" placeholder="git --version   (Enter - выполнить, Shift+Enter - новая строка)"></textarea>
+        <button type="submit">Выполнить</button>
+    </form>
+
+    <script src="gitsim.js"></script>
+    <script>
+        const screen = document.querySelector("#screen");
+        const input = document.querySelector("#input");
+        const prompt = document.querySelector("#prompt");
+        const history = [];
+        let historyPos = 0;
+        let sim = createSim();
+
+        function createSim() {
+            const created = new GitSim({ lang: document.documentElement.lang });
+            created.createRemote("https://github.com/student/site.git");
+            return created;
+        }
+
+        function shortCwd() {
+            return sim.cwd.replace(/^\/home\/student/, "~");
+        }
+
+        function render() {
+            screen.textContent = "";
+            for (const line of sim.output.split("\n")) {
+                const row = document.createElement("div");
+                row.textContent = line || " ";
+                if (line.startsWith("$ ") || line.startsWith("> ")) row.className = "cmd";
+                else if (/^(fatal|error|bash):/.test(line)) row.className = "err";
+                screen.append(row);
+            }
+            prompt.textContent = `student:${shortCwd()}$`;
+            screen.scrollTop = screen.scrollHeight;
+        }
+
+        function execute() {
+            const text = input.value.replace(/\s+$/, "");
+            if (!text) return;
+            history.push(text);
+            historyPos = history.length;
+            sim.run(text);
+            input.value = "";
+            render();
+        }
+
+        document.querySelector("#form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            execute();
+        });
+
+        input.addEventListener("keydown", (event) => {
+            const multiline = input.value.includes("<<");
+            if (event.key === "Enter" && ((!event.shiftKey && !multiline) || event.ctrlKey || event.metaKey)) {
+                event.preventDefault();
+                execute();
+            } else if (event.key === "ArrowUp" && !input.value.includes("\n") && historyPos > 0) {
+                historyPos -= 1;
+                input.value = history[historyPos];
+                event.preventDefault();
+            } else if (event.key === "ArrowDown" && !input.value.includes("\n") && historyPos < history.length) {
+                historyPos += 1;
+                input.value = history[historyPos] ?? "";
+                event.preventDefault();
+            }
+        });
+
+        document.querySelector("#reset").addEventListener("click", () => {
+            sim = createSim();
+            render();
+            input.focus();
+        });
+
+        document.querySelector("#help").addEventListener("click", () => {
+            sim.output += [
+                "# Попробуйте по очереди:",
+                "#   git config --global user.name \"Ваше Имя\"",
+                "#   git config --global user.email \"you@example.com\"",
+                "#   git config --global init.defaultBranch main",
+                "#   mkdir site && cd site && git init",
+                "#   echo \"<h1>Hello</h1>\" > index.html",
+                "#   git add . && git commit -m \"Add home page\"",
+                "#   git remote add origin https://github.com/student/site.git",
+                "#   git push -u origin main",
+                "# Несколько строк (cat > файл << 'EOF' ... EOF) - через Shift+Enter, выполнить - Ctrl+Enter или кнопкой.",
+                "",
+            ].join("\n");
+            render();
+        });
+
+        render();
+        input.focus();
+    </script>
+</body>
+</html>

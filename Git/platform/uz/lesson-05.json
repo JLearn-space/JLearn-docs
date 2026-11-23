@@ -1,0 +1,270 @@
+{
+  "lesson": 5,
+  "language": "uz",
+  "lesson_title": "Fayllarni e’tiborsiz qoldirish va loyihada tartib",
+  "task": {
+    "title": "Portfolioda tartib o‘rnatamiz",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasidasiz. Tarixda allaqachon 3 ta kommit bor va ulardan birida xato tufayli ma’lumotlar bazasi paroli yozilgan config.env kommit qilingan. Yonida axlat yotibdi: node_modules/, dist/, debug.log, .DS_Store. Buyruqlarni har qatorga bittadan yozing: 1) Repozitoriy holatini ko‘ring. 2) node_modules/, dist/, barcha *.log fayllarini, .env va config.env sir fayllarini va istalgan papkadagi .DS_Store ni yashiradigan .gitignore yarating. 3) config.env ni fayl diskda qoladigan qilib kuzatuvdan chiqaring. 4) README.md yarating: birinchi qator - # Portfolio sarlavhasi, pastda loyiha tavsifi yozilgan qator. 5) about.htm ni Git vositalari bilan about.html deb qayta nomlang. 6) .gitignore va README.md ni indeksga qo‘shing va kommit qiling. 7) Ishchi papka toza ekaniga ishonch hosil qiling. Oldingi kommitlarni o‘zgartirmang.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasidasiz. Parolli config.env allaqachon tarixda,\n# yonida node_modules/, dist/, debug.log, .DS_Store yotibdi.\n\n# 1. Repozitoriy holatini ko‘ring\n\n# 2. .gitignore yarating: node_modules/, dist/, *.log, .env, config.env, .DS_Store\n\n# 3. config.env ni kuzatuvdan chiqaring (fayl diskda qolishi kerak)\n\n# 4. README.md yarating: # sarlavhasi va tavsif qatori\n\n# 5. about.htm ni Git vositalari bilan about.html deb qayta nomlang\n\n# 6. .gitignore va README.md ni indeksga qo‘shing va kommit qiling\n\n# 7. Ishchi papka toza ekaniga ishonch hosil qiling\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=qwerty123\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\nmkdir -p node_modules/lodash && echo \"module.exports = {};\" > node_modules/lodash/index.js\necho \"Error: cannot connect to database\" > debug.log\nmkdir dist && echo \"body{margin:0}\" > dist/style.min.css\necho \"mac\" > .DS_Store\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": ".gitignore fayli oxirgi kommitda bor",
+        "check": "repo !== null && repo.commit(\"HEAD\").files[\".gitignore\"] !== undefined",
+        "fail": ".gitignore ni indeksga qo‘shing (git add .gitignore) va uni kommit qiling - qoidalar repozitoriyda saqlanishi kerak."
+      },
+      {
+        "name": "node_modules/ bog‘liqliklari va dist/ yig‘masi e’tiborsiz qoldiriladi",
+        "check": "repo.isIgnored(\"node_modules/lodash/index.js\") && repo.isIgnored(\"src/node_modules/x.js\") && repo.isIgnored(\"dist/style.min.css\") && repo.isIgnored(\"dist/js/app.js\")",
+        "fail": ".gitignore da ikkita qator: node_modules/ va dist/ - oxirida slesh bilan va xatosiz."
+      },
+      {
+        "name": "Barcha .log fayllari e’tiborsiz qoldiriladi",
+        "check": "repo.isIgnored(\"debug.log\") && repo.isIgnored(\"logs/error.log\")",
+        "fail": "*.log shabloni - yulduzcha istalgan nomni almashtiradi."
+      },
+      {
+        "name": "Sirlar e’tiborsiz qoldiriladi: config.env va .env",
+        "check": "repo.isIgnored(\"config.env\") && repo.isIgnored(\".env\")",
+        "fail": ".gitignore ga ikkita qator qo‘shing: .env va config.env."
+      },
+      {
+        "name": ".DS_Store istalgan papkada e’tiborsiz qoldiriladi",
+        "check": "repo.isIgnored(\".DS_Store\") && repo.isIgnored(\"css/.DS_Store\")",
+        "fail": "Boshida slesh bo‘lmagan .DS_Store qatori - shunda shablon barcha papkalarda ishlaydi."
+      },
+      {
+        "name": "Kerakli fayllar e’tiborsiz qoldirilmaydi",
+        "check": "[\"index.html\", \"about.html\", \"css/style.css\", \"README.md\", \".gitignore\"].every((p) => !repo.isIgnored(p))",
+        "fail": "Shablon juda keng: .gitignore da * yoki *.html kabi qatorlar yo‘qligini tekshiring."
+      },
+      {
+        "name": "config.env endi kuzatilmaydi, lekin diskda qoldi",
+        "check": "repo.commit(\"HEAD\").files[\"config.env\"] === undefined && repo.index()[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=qwerty123\\n\"",
+        "fail": "git rm --cached config.env kerak: --cached siz Git faylning o‘zini ham diskdan o‘chiradi."
+      },
+      {
+        "name": "Axlat kommitga tushmadi",
+        "check": "Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"node_modules/\") && !p.startsWith(\"dist/\") && !p.endsWith(\".log\") && !p.endsWith(\".DS_Store\"))",
+        "fail": "Avval .gitignore, keyin git add. Agar axlat allaqachon indeksda bo‘lsa - git rm -r --cached papka."
+      },
+      {
+        "name": "README.md kommit qilingan: sarlavha va tavsif",
+        "check": "typeof repo.commit(\"HEAD\").files[\"README.md\"] === \"string\" && repo.commit(\"HEAD\").files[\"README.md\"].startsWith(\"# \") && repo.commit(\"HEAD\").files[\"README.md\"].split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "README.md: birinchi qator - # Portfolio ko‘rinishidagi sarlavha, pastda kamida bitta tavsif qatori. cat > README.md << 'EOF' dan foydalaning."
+      },
+      {
+        "name": "about.htm about.html deb qayta nomlangan",
+        "check": "repo.commit(\"HEAD\").files[\"about.htm\"] === undefined && repo.commit(\"HEAD\").files[\"about.html\"] === \"<h1>About me</h1>\\n\"",
+        "fail": "git mv about.htm about.html, keyin kommit."
+      },
+      {
+        "name": "Tarix qayta yozilmagan: eski kommitlar joyida",
+        "check": "[\"Add home page\", \"Add database config\", \"Add about page\"].every((s) => repo.log().some((c) => c.subject === s)) && repo.log().length >= 4",
+        "fail": "Oldingi kommitlarni o‘chirmang va o‘zgartirmang: o‘zgarishlar - ustidan yangi kommit bilan."
+      },
+      {
+        "name": "Ishchi papka toza",
+        "check": "repo.status().clean",
+        "fail": "Kommitdan keyin git status shunday javob berishi kerak: nothing to commit, working tree clean. Kerakli hamma narsa - kommitda, axlat - .gitignore da."
+      },
+      {
+        "name": "Boshqa loyiha: .env, logs/error.log va boshqa axlat yashirilgan, ishchi papka toza",
+        "check": "repo.isIgnored(\".env\") && repo.isIgnored(\"logs/error.log\") && repo.status().clean && repo.commit(\"HEAD\").files[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=Secret-2026\\n\" && Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"logs/\") && p !== \".env\" && !p.endsWith(\".DS_Store\"))",
+        "fail": "Qoidalar istalgan loyiha uchun ishlashi kerak: *.log istalgan papkadagi loglarni ushlaydi, .env - sirlar fayli.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=Secret-2026\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\necho \"API_KEY=sk-test-123\" > .env\nmkdir logs && echo \"500 Internal Server Error\" > logs/error.log\nmkdir -p node_modules/react && echo \"react\" > node_modules/react/index.js\nmkdir dist && echo \"console.log(1)\" > dist/bundle.js\necho \"mac\" > css/.DS_Store\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "cat > ... << 'EOF' oxiridagi qo‘shtirnoqlarni va EOF qatorini tekshiring."
+      }
+    ],
+    "hints": [
+      "Ko‘p qatorli fayl: cat > .gitignore << 'EOF', keyin shablon qatorlari, oxirgi qator - EOF.",
+      "Papkalar - oxirida slesh bilan: node_modules/ va dist/. Barcha loglar - *.log.",
+      "Repozitoriyda allaqachon bor faylni .gitignore yashirmaydi: git rm --cached config.env.",
+      "Qayta nomlash: git mv about.htm about.html - Git uni darhol indeksga qo‘shadi.",
+      "Kommitdan oldin git status ni ko‘ring: ro‘yxatda new file: .gitignore, new file: README.md, deleted: config.env va renamed: about.htm -> about.html bo‘lishi kerak."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": ".gitignore fayli nima uchun kerak?",
+        "options": [
+          "Keraksiz fayllarni diskdan o‘chiradi",
+          "Git kuzatilmaydigan fayllar orasida sezmasligi kerak bo‘lgan fayllarni sanab o‘tadi",
+          "Fayllarni kompyuterning boshqa foydalanuvchilaridan yashiradi",
+          "Repozitoriydagi parollarni shifrlaydi"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore hech narsani o‘chirmaydi va shifrlamaydi: Git shunchaki bunday fayllarni Untracked files da ko‘rsatmaydi va ularni git add . orqali qo‘shmaydi."
+      },
+      {
+        "type": "matching",
+        "question": ".gitignore shablonini va u nimani e’tiborsiz qoldirishini moslashtiring.",
+        "pairs": [
+          [
+            "*.log",
+            "Istalgan papkadagi .log kengaytmali barcha fayllar"
+          ],
+          [
+            "build/",
+            "build papkasi va uning ichidagi hamma narsa"
+          ],
+          [
+            "/todo.txt",
+            "Faqat loyiha ildizidagi todo.txt"
+          ],
+          [
+            "!keep.log",
+            "Istisno: keep.log baribir e’tiborsiz qoldirilmaydi"
+          ]
+        ],
+        "explanation": "* - istalgan belgilar, oxiridagi / - faqat papka, boshidagi / - ildizdan, ! - oldingi qoidalardan istisno."
+      },
+      {
+        "type": "multiple",
+        "question": "Git’da nimani saqlash KERAK EMAS?",
+        "options": [
+          "API kalitlari yozilgan .env fayli",
+          "node_modules/ papkasi",
+          "README.md",
+          "Yig‘ma joylashgan dist/ papkasi",
+          ".gitignore fayli"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Sirlar, bog‘liqliklar va yig‘ish natijalari Git’da saqlanmaydi. README.md va .gitignore loyihaning bir qismi, ular kommit qilinadi."
+      },
+      {
+        "type": "single",
+        "question": "config.env allaqachon kommit qilingan. Siz .gitignore ga config.env qatorini qo‘shdingiz va faylni o‘zgartirdingiz. git status nimani ko‘rsatadi?",
+        "options": [
+          "Hech narsa: endi fayl e’tiborsiz qoldiriladi",
+          "modified:   config.env - Git faylni kuzatishda davom etadi",
+          "deleted:    config.env",
+          "Xato: .gitignore dagi faylni o‘zgartirib bo‘lmaydi"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore faqat kuzatilmaydigan fayllarga ta’sir qiladi. Repozitoriyda allaqachon bor faylni kuzatuvdan chiqarish kerak: git rm --cached config.env."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: config.env faylini Git kuzatuvidan chiqarish, lekin uni diskda qoldirish.",
+        "answers": [
+          "git rm --cached config.env"
+        ],
+        "case_sensitive": true,
+        "explanation": "--cached - faqat indeksdan o‘chirish. Kommitdan keyin fayl kuzatilmaydi, diskda esa qoladi."
+      },
+      {
+        "type": "single",
+        "question": "Parol GitHub’ga allaqachon yuborilgan kommitga tushib qoldi. Siz git rm --cached va yangi kommit qildingiz. Yana nima qilish shart?",
+        "options": [
+          "Hech narsa: parol Git’dan o‘chirildi",
+          "Parolni almashtirish - u bor eski kommit tarixda qoladi",
+          ".gitignore faylini o‘chirish",
+          "git add -f config.env qilish"
+        ],
+        "answer": 1,
+        "explanation": "Yangi kommit eskilarini o‘zgartirmaydi: eski kommit bo‘yicha git show parolni ko‘rsatadi. Sizib chiqqan sir buzilgan hisoblanadi - u almashtiriladi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git add debug.log\nThe following paths are ignored by one of your .gitignore files:\ndebug.log\nhint: Use -f if you really want to add them.",
+        "options": [
+          "Fayl indeksga qo‘shildi",
+          "Fayl qo‘shilmadi: u .gitignore qoidasiga mos keladi",
+          "Fayl o‘chirildi",
+          "debug.log mavjud emas"
+        ],
+        "answer": 1,
+        "explanation": "Git e’tiborsiz qoldirilgan faylni qo‘shishni rad etdi va agar bu haqiqatan kerak bo‘lsa, -f kalitini maslahat berdi."
+      },
+      {
+        "type": "multiple",
+        "question": "git mv about.htm about.html haqida nima to‘g‘ri?",
+        "options": [
+          "Diskdagi faylni qayta nomlaydi",
+          "Qayta nomlashni darhol indeksga qo‘shadi",
+          "git status renamed:    about.htm -> about.html ni ko‘rsatadi",
+          "Kommitni avtomatik yaratadi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "git mv = mv + ikkala nom uchun git add. Kommitni baribir o‘zingiz qilishingiz kerak."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruqni va natijani moslashtiring.",
+        "pairs": [
+          [
+            "git rm file.txt",
+            "Faylni diskdan ham, indeksdan ham o‘chirish"
+          ],
+          [
+            "git rm --cached file.txt",
+            "Indeksdan olib tashlash, diskda qoldirish"
+          ],
+          [
+            "git mv a.txt b.txt",
+            "Qayta nomlash va darhol kommitga tayyorlash"
+          ],
+          [
+            "git rm -r --cached dist",
+            "Butun papkani kuzatuvdan chiqarish"
+          ]
+        ],
+        "explanation": "rm o‘chiradi, --cached faylni diskda qoldiradi, -r papkalar uchun kerak, mv qayta nomlaydi."
+      },
+      {
+        "type": "single",
+        "question": "Siz bo‘sh images papkasini yaratdingiz va git status ni bajardingiz. Git nima javob beradi?",
+        "options": [
+          "Untracked files: images/",
+          "nothing to commit, working tree clean",
+          "fatal: empty directory",
+          "new file: images"
+        ],
+        "answer": 1,
+        "explanation": "Git faqat fayllarni saqlaydi, bo‘sh papkalarni u ko‘rmaydi. Papkani saqlash uchun unga bo‘sh .gitkeep fayli solinadi."
+      },
+      {
+        "type": "input",
+        "question": "Git papkani repozitoriyda saqlashi uchun unga solinadigan bo‘sh fayl odatda qanday nomlanadi? Fayl nomini kiriting.",
+        "answers": [
+          ".gitkeep"
+        ],
+        "case_sensitive": true,
+        "explanation": ".gitkeep - Git buyrug‘i emas, balki dasturchilar kelishuvi: istalgan fayl mos keladi, lekin bu nom hammaga tushunarli."
+      },
+      {
+        "type": "single",
+        "question": ".gitignore da logs/ va !logs/important.log qatorlari bor. logs/important.log kuzatiladimi?",
+        "options": [
+          "Ha, ! doim e’tiborsiz qoldirishni bekor qiladi",
+          "Yo‘q: agar papka butunlay e’tiborsiz qoldirilsa, ichidagi fayllarni ! orqali qaytarib bo‘lmaydi",
+          "Ha, lekin faqat git add -f dan keyin",
+          "Git .gitignore da xato beradi"
+        ],
+        "answer": 1,
+        "explanation": "Git e’tiborsiz qoldirilgan papkaga qaramaydi. Ichidagilarni e’tiborsiz qoldirish (logs/*), keyin esa !logs/important.log istisnosini qilish kerak."
+      }
+    ]
+  }
+}

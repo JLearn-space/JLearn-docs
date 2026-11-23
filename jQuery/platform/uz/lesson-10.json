@@ -1,0 +1,270 @@
+{
+  "lesson": 10,
+  "language": "uz",
+  "lesson_title": "Plaginlar va yakuniy loyiha",
+  "task": {
+    "title": "$.fn.charCounter plagini",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n    <style>\n        .char-counter { color: #555; }\n        .is-over { color: #b00020; font-weight: bold; }\n    </style>\n</head>\n<body>\n    <main>\n        <h1>To‘garakka yozilish</h1>\n        <form id=\"signup-form\">\n            <label for=\"about\">O‘zingiz haqingizda qisqacha</label>\n            <textarea id=\"about\" name=\"about\" data-max=\"50\"></textarea>\n            <label for=\"message\">O‘qituvchiga savol</label>\n            <textarea id=\"message\" name=\"message\"></textarea>\n            <button type=\"submit\">Yuborish</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada textarea#about (data-max=\"50\") va textarea#message (data-max siz) maydonlari bo‘lgan #signup-form formasi bor. jQuery allaqachon ulangan. $.fn.charCounter(options) plaginini yozing. 1) Standart sozlamalar defaults = { max: 100, counterClass: \"char-counter\", overClass: \"is-over\" }; plagin ichida ularni defaults ni o‘zgartirmasdan $.extend({}, defaults, options) orqali options bilan birlashtiring. 2) Plaginni zanjir bilan davom ettirish mumkin bo‘lishi uchun maydonlarni return this.each(...) orqali aylanib chiqing. 3) Agar maydonda hisoblagich allaqachon yaratilgan bo‘lsa (qayta chaqiruv), maydonni o‘tkazib yuboring. 4) Maydon limiti - data-max dagi son, agar u bo‘lsa, aks holda settings.max. 5) Maydondan darhol keyin settings.counterClass klassli va aria-live=\"polite\" li <p> yarating. 6) Hisoblagich matni \"N / limit\", bu yerda N - belgilar soni; uni darhol va har bir input hodisasida yangilang; settings.overClass klassi - faqat N limitdan katta bo‘lganda. 7) Plaginni #signup-form formasining barcha textarea lari uchun { max: 200 } bilan chaqiring. document.querySelector, innerHTML, .html() va addEventListener dan foydalanmang.",
+    "starter_code": "// Sahifada ikkita maydonli #signup-form formasi bor:\n// textarea#about (data-max=\"50\") va textarea#message (data-max siz).\n// jQuery allaqachon ulangan.\n\n(function ($) {\n    // 1. const defaults = { ... }: max 100, counterClass \"char-counter\", overClass \"is-over\"\n\n    $.fn.charCounter = function (options) {\n        // 2. const settings = ... (defaults va options ni birlashtiring, defaults ni o‘zgartirmang)\n\n        // 3. return this.each(function () { ... }), ichida har bir maydon uchun:\n        //    - hisoblagich allaqachon yaratilgan bo‘lsa - return (maydonni o‘tkazib yuborish)\n        //    - limit: data-max dagi son, aks holda settings.max\n        //    - maydondan darhol keyin settings.counterClass klassli va aria-live=\"polite\" li <p> yaratish\n        //    - update() funksiyasi: \"N / limit\" matni, N > limit bo‘lsa settings.overClass klassi\n        //    - update input hodisasida va yaratilganda darhol\n    };\n})(jQuery);\n\n// 4. Plaginni #signup-form formasining barcha textarea lari uchun { max: 200 } bilan chaqiring\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "addEventListener",
+      ".style."
+    ],
+    "tests": [
+      {
+        "name": "$.fn.charCounter plagini e’lon qilingan",
+        "check": "typeof $.fn.charCounter === \"function\"",
+        "fail": "Metodni e’lon qiling: $.fn.charCounter = function (options) { ... };"
+      },
+      {
+        "name": "Formaning har bir maydonidan keyin - aria-live=\"polite\" li p.char-counter",
+        "check": "document.querySelectorAll(\"#signup-form p.char-counter\").length === 2 && [...document.querySelectorAll(\"#signup-form textarea\")].every((t) => t.nextElementSibling && t.nextElementSibling.matches(\"p.char-counter\") && t.nextElementSibling.getAttribute(\"aria-live\") === \"polite\")",
+        "fail": "$(\"<p>\", { class: settings.counterClass, \"aria-live\": \"polite\" }) ni yarating va uni $field.after(...) orqali qo‘ying. Plaginni formaning textarea lari uchun chaqirishni ham unutmang."
+      },
+      {
+        "name": "#about da limit data-max dan: \"0 / 50\"",
+        "check": "document.querySelector(\"#about\").nextElementSibling.textContent === \"0 / 50\"",
+        "fail": "Maydondagi data-max options dan muhimroq: const max = Number($field.data(\"max\")) || settings.max; va hisoblagich yaratilgandan so‘ng darhol update() ni chaqiring."
+      },
+      {
+        "name": "#message da limit options dan: \"0 / 200\"",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"",
+        "fail": "Chaqiruv: $(\"#signup-form textarea\").charCounter({ max: 200 }); - #message da data-max yo‘q, shuning uchun settings.max olinadi."
+      },
+      {
+        "name": "Hisoblagich kiritishda yangilanadi",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; return put(\"Salom!\").textContent === \"6 / 50\"; })()",
+        "fail": "Kiritishga obuna bo‘ling: $field.on(\"input\", update);"
+      },
+      {
+        "name": "Aynan 50 ta belgi - is-over siz, 51 - is-over bilan, o‘chirilgandan keyin klass olib tashlanadi",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; const a = put(\"x\".repeat(50)); const okEqual = a.textContent === \"50 / 50\" && !a.classList.contains(\"is-over\"); const okOver = put(\"x\".repeat(51)).classList.contains(\"is-over\"); const okBack = !put(\"x\".repeat(10)).classList.contains(\"is-over\"); return okEqual && okOver && okBack; })()",
+        "fail": "Klass faqat oshib ketganda kerak: .toggleClass(settings.overClass, length > max) - qat’iy katta."
+      },
+      {
+        "name": "options va data-max siz limit 100",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); $t.charCounter(); return $t.next().text() === \"0 / 100\"; })()",
+        "fail": "Standart sozlamalar: const defaults = { max: 100, ... }; va settings = $.extend({}, defaults, options)."
+      },
+      {
+        "name": "Allaqachon kiritilgan matn darhol hisobga olinadi",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"12 / 200\"",
+        "fail": "Hisoblagich yaratilgandan so‘ng update() ni bir marta darhol chaqiring, faqat input ishlovchisida emas.",
+        "setup": "document.querySelector(\"#message\").value = \"Salom, ustoz\";"
+      },
+      {
+        "name": "Qayta chaqiruv ikkinchi hisoblagichni yaratmaydi",
+        "check": "(() => { $(\"#about\").charCounter(); $(\"#signup-form textarea\").charCounter({ max: 10 }); return document.querySelectorAll(\"p.char-counter\").length === 2 && document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"; })()",
+        "fail": "each boshida: if ($field.data(\"charCounter\")) { return; } va yaratilgandan keyin $field.data(\"charCounter\", true);"
+      },
+      {
+        "name": "Plagin o‘sha jQuery obyektini qaytaradi (zanjir)",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); return $t.charCounter() === $t && $t.charCounter().addClass(\"x\").hasClass(\"x\"); })()",
+        "fail": "return this.each(function () { ... }); deb yozing - each this ni qaytaradi."
+      },
+      {
+        "name": "options bilan chaqiruv standart sozlamalarni o‘zgartirmaydi",
+        "check": "(() => { $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 5 }); const $b = $(\"<textarea>\").appendTo(\"main\").charCounter(); return $b.next().text() === \"0 / 100\"; })()",
+        "fail": "$.extend ga birinchi argument sifatida yangi bo‘sh obyekt bering: $.extend({}, defaults, options)."
+      },
+      {
+        "name": "counterClass va overClass sozlamalari ishlaydi",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 3, counterClass: \"hint\", overClass: \"too-long\" }); $t.val(\"abcd\").trigger(\"input\"); return $t.next().is(\"p.hint.too-long\"); })()",
+        "fail": "<p> yaratishda settings.counterClass dan, toggleClass da esa settings.overClass dan foydalaning."
+      },
+      {
+        "name": "Sozlamalar $.extend orqali birlashtiriladi, aylanib chiqish - this.each orqali",
+        "check": "/\\$\\.extend\\(\\s*\\{\\s*\\}\\s*,/.test(__code) && /this\\.each\\(/.test(__code)",
+        "fail": "const settings = $.extend({}, defaults, options); va return this.each(function () { ... });"
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "__error === null",
+        "fail": "each ichida this - DOM elementi: .val() yoki .after() ni chaqirishdan oldin uni $(this) ga o‘rang."
+      }
+    ],
+    "hints": [
+      "Karkas: $.fn.charCounter = function (options) { const settings = $.extend({}, defaults, options); return this.each(function () { ... }); };",
+      "each ichida this - DOM elementi. Uni darhol o‘rang: const $field = $(this);",
+      "Limit: const max = Number($field.data(\"max\")) || settings.max; - data-max bo‘lmasa, Number(undefined) NaN beradi va settings.max olinadi.",
+      "Qayta chaqirishdan himoya: boshida if ($field.data(\"charCounter\")) { return; }, hisoblagich yaratilgandan keyin $field.data(\"charCounter\", true);",
+      "Yangilash: $counter.text(`${length} / ${max}`).toggleClass(settings.overClass, length > max); - update() ni darhol va $field.on(\"input\", update) da chaqiring."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "$.fn nima?",
+        "options": [
+          "Sahifadagi barcha funksiyalar ro‘yxati",
+          "Barcha jQuery obyektlari metodlariga ega obyekt: $.fn ga qo‘shilgan metod istalgan $(...) da paydo bo‘ladi",
+          "Elementlarni yaratish funksiyasi",
+          "jQuery 4 ning yangi yig‘masi"
+        ],
+        "answer": 1,
+        "explanation": "$.fn - barcha jQuery obyektlarining umumiy «asboblar to‘plami». $.fn.charCounter ni yozdingiz - va $(\"textarea\").charCounter() ni chaqirish mumkin."
+      },
+      {
+        "type": "single",
+        "question": "$(\"textarea\").charCounter() chaqirilsa, $.fn.charCounter = function () { ... } ichida this nimaga teng?",
+        "options": [
+          "Birinchi textarea ga (DOM elementiga)",
+          "Topilgan barcha textarea larga ega jQuery obyektiga",
+          "window ga",
+          "Sozlamalar obyektiga"
+        ],
+        "answer": 1,
+        "explanation": "Plagin metodi ichida this - metod chaqirilgan o‘sha jQuery obyekti. this.each(function () {...}) ichida esa this - alohida DOM elementi."
+      },
+      {
+        "type": "single",
+        "question": "Plagin nega return this.each(...) bilan tugaydi?",
+        "options": [
+          "Plagin tezroq ishlashi uchun",
+          "Har bir elementni qayta ishlash va zanjir uchun jQuery obyektini qaytarish uchun",
+          "Qayta chaqiruvni bekor qilish uchun",
+          "return siz plagin ishga tushmaydi"
+        ],
+        "answer": 1,
+        "explanation": ".each elementlarni aylanib chiqadi va o‘sha obyektni qaytaradi. return uni tashqariga beradi, shuning uchun $(\"textarea\").charCounter().addClass(\"x\") ishlaydi."
+      },
+      {
+        "type": "single",
+        "question": "const defaults = { max: 100 }; const s = $.extend(defaults, { max: 20 }); Endi defaults.max nimaga teng?",
+        "options": [
+          "100",
+          "20",
+          "undefined",
+          "Xato bo‘ladi"
+        ],
+        "answer": 1,
+        "explanation": "$.extend xususiyatlarni birinchi argumentga yozadi. Bu yerda u defaults - standart sozlamalar buzildi. To‘g‘risi: $.extend({}, defaults, options)."
+      },
+      {
+        "type": "input",
+        "question": "Standart sozlamalar o‘zgarmasligi uchun birinchi argumentni yozing: const settings = $.extend(___, defaults, options);",
+        "answers": [
+          "{}"
+        ],
+        "case_sensitive": true,
+        "explanation": "Bo‘sh obyekt {} - «toza varaq», unga avval defaults, keyin options nusxalanadi. defaults ning o‘zi o‘zgarmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Kursdagi charCounter plaginida: defaults.max = 100, chaqiruv charCounter({ max: 200 }), maydonda data-max=\"50\". Maydon limiti qancha?",
+        "options": [
+          "100",
+          "200",
+          "50",
+          "250"
+        ],
+        "answer": 2,
+        "explanation": "Ustuvorlik tartibi: aniq maydondagi data-max → options.max → defaults.max. Sozlama elementga qanchalik yaqin bo‘lsa, shunchalik muhim."
+      },
+      {
+        "type": "multiple",
+        "question": "jQuery 4 da nimalar olib tashlangan va ularni nima bilan almashtirish kerak?",
+        "options": [
+          "$.trim(str) → str.trim()",
+          "$.isArray(x) → Array.isArray(x)",
+          ".on() → .click()",
+          "$.parseJSON(s) → JSON.parse(s)",
+          ".text() → .html()"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "$.trim, $.isArray va $.parseJSON olib tashlangan: brauzerlarda anchadan beri o‘rnatilgan muqobillari bor. .on() va .text() - asosiy metodlar, ular olib tashlanmagan."
+      },
+      {
+        "type": "single",
+        "question": "jQuery Migrate nima uchun ulanadi?",
+        "options": [
+          "Saytni boshqa xostingga ko‘chirish uchun",
+          "Olib tashlangan funksiyalarni vaqtincha qaytarish va konsolda nimani qayta yozish kerakligi haqidagi ogohlantirishlarni ko‘rish uchun",
+          "jQuery’ni tezlashtirish uchun",
+          "Plaginlarni ulash uchun"
+        ],
+        "answer": 1,
+        "explanation": "Migrate - o‘tish vositasi: eski kod ishlashda davom etadi, konsol esa har bir eskirgan joyni ko‘rsatadi. Tuzatilgandan keyin Migrate olib tashlanadi."
+      },
+      {
+        "type": "matching",
+        "question": "jQuery va sof JavaScript’ni moslang.",
+        "pairs": [
+          [
+            "$(\".card\")",
+            "document.querySelectorAll(\".card\")"
+          ],
+          [
+            "$el.on(\"click\", fn)",
+            "el.addEventListener(\"click\", fn)"
+          ],
+          [
+            "$el.toggleClass(\"x\", flag)",
+            "el.classList.toggle(\"x\", flag)"
+          ],
+          [
+            "$.getJSON(url)",
+            "fetch(url).then((r) => r.json())"
+          ]
+        ],
+        "explanation": "jQuery brauzerning o‘sha funksiyalarini chaqiradi. Ikkala yozuvni bilsangiz, eski kodni ham, yangisini ham o‘qiysiz."
+      },
+      {
+        "type": "single",
+        "question": "Yakuniy loyiha fayllari qaysi tartibda ulanadi?",
+        "options": [
+          "main.js → jquery.char-counter.js → jQuery",
+          "jQuery → jquery.char-counter.js → main.js",
+          "jquery.char-counter.js → jQuery → main.js",
+          "Tartib muhim emas, hammasida defer bor"
+        ],
+        "answer": 1,
+        "explanation": "Plagin metodni $.fn ga yozadi - demak, jQuery allaqachon bo‘lishi kerak. main.js plaginni chaqiradi - demak, plagin oldinroq e’lon qilingan bo‘lishi kerak. defer li skriptlar teglar tartibida bajariladi."
+      },
+      {
+        "type": "multiple",
+        "question": "GitHub Pages’dagi e’lon qilingan saytda qaysi tekshiruvlarni albatta takrorlash kerak?",
+        "options": [
+          "Network yorlig‘ida js/ va data/events.json uchun 404 yo‘qmi",
+          "Fayl nomlarining registri mos keladimi",
+          "$.getJSON nisbiy yo‘l bo‘yicha ishlaydimi",
+          "main.js da nechta qator bor"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Pages registrni farqlaydi, sayt repozitoriyning ichki papkasida joylashgan, kesh esa eski skriptni berishi mumkin. Kod qatorlari soni qabul qilishga aloqador emas."
+      },
+      {
+        "type": "input",
+        "question": "jQuery obyektining qaysi metodi elementlarni aylanib chiqadi va o‘sha obyektni qaytaradi? Metod nomini nuqta va qavslarsiz kiriting.",
+        "answers": [
+          "each"
+        ],
+        "case_sensitive": true,
+        "explanation": ".each(function () { ... }) har bir element uchun funksiyani chaqiradi va dastlabki obyektni qaytaradi - shuning uchun return this.each(...) zanjirni saqlaydi."
+      }
+    ]
+  }
+}

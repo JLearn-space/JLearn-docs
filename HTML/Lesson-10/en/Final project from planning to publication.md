@@ -1,6 +1,6 @@
 # Final project from planning to publication
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Project source code](../../final-project/README.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [Next course: CSS →](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Project source code](../../final-project/README.md)
 
 > **Link to previous lessons:** there are no new tags today. You will put everything you learned in Lessons 1–9 into one website and publish it on the internet.
 
@@ -373,6 +373,17 @@ After 1–3 minutes reload the Pages settings page - a link to the site appears.
 
 The GitHub interface sometimes changes. If the button names differ, see the [official guide](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
 
+### Try to break it
+
+Make sure the checks from the checklist catch mistakes. Make each break on a copy of the site, find it and put it back:
+
+1. In the menu of one page, change `about.html` to `About.html`. On a Windows computer the link may work, but on GitHub Pages it opens a 404. That is why you check the published version.
+2. Remove `id="main"` from `<main>`. Press Tab, then Enter on the "Skip to main content" link. The focus stays where it is: the link has nowhere to go.
+3. Remove `alt` from the profile photo and check the page in Nu HTML Checker. The error: `An img element must have an alt attribute, except under certain conditions.`
+4. Remove `for="email"` from the "Email" label. Click the word "Email": the cursor no longer goes into the field.
+5. Change `<h2>My skills</h2>` to `<h4>` and run Lighthouse. The Accessibility section will show `Heading elements are not in a sequentially-descending order`.
+6. Remove `required` from the "Name" field and submit the form with an empty name. The form is sent, and the address bar shows `name=&`.
+
 ### Typical publishing mistakes
 
 | Mistake | How to fix |
@@ -508,4 +519,4 @@ After the questions, take the **lesson test** on the platform: 12 questions, pas
 
 ---
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Project source code](../../final-project/README.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/Meta%20tags%2C%20SEO%2C%20linking%20CSS%20and%20JS.md) · [Next course: CSS →](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](Final%20project%20from%20planning%20to%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Project source code](../../final-project/README.md)

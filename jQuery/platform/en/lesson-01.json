@@ -1,0 +1,268 @@
+{
+  "lesson": 1,
+  "language": "en",
+  "lesson_title": "Getting to know jQuery",
+  "task": {
+    "title": "Your first page with jQuery",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>jQuery course</title>\n</head>\n<body>\n    <main>\n        <h1 id=\"course-title\">Course</h1>\n        <p id=\"lesson-count\">Loading...</p>\n        <ul class=\"lessons\">\n            <li class=\"lesson\"><span class=\"lesson__name\">Getting to know jQuery</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Selectors and DOM traversal</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Content and attributes</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Classes and styles</span> - <span class=\"lesson__status\">?</span></li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "The page has a heading #course-title, a paragraph #lesson-count and a list of lessons li.lesson with .lesson__name and .lesson__status inside. jQuery is already loaded. 1) Write the text \"jQuery in 10 lessons\" into #course-title and add the class is-ready in the same chain. 2) Save the number of lessons in the constant lessonCount using .length. 3) Write the text \"Lessons on the page: 4\" into #lesson-count, where the number is lessonCount. 4) With one call, write the text \"not started\" into all .lesson__status elements. 5) Read the heading text into the constant titleText and print it to the console. Do not use document.querySelector, innerHTML or .html().",
+    "starter_code": "// On the page: h1#course-title, p#lesson-count and a list of li.lesson,\n// each lesson contains .lesson__name and .lesson__status.\n// jQuery is already loaded: you can write $(...) right away.\n\n// 1. Heading: the text \"jQuery in 10 lessons\" and the class is-ready in one chain\n\n// 2. const lessonCount = ... (the number of lessons via .length)\n\n// 3. #lesson-count: \"Lessons on the page: 4\"\n\n// 4. All .lesson__status: \"not started\" - with one call\n\n// 5. const titleText = ... and print it to the console\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick"
+    ],
+    "tests": [
+      {
+        "name": "Heading: \"jQuery in 10 lessons\"",
+        "check": "document.querySelector(\"#course-title\").textContent === \"jQuery in 10 lessons\"",
+        "fail": "$(\"#course-title\").text(\"jQuery in 10 lessons\");"
+      },
+      {
+        "name": "The heading has the class is-ready",
+        "check": "document.querySelector(\"#course-title\").classList.contains(\"is-ready\")",
+        "fail": "Add .addClass(\"is-ready\") to the chain."
+      },
+      {
+        "name": "The heading text and class are set in one chain",
+        "check": "/\\.text\\([^;()]+\\)\\s*\\.addClass\\(|\\.addClass\\([^;()]+\\)\\s*\\.text\\(/.test(__code)",
+        "fail": "Right after .text(\"jQuery in 10 lessons\"), add .addClass(\"is-ready\")."
+      },
+      {
+        "name": "lessonCount equals 4",
+        "check": "lessonCount === 4",
+        "fail": "const lessonCount = $(\".lesson\").length;"
+      },
+      {
+        "name": "Counter: \"Lessons on the page: 4\"",
+        "check": "document.querySelector(\"#lesson-count\").textContent === \"Lessons on the page: 4\"",
+        "fail": "$(\"#lesson-count\").text(`Lessons on the page: ${lessonCount}`);"
+      },
+      {
+        "name": "On a page with five lessons, lessonCount equals 5",
+        "check": "lessonCount === 5 && document.querySelector(\"#lesson-count\").textContent === \"Lessons on the page: 5\"",
+        "fail": "Do not write the number by hand - take it from $(\".lesson\").length.",
+        "setup": "$(\".lessons\").append(\"<li class=\\\"lesson\\\"><span class=\\\"lesson__name\\\">Creating elements</span> - <span class=\\\"lesson__status\\\">?</span></li>\");"
+      },
+      {
+        "name": "All lessons have the status \"not started\"",
+        "check": "[...document.querySelectorAll(\".lesson__status\")].every((s) => s.textContent === \"not started\")",
+        "fail": "$(\".lesson__status\").text(\"not started\"); - one call changes all elements."
+      },
+      {
+        "name": "Lesson names have not changed",
+        "check": "document.querySelectorAll(\".lesson__name\")[0].textContent === \"Getting to know jQuery\"",
+        "fail": "Change only .lesson__status, not the whole .lesson."
+      },
+      {
+        "name": "titleText is the heading text",
+        "check": "titleText === \"jQuery in 10 lessons\"",
+        "fail": "Read the text after changing it: const titleText = $(\"#course-title\").text();"
+      },
+      {
+        "name": "titleText is printed to the console",
+        "check": "__logs.includes(\"jQuery in 10 lessons\")",
+        "fail": "console.log(titleText);"
+      },
+      {
+        "name": "The code is written with jQuery",
+        "check": "/\\.length/.test(__code) && !/textContent|getElementsBy|\\.forEach|for\\s*\\(/.test(__code)",
+        "fail": "No loops and no textContent: $(\".lesson\").length and $(\".lesson__status\").text(...)."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the selectors and make sure the .text() getter is not in the middle of a chain."
+      }
+    ],
+    "hints": [
+      "Chain: $(\"#course-title\").text(\"...\").addClass(\"is-ready\");",
+      "Number of elements: $(\".lesson\").length.",
+      "Template string: `Lessons on the page: ${lessonCount}`.",
+      "One call $(\".lesson__status\").text(\"not started\") changes all statuses.",
+      "Read titleText after you have changed the heading."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is jQuery?",
+        "options": [
+          "A separate programming language that replaces JavaScript",
+          "A JavaScript library with ready-made functions for working with the page",
+          "A browser extension",
+          "A new version of HTML"
+        ],
+        "answer": 1,
+        "explanation": "jQuery is an ordinary .js file. Inside, it calls the same DOM functions as plain JavaScript."
+      },
+      {
+        "type": "single",
+        "question": "Which loading order is correct?",
+        "options": [
+          "First main.js, then jQuery",
+          "First jQuery, then main.js",
+          "The order does not matter",
+          "jQuery is loaded at the end of body after main.js"
+        ],
+        "answer": 1,
+        "explanation": "Scripts run in order: without jQuery loaded, main.js has no $ function."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\".card\") return if there are no cards on the page?",
+        "options": [
+          "null",
+          "undefined",
+          "An empty jQuery object with length 0",
+          "An error"
+        ],
+        "answer": 2,
+        "explanation": "$() always returns a jQuery object. Check: $(\".card\").length === 0."
+      },
+      {
+        "type": "input",
+        "question": "Which property of a jQuery object shows how many elements were found?",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "$(\".item\").length is the number of elements found."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\".status\").text(\"Done\") do if the page has 3 .status elements?",
+        "options": [
+          "Changes only the first one",
+          "Changes all three",
+          "Changes only the last one",
+          "Throws an error: a loop is needed"
+        ],
+        "answer": 1,
+        "explanation": "Implicit iteration: a setter is applied to each element that was found."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with the result.",
+        "pairs": [
+          [
+            "$(\"#title\").text()",
+            "A string with text"
+          ],
+          [
+            "$(\"#title\").text(\"Hello\")",
+            "A jQuery object"
+          ],
+          [
+            "$(\"#title\").length",
+            "A number"
+          ],
+          [
+            "$(\"#title\")[0]",
+            "A DOM element"
+          ]
+        ],
+        "explanation": "A getter returns a value, a setter returns a jQuery object for chaining, and [0] returns a DOM element."
+      },
+      {
+        "type": "multiple",
+        "question": "Which chains will work without an error?",
+        "options": [
+          "$(\"h1\").text(\"A\").addClass(\"b\")",
+          "$(\"h1\").text().addClass(\"b\")",
+          "$(\"h1\").addClass(\"b\").text(\"A\")",
+          "$(\"h1\").length.text(\"A\")"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "You can continue a chain after a setter. The .text() getter returns a string, and length is a number."
+      },
+      {
+        "type": "single",
+        "question": "What will the user see after $(\"#msg\").text(\"<b>Hello</b>\")?",
+        "options": [
+          "The word Hello in bold",
+          "Literally <b>Hello</b>",
+          "An empty element",
+          "An error in the console"
+        ],
+        "answer": 1,
+        "explanation": ".text() inserts a string as text, not as markup - like textContent."
+      },
+      {
+        "type": "single",
+        "question": "Which code runs after the DOM is built and is recommended in jQuery 4?",
+        "options": [
+          "$(document).ready(function () { ... })",
+          "$(function () { ... })",
+          "window.jQuery = function () { ... }",
+          "$.start(function () { ... })"
+        ],
+        "answer": 1,
+        "explanation": "$(function) is the recommended form; $(document).ready is deprecated."
+      },
+      {
+        "type": "multiple",
+        "question": "What is missing from the slim build of jQuery?",
+        "options": [
+          "Animation effects",
+          "AJAX",
+          "The $ function",
+          "The .text() method"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Slim is lighter because it has no effects and no AJAX. The course uses the full build."
+      },
+      {
+        "type": "input",
+        "question": "What do you type in the console to find out the version of the loaded jQuery? Enter the whole expression.",
+        "answers": [
+          "jQuery.fn.jquery",
+          "$.fn.jquery"
+        ],
+        "case_sensitive": true,
+        "explanation": "jQuery.fn.jquery returns the version string, for example \"4.1.0\"."
+      },
+      {
+        "type": "matching",
+        "question": "Match plain JavaScript code with jQuery code.",
+        "pairs": [
+          [
+            "document.querySelectorAll(\".card\")",
+            "$(\".card\")"
+          ],
+          [
+            "title.textContent = \"A\"",
+            "$title.text(\"A\")"
+          ],
+          [
+            "title.classList.add(\"x\")",
+            "$title.addClass(\"x\")"
+          ],
+          [
+            "$title[0]",
+            "A DOM element from a jQuery object"
+          ]
+        ],
+        "explanation": "jQuery does the same things as the browser's DOM functions, but in less code."
+      }
+    ]
+  }
+}

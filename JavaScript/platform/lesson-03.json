@@ -106,49 +106,6 @@
       "Допуск: const canEnter = age >= 14 && score >= 60;",
       "Тернарный оператор: условие ? \"Допущен\" : \"Не допущен\"",
       "Шаблонная строка: `Оценка: ${grade}. ${status}`"
-    ],
-    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "стартовый код без изменений",
-        "code": "// 1. let grade\n"
-      },
-      {
-        "mistake": "неверный порядок условий",
-        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "> вместо >= на границе 90",
-        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "оценка строкой",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "|| вместо &&",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "возраст > 14",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "if/else вместо тернарного",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Допущен\";\n} else {\n    status = \"Не допущен\";\n}\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "нестрогое сравнение",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "отдельные if вместо else if",
-        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\nconsole.log(`Оценка: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "нет вывода",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Допущен\" : \"Не допущен\";\n\n"
-      }
     ]
   },
   "test": {

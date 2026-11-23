@@ -1,0 +1,281 @@
+{
+  "lesson": 4,
+  "language": "en",
+  "lesson_title": "Classes and styles",
+  "task": {
+    "title": "Tabs and stock levels",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Course shop</title>\n    <style>\n        .is-hidden { display: none; }\n        .tab.is-active { border-bottom: 3px solid #2563eb; }\n        .product.is-low { color: #b91c1c; }\n    </style>\n</head>\n<body>\n    <main>\n        <div class=\"tabs\" role=\"tablist\">\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Description</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Syllabus</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Reviews</button>\n        </div>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">A jQuery course in 10 lessons.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">Selectors, classes, events, AJAX.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">\"Clear from the very first lesson!\"</section>\n\n        <h2>Kits in stock</h2>\n        <ul id=\"products\">\n            <li class=\"product\" data-stock=\"3\">Notebook</li>\n            <li class=\"product\" data-stock=\"12\">Pen</li>\n            <li class=\"product\" data-stock=\"0\">USB stick</li>\n            <li class=\"product\" data-stock=\"5\">Stickers</li>\n            <li class=\"product\" data-stock=\"8\">Notepad</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "The page has three tabs .tab, three panels .panel (all with the class is-hidden) and a list of products li.product with the data-stock attribute - the number of items in stock. The classes is-active, is-hidden and is-low are already described in CSS. 1) Write the function setActiveTab(index): remove the class is-active from all .tab elements and set aria-selected=\"false\" on them; add is-active and aria-selected=\"true\" to the tab with the number index (with .eq); remove is-hidden from the panel with the number index and add it to all the others - with .toggleClass(\"is-hidden\", state). 2) Write the function markLowStock(limit): add the class is-low to each .product whose data-stock is less than limit, and remove it from the others. Find the products inside the function. 3) At the end, call setActiveTab(0) and markLowStock(5). The tests call the functions many times with different arguments. Do not use document.querySelector, classList, .style, innerHTML or .html().",
+    "starter_code": "// On the page: tabs .tab (3 of them), panels .panel (3 of them, all with the class is-hidden)\n// and a list of products li.product with the data-stock attribute (items in stock).\n// The classes already exist in CSS: is-active, is-hidden, is-low.\n\n// 1. setActiveTab(index):\n//    - remove is-active from all .tab elements and set aria-selected=\"false\" on them\n//    - the tab with the number index (.eq) gets the class is-active and aria-selected=\"true\"\n//    - remove is-hidden from the panel with the number index, add it to the others:\n//      .toggleClass(\"is-hidden\", state)\nfunction setActiveTab(index) {\n\n}\n\n// 2. markLowStock(limit):\n//    - each .product whose data-stock is less than limit gets the class is-low,\n//      remove this class from the others\n//    - find the products inside the function\nfunction markLowStock(limit) {\n\n}\n\n// 3. Call setActiveTab(0) and markLowStock(5)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "classList",
+      ".style.",
+      "className"
+    ],
+    "tests": [
+      {
+        "name": "The functions setActiveTab and markLowStock are declared",
+        "check": "typeof setActiveTab === \"function\" && typeof markLowStock === \"function\"",
+        "fail": "Declare both functions with the names from the task: function setActiveTab(index) { ... } and function markLowStock(limit) { ... }."
+      },
+      {
+        "name": "After loading, the first tab is active and the first panel is visible",
+        "check": "document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[0].classList.contains(\"is-hidden\") && document.querySelectorAll(\".panel.is-hidden\").length === 2",
+        "fail": "At the end of the code, call setActiveTab(0);"
+      },
+      {
+        "name": "setActiveTab(2): only the third tab is active",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[2].classList.contains(\"is-active\"))",
+        "fail": "First $tabs.removeClass(\"is-active\") on all of them, then $tabs.eq(index).addClass(\"is-active\")."
+      },
+      {
+        "name": "setActiveTab(2): aria-selected=\"true\" only on the third tab",
+        "check": "(setActiveTab(2), [...document.querySelectorAll(\".tab\")].map((t) => t.getAttribute(\"aria-selected\")).join() === \"false,false,true\")",
+        "fail": "Set .attr(\"aria-selected\", \"false\") on all tabs and .attr(\"aria-selected\", \"true\") on the needed one."
+      },
+      {
+        "name": "setActiveTab(1): only the second panel is visible",
+        "check": "(setActiveTab(1), [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"true,false,true\")",
+        "fail": "Go through .panel with .each and call $(this).toggleClass(\"is-hidden\", i !== index)."
+      },
+      {
+        "name": "Several switches in a row: 2, then 0",
+        "check": "(setActiveTab(2), setActiveTab(0), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"false,true,true\")",
+        "fail": "Each call must first remove the old state from all tabs and panels."
+      },
+      {
+        "name": "A repeated call with the same number does not break anything",
+        "check": "(setActiveTab(1), setActiveTab(1), document.querySelectorAll(\".tab\")[1].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[1].classList.contains(\"is-hidden\"))",
+        "fail": "toggleClass without a second argument switches the class back and forth. Pass a state: .toggleClass(\"is-hidden\", i !== index), or use addClass."
+      },
+      {
+        "name": "The tab and panel classes are not lost",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab\").length === 3 && document.querySelectorAll(\".panel\").length === 3)",
+        "fail": "Do not overwrite the class attribute with .attr(\"class\", ...) - use addClass / removeClass / toggleClass."
+      },
+      {
+        "name": "markLowStock(5): is-low on the products with stock 3 and 0 (5 is not less than 5)",
+        "check": "[...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false\"",
+        "fail": "Use a strict comparison: stock < limit. Get the stock with $(this).data(\"stock\")."
+      },
+      {
+        "name": "markLowStock(10) after markLowStock(5): 3, 0, 5 and 8 are marked",
+        "check": "(markLowStock(10), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,true,true\")",
+        "fail": "The function must work with any limit, not only with 5."
+      },
+      {
+        "name": "markLowStock(1) removes extra marks",
+        "check": "(markLowStock(10), markLowStock(1), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"false,false,true,false,false\")",
+        "fail": "Products whose stock is not less than limit must lose the class is-low: .toggleClass(\"is-low\", stock < limit)."
+      },
+      {
+        "name": "A product added after loading is checked too",
+        "check": "($(\"#products\").append(\"<li class=\\\"product\\\" data-stock=\\\"2\\\">Pencil case</li>\"), markLowStock(5), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false,true\")",
+        "fail": "Find the products inside the function: $(\".product\") on every call, not once at the start of the program."
+      },
+      {
+        "name": "Classes are changed with jQuery methods",
+        "check": "/toggleClass\\(/.test(__code) && /\\.eq\\(/.test(__code)",
+        "fail": "Use .eq(index) to select the tab and .toggleClass(\"name\", state) for the panels or products."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the method names and make sure the functions are called after they are declared."
+      }
+    ],
+    "hints": [
+      "Tabs: const $tabs = $(\".tab\"); then $tabs.removeClass(\"is-active\").attr(\"aria-selected\", \"false\");",
+      "The needed tab: $tabs.eq(index).addClass(\"is-active\").attr(\"aria-selected\", \"true\");",
+      "Panels: $(\".panel\").each(function (i) { $(this).toggleClass(\"is-hidden\", i !== index); });",
+      "Stock: $(this).data(\"stock\") is already a number, so you can compare it with limit.",
+      "One call $(this).toggleClass(\"is-low\", stock < limit) both adds and removes the class.",
+      "Do not forget to call both functions at the end of the program."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does $(\".card\").addClass(\"is-new\") do if the cards already have the class card?",
+        "options": [
+          "Replaces the class card with is-new",
+          "Adds is-new, and card stays",
+          "Adds is-new only to the first card",
+          "Nothing: an element can have only one class"
+        ],
+        "answer": 1,
+        "explanation": "addClass adds a class to the existing ones, like classList.add, and does it on all the elements found."
+      },
+      {
+        "type": "single",
+        "question": "What happens after two calls in a row: $box.toggleClass(\"is-open\"); $box.toggleClass(\"is-open\"); (there was no class at first)?",
+        "options": [
+          "The class is-open is there",
+          "The class is-open is not there",
+          "The class is added twice",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "Without a second argument, toggleClass switches: the first call added the class, the second removed it."
+      },
+      {
+        "type": "single",
+        "question": "What is the result of $box.toggleClass(\"is-open\", true).toggleClass(\"is-open\", true).hasClass(\"is-open\")?",
+        "options": [
+          "true",
+          "false",
+          "undefined",
+          "An error: hasClass cannot be used in a chain"
+        ],
+        "answer": 0,
+        "explanation": "With the second argument true, toggleClass always adds the class, no matter how many times you call it. hasClass is a getter, it goes at the end of the chain and returns true."
+      },
+      {
+        "type": "input",
+        "question": "Which jQuery method returns true or false depending on whether the element has a class? Enter the method name without parentheses.",
+        "answers": [
+          "hasClass",
+          ".hasClass"
+        ],
+        "case_sensitive": true,
+        "explanation": "$el.hasClass(\"is-active\") is the equivalent of classList.contains."
+      },
+      {
+        "type": "multiple",
+        "question": "Which lines correctly remove the class is-hidden from the element $panel in jQuery 4?",
+        "options": [
+          "$panel.removeClass(\"is-hidden\")",
+          "$panel.toggleClass(\"is-hidden\", false)",
+          "$panel.toggleClass(false)",
+          "$panel.css(\"is-hidden\", false)"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "toggleClass(false) without a class name no longer works in jQuery 4, and css() works with CSS properties, not with classes."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"#box\").css(\"color\") return if CSS sets color: red for #box?",
+        "options": [
+          "\"red\"",
+          "\"rgb(255, 0, 0)\"",
+          "undefined, because the color is not set in the style attribute",
+          "An object with all styles"
+        ],
+        "answer": 1,
+        "explanation": "The css() getter returns the computed value that the browser applied to the element, even if it came from the CSS file. The browser returns colors in rgb() format."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"#title\").css(\"font-size\", 24) do in jQuery 4?",
+        "options": [
+          "Sets 24px",
+          "Sets 24em",
+          "Changes nothing: a number without units is invalid for font-size",
+          "Throws an error"
+        ],
+        "answer": 2,
+        "explanation": "In jQuery 4, px is added automatically only to sizes, margins and paddings, and positions (width, margin, top...). For font-size the browser ignores the value 24. That is why the course always writes units explicitly: \"24px\"."
+      },
+      {
+        "type": "matching",
+        "question": "Match the method with what it returns for a block: width 200px, padding 10px, border 2px, margin 5px (box-sizing: content-box).",
+        "pairs": [
+          [
+            ".width()",
+            "200"
+          ],
+          [
+            ".innerWidth()",
+            "220"
+          ],
+          [
+            ".outerWidth()",
+            "224"
+          ],
+          [
+            ".outerWidth(true)",
+            "234"
+          ]
+        ],
+        "explanation": "width is the content only, inner adds padding, outer also adds the border, and outerWidth(true) also adds margin."
+      },
+      {
+        "type": "multiple",
+        "question": "In which cases is .css() appropriate instead of a class?",
+        "options": [
+          "A progress bar width calculated in code: 37%",
+          "Hide an error when the input is correct",
+          "The position of a tooltip at the cursor coordinates",
+          "Red color for an overdue task"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Values calculated in code are set with css(). States known in advance (hidden, error, overdue) are described with a class in CSS."
+      },
+      {
+        "type": "single",
+        "question": "How is .offset() different from .position()?",
+        "options": [
+          "They are the same, these are synonyms",
+          ".offset() gives coordinates relative to the document, .position() relative to the nearest positioned parent",
+          ".offset() returns the width, .position() the height",
+          ".offset() works only for images"
+        ],
+        "answer": 1,
+        "explanation": "Both return an object { top, left }, but they measure from different reference points."
+      },
+      {
+        "type": "input",
+        "question": "Complete the code that scrolls the page to the very top: $(window).______(0). Enter the method name without parentheses.",
+        "answers": [
+          "scrollTop",
+          ".scrollTop"
+        ],
+        "case_sensitive": true,
+        "explanation": "scrollTop() without an argument reads the scroll position, and scrollTop(0) writes it."
+      },
+      {
+        "type": "matching",
+        "question": "Match plain JavaScript code with jQuery code.",
+        "pairs": [
+          [
+            "el.classList.add(\"x\")",
+            "$el.addClass(\"x\")"
+          ],
+          [
+            "el.classList.contains(\"x\")",
+            "$el.hasClass(\"x\")"
+          ],
+          [
+            "el.classList.toggle(\"x\", isOn)",
+            "$el.toggleClass(\"x\", isOn)"
+          ],
+          [
+            "el.style.width = \"50%\"",
+            "$el.css(\"width\", \"50%\")"
+          ]
+        ],
+        "explanation": "jQuery does the same thing, but on all the elements found at once."
+      }
+    ]
+  }
+}

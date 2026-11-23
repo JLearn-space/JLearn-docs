@@ -35,41 +35,6 @@
       "Gradient: background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);",
       "Semi-transparent background: background-color: rgb(254 226 226 / 70%);",
       "px units are not used in this task: rem only."
-    ],
-    "solution": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>",
-    "wrong_solutions": [
-      {
-        "mistake": "no sans-serif",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "h1 in px",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 32px;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "no gradient",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-color: #1e3a8a;\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "no notice class in the HTML",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p>Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "no line-height",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "line-height in px",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6px;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "no semi-transparency",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: #fee2e2;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "a style in an attribute",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Web development club</h1>\n    </header>\n    <main>\n        <p class=\"notice\" style=\"color: red;\">Wednesday's class is moved to Thursday.</p>\n        <p>We learn to build websites from scratch.</p>\n    </main>\n</body>\n</html>"
-      }
     ]
   },
   "test": {

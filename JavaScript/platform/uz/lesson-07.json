@@ -78,45 +78,6 @@
       "data-id: item.dataset.id = course.id;",
       "Qo‘yish: container.append(item);",
       "Hisoblagich parametr bo‘yicha: `Kurslar: ${list.length}`"
-    ],
-    "solution": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "function renderCourses(list) {\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "createElement o‘rniga innerHTML",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    container.innerHTML = list.map((c) => `<li class=\"course\" data-id=\"${c.id}\">${c.title} - ${c.lessons} ta dars</li>`).join(\"\");\n    document.querySelector(\"#course-count\").textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "ro‘yxat tozalanmaydi",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "list o‘rniga courses ishlatilgan",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of courses) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "course--new klassi yo‘q",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "yangilik style orqali",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.style.fontWeight = \"bold\";\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "data-id yo‘q",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "hisoblagich - qat’iy son",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = \"Kurslar: 3\";\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "selektorda xato",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#courses-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} ta dars`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Kurslar: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      }
     ]
   },
   "test": {

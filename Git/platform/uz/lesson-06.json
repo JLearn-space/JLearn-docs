@@ -1,0 +1,270 @@
+{
+  "lesson": 6,
+  "language": "uz",
+  "lesson_title": "Tarmoqlar",
+  "task": {
+    "title": "Portfolio uchun uchta tarmoq",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasida, main tarmog‘idasiz, tarixda 3 ta kommit bor, index.html sarlavhasida xato: Anna o‘rniga Ana. Buyruqlarni har qatorga bittadan yozing: 1) Tarmoqlar ro‘yxatini ko‘ring. 2) Bitta buyruq bilan main dan feature/contacts tarmog‘ini yarating va unga o‘ting. 3) <h1>Contacts</h1> matnli contacts.html faylini yarating va uni kommit qiling. 4) contacts.html ga <p>Email: anna@example.com</p> qatorini qo‘shing va ikkinchi kommitni qiling. 5) main ga qayting va fix/titel tarmog‘ini (aynan nomdagi xato bilan) yaratib, unga o‘ting. 6) index.html ni ikki qator bilan qayta yozing: <h1>Anna Karimova</h1> va <p>Frontend developer</p> - va kommit qiling. 7) fix/titel tarmog‘ini fix/title deb qayta nomlang. 8) main ga qayting, experiment tarmog‘ini yarating, style.css ni body { background: black; } qatori bilan qayta yozing va kommit qiling. 9) main ga qayting va experiment tarmog‘ini o‘chiring (u birlashtirilmagan - majburan o‘chirish kerak bo‘ladi). 10) Barcha tarmoqlar grafini (git log --oneline --graph --all) va git status ni ko‘ring. Oxirida siz main dasiz, repozitoriyda roppa-rosa uchta tarmoq bor: main, feature/contacts, fix/title, ishchi papka toza, main ning o‘zi esa o‘zgarmagan.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasida, main tarmog‘idasiz, tarixda 3 ta kommit bor.\n\n# 1. Tarmoqlar ro‘yxatini ko‘ring\n\n# 2. feature/contacts tarmog‘ini yarating va unga o‘ting\n\n# 3. 1-kommit: <h1>Contacts</h1> sarlavhali contacts.html fayli\n\n# 4. 2-kommit: contacts.html ga email qatorini qo‘shing\n\n# 5. main ga qayting va fix/titel tarmog‘ini yarating (xato bilan!)\n\n# 6. index.html ni qayta yozing: <h1>Anna Karimova</h1> va <p>Frontend developer</p>, kommit\n\n# 7. fix/titel tarmog‘ini fix/title deb qayta nomlang\n\n# 8. main dan: experiment tarmog‘i, style.css da bitta kommit\n\n# 9. main ga qayting va experiment ni o‘chiring (u birlashtirilmagan!)\n\n# 10. Barcha tarmoqlar grafini va git status ni ko‘ring\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Ana Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "feature/contacts tarmog‘i: main ustidan roppa-rosa 2 ta yangi kommit",
+        "check": "repo !== null && repo.tip(\"feature/contacts\") !== null && repo.isAncestor(\"main\", \"feature/contacts\") && repo.log(\"feature/contacts\").length === repo.log(\"main\").length + 2",
+        "fail": "Tarmoqni main da turib, main dan yarating (git switch -c feature/contacts) va unda roppa-rosa ikkita kommit qiling."
+      },
+      {
+        "name": "feature/contacts ning ikkala kommiti ham contacts.html ni o‘zgartiradi",
+        "check": "(() => { const a = repo.commit(\"feature/contacts\"), b = repo.commit(\"feature/contacts~1\"); return typeof b.files[\"contacts.html\"] === \"string\" && b.files[\"contacts.html\"].includes(\"<h1>Contacts</h1>\") && typeof a.files[\"contacts.html\"] === \"string\" && a.files[\"contacts.html\"] !== b.files[\"contacts.html\"] && a.files[\"contacts.html\"].split(\"\\n\").filter((s) => s.trim()).length >= 2; })()",
+        "fail": "1-kommit - <h1>Contacts</h1> bo‘lgan yangi contacts.html fayli (git add ni unutmang). 2-kommit - >> orqali qo‘shilgan email qatori."
+      },
+      {
+        "name": "fix/title tarmog‘i: to‘g‘ridan-to‘g‘ri main dan tuzatilgan sarlavhali bitta kommit",
+        "check": "repo.tip(\"fix/title\") !== null && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<p>Frontend developer</p>\") && repo.commit(\"fix/title\").files[\"index.html\"] !== repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "fix/titel ni yaratishdan oldin main ga qayting (git switch main). Tarmoqda - bitta kommit: <h1>Anna Karimova</h1> va <p>Frontend developer</p> bo‘lgan index.html."
+      },
+      {
+        "name": "Tarmoq fix/titel sifatida yaratilgan va qayta nomlangan - fix/titel endi yo‘q",
+        "check": "repo.reflog().includes(\"checkout: moving from main to fix/titel\") && !repo.branches().includes(\"fix/titel\")",
+        "fail": "Tarmoqni aynan xato bilan yarating: git switch -c fix/titel. Keyin uni qayta nomlang: git branch -m fix/title (ikkinchi tarmoq yaratmang)."
+      },
+      {
+        "name": "main o‘zgarmagan: unda boshqa tarmoqlarning kommitlari yo‘q",
+        "check": "repo.tip(\"main\") !== null && !repo.isAncestor(\"feature/contacts\", \"main\") && !repo.isAncestor(\"fix/title\", \"main\") && repo.log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "Kommitlarni main da emas, yangi tarmoqlarda qilish kerak: git branch faqat tarmoq yaratadi, unga git switch (yoki darhol git switch -c) o‘tkazadi."
+      },
+      {
+        "name": "experiment tarmog‘ida kommit bo‘lgan va tarmoq o‘chirilgan",
+        "check": "(() => { const r = repo.reflog(); const i = r.indexOf(\"checkout: moving from main to experiment\"); return i > 0 && r.slice(0, i).some((m, k) => m.startsWith(\"commit\") && r.slice(k + 1, i).every((x) => !x.startsWith(\"checkout\"))) && !repo.branches().includes(\"experiment\"); })()",
+        "fail": "experiment ni main dan yarating, unda kommit qiling, main ga qayting va tarmoqni o‘chiring: git branch -d rad etadi, git branch -D experiment kerak."
+      },
+      {
+        "name": "Repozitoriyda roppa-rosa uchta tarmoq: main, feature/contacts, fix/title",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"])",
+        "fail": "git branch ni ko‘ring: ortiqcha tarmoqlarni o‘chiring, yetishmaganlarini yarating, nomdagi xatoni git branch -m bilan tuzating."
+      },
+      {
+        "name": "Siz main tarmog‘ida tugatdingiz",
+        "check": "repo.branch === \"main\"",
+        "fail": "Oxirgi o‘tish bilan main ga qayting: git switch main."
+      },
+      {
+        "name": "Ishchi papka toza",
+        "check": "repo.status().clean",
+        "fail": "Barcha o‘zgarishlar o‘z tarmoqlarida kommit qilingan bo‘lishi kerak: main dagi git status nothing to commit, working tree clean deb javob berishi kerak."
+      },
+      {
+        "name": "main da ishchi papkada contacts.html yo‘q, index.html esa main versiyasi",
+        "check": "!sim.exists(\"~/portfolio/contacts.html\") && sim.read(\"~/portfolio/index.html\") === repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "contacts.html main da faqat birlashtirishdan keyin paydo bo‘ladi (7-dars). Agar fayl qolgan bo‘lsa, u feature/contacts da kommit qilinmagan."
+      },
+      {
+        "name": "git log --oneline --graph --all bajarilgan",
+        "check": "__commands.some((c) => /^git log\\b/.test(c.cmd) && c.cmd.includes(\"--graph\") && c.cmd.includes(\"--all\"))",
+        "fail": "Barcha tarmoqlar grafini ko‘ring: git log --oneline --graph --all."
+      },
+      {
+        "name": "Boshqa loyiha (main da 4 ta kommit): tarmoqlar va main qayta tekshirildi",
+        "check": "repo.branch === \"main\" && repo.status().clean && JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"]) && repo.log(\"main\").length === 4 && repo.log(\"feature/contacts\").length === 6 && repo.isAncestor(\"main\", \"feature/contacts\") && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && !sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "Yechim main ning istalgan tarixi uchun ishlashi kerak: tarmoqlarni main dan yarating va main ni o‘zgartirmang.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna Karimowa</h1>\" > index.html\necho \"<p>Web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: #222; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<h1>About me</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "echo buyruqlaridagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "Tarmoq yaratish va darhol unga o‘tish: git switch -c feature/contacts. Oddiy git branch nom tarmoqni yaratadi, lekin unga o‘tkazmaydi.",
+      "Yangi faylni birinchi kommitdan oldin qo‘shish kerak: git add contacts.html. Ikkinchi kommitni git commit -am orqali qilish mumkin.",
+      "Har bir yangi tarmoqni main dan yarating: avval git switch main, keyin git switch -c nom.",
+      "Joriy tarmoqni qayta nomlash: git branch -m fix/title - buni fix/titel da turganingizda bajaring.",
+      "git branch -d experiment birlashtirilmagan tarmoqni o‘chirishni rad etadi (not fully merged). Majburan: git branch -D experiment. O‘zingiz turgan tarmoqni o‘chirib bo‘lmaydi - avval git switch main."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Git’da tarmoq nima?",
+        "options": [
+          "Loyihaning barcha fayllarining alohida papkadagi to‘liq nusxasi",
+          "Kommitga harakatlanuvchi ko‘rsatkich (xatcho‘p)",
+          ".git ichidagi alohida repozitoriy",
+          "O‘zgargan fayllar ro‘yxati"
+        ],
+        "answer": 1,
+        "explanation": "Tarmoq - kommitga ishora qiluvchi oddiy nom. Tarmoq yaratish - yangi xatcho‘p yozib qo‘yish demak, fayllardan nusxa olinmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git branch\n  feature/contacts\n* main\n  fix/title",
+        "options": [
+          "Siz feature/contacts tarmog‘idasiz",
+          "Siz main tarmog‘idasiz, jami uchta tarmoq bor",
+          "main tarmog‘i o‘chirilgan",
+          "main - kommitlari bor yagona tarmoq"
+        ],
+        "answer": 1,
+        "explanation": "* yulduzchasi joriy tarmoqni - HEAD ishora qilayotganini belgilaydi."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: feature/menu tarmog‘ini yaratish va darhol unga o‘tish (zamonaviy buyruq bilan).",
+        "answers": [
+          "git switch -c feature/menu"
+        ],
+        "case_sensitive": true,
+        "explanation": "git switch -c = git branch feature/menu + git switch feature/menu. Eski shakli - git checkout -b feature/menu."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruq va natijani moslashtiring.",
+        "pairs": [
+          [
+            "git branch -d old",
+            "Agar kommitlari birlashtirilgan bo‘lsa, tarmoqni o‘chirish"
+          ],
+          [
+            "git branch -D old",
+            "Tarmoqni birlashtirilmagan kommitlari bo‘lsa ham majburan o‘chirish"
+          ],
+          [
+            "git branch -m new",
+            "Joriy tarmoqni qayta nomlash"
+          ],
+          [
+            "git switch -",
+            "Oldingi tarmoqqa qaytish"
+          ]
+        ],
+        "explanation": "-d - xavfsiz o‘chirish, -D - majburiy, -m - qayta nomlash (move), switch - xuddi cd - kabi orqaga sakraydi."
+      },
+      {
+        "type": "single",
+        "question": "Siz main dasiz. git branch feature/blog ni bajardingiz va darhol kommit qildingiz. Kommit qayerga tushadi?",
+        "options": [
+          "feature/blog tarmog‘iga",
+          "main tarmog‘iga",
+          "Ikkala tarmoqqa",
+          "Git xato beradi"
+        ],
+        "answer": 1,
+        "explanation": "git branch faqat tarmoq yaratadi, unga o‘tkazmaydi. HEAD hamon main ga ishora qiladi, kommit ham o‘sha yerga tushadi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git branch -d experiment\nerror: the branch 'experiment' is not fully merged\nhint: If you are sure you want to delete it, run 'git branch -D experiment'",
+        "options": [
+          "Tarmoq o‘chirildi",
+          "Tarmoq o‘chirilmadi: unda joriy tarmoqda yo‘q kommitlar bor",
+          "experiment tarmog‘i mavjud emas",
+          "Avval experiment ga o‘tish kerak"
+        ],
+        "answer": 1,
+        "explanation": "-d ishni yo‘qotishdan himoya qiladi. Agar kommitlar haqiqatan kerak bo‘lmasa - git branch -D experiment."
+      },
+      {
+        "type": "multiple",
+        "question": "Siz contacts.html kommit qilingan feature/contacts dasiz. git switch main ni bajardingiz. Nima bo‘ladi?",
+        "options": [
+          "contacts.html ishchi papkadan yo‘qoladi",
+          "feature/contacts tarmog‘ining kommitlari o‘chiriladi",
+          "HEAD main ga ishora qiladi",
+          "Papkadagi fayllar main ning oxirgi kommitidagidek bo‘ladi"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Tarmoq almashtirish papkadagi fayllarni boshqa tarmoq suratiga moslaydi. feature/contacts kommitlari repozitoriyda qoladi - tarmoqqa qayting, fayl yana paydo bo‘ladi."
+      },
+      {
+        "type": "single",
+        "question": "Siz main da style.css ni o‘zgartirdingiz (kommit qilmadingiz) va git switch feature/contacts ni bajardingiz. Ikkala tarmoqda style.css bir xil. Nima bo‘ladi?",
+        "options": [
+          "Xato: avval o‘zgarishlarni kommit qiling",
+          "Tarmoq almashadi, style.css o‘zgarishi siz bilan birga ko‘chadi",
+          "O‘zgarish yo‘qoladi",
+          "Git avtomatik kommit qiladi"
+        ],
+        "answer": 1,
+        "explanation": "Kommit qilinmagan o‘zgarishlar tarmoqqa emas, ishchi papkaga tegishli. Agar fayl tarmoqlarda bir xil bo‘lsa, Git o‘zgarishlarni ko‘chiradi. would be overwritten xatosi fayl tarmoqlarda farq qilganda chiqadi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git status\nHEAD detached at c0adb88",
+        "options": [
+          "Repozitoriy buzilgan",
+          "HEAD tarmoqqa emas, to‘g‘ridan-to‘g‘ri kommitga ishora qiladi",
+          "c0adb88 tarmog‘i yaratildi",
+          "c0adb88 kommiti o‘chirildi"
+        ],
+        "answer": 1,
+        "explanation": "Ajratilgan HEAD - siz eski kommitni ko‘ryapsiz. Qaytish: git switch main; shu yerda qilingan kommitlarni saqlash: git switch -c yangi-tarmoq."
+      },
+      {
+        "type": "multiple",
+        "question": "Umumqabul qilingan qoidalarga ko‘ra qaysi tarmoq nomlari yaxshi?",
+        "options": [
+          "feature/contact-form",
+          "fix/header-typo",
+          "Yangi tarmoq",
+          "my branch",
+          "feature/dark-theme"
+        ],
+        "answer": [
+          0,
+          1,
+          4
+        ],
+        "explanation": "Lotin harflari, kichik harflar, probel o‘rniga defislar, feature/ yoki fix/ prefiksi. Probellarni Git umuman qabul qilmaydi: is not a valid branch name."
+      },
+      {
+        "type": "matching",
+        "question": "Eski git checkout buyrug‘ini zamonaviysi bilan moslashtiring.",
+        "pairs": [
+          [
+            "git checkout main",
+            "git switch main"
+          ],
+          [
+            "git checkout -b feature/x",
+            "git switch -c feature/x"
+          ],
+          [
+            "git checkout c0adb88",
+            "git switch --detach c0adb88"
+          ],
+          [
+            "git checkout -- index.html",
+            "git restore index.html"
+          ]
+        ],
+        "explanation": "checkout hamma ishni birdaniga qila oladi, shuning uchun u switch (tarmoqlar) va restore (fayllar) ga ajratildi. Eski shaklni begona yo‘riqnomalarda uchratasiz."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: barcha tarmoqlar tarixini graf bilan bir qatordan ko‘rsatish.",
+        "answers": [
+          "git log --oneline --graph --all",
+          "git log --oneline --all --graph",
+          "git log --graph --oneline --all",
+          "git log --graph --all --oneline",
+          "git log --all --oneline --graph",
+          "git log --all --graph --oneline"
+        ],
+        "case_sensitive": true,
+        "explanation": "--all - faqat joriy emas, barcha tarmoqlar; --graph - chap tomonda tarmoq chiziqlari; --oneline - kommit bir qatorda."
+      }
+    ]
+  }
+}

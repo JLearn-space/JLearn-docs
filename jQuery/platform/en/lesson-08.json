@@ -1,0 +1,286 @@
+{
+  "lesson": 8,
+  "language": "en",
+  "lesson_title": "Forms",
+  "task": {
+    "title": "Club sign-up form",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n</head>\n<body>\n    <main>\n        <h1>Sign up for the programming club</h1>\n        <form id=\"signup-form\" novalidate>\n            <div class=\"field\">\n                <label for=\"name\">Name</label>\n                <input id=\"name\" name=\"name\" type=\"text\" aria-describedby=\"name-error\">\n                <p id=\"name-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"email\">Email</label>\n                <input id=\"email\" name=\"email\" type=\"email\" aria-describedby=\"email-error\">\n                <p id=\"email-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"age\">Age</label>\n                <input id=\"age\" name=\"age\" type=\"number\" aria-describedby=\"age-error\">\n                <p id=\"age-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"direction\">Track</label>\n                <select id=\"direction\" name=\"direction\" aria-describedby=\"direction-error\">\n                    <option value=\"\">Choose a track</option>\n                    <option value=\"web\">Web development</option>\n                    <option value=\"python\">Python for beginners</option>\n                    <option value=\"robotics\">Robotics</option>\n                </select>\n                <p id=\"direction-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label>\n                    <input id=\"agree\" name=\"agree\" type=\"checkbox\" aria-describedby=\"agree-error\">\n                    I agree to the club rules\n                </label>\n                <p id=\"agree-error\" class=\"error\"></p>\n            </div>\n            <button id=\"submit-btn\" type=\"submit\">Sign up</button>\n        </form>\n        <p id=\"form-message\" role=\"status\"></p>\n    </main>\n</body>\n</html>",
+    "description": "Bring the form #signup-form to life with jQuery. The practice \"server\" sendApplication(data, onSuccess) already exists: it takes the data and calls onSuccess after one second. 1) Write showError($field, text): the text goes into the field's error element (its id is in the field's aria-describedby) and the field gets aria-invalid=\"true\"; clearError($field): empty text and no aria-invalid. 2) Write validateForm(): it checks all fields at once and returns true or false. The name after trim() is not empty (\"Enter your name\") and not shorter than 2 characters (\"Name - at least 2 characters\"); the email contains @ (\"Enter an email with the @ symbol\"); the age is a number from 14 to 60 inclusive (\"Age - a number from 14 to 60\"); a track is selected in #direction (\"Choose a track\"); the checkbox #agree is checked (\"Confirm that you agree to the rules\"). For correct fields, the error is cleared. 3) The handler $form.on(\"submit\", ...): cancels the browser's submission, clears #form-message and validates the form. 4) If there are no errors: blocks #submit-btn and writes \"Sending...\" on it, calls sendApplication($form.serializeArray(), function). In the function: the text \"Thank you, Anna! You are signed up for: Web development.\" in #form-message (the name after trim and the text of the selected track), the form is reset, the button is available again with the text \"Sign up\". Do not use document.querySelector, innerHTML, .html() or .submit(fn).",
+    "starter_code": "// On the page: the form #signup-form with the fields #name, #email, #age,\n// the list #direction and the checkbox #agree. Each field has its own error element:\n// #name-error, #email-error, #age-error, #direction-error, #agree-error\n// (the error id is written in the field's aria-describedby attribute).\n// The button is #submit-btn, the success message is #form-message.\n//\n// The practice \"server\" already exists:\n// sendApplication(data, onSuccess) - takes the data and after 1 second\n// calls the function onSuccess (as if the server replied \"accepted\").\n\n// 1. Save the jQuery objects of the form, fields, button and message in constants\n\n// 2. function showError($field, text) - text into the error element + aria-invalid=\"true\"\n//    function clearError($field) - empty text + remove aria-invalid\n\n// 3. function validateForm() - checks ALL fields and returns true / false:\n//    the name after trim() is not empty (\"Enter your name\") and not shorter than 2 (\"Name - at least 2 characters\");\n//    the email contains @ (\"Enter an email with the @ symbol\");\n//    the age is a number from 14 to 60 (\"Age - a number from 14 to 60\");\n//    a track is selected (\"Choose a track\");\n//    the checkbox is checked (\"Confirm that you agree to the rules\")\n\n// 4. $form.on(\"submit\", ...): preventDefault, clear #form-message, validate;\n//    on success - block the button with the text \"Sending...\",\n//    sendApplication($form.serializeArray(), function) and inside the function:\n//    the message \"Thank you, Anna! You are signed up for: Web development.\", reset the form,\n//    the button is available again with the text \"Sign up\"\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "onsubmit",
+      "addEventListener",
+      ".style.",
+      ".submit(",
+      ".click(",
+      "textContent",
+      ".setAttribute(",
+      ".checked"
+    ],
+    "setup": "const sentData = [];\nlet pendingCallbacks = [];\nfunction sendApplication(data, onSuccess) {\n    sentData.push(data);\n    pendingCallbacks.push(onSuccess);\n    setTimeout(finishSending, 1000);\n}\nfunction finishSending() {\n    const callbacks = pendingCallbacks;\n    pendingCallbacks = [];\n    callbacks.forEach((callback) => callback());\n}",
+    "tests": [
+      {
+        "name": "Empty form: each field has its own error",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return err(\"name\") === \"Enter your name\" && err(\"email\") === \"Enter an email with the @ symbol\" && err(\"age\") === \"Age - a number from 14 to 60\" && err(\"direction\") === \"Choose a track\" && err(\"agree\") === \"Confirm that you agree to the rules\"; })()",
+        "fail": "Check all fields one after another without leaving after the first error: collect the result in let isValid = true."
+      },
+      {
+        "name": "Empty form: all fields have aria-invalid=\"true\", the application is not sent",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => inv(id) === \"true\") && sentData.length === 0 && document.querySelector(\"#submit-btn\").disabled === false; })()",
+        "fail": "showError sets .attr(\"aria-invalid\", \"true\") on the field; if there are errors, sendApplication is not called."
+      },
+      {
+        "name": "Submitting with .trigger(\"submit\") does not reload the page",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return __error === null && sentData.length === 1; })()",
+        "fail": "Call event.preventDefault() at the start of the submit handler."
+      },
+      {
+        "name": "Submitting with dispatchEvent is cancelled: defaultPrevented",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#signup-form\").dispatchEvent(ev); return ev.defaultPrevented === true; })()",
+        "fail": "event.preventDefault() is needed even when the form has errors - call it on the first line."
+      },
+      {
+        "name": "A name made of spaces and a one-letter name - error",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"   \", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); const a = err(\"name\") === \"Enter your name\"; $(\"#name\").val(\" A \"); $(\"#signup-form\").trigger(\"submit\"); return a && err(\"name\") === \"Name - at least 2 characters\" && inv(\"name\") === \"true\" && err(\"email\") === \"\" && inv(\"email\") === null && sentData.length === 0; })()",
+        "fail": "First const name = $name.val().trim(); then the checks name === \"\" and name.length < 2."
+      },
+      {
+        "name": "Email without @ - error, the other fields have no errors",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna.mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return err(\"email\") === \"Enter an email with the @ symbol\" && inv(\"email\") === \"true\" && err(\"name\") === \"\" && err(\"age\") === \"\" && sentData.length === 0; })()",
+        "fail": "The check: !$email.val().includes(\"@\")."
+      },
+      {
+        "name": "Age: 13, 61 and an empty field - error; 14 and 60 - no error",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); const res = []; for (const a of [\"13\", \"61\", \"\", \"14\", \"60\"]) { fill(\"Anna\", \"anna@mail.uz\", a, \"web\", false); $(\"#signup-form\").trigger(\"submit\"); res.push(err(\"age\")); } const bad = \"Age - a number from 14 to 60\"; return res.join(\"|\") === [bad, bad, bad, \"\", \"\"].join(\"|\") && inv(\"age\") === null; })()",
+        "fail": "const age = Number($age.val()); it is an error if the field is empty, Number.isNaN(age), age < 14 or age > 60. The limits 14 and 60 are allowed."
+      },
+      {
+        "name": "No track selected and the checkbox not checked - errors",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"\", false); document.querySelector(\"#signup-form\").requestSubmit(); return err(\"direction\") === \"Choose a track\" && err(\"agree\") === \"Confirm that you agree to the rules\" && inv(\"direction\") === \"true\" && inv(\"agree\") === \"true\" && sentData.length === 0; })()",
+        "fail": "List: $direction.val() === \"\". Checkbox: !$agree.prop(\"checked\") - not .val(), which is always \"on\"."
+      },
+      {
+        "name": "Correct form (requestSubmit): the button is blocked, the text is \"Sending...\"",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").requestSubmit(); return document.querySelector(\"#submit-btn\").disabled === true && document.querySelector(\"#submit-btn\").textContent === \"Sending...\" && sentData.length === 1 && [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null); })()",
+        "fail": "Before sendApplication: $submitBtn.prop(\"disabled\", true).text(\"Sending...\")."
+      },
+      {
+        "name": "The .serializeArray() data is passed to sendApplication",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"python\", true); $(\"#signup-form\").trigger(\"submit\"); const d = sentData[0]; const v = (n) => (d.find((x) => x.name === n) || {}).value; return Array.isArray(d) && v(\"email\") === \"anna@mail.uz\" && v(\"age\") === \"20\" && v(\"direction\") === \"python\" && v(\"agree\") === \"on\"; })()",
+        "fail": "sendApplication($form.serializeArray(), function () { ... });"
+      },
+      {
+        "name": "After the \"server\" response: message, form reset, button available",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").dispatchEvent(new Event(\"submit\", { bubbles: true, cancelable: true })); const before = document.querySelector(\"#form-message\").textContent; finishSending(); return before === \"\" && document.querySelector(\"#form-message\").textContent === \"Thank you, Anna! You are signed up for: Web development.\" && $(\"#name\").val() === \"\" && $(\"#direction\").val() === \"\" && $(\"#agree\").prop(\"checked\") === false && document.querySelector(\"#submit-btn\").disabled === false && document.querySelector(\"#submit-btn\").textContent === \"Sign up\"; })()",
+        "fail": "Inside the function for sendApplication: $message.text(...), $form[0].reset(), $submitBtn.prop(\"disabled\", false).text(\"Sign up\")."
+      },
+      {
+        "name": "Fixed fields lose the error and aria-invalid",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null) && sentData.length === 1; })()",
+        "fail": "clearError: .text(\"\") in the error element and .removeAttr(\"aria-invalid\") on the field - for each correct field."
+      },
+      {
+        "name": "The code uses .on(\"submit\"), .prop(\"checked\") and .serializeArray()",
+        "check": "/\\.on\\(\\s*[\"']submit/.test(__code) && /\\.prop\\(\\s*[\"']checked[\"']\\s*\\)|:checked/.test(__code) && /\\.serializeArray\\(\\)/.test(__code)",
+        "fail": "The handler is $form.on(\"submit\", ...), the checkbox is .prop(\"checked\"), the data is $form.serializeArray()."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the selectors and that sendApplication is called with a function as the second argument."
+      }
+    ],
+    "hints": [
+      "The error element of a field: $(`#${$field.attr(\"aria-describedby\")}`) - for #name it is #name-error.",
+      "To show all errors at once, do not return after the first one: let isValid = true; ... isValid = false; ... return isValid;",
+      "Age: const age = Number($age.val()); it is an error if $age.val() === \"\", Number.isNaN(age), age < 14 or age > 60.",
+      "Checkbox: $agree.prop(\"checked\"). Its .val() is always \"on\", even when it is not checked.",
+      "Text of the selected track: $direction.find(\"option:checked\").text(); jQuery has no .reset() - call $form[0].reset().",
+      "Save the name and the track for the message BEFORE calling sendApplication: after reset() the fields are already empty."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Why is the handler attached to the form's submit event and not to the button's click?",
+        "options": [
+          "click on a button does not work in jQuery 4",
+          "submit fires both on the button and on Enter in a field",
+          "submit fires before the page loads",
+          "Because the code is shorter"
+        ],
+        "answer": 1,
+        "explanation": "A form can be submitted with the button or with the Enter key - submit catches both ways."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"#agree\").val() return for the checkbox <input type=\"checkbox\" id=\"agree\"> without a value attribute if it is NOT checked?",
+        "options": [
+          "false",
+          "\"\"",
+          "\"on\"",
+          "undefined"
+        ],
+        "answer": 2,
+        "explanation": ".val() of a checkbox is its value, not its state. Without a value attribute it is \"on\". Whether the checkbox is checked - .prop(\"checked\")."
+      },
+      {
+        "type": "multiple",
+        "question": "Which code finds out whether the checkbox #agree is checked right now?",
+        "options": [
+          "$(\"#agree\").prop(\"checked\")",
+          "$(\"#agree\").is(\":checked\")",
+          "$(\"#agree\").attr(\"checked\")",
+          "$(\"#agree\").val()"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": ".prop and :checked read the current state. attr is the original attribute from the HTML, val is the value."
+      },
+      {
+        "type": "single",
+        "question": "Form: name = Anna, age = 20, the agree checkbox is not checked. What does $form.serializeArray() return?",
+        "options": [
+          "[{ name: \"name\", value: \"Anna\" }, { name: \"age\", value: \"20\" }]",
+          "[{ name: \"name\", value: \"Anna\" }, { name: \"age\", value: 20 }, { name: \"agree\", value: false }]",
+          "{ name: \"Anna\", age: \"20\" }",
+          "\"name=Anna&age=20\""
+        ],
+        "answer": 0,
+        "explanation": "serializeArray is an array of { name, value } pairs, the values are strings, and an unchecked checkbox is not included."
+      },
+      {
+        "type": "input",
+        "question": "Which jQuery method turns a form into a string like name=%D0%90%D0%BD%D0%BD%D0%B0&age=20? Enter the method name without the dot and brackets.",
+        "answers": [
+          "serialize"
+        ],
+        "case_sensitive": true,
+        "explanation": ".serialize() gives a string to send to the server (lesson 9), .serializeArray() gives an array of objects."
+      },
+      {
+        "type": "single",
+        "question": "What will the code print? const age = $(\"#age\").val(); console.log(typeof age); - the user typed 25 in a type=\"number\" field.",
+        "options": [
+          "number",
+          "string",
+          "undefined",
+          "object"
+        ],
+        "answer": 1,
+        "explanation": "The value of any field is a string. To compare it, convert it with Number()."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the code.",
+        "pairs": [
+          [
+            "Cancel the browser's submission",
+            "event.preventDefault()"
+          ],
+          [
+            "Mark a field as invalid",
+            ".attr(\"aria-invalid\", \"true\")"
+          ],
+          [
+            "Block the button",
+            ".prop(\"disabled\", true)"
+          ],
+          [
+            "Clear all form fields",
+            "$form[0].reset()"
+          ]
+        ],
+        "explanation": "jQuery has no .reset() method: you call it on the DOM element of the form."
+      },
+      {
+        "type": "multiple",
+        "question": "What makes a good error message in a form?",
+        "options": [
+          "It is next to the field and says what to fix",
+          "It is linked to the field with aria-describedby",
+          "It is shown with alert()",
+          "It disappears when the field is fixed"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "alert gets in the way and does not show which field is wrong. An error is next to the field, linked to it and disappears after fixing."
+      },
+      {
+        "type": "single",
+        "question": "Why block the submit button while the application is being sent?",
+        "options": [
+          "So that the form is not validated",
+          "So that the user does not send the application twice and can see that sending is in progress",
+          "So that preventDefault works",
+          "jQuery 4 requires it"
+        ],
+        "answer": 1,
+        "explanation": "An impatient user clicks the button again - without blocking, two applications are sent."
+      },
+      {
+        "type": "single",
+        "question": "Code: if (name === \"\") { ... return false; } if (!email.includes(\"@\")) { ... }. The user left both the name and the email empty. How many errors will they see?",
+        "options": [
+          "None",
+          "One - for the name",
+          "Two",
+          "One - for the email"
+        ],
+        "answer": 1,
+        "explanation": "return leaves the function after the first error. To show all errors, collect the result in let isValid = true."
+      },
+      {
+        "type": "input",
+        "question": "Which form attribute turns off the browser's built-in hints so that your code shows the errors? Enter the attribute name.",
+        "answers": [
+          "novalidate"
+        ],
+        "case_sensitive": true,
+        "explanation": "<form novalidate> - your script does the checking and writes the error texts, the same in all browsers."
+      },
+      {
+        "type": "matching",
+        "question": "Match the field with how to find out what the user chose.",
+        "pairs": [
+          [
+            "<input type=\"text\">",
+            ".val() - the typed text"
+          ],
+          [
+            "<select>",
+            ".val() - the value of the selected option"
+          ],
+          [
+            "<input type=\"checkbox\">",
+            ".prop(\"checked\") - true or false"
+          ],
+          [
+            "Text of the selected list item",
+            ".find(\"option:checked\").text()"
+          ]
+        ],
+        "explanation": "For a list, .val() gives the item's value, and the visible label is the .text() of the selected option."
+      }
+    ]
+  }
+}

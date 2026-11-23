@@ -1,0 +1,267 @@
+{
+  "lesson": 10,
+  "language": "en",
+  "lesson_title": "Tags, releases and final project",
+  "task": {
+    "title": "The full project cycle",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "Git is already set up, you are in your home folder. The ~/my-site folder contains your website (index.html, css/style.css, js/main.js), as well as the node_modules/ folder and the .env file with a secret key - but there is no repository. An empty repository https://github.com/anna/my-site.git has been created on \"GitHub\". Write the commands one per line: 1) Go to my-site and create a repository. 2) Create .gitignore with the lines node_modules/ and .env and check git status -s. 3) Make the first commit with all the website files: Add site files. 4) Create the feature/contacts branch, and in it - the file contacts.html with the text <h1>Contacts</h1> and the commit Add contacts page. 5) Go back to main, merge the branch (with --no-ff or fast-forward) and delete it. 6) Set up the global alias lg for log --oneline --graph --all and look at the history with git lg. 7) Connect the remote repository as origin and push main with upstream. 8) Create an annotated tag v1.0 with a message, push it to the server and check git status. As a result, the server has the main branch with your history and the tag v1.0 on the last commit, while node_modules and .env are not in any commit.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in your home folder. ~/my-site has a website, plus node_modules/ and .env, and no repository.\n\n# 1. Go to my-site and create a repository\n\n# 2. Create .gitignore with the lines node_modules/ and .env, check git status -s\n\n# 3. The first commit with all website files: Add site files\n\n# 4. The feature/contacts branch: the file contacts.html with the text <h1>Contacts</h1>, the commit Add contacts page\n\n# 5. Go back to main, merge the branch and delete it\n\n# 6. The lg alias for log --oneline --graph --all (global) and a call to git lg\n\n# 7. Connect origin, push main with upstream\n\n# 8. An annotated tag v1.0 and pushing it to the server, check git status\n",
+    "timeout_ms": 3000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// in the home folder - the student's website: website files, node_modules/ and .env, no repository\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/lodash\ncd my-site\necho \"<h1>My site</h1>\" > index.html\necho \"body { margin: 0; }\" > css/style.css\necho \"console.log('Hello');\" > js/main.js\necho \"module.exports = {};\" > node_modules/lodash/index.js\necho \"API_KEY=secret123\" > .env\ncd ~`, { quiet: true });\n// an empty repository has been created on \"GitHub\"\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n",
+    "tests": [
+      {
+        "name": "The repository is created in ~/my-site, .gitignore with node_modules/ and .env exists",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const c = R.commit(\"main\"); return Boolean(c && c.files[\".gitignore\"] !== undefined && R.isIgnored(\"node_modules/x.js\") && R.isIgnored(\".env\")); })()",
+        "fail": "Create the repository inside ~/my-site (cd my-site, then git init), and commit .gitignore with the lines node_modules/ and .env."
+      },
+      {
+        "name": "node_modules and .env are not in any commit (neither yours nor on the server)",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const bad = (c) => Object.keys(c.files).some((p) => p.startsWith(\"node_modules/\") || p === \".env\"); return R.log(\"main\").length > 0 && !R.log(\"main\").some(bad) && !S.log(\"main\").some(bad); })()",
+        "fail": ".gitignore must be created BEFORE git add . - otherwise node_modules and .env get into the first commit."
+      },
+      {
+        "name": "The first commit contains the website files index.html, css/style.css, js/main.js",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const log = R.log(\"main\"); const root = log[log.length - 1]; return Boolean(root && root.parents.length === 0 && root.files[\"index.html\"] && root.files[\"css/style.css\"] && root.files[\"js/main.js\"]); })()",
+        "fail": "Add all website files to the first commit: git add . (after creating .gitignore)."
+      },
+      {
+        "name": "The work on the contacts was done in the feature/contacts branch",
+        "check": "__commands.some((c) => /^git (switch -c|switch --create|checkout -b|branch) feature\\/contacts\\b/.test(c.cmd) && c.code === 0)",
+        "fail": "Create the branch with git switch -c feature/contacts and commit contacts.html in it."
+      },
+      {
+        "name": "contacts.html with the text <h1>Contacts</h1> is in main and on the server",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const c = R.commit(\"main\"); return Boolean(c && c.files[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\" && S.files(\"main\")[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\" && R.log(\"main\").some((x) => x.subject === \"Add contacts page\")); })()",
+        "fail": "Merge the branch into main: git switch main, then git merge feature/contacts (or --no-ff)."
+      },
+      {
+        "name": "The feature/contacts branch is deleted",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return !R.branches().includes(\"feature/contacts\") && !S.branches().includes(\"feature/contacts\"); })()",
+        "fail": "After the merge, delete the branch: git branch -d feature/contacts."
+      },
+      {
+        "name": "The global alias lg is set up and used",
+        "check": "(sim.user.config[\"alias.lg\"] || \"\").trim().replace(/\\s+/g, \" \") === \"log --oneline --graph --all\" && __commands.some((c) => /^git lg\\b/.test(c.cmd) && c.code === 0)",
+        "fail": "Run git config --global alias.lg \"log --oneline --graph --all\" (with quotes), then git lg."
+      },
+      {
+        "name": "main on the server matches the local one, the upstream is origin/main",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return R.remotes().origin === \"https://github.com/anna/my-site.git\" && R.commit(\"main\") !== null && S.tip(\"main\") === R.commit(\"main\").hash && R.upstream(\"main\") === \"origin/main\"; })()",
+        "fail": "Connect the server (git remote add origin ...) and push the branch: git push -u origin main."
+      },
+      {
+        "name": "The tag v1.0 is on the server and points to the last commit (HEAD)",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const t = S.s.tags[\"v1.0\"]; const h = R.commit(\"HEAD\"); return Boolean(t && h && t.hash === h.hash && t.hash === S.tip(\"main\") && R.tag(\"v1.0\") && R.tag(\"v1.0\").hash === h.hash); })()",
+        "fail": "Create the tag at the end, when everything is merged: git tag -a v1.0 -m \"...\". Tags are not pushed automatically - git push --tags or git push origin v1.0."
+      },
+      {
+        "name": "The tag v1.0 is annotated (has a message)",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const t = S.s.tags[\"v1.0\"]; const l = R.tag(\"v1.0\"); return Boolean(t && t.message && t.message.trim() && l && l.message && l.message.trim()); })()",
+        "fail": "A lightweight tag git tag v1.0 does not store an author or a message. You need git tag -a v1.0 -m \"First release\"."
+      },
+      {
+        "name": "You are on main, the working directory is clean",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return R.branch === \"main\" && R.state() === null && R.status().clean; })()",
+        "fail": "At the end git status must answer nothing to commit, working tree clean."
+      },
+      {
+        "name": "Other website files: all files are on the server, no secrets, the tag v1.0 is on HEAD",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const f = S.files(\"main\"); if (!(f[\"index.html\"] === \"<h1>Anna Karimova</h1>\\n\" && f[\"about.html\"] === \"<h1>About me</h1>\\n\" && f[\"css/style.css\"] === \"h1 { color: teal; }\\n\" && f[\"js/main.js\"] === \"alert('Welcome');\\n\" && f[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\")) return false; const bad = (c) => Object.keys(c.files).some((p) => p.startsWith(\"node_modules/\") || p === \".env\"); if (!(R.log(\"main\").length > 0 && !R.log(\"main\").some(bad) && !S.log(\"main\").some(bad))) return false; const t = S.s.tags[\"v1.0\"]; const h = R.commit(\"HEAD\"); return Boolean(t && h && t.hash === h.hash && t.hash === S.tip(\"main\") && R.tag(\"v1.0\") && R.tag(\"v1.0\").hash === h.hash); })()",
+        "fail": "The solution must work with any website: add files with git add ., not by their names.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// in the home folder - the student's website: website files, node_modules/ and .env, no repository\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/jquery\ncd my-site\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<h1>About me</h1>\" > about.html\necho \"h1 { color: teal; }\" > css/style.css\necho \"alert('Welcome');\" > js/main.js\necho \"module.exports = {};\" > node_modules/jquery/jquery.js\necho \"TOKEN=abc999\" > .env\ncd ~`, { quiet: true });\n// an empty repository has been created on \"GitHub\"\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n"
+      },
+      {
+        "name": "Other website files: the tag is annotated, no branch, the folder is clean",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; if (R.branches().includes(\"feature/contacts\") || !R.status().clean) return false; const t = S.s.tags[\"v1.0\"]; const l = R.tag(\"v1.0\"); return Boolean(t && t.message && t.message.trim() && l && l.message && l.message.trim()); })()",
+        "fail": "Do not rely on specific file names: .gitignore, git add ., a branch, merge, tag -a, push --tags.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// in the home folder - the student's website: website files, node_modules/ and .env, no repository\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/jquery\ncd my-site\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<h1>About me</h1>\" > about.html\necho \"h1 { color: teal; }\" > css/style.css\necho \"alert('Welcome');\" > js/main.js\necho \"module.exports = {};\" > node_modules/jquery/jquery.js\necho \"TOKEN=abc999\" > .env\ncd ~`, { quiet: true });\n// an empty repository has been created on \"GitHub\"\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n"
+      },
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in the commands."
+      }
+    ],
+    "hints": [
+      "The order matters: first .gitignore, then git add . - then node_modules/ and .env do not get into the commit. Check git status -s: they must not be there.",
+      "Branch: git switch -c feature/contacts, the file with echo, git add, git commit. Merge from main: git switch main, git merge feature/contacts.",
+      "A merged branch is deleted with git branch -d feature/contacts.",
+      "Put an alias value with spaces in quotes: git config --global alias.lg \"log --oneline --graph --all\".",
+      "Create the tag last, when everything is merged: git tag -a v1.0 -m \"First release\".",
+      "A normal git push does not send tags: git push --tags (or git push origin v1.0)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Why does a project need tags?",
+        "options": [
+          "To create a new branch for work",
+          "To mark an important commit forever, for example version v1.0",
+          "To hide files from Git",
+          "To merge two branches"
+        ],
+        "answer": 1,
+        "explanation": "A tag is a permanent \"label\" on a commit. Unlike a branch, it does not move with new commits."
+      },
+      {
+        "type": "matching",
+        "question": "Match the command with the action.",
+        "pairs": [
+          [
+            "git tag",
+            "Show the list of tags"
+          ],
+          [
+            "git tag -a v1.0 -m \"First release\"",
+            "Create an annotated tag on HEAD"
+          ],
+          [
+            "git tag -d v0.1",
+            "Delete a tag on your computer"
+          ],
+          [
+            "git push origin v1.0",
+            "Push one tag to the server"
+          ]
+        ],
+        "explanation": "Creating and deleting a tag work locally, a tag gets to the server only through push."
+      },
+      {
+        "type": "multiple",
+        "question": "How does an annotated tag differ from a lightweight one?",
+        "options": [
+          "It stores the tag author (Tagger) and the date",
+          "It stores a message",
+          "It moves forward with new commits",
+          "It is created with git tag -a"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "A lightweight tag is just a name for a commit. An annotated tag is a separate object with an author, a date and a message. No tag moves."
+      },
+      {
+        "type": "single",
+        "question": "You ran git tag -a v1.0 -m \"First release\" and git push. There is no tag on GitHub. Why?",
+        "options": [
+          "The tag is damaged",
+          "git push does not send tags - you need git push --tags or git push origin v1.0",
+          "GitHub does not support annotated tags",
+          "You must delete the branch first"
+        ],
+        "answer": 1,
+        "explanation": "Tags are pushed separately: git push --tags (all) or git push origin v1.0 (one)."
+      },
+      {
+        "type": "single",
+        "question": "git show v1.0 starts with the lines tag v1.0, Tagger: Anna Karimova ..., First release. What does this mean?",
+        "options": [
+          "v1.0 is a branch",
+          "v1.0 is a lightweight tag",
+          "v1.0 is an annotated tag with the message First release",
+          "The commit is called First release"
+        ],
+        "answer": 2,
+        "explanation": "Only an annotated tag has the tag/Tagger/message block. Below it comes the commit the tag points to."
+      },
+      {
+        "type": "matching",
+        "question": "The version was 1.4.2. Match the change with the new version by semantic versioning.",
+        "pairs": [
+          [
+            "Fixed a typo on a page",
+            "1.4.3"
+          ],
+          [
+            "Added a blog page, old things still work",
+            "1.5.0"
+          ],
+          [
+            "Completely redid the website, old links do not work",
+            "2.0.0"
+          ]
+        ],
+        "explanation": "MAJOR.MINOR.PATCH: PATCH - fixes, MINOR - new features without breaking anything, MAJOR - incompatible changes. The lower numbers are reset to zero."
+      },
+      {
+        "type": "input",
+        "question": "A log line: 75d1cf9 (HEAD -> main, tag: v1.0, origin/main) Merge branch 'feature/contacts'. What is the name of the tag? Enter only the name.",
+        "answers": [
+          "v1.0"
+        ],
+        "case_sensitive": true,
+        "explanation": "In brackets Git shows the labels of the commit: tag: v1.0 is a tag, origin/main is the branch on the server."
+      },
+      {
+        "type": "input",
+        "question": "Complete the command so that git st runs git status: git config --global ______ status",
+        "answers": [
+          "alias.st"
+        ],
+        "case_sensitive": true,
+        "explanation": "Aliases are stored in the settings alias.<name>. If the command has spaces, the value is put in quotes."
+      },
+      {
+        "type": "single",
+        "question": "What is a release on GitHub?",
+        "options": [
+          "The same as the main branch",
+          "A version page based on a tag: a title, a description of the changes and files to download",
+          "The git release command",
+          "A copy of the repository owned by another user"
+        ],
+        "answer": 1,
+        "explanation": "A release is created on the website (Releases → Draft a new release) on top of a tag. Git knows nothing about releases - it is a GitHub feature."
+      },
+      {
+        "type": "multiple",
+        "question": "What is needed for the website to open through GitHub Pages from the main branch?",
+        "options": [
+          "index.html is in the root of the branch",
+          "In Settings → Pages the source Deploy from a branch, the branch main and the folder / (root) are selected",
+          "Create the tag v1.0",
+          "The changes are pushed to GitHub with git push"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Pages publishes what is on GitHub in the selected branch. Pages does not need a tag."
+      },
+      {
+        "type": "single",
+        "question": "The GitHub login is anna, the repository is my-site. At what address will the website open on GitHub Pages?",
+        "options": [
+          "https://github.com/anna/my-site",
+          "https://anna.github.io/my-site/",
+          "https://my-site.github.io/anna/",
+          "https://pages.github.com/anna"
+        ],
+        "answer": 1,
+        "explanation": "A project address on Pages: https://<login>.github.io/<repository>/. github.com/anna/my-site is the code page, not the website."
+      },
+      {
+        "type": "single",
+        "question": "You created the tag v1.0 on the wrong commit, but have not pushed it yet. What should you do?",
+        "options": [
+          "Delete the repository",
+          "git tag -d v1.0, then create the tag again on the right commit",
+          "git reset --hard",
+          "Nothing: the tag will move to the new commit by itself"
+        ],
+        "answer": 1,
+        "explanation": "A tag that is not pushed can be safely deleted and created again. It is better not to rewrite a pushed tag: others may have already downloaded it."
+      }
+    ]
+  }
+}

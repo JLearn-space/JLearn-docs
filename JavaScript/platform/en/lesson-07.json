@@ -78,45 +78,6 @@
       "data-id: item.dataset.id = course.id;",
       "Inserting: container.append(item);",
       "Counter from the parameter: `Courses: ${list.length}`"
-    ],
-    "solution": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "starter code unchanged",
-        "code": "function renderCourses(list) {\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "innerHTML instead of createElement",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    container.innerHTML = list.map((c) => `<li class=\"course\" data-id=\"${c.id}\">${c.title} - ${c.lessons} lessons</li>`).join(\"\");\n    document.querySelector(\"#course-count\").textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "the list is not cleared",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "uses courses instead of list",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of courses) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "no course--new class",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "newness via style",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.style.fontWeight = \"bold\";\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "no data-id",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "the counter is a fixed number",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#course-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = \"Courses: 3\";\n}\n\nrenderCourses(courses);\n"
-      },
-      {
-        "mistake": "a typo in the selector",
-        "code": "function renderCourses(list) {\n    const container = document.querySelector(\"#courses-list\");\n    const count = document.querySelector(\"#course-count\");\n\n    container.textContent = \"\";\n\n    for (const course of list) {\n        const item = document.createElement(\"li\");\n        item.classList.add(\"course\");\n        item.textContent = `${course.title} - ${course.lessons} lessons`;\n        item.dataset.id = course.id;\n\n        if (course.isNew) {\n            item.classList.add(\"course--new\");\n        }\n\n        container.append(item);\n    }\n\n    count.textContent = `Courses: ${list.length}`;\n}\n\nrenderCourses(courses);\n"
-      }
     ]
   },
   "test": {

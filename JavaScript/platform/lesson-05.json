@@ -92,49 +92,6 @@
       "Значение по умолчанию: function formatPrice(amount, currency = \"сум\")",
       "Стрелка: const square = (x) => x * x;",
       "Счётчик гласных объявляйте внутри функции, иначе второй вызов продолжит старый счёт."
-    ],
-    "solution": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
-    "wrong_solutions": [
-      {
-        "mistake": "стартовый код без изменений",
-        "code": "// 1. function isEven(number)\n"
-      },
-      {
-        "mistake": "console.log вместо return",
-        "code": "function isEven(number) {\n    console.log(number % 2 === 0);\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "нечётность через % 2 === 1",
-        "code": "function isEven(number) {\n    return number % 2 !== 1;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "isEven стрелкой вместо function",
-        "code": "const isEven = (number) => number % 2 === 0;\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "неверный порядок проверок",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "нет значения по умолчанию",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency) {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "стрелка с фигурными скобками без return",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => { x * x; };\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "square объявлением function",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nfunction square(x) {\n    return x * x;\n}\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "счётчик снаружи функции",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nlet count = 0;\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "печать внутри функции",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"сум\") {\n    console.log(amount);\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      }
     ]
   },
   "test": {

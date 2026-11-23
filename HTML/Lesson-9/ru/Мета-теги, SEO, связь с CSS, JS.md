@@ -286,6 +286,16 @@ Lighthouse встроен в Chrome:
 
 **Валидатор и Lighthouse не заменяют проверку руками.** Пройдите страницу клавиатурой, как в уроке 8.
 
+### Попробуйте сломать
+
+1. В `<link>` замените путь на `css/styles.css` (одна лишняя буква). Обновите страницу: оформление пропало. Во вкладке **Network** у файла статус `404`.
+2. Сделайте то же со скриптом: `js/mian.js` вместо `js/main.js`. В **Console** нет строки «Lesson 9: the deferred script loaded.», зато есть красная: `Failed to load resource: the server responded with a status of 404 (Not Found)`.
+3. Замените `<script src="js/main.js" defer></script>` на `<script src="js/main.js" defer />`. Обновите страницу: всё содержимое исчезло. Браузер не считает `/>` закрытием `script` и принимает остаток документа за текст скрипта. Валидатор покажет ошибку, которая начинается со слов `Self-closing syntax`.
+4. Удалите атрибут `lang` у `<html>` и проверьте код в валидаторе. Появится предупреждение `Consider adding a lang attribute to the html start tag to declare the language of this document.`
+5. Удалите `<meta name="description">` и запустите Lighthouse с отметкой **SEO**. В списке проблем появится `Document does not have a meta description`.
+
+После каждого опыта верните код как было.
+
 ---
 
 ## Мини-задание 2

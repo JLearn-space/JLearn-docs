@@ -1,0 +1,281 @@
+{
+  "lesson": 4,
+  "language": "ru",
+  "lesson_title": "Классы и стили",
+  "task": {
+    "title": "Вкладки и остатки на складе",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Магазин курсов</title>\n    <style>\n        .is-hidden { display: none; }\n        .tab.is-active { border-bottom: 3px solid #2563eb; }\n        .product.is-low { color: #b91c1c; }\n    </style>\n</head>\n<body>\n    <main>\n        <div class=\"tabs\" role=\"tablist\">\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Описание</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Программа</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Отзывы</button>\n        </div>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">Курс jQuery за 10 уроков.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">Селекторы, классы, события, AJAX.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">«Понятно с первого урока!»</section>\n\n        <h2>Наборы на складе</h2>\n        <ul id=\"products\">\n            <li class=\"product\" data-stock=\"3\">Тетрадь</li>\n            <li class=\"product\" data-stock=\"12\">Ручка</li>\n            <li class=\"product\" data-stock=\"0\">Флешка</li>\n            <li class=\"product\" data-stock=\"5\">Наклейки</li>\n            <li class=\"product\" data-stock=\"8\">Блокнот</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "На странице три вкладки .tab, три панели .panel (у всех класс is-hidden) и список товаров li.product с атрибутом data-stock - остатком на складе. Классы is-active, is-hidden и is-low уже описаны в CSS. 1) Напишите функцию setActiveTab(index): снимите класс is-active со всех .tab и поставьте им aria-selected=\"false\"; вкладке с номером index (через .eq) добавьте is-active и aria-selected=\"true\"; панели с номером index уберите is-hidden, всем остальным поставьте - через .toggleClass(\"is-hidden\", состояние). 2) Напишите функцию markLowStock(limit): каждому .product, у которого data-stock меньше limit, добавьте класс is-low, остальным уберите его. Товары ищите внутри функции. 3) В конце вызовите setActiveTab(0) и markLowStock(5). Тесты вызывают функции много раз с разными аргументами. document.querySelector, classList, .style, innerHTML и .html() не используйте.",
+    "starter_code": "// На странице: вкладки .tab (3 шт.), панели .panel (3 шт., все с классом is-hidden)\n// и список товаров li.product с атрибутом data-stock (остаток на складе).\n// Классы в CSS уже есть: is-active, is-hidden, is-low.\n\n// 1. setActiveTab(index):\n//    - снять is-active со всех .tab и поставить им aria-selected=\"false\"\n//    - вкладке с номером index (.eq) - класс is-active и aria-selected=\"true\"\n//    - панели с номером index убрать is-hidden, остальным поставить:\n//      .toggleClass(\"is-hidden\", состояние)\nfunction setActiveTab(index) {\n\n}\n\n// 2. markLowStock(limit):\n//    - каждому .product, у которого data-stock меньше limit, - класс is-low,\n//      остальным этот класс убрать\n//    - товары ищите внутри функции\nfunction markLowStock(limit) {\n\n}\n\n// 3. Вызовите setActiveTab(0) и markLowStock(5)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "classList",
+      ".style.",
+      "className"
+    ],
+    "tests": [
+      {
+        "name": "Функции setActiveTab и markLowStock объявлены",
+        "check": "typeof setActiveTab === \"function\" && typeof markLowStock === \"function\"",
+        "fail": "Объявите обе функции с именами из условия: function setActiveTab(index) { ... } и function markLowStock(limit) { ... }."
+      },
+      {
+        "name": "После загрузки активна первая вкладка и видна первая панель",
+        "check": "document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[0].classList.contains(\"is-hidden\") && document.querySelectorAll(\".panel.is-hidden\").length === 2",
+        "fail": "В конце кода вызовите setActiveTab(0);"
+      },
+      {
+        "name": "setActiveTab(2): активна только третья вкладка",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[2].classList.contains(\"is-active\"))",
+        "fail": "Сначала $tabs.removeClass(\"is-active\") у всех, затем $tabs.eq(index).addClass(\"is-active\")."
+      },
+      {
+        "name": "setActiveTab(2): aria-selected=\"true\" только у третьей вкладки",
+        "check": "(setActiveTab(2), [...document.querySelectorAll(\".tab\")].map((t) => t.getAttribute(\"aria-selected\")).join() === \"false,false,true\")",
+        "fail": "Всем вкладкам .attr(\"aria-selected\", \"false\"), нужной - .attr(\"aria-selected\", \"true\")."
+      },
+      {
+        "name": "setActiveTab(1): видна только вторая панель",
+        "check": "(setActiveTab(1), [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"true,false,true\")",
+        "fail": "Переберите .panel через .each и вызовите $(this).toggleClass(\"is-hidden\", i !== index)."
+      },
+      {
+        "name": "Несколько переключений подряд: 2, потом 0",
+        "check": "(setActiveTab(2), setActiveTab(0), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"false,true,true\")",
+        "fail": "Каждый вызов должен сначала убирать старое состояние у всех вкладок и панелей."
+      },
+      {
+        "name": "Повторный вызов с тем же номером ничего не ломает",
+        "check": "(setActiveTab(1), setActiveTab(1), document.querySelectorAll(\".tab\")[1].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[1].classList.contains(\"is-hidden\"))",
+        "fail": "toggleClass без второго аргумента переключает класс туда-обратно. Передайте состояние: .toggleClass(\"is-hidden\", i !== index) или используйте addClass."
+      },
+      {
+        "name": "Классы tab и panel не потерялись",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab\").length === 3 && document.querySelectorAll(\".panel\").length === 3)",
+        "fail": "Не перезаписывайте атрибут class через .attr(\"class\", ...) - используйте addClass / removeClass / toggleClass."
+      },
+      {
+        "name": "markLowStock(5): is-low у товаров с остатком 3 и 0 (5 - не меньше 5)",
+        "check": "[...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false\"",
+        "fail": "Сравнивайте строго: stock < limit. Остаток берите через $(this).data(\"stock\")."
+      },
+      {
+        "name": "markLowStock(10) после markLowStock(5): помечены 3, 0, 5 и 8",
+        "check": "(markLowStock(10), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,true,true\")",
+        "fail": "Функция должна работать с любым limit, а не только с 5."
+      },
+      {
+        "name": "markLowStock(1) снимает лишние отметки",
+        "check": "(markLowStock(10), markLowStock(1), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"false,false,true,false,false\")",
+        "fail": "Товарам, у которых остаток не меньше limit, класс is-low нужно убрать: .toggleClass(\"is-low\", stock < limit)."
+      },
+      {
+        "name": "Товар, добавленный после загрузки, тоже проверяется",
+        "check": "($(\"#products\").append(\"<li class=\\\"product\\\" data-stock=\\\"2\\\">Пенал</li>\"), markLowStock(5), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false,true\")",
+        "fail": "Ищите товары внутри функции: $(\".product\") при каждом вызове, а не один раз в начале программы."
+      },
+      {
+        "name": "Классы меняются методами jQuery",
+        "check": "/toggleClass\\(/.test(__code) && /\\.eq\\(/.test(__code)",
+        "fail": "Используйте .eq(index) для выбора вкладки и .toggleClass(\"имя\", состояние) для панелей или товаров."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте названия методов и что функции вызываются после объявления."
+      }
+    ],
+    "hints": [
+      "Вкладки: const $tabs = $(\".tab\"); затем $tabs.removeClass(\"is-active\").attr(\"aria-selected\", \"false\");",
+      "Нужная вкладка: $tabs.eq(index).addClass(\"is-active\").attr(\"aria-selected\", \"true\");",
+      "Панели: $(\".panel\").each(function (i) { $(this).toggleClass(\"is-hidden\", i !== index); });",
+      "Остаток: $(this).data(\"stock\") - уже число, его можно сравнивать с limit.",
+      "Один вызов $(this).toggleClass(\"is-low\", stock < limit) и добавляет, и убирает класс.",
+      "Не забудьте вызвать обе функции в конце программы."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что делает $(\".card\").addClass(\"is-new\"), если у карточек уже есть класс card?",
+        "options": [
+          "Заменяет класс card на is-new",
+          "Добавляет is-new, а card остаётся",
+          "Добавляет is-new только первой карточке",
+          "Ничего: класс у элемента может быть только один"
+        ],
+        "answer": 1,
+        "explanation": "addClass добавляет класс к уже существующим, как classList.add, и делает это у всех найденных элементов."
+      },
+      {
+        "type": "single",
+        "question": "Что будет после двух вызовов подряд: $box.toggleClass(\"is-open\"); $box.toggleClass(\"is-open\"); (класса сначала не было)?",
+        "options": [
+          "Класс is-open есть",
+          "Класса is-open нет",
+          "Класс добавлен дважды",
+          "Ошибка"
+        ],
+        "answer": 1,
+        "explanation": "Без второго аргумента toggleClass переключает: первый вызов добавил класс, второй убрал."
+      },
+      {
+        "type": "single",
+        "question": "Чему равен результат $box.toggleClass(\"is-open\", true).toggleClass(\"is-open\", true).hasClass(\"is-open\")?",
+        "options": [
+          "true",
+          "false",
+          "undefined",
+          "Ошибка: hasClass нельзя ставить в цепочку"
+        ],
+        "answer": 0,
+        "explanation": "Со вторым аргументом true toggleClass всегда добавляет класс, сколько раз ни вызывай. hasClass - геттер, стоит в конце цепочки и возвращает true."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод jQuery возвращает true или false в зависимости от того, есть ли у элемента класс? Введите имя метода без скобок.",
+        "answers": [
+          "hasClass",
+          ".hasClass"
+        ],
+        "case_sensitive": true,
+        "explanation": "$el.hasClass(\"is-active\") - аналог classList.contains."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи правильно убирают класс is-hidden у элемента $panel в jQuery 4?",
+        "options": [
+          "$panel.removeClass(\"is-hidden\")",
+          "$panel.toggleClass(\"is-hidden\", false)",
+          "$panel.toggleClass(false)",
+          "$panel.css(\"is-hidden\", false)"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "toggleClass(false) без имени класса в jQuery 4 больше не работает, а css() работает со свойствами CSS, а не с классами."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\"#box\").css(\"color\"), если в CSS для #box задано color: red?",
+        "options": [
+          "\"red\"",
+          "\"rgb(255, 0, 0)\"",
+          "undefined, потому что цвет задан не в атрибуте style",
+          "Объект со всеми стилями"
+        ],
+        "answer": 1,
+        "explanation": "Геттер css() возвращает вычисленное значение, которое браузер применил к элементу, даже если оно пришло из CSS-файла. Цвета браузер возвращает в формате rgb()."
+      },
+      {
+        "type": "single",
+        "question": "Что сделает $(\"#title\").css(\"font-size\", 24) в jQuery 4?",
+        "options": [
+          "Установит 24px",
+          "Установит 24em",
+          "Ничего не изменит: число без единиц для font-size некорректно",
+          "Выбросит ошибку"
+        ],
+        "answer": 2,
+        "explanation": "В jQuery 4 px автоматически добавляется только к размерам, отступам и позициям (width, margin, top...). Для font-size браузер отбросит значение 24. Поэтому в курсе единицы всегда пишутся явно: \"24px\"."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте метод и что он возвращает для блока: width 200px, padding 10px, border 2px, margin 5px (box-sizing: content-box).",
+        "pairs": [
+          [
+            ".width()",
+            "200"
+          ],
+          [
+            ".innerWidth()",
+            "220"
+          ],
+          [
+            ".outerWidth()",
+            "224"
+          ],
+          [
+            ".outerWidth(true)",
+            "234"
+          ]
+        ],
+        "explanation": "width - только содержимое, inner добавляет padding, outer - ещё рамку, outerWidth(true) - ещё и margin."
+      },
+      {
+        "type": "multiple",
+        "question": "В каких случаях уместен .css(), а не класс?",
+        "options": [
+          "Ширина полоски прогресса, вычисленная в коде: 37%",
+          "Скрыть ошибку при правильном вводе",
+          "Позиция подсказки по координатам курсора",
+          "Красный цвет для просроченной задачи"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Значения, которые вычисляются в коде, задают через css(). Заранее известные состояния (скрыт, ошибка, просрочено) описывают классом в CSS."
+      },
+      {
+        "type": "single",
+        "question": "Чем .offset() отличается от .position()?",
+        "options": [
+          "Ничем, это синонимы",
+          ".offset() - координаты относительно документа, .position() - относительно ближайшего позиционированного родителя",
+          ".offset() возвращает ширину, .position() - высоту",
+          ".offset() работает только для изображений"
+        ],
+        "answer": 1,
+        "explanation": "Оба возвращают объект { top, left }, но считают от разных точек отсчёта."
+      },
+      {
+        "type": "input",
+        "question": "Допишите запись, которая прокручивает страницу в самый верх: $(window).______(0). Введите имя метода без скобок.",
+        "answers": [
+          "scrollTop",
+          ".scrollTop"
+        ],
+        "case_sensitive": true,
+        "explanation": "scrollTop() без аргумента читает прокрутку, scrollTop(0) - записывает."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте код на чистом JavaScript и на jQuery.",
+        "pairs": [
+          [
+            "el.classList.add(\"x\")",
+            "$el.addClass(\"x\")"
+          ],
+          [
+            "el.classList.contains(\"x\")",
+            "$el.hasClass(\"x\")"
+          ],
+          [
+            "el.classList.toggle(\"x\", isOn)",
+            "$el.toggleClass(\"x\", isOn)"
+          ],
+          [
+            "el.style.width = \"50%\"",
+            "$el.css(\"width\", \"50%\")"
+          ]
+        ],
+        "explanation": "jQuery делает то же, но у всех найденных элементов сразу."
+      }
+    ]
+  }
+}

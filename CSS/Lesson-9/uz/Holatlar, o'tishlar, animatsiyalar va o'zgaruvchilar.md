@@ -338,6 +338,17 @@ flowchart TD
 
 **Sxemani qanday o‘qish kerak.** Harakatga javob - `transition`, mustaqil harakat - `@keyframes`. Ikkala holatda ham - «harakatni kamaytirish» sozlamasiga hurmat.
 
+### Buzib ko‘ring
+
+1. `.btn` da `var(--primary)` o‘rniga `var(primary)` deb yozing. Tugma fonini yo‘qotdi. DevTools → **Elements** → **Styles** da qator chizib tashlangan, yonida ogohlantirish belgisi: qiymat yaroqsiz.
+2. `transition` ni `.btn` dan `.btn:hover` ga ko‘chiring. Kursorni olib keling va olib keting. U tomonga rang ravon o‘zgaradi, orqaga - sakrab.
+3. `.required-label::after` dan `content: " *";` ni o‘chiring. Yulduzcha yo‘qoldi: `content` siz psevdoelement bo‘lmaydi.
+4. `.btn:focus-visible` qoidasini o‘chiring va `.btn:focus { outline: none; }` qo‘shing. Sahifani klaviatura bilan (Tab) o‘ting. Fokus hozir qayerdaligi ko‘rinadimi?
+5. DevTools → **Rendering** da `prefers-reduced-motion: reduce` ni yoqing va sahifani yangilang. `.hero` bloki animatsiyasiz, darhol paydo bo‘ladi. `animation` ni `no-preference` blokidan tashqariga chiqaring - animatsiya `reduce` da ham qaytadi.
+6. `:root` da `--primary` qiymatini `#b91c1c` ga almashtiring. `var(--primary)` li barcha elementlar birdaniga qizardi - siz bitta qatorni o‘zgartirdingiz.
+
+Har bir tajribadan keyin kodni avvalgi holiga qaytaring.
+
 ### Yangi o‘rganuvchilarning tipik xatolari
 
 | Xato | Qanday tuzatish |

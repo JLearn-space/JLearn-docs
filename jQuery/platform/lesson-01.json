@@ -1,0 +1,268 @@
+{
+  "lesson": 1,
+  "language": "ru",
+  "lesson_title": "Знакомство с jQuery",
+  "task": {
+    "title": "Первая страница на jQuery",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Курс jQuery</title>\n</head>\n<body>\n    <main>\n        <h1 id=\"course-title\">Курс</h1>\n        <p id=\"lesson-count\">Загрузка...</p>\n        <ul class=\"lessons\">\n            <li class=\"lesson\"><span class=\"lesson__name\">Знакомство с jQuery</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Селекторы и обход DOM</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Содержимое и атрибуты</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Классы и стили</span> - <span class=\"lesson__status\">?</span></li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "На странице есть заголовок #course-title, абзац #lesson-count и список уроков li.lesson с вложенными .lesson__name и .lesson__status. jQuery уже подключён. 1) Запишите в #course-title текст \"jQuery за 10 уроков\" и в той же цепочке добавьте класс is-ready. 2) Сохраните число уроков в константу lessonCount через .length. 3) Запишите в #lesson-count текст \"Уроков на странице: 4\", где число - lessonCount. 4) Одним вызовом запишите во все .lesson__status текст \"не начат\". 5) Прочитайте текст заголовка в константу titleText и выведите её в консоль. document.querySelector, innerHTML и .html() не используйте.",
+    "starter_code": "// На странице: h1#course-title, p#lesson-count и список li.lesson,\n// внутри каждого урока - .lesson__name и .lesson__status.\n// jQuery уже подключён: можно сразу писать $(...).\n\n// 1. Заголовок: текст \"jQuery за 10 уроков\" и класс is-ready в одной цепочке\n\n// 2. const lessonCount = ... (число уроков через .length)\n\n// 3. #lesson-count: \"Уроков на странице: 4\"\n\n// 4. Все .lesson__status: \"не начат\" - одним вызовом\n\n// 5. const titleText = ... и вывод в консоль\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick"
+    ],
+    "tests": [
+      {
+        "name": "Заголовок: \"jQuery за 10 уроков\"",
+        "check": "document.querySelector(\"#course-title\").textContent === \"jQuery за 10 уроков\"",
+        "fail": "$(\"#course-title\").text(\"jQuery за 10 уроков\");"
+      },
+      {
+        "name": "У заголовка есть класс is-ready",
+        "check": "document.querySelector(\"#course-title\").classList.contains(\"is-ready\")",
+        "fail": "Добавьте в цепочку .addClass(\"is-ready\")."
+      },
+      {
+        "name": "Текст и класс заголовка заданы одной цепочкой",
+        "check": "/\\.text\\([^;()]+\\)\\s*\\.addClass\\(|\\.addClass\\([^;()]+\\)\\s*\\.text\\(/.test(__code)",
+        "fail": "Сразу после .text(\"jQuery за 10 уроков\") допишите .addClass(\"is-ready\")."
+      },
+      {
+        "name": "lessonCount равен 4",
+        "check": "lessonCount === 4",
+        "fail": "const lessonCount = $(\".lesson\").length;"
+      },
+      {
+        "name": "Счётчик: \"Уроков на странице: 4\"",
+        "check": "document.querySelector(\"#lesson-count\").textContent === \"Уроков на странице: 4\"",
+        "fail": "$(\"#lesson-count\").text(`Уроков на странице: ${lessonCount}`);"
+      },
+      {
+        "name": "На странице с пятью уроками lessonCount равен 5",
+        "check": "lessonCount === 5 && document.querySelector(\"#lesson-count\").textContent === \"Уроков на странице: 5\"",
+        "fail": "Число не пишите вручную - берите его из $(\".lesson\").length.",
+        "setup": "$(\".lessons\").append(\"<li class=\\\"lesson\\\"><span class=\\\"lesson__name\\\">Создание элементов</span> - <span class=\\\"lesson__status\\\">?</span></li>\");"
+      },
+      {
+        "name": "У всех уроков статус \"не начат\"",
+        "check": "[...document.querySelectorAll(\".lesson__status\")].every((s) => s.textContent === \"не начат\")",
+        "fail": "$(\".lesson__status\").text(\"не начат\"); - один вызов меняет все элементы."
+      },
+      {
+        "name": "Названия уроков не изменились",
+        "check": "document.querySelectorAll(\".lesson__name\")[0].textContent === \"Знакомство с jQuery\"",
+        "fail": "Меняйте только .lesson__status, а не весь .lesson."
+      },
+      {
+        "name": "titleText - текст заголовка",
+        "check": "titleText === \"jQuery за 10 уроков\"",
+        "fail": "Прочитайте текст после изменения: const titleText = $(\"#course-title\").text();"
+      },
+      {
+        "name": "titleText выведен в консоль",
+        "check": "__logs.includes(\"jQuery за 10 уроков\")",
+        "fail": "console.log(titleText);"
+      },
+      {
+        "name": "Код написан на jQuery",
+        "check": "/\\.length/.test(__code) && !/textContent|getElementsBy|\\.forEach|for\\s*\\(/.test(__code)",
+        "fail": "Без циклов и textContent: $(\".lesson\").length и $(\".lesson__status\").text(...)."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте селекторы и что геттер .text() не стоит в середине цепочки."
+      }
+    ],
+    "hints": [
+      "Цепочка: $(\"#course-title\").text(\"...\").addClass(\"is-ready\");",
+      "Число элементов: $(\".lesson\").length.",
+      "Шаблонная строка: `Уроков на странице: ${lessonCount}`.",
+      "Один вызов $(\".lesson__status\").text(\"не начат\") меняет все статусы.",
+      "titleText читайте после того, как изменили заголовок."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое jQuery?",
+        "options": [
+          "Отдельный язык программирования вместо JavaScript",
+          "Библиотека на JavaScript с готовыми функциями для работы со страницей",
+          "Расширение браузера",
+          "Новая версия HTML"
+        ],
+        "answer": 1,
+        "explanation": "jQuery - обычный файл .js. Внутри он вызывает те же функции DOM, что и чистый JavaScript."
+      },
+      {
+        "type": "single",
+        "question": "Какой порядок подключения правильный?",
+        "options": [
+          "Сначала main.js, потом jQuery",
+          "Сначала jQuery, потом main.js",
+          "Порядок не важен",
+          "jQuery подключается в конце body после main.js"
+        ],
+        "answer": 1,
+        "explanation": "Скрипты выполняются по порядку: без загруженного jQuery в main.js нет функции $."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\".card\"), если на странице нет ни одной карточки?",
+        "options": [
+          "null",
+          "undefined",
+          "Пустой jQuery-объект с length 0",
+          "Ошибку"
+        ],
+        "answer": 2,
+        "explanation": "$() всегда возвращает jQuery-объект. Проверка: $(\".card\").length === 0."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство jQuery-объекта показывает, сколько элементов найдено?",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "$(\".item\").length - число найденных элементов."
+      },
+      {
+        "type": "single",
+        "question": "Что делает $(\".status\").text(\"Готово\"), если на странице 3 элемента .status?",
+        "options": [
+          "Меняет только первый",
+          "Меняет все три",
+          "Меняет только последний",
+          "Выдаёт ошибку: нужен цикл"
+        ],
+        "answer": 1,
+        "explanation": "Неявный перебор: сеттер применяется к каждому найденному элементу."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и результат.",
+        "pairs": [
+          [
+            "$(\"#title\").text()",
+            "Строка с текстом"
+          ],
+          [
+            "$(\"#title\").text(\"Привет\")",
+            "jQuery-объект"
+          ],
+          [
+            "$(\"#title\").length",
+            "Число"
+          ],
+          [
+            "$(\"#title\")[0]",
+            "DOM-элемент"
+          ]
+        ],
+        "explanation": "Геттер возвращает значение, сеттер - jQuery-объект для цепочки, [0] - элемент DOM."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие цепочки сработают без ошибки?",
+        "options": [
+          "$(\"h1\").text(\"A\").addClass(\"b\")",
+          "$(\"h1\").text().addClass(\"b\")",
+          "$(\"h1\").addClass(\"b\").text(\"A\")",
+          "$(\"h1\").length.text(\"A\")"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Цепочку можно продолжать после сеттера. Геттер .text() возвращает строку, length - число."
+      },
+      {
+        "type": "single",
+        "question": "Что увидит пользователь после $(\"#msg\").text(\"<b>Привет</b>\")?",
+        "options": [
+          "Жирное слово Привет",
+          "Буквально <b>Привет</b>",
+          "Пустой элемент",
+          "Ошибку в консоли"
+        ],
+        "answer": 1,
+        "explanation": ".text() вставляет строку как текст, а не как разметку - как textContent."
+      },
+      {
+        "type": "single",
+        "question": "Какая запись запускает код после построения DOM и рекомендуется в jQuery 4?",
+        "options": [
+          "$(document).ready(function () { ... })",
+          "$(function () { ... })",
+          "window.jQuery = function () { ... }",
+          "$.start(function () { ... })"
+        ],
+        "answer": 1,
+        "explanation": "$(function) - рекомендуемая запись; $(document).ready устарела."
+      },
+      {
+        "type": "multiple",
+        "question": "Чего нет в slim-сборке jQuery?",
+        "options": [
+          "Эффектов анимации",
+          "AJAX",
+          "Функции $",
+          "Метода .text()"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Slim облегчена за счёт эффектов и AJAX. В курсе используется полная сборка."
+      },
+      {
+        "type": "input",
+        "question": "Что нужно ввести в консоли, чтобы узнать версию подключённого jQuery? Введите выражение целиком.",
+        "answers": [
+          "jQuery.fn.jquery",
+          "$.fn.jquery"
+        ],
+        "case_sensitive": true,
+        "explanation": "jQuery.fn.jquery возвращает строку версии, например \"4.1.0\"."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте код на чистом JavaScript и на jQuery.",
+        "pairs": [
+          [
+            "document.querySelectorAll(\".card\")",
+            "$(\".card\")"
+          ],
+          [
+            "title.textContent = \"A\"",
+            "$title.text(\"A\")"
+          ],
+          [
+            "title.classList.add(\"x\")",
+            "$title.addClass(\"x\")"
+          ],
+          [
+            "$title[0]",
+            "DOM-элемент из jQuery-объекта"
+          ]
+        ],
+        "explanation": "jQuery делает то же, что DOM-функции браузера, но короче."
+      }
+    ]
+  }
+}

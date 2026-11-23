@@ -1,0 +1,259 @@
+{
+  "lesson": 4,
+  "language": "ru",
+  "lesson_title": "Отмена изменений",
+  "task": {
+    "title": "Исправить четыре ошибки",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/portfolio. В репозитории четыре ошибки - исправьте каждую подходящей командой: 1) Посмотрите git status и git log --oneline. 2) Файл index.html испорчен и ещё не добавлен в индекс - верните его к версии из последнего коммита. 3) Файл passwords.txt случайно добавлен в индекс - уберите его из индекса, но сам файл не удаляйте. 4) В сообщении последнего коммита опечатка (contatcs) - исправьте сообщение на Add contacts page, не создавая новый коммит. 5) Коммит Change colors to neon уже опубликован на GitHub - отмените его командой git revert, не удаляя из истории (reset --hard не используйте). 6) Проверьте результат: git log --oneline и git status.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/portfolio. Сначала посмотрите git status и git log --oneline.\n\n# 1. Верните испорченный index.html к версии из последнего коммита\n\n# 2. Уберите passwords.txt из индекса (сам файл не удаляйте)\n\n# 3. Исправьте опечатку в сообщении последнего коммита: Add contacts page\n\n# 4. Отмените опубликованный коммит Change colors to neon через git revert\n\n# 5. Проверьте результат: git log --oneline и git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: navy; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"body { color: lime; background: magenta; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<h2>About me</h2>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<h2>Contacts</h2>\" > contacts.html\ngit add . && git commit -m \"Add contatcs page\"\necho \"<h1>Anna Karimova</h1><h1><h1>\" > index.html\necho \"admin: qwerty123\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "index.html возвращён к версии из коммита",
+        "check": "sim.read(\"~/portfolio/index.html\") === repo.commit(\"HEAD\").files[\"index.html\"] && !repo.status().modified.includes(\"index.html\")",
+        "fail": "git restore index.html возвращает файл к версии из последнего коммита."
+      },
+      {
+        "name": "Для index.html использована git restore",
+        "check": "__commands.some((c) => c.code === 0 && /^git (restore|checkout)\\b/.test(c.cmd) && !c.cmd.includes(\"--staged\") && /(index\\.html|\\s\\.)$/.test(c.cmd))",
+        "fail": "Испорченный файл, не добавленный в индекс, возвращают командой git restore index.html."
+      },
+      {
+        "name": "passwords.txt остался в папке и не в индексе",
+        "check": "sim.exists(\"~/portfolio/passwords.txt\") && repo.status().untracked.includes(\"passwords.txt\") && !(\"passwords.txt\" in repo.index())",
+        "fail": "git restore --staged passwords.txt убирает файл из индекса, но не удаляет его с диска. Не используйте rm."
+      },
+      {
+        "name": "passwords.txt не попал ни в один коммит",
+        "check": "repo.log().every((c) => !(\"passwords.txt\" in c.files))",
+        "fail": "Сначала уберите passwords.txt из индекса (шаг 2), и только потом делайте git commit --amend: amend забирает в коммит всё, что лежит в индексе."
+      },
+      {
+        "name": "Опечатка исправлена через amend, а не новым коммитом",
+        "check": "repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && \"contacts.html\" in repo.log().find((c) => c.subject === \"Add contacts page\").files && repo.commit(repo.log().find((c) => c.subject === \"Add contacts page\").parents[0]).subject === \"Add about page\" && repo.log().every((c) => !/cont[a-z]*cts page/.test(c.subject) || c.subject === \"Add contacts page\")",
+        "fail": "git commit --amend -m \"Add contacts page\" заменяет последний коммит. Делайте amend до revert, пока коммит с опечаткой - последний."
+      },
+      {
+        "name": "Неудачный коммит остался в истории",
+        "check": "repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined",
+        "fail": "Опубликованный коммит нельзя удалять из истории: git revert добавляет новый коммит-отмену, а старый остаётся."
+      },
+      {
+        "name": "Последний коммит - Revert \"Change colors to neon\"",
+        "check": "repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && repo.commit(\"HEAD~1\").subject === \"Add contacts page\"",
+        "fail": "git revert --no-edit HEAD~2 после amend (или git revert <хеш коммита Change colors to neon>)."
+      },
+      {
+        "name": "style.css снова как в коммите Add styles",
+        "check": "sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"] && repo.commit(\"HEAD\").files[\"style.css\"] === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "Отмените именно коммит Change colors to neon. Найдите его в git log --oneline."
+      },
+      {
+        "name": "Остальная работа не потеряна: 6 коммитов, about.html и contacts.html на месте",
+        "check": "repo.log().length === 6 && \"about.html\" in repo.commit(\"HEAD\").files && \"contacts.html\" in repo.commit(\"HEAD\").files && sim.exists(\"~/portfolio/about.html\") && sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "Было 5 коммитов, amend заменяет коммит (не добавляет), revert добавляет один: должно получиться 6. Не используйте reset --hard."
+      },
+      {
+        "name": "Не использован git reset --hard",
+        "check": "!__commands.some((c) => /^git reset\\b/.test(c.cmd) && c.cmd.includes(\"--hard\"))",
+        "fail": "В этом задании reset --hard не нужен: он стирает работу и переписывает историю."
+      },
+      {
+        "name": "Рабочая папка чистая, кроме passwords.txt",
+        "check": "repo.status().staged.length === 0 && repo.status().modified.length === 0 && repo.status().deleted.length === 0 && repo.status().untracked.join() === \"passwords.txt\"",
+        "fail": "В конце git status должен показать только Untracked files: passwords.txt."
+      },
+      {
+        "name": "Другие данные: все четыре ошибки исправлены",
+        "check": "repo.status().modified.length === 0 && repo.status().untracked.includes(\"passwords.txt\") && repo.log().every((c) => !(\"passwords.txt\" in c.files)) && repo.log().length === 6 && repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined && repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "Решение не должно зависеть от хешей: используйте HEAD~2 или найдите хеш в git log --oneline.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Aziz Rakhimov</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"h1 { font-size: 32px; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"h1 { font-size: 120px; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<p>I am a web developer</p>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<p>aziz@example.com</p>\" > contacts.html\ngit add . && git commit -m \"Add contcts page\"\necho \"\" > index.html\necho \"root: 0000\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах."
+      }
+    ],
+    "hints": [
+      "Начните с git status: Git сам подсказывает команды в скобках - git restore <file> и git restore --staged <file>.",
+      "Порядок важен: сначала git restore --staged passwords.txt, потом git commit --amend - иначе пароль попадёт в коммит.",
+      "Сообщение последнего коммита: git commit --amend -m \"Add contacts page\". Количество коммитов при этом не меняется.",
+      "Неудачный коммит после amend - третий сверху, то есть HEAD~2. Можно указать и его хеш из git log --oneline.",
+      "git revert --no-edit HEAD~2 создаст коммит Revert \"Change colors to neon\" и вернёт style.css."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "В git status файл index.html показан в разделе Changes not staged for commit. Вы хотите выбросить эти правки и вернуть версию из последнего коммита. Какая команда?",
+        "options": [
+          "git restore --staged index.html",
+          "git restore index.html",
+          "git revert index.html",
+          "git commit --amend index.html"
+        ],
+        "answer": 1,
+        "explanation": "git restore файл возвращает файл в рабочей папке к версии из индекса (а она совпадает с последним коммитом). Несохранённые правки при этом теряются."
+      },
+      {
+        "type": "single",
+        "question": "Что делает git restore --staged passwords.txt с новым файлом, который вы случайно добавили через git add?",
+        "options": [
+          "Удаляет файл с диска",
+          "Убирает файл из индекса, файл остаётся в папке как Untracked",
+          "Удаляет файл из всех коммитов",
+          "Делает коммит без этого файла"
+        ],
+        "answer": 1,
+        "explanation": "--staged работает только с индексом: файл перестаёт готовиться к коммиту, но остаётся на диске."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте ситуацию и подходящую команду.",
+        "pairs": [
+          [
+            "Испортили файл, ещё не делали git add",
+            "git restore файл"
+          ],
+          [
+            "Добавили в индекс лишний файл",
+            "git restore --staged файл"
+          ],
+          [
+            "Опечатка в сообщении последнего коммита, он ещё не опубликован",
+            "git commit --amend -m \"...\""
+          ],
+          [
+            "Нужно отменить коммит, который уже на GitHub",
+            "git revert <коммит>"
+          ]
+        ],
+        "explanation": "Чем «глубже» ошибка (рабочая папка → индекс → локальный коммит → опубликованный коммит), тем другая команда нужна."
+      },
+      {
+        "type": "single",
+        "question": "Почему git revert безопасен для опубликованной истории, а git reset - нет?",
+        "options": [
+          "revert работает быстрее",
+          "revert добавляет новый коммит-отмену и не меняет старые коммиты, а reset переносит ветку назад и «выбрасывает» коммиты",
+          "reset удаляет репозиторий",
+          "revert не меняет файлы"
+        ],
+        "answer": 1,
+        "explanation": "У товарищей уже есть опубликованные коммиты. revert только добавляет коммит сверху, поэтому их копии истории остаются верными."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про git commit --amend?",
+        "options": [
+          "Заменяет последний коммит новым, с другим хешем",
+          "Забирает в коммит всё, что сейчас лежит в индексе",
+          "Можно безопасно использовать для коммита, который уже отправлен на GitHub",
+          "С -m меняет сообщение последнего коммита"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "amend создаёт новый коммит вместо последнего (новый хеш), добавляя содержимое индекса. Опубликованные коммиты так менять нельзя."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте режим git reset HEAD~1 и что происходит с изменениями из отменённого коммита.",
+        "pairs": [
+          [
+            "--soft",
+            "Остаются в индексе (готовы к коммиту)"
+          ],
+          [
+            "--mixed (по умолчанию)",
+            "Остаются в рабочей папке, но не в индексе"
+          ],
+          [
+            "--hard",
+            "Стираются и из индекса, и из рабочей папки"
+          ]
+        ],
+        "explanation": "Все три режима переносят ветку на HEAD~1. Разница - сколько зон они «откатывают» вслед за веткой."
+      },
+      {
+        "type": "single",
+        "question": "Git ответил:\nHEAD is now at c8a4ab7 Add styles\nКакую команду, скорее всего, выполнили?",
+        "options": [
+          "git revert HEAD",
+          "git reset --hard HEAD~1",
+          "git restore style.css",
+          "git commit --amend"
+        ],
+        "answer": 1,
+        "explanation": "Строка HEAD is now at ... - ответ git reset --hard: ветка и файлы перенесены на указанный коммит."
+      },
+      {
+        "type": "input",
+        "question": "После git reset --hard пропал нужный коммит. Какая команда покажет журнал всех перемещений HEAD, чтобы найти его хеш? Введите команду целиком.",
+        "answers": [
+          "git reflog"
+        ],
+        "case_sensitive": true,
+        "explanation": "git reflog - «машина времени»: он помнит, куда указывал HEAD, даже после reset."
+      },
+      {
+        "type": "single",
+        "question": "git reflog показывает:\nc8a4ab7 (HEAD -> main) HEAD@{0}: reset: moving to HEAD~1\nb7886e2 HEAD@{1}: commit: Add about page\nКак вернуть пропавший коммит Add about page?",
+        "options": [
+          "git revert HEAD@{1}",
+          "git reset --hard b7886e2",
+          "git restore b7886e2",
+          "git commit --amend b7886e2"
+        ],
+        "answer": 1,
+        "explanation": "reset --hard на хеш из reflog (или HEAD@{1}) возвращает ветку и файлы к этому коммиту."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие команды переписывают историю (меняют или убирают уже существующие коммиты)?",
+        "options": [
+          "git commit --amend",
+          "git reset --hard HEAD~2",
+          "git revert HEAD",
+          "git restore --staged index.html"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "amend заменяет последний коммит, reset переносит ветку назад. revert добавляет новый коммит, restore вообще не трогает коммиты."
+      },
+      {
+        "type": "input",
+        "question": "Допишите команду, которая отменит коммит 8401f68 новым коммитом, не открывая редактор: git ________ --no-edit 8401f68",
+        "answers": [
+          "revert"
+        ],
+        "case_sensitive": true,
+        "explanation": "git revert --no-edit 8401f68 создаст коммит Revert \"...\" с обратными изменениями."
+      },
+      {
+        "type": "single",
+        "question": "Вы выполнили git reset --soft HEAD~1. Что покажет git status?",
+        "options": [
+          "nothing to commit, working tree clean",
+          "Изменения отменённого коммита в разделе Changes to be committed",
+          "Изменения в разделе Untracked files",
+          "fatal: not a git repository"
+        ],
+        "answer": 1,
+        "explanation": "--soft переносит только ветку: изменения коммита остаются в индексе, их можно сразу закоммитить заново."
+      }
+    ]
+  }
+}

@@ -163,6 +163,29 @@ console.log(greeting); // Good evening
 
 If you declare `let greeting` inside a `{ }` block, the variable is not available after the block: it lives only inside its curly braces.
 
+### How branches are checked: step by step
+
+Take the correct chain above and `score = 75`. The browser goes from top to bottom and stops at the first `true`:
+
+| Step | Check | Result | What happens |
+| --- | --- | --- | --- |
+| 1 | `75 >= 90` | `false` | The branch is skipped, we go on |
+| 2 | `75 >= 60` | `true` | `Pass` is printed, the other branches are **not checked** |
+| 3 | `else` | - | Not run: a branch has already been found |
+
+```mermaid
+flowchart TD
+    A{"score >= 90?"} -->|true| B["Excellent"]
+    A -->|false| C{"score >= 60?"}
+    C -->|true| D["Pass"]
+    C -->|false| E["Retake"]
+    B --> F["The program goes on"]
+    D --> F
+    E --> F
+```
+
+**How to read the diagram.** Each diamond is a question. The answer `false` leads to the next question, the answer `true` leads to an action and straight to the exit. That is why the order of conditions matters: the strictest one goes first.
+
 ---
 
 ## Mini-task 1
@@ -207,6 +230,21 @@ if (hour >= 6 && hour <= 11) { ... }
 ```
 
 The maths notation `6 <= hour <= 11` **does not work** in JavaScript the way it looks: first `6 <= hour` gives `true`, then `true <= 11` gives `true` for any `hour`.
+
+### Truth table
+
+All four combinations for two conditions - worth writing out once:
+
+| `a` | `b` | `a && b` | `a \|\| b` |
+| --- | --- | --- | --- |
+| `true` | `true` | `true` | `true` |
+| `true` | `false` | `false` | `true` |
+| `false` | `true` | `false` | `true` |
+| `false` | `false` | `false` | `false` |
+
+Easy to remember: `&&` is strict - **everything** must hold; `||` is kind - **one** is enough.
+
+A real-life example: "entry to the cinema hall if you have a ticket **and** are 16" is `&&`. "A discount if you are a student **or** a pensioner" is `||`.
 
 ---
 
@@ -292,6 +330,31 @@ console.log(lesson); // JavaScript
 | `default:` | If no `case` matched - like `else` |
 
 Two `case` lines in a row with no code mean "the same for mon and wed". `switch` suits exact values; ranges (`score >= 90`) need `if/else if`.
+
+### What to choose: `if`, the ternary operator or `switch`
+
+| Situation | Tool | Example |
+| --- | --- | --- |
+| Ranges and complex conditions | `if / else if / else` | A grade from points |
+| Choosing one of two values | Ternary operator | `"item"` or `"items"` |
+| One value and many exact options | `switch` | Day of the week, user role |
+
+### Try to break it
+
+1. Remove the `break` after `lesson = "JavaScript";` and run it for `"wed"`. What value ends up in `lesson`? Execution "fell through" into the next `case`.
+2. Swap the two checks in the grade chain: first `>= 60`, then `>= 90`. What is the result for `95`?
+3. Write `if (6 <= hour <= 11)` for `hour = 20`. Why did the condition turn out `true`?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| `if (x = 5)` | An assignment, the condition is always true | `if (x === 5)` |
+| `6 <= hour <= 11` | Always `true` | `hour >= 6 && hour <= 11` |
+| A soft condition before a strict one | The strict branch never runs | From strict to soft |
+| `let result` declared inside `{ }` | After the block - `ReferenceError` | Declare `let result;` before the `if` |
+| No `break` in `switch` | The next `case` runs too | `break;` at the end of each option |
+| `if (count)` with `count = 0` | The branch does not run although the value is set | `if (count !== undefined)` or `count >= 0` |
 
 ---
 

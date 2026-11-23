@@ -23,3 +23,30 @@ GitHub may change interface labels. Follow the official guide if labels differ: 
 GitHub interfeys yozuvlarini o‘zgartirishi mumkin. Farq bo‘lsa, rasmiy yo‘riqnomaga amal qiling: fayllarni yuklash → Pages manbasini tanlash → muvaffaqiyatli nashrni kutish → ochiq URLni tekshirish.
 
 - [Nu HTML Checker: official local distribution](https://validator.github.io/validator/) — локальная проверка без загрузки файлов / local checks without uploading files / fayllarni yubormasdan mahalliy tekshirish.
+
+## По урокам / By lesson / Darslar bo‘yicha
+
+- [web.dev: Learn HTML](https://web.dev/learn/html) — бесплатный курс по тем же темам / a free course on the same topics / xuddi shu mavzular bo‘yicha bepul kurs. Например / e.g. [Tables](https://web.dev/learn/html/tables).
+- [MDN: HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements) — справочник всех тегов курса / reference for every tag in the course / kursdagi barcha teglar ma’lumotnomasi.
+- [MDN: Basic HTML syntax](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax) — тег, атрибут, элемент, урок 1 / lesson 1 / 1-dars.
+- [Chrome DevTools: Overview](https://developer.chrome.com/docs/devtools/overview) — инструменты разработчика, урок 1 / lesson 1 / 1-dars.
+- [WHATWG HTML: Sections](https://html.spec.whatwg.org/multipage/sections.html) — `header`, `nav`, `main`, `section`, `article`, `h1`–`h6`, урок 2 / lesson 2 / 2-dars.
+- [MDN: Character reference](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) — `&lt;`, `&copy;`, урок 2 / lesson 2 / 2-dars.
+- [MDN: Creating links](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Creating_links) и / and [WHATWG HTML: Links](https://html.spec.whatwg.org/multipage/links.html) — пути, якоря, `target`, `rel`, урок 3 / lesson 3 / 3-dars.
+- [WHATWG HTML: Embedded content](https://html.spec.whatwg.org/multipage/embedded-content.html) — `img`, `source`, `iframe`, `video`, `audio`, урок 4 / lesson 4 / 4-dars.
+- [MDN: HTML video and audio](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_video_and_audio) — `controls`, `<source>`, урок 4 / lesson 4 / 4-dars.
+- [WHATWG HTML: Tabular data](https://html.spec.whatwg.org/multipage/tables.html) — `caption`, `scope`, `colspan`, `rowspan`, урок 5 / lesson 5 / 5-dars.
+- [MDN: Your first form](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form) — `form`, `label`, `name`, урок 6 / lesson 6 / 6-dars.
+- [WHATWG HTML: Form elements](https://html.spec.whatwg.org/multipage/form-elements.html) — `button`, `select`, `datalist`, `optgroup`, `textarea`, `fieldset`, урок 7 / lesson 7 / 7-dars.
+- [MDN: `<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details) — раскрывающийся блок, урок 8 / expandable block, lesson 8 / ochiluvchi blok, 8-dars.
+- [WCAG: Bypass Blocks](https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html) — ссылка пропуска меню / skip link / «Asosiy mazmunga o‘tish» havolasi.
+- [WebAIM: Contrast Checker](https://webaim.org/resources/contrastchecker/) — проверка контраста из урока 8 / the contrast check from lesson 8 / 8-darsdagi kontrast tekshiruvi.
+- [MDN: `<meta name="viewport">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/viewport) — урок 9 / lesson 9 / 9-dars.
+- [The Open Graph protocol](https://ogp.me/) — свойства `og:...` для карточки ссылки / `og:` properties for link cards / havola kartochkasi uchun `og:` xususiyatlari.
+- [WHATWG HTML: the script element](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element) — `defer`, `async`, урок 9 / lesson 9 / 9-dars.
+- [Nu HTML Checker (online)](https://validator.w3.org/nu/) — онлайн-проверка из урока 9 / the online check from lesson 9 / 9-darsdagi onlayn tekshiruv.
+- [Lighthouse: overview](https://developer.chrome.com/docs/lighthouse/overview) — отчёт Accessibility и SEO / Accessibility and SEO report / Accessibility va SEO hisoboti.
+
+---
+
+[Содержание / Contents / Mundarija](README.md) · [Словарь / Glossary](GLOSSARY.md) · [Шпаргалка / Cheat sheet](CHEATSHEET.md)

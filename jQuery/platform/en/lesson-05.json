@@ -1,0 +1,279 @@
+{
+  "lesson": 5,
+  "language": "en",
+  "lesson_title": "Creating and removing elements",
+  "task": {
+    "title": "Course catalog with jQuery",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>JLearn courses</title>\n</head>\n<body>\n    <main>\n        <h1>JLearn courses</h1>\n        <p id=\"course-count\">Loading...</p>\n        <ul id=\"course-list\" class=\"course-list\">\n            <li class=\"placeholder\">Loading list...</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "The page has a paragraph #course-count and a list #course-list with the placeholder item \"Loading list...\". The platform provides an array courses of objects { id, title, lessons, isNew }. jQuery is already loaded. Write a function renderCourses(list): 1) Find #course-list and #course-count with $(). 2) Clear the list with the .empty() method. 3) For each course in list, create an item $(\"<li>\", { ... }) with the class course, the text \"HTML (lessons: 10)\" and the data-id attribute from id. 4) Add the class course--new to courses with isNew: true. 5) Insert the item into the list with .append(). 6) Write \"Courses: N\" into #course-count, where N is the length of list. At the end, call renderCourses(courses). A repeated call must not duplicate the list. Do not use document.querySelector, createElement, innerHTML, textContent or .html().",
+    "starter_code": "// The platform provides:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// On the page: <p id=\"course-count\"> and <ul id=\"course-list\"> with the placeholder item \"Loading list...\"\n// jQuery is already loaded.\n\nfunction renderCourses(list) {\n    // 1. Find #course-list and #course-count: const $list = ...\n\n    // 2. Clear the list (.empty())\n\n    // 3. For each course in list, create $(\"<li>\", { ... }):\n    //    class course, text \"HTML (lessons: 10)\", attribute data-id\n\n    // 4. If course.isNew - add the class course--new\n\n    // 5. Insert the item into the list (.append)\n\n    // 6. Counter: \"Courses: 3\" - from the length of list\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "createElement",
+      "textContent",
+      "insertAdjacentHTML",
+      "outerHTML",
+      ".style."
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "The page has 3 li.course items",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "For each course, create $(\"<li>\", { class: \"course\", ... }) and insert it into #course-list with .append()."
+      },
+      {
+        "name": "The placeholder \"Loading list...\" is removed",
+        "check": "document.querySelectorAll(\"#course-list > *\").length === 3 && document.querySelector(\"#course-list .placeholder\") === null",
+        "fail": "Clear the list before rendering: $list.empty();"
+      },
+      {
+        "name": "Texts: \"HTML (lessons: 10)\", \"CSS (lessons: 10)\", \"JavaScript (lessons: 10)\"",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.textContent).join(\"|\") === \"HTML (lessons: 10)|CSS (lessons: 10)|JavaScript (lessons: 10)\"",
+        "fail": "text: `${course.title} (lessons: ${course.lessons})` - and insert with .append() to keep the order."
+      },
+      {
+        "name": "The items have the data-id attribute",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.getAttribute(\"data-id\")).join(\",\") === \"html,css,js\"",
+        "fail": "In the settings object: \"data-id\": course.id. The .data(\"id\", ...) method does not write the attribute to the HTML."
+      },
+      {
+        "name": "The class course--new is only on JavaScript",
+        "check": "(() => { const fresh = document.querySelectorAll(\"#course-list .course--new\"); return fresh.length === 1 && fresh[0].getAttribute(\"data-id\") === \"js\"; })()",
+        "fail": "if (course.isNew) { $item.addClass(\"course--new\"); }"
+      },
+      {
+        "name": "Counter: \"Courses: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Courses: 3\"",
+        "fail": "$count.text(`Courses: ${list.length}`);"
+      },
+      {
+        "name": "Other data: 4 courses, two new, \"Courses: 4\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 4 && document.querySelectorAll(\"#course-list .course--new\").length === 2 && document.querySelectorAll(\"#course-list li.course\")[3].textContent === \"SQL (lessons: 8)\" && document.querySelector(\"#course-count\").textContent === \"Courses: 4\"",
+        "fail": "Do not write anything by hand: the number, texts and classes come from the array. At the end, call renderCourses(courses).",
+        "setup": "const courses = [\n    { id: \"git\", title: \"Git\", lessons: 6, isNew: true },\n    { id: \"php\", title: \"PHP\", lessons: 12, isNew: false },\n    { id: \"jq\", title: \"jQuery\", lessons: 10, isNew: true },\n    { id: \"sql\", title: \"SQL\", lessons: 8, isNew: false },\n];"
+      },
+      {
+        "name": "A repeated call does not duplicate the list",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); const items = document.querySelectorAll(\"#course-list li.course\"); return items.length === 1 && items[0].textContent === \"Python (lessons: 12)\" && items[0].getAttribute(\"data-id\") === \"py\" && document.querySelector(\"#course-count\").textContent === \"Courses: 1\"; })()",
+        "fail": "At the start of the function, clear the list ($list.empty()) and work with the parameter list, not with courses."
+      },
+      {
+        "name": "Empty array: the list is empty, \"Courses: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelector(\"#course-list\") !== null && document.querySelectorAll(\"#course-list > *\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Courses: 0\"; })()",
+        "fail": "With an empty array the loop does not run, but clearing and the counter must still work. Clear the content with .empty(), do not remove the list itself with .remove()."
+      },
+      {
+        "name": "Text is shown as text, not as markup",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Hack</b>\", lessons: 5, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Hack</b> (lessons: 5)\" && li.querySelector(\"b\") === null; })()",
+        "fail": "Do not glue data into an HTML string. Pass the text in the text key: $(\"<li>\", { text: ... })."
+      },
+      {
+        "name": "renderCourses is a function",
+        "check": "typeof renderCourses === \"function\"",
+        "fail": "Declare function renderCourses(list) { ... }."
+      },
+      {
+        "name": "Elements are created and inserted with jQuery",
+        "check": "/\\$\\(\\s*[\"'`]<li/.test(__code) && /\\.(append|appendTo)\\(/.test(__code)",
+        "fail": "Creating: $(\"<li>\", { ... }); inserting: $list.append($item) or $item.appendTo($list)."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the selectors #course-list and #course-count, and that renderCourses is declared before the call or with function."
+      }
+    ],
+    "hints": [
+      "Find the elements once at the start of the function: const $list = $(\"#course-list\"); const $count = $(\"#course-count\");",
+      "Clearing: $list.empty(); - the list stays, only the items disappear.",
+      "Creating: $(\"<li>\", { class: \"course\", text: `${course.title} (lessons: ${course.lessons})`, \"data-id\": course.id }). The \"data-id\" key is in quotes because of the hyphen.",
+      "New courses: if (course.isNew) { $item.addClass(\"course--new\"); }",
+      "Insert inside the loop: $list.append($item);",
+      "Counter from the parameter: $count.text(`Courses: ${list.length}`);"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How is $(\"li\") different from $(\"<li>\")?",
+        "options": [
+          "No difference, they are the same",
+          "$(\"li\") searches for items on the page, $(\"<li>\") creates a new item that is not on the page yet",
+          "$(\"<li>\") finds the first item, $(\"li\") finds all of them",
+          "$(\"<li>\") throws an error: angle brackets are not allowed in a selector"
+        ],
+        "answer": 1,
+        "explanation": "If the string starts with a tag in angle brackets, jQuery creates an element. Otherwise the string is a selector for searching."
+      },
+      {
+        "type": "single",
+        "question": "What will be on the page after the line $(\"<li>\", { text: \"New\" }); runs?",
+        "options": [
+          "A new item at the end of the first list",
+          "Nothing: the element is created in memory but not inserted",
+          "A new item at the start of body",
+          "An error: no parent is given"
+        ],
+        "answer": 1,
+        "explanation": "A created element lives in memory until it is inserted with .append(), .prepend(), .after(), .before() or .appendTo()."
+      },
+      {
+        "type": "matching",
+        "question": "Match the method with where the new element is inserted relative to $box.",
+        "pairs": [
+          [
+            "$box.append($el)",
+            "Inside $box, at the end"
+          ],
+          [
+            "$box.prepend($el)",
+            "Inside $box, at the start"
+          ],
+          [
+            "$box.after($el)",
+            "Outside, right after $box"
+          ],
+          [
+            "$box.before($el)",
+            "Outside, before $box"
+          ]
+        ],
+        "explanation": "append/prepend insert inside (as children), after/before insert next to it (as siblings)."
+      },
+      {
+        "type": "single",
+        "question": "How is $list.empty() different from $list.remove()?",
+        "options": [
+          "No difference",
+          "empty() removes the children and the list itself stays; remove() removes the list itself together with its children",
+          "empty() removes only text, and remove() removes only elements",
+          "remove() is faster, but the result is the same"
+        ],
+        "answer": 1,
+        "explanation": "empty() means taking everything out of a box, remove() means throwing away the whole box."
+      },
+      {
+        "type": "multiple",
+        "question": "Which lines add a new item to the end of the list #list?",
+        "options": [
+          "$(\"#list\").append($(\"<li>\", { text: \"A\" }))",
+          "$(\"<li>\", { text: \"A\" }).appendTo(\"#list\")",
+          "$(\"#list\").prepend($(\"<li>\", { text: \"A\" }))",
+          "$(\"#list\").after($(\"<li>\", { text: \"A\" }))"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "append and appendTo do the same thing, just from different sides. prepend inserts at the start, and after inserts after the list itself, not inside it."
+      },
+      {
+        "type": "single",
+        "question": "The render() function only does $list.append(...) for all array elements each time. What will there be after three calls to render() with an array of 4 elements?",
+        "options": [
+          "4 items",
+          "12 items",
+          "3 items",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "Without $list.empty() at the start, each call adds items to the old ones: 4 + 4 + 4 = 12."
+      },
+      {
+        "type": "single",
+        "question": "title = \"<img src=x onerror=alert(1)>\". Which way of creating an item is safe?",
+        "options": [
+          "$(\"<li>\" + title + \"</li>\")",
+          "$(\"<li>\", { text: title })",
+          "$(\"<li>\").html(title)",
+          "$(\"#list\").append(\"<li>\" + title + \"</li>\")"
+        ],
+        "answer": 1,
+        "explanation": "The text key works like .text(): the string is shown literally. A glued HTML string and .html() turn the data into markup - this is XSS."
+      },
+      {
+        "type": "input",
+        "question": "Which method removes an element from the page but keeps its event handlers and .data() data so that it can be inserted back later? Enter the method name without the dot and parentheses.",
+        "answers": [
+          "detach"
+        ],
+        "case_sensitive": true,
+        "explanation": ".detach() means \"take out and put aside\". .remove() erases the handlers and data."
+      },
+      {
+        "type": "multiple",
+        "question": "Which statements about $(\"<li>\", { class: \"course\", text: \"CSS\", \"data-id\": \"css\" }) are true?",
+        "options": [
+          "The item will have the class course",
+          "The item text is CSS",
+          "The item will have the attribute data-id=\"css\"",
+          "The item will appear at the end of the page right away"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "The settings object sets the class, text and attributes. Inserting the item into the page is a separate step."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the method.",
+        "pairs": [
+          [
+            "Make a copy of a card",
+            ".clone()"
+          ],
+          [
+            "Replace an element with another one",
+            ".replaceWith()"
+          ],
+          [
+            "Remove all children but keep the parent",
+            ".empty()"
+          ],
+          [
+            "Remove an element for good",
+            ".remove()"
+          ]
+        ],
+        "explanation": "clone copies, replaceWith replaces, empty clears the content, remove takes away the whole element."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"<li>\", { text: \"A\" }).appendTo(\"#list\") return?",
+        "options": [
+          "A jQuery object with the list #list",
+          "A jQuery object with the new li item",
+          "The string \"A\"",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "appendTo returns the inserted element, so you can continue the chain with it: .appendTo(\"#list\").addClass(\"x\")."
+      },
+      {
+        "type": "input",
+        "question": "Fill in the missing method so that a repeated call does not duplicate the list: function render(list) { $list.____(); for (...) { ... } }. Enter only the method name.",
+        "answers": [
+          "empty"
+        ],
+        "case_sensitive": true,
+        "explanation": "$list.empty() removes the old items, and the function draws the list from scratch each time."
+      }
+    ]
+  }
+}

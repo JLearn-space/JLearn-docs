@@ -393,7 +393,7 @@ Rasm va video bor. 5-darsda ma’lumotlarni jadvallarda ko‘rsatishni o‘rgana
 
 ```html
 <figure>
-    <img src="images/logo.png" alt="Logotip: figurali qavslar va «Кружок» yozuvi" width="200">
+    <img src="images/logo.png" alt="Logotip: figurali qavslar va «To‘garak» yozuvi" width="200">
     <figcaption>To‘garagimiz logotipi</figcaption>
 </figure>
 ```

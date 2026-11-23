@@ -1,0 +1,286 @@
+{
+  "lesson": 8,
+  "language": "uz",
+  "lesson_title": "Formalar",
+  "task": {
+    "title": "To‘garakka yozilish formasi",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>To‘garakka yozilish</title>\n</head>\n<body>\n    <main>\n        <h1>Dasturlash to‘garagiga yozilish</h1>\n        <form id=\"signup-form\" novalidate>\n            <div class=\"field\">\n                <label for=\"name\">Ism</label>\n                <input id=\"name\" name=\"name\" type=\"text\" aria-describedby=\"name-error\">\n                <p id=\"name-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"email\">Email</label>\n                <input id=\"email\" name=\"email\" type=\"email\" aria-describedby=\"email-error\">\n                <p id=\"email-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"age\">Yosh</label>\n                <input id=\"age\" name=\"age\" type=\"number\" aria-describedby=\"age-error\">\n                <p id=\"age-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"direction\">Yo‘nalish</label>\n                <select id=\"direction\" name=\"direction\" aria-describedby=\"direction-error\">\n                    <option value=\"\">Yo‘nalishni tanlang</option>\n                    <option value=\"web\">Veb-dasturlash</option>\n                    <option value=\"python\">Boshlovchilar uchun Python</option>\n                    <option value=\"robotics\">Robototexnika</option>\n                </select>\n                <p id=\"direction-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label>\n                    <input id=\"agree\" name=\"agree\" type=\"checkbox\" aria-describedby=\"agree-error\">\n                    To‘garak qoidalariga roziman\n                </label>\n                <p id=\"agree-error\" class=\"error\"></p>\n            </div>\n            <button id=\"submit-btn\" type=\"submit\">Yozilish</button>\n        </form>\n        <p id=\"form-message\" role=\"status\"></p>\n    </main>\n</body>\n</html>",
+    "description": "#signup-form formasini jQuery yordamida jonlantiring. O‘quv «serveri» sendApplication(data, onSuccess) allaqachon bor: u ma’lumotlarni qabul qiladi va bir soniyadan keyin onSuccess ni chaqiradi. 1) showError($field, text) ni yozing: matn maydonning xato elementiga (uning id si maydonning aria-describedby atributida) va maydonga aria-invalid=\"true\"; clearError($field): bo‘sh matn va aria-invalid siz. 2) validateForm() ni yozing: u barcha maydonlarni birdaniga tekshiradi va true yoki false qaytaradi. trim() dan keyin ism bo‘sh emas (\"Ismingizni kiriting\") va 2 ta belgidan qisqa emas (\"Ism - kamida 2 ta belgi\"); email @ ni o‘z ichiga oladi (\"@ belgisi bor email kiriting\"); yosh - 14 dan 60 gacha (shu sonlar ham kiradi) son (\"Yosh - 14 dan 60 gacha son\"); #direction da yo‘nalish tanlangan (\"Yo‘nalishni tanlang\"); #agree katakchasi belgilangan (\"Qoidalarga roziligingizni tasdiqlang\"). To‘g‘ri maydonlarning xatosi tozalanadi. 3) $form.on(\"submit\", ...) ishlovchisi: brauzer yuborishini bekor qiladi, #form-message ni tozalaydi va formani tekshiradi. 4) Xatolar bo‘lmasa: #submit-btn ni bloklaydi va unga \"Yuborilmoqda...\" deb yozadi, sendApplication($form.serializeArray(), funksiya) ni chaqiradi. Funksiyada: #form-message ga \"Rahmat, Anna! Siz yozildingiz: Veb-dasturlash.\" matni (trim dan keyingi ism va tanlangan yo‘nalish matni), formani tozalash, tugma yana \"Yozilish\" matni bilan faol. document.querySelector, innerHTML, .html() va .submit(fn) dan foydalanmang.",
+    "starter_code": "// Sahifada: #name, #email, #age maydonlari,\n// #direction ro‘yxati va #agree katakchasi bo‘lgan #signup-form formasi. Har bir maydonning o‘z xato elementi bor:\n// #name-error, #email-error, #age-error, #direction-error, #agree-error\n// (xato id si maydonning aria-describedby atributida yozilgan).\n// Tugma #submit-btn, muvaffaqiyat xabari - #form-message.\n//\n// O‘quv «serveri» allaqachon bor:\n// sendApplication(data, onSuccess) - ma’lumotlarni qabul qiladi va 1 soniyadan keyin\n// onSuccess funksiyasini chaqiradi (go‘yo server «qabul qilindi» deb javob bergandek).\n\n// 1. Forma, maydonlar, tugma va xabarning jQuery obyektlarini konstantalarga saqlang\n\n// 2. function showError($field, text) - matn xato elementiga + aria-invalid=\"true\"\n//    function clearError($field) - bo‘sh matn + aria-invalid ni olib tashlash\n\n// 3. function validateForm() - BARCHA maydonlarni tekshiradi va true / false qaytaradi:\n//    trim() dan keyin ism bo‘sh emas (\"Ismingizni kiriting\") va 2 tadan qisqa emas (\"Ism - kamida 2 ta belgi\");\n//    email @ ni o‘z ichiga oladi (\"@ belgisi bor email kiriting\");\n//    yosh - 14 dan 60 gacha son (\"Yosh - 14 dan 60 gacha son\");\n//    yo‘nalish tanlangan (\"Yo‘nalishni tanlang\");\n//    katakcha belgilangan (\"Qoidalarga roziligingizni tasdiqlang\")\n\n// 4. $form.on(\"submit\", ...): preventDefault, #form-message ni tozalash, tekshiruv;\n//    muvaffaqiyatda - tugmani bloklash, matni \"Yuborilmoqda...\",\n//    sendApplication($form.serializeArray(), funksiya) va funksiya ichida:\n//    xabar \"Rahmat, Anna! Siz yozildingiz: Veb-dasturlash.\", formani tozalash,\n//    tugma yana faol, matni \"Yozilish\"\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "onsubmit",
+      "addEventListener",
+      ".style.",
+      ".submit(",
+      ".click(",
+      "textContent",
+      ".setAttribute(",
+      ".checked"
+    ],
+    "setup": "const sentData = [];\nlet pendingCallbacks = [];\nfunction sendApplication(data, onSuccess) {\n    sentData.push(data);\n    pendingCallbacks.push(onSuccess);\n    setTimeout(finishSending, 1000);\n}\nfunction finishSending() {\n    const callbacks = pendingCallbacks;\n    pendingCallbacks = [];\n    callbacks.forEach((callback) => callback());\n}",
+    "tests": [
+      {
+        "name": "Bo‘sh forma: har bir maydonning o‘z xatosi",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return err(\"name\") === \"Ismingizni kiriting\" && err(\"email\") === \"@ belgisi bor email kiriting\" && err(\"age\") === \"Yosh - 14 dan 60 gacha son\" && err(\"direction\") === \"Yo‘nalishni tanlang\" && err(\"agree\") === \"Qoidalarga roziligingizni tasdiqlang\"; })()",
+        "fail": "Barcha maydonlarni ketma-ket, birinchi xatodan keyin chiqib ketmasdan tekshiring: natijani let isValid = true da to‘plang."
+      },
+      {
+        "name": "Bo‘sh forma: barcha maydonlarda aria-invalid=\"true\", ariza yuborilmagan",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => inv(id) === \"true\") && sentData.length === 0 && document.querySelector(\"#submit-btn\").disabled === false; })()",
+        "fail": "showError maydonga .attr(\"aria-invalid\", \"true\") qo‘yadi; xatolar bo‘lsa sendApplication chaqirilmaydi."
+      },
+      {
+        "name": "Yuborish .trigger(\"submit\") orqali sahifani qayta yuklamaydi",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return __error === null && sentData.length === 1; })()",
+        "fail": "submit ishlovchisining boshida event.preventDefault() ni chaqiring."
+      },
+      {
+        "name": "dispatchEvent orqali yuborish bekor qilingan: defaultPrevented",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#signup-form\").dispatchEvent(ev); return ev.defaultPrevented === true; })()",
+        "fail": "event.preventDefault() formada xatolar bo‘lganda ham kerak - uni birinchi qatorda chaqiring."
+      },
+      {
+        "name": "Bo‘shliqlardan va bitta harfdan iborat ism - xato",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"   \", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); const a = err(\"name\") === \"Ismingizni kiriting\"; $(\"#name\").val(\" A \"); $(\"#signup-form\").trigger(\"submit\"); return a && err(\"name\") === \"Ism - kamida 2 ta belgi\" && inv(\"name\") === \"true\" && err(\"email\") === \"\" && inv(\"email\") === null && sentData.length === 0; })()",
+        "fail": "Avval const name = $name.val().trim(); keyin name === \"\" va name.length < 2 tekshiruvlari."
+      },
+      {
+        "name": "@ siz email - xato, qolgan maydonlar xatosiz",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna.mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return err(\"email\") === \"@ belgisi bor email kiriting\" && inv(\"email\") === \"true\" && err(\"name\") === \"\" && err(\"age\") === \"\" && sentData.length === 0; })()",
+        "fail": "Tekshiruv: !$email.val().includes(\"@\")."
+      },
+      {
+        "name": "Yosh: 13, 61 va bo‘sh maydon - xato; 14 va 60 - xato emas",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); const res = []; for (const a of [\"13\", \"61\", \"\", \"14\", \"60\"]) { fill(\"Anna\", \"anna@mail.uz\", a, \"web\", false); $(\"#signup-form\").trigger(\"submit\"); res.push(err(\"age\")); } const bad = \"Yosh - 14 dan 60 gacha son\"; return res.join(\"|\") === [bad, bad, bad, \"\", \"\"].join(\"|\") && inv(\"age\") === null; })()",
+        "fail": "const age = Number($age.val()); maydon bo‘sh bo‘lsa, Number.isNaN(age), age < 14 yoki age > 60 bo‘lsa - xato. 14 va 60 chegaralari ruxsat etilgan."
+      },
+      {
+        "name": "Yo‘nalish tanlanmagan va katakcha belgilanmagan - xatolar",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"\", false); document.querySelector(\"#signup-form\").requestSubmit(); return err(\"direction\") === \"Yo‘nalishni tanlang\" && err(\"agree\") === \"Qoidalarga roziligingizni tasdiqlang\" && inv(\"direction\") === \"true\" && inv(\"agree\") === \"true\" && sentData.length === 0; })()",
+        "fail": "Ro‘yxat: $direction.val() === \"\". Katakcha: !$agree.prop(\"checked\") - .val() emas, u doim \"on\"."
+      },
+      {
+        "name": "To‘g‘ri forma (requestSubmit): tugma bloklangan, matni \"Yuborilmoqda...\"",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").requestSubmit(); return document.querySelector(\"#submit-btn\").disabled === true && document.querySelector(\"#submit-btn\").textContent === \"Yuborilmoqda...\" && sentData.length === 1 && [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null); })()",
+        "fail": "sendApplication dan oldin: $submitBtn.prop(\"disabled\", true).text(\"Yuborilmoqda...\")."
+      },
+      {
+        "name": "sendApplication ga .serializeArray() ma’lumotlari uzatilgan",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"python\", true); $(\"#signup-form\").trigger(\"submit\"); const d = sentData[0]; const v = (n) => (d.find((x) => x.name === n) || {}).value; return Array.isArray(d) && v(\"email\") === \"anna@mail.uz\" && v(\"age\") === \"20\" && v(\"direction\") === \"python\" && v(\"agree\") === \"on\"; })()",
+        "fail": "sendApplication($form.serializeArray(), function () { ... });"
+      },
+      {
+        "name": "«Server» javobidan keyin: xabar, forma tozalangan, tugma faol",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").dispatchEvent(new Event(\"submit\", { bubbles: true, cancelable: true })); const before = document.querySelector(\"#form-message\").textContent; finishSending(); return before === \"\" && document.querySelector(\"#form-message\").textContent === \"Rahmat, Anna! Siz yozildingiz: Veb-dasturlash.\" && $(\"#name\").val() === \"\" && $(\"#direction\").val() === \"\" && $(\"#agree\").prop(\"checked\") === false && document.querySelector(\"#submit-btn\").disabled === false && document.querySelector(\"#submit-btn\").textContent === \"Yozilish\"; })()",
+        "fail": "sendApplication uchun funksiya ichida: $message.text(...), $form[0].reset(), $submitBtn.prop(\"disabled\", false).text(\"Yozilish\")."
+      },
+      {
+        "name": "Tuzatilgan maydonlar xato va aria-invalid ni yo‘qotadi",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); fill(\"Anna\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null) && sentData.length === 1; })()",
+        "fail": "clearError: xato elementida .text(\"\") va maydonda .removeAttr(\"aria-invalid\") - har bir to‘g‘ri maydon uchun."
+      },
+      {
+        "name": "Kodda .on(\"submit\"), .prop(\"checked\") va .serializeArray() ishlatilgan",
+        "check": "/\\.on\\(\\s*[\"']submit/.test(__code) && /\\.prop\\(\\s*[\"']checked[\"']\\s*\\)|:checked/.test(__code) && /\\.serializeArray\\(\\)/.test(__code)",
+        "fail": "Ishlovchi - $form.on(\"submit\", ...), katakcha - .prop(\"checked\"), ma’lumotlar - $form.serializeArray()."
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "__error === null",
+        "fail": "Selektorlarni va sendApplication ikkinchi argument sifatida funksiya bilan chaqirilishini tekshiring."
+      }
+    ],
+    "hints": [
+      "Maydonning xato elementi: $(`#${$field.attr(\"aria-describedby\")}`) - #name uchun bu #name-error.",
+      "Barcha xatolarni birdaniga ko‘rsatish uchun birinchisidan keyin return qilmang: let isValid = true; ... isValid = false; ... return isValid;",
+      "Yosh: const age = Number($age.val()); $age.val() === \"\", Number.isNaN(age), age < 14 yoki age > 60 bo‘lsa - xato.",
+      "Katakcha: $agree.prop(\"checked\"). Uning .val() qiymati belgilanmaganda ham doim \"on\".",
+      "Tanlangan yo‘nalish matni: $direction.find(\"option:checked\").text(); jQuery’da .reset() yo‘q - $form[0].reset() ni chaqiring.",
+      "Xabar uchun ism va yo‘nalishni sendApplication chaqiruvidan OLDIN saqlab qo‘ying: reset() dan keyin maydonlar bo‘sh."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Nega ishlovchi tugmaning click hodisasiga emas, formaning submit hodisasiga osiladi?",
+        "options": [
+          "jQuery 4 da tugmaning click hodisasi ishlamaydi",
+          "submit ham tugma, ham maydondagi Enter orqali ishga tushadi",
+          "submit sahifa yuklanishidan oldin ishga tushadi",
+          "Shunday yozuv qisqaroq"
+        ],
+        "answer": 1,
+        "explanation": "Formani tugma yoki Enter tugmasi bilan yuborish mumkin - submit ikkala usulni ham ushlaydi."
+      },
+      {
+        "type": "single",
+        "question": "value atributisiz <input type=\"checkbox\" id=\"agree\"> katakchasi belgilanMAGAN bo‘lsa, $(\"#agree\").val() nimani qaytaradi?",
+        "options": [
+          "false",
+          "\"\"",
+          "\"on\"",
+          "undefined"
+        ],
+        "answer": 2,
+        "explanation": "Katakchaning .val() qiymati - bu holati emas, uning value qiymati. value atributisiz bu \"on\". Katakcha belgilanganmi - .prop(\"checked\")."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar #agree katakchasi aynan hozir belgilanganini aniqlaydi?",
+        "options": [
+          "$(\"#agree\").prop(\"checked\")",
+          "$(\"#agree\").is(\":checked\")",
+          "$(\"#agree\").attr(\"checked\")",
+          "$(\"#agree\").val()"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": ".prop va :checked joriy holatni o‘qiydi. attr - HTML’dagi boshlang‘ich atribut, val - value qiymati."
+      },
+      {
+        "type": "single",
+        "question": "Forma: name = Anna, age = 20, agree katakchasi belgilanmagan. $form.serializeArray() nimani qaytaradi?",
+        "options": [
+          "[{ name: \"name\", value: \"Anna\" }, { name: \"age\", value: \"20\" }]",
+          "[{ name: \"name\", value: \"Anna\" }, { name: \"age\", value: 20 }, { name: \"agree\", value: false }]",
+          "{ name: \"Anna\", age: \"20\" }",
+          "\"name=Anna&age=20\""
+        ],
+        "answer": 0,
+        "explanation": "serializeArray - { name, value } juftliklari massivi, qiymatlar - satrlar, belgilanmagan katakcha natijaga tushmaydi."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi jQuery metodi formani name=%D0%90%D0%BD%D0%BD%D0%B0&age=20 ko‘rinishidagi satrga aylantiradi? Metod nomini nuqta va qavslarsiz kiriting.",
+        "answers": [
+          "serialize"
+        ],
+        "case_sensitive": true,
+        "explanation": ".serialize() serverga yuborish uchun satr beradi (9-dars), .serializeArray() - obyektlar massivi."
+      },
+      {
+        "type": "single",
+        "question": "Kod nimani chiqaradi? const age = $(\"#age\").val(); console.log(typeof age); - foydalanuvchi type=\"number\" maydoniga 25 kiritdi.",
+        "options": [
+          "number",
+          "string",
+          "undefined",
+          "object"
+        ],
+        "answer": 1,
+        "explanation": "Istalgan maydonning qiymati - satr. Solishtirish uchun uni Number() orqali aylantiring."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifa va yozuvni moslang.",
+        "pairs": [
+          [
+            "Brauzer yuborishini bekor qilish",
+            "event.preventDefault()"
+          ],
+          [
+            "Maydonni xato deb belgilash",
+            ".attr(\"aria-invalid\", \"true\")"
+          ],
+          [
+            "Tugmani bloklash",
+            ".prop(\"disabled\", true)"
+          ],
+          [
+            "Formaning barcha maydonlarini tozalash",
+            "$form[0].reset()"
+          ]
+        ],
+        "explanation": "jQuery’da .reset() metodi yo‘q: u formaning DOM elementida chaqiriladi."
+      },
+      {
+        "type": "multiple",
+        "question": "Formadagi yaxshi xato xabarining xususiyatlari qaysilar?",
+        "options": [
+          "Maydon yonida turadi va nimani tuzatish kerakligini aytadi",
+          "Maydon bilan aria-describedby orqali bog‘langan",
+          "alert() orqali ko‘rsatiladi",
+          "Maydon tuzatilganda yo‘qoladi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "alert xalaqit beradi va qaysi maydon noto‘g‘ri ekanini ko‘rsatmaydi. Xato - maydon yonida, u bilan bog‘langan va tuzatilgandan keyin yo‘qoladi."
+      },
+      {
+        "type": "single",
+        "question": "Ariza yuborilayotganda yuborish tugmasini nima uchun bloklash kerak?",
+        "options": [
+          "Forma tekshirilmasligi uchun",
+          "Foydalanuvchi arizani ikki marta yubormasligi va yuborish ketayotganini ko‘rishi uchun",
+          "preventDefault ishlashi uchun",
+          "Buni jQuery 4 talab qiladi"
+        ],
+        "answer": 1,
+        "explanation": "Sabrsiz foydalanuvchi tugmani qayta bosadi - bloklashsiz ikkita ariza ketadi."
+      },
+      {
+        "type": "single",
+        "question": "Kod: if (name === \"\") { ... return false; } if (!email.includes(\"@\")) { ... }. Foydalanuvchi ismni ham, emailni ham bo‘sh qoldirdi. U nechta xatoni ko‘radi?",
+        "options": [
+          "Birortasini ham",
+          "Bittasini - ismda",
+          "Ikkitasini",
+          "Bittasini - emailda"
+        ],
+        "answer": 1,
+        "explanation": "return birinchi xatodan keyin funksiyadan chiqadi. Barcha xatolarni ko‘rsatish uchun natijani let isValid = true da to‘plang."
+      },
+      {
+        "type": "input",
+        "question": "Xatolarni sizning kodingiz ko‘rsatishi uchun formaning qaysi atributi brauzerning o‘rnatilgan ko‘rsatmalarini o‘chiradi? Atribut nomini kiriting.",
+        "answers": [
+          "novalidate"
+        ],
+        "case_sensitive": true,
+        "explanation": "<form novalidate> - tekshiruv va xato matnlarini sizning skriptingiz bajaradi, barcha brauzerlarda bir xil."
+      },
+      {
+        "type": "matching",
+        "question": "Maydonni va foydalanuvchi nimani tanlaganini qanday bilishni moslang.",
+        "pairs": [
+          [
+            "<input type=\"text\">",
+            ".val() - terilgan matn"
+          ],
+          [
+            "<select>",
+            ".val() - tanlangan option ning value qiymati"
+          ],
+          [
+            "<input type=\"checkbox\">",
+            ".prop(\"checked\") - true yoki false"
+          ],
+          [
+            "Ro‘yxatning tanlangan bandi matni",
+            ".find(\"option:checked\").text()"
+          ]
+        ],
+        "explanation": "Ro‘yxatda .val() bandning value qiymatini beradi, ko‘rinadigan yozuvni esa - tanlangan option ning .text() metodi."
+      }
+    ]
+  }
+}

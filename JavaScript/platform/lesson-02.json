@@ -84,41 +84,6 @@
       "Сравнение уже даёт true или false: const isExpensive = total > 100000;",
       "Шаблонная строка - в обратных кавычках: `Итого: ${total} сум`.",
       "Платформа запускает код на нескольких заказах - вписанное число 121500 сработает только на первом."
-    ],
-    "solution": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\n\nconsole.log(receipt);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "стартовый код без изменений",
-        "code": "// 1. quantity - количество числом\n"
-      },
-      {
-        "mistake": "количество осталось строкой",
-        "code": "const quantity = quantityText;\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "готовые числа вместо выражений",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = 135000;\nconst discount = 13500;\nconst total = 121500;\nconst isExpensive = true;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "скидка в процентах вместо сумов",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = discountPercent;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": ">= вместо >",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total >= 100000;\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "склейка через + вместо шаблонной строки",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = \"Итого: \" + total + \" сум\";\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "isExpensive строкой",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = \"true\";\nconst receipt = `Итого: ${total} сум`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "чек не выведен",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Итого: ${total} сум`;\n"
-      }
     ]
   },
   "test": {

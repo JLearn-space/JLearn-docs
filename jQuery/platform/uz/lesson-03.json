@@ -1,0 +1,283 @@
+{
+  "lesson": 3,
+  "language": "uz",
+  "lesson_title": "Kontent va atributlar",
+  "task": {
+    "title": "user obyektidan profil kartochkasi",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>O‘quvchi profili</title>\n</head>\n<body>\n    <main>\n        <article class=\"profile\" id=\"profile\" data-max-level=\"10\">\n            <img class=\"profile__avatar\" id=\"avatar\" src=\"img/placeholder.png\" alt=\"\">\n            <h2 class=\"profile__name\" id=\"profile-name\">O‘quvchi ismi</h2>\n            <p class=\"profile__level\" id=\"level-text\">Daraja: ?</p>\n            <a class=\"profile__link\" id=\"profile-link\" href=\"#\">Profilni ochish</a>\n            <label class=\"profile__mentor\">\n                <input type=\"checkbox\" id=\"mentor\"> Guruh mentori\n            </label>\n            <label class=\"profile__email\">\n                Pochta: <input type=\"email\" id=\"email\" value=\"\">\n            </label>\n        </article>\n    </main>\n</body>\n</html>",
+    "description": "Platforma user obyektini bergan: id, name, avatar, profileUrl, isMentor, email, level. Sahifada - data-max-level=\"10\" atributli article#profile kartochkasi, ichida img#avatar, h2#profile-name, p#level-text, a#profile-link havolasi, #mentor checkbox’i va #email maydoni. Kartochkani person dagi ma’lumotlar bilan to‘ldiradigan fillProfile(person) funksiyasini yozing: 1) ism - #profile-name ga .text() orqali; 2) #avatar ga src = person.avatar va alt = \"Rasm: \" + ismni obyektli bitta .attr() chaqiruvi bilan bering; 3) #profile-link ga href = person.profileUrl atributini bering; 4) #mentor checkbox’ini .prop(\"checked\", person.isMentor) orqali belgilang yoki belgini olib tashlang; 5) person.email ni #email maydoniga .val() orqali yozing; 6) person.id ni kartochka ma’lumotlariga saqlang: .data(\"userId\", ...); 7) maksimal darajani data-max-level dan .data(\"maxLevel\") orqali o‘qing va #level-text ga \"Daraja 3 / 10\" matnini yozing, bu yerda 3 - person.level; 8) fillProfile(user) ni chaqiring. Funksiya boshqa o‘quvchi bilan qayta chaqirilganda ham ishlashi kerak. document.querySelector, innerHTML va .html() dan foydalanmang.",
+    "starter_code": "// user obyektini platforma allaqachon bergan:\n// const user = {\n//     id: 17,\n//     name: \"Anna Karimova\",\n//     avatar: \"img/anna.png\",\n//     profileUrl: \"https://jlearn.space/u/anna\",\n//     isMentor: true,\n//     email: \"anna@example.com\",\n//     level: 3,\n// };\n// Sahifada: data-max-level=\"10\" li article#profile, img#avatar, h2#profile-name,\n// p#level-text, a#profile-link, #mentor checkbox’i va #email maydoni.\n\nfunction fillProfile(person) {\n    // 1. Ism - #profile-name ga .text() orqali\n\n    // 2. Avatar: src va alt bitta .attr({ ... }) chaqiruvi bilan, alt = \"Rasm: \" + ism\n\n    // 3. #profile-link havolasi: href atributi = person.profileUrl\n\n    // 4. #mentor checkbox’i: .prop(\"checked\", ...)\n\n    // 5. #email maydoni: .val(...)\n\n    // 6. person.id ni kartochka ma’lumotlariga saqlang: $(\"#profile\").data(\"userId\", ...)\n\n    // 7. maxLevel ni data-max-level dan .data(\"maxLevel\") orqali o‘qing\n    //    va #level-text ga \"Daraja 3 / 10\" ni yozing\n}\n\n// 8. fillProfile(user) ni chaqiring\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".setAttribute(",
+      ".dataset",
+      ".textContent"
+    ],
+    "setup": "const user = {\n    id: 17,\n    name: \"Anna Karimova\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};",
+    "tests": [
+      {
+        "name": "Ism #profile-name ga chiqarilgan",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"Anna Karimova\"",
+        "fail": "$(\"#profile-name\").text(person.name);"
+      },
+      {
+        "name": "\"<b>...\" ko‘rinishidagi ism belgilash emas, matn sifatida chiqariladi",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"<b>Xaker</b>\" && document.querySelector(\"#profile-name b\") === null",
+        "fail": "Ismni faqat .text() orqali chiqaring: shunda teglar harf bo‘lib ko‘rinadi va bajarilmaydi.",
+        "setup": "const user = {\n    id: 17,\n    name: \"<b>Xaker</b>\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};"
+      },
+      {
+        "name": "Avatarda to‘g‘ri src va alt",
+        "check": "document.querySelector(\"#avatar\").getAttribute(\"src\") === \"img/anna.png\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Rasm: Anna Karimova\"",
+        "fail": "$(\"#avatar\").attr({ src: person.avatar, alt: `Rasm: ${person.name}` });"
+      },
+      {
+        "name": "src va alt obyektli bitta .attr chaqiruvi bilan berilgan",
+        "check": "/\\.attr\\(\\s*\\{/.test(__code)",
+        "fail": ".attr() ga obyekt uzating: .attr({ src: ..., alt: ... })."
+      },
+      {
+        "name": "Havola profilga olib boradi",
+        "check": "document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/anna\"",
+        "fail": "$(\"#profile-link\").attr(\"href\", person.profileUrl);"
+      },
+      {
+        "name": "«Mentor» checkbox’i belgilangan",
+        "check": "document.querySelector(\"#mentor\").checked === true",
+        "fail": "$(\"#mentor\").prop(\"checked\", person.isMentor);"
+      },
+      {
+        "name": "Checkbox bosilgandan keyin ham yangilanadi",
+        "check": "(() => { const cb = document.querySelector(\"#mentor\"); cb.click(); fillProfile(user); return cb.checked === true; })()",
+        "fail": "Bosishdan keyin checkbox’ni endi atribut boshqarmaydi. Xususiyatni o‘zgartiring: .attr() emas, .prop(\"checked\", ...)."
+      },
+      {
+        "name": "isMentor: false bilan qayta chaqiruv belgini olib tashlaydi",
+        "check": "(() => { fillProfile({ ...user, isMentor: false }); return document.querySelector(\"#mentor\").checked === false; })()",
+        "fail": ".prop(\"checked\", ...) ga person.isMentor qiymatini uzating - true yoki false."
+      },
+      {
+        "name": "Pochta maydonida - o‘quvchi manzili",
+        "check": "document.querySelector(\"#email\").value === \"anna@example.com\"",
+        "fail": "$(\"#email\").val(person.email);"
+      },
+      {
+        "name": "O‘quvchi id si .data(\"userId\") da saqlangan",
+        "check": "$(\"#profile\").data(\"userId\") === 17 && /\\.data\\(/.test(__code)",
+        "fail": "$(\"#profile\").data(\"userId\", person.id); - qiymat son bo‘lib qoladi."
+      },
+      {
+        "name": "Daraja matni: \"Daraja 3 / 10\"",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Daraja 3 / 10\"",
+        "fail": "const maxLevel = $(\"#profile\").data(\"maxLevel\"); keyin .text(`Daraja ${person.level} / ${maxLevel}`)."
+      },
+      {
+        "name": "Maksimal daraja data-max-level dan o‘qiladi",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Daraja 3 / 12\"",
+        "fail": "10 ni qo‘lda yozmang: sonni $(\"#profile\").data(\"maxLevel\") dan oling.",
+        "setup": "const user = {\n    id: 17,\n    name: \"Anna Karimova\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};\ndocument.querySelector(\"#profile\").setAttribute(\"data-max-level\", \"12\");"
+      },
+      {
+        "name": "Boshqa o‘quvchi bilan qayta chaqiruv kartochkani qayta yozadi",
+        "check": "(() => { const email = document.querySelector(\"#email\"); email.value = \"typed@mail.ru\"; email.dispatchEvent(new Event(\"input\", { bubbles: true })); fillProfile({ id: 5, name: \"Boris\", avatar: \"img/boris.png\", profileUrl: \"https://jlearn.space/u/boris\", isMentor: false, email: \"boris@example.com\", level: 7 }); return document.querySelector(\"#profile-name\").textContent === \"Boris\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Rasm: Boris\" && document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/boris\" && email.value === \"boris@example.com\" && $(\"#profile\").data(\"userId\") === 5 && document.querySelector(\"#level-text\").textContent === \"Daraja 7 / 10\"; })()",
+        "fail": "Funksiya ichida user emas, person parametridan foydalaning. Maydonni .val() orqali to‘ldiring: .attr(\"value\") foydalanuvchi allaqachon kiritgan narsani o‘zgartirmaydi."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "fillProfile funksiyasi e’lon qilingani va chaqirilganini, selektorlar xatosiz yozilganini tekshiring."
+      }
+    ],
+    "hints": [
+      "Ism: $(\"#profile-name\").text(person.name); - ismdagi teglar harf bo‘lib ko‘rinadi.",
+      ".attr() dagi obyekt: $(\"#avatar\").attr({ src: person.avatar, alt: `Rasm: ${person.name}` });",
+      "Checkbox uchun - atribut emas, xususiyat: $(\"#mentor\").prop(\"checked\", person.isMentor);",
+      "Kiritish maydoni .val(person.email) orqali to‘ldiriladi.",
+      "data-max-level .data(\"maxLevel\") deb o‘qiladi va darhol songa aylanadi.",
+      "Funksiya ichida hamma joyda user emas, person deb yozing: shunda funksiya istalgan o‘quvchiga mos keladi."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Foydalanuvchi <img src=x onerror=alert(1)> ismini kiritdi. Uni sahifaga qaysi chaqiruv bilan xavfsiz chiqarish mumkin?",
+        "options": [
+          "$(\"#name\").html(userName)",
+          "$(\"#name\").text(userName)",
+          "$(\"#name\").attr(\"html\", userName)",
+          "$(\"#name\").val(userName)"
+        ],
+        "answer": 1,
+        "explanation": ".text() satrni matn sifatida qo‘yadi: teglar harf bo‘lib ko‘rinadi va bajarilmaydi. .html() satrni belgilash sifatida tahlil qilardi - bu XSS."
+      },
+      {
+        "type": "single",
+        "question": "Foydalanuvchi maydonga anna@mail.ru kiritgan, belgilashda esa value=\"\" bo‘lsa, $(\"#email\").val() nimani qaytaradi?",
+        "options": [
+          "\"\" - atribut qiymati",
+          "\"anna@mail.ru\" - maydonning joriy qiymati",
+          "undefined",
+          "jQuery obyekti"
+        ],
+        "answer": 1,
+        "explanation": ".val() value xususiyatini - hozir maydonda turgan narsani o‘qiydi. value atributi faqat boshlang‘ich qiymatni saqlaydi."
+      },
+      {
+        "type": "single",
+        "question": "<input type=\"checkbox\" id=\"agree\"> checkbox’i. Foydalanuvchi unga belgi qo‘ydi. $(\"#agree\").prop(\"checked\") nimani qaytaradi?",
+        "options": [
+          "true",
+          "\"checked\"",
+          "undefined",
+          "\"on\""
+        ],
+        "answer": 0,
+        "explanation": ".prop() DOM elementining xususiyatini - joriy true yoki false holatini o‘qiydi. .attr(\"checked\") undefined qaytarardi: belgilashda atribut yo‘q."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifani jQuery metodi bilan moslashtiring.",
+        "pairs": [
+          [
+            "Kiritish maydonining joriy qiymati",
+            ".val()"
+          ],
+          [
+            "Belgilashdagi havola manzili",
+            ".attr(\"href\")"
+          ],
+          [
+            "Checkbox belgilanganmi",
+            ".prop(\"checked\")"
+          ],
+          [
+            "data-lessons=\"10\" dan son",
+            ".data(\"lessons\")"
+          ]
+        ],
+        "explanation": "Maydon qiymati - .val(), atribut - .attr(), jonli holat - .prop(), data-* ma’lumotlari - .data()."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi chaqiruvlar #send tugmasini nofaol qiladi?",
+        "options": [
+          "$(\"#send\").prop(\"disabled\", true)",
+          "$(\"#send\").attr(\"disabled\", \"\")",
+          "$(\"#send\").prop(\"disabled\", \"false\")",
+          "$(\"#send\").removeAttr(\"disabled\")"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Atributning mavjudligi yoki rost xususiyat bloklaydi. \"false\" satri bo‘sh emas, shuning uchun u ham rost - ayyorona xato. removeAttr blokni olib tashlaydi."
+      },
+      {
+        "type": "single",
+        "question": "<div id=\"c\" data-lessons=\"10\">. console.log($(\"#c\").data(\"lessons\") + 1) nimani chiqaradi?",
+        "options": [
+          "\"101\"",
+          "11",
+          "NaN",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": ".data() \"10\" ni 10 soniga aylantiradi, shuning uchun 10 + 1 = 11. .attr(\"data-lessons\") orqali satr va \"101\" ulanishi bo‘lardi."
+      },
+      {
+        "type": "single",
+        "question": "$(\"#c\").data(\"status\", \"done\") bajarildi. DevTools’da #c elementida nimani ko‘rasiz?",
+        "options": [
+          "data-status=\"done\" atributi",
+          "data-status atributi yo‘q: .data() qiymatni jQuery xotirasida saqlaydi",
+          "status=\"done\" atributi",
+          "Konsolda xato"
+        ],
+        "answer": 1,
+        "explanation": ".data() setteri HTML ni o‘zgartirmaydi. Atribut belgilashda kerak bo‘lsa (masalan, CSS uchun), .attr(\"data-status\", \"done\") dan foydalaning."
+      },
+      {
+        "type": "input",
+        "question": "#photo dan title atributini o‘chiradigan chaqiruvni to‘ldiring: $(\"#photo\").______(\"title\"). Faqat metod nomini kiriting.",
+        "answers": [
+          "removeAttr"
+        ],
+        "case_sensitive": true,
+        "explanation": ".removeAttr(\"title\") atributni bo‘sh qilmaydi, balki butunlay o‘chiradi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar rasmga ham src, ham alt beradi?",
+        "options": [
+          "$img.attr({ src: \"a.png\", alt: \"Mushuk\" })",
+          "$img.attr(\"src\", \"a.png\").attr(\"alt\", \"Mushuk\")",
+          "$img.attr(\"src\", \"a.png\", \"alt\", \"Mushuk\")",
+          "$img.attr([\"src\", \"a.png\"])"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Bir nechta atribut obyekt yoki setterlar zanjiri bilan beriladi. Ortiqcha argumentlarni .attr() e’tiborsiz qoldiradi."
+      },
+      {
+        "type": "single",
+        "question": "Sahifada uchta <p class=\"note\">: \"a\", \"b\", \"c\". $(\".note\").text((index, old) => `${index + 1}) ${old}`) dan keyin ikkinchi xatboshida nima bo‘ladi?",
+        "options": [
+          "\"1) b\"",
+          "\"2) b\"",
+          "\"2) a\"",
+          "Xato: .text() ga funksiya uzatib bo‘lmaydi"
+        ],
+        "answer": 1,
+        "explanation": "Funksiya har bir element uchun chaqiriladi: index - noldan boshlangan raqam, old - joriy matn. Ikkinchi xatboshi uchun index = 1, old = \"b\"."
+      },
+      {
+        "type": "matching",
+        "question": "Sof JavaScript va jQuery’ni moslashtiring.",
+        "pairs": [
+          [
+            "el.textContent = s",
+            "$el.text(s)"
+          ],
+          [
+            "el.setAttribute(\"href\", url)",
+            "$el.attr(\"href\", url)"
+          ],
+          [
+            "el.checked = true",
+            "$el.prop(\"checked\", true)"
+          ],
+          [
+            "el.value",
+            "$el.val()"
+          ]
+        ],
+        "explanation": "jQuery xuddi shu ishni qiladi, lekin birdaniga topilgan barcha elementlar uchun."
+      },
+      {
+        "type": "input",
+        "question": "<div id=\"u\" data-user-id=\"5\">. Kursdagidek camelCase’da yozilsa, .data() ga qaysi kalit nomini uzatish kerak? Nomni qo‘shtirnoqsiz kiriting.",
+        "answers": [
+          "userId"
+        ],
+        "case_sensitive": true,
+        "explanation": "Chiziqchalar camelCase’ga aylanadi: data-user-id → .data(\"userId\"), sof JavaScript’dagi dataset.userId kabi."
+      }
+    ]
+  }
+}

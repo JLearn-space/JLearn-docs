@@ -23,6 +23,8 @@ Turni adashtirsangiz, dastur to‘xtamaydi, balki jimgina noto‘g‘ri hisoblay
 - `length` xususiyati va `toUpperCase`, `toLowerCase`, `trim`, `includes` satr metodlaridan foydalanish.
 - Satrni `Number()` orqali songa aylantirish va `NaN` nima ekanini tushunish.
 - Qiymatlarni qat’iy solishtirish: `===`, `!==`, `<`, `>`.
+- `Math` orqali yaxlitlash va tasodifiy sonlar olish, `slice`, `split`, `replace` metodlari bilan matnni kesish va almashtirish.
+
 
 ---
 
@@ -64,6 +66,38 @@ Har bir qiymatning **turi** bor - u bilan nima qilish mumkinligini belgilaydigan
 | `null` | «Qiymat ataylab yo‘q» | `let winner = null;` |
 
 > **Muhim:** `42` va `"42"` - turli qiymatlar. Birinchisi son, u bilan hisoblash mumkin. Ikkinchisi - ikki belgidan iborat matn.
+
+**Oddiy qilib aytganda:** o‘zgaruvchi - quti, tur - qutidagi «ichida nima bor» yorlig‘i. Sonni ko‘paytirish, matnni ulash, «ha/yo‘q» ni tekshirish mumkin. Yorliqni adashtirsangiz - dastur boshqa amalni bajaradi.
+
+```mermaid
+mindmap
+  root((Qiymat))
+    number
+      42
+      3.5
+      -10
+    string
+      "Anna"
+      "42"
+    boolean
+      true
+      false
+    undefined
+      hali berilmagan
+    null
+      ataylab bo‘sh
+```
+
+**Sxemani qanday o‘qish kerak.** Dasturdagi istalgan qiymat beshta turdan biriga tegishli. E’tibor bering: `"42"` - `string` shoxida, garchi songa o‘xshasa ham.
+
+### `undefined` va `null` ni qanday farqlash
+
+| | `undefined` | `null` |
+| --- | --- | --- |
+| Kim qo‘yadi | JavaScript o‘zi | Dasturchi qo‘lda |
+| Ma’nosi | «Hali hech narsa qo‘yilmagan» | «Ataylab bo‘sh» |
+| Misol | `let city;` | `let winner = null;` - g‘olib hali yo‘q |
+| `typeof` | `"undefined"` | `"object"` (tarixiy xato) |
 
 ### `typeof` operatori
 
@@ -134,6 +168,37 @@ console.log(Math.round(0.1 * 3 * 100) / 100); // 0.3
 
 Kompyuter kasrlarni ikkilik ko‘rinishda saqlaydi, shuning uchun `0.1 + 0.2` `0.3` dan biroz katta. Pul uchun butun birliklarda (so‘m, tiyin) hisoblash va `Math.round()` bilan yaxlitlash qulay.
 
+### Foydali `Math` funksiyalari
+
+`Math` - o‘rnatilgan matematik funksiyalar to‘plami:
+
+| Yozuv | Natija | Nima qiladi |
+| --- | --- | --- |
+| `Math.round(4.5)` | `5` | Eng yaqin butungacha yaxlitlaydi |
+| `Math.floor(4.9)` | `4` | Pastga yaxlitlaydi |
+| `Math.ceil(4.1)` | `5` | Yuqoriga yaxlitlaydi |
+| `Math.max(3, 9, 5)` | `9` | Sonlarning eng kattasi |
+| `Math.min(3, 9, 5)` | `3` | Sonlarning eng kichigi |
+| `Math.random()` | masalan `0.7312` | 0 (kiradi) dan 1 gacha (kirmaydi) tasodifiy son |
+
+1 dan 6 gacha tasodifiy butun son - o‘yin kubigini tashlash:
+
+```js
+const dice = Math.floor(Math.random() * 6) + 1;
+console.log(dice); // har safar yangi: 1, 2, 3, 4, 5 yoki 6
+```
+
+Bu qadamma-qadam qanday ishlaydi:
+
+| Qadam | Ifoda | Qiymatlar oralig‘i |
+| --- | --- | --- |
+| 1 | `Math.random()` | 0 dan 0.999... gacha |
+| 2 | `* 6` | 0 dan 5.999... gacha |
+| 3 | `Math.floor(...)` | butun 0, 1, 2, 3, 4, 5 |
+| 4 | `+ 1` | butun 1, 2, 3, 4, 5, 6 |
+
+Narxni verguldan keyin ikki raqam bilan chiqarish uchun `toFixed` metodi bor: `(12.5).toFixed(2)` `"12.50"` satrini beradi. E’tibor bering - son emas, **satr**.
+
 ---
 
 ## Satrlar
@@ -187,6 +252,39 @@ console.log(name);    // "  anna "
 name = name.trim();   // saqladik
 console.log(name);    // "anna"
 ```
+
+### Yana uchta metod: `slice`, `split`, `replace`
+
+```js
+const email = "anna@example.com";
+
+console.log(email.slice(0, 4));         // "anna" - 0 dan 3 gacha belgilar
+console.log(email.slice(-3));           // "com" - oxirgi uchtasi
+console.log(email.split("@"));          // ["anna", "example.com"]
+console.log(email.replace("anna", "timur")); // "timur@example.com"
+```
+
+| Metod | Nima qiladi | Misol |
+| --- | --- | --- |
+| `slice(start, end)` | `start` dan `end` gacha bo‘lakni kesib oladi (`end` kirmaydi) | `"Salom".slice(0, 3)` → `"Sal"` |
+| `split(separator)` | Satrni bo‘laklarga ajratadi va **massiv** qaytaradi | `"a,b,c".split(",")` → `["a", "b", "c"]` |
+| `replace(old, new)` | **Birinchi** uchraganini almashtiradi | `"2-2".replace("-", "+")` → `"2+2"` |
+| `replaceAll(old, new)` | Hammasini almashtiradi | `"2-2-2".replaceAll("-", "+")` → `"2+2+2"` |
+
+Belgilar raqamlari qanday tuzilgan:
+
+| Belgi | `J` | `a` | `v` | `a` |
+| --- | --- | --- | --- | --- |
+| Indeks | 0 | 1 | 2 | 3 |
+| Oxiridan | -4 | -3 | -2 | -1 |
+
+Massivlarni 6-darsda batafsil ko‘ramiz. Hozircha bilish yetarli: `split` bitta satrni bo‘laklar ro‘yxatiga aylantiradi.
+
+### Buzib ko‘ring
+
+1. Qavslar bilan `console.log(word.length())` yozing. Konsol qanday xato ko‘rsatadi? `length` - metod emas, xususiyat.
+2. Shablon satridagi teskari qo‘shtirnoqlarni oddiylariga almashtiring: `"Jami: ${total}"`. Nima chiqadi?
+3. Kichik `c` bilan `"JS".toUppercase()` ni chaqiring. JavaScript registrni farqlaydi: bunday nomli metod yo‘q.
 
 ---
 
@@ -266,6 +364,29 @@ console.log(5 === "5");  // false - turlar har xil
 ```
 
 Kurs qoidasi: **faqat `===` va `!==`**. Turlar farq qilishi mumkin bo‘lsa, avval qiymatni `Number()` orqali aniq aylantiring.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `"45000" + 5000` | `"450005000"` - ulanish | `Number("45000") + 5000` |
+| `Number("12px")` | `NaN` | Birliklarni olib tashlang yoki `parseInt("12px")` → `12` |
+| O‘zlashtirishsiz `name.trim();` | Satr o‘zgarmadi | `name = name.trim();` |
+| `0.1 + 0.2 === 0.3` | `false` | Yaxlitlang yoki butun birliklarda hisoblang |
+| Solishtirish o‘rniga `if (age = 18)` | Tekshirish emas, o‘zlashtirish | `age === 18` |
+| `5 == "5"` | Turlar har xil bo‘lsa ham `true` | `5 === Number("5")` |
+| `const count = 0; count++;` | `TypeError` - konstantani o‘zgartirib bo‘lmaydi | `let count = 0;` |
+
+### Konsolda o‘zingizni qanday tekshirish
+
+Qanday tur chiqqaniga ishonchingiz komil emasmi? Qiymat va turni birdaniga chiqaring:
+
+```js
+const value = "5" * 2;
+console.log(value, typeof value); // 10 "number"
+```
+
+Shunday qilib, xato dastur bo‘ylab ketib qolmasidan oldin ulanish yoki `NaN` ni bir soniyada ushlaysiz.
 
 ---
 

@@ -1,0 +1,267 @@
+{
+  "lesson": 9,
+  "language": "uz",
+  "lesson_title": "Jamoada ishlash",
+  "task": {
+    "title": "Jamoadosh bilan sinxronlash",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/site papkasidasiz - umumiy https://github.com/team/site.git repozitoriysining klonida. Sizda hali yuborilmagan lokal kommit bor, jamoadoshingiz Aziz esa boshqa faylli o‘z kommitini allaqachon yubordi. notes.md da sizda kommit qilinmagan tahrir bor. Buyruqlarni har qatorga bittadan yozing: 1) Holatni ko‘ring va kommitni git push buyrug‘i bilan yuborib ko‘ring - Git uni rad etishiga ishonch hosil qiling. 2) Kommit qilinmagan tahrirni git stash buyrug‘i bilan chetga qo‘ying va stash ro‘yxatini ko‘ring. 3) Birlashtirish usulini tanlang: git config pull.rebase false (yoki git pull ning --no-rebase / --rebase kaliti) va jamoadosh o‘zgarishlarini oling. 4) Kommitlaringizni yuboring. 5) Chetga qo‘yilgan tahrirni qaytaring (git stash pop) va uni Update notes xabari bilan kommit qiling. 6) Kommitni yuboring va ishchi papka toza ekanini tekshiring. git push --force dan foydalanmang.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/site papkasidasiz. Kommitingiz hali yuborilmagan, Aziz o‘zinikini allaqachon yubordi,\n# notes.md da esa sizda kommit qilinmagan tahrir bor.\n\n# 1. Holatni ko‘ring va kommitni yuborib ko‘ring (push rad etiladi)\n\n# 2. Kommit qilinmagan tahrirni stash ga qo‘ying va ro‘yxatni tekshiring\n\n# 3. Birlashtirish usulini tanlang (pull.rebase false yoki --no-rebase / --rebase kaliti) va o‘zgarishlarni oling\n\n# 4. Kommitlaringizni yuboring\n\n# 5. Chetga qo‘yilgan tahrirni qaytaring va uni Update notes xabari bilan kommit qiling\n\n# 6. Kommitni yuboring va ishchi papka toza ekaniga ishonch hosil qiling\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// o‘quvchi umumiy repozitoriyni klonladi va lokal kommit qildi (hali yuborilmagan)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Team site</h1>\" > index.html\necho \"# Notes\" > notes.md\necho \"- add contacts page\" >> notes.md\ngit add . && git commit -m \"Add home page\"`, { quiet: true });\n// jamoadosh klonladi, boshqa faylni o‘zgartirdi va push qildi\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\ngit push`, { user: \"aziz\", quiet: true });\n// o‘quvchida yana kommit qilinmagan tahrir bor\nsim.run(`echo \"- add footer\" >> notes.md`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Birinchi git push rad etildi (siz xatoni ko‘rdingiz)",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git push\") && c.code !== 0)",
+        "fail": "git pull dan oldin git push dan boshlang - Git yuborishni rad etishiga ishonch hosil qiling (fetch first)."
+      },
+      {
+        "name": "Tahrir git stash buyrug‘i bilan chetga qo‘yildi",
+        "check": "__commands.some((c) => /^git stash( push| -m| -u| save|$)/.test(c.cmd) && c.code === 0)",
+        "fail": "git pull dan oldin tahrirni chetga qo‘ying: git stash (yoki git stash push -m \"...\")."
+      },
+      {
+        "name": "Serverda jamoadoshning Add styles kommiti bor",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add styles\" && c.author === \"Aziz Rakhimov\")",
+        "fail": "Aziz kommiti serverdan yo‘qoldi - git push --force dan foydalanmang. Avval git pull, keyin git push."
+      },
+      {
+        "name": "Serverda sizning Add home page kommitingiz bor",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add home page\")",
+        "fail": "Lokal kommitingiz serverga tushmadi: git pull dan keyin git push ni bajaring. git reset --hard origin/main qilmang."
+      },
+      {
+        "name": "Serverda Anna Karimova’dan Update notes kommiti bor",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Update notes\" && c.author === \"Anna Karimova\")",
+        "fail": "Tahrirni qaytaring (git stash pop), kommit qiling: git commit -am \"Update notes\" va git push bilan yuboring."
+      },
+      {
+        "name": "Serverdagi notes.md da chetga qo‘yilgan tahrir bor",
+        "check": "sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"notes.md\"] === \"# Notes\\n- add contacts page\\n- add footer\\n\"",
+        "fail": "stash dagi tahrir git stash drop bilan emas, git stash pop buyrug‘i bilan qaytishi kerak."
+      },
+      {
+        "name": "Lokal main origin/main va server bilan mos keladi",
+        "check": "repo !== null && repo.commit(\"main\") !== null && repo.commit(\"origin/main\") !== null && repo.commit(\"main\").hash === repo.commit(\"origin/main\").hash && repo.commit(\"main\").hash === sim.remote(\"https://github.com/team/site.git\").tip(\"main\")",
+        "fail": "Oxirgi kommitdan keyin git push ni bajaring - tarmoq origin/main dan oldinda bo‘lmasligi kerak."
+      },
+      {
+        "name": "stash ro‘yxati bo‘sh",
+        "check": "repo !== null && repo.stash().length === 0",
+        "fail": "git stash pop tahrirni qaytaradi va yozuvni ro‘yxatdan o‘chiradi. git stash list bo‘sh bo‘lishi kerak."
+      },
+      {
+        "name": "Ishchi papka toza, birlashtirish yoki rebase tugallanmagan holda qolmagan",
+        "check": "repo !== null && repo.branch === \"main\" && repo.state() === null && repo.status().clean",
+        "fail": "Oxirida git status nothing to commit, working tree clean deb javob berishi kerak."
+      },
+      {
+        "name": "Jamoadoshning style.css fayli sizda paydo bo‘ldi",
+        "check": "sim.read(\"~/site/style.css\") === \"body { margin: 0; }\\n\"",
+        "fail": "Jamoadosh o‘zgarishlarini oling: tanlangan birlashtirish usuli bilan git pull."
+      },
+      {
+        "name": "git push --force ishlatilmagan",
+        "check": "!__commands.some((c) => /^git push\\b.*(--force|\\s-f\\b)/.test(c.cmd))",
+        "fail": "--force serverdagi boshqalarning kommitlarini qayta yozadi. Rad etilgan push git pull orqali tuzatiladi."
+      },
+      {
+        "name": "Boshqa ma’lumotlar: serverda ikkala ishtirokchining kommitlari va stash dagi tahrir bor",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add contacts page\") && sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add about page\") && sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Update notes\") && sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"notes.md\"] === \"# Notes\\n- check links\\n- check mobile layout\\n\" && sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"about.html\"] === \"<h1>About our team</h1>\\n\"",
+        "fail": "Yechim istalgan fayllar bilan ishlashi kerak: tahrirni qaytadan yozmasdan, aynan stash dan qaytaring (git stash pop).",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// o‘quvchi umumiy repozitoriyni klonladi va lokal kommit qildi (hali yuborilmagan)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Contacts</h1>\" > contacts.html\necho \"# Notes\" > notes.md\necho \"- check links\" >> notes.md\ngit add . && git commit -m \"Add contacts page\"`, { quiet: true });\n// jamoadosh klonladi, boshqa faylni o‘zgartirdi va push qildi\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>About our team</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\ngit push`, { user: \"aziz\", quiet: true });\n// o‘quvchida yana kommit qilinmagan tahrir bor\nsim.run(`echo \"- check mobile layout\" >> notes.md`, { quiet: true });\n"
+      },
+      {
+        "name": "Boshqa ma’lumotlar: main sinxronlangan, stash bo‘sh, papka toza",
+        "check": "repo !== null && repo.commit(\"main\") !== null && repo.commit(\"origin/main\") !== null && repo.commit(\"main\").hash === repo.commit(\"origin/main\").hash && repo.commit(\"main\").hash === sim.remote(\"https://github.com/team/site.git\").tip(\"main\") && repo.stash().length === 0 && repo.status().clean",
+        "fail": "Aniq fayl nomlariga tayanmang: stash, pull, push, stash pop, commit -am, push.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// o‘quvchi umumiy repozitoriyni klonladi va lokal kommit qildi (hali yuborilmagan)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Contacts</h1>\" > contacts.html\necho \"# Notes\" > notes.md\necho \"- check links\" >> notes.md\ngit add . && git commit -m \"Add contacts page\"`, { quiet: true });\n// jamoadosh klonladi, boshqa faylni o‘zgartirdi va push qildi\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>About our team</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\ngit push`, { user: \"aziz\", quiet: true });\n// o‘quvchida yana kommit qilinmagan tahrir bor\nsim.run(`echo \"- check mobile layout\" >> notes.md`, { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "fetch first maslahati bilan rad etilgan push - bu normal holat: serverda boshqa birovning kommiti bor.",
+      "git stash tahrirni «cho‘ntakka» soladi, git stash list uning ichidagini ko‘rsatadi.",
+      "Sozlamasiz git pull tarmoqlar ajralganda fatal: Need to specify how to reconcile divergent branches deb javob beradi. git config pull.rebase false yoki git pull --no-rebase ni bajaring.",
+      "git pull dan keyin - git push, keyin git stash pop.",
+      "Allaqachon kuzatiladigan fayldagi tahrir: git commit -am \"Update notes\", keyin git push.",
+      "Tekshiruv: git status - nothing to commit, working tree clean; git stash list - bo‘sh."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Git push ga shunday javob berdi: ! [rejected] main -> main (fetch first). Bu nimani anglatadi?",
+        "options": [
+          "Sizda repozitoriyga huquq yo‘q",
+          "Serverda sizda yo‘q kommitlar bor: avval ularni oling",
+          "Kommitingiz buzilgan",
+          "GitHub serveri ishlamayapti"
+        ],
+        "answer": 1,
+        "explanation": "fetch first - «avval olib keling»: kimdir allaqachon kommitlar yuborgan. git pull, keyin yana git push kerak."
+      },
+      {
+        "type": "matching",
+        "question": "Sozlamani va tarmoqlar ajralganda git pull nima qilishini moslashtiring.",
+        "pairs": [
+          [
+            "pull.rebase false",
+            "Birlashtirish kommitini yaratadi (merge)"
+          ],
+          [
+            "pull.rebase true",
+            "Kommitlaringizni olinganlar ustiga ko‘chiradi (rebase)"
+          ],
+          [
+            "pull.ff only",
+            "Faqat oldinga o‘tkazish, aks holda xato bilan rad etadi"
+          ]
+        ],
+        "explanation": "Bu sozlamalardan birisiz (yoki kalitsiz) tarmoqlar ajralganda git pull fatal: Need to specify how to reconcile divergent branches bilan tugaydi."
+      },
+      {
+        "type": "single",
+        "question": "Tarmoqlar ajralib ketdi, pull.rebase sozlamasi belgilanmagan. git pull nima qiladi?",
+        "options": [
+          "Birlashtirish kommitini yaratadi",
+          "Rebase’ni bajaradi",
+          "Kommitlarni origin/main ga oladi, lekin fatal: Need to specify how to reconcile divergent branches. bilan to‘xtaydi",
+          "Kommitlaringizni o‘chiradi"
+        ],
+        "answer": 2,
+        "explanation": "Git 2.33 dan beri git pull usulni aniq tanlashni so‘raydi: merge, rebase yoki faqat oldinga o‘tkazish."
+      },
+      {
+        "type": "multiple",
+        "question": "Tarmoqlar ajralganda qaysi buyruqlar jamoadosh o‘zgarishlarini xatosiz oladi (ishchi papka toza)?",
+        "options": [
+          "git pull --no-rebase",
+          "git pull --rebase",
+          "git pull (sozlamalarsiz)",
+          "git pull --ff-only"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "--no-rebase - birlashtirish, --rebase - rebase. --ff-only ajralganda rad etadi, sozlamasiz pull esa usulni tanlashni talab qiladi."
+      },
+      {
+        "type": "input",
+        "question": "Ishchi papka toza bo‘lishi uchun kommit qilinmagan o‘zgarishlarni qaysi buyruq bilan chetga qo‘yish mumkin? Buyruqni to‘liq kiriting.",
+        "answers": [
+          "git stash",
+          "git stash push"
+        ],
+        "case_sensitive": true,
+        "explanation": "git stash (git stash push bilan bir xil) o‘zgarishlarni «cho‘ntakka» soladi va ishchi papkani tozalaydi."
+      },
+      {
+        "type": "single",
+        "question": "git stash pop ning git stash apply dan farqi nimada?",
+        "options": [
+          "Hech qanday farqi yo‘q",
+          "pop o‘zgarishlarni qaytaradi va yozuvni ro‘yxatdan o‘chiradi, apply qaytaradi va yozuvni qoldiradi",
+          "pop o‘zgarishlarni qaytarmasdan o‘chiradi",
+          "apply faqat yangi fayllar bilan ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "pop = apply + drop. Agar pop paytida konflikt yuz bersa, yozuv ro‘yxatda qoladi."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruqni va amalni moslashtiring.",
+        "pairs": [
+          [
+            "git stash -u",
+            "Yangi (kuzatilmaydigan) fayllarni ham chetga qo‘yish"
+          ],
+          [
+            "git stash list",
+            "Chetga qo‘yilgan yozuvlarni ko‘rsatish"
+          ],
+          [
+            "git stash -m \"matn\"",
+            "Yorliq bilan chetga qo‘yish"
+          ],
+          [
+            "git cherry-pick 7759e6e",
+            "Bitta kommitni joriy tarmoqqa nusxalash"
+          ]
+        ],
+        "explanation": "-u siz stash kuzatilmaydigan fayllarga tegmaydi. cherry-pick kommitning yangi xeshli nusxasini yaratadi."
+      },
+      {
+        "type": "single",
+        "question": "GitHub Flow qadamlari tartibi:",
+        "options": [
+          "main → commit → merge → pull request → tarmoq",
+          "Tarmoq → kommitlar → push → pull request → ko‘rib chiqish → merge → tarmoqni o‘chirish",
+          "push --force → merge → tarmoq",
+          "Tarmoq → merge → kommitlar → pull request"
+        ],
+        "answer": 1,
+        "explanation": "Ish qisqa tarmoqda boradi, main ga u faqat ko‘rib chiqishdan keyin pull request orqali tushadi."
+      },
+      {
+        "type": "multiple",
+        "question": "feature/menu tarmog‘ida bajarilgan git rebase main haqida nima to‘g‘ri?",
+        "options": [
+          "Tarmoq kommitlari main ustiga ko‘chiriladi",
+          "Ko‘chirilgan kommitlar yangi xeshlarni oladi",
+          "Birlashtirish kommiti doim yaratiladi",
+          "Boshqalar allaqachon foydalanayotgan tarmoq bilan qilib bo‘lmaydi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "rebase tarixni qayta yozadi: birlashtirish kommitisiz, yangi xeshli yangi kommitlar. Boshqalarning e’lon qilingan tarmoqlari rebase qilinmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Pull request nima?",
+        "options": [
+          "Serverdagi git pull buyrug‘i",
+          "Tarmoqni birlashtirish so‘rovi, unda jamoa o‘zgarishlarni merge’dan oldin muhokama qiladi va tekshiradi",
+          "Birovning repozitoriysini yuklab olish",
+          "Birovning kommitini bekor qilish"
+        ],
+        "answer": 1,
+        "explanation": "Pull request - GitHub’dagi sahifa: tarmoq o‘zgarishlari, muhokama, ko‘rib chiqish, Merge pull request tugmasi."
+      },
+      {
+        "type": "input",
+        "question": "git pull bu repozitoriyda doim birlashtirishni bajarishi uchun buyruqni to‘ldiring: git config pull.rebase ______",
+        "answers": [
+          "false"
+        ],
+        "case_sensitive": true,
+        "explanation": "pull.rebase false - birlashtirish, true - rebase."
+      },
+      {
+        "type": "single",
+        "question": "git pull shunday javob berdi: error: Your local changes to the following files would be overwritten by merge: notes.md. Nima qilish kerak?",
+        "options": [
+          "git push --force",
+          "Tahrirni chetga qo‘yish (git stash) yoki kommit qilish, keyin yana git pull",
+          ".git papkasini o‘chirish",
+          "git reset --hard origin/main"
+        ],
+        "answer": 1,
+        "explanation": "Git kommit qilinmagan tahriringizni himoya qiladi. Uni stash ga qo‘ying, o‘zgarishlarni oling va git stash pop orqali qaytaring."
+      }
+    ]
+  }
+}

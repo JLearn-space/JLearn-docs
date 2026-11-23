@@ -1,0 +1,270 @@
+{
+  "lesson": 8,
+  "language": "ru",
+  "lesson_title": "GitHub и удалённые репозитории",
+  "task": {
+    "title": "Портфолио на GitHub и чужой репозиторий",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/portfolio на ветке main, в истории 3 коммита. На «GitHub» создан пустой репозиторий https://github.com/anna/portfolio.git, а у вашего однокурсника Азиза есть репозиторий https://github.com/aziz/notes.git с конспектом по Git. Напишите команды по одной на строке: 1) Подключите удалённый репозиторий https://github.com/anna/portfolio.git под именем origin и проверьте список удалённых репозиториев (git remote -v). 2) Отправьте ветку main на GitHub так, чтобы origin/main стала её upstream. 3) Выполните git status и убедитесь, что ветка up to date with 'origin/main'. 4) Создайте ветку feature/about и перейдите в неё, создайте файл about.html с текстом <h1>About me</h1> и закоммитьте его. 5) Отправьте ветку feature/about на GitHub с upstream origin/feature/about. 6) Вернитесь в домашнюю папку и клонируйте https://github.com/aziz/notes.git. 7) Перейдите в папку notes, посмотрите историю (git log --oneline) и удалённые репозитории. В итоге история main на сервере совпадает с вашей, на сервере ветки main и feature/about, у обеих веток настроен upstream, а в ~/notes - копия репозитория Азиза со всей историей.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/portfolio на ветке main, в истории 3 коммита.\n# На GitHub создан пустой репозиторий https://github.com/anna/portfolio.git\n\n# 1. Подключите удалённый репозиторий под именем origin и проверьте список удалённых\n\n# 2. Отправьте main на GitHub и сделайте origin/main её upstream\n\n# 3. Проверьте git status: ветка должна быть up to date with 'origin/main'\n\n# 4. Создайте ветку feature/about, файл about.html с <h1>About me</h1>, коммит\n\n# 5. Отправьте feature/about на GitHub с upstream\n\n# 6. Вернитесь в домашнюю папку и клонируйте https://github.com/aziz/notes.git\n\n# 7. Перейдите в notes и посмотрите историю\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n",
+    "tests": [
+      {
+        "name": "В ~/portfolio подключён origin с адресом репозитория anna/portfolio",
+        "check": "sim.repo(\"~/portfolio\") !== null && JSON.stringify(sim.repo(\"~/portfolio\").remotes()) === JSON.stringify({ origin: \"https://github.com/anna/portfolio.git\" })",
+        "fail": "Подключите удалённый репозиторий: git remote add origin https://github.com/anna/portfolio.git (имя - origin, адрес - без опечаток). Проверьте git remote -v."
+      },
+      {
+        "name": "На «GitHub» ровно две ветки: feature/about и main",
+        "check": "sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\"",
+        "fail": "Отправьте обе ветки: git push -u origin main и, находясь на feature/about, git push -u origin feature/about."
+      },
+      {
+        "name": "История main на сервере совпадает с локальной (все коммиты, те же хеши)",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash))",
+        "fail": "На сервере main должна быть ровно такой же, как у вас. Не делайте коммиты на main после push, а about.html коммитьте в ветке feature/about."
+      },
+      {
+        "name": "main не изменилась: 3 исходных коммита, about.html в неё не попал",
+        "check": "sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "Коммит со страницей about.html должен быть в ветке feature/about: создайте её командой git switch -c feature/about до коммита."
+      },
+      {
+        "name": "feature/about: один коммит поверх main с about.html, на сервере - тот же коммит",
+        "check": "(() => { const c = sim.repo(\"~/portfolio\").commit(\"feature/about\"); return c !== null && c.parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && typeof c.files[\"about.html\"] === \"string\" && c.files[\"about.html\"].includes(\"<h1>About me</h1>\") && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\"); })()",
+        "fail": "В feature/about - один коммит с новым файлом about.html (не забудьте git add about.html), и он отправлен на сервер."
+      },
+      {
+        "name": "Upstream main - origin/main",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\"",
+        "fail": "Первую отправку main делайте с ключом -u: git push -u origin main. Без -u ветка не запомнит, куда её отправлять."
+      },
+      {
+        "name": "Upstream feature/about - origin/feature/about",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\"",
+        "fail": "Новую ветку тоже отправляйте с -u: git push -u origin feature/about. Просто git push ответит has no upstream branch."
+      },
+      {
+        "name": "В ~/portfolio всё закоммичено",
+        "check": "sim.repo(\"~/portfolio\").status().clean",
+        "fail": "Файл about.html должен быть в коммите ветки feature/about: git add about.html, затем git commit -m."
+      },
+      {
+        "name": "git status после отправки показала up to date with 'origin/main'",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git status\") && c.out.includes(\"Your branch is up to date with 'origin/main'\"))",
+        "fail": "Сразу после git push -u origin main выполните git status - Git сообщит, что ветка совпадает с origin/main."
+      },
+      {
+        "name": "Проверен список удалённых репозиториев: git remote -v",
+        "check": "__commands.some((c) => c.cmd === \"git remote -v\" && c.out.includes(\"(push)\"))",
+        "fail": "После git remote add посмотрите результат: git remote -v (внутри репозитория)."
+      },
+      {
+        "name": "Репозиторий aziz/notes клонирован в ~/notes: история aziz и remote origin",
+        "check": "sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "Вернитесь в домашнюю папку (cd ~) и выполните git clone https://github.com/aziz/notes.git - появится папка ~/notes. Клонировать внутри portfolio не нужно."
+      },
+      {
+        "name": "Просмотрена история клонированного репозитория",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git log\") && c.out.includes(\"Add git commands\") && c.out.includes(\"Add README\"))",
+        "fail": "Перейдите в папку notes (cd notes) и посмотрите историю: git log --oneline."
+      },
+      {
+        "name": "Другая локальная история (5 коммитов): сервер совпадает с ней, upstream настроены",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/portfolio\").log(\"main\").length === 5 && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\") && sim.repo(\"~/portfolio\").commit(\"feature/about\").parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\" && sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\" && sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\" && sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "Решение должно работать для любой истории: отправляйте ту main, что есть у вас, и не создавайте коммитов на main.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"node_modules/\" > .gitignore\ngit add . && git commit -m \"Add gitignore\"\necho \"h1 { color: teal; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Web developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах echo."
+      }
+    ],
+    "hints": [
+      "Подключить удалённый репозиторий: git remote add origin https://github.com/anna/portfolio.git. Проверить: git remote -v.",
+      "Первая отправка ветки - с ключом -u: git push -u origin main. Git ответит branch 'main' set up to track 'origin/main'.",
+      "Новую ветку создайте и переключитесь одной командой: git switch -c feature/about. Новый файл перед коммитом - git add about.html.",
+      "Ветку feature/about тоже отправляйте с -u: git push -u origin feature/about. Просто git push ответит has no upstream branch.",
+      "Клонируют из домашней папки, а не из папки проекта: cd ~, затем git clone https://github.com/aziz/notes.git. Git создаст папку notes - перейдите в неё (cd notes)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое удалённый репозиторий (remote)?",
+        "options": [
+          "Репозиторий, который удалили и можно восстановить",
+          "Копия репозитория на другом компьютере или сервере, например на GitHub",
+          "Папка .git на вашем компьютере",
+          "Отдельная ветка внутри вашего репозитория"
+        ],
+        "answer": 1,
+        "explanation": "Remote - это та же история проекта, но в другом месте: на GitHub, на сервере компании, на компьютере коллеги. Git обменивается с ним коммитами командами push, fetch, pull."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git remote -v\norigin\thttps://github.com/anna/portfolio.git (fetch)\norigin\thttps://github.com/anna/portfolio.git (push)",
+        "options": [
+          "Подключено два удалённых репозитория",
+          "Подключён один удалённый репозиторий origin, с ним и скачивают, и отправляют",
+          "Ветка main отправлена на GitHub",
+          "Репозиторий клонирован"
+        ],
+        "answer": 1,
+        "explanation": "Одна запись origin, показанная дважды: адрес для скачивания (fetch) и для отправки (push). Обычно они совпадают."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: отправить ветку main в origin и сделать origin/main её upstream (короткий ключ).",
+        "answers": [
+          "git push -u origin main"
+        ],
+        "case_sensitive": true,
+        "explanation": "-u (--set-upstream) запоминает связь main ↔ origin/main. Дальше достаточно писать просто git push и git pull."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git push\nfatal: The current branch feature/about has no upstream branch.",
+        "options": [
+          "Ветки feature/about не существует",
+          "Не подключён удалённый репозиторий",
+          "Ветка ещё ни разу не отправлялась с -u: Git не знает, куда её отправлять",
+          "Нет доступа к GitHub"
+        ],
+        "answer": 2,
+        "explanation": "Remote подключён, но у ветки нет upstream. Решение Git подсказывает сам: git push --set-upstream origin feature/about (или git push -u origin feature/about)."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте сообщение Git и причину.",
+        "pairs": [
+          [
+            "fatal: No configured push destination.",
+            "Не выполнен git remote add"
+          ],
+          [
+            "error: src refspec master does not match any",
+            "Локальной ветки с таким именем нет"
+          ],
+          [
+            "remote: Repository not found.",
+            "Опечатка в адресе или нет доступа к репозиторию"
+          ],
+          [
+            "fatal: Authentication failed",
+            "Вместо токена введён пароль от аккаунта или токен неверный"
+          ]
+        ],
+        "explanation": "Читайте первую строку ошибки: она почти всегда прямо называет проблему."
+      },
+      {
+        "type": "single",
+        "question": "Что показывает origin/main в вашем репозитории?",
+        "options": [
+          "Текущее состояние ветки main на GitHub в эту секунду",
+          "Последнее известное вашему Git состояние main на сервере - на момент последнего push, fetch или pull",
+          "Копию вашей локальной main",
+          "Ветку, в которую можно делать коммиты"
+        ],
+        "answer": 1,
+        "explanation": "origin/main - «фотография» сервера. Она обновляется только при обмене с сервером. Если коллега отправил коммит, вы увидите его в origin/main только после git fetch."
+      },
+      {
+        "type": "multiple",
+        "question": "Чем можно войти в GitHub при git push по HTTPS или SSH?",
+        "options": [
+          "Personal Access Token вместо пароля",
+          "Пароль от аккаунта GitHub",
+          "Git Credential Manager (вход через браузер)",
+          "SSH-ключ, публичная часть которого добавлена в настройки GitHub",
+          "Email без пароля"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Пароль от аккаунта для Git-операций GitHub не принимает с 2021 года. Нужен токен, вход через Git Credential Manager или gh auth login, либо SSH-ключ."
+      },
+      {
+        "type": "single",
+        "question": "Чем git fetch отличается от git pull?",
+        "options": [
+          "Ничем, это синонимы",
+          "fetch скачивает новые коммиты и обновляет origin/main, но не трогает ваши файлы; pull = fetch + слияние в текущую ветку",
+          "fetch отправляет коммиты, pull скачивает",
+          "pull работает только с SSH"
+        ],
+        "answer": 1,
+        "explanation": "fetch безопасен: только «посмотреть, что нового». pull сразу вливает изменения в вашу ветку и рабочую папку."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git status\nOn branch main\nYour branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)",
+        "options": [
+          "На сервере есть 1 коммит, которого нет в вашей main; git pull перемотает её вперёд",
+          "У вас 1 неотправленный коммит",
+          "Ветки разошлись, нужен конфликт",
+          "Файл изменён, но не закоммичен"
+        ],
+        "answer": 0,
+        "explanation": "behind - «отстаёт». Такое сообщение появляется после git fetch, когда на сервере появились новые коммиты. ahead означало бы обратное - у вас есть неотправленные коммиты."
+      },
+      {
+        "type": "multiple",
+        "question": "У вас уже есть локальный проект с коммитами. Вы создаёте для него репозиторий на GitHub. Что верно?",
+        "options": [
+          "Репозиторий лучше создать пустым: без README, .gitignore и лицензии",
+          "Обязательно отметить «Add README», иначе push не сработает",
+          "После создания GitHub покажет адрес, который нужен для git remote add",
+          "Приватный репозиторий видите только вы и те, кого вы пригласили"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Если GitHub создаст свой первый коммит с README, у сервера и у вас будут две разные истории, и первый push отклонят. Пустой репозиторий принимает вашу историю целиком."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте команду и то, что она делает.",
+        "pairs": [
+          [
+            "git clone URL",
+            "Скачать репозиторий целиком в новую папку и подключить origin"
+          ],
+          [
+            "git fetch",
+            "Скачать новые коммиты, обновить origin/*, файлы не трогать"
+          ],
+          [
+            "git pull",
+            "Скачать и сразу влить в текущую ветку"
+          ],
+          [
+            "git push",
+            "Отправить свои коммиты на сервер"
+          ]
+        ],
+        "explanation": "clone - один раз в начале; fetch и pull - получить чужое; push - отдать своё."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: создать SSH-ключ современного типа ed25519 (без ключа -C).",
+        "answers": [
+          "ssh-keygen -t ed25519"
+        ],
+        "case_sensitive": true,
+        "explanation": "ssh-keygen создаёт пару: закрытый ключ ~/.ssh/id_ed25519 (никому не показывать) и открытый ~/.ssh/id_ed25519.pub - его добавляют в настройки GitHub."
+      }
+    ]
+  }
+}

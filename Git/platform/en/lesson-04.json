@@ -1,0 +1,259 @@
+{
+  "lesson": 4,
+  "language": "en",
+  "lesson_title": "Undoing changes",
+  "task": {
+    "title": "Fix four mistakes",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the folder ~/portfolio. The repository has four mistakes - fix each one with the right command: 1) Look at git status and git log --oneline. 2) The file index.html is broken and not added to the index yet - bring it back to the version from the last commit. 3) The file passwords.txt was added to the index by accident - remove it from the index, but don't delete the file itself. 4) The message of the last commit has a typo (contatcs) - fix the message to Add contacts page without creating a new commit. 5) The commit Change colors to neon is already published on GitHub - undo it with git revert without deleting it from the history (don't use reset --hard). 6) Check the result: git log --oneline and git status.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in the folder ~/portfolio. First look at git status and git log --oneline.\n\n# 1. Bring the broken index.html back to the version from the last commit\n\n# 2. Remove passwords.txt from the index (don't delete the file itself)\n\n# 3. Fix the typo in the message of the last commit: Add contacts page\n\n# 4. Undo the published commit Change colors to neon with git revert\n\n# 5. Check the result: git log --oneline and git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: navy; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"body { color: lime; background: magenta; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<h2>About me</h2>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<h2>Contacts</h2>\" > contacts.html\ngit add . && git commit -m \"Add contatcs page\"\necho \"<h1>Anna Karimova</h1><h1><h1>\" > index.html\necho \"admin: qwerty123\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "index.html is back to the version from the commit",
+        "check": "sim.read(\"~/portfolio/index.html\") === repo.commit(\"HEAD\").files[\"index.html\"] && !repo.status().modified.includes(\"index.html\")",
+        "fail": "git restore index.html brings the file back to the version from the last commit."
+      },
+      {
+        "name": "git restore is used for index.html",
+        "check": "__commands.some((c) => c.code === 0 && /^git (restore|checkout)\\b/.test(c.cmd) && !c.cmd.includes(\"--staged\") && /(index\\.html|\\s\\.)$/.test(c.cmd))",
+        "fail": "A broken file that is not in the index is brought back with git restore index.html."
+      },
+      {
+        "name": "passwords.txt stayed in the folder and is not in the index",
+        "check": "sim.exists(\"~/portfolio/passwords.txt\") && repo.status().untracked.includes(\"passwords.txt\") && !(\"passwords.txt\" in repo.index())",
+        "fail": "git restore --staged passwords.txt removes the file from the index but doesn't delete it from disk. Don't use rm."
+      },
+      {
+        "name": "passwords.txt did not get into any commit",
+        "check": "repo.log().every((c) => !(\"passwords.txt\" in c.files))",
+        "fail": "First remove passwords.txt from the index (step 2), and only then run git commit --amend: amend takes everything in the index into the commit."
+      },
+      {
+        "name": "The typo is fixed with amend, not with a new commit",
+        "check": "repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && \"contacts.html\" in repo.log().find((c) => c.subject === \"Add contacts page\").files && repo.commit(repo.log().find((c) => c.subject === \"Add contacts page\").parents[0]).subject === \"Add about page\" && repo.log().every((c) => !/cont[a-z]*cts page/.test(c.subject) || c.subject === \"Add contacts page\")",
+        "fail": "git commit --amend -m \"Add contacts page\" replaces the last commit. Run amend before revert, while the commit with the typo is the last one."
+      },
+      {
+        "name": "The bad commit stayed in the history",
+        "check": "repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined",
+        "fail": "You can't delete a published commit from the history: git revert adds a new undo commit, and the old one stays."
+      },
+      {
+        "name": "The last commit is Revert \"Change colors to neon\"",
+        "check": "repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && repo.commit(\"HEAD~1\").subject === \"Add contacts page\"",
+        "fail": "git revert --no-edit HEAD~2 after amend (or git revert <hash of the commit Change colors to neon>)."
+      },
+      {
+        "name": "style.css is again as in the commit Add styles",
+        "check": "sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"] && repo.commit(\"HEAD\").files[\"style.css\"] === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "Undo exactly the commit Change colors to neon. Find it in git log --oneline."
+      },
+      {
+        "name": "The rest of the work is not lost: 6 commits, about.html and contacts.html are in place",
+        "check": "repo.log().length === 6 && \"about.html\" in repo.commit(\"HEAD\").files && \"contacts.html\" in repo.commit(\"HEAD\").files && sim.exists(\"~/portfolio/about.html\") && sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "There were 5 commits, amend replaces a commit (doesn't add one), revert adds one: you should get 6. Don't use reset --hard."
+      },
+      {
+        "name": "git reset --hard is not used",
+        "check": "!__commands.some((c) => /^git reset\\b/.test(c.cmd) && c.cmd.includes(\"--hard\"))",
+        "fail": "You don't need reset --hard in this task: it erases work and rewrites history."
+      },
+      {
+        "name": "The working directory is clean except for passwords.txt",
+        "check": "repo.status().staged.length === 0 && repo.status().modified.length === 0 && repo.status().deleted.length === 0 && repo.status().untracked.join() === \"passwords.txt\"",
+        "fail": "At the end, git status should show only Untracked files: passwords.txt."
+      },
+      {
+        "name": "Other data: all four mistakes are fixed",
+        "check": "repo.status().modified.length === 0 && repo.status().untracked.includes(\"passwords.txt\") && repo.log().every((c) => !(\"passwords.txt\" in c.files)) && repo.log().length === 6 && repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined && repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "The solution must not depend on hashes: use HEAD~2 or find the hash in git log --oneline.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Aziz Rakhimov</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"h1 { font-size: 32px; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"h1 { font-size: 120px; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<p>I am a web developer</p>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<p>aziz@example.com</p>\" > contacts.html\ngit add . && git commit -m \"Add contcts page\"\necho \"\" > index.html\necho \"root: 0000\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n"
+      },
+      {
+        "name": "The script runs without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in your commands."
+      }
+    ],
+    "hints": [
+      "Start with git status: Git suggests the commands itself in brackets - git restore <file> and git restore --staged <file>.",
+      "The order matters: first git restore --staged passwords.txt, then git commit --amend - otherwise the password gets into the commit.",
+      "The message of the last commit: git commit --amend -m \"Add contacts page\". The number of commits doesn't change.",
+      "After amend, the bad commit is third from the top, that is HEAD~2. You can also give its hash from git log --oneline.",
+      "git revert --no-edit HEAD~2 creates the commit Revert \"Change colors to neon\" and brings style.css back."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "git status shows index.html under Changes not staged for commit. You want to throw away these edits and bring back the version from the last commit. Which command?",
+        "options": [
+          "git restore --staged index.html",
+          "git restore index.html",
+          "git revert index.html",
+          "git commit --amend index.html"
+        ],
+        "answer": 1,
+        "explanation": "git restore file brings the file in the working directory back to the version from the index (which matches the last commit). Unsaved edits are lost."
+      },
+      {
+        "type": "single",
+        "question": "What does git restore --staged passwords.txt do with a new file that you added by accident with git add?",
+        "options": [
+          "Deletes the file from disk",
+          "Removes the file from the index; the file stays in the folder as Untracked",
+          "Deletes the file from all commits",
+          "Makes a commit without this file"
+        ],
+        "answer": 1,
+        "explanation": "--staged works only with the index: the file is no longer prepared for the commit, but it stays on disk."
+      },
+      {
+        "type": "matching",
+        "question": "Match each situation with the right command.",
+        "pairs": [
+          [
+            "You broke a file and haven't run git add yet",
+            "git restore file"
+          ],
+          [
+            "You added an extra file to the index",
+            "git restore --staged file"
+          ],
+          [
+            "A typo in the message of the last commit, which is not published yet",
+            "git commit --amend -m \"...\""
+          ],
+          [
+            "You need to undo a commit that is already on GitHub",
+            "git revert <commit>"
+          ]
+        ],
+        "explanation": "Each level of a mistake (working directory → index → local commit → published commit) needs its own command: the \"deeper\" the mistake, the more careful the fix."
+      },
+      {
+        "type": "single",
+        "question": "Why is git revert safe for published history, and git reset is not?",
+        "options": [
+          "revert is faster",
+          "revert adds a new undo commit and doesn't change old commits, while reset moves the branch back and \"throws away\" commits",
+          "reset deletes the repository",
+          "revert doesn't change files"
+        ],
+        "answer": 1,
+        "explanation": "Your teammates already have the published commits. revert only adds a commit on top, so their copies of the history stay correct."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about git commit --amend?",
+        "options": [
+          "It replaces the last commit with a new one that has a different hash",
+          "It takes everything that is in the index now into the commit",
+          "It is safe to use for a commit that is already sent to GitHub",
+          "With -m, it changes the message of the last commit"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "amend creates a new commit in place of the last one (a new hash) and adds the contents of the index. You must not change published commits this way."
+      },
+      {
+        "type": "matching",
+        "question": "Match each git reset HEAD~1 mode with what happens to the changes from the undone commit.",
+        "pairs": [
+          [
+            "--soft",
+            "They stay in the index (ready to commit)"
+          ],
+          [
+            "--mixed (default)",
+            "They stay in the working directory, but not in the index"
+          ],
+          [
+            "--hard",
+            "They are erased from both the index and the working directory"
+          ]
+        ],
+        "explanation": "All three modes move the branch to HEAD~1. The difference is how many areas they \"roll back\" after the branch."
+      },
+      {
+        "type": "single",
+        "question": "Git printed:\nHEAD is now at c8a4ab7 Add styles\nWhich command was most likely run?",
+        "options": [
+          "git revert HEAD",
+          "git reset --hard HEAD~1",
+          "git restore style.css",
+          "git commit --amend"
+        ],
+        "answer": 1,
+        "explanation": "The line HEAD is now at ... is the output of git reset --hard: the branch and the files were moved to the given commit."
+      },
+      {
+        "type": "input",
+        "question": "After git reset --hard, a commit you need is gone. Which command shows the log of all HEAD movements so that you can find its hash? Type the whole command.",
+        "answers": [
+          "git reflog"
+        ],
+        "case_sensitive": true,
+        "explanation": "git reflog is a \"time machine\": it remembers where HEAD pointed, even after reset."
+      },
+      {
+        "type": "single",
+        "question": "git reflog shows:\nc8a4ab7 (HEAD -> main) HEAD@{0}: reset: moving to HEAD~1\nb7886e2 HEAD@{1}: commit: Add about page\nHow do you bring back the lost commit Add about page?",
+        "options": [
+          "git revert HEAD@{1}",
+          "git reset --hard b7886e2",
+          "git restore b7886e2",
+          "git commit --amend b7886e2"
+        ],
+        "answer": 1,
+        "explanation": "reset --hard to the hash from the reflog (or HEAD@{1}) brings the branch and the files back to that commit."
+      },
+      {
+        "type": "multiple",
+        "question": "Which commands rewrite history (change or remove existing commits)?",
+        "options": [
+          "git commit --amend",
+          "git reset --hard HEAD~2",
+          "git revert HEAD",
+          "git restore --staged index.html"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "amend replaces the last commit, reset moves the branch back. revert adds a new commit, and restore doesn't touch commits at all."
+      },
+      {
+        "type": "input",
+        "question": "Complete the command that undoes commit 8401f68 with a new commit without opening an editor: git ________ --no-edit 8401f68",
+        "answers": [
+          "revert"
+        ],
+        "case_sensitive": true,
+        "explanation": "git revert --no-edit 8401f68 creates a commit Revert \"...\" with the opposite changes."
+      },
+      {
+        "type": "single",
+        "question": "You ran git reset --soft HEAD~1. What will git status show?",
+        "options": [
+          "nothing to commit, working tree clean",
+          "The changes of the undone commit under Changes to be committed",
+          "The changes under Untracked files",
+          "fatal: not a git repository"
+        ],
+        "answer": 1,
+        "explanation": "--soft moves only the branch: the changes of the commit stay in the index, and you can commit them again right away."
+      }
+    ]
+  }
+}

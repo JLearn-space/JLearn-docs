@@ -1,0 +1,270 @@
+{
+  "lesson": 5,
+  "language": "ru",
+  "lesson_title": "Игнорирование файлов и порядок в проекте",
+  "task": {
+    "title": "Наводим порядок в портфолио",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/portfolio. В истории уже есть 3 коммита, и в одном из них по ошибке закоммичен config.env с паролем базы данных. Рядом лежит мусор: node_modules/, dist/, debug.log, .DS_Store. Напишите команды по одной на строке: 1) Посмотрите состояние репозитория. 2) Создайте .gitignore, который скрывает node_modules/, dist/, все файлы *.log, файлы секретов .env и config.env и .DS_Store в любой папке. 3) Уберите config.env из отслеживания так, чтобы файл остался на диске. 4) Создайте README.md: первая строка - заголовок # Portfolio, ниже строка с описанием проекта. 5) Переименуйте about.htm в about.html средствами Git. 6) Добавьте .gitignore и README.md в индекс и сделайте коммит. 7) Убедитесь, что рабочая папка чистая. Прошлые коммиты не меняйте.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/portfolio. config.env с паролем уже в истории,\n# рядом лежат node_modules/, dist/, debug.log, .DS_Store.\n\n# 1. Посмотрите состояние репозитория\n\n# 2. Создайте .gitignore: node_modules/, dist/, *.log, .env, config.env, .DS_Store\n\n# 3. Уберите config.env из отслеживания (файл должен остаться на диске)\n\n# 4. Создайте README.md: заголовок # и строка описания\n\n# 5. Переименуйте about.htm в about.html средствами Git\n\n# 6. Добавьте .gitignore и README.md в индекс и сделайте коммит\n\n# 7. Убедитесь, что рабочая папка чистая\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=qwerty123\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\nmkdir -p node_modules/lodash && echo \"module.exports = {};\" > node_modules/lodash/index.js\necho \"Error: cannot connect to database\" > debug.log\nmkdir dist && echo \"body{margin:0}\" > dist/style.min.css\necho \"mac\" > .DS_Store\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Файл .gitignore есть в последнем коммите",
+        "check": "repo !== null && repo.commit(\"HEAD\").files[\".gitignore\"] !== undefined",
+        "fail": "Добавьте .gitignore в индекс (git add .gitignore) и закоммитьте его - правила должны храниться в репозитории."
+      },
+      {
+        "name": "Зависимости node_modules/ и сборка dist/ игнорируются",
+        "check": "repo.isIgnored(\"node_modules/lodash/index.js\") && repo.isIgnored(\"src/node_modules/x.js\") && repo.isIgnored(\"dist/style.min.css\") && repo.isIgnored(\"dist/js/app.js\")",
+        "fail": "Две строки в .gitignore: node_modules/ и dist/ - со слешем в конце и без опечаток."
+      },
+      {
+        "name": "Все файлы .log игнорируются",
+        "check": "repo.isIgnored(\"debug.log\") && repo.isIgnored(\"logs/error.log\")",
+        "fail": "Шаблон *.log - звёздочка заменяет любое имя."
+      },
+      {
+        "name": "Секреты игнорируются: config.env и .env",
+        "check": "repo.isIgnored(\"config.env\") && repo.isIgnored(\".env\")",
+        "fail": "Добавьте в .gitignore две строки: .env и config.env."
+      },
+      {
+        "name": ".DS_Store игнорируется в любой папке",
+        "check": "repo.isIgnored(\".DS_Store\") && repo.isIgnored(\"css/.DS_Store\")",
+        "fail": "Строка .DS_Store без слеша в начале - тогда шаблон действует во всех папках."
+      },
+      {
+        "name": "Нужные файлы не игнорируются",
+        "check": "[\"index.html\", \"about.html\", \"css/style.css\", \"README.md\", \".gitignore\"].every((p) => !repo.isIgnored(p))",
+        "fail": "Шаблон слишком широкий: проверьте, что в .gitignore нет строк вроде * или *.html."
+      },
+      {
+        "name": "config.env больше не отслеживается, но остался на диске",
+        "check": "repo.commit(\"HEAD\").files[\"config.env\"] === undefined && repo.index()[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=qwerty123\\n\"",
+        "fail": "Нужна git rm --cached config.env: без --cached Git удалит и сам файл с диска."
+      },
+      {
+        "name": "Мусор не попал в коммит",
+        "check": "Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"node_modules/\") && !p.startsWith(\"dist/\") && !p.endsWith(\".log\") && !p.endsWith(\".DS_Store\"))",
+        "fail": "Сначала .gitignore, потом git add. Если мусор уже в индексе - git rm -r --cached папка."
+      },
+      {
+        "name": "README.md закоммичен: заголовок и описание",
+        "check": "typeof repo.commit(\"HEAD\").files[\"README.md\"] === \"string\" && repo.commit(\"HEAD\").files[\"README.md\"].startsWith(\"# \") && repo.commit(\"HEAD\").files[\"README.md\"].split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "README.md: первая строка - заголовок вида # Portfolio, ниже хотя бы одна строка описания. Используйте cat > README.md << 'EOF'."
+      },
+      {
+        "name": "about.htm переименован в about.html",
+        "check": "repo.commit(\"HEAD\").files[\"about.htm\"] === undefined && repo.commit(\"HEAD\").files[\"about.html\"] === \"<h1>About me</h1>\\n\"",
+        "fail": "git mv about.htm about.html, затем коммит."
+      },
+      {
+        "name": "История не переписана: старые коммиты на месте",
+        "check": "[\"Add home page\", \"Add database config\", \"Add about page\"].every((s) => repo.log().some((c) => c.subject === s)) && repo.log().length >= 4",
+        "fail": "Не удаляйте и не меняйте прошлые коммиты: изменения - новым коммитом поверх."
+      },
+      {
+        "name": "Рабочая папка чистая",
+        "check": "repo.status().clean",
+        "fail": "После коммита git status должна ответить nothing to commit, working tree clean. Всё нужное - в коммите, мусор - в .gitignore."
+      },
+      {
+        "name": "Другой проект: .env, logs/error.log и прочий мусор скрыты, рабочая папка чистая",
+        "check": "repo.isIgnored(\".env\") && repo.isIgnored(\"logs/error.log\") && repo.status().clean && repo.commit(\"HEAD\").files[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=Secret-2026\\n\" && Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"logs/\") && p !== \".env\" && !p.endsWith(\".DS_Store\"))",
+        "fail": "Правила должны работать для любого проекта: *.log ловит логи в любой папке, .env - файл секретов.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=Secret-2026\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\necho \"API_KEY=sk-test-123\" > .env\nmkdir logs && echo \"500 Internal Server Error\" > logs/error.log\nmkdir -p node_modules/react && echo \"react\" > node_modules/react/index.js\nmkdir dist && echo \"console.log(1)\" > dist/bundle.js\necho \"mac\" > css/.DS_Store\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки и строку EOF в конце cat > ... << 'EOF'."
+      }
+    ],
+    "hints": [
+      "Многострочный файл: cat > .gitignore << 'EOF', затем строки шаблонов, последняя строка - EOF.",
+      "Папки - со слешем в конце: node_modules/ и dist/. Все логи - *.log.",
+      "Файл, который уже в репозитории, .gitignore не скрывает: git rm --cached config.env.",
+      "Переименование: git mv about.htm about.html - Git сразу добавит его в индекс.",
+      "Перед коммитом посмотрите git status: в списке должны быть new file: .gitignore, new file: README.md, deleted: config.env и renamed: about.htm -> about.html."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Зачем нужен файл .gitignore?",
+        "options": [
+          "Удаляет ненужные файлы с диска",
+          "Перечисляет файлы, которые Git не должен замечать среди неотслеживаемых",
+          "Скрывает файлы от других пользователей компьютера",
+          "Шифрует пароли в репозитории"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore ничего не удаляет и не шифрует: Git просто перестаёт показывать такие файлы в Untracked files и не добавляет их через git add ."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте шаблон .gitignore и что он игнорирует.",
+        "pairs": [
+          [
+            "*.log",
+            "Все файлы с расширением .log в любой папке"
+          ],
+          [
+            "build/",
+            "Папку build и всё внутри неё"
+          ],
+          [
+            "/todo.txt",
+            "Только todo.txt в корне проекта"
+          ],
+          [
+            "!keep.log",
+            "Исключение: keep.log всё-таки не игнорировать"
+          ]
+        ],
+        "explanation": "* - любые символы, / в конце - только папка, / в начале - от корня, ! - исключение из предыдущих правил."
+      },
+      {
+        "type": "multiple",
+        "question": "Что НЕ нужно хранить в Git?",
+        "options": [
+          "Файл .env с ключами API",
+          "Папку node_modules/",
+          "README.md",
+          "Папку dist/ со сборкой",
+          "Файл .gitignore"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Секреты, зависимости и результаты сборки в Git не хранят. README.md и .gitignore - часть проекта, их коммитят."
+      },
+      {
+        "type": "single",
+        "question": "config.env уже закоммичен. Вы добавили строку config.env в .gitignore и изменили файл. Что покажет git status?",
+        "options": [
+          "Ничего: файл теперь игнорируется",
+          "modified:   config.env - Git продолжает следить за файлом",
+          "deleted:    config.env",
+          "Ошибку: файл в .gitignore нельзя менять"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore действует только на неотслеживаемые файлы. Файл, который уже в репозитории, нужно убрать из отслеживания: git rm --cached config.env."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: убрать файл config.env из отслеживания Git, но оставить его на диске.",
+        "answers": [
+          "git rm --cached config.env"
+        ],
+        "case_sensitive": true,
+        "explanation": "--cached - удалить только из индекса. После коммита файл перестанет отслеживаться, а на диске останется."
+      },
+      {
+        "type": "single",
+        "question": "Пароль попал в коммит, который уже отправлен на GitHub. Вы сделали git rm --cached и новый коммит. Что ещё обязательно?",
+        "options": [
+          "Ничего: пароль удалён из Git",
+          "Сменить пароль - старый коммит с ним остаётся в истории",
+          "Удалить файл .gitignore",
+          "Сделать git add -f config.env"
+        ],
+        "answer": 1,
+        "explanation": "Новый коммит не меняет старые: git show по старому коммиту покажет пароль. Утёкший секрет считается скомпрометированным - его меняют."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git add debug.log\nThe following paths are ignored by one of your .gitignore files:\ndebug.log\nhint: Use -f if you really want to add them.",
+        "options": [
+          "Файл добавлен в индекс",
+          "Файл не добавлен: он подходит под правило .gitignore",
+          "Файл удалён",
+          "debug.log не существует"
+        ],
+        "answer": 1,
+        "explanation": "Git отказался добавлять игнорируемый файл и подсказал ключ -f, если это действительно нужно."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про git mv about.htm about.html?",
+        "options": [
+          "Переименовывает файл на диске",
+          "Сразу добавляет переименование в индекс",
+          "git status покажет renamed:    about.htm -> about.html",
+          "Создаёт коммит автоматически"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "git mv = mv + git add для обоих имён. Коммит всё равно нужно сделать самому."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте команду и результат.",
+        "pairs": [
+          [
+            "git rm file.txt",
+            "Удалить файл с диска и из индекса"
+          ],
+          [
+            "git rm --cached file.txt",
+            "Убрать из индекса, оставить на диске"
+          ],
+          [
+            "git mv a.txt b.txt",
+            "Переименовать и сразу подготовить к коммиту"
+          ],
+          [
+            "git rm -r --cached dist",
+            "Убрать из отслеживания целую папку"
+          ]
+        ],
+        "explanation": "rm удаляет, --cached оставляет файл на диске, -r нужен для папок, mv переименовывает."
+      },
+      {
+        "type": "single",
+        "question": "Вы создали пустую папку images и выполнили git status. Что ответит Git?",
+        "options": [
+          "Untracked files: images/",
+          "nothing to commit, working tree clean",
+          "fatal: empty directory",
+          "new file: images"
+        ],
+        "answer": 1,
+        "explanation": "Git хранит только файлы, пустые папки он не видит. Чтобы сохранить папку, в неё кладут пустой файл .gitkeep."
+      },
+      {
+        "type": "input",
+        "question": "Как обычно называют пустой файл, который кладут в папку, чтобы Git сохранил её в репозитории? Введите имя файла.",
+        "answers": [
+          ".gitkeep"
+        ],
+        "case_sensitive": true,
+        "explanation": ".gitkeep - договорённость разработчиков, а не команда Git: подойдёт любой файл, но такое имя понятно всем."
+      },
+      {
+        "type": "single",
+        "question": "В .gitignore строки logs/ и !logs/important.log. Будет ли отслеживаться logs/important.log?",
+        "options": [
+          "Да, ! всегда отменяет игнорирование",
+          "Нет: если папка игнорируется целиком, файлы внутри вернуть через ! нельзя",
+          "Да, но только после git add -f",
+          "Git выдаст ошибку в .gitignore"
+        ],
+        "answer": 1,
+        "explanation": "Git не заглядывает в игнорируемую папку. Нужно игнорировать содержимое (logs/*) и потом сделать исключение !logs/important.log."
+      }
+    ]
+  }
+}

@@ -87,41 +87,6 @@
       "To‘plovchi va hisoblagichni sikldan OLDIN let bilan e’lon qiling.",
       "So‘zni aylanib chiqish: for (const char of word) { ... }",
       "Unlini tekshirish: \"aeiou\".includes(char.toLowerCase())."
-    ],
-    "solution": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "// 1. n uchun ko‘paytirish jadvali\n"
-      },
-      {
-        "mistake": "jadval doim 5 uchun",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "jadval 9 qatorli",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "n oraliqqa kirmaydi",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "to‘plovchi sikl ichida",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "registr hisobga olinmagan",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "so‘z uchun for...of o‘rniga for",
-        "code": "// 1. Ko‘paytirish jadvali\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. 1 dan n gacha juft sonlar yig‘indisi\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. So‘zdagi unlilar\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Juftlar yig‘indisi: ${evenSum}, unlilar: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "cheksiz sikl",
-        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
-      }
     ]
   },
   "test": {

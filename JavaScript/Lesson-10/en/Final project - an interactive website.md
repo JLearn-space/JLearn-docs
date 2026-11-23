@@ -1,6 +1,6 @@
 # Final project - an interactive website
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/Forms,%20storage%20and%20requests.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](Final%20project%20-%20an%20interactive%20website.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/Forms,%20storage%20and%20requests.md) · [Next course: jQuery →](https://github.com/JLearn-space/JLearn-docs/tree/main/jQuery) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](Final%20project%20-%20an%20interactive%20website.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
 
 > **Link to all the courses:** in the HTML course you built a four-page website, in the CSS course you styled it. Now the website comes to life: a menu on phones, a dark theme that is remembered, a list of events from a data file with a filter, and a form with checks. At the end you will publish the update on GitHub Pages.
 
@@ -21,6 +21,8 @@ The result of the lesson is a portfolio website you are not ashamed to show.
 - Build the project: menu, theme, data with a filter, form.
 - Make a website that works without JavaScript too.
 - Debug code in DevTools: console, breakpoints, `debugger`.
+- Read error messages in the console and understand where to look for the cause.
+
 - Check the website before publishing and update GitHub Pages.
 
 ---
@@ -79,6 +81,27 @@ Before writing code, describe every interaction in a table. It is the same plann
 | `#contact-form` | `submit` | Errors at the fields or a thank-you note | `aria-invalid`, `role="status"` | No |
 
 If you cannot fill in a row, the behaviour has not been thought through yet. The "State for screen readers" column reminds you about accessibility before writing code, not after.
+
+### One interaction from start to finish
+
+Every row of the table is the same chain from Lessons 7–9: **event → change the state → update the page → (save)**. Here is the theme row:
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant B as Theme button
+    participant JS as theme.js
+    participant P as Page
+    participant S as localStorage
+    U->>B: click
+    B->>JS: call the handler
+    JS->>P: classList.toggle("theme-dark")
+    JS->>B: aria-pressed = "true"
+    JS->>S: setItem("theme", "dark")
+    Note over JS,S: on the next load<br>initTheme reads getItem("theme")
+```
+
+**How to read the diagram.** Time goes from top to bottom, the arrows show who passes what to whom. The handler changes the look **and** the attribute for screen readers **and** the storage. Forget one of the steps and you get a theme that is not remembered, or a button whose state a screen reader does not know.
 
 ---
 
@@ -164,6 +187,29 @@ export function initContactForm() {
 ```
 
 That way the console shows no `null` errors on the other pages.
+
+### How the modules are connected
+
+```mermaid
+flowchart TD
+    H["index.html<br>script type=module"] --> M["main.js"]
+    M -->|"import initMenu"| A["menu.js"]
+    M -->|"import initTheme"| B["theme.js"]
+    M -->|"import initEvents"| C["events.js"]
+    M -->|"import initContactForm"| D["form.js"]
+    C -->|"fetch"| J["data/events.json"]
+    B -->|"getItem / setItem"| S["localStorage"]
+```
+
+**How to read the diagram.** The HTML knows only about `main.js`. The browser loads the other files itself by following `import`. The arrows go one way: `menu.js` knows nothing about `theme.js`, so an error in one module is easy to find without touching the others.
+
+| Module mistake | Message in Console | How to fix |
+| --- | --- | --- |
+| No `type="module"` | `Cannot use import statement outside a module` | `<script type="module" src="js/main.js">` |
+| A path without `./` or without `.js` | `Failed to resolve module specifier` | `import { initMenu } from "./menu.js"` |
+| Forgot `export` before the function | `does not provide an export named` | `export function initMenu() {...}` |
+| A typo in the file name | `404` in the Network tab | Compare the file name and the path |
+| The page is opened as `file://` | A CORS error | Live Server |
 
 ---
 
@@ -357,6 +403,34 @@ Without JavaScript `<html>` has no `js` class - the menu is simply open, all ans
 
 How to hunt a bug: read the message in Console → go to the line → set a breakpoint a little above → look at the variable values → find where a value first became different from what you expected.
 
+### The order of looking for an error: a diagram
+
+```mermaid
+flowchart TD
+    A["Something does not work"] --> B{"Is there a red line in Console?"}
+    B -->|Yes| C["Read the message,<br>click the file and line"]
+    B -->|No| D{"Is the handler called at all?"}
+    D -->|"Not sure"| E["console.log at the start of the handler"]
+    E --> D
+    D -->|No| F["Check the selector and the event name"]
+    D -->|Yes| G["A breakpoint in the handler"]
+    C --> G
+    G --> H["Step with F10,<br>watch the values"]
+    H --> I["Find the line where a value<br>first became wrong"]
+```
+
+### How to read error messages
+
+| Message | What it means in simple words | Where to look |
+| --- | --- | --- |
+| `Cannot read properties of null (reading 'addEventListener')` | `querySelector` found nothing | The selector and whether the element is on this page |
+| `X is not defined` | The variable is not declared or has a typo | The variable name, `import` |
+| `X is not a function` | You call something that is not a function | Brackets, the method name, `export` |
+| `Assignment to constant variable` | You change a `const` | You need `let` - or a new variable |
+| `Unexpected token` | Syntax: a bracket, a comma, a quote | The line in the message and the line above |
+| `Failed to fetch` | The request did not get through | `file://`, the address, the network |
+| `Unexpected token '<' ... is not valid JSON` | An HTML page came instead of JSON (often 404) | The path to `.json` in the Network tab |
+
 ---
 
 ## Acceptance
@@ -405,6 +479,30 @@ After 1–2 minutes open the published website and go through the acceptance che
 | 404 on `js/Menu.js` | GitHub Pages is case-sensitive: `Menu.js` and `menu.js` are different files |
 | `fetch` cannot find the data | The path starts with `/`: on Pages the website lives in a repository subfolder. Use relative paths: `data/events.json` |
 | An old version of the script | The browser cache: reload with **Ctrl+Shift+R** |
+
+### Try to break it (before handing in)
+
+A good project survives surprises. Check your site one step at a time:
+
+1. Turn off JavaScript (DevTools → **Ctrl+Shift+P** → "Disable JavaScript"). Are the menu, text and links available?
+2. Rename `data/events.json`. Does the page show a clear error message instead of emptiness?
+3. Clear Local Storage and reload the page. Was the default theme applied without errors?
+4. Send an empty form, then a form with spaces instead of a name. Are messages shown next to the fields?
+5. Go through the site using only the keyboard: Tab, Enter, Escape. Can you open and close the menu and switch a filter?
+6. Open the "About" page, which has no form and no event list. Is the Console clean?
+
+### Typical beginner mistakes
+
+| Mistake | What happens | How to fix |
+| --- | --- | --- |
+| An `init...` function does not check that the element exists | On pages without a form the Console shows `Cannot read properties of null (reading 'addEventListener')` | `if (!form) { return; }` at the start of the function |
+| `.site-nav` is hidden in CSS without the `js` class | Without JavaScript the navigation cannot be opened | Hide it only under `.js .site-nav` |
+| The `is-open` class changes, but `aria-expanded` does not | The screen reader always says the menu is collapsed | Change both in one `setOpen` function |
+| Focus does not come back after Escape | A keyboard user gets "lost" on the page | `toggle.focus()` after closing the menu |
+| `getItem("theme") === true` | After a reload the theme is always light | `localStorage` stores strings: `=== "dark"` |
+| No `container.textContent = ""` in `renderEvents` | Each click on a filter adds cards to the old ones | Clear the container before rendering |
+| `fetch` without `try / catch` | The Console shows `Uncaught (in promise) TypeError: Failed to fetch`, and the status says "Loading..." forever | `try / catch` and a clear message in `#events-status` |
+| Leftover `console.log` and `debugger;` | The Console is cluttered, and with DevTools open the code stops | Remove them before handing in |
 
 ---
 
@@ -512,4 +610,4 @@ Follow new courses at [jlearn.space](https://jlearn.space).
 
 ---
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/Forms,%20storage%20and%20requests.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](Final%20project%20-%20an%20interactive%20website.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/Forms,%20storage%20and%20requests.md) · [Next course: jQuery →](https://github.com/JLearn-space/JLearn-docs/tree/main/jQuery) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20-%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B0%D0%B9%D1%82.md) · [EN](Final%20project%20-%20an%20interactive%20website.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20interaktiv%20sayt.md)

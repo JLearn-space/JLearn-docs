@@ -1,0 +1,270 @@
+{
+  "lesson": 8,
+  "language": "en",
+  "lesson_title": "GitHub and remote repositories",
+  "task": {
+    "title": "A portfolio on GitHub and someone else's repository",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the folder ~/portfolio on the branch main, and the history has 3 commits. An empty repository https://github.com/anna/portfolio.git has been created on \"GitHub\", and your classmate Aziz has a repository https://github.com/aziz/notes.git with his Git notes. Write the commands one per line: 1) Connect the remote repository https://github.com/anna/portfolio.git under the name origin and check the list of remote repositories (git remote -v). 2) Send the main branch to GitHub so that origin/main becomes its upstream. 3) Run git status and make sure the branch is up to date with 'origin/main'. 4) Create the branch feature/about and switch to it, create the file about.html with the text <h1>About me</h1> and commit it. 5) Send the feature/about branch to GitHub with the upstream origin/feature/about. 6) Go back to your home folder and clone https://github.com/aziz/notes.git. 7) Go to the folder notes and look at the history (git log --oneline) and the remote repositories. In the end, the history of main on the server matches yours, the server has the branches main and feature/about, both branches have an upstream, and ~/notes holds a copy of Aziz's repository with the whole history.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in the folder ~/portfolio on the branch main, and the history has 3 commits.\n# An empty repository https://github.com/anna/portfolio.git has been created on GitHub\n\n# 1. Connect the remote repository under the name origin and check the list of remotes\n\n# 2. Send main to GitHub and make origin/main its upstream\n\n# 3. Check git status: the branch must be up to date with 'origin/main'\n\n# 4. Create the branch feature/about, the file about.html with <h1>About me</h1>, a commit\n\n# 5. Send feature/about to GitHub with an upstream\n\n# 6. Go back to your home folder and clone https://github.com/aziz/notes.git\n\n# 7. Go to notes and look at the history\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n",
+    "tests": [
+      {
+        "name": "origin with the address of anna/portfolio is connected in ~/portfolio",
+        "check": "sim.repo(\"~/portfolio\") !== null && JSON.stringify(sim.repo(\"~/portfolio\").remotes()) === JSON.stringify({ origin: \"https://github.com/anna/portfolio.git\" })",
+        "fail": "Connect the remote repository: git remote add origin https://github.com/anna/portfolio.git (the name is origin, the address has no typos). Check it with git remote -v."
+      },
+      {
+        "name": "\"GitHub\" has exactly two branches: feature/about and main",
+        "check": "sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\"",
+        "fail": "Send both branches: git push -u origin main and, while on feature/about, git push -u origin feature/about."
+      },
+      {
+        "name": "The history of main on the server matches the local one (all commits, the same hashes)",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash))",
+        "fail": "main on the server must be exactly the same as yours. Don't commit on main after the push, and commit about.html on the branch feature/about."
+      },
+      {
+        "name": "main did not change: 3 original commits, about.html is not in it",
+        "check": "sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "The commit with the page about.html must be on the branch feature/about: create it with git switch -c feature/about before the commit."
+      },
+      {
+        "name": "feature/about: one commit with about.html on top of main, the same commit on the server",
+        "check": "(() => { const c = sim.repo(\"~/portfolio\").commit(\"feature/about\"); return c !== null && c.parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && typeof c.files[\"about.html\"] === \"string\" && c.files[\"about.html\"].includes(\"<h1>About me</h1>\") && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\"); })()",
+        "fail": "feature/about has one commit with the new file about.html (don't forget git add about.html), and it is sent to the server."
+      },
+      {
+        "name": "The upstream of main is origin/main",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\"",
+        "fail": "Send main for the first time with the -u option: git push -u origin main. Without -u, the branch won't remember where to send it."
+      },
+      {
+        "name": "The upstream of feature/about is origin/feature/about",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\"",
+        "fail": "Send the new branch with -u too: git push -u origin feature/about. Just git push answers has no upstream branch."
+      },
+      {
+        "name": "Everything is committed in ~/portfolio",
+        "check": "sim.repo(\"~/portfolio\").status().clean",
+        "fail": "The file about.html must be in a commit on the branch feature/about: git add about.html, then git commit -m."
+      },
+      {
+        "name": "git status after the push showed up to date with 'origin/main'",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git status\") && c.out.includes(\"Your branch is up to date with 'origin/main'\"))",
+        "fail": "Right after git push -u origin main, run git status - Git will report that the branch matches origin/main."
+      },
+      {
+        "name": "The list of remote repositories was checked: git remote -v",
+        "check": "__commands.some((c) => c.cmd === \"git remote -v\" && c.out.includes(\"(push)\"))",
+        "fail": "After git remote add, look at the result: git remote -v (inside the repository)."
+      },
+      {
+        "name": "The repository aziz/notes is cloned into ~/notes: aziz's history and remote origin",
+        "check": "sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "Go back to your home folder (cd ~) and run git clone https://github.com/aziz/notes.git - the folder ~/notes will appear. Don't clone inside portfolio."
+      },
+      {
+        "name": "The history of the cloned repository was viewed",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git log\") && c.out.includes(\"Add git commands\") && c.out.includes(\"Add README\"))",
+        "fail": "Go to the folder notes (cd notes) and look at the history: git log --oneline."
+      },
+      {
+        "name": "A different local history (5 commits): the server matches it, upstreams are set",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/portfolio\").log(\"main\").length === 5 && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\") && sim.repo(\"~/portfolio\").commit(\"feature/about\").parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\" && sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\" && sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\" && sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "The solution must work for any history: send the main you have and don't create commits on main.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"node_modules/\" > .gitignore\ngit add . && git commit -m \"Add gitignore\"\necho \"h1 { color: teal; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Web developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n"
+      },
+      {
+        "name": "The script runs without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in your echo commands."
+      }
+    ],
+    "hints": [
+      "To connect the remote repository: git remote add origin https://github.com/anna/portfolio.git. To check: git remote -v.",
+      "The first push of a branch is with the -u option: git push -u origin main. Git answers branch 'main' set up to track 'origin/main'.",
+      "Create the new branch and switch to it with one command: git switch -c feature/about. Before the commit, the new file needs git add about.html.",
+      "Send the branch feature/about with -u too: git push -u origin feature/about. Just git push answers has no upstream branch.",
+      "Clone from your home folder, not from the project folder: cd ~, then git clone https://github.com/aziz/notes.git. Git creates the folder notes - go into it (cd notes)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is a remote repository (remote)?",
+        "options": [
+          "A repository that was deleted and can be restored",
+          "A copy of the repository on another computer or a server, for example on GitHub",
+          "The .git folder on your computer",
+          "A separate branch inside your repository"
+        ],
+        "answer": 1,
+        "explanation": "A remote is the same project history, but in another place: on GitHub, on a company server, on a colleague's computer. Git exchanges commits with it using push, fetch and pull."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git remote -v\norigin\thttps://github.com/anna/portfolio.git (fetch)\norigin\thttps://github.com/anna/portfolio.git (push)",
+        "options": [
+          "Two remote repositories are connected",
+          "One remote repository, origin, is connected; you both download from it and send to it",
+          "The main branch is sent to GitHub",
+          "The repository is cloned"
+        ],
+        "answer": 1,
+        "explanation": "One origin entry shown twice: the address for downloading (fetch) and for sending (push). Usually they are the same."
+      },
+      {
+        "type": "input",
+        "question": "Type the whole command: send the main branch to origin and make origin/main its upstream (short option).",
+        "answers": [
+          "git push -u origin main"
+        ],
+        "case_sensitive": true,
+        "explanation": "-u (--set-upstream) remembers the link main ↔ origin/main. After that, just git push and git pull are enough."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git push\nfatal: The current branch feature/about has no upstream branch.",
+        "options": [
+          "The branch feature/about doesn't exist",
+          "No remote repository is connected",
+          "The branch has never been sent with -u: Git doesn't know where to send it",
+          "There is no access to GitHub"
+        ],
+        "answer": 2,
+        "explanation": "The remote is connected, but the branch has no upstream. Git suggests the fix itself: git push --set-upstream origin feature/about (or git push -u origin feature/about)."
+      },
+      {
+        "type": "matching",
+        "question": "Match each Git message with its cause.",
+        "pairs": [
+          [
+            "fatal: No configured push destination.",
+            "git remote add was not run"
+          ],
+          [
+            "error: src refspec master does not match any",
+            "There is no local branch with this name"
+          ],
+          [
+            "remote: Repository not found.",
+            "A typo in the address or no access to the repository"
+          ],
+          [
+            "fatal: Authentication failed",
+            "The account password was typed instead of a token, or the token is wrong"
+          ]
+        ],
+        "explanation": "Read the first line of the error: it almost always names the problem directly."
+      },
+      {
+        "type": "single",
+        "question": "What does origin/main show in your repository?",
+        "options": [
+          "The current state of the main branch on GitHub at this very second",
+          "The last state of main on the server known to your Git - as of the last push, fetch or pull",
+          "A copy of your local main",
+          "A branch you can commit to"
+        ],
+        "answer": 1,
+        "explanation": "origin/main is a \"photo\" of the server. It is updated only when you exchange data with the server. If a colleague sent a commit, you will see it in origin/main only after git fetch."
+      },
+      {
+        "type": "multiple",
+        "question": "What can you use to sign in to GitHub on git push over HTTPS or SSH?",
+        "options": [
+          "A Personal Access Token instead of the password",
+          "Your GitHub account password",
+          "Git Credential Manager (sign in with a browser)",
+          "An SSH key whose public part is added to the GitHub settings",
+          "An email without a password"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "GitHub hasn't accepted the account password for Git operations since 2021. You need a token, signing in with Git Credential Manager or gh auth login, or an SSH key."
+      },
+      {
+        "type": "single",
+        "question": "How is git fetch different from git pull?",
+        "options": [
+          "They are the same, just synonyms",
+          "fetch downloads new commits and updates origin/main but doesn't touch your files; pull = fetch + a merge into the current branch",
+          "fetch sends commits, pull downloads them",
+          "pull works only with SSH"
+        ],
+        "answer": 1,
+        "explanation": "fetch is safe: it only \"looks at what's new\". pull merges the changes into your branch and working directory right away."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git status\nOn branch main\nYour branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)",
+        "options": [
+          "The server has 1 commit that your main doesn't have; git pull will fast-forward it",
+          "You have 1 commit that is not sent yet",
+          "The branches have diverged, a conflict is needed",
+          "A file is changed but not committed"
+        ],
+        "answer": 0,
+        "explanation": "behind means \"lagging\". This message appears after git fetch, when new commits have appeared on the server. ahead would mean the opposite - you have commits that are not sent yet."
+      },
+      {
+        "type": "multiple",
+        "question": "You already have a local project with commits. You are creating a repository for it on GitHub. What is true?",
+        "options": [
+          "It's better to create the repository empty: without a README, .gitignore or license",
+          "You must tick \"Add README\", otherwise push won't work",
+          "After you create it, GitHub shows the address you need for git remote add",
+          "A private repository is visible only to you and the people you invite"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "If GitHub creates its own first commit with a README, the server and you will have two different histories, and the first push will be rejected. An empty repository accepts your whole history."
+      },
+      {
+        "type": "matching",
+        "question": "Match each command with what it does.",
+        "pairs": [
+          [
+            "git clone URL",
+            "Download the whole repository into a new folder and connect origin"
+          ],
+          [
+            "git fetch",
+            "Download new commits, update origin/*, don't touch files"
+          ],
+          [
+            "git pull",
+            "Download and merge into the current branch right away"
+          ],
+          [
+            "git push",
+            "Send your commits to the server"
+          ]
+        ],
+        "explanation": "clone - once at the start; fetch and pull - get other people's work; push - give your own."
+      },
+      {
+        "type": "input",
+        "question": "Type the whole command: create an SSH key of the modern type ed25519 (without the -C option).",
+        "answers": [
+          "ssh-keygen -t ed25519"
+        ],
+        "case_sensitive": true,
+        "explanation": "ssh-keygen creates a pair: the private key ~/.ssh/id_ed25519 (never show it to anyone) and the public ~/.ssh/id_ed25519.pub - you add it to the GitHub settings."
+      }
+    ]
+  }
+}

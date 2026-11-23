@@ -115,6 +115,20 @@ Agar argument berilmasa, parametr `undefined` bo‘ladi:
 greet(); // Salom, undefined!
 ```
 
+### Chaqirilganda nima bo‘ladi: qadamma-qadam
+
+`introduce("Anna", "Toshkent");` ni brauzer qanday bajarsa, shunday ko‘rib chiqamiz:
+
+| Qadam | Brauzer nima qiladi | Qiymatlar |
+| --- | --- | --- |
+| 1 | `introduce` funksiyasini topadi | - |
+| 2 | Parametrlarni yaratadi va ularga argumentlarni tartib bilan qo‘yadi | `name = "Anna"`, `city = "Toshkent"` |
+| 3 | Funksiya tanasini bajaradi | `Anna Toshkent shahridan` ni chiqaradi |
+| 4 | Parametrlarni o‘chiradi: funksiya tugadi | `name` va `city` endi mavjud emas |
+| 5 | Chaqiruvdan keyingi qatorga qaytadi | Dastur davom etadi |
+
+Keyingi chaqiruvda hammasi yangi qiymatlar bilan qaytadan boshlanadi. Parametrlar oldingi chaqiruvni eslab qolmaydi.
+
 ---
 
 ## `return` - natijani qaytarish
@@ -183,6 +197,39 @@ console.log(getDeliveryCost(50000));  // 15000
 
 Bu yerda `else` kerak emas: birinchi shart ishlasa, bajarilish ikkinchi `return` ga yetib bormaydi.
 
+### Funksiya funksiyani chaqiradi
+
+Katta vazifa kichik funksiyalardan yig‘iladi, xuddi tayyor masalliqlardan taom kabi:
+
+```js
+function getSubtotal(price, quantity) {
+    return price * quantity;
+}
+
+function getDeliveryCost(total) {
+    if (total >= 100000) {
+        return 0;
+    }
+    return 15000;
+}
+
+function getOrderTotal(price, quantity) {
+    const subtotal = getSubtotal(price, quantity);
+    return subtotal + getDeliveryCost(subtotal);
+}
+
+console.log(getOrderTotal(30000, 2)); // 75000
+```
+
+| Qadam | Chaqiruv | Natija |
+| --- | --- | --- |
+| 1 | `getOrderTotal(30000, 2)` ishni boshlaydi | - |
+| 2 | `getSubtotal(30000, 2)` | `60000` |
+| 3 | `getDeliveryCost(60000)` | `15000` - summa 100000 dan kam |
+| 4 | `60000 + 15000` | `getOrderTotal` `75000` qaytaradi |
+
+Har bir funksiya **bitta** ish qiladi va shu ish bo‘yicha nomlanadi. Yetkazib berish qoidasini o‘zgartirish kerak bo‘lsa, faqat `getDeliveryCost` o‘zgaradi.
+
 ---
 
 ## Mini-topshiriq 1
@@ -241,6 +288,47 @@ const getDiscount = (total, percent) => {
 > **Diqqat:** jingalak qavslar bilan `return` majburiy. `const f = (x) => { x * 2 };` `undefined` qaytaradi.
 
 Kursda ikkala yozuvdan foydalanamiz: `function` - asosiy nomli funksiyalar uchun, strelkalar - qisqa hisoblar uchun. Strelkali funksiyalar ayniqsa 6–8-darslarda kerak bo‘ladi: ular boshqa funksiyalarga beriladi.
+
+### Funksiya - bu ham qiymat
+
+Funksiyani o‘zgaruvchiga qo‘yish mumkin - buni strelka bilan allaqachon qildingiz. Demak, uni **boshqa funksiyaga** argument sifatida **berish** mumkin. Bunday berilgan funksiya **kolbek** deyiladi (callback - «qayta qo‘ng‘iroq qiling»): «mana senga ko‘rsatma, vaqti kelganda uni chaqir».
+
+```js
+function repeat(times, action) {
+    for (let i = 1; i <= times; i++) {
+        action(i);
+    }
+}
+
+repeat(3, (n) => console.log(`Qadam ${n}`));
+// Qadam 1
+// Qadam 2
+// Qadam 3
+```
+
+Bu yerda `action` - ichida funksiya yotgan parametr. `action(i)` uni chaqiradi.
+
+O‘rnatilgan misol - `setTimeout`: «funksiyani N millisekunddan keyin bajar»:
+
+```js
+console.log("Buyurtma qabul qilindi");
+
+setTimeout(() => {
+    console.log("Buyurtma tayyor");
+}, 2000);
+
+console.log("Kutamiz...");
+// Buyurtma qabul qilindi
+// Kutamiz...
+// Buyurtma tayyor  ← 2 soniyadan keyin
+```
+
+Tartibga e’tibor bering: `setTimeout` dasturni **to‘xtatmaydi**. U funksiyani eslab qoladi va davom etadi, funksiyani esa keyinroq chaqiradi. Bu g‘oya uch marta kerak bo‘ladi: 6-darsdagi massiv metodlari, 8-darsdagi hodisalar va 9-darsdagi serverga so‘rovlar.
+
+| Yozuv | Nimani beramiz |
+| --- | --- |
+| `setTimeout(showMessage, 1000)` | Funksiyaning o‘zini - to‘g‘ri |
+| `setTimeout(showMessage(), 1000)` | Chaqiruv natijasini: funksiya **darhol** bajariladi - xato |
 
 ---
 
@@ -309,6 +397,24 @@ Sof funksiyalarni tekshirish oson: argumentlar bilan chaqirdik - natijani solish
 ### Funksiya nomlari
 
 Funksiya - amal, shuning uchun nomi **fe’l** bilan boshlanadi: `getTotal`, `formatPrice`, `calculateDiscount`, `showMessage`. «Ha yoki yo‘q» ga javob beradigan funksiyalar `is`, `has`, `can` bilan boshlanadi: `isEven`, `hasDiscount`, `canEnter`.
+
+### Buzib ko‘ring
+
+1. `getTotal` dan `return` ni olib tashlang va `getTotal(45000, 3)` ni chiqaring. Funksiya nima qaytardi?
+2. `introduce("Anna")` ni bitta argument bilan chaqiring. `city` da nima bo‘ladi?
+3. `setTimeout` ga qavsli `showMessage()` ni bering. Nega xabar darhol paydo bo‘ldi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| Qavssiz chaqiruv: `sayHello;` | Hech narsa bo‘lmaydi | `sayHello();` |
+| Hisoblovchi funksiyada `return` yo‘q | Chaqiruv `undefined` beradi | `return natija;` |
+| `return` o‘rniga `console.log` | Qiymat konsolda ko‘rinadi, lekin dasturga tushmaydi | Qiymatni qaytaring, tashqarida chop eting |
+| `return` dan keyingi kod | U hech qachon bajarilmaydi | `return` ni oxiriga qo‘ying |
+| Argumentlar noto‘g‘ri tartibda | Qiymatlar adashib ketgan | Argumentlar tartibi = parametrlar tartibi |
+| `return` siz `{ }` li strelka | `undefined` | `(x) => x * 2` yoki `(x) => { return x * 2; }` |
+| Funksiya ichidagi o‘zgaruvchi tashqarida ishlatiladi | `ReferenceError` | Uni `return` orqali qaytaring |
 
 ---
 

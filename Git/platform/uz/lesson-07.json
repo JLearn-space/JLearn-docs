@@ -1,0 +1,265 @@
+{
+  "lesson": 7,
+  "language": "uz",
+  "lesson_title": "Birlashtirish va konfliktlar",
+  "task": {
+    "title": "main ga ikki tarmoq: oldinga o‘tkazish va konflikt",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasida, main tarmog‘idasiz. Ikkita tarmoq bor: feature/footer footer.html ni qo‘shadi (u yaratilgandan keyin main o‘zgarmagan), feature/title esa index.html dagi sarlavhani o‘zgartiradi - ajralishdan keyin main da ham o‘zgartirilgan o‘sha qatorni. Buyruqlarni har qatorga bittadan yozing: 1) Barcha tarmoqlar tarixini graf ko‘rinishida ko‘ring. 2) feature/footer ni main ga birlashtiring - oldinga o‘tkazish bo‘lishi kerak (--no-ff siz). 3) feature/title ni birlashtiring - index.html da konflikt yuzaga keladi. 4) git status ni va index.html mazmunini ko‘ring. 5) Ikkala variantni birlashtirib, konfliktni hal qiling: index.html ni cat > index.html << 'EOF' buyrug‘i bilan yozing - birinchi qator <h1>Anna Karimova, web developer - Portfolio</h1>, ikkinchi qator <p>Junior web developer</p>, konflikt markerlarisiz. 6) Konfliktni hal qilingan deb belgilang va birlashtirishni kommit bilan tugating (-m siz git commit tayyor Merge branch 'feature/title' xabarini oladi, -m bilan ham mumkin). 7) Ikkala birlashtirilgan tarmoqni xavfsiz git branch -d buyrug‘i bilan o‘chiring. 8) Tarix grafini ko‘ring va ishchi papka toza ekaniga ishonch hosil qiling.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasida, main tarmog‘idasiz. feature/footer va feature/title tarmoqlari bor.\n\n# 1. Barcha tarmoqlar tarixini graf ko‘rinishida ko‘ring\n\n# 2. feature/footer ni main ga birlashtiring (oldinga o‘tkazish bo‘ladi)\n\n# 3. feature/title ni birlashtiring - index.html da konflikt yuzaga keladi\n\n# 4. git status ni va index.html mazmunini ko‘ring\n\n# 5. Yakuniy index.html ni cat > index.html << 'EOF' orqali yozing\n#    1-qator: <h1>Anna Karimova, web developer - Portfolio</h1>\n#    2-qator: <p>Junior web developer</p>\n\n# 6. Konfliktni hal qilingan deb belgilang (git add) va birlashtirishni kommit bilan tugating\n\n# 7. Ikkala birlashtirilgan tarmoqni git branch -d buyrug‘i bilan o‘chiring\n\n# 8. Tarix grafini va git status ni ko‘ring\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>2026 Anna Karimova</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\ngit switch main\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Siz main tarmog‘idasiz",
+        "check": "repo !== null && repo.branch === \"main\"",
+        "fail": "Birlashtirish siz turgan tarmoqqa qilinadi. Barcha birlashtirishlarni main da bajaring."
+      },
+      {
+        "name": "Oxirgi kommit - ikki ota kommitli birlashtirish kommiti",
+        "check": "repo.commit(\"HEAD\").parents.length === 2",
+        "fail": "Konfliktli birlashtirish kommit bilan tugaydi: git add index.html, keyin git commit."
+      },
+      {
+        "name": "feature/title birlashtirilgan: ikkinchi ota kommiti - uning kommiti",
+        "check": "repo.commit(repo.commit(\"HEAD\").parents[1]).subject === \"Add portfolio to title\"",
+        "fail": "main da turib git merge feature/title ni bajaring."
+      },
+      {
+        "name": "feature/footer oldinga o‘tkazish bilan birlashtirilgan: tarixda bitta birlashtirish kommiti",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer\"",
+        "fail": "Avval feature/footer (--no-ff siz oddiy git merge - Fast-forward bo‘ladi), keyingina feature/title."
+      },
+      {
+        "name": "Birlashtirish tugagan",
+        "check": "repo.state() === null",
+        "fail": "Git hali ham birlashtirish rejimida: git add dan keyin uni git commit buyrug‘i bilan tugating."
+      },
+      {
+        "name": "index.html da konflikt markerlari qolmagan",
+        "check": "[sim.read(\"~/portfolio/index.html\"), repo.commit(\"HEAD\").files[\"index.html\"]].every((t) => typeof t === \"string\" && !/^(<<<<<<<|=======|>>>>>>>)/m.test(t))",
+        "fail": "<<<<<<< HEAD, ======= va >>>>>>> feature/title qatorlarini o‘chiring - faylni cat > index.html << 'EOF' orqali butunlay qayta yozing."
+      },
+      {
+        "name": "Birlashtirish kommitidagi index.html - shartdagidek",
+        "check": "repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\"",
+        "fail": "Ikki qator: <h1>Anna Karimova, web developer - Portfolio</h1> va <p>Junior web developer</p>. Bo‘shliqlar, vergul va defisni tekshiring."
+      },
+      {
+        "name": "feature/footer tarmog‘idagi footer.html joyida",
+        "check": "repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>2026 Anna Karimova</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/style.css\"] === \"body { margin: 0; }\\n\"",
+        "fail": "feature/footer tarmog‘ini birlashtiring: footer.html main da paydo bo‘ladi."
+      },
+      {
+        "name": "main tarixida ikkala tarmoq kommitlari bor",
+        "check": "[\"Add home page\", \"Add styles\", \"Add profession to title\", \"Add footer\", \"Add portfolio to title\"].every((s) => repo.log().some((c) => c.subject === s))",
+        "fail": "Birlashtirishlarni bekor qilmang va tarixni qayta yozmang: main ga ikkala tarmoq kommitlari tushishi kerak."
+      },
+      {
+        "name": "Ikkala birlashtirilgan tarmoq o‘chirilgan",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"main\"])",
+        "fail": "Birlashtirishdan keyin: git branch -d feature/footer feature/title."
+      },
+      {
+        "name": "Tarmoqlar xavfsiz o‘chirilgan: git branch -D siz",
+        "check": "sim.commands(\"git branch -D\").length === 0",
+        "fail": "Birlashtirilgan tarmoqlar -d bilan o‘chiriladi: Git ish yo‘qolmasligini tekshiradi. -D - faqat aniq kerak bo‘lmagan tarmoqlar uchun."
+      },
+      {
+        "name": "Ishchi papka toza",
+        "check": "repo.status().clean",
+        "fail": "Birlashtirish kommitidan keyin git status nothing to commit, working tree clean deb javob berishi kerak."
+      },
+      {
+        "name": "Boshqa loyiha: feature/footer da ikki kommit - ikkalasi oldinga o‘tkazish bilan birlashtirilgan, konflikt hal qilingan",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer styles\" && repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>Contacts: anna@example.com</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/footer.css\"] === \"footer { padding: 20px; }\\n\" && repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\" && JSON.stringify(repo.branches()) === JSON.stringify([\"main\"]) && repo.status().clean",
+        "fail": "Yechim tarmoqlar mazmuniga bog‘liq bo‘lmasligi kerak: tarmoqlarni birlashtiring, ularning fayllarini qo‘lda qayta yozmang.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>Contacts: anna@example.com</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\necho \"footer { padding: 20px; }\" > css/footer.css\ngit add css/footer.css && git commit -m \"Add footer styles\"\ngit switch main\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Qo‘shtirnoqlarni va cat > ... << 'EOF' oxiridagi EOF qatorini tekshiring."
+      }
+    ],
+    "hints": [
+      "Birlashtirish joriy tarmoqqa qilinadi: main da ekaningizga ishonch hosil qiling va git merge feature/footer ni bajaring. Javobda Fast-forward bo‘lishi kerak.",
+      "git merge feature/title dan keyin Git CONFLICT (content): Merge conflict in index.html deb yozadi. Bu xato emas, balki sizga savol.",
+      "cat index.html markerlarni ko‘rsatadi: <<<<<<< HEAD va ======= orasida - main versiyasi, ======= va >>>>>>> feature/title orasida - tarmoq versiyasi.",
+      "Faylni butunlay qayta yozing: cat > index.html << 'EOF', ikkita kerakli qator, keyin EOF qatori. Faylda markerlar bo‘lmasligi kerak.",
+      "Keyin: git add index.html, git status (All conflicts fixed but you are still merging), git commit.",
+      "Ikkala tarmoq bitta buyruq bilan o‘chiriladi: git branch -d feature/footer feature/title."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Siz main tarmog‘idasiz va git merge feature/menu ni bajardingiz. Nima bo‘ladi?",
+        "options": [
+          "main dagi o‘zgarishlar feature/menu ga ko‘chiriladi",
+          "feature/menu dagi o‘zgarishlar joriy main tarmog‘iga ko‘chiriladi",
+          "Tarmoqlar o‘rin almashadi",
+          "Ikkala versiyali yangi tarmoq yaratiladi"
+        ],
+        "answer": 1,
+        "explanation": "git merge har doim ko‘rsatilgan tarmoqni joriy tarmoqqa birlashtiradi. feature/menu tarmog‘i bunda o‘zgarmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima deb chiqardi?\n\n$ git merge feature/footer\nUpdating 549439a..6d00d19\nFast-forward\n footer.html | 1 +",
+        "options": [
+          "Ikki ota kommitli birlashtirish kommiti yaratildi",
+          "main ko‘rsatkichi shunchaki tarmoq kommitiga oldinga surildi - yangi kommit yaratilmadi",
+          "Konflikt yuz berdi",
+          "feature/footer tarmog‘i o‘chirildi"
+        ],
+        "answer": 1,
+        "explanation": "Fast-forward (oldinga o‘tkazish): ajralishdan keyin main o‘zgarmagan, shuning uchun Git uning ko‘rsatkichini tarmoqning oxirgi kommitiga shunchaki ko‘chiradi."
+      },
+      {
+        "type": "multiple",
+        "question": "git merge da birlashtirish kommiti (Merge branch ...) qachon paydo bo‘ladi?",
+        "options": [
+          "Agar ajralishdan keyin ikkala tarmoqda yangi kommitlar paydo bo‘lgan bo‘lsa",
+          "Agar --no-ff kaliti ko‘rsatilsa",
+          "Agar tarmoq main dan oldinda bo‘lsa, main o‘zgarmagan bo‘lsa va kalitlar bo‘lmasa",
+          "Agar tarmoqda bor-yo‘g‘i bitta kommit bo‘lsa"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Birlashtirish kommiti tarixlar ajralib ketganda yoki u --no-ff kaliti bilan aniq so‘ralganda kerak. Aks holda Git oldinga o‘tkazadi."
+      },
+      {
+        "type": "matching",
+        "question": "Konflikt markerini va uning ma’nosini moslang.",
+        "pairs": [
+          [
+            "<<<<<<< HEAD",
+            "Joriy tarmoq versiyasining boshlanishi"
+          ],
+          [
+            "=======",
+            "Ikki versiya orasidagi chegara"
+          ],
+          [
+            ">>>>>>> feature/title",
+            "Birlashtirilayotgan tarmoq versiyasining oxiri"
+          ]
+        ],
+        "explanation": "<<<<<<< va ======= orasida - sizning versiyangiz (HEAD), ======= va >>>>>>> orasida - siz birlashtirayotgan tarmoq versiyasi."
+      },
+      {
+        "type": "single",
+        "question": "Konflikt nima uchun yuzaga keldi?\n\nCONFLICT (content): Merge conflict in index.html",
+        "options": [
+          "index.html da HTML xatosi bor",
+          "Ikkala tarmoq ajralishdan keyin index.html ning bir xil qatorlarini turlicha o‘zgartirgan",
+          "index.html fayli tarmoqlardan birida o‘chirilgan",
+          "Tarmoqlarni turli odamlar yaratgan"
+        ],
+        "answer": 1,
+        "explanation": "Faylning turli joylaridagi o‘zgarishlarni Git o‘zi birlashtiradi. Konflikt faqat bitta joy ikkala tarmoqda o‘zgartirilganda va Git qaysi variant to‘g‘riligini bilmaganda bo‘ladi."
+      },
+      {
+        "type": "multiple",
+        "question": "Konfliktli birlashtirishni tugatish uchun nima qilish kerak?",
+        "options": [
+          "Faylni tahrirlash: kerakli matnni qoldirish va barcha markerlarni olib tashlash",
+          "git add fayl - konfliktni hal qilingan deb belgilash",
+          "git commit - birlashtirish kommitini yaratish",
+          "Konflikt chiqqan tarmoqni git branch -D bilan o‘chirish"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Tartib: faylni tuzatish → git add → git commit. Buning uchun tarmoqni o‘chirish shart emas - u muvaffaqiyatli birlashtirishdan keyin -d bilan o‘chiriladi."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: konflikt yuzaga kelgan birlashtirishni bekor qilish va hammasini git merge dan oldingi holatga qaytarish.",
+        "answers": [
+          "git merge --abort"
+        ],
+        "case_sensitive": true,
+        "explanation": "git merge --abort ishchi papka va indeksni birlashtirishdan oldingi holatga qaytaradi. Tarmoqning o‘zi hech qayerga ketmaydi - uni keyinroq birlashtirish mumkin."
+      },
+      {
+        "type": "single",
+        "question": "git status ning bu javobi nimani bildiradi?\n\nAll conflicts fixed but you are still merging.\n  (use \"git commit\" to conclude merge)",
+        "options": [
+          "Birlashtirish to‘liq tugadi",
+          "Konfliktlar git add orqali hal qilingan deb belgilandi, git commit qilish qoldi",
+          "git merge ni qayta bajarish kerak",
+          "Birlashtirish bekor qilindi"
+        ],
+        "answer": 1,
+        "explanation": "«Barcha konfliktlar tuzatildi, lekin siz hali ham birlashtirish jarayonidasiz» - Git birlashtirish kommitini yaratadigan git commit ni kutyapti."
+      },
+      {
+        "type": "single",
+        "question": "Siz <<<<<<< markerlarini o‘chirmasdan git add index.html va git commit ni bajardingiz. Nima bo‘ladi?",
+        "options": [
+          "Git rad etadi: faylda markerlar bor",
+          "Kommit yaratiladi va markerlar saytga tushadi - brauzer ularni matn sifatida ko‘rsatadi",
+          "Git markerlarni o‘zi o‘chiradi",
+          "Birlashtirish bekor qilinadi"
+        ],
+        "answer": 1,
+        "explanation": "Git fayl mazmunini tekshirmaydi: git add «men hammasini tuzatdim» degani. Shuning uchun git add dan oldin faylni albatta ochib, markerlar yo‘qligini tekshiring."
+      },
+      {
+        "type": "matching",
+        "question": "Konflikt ustidagi VS Code tugmasini va natijani moslang.",
+        "pairs": [
+          [
+            "Accept Current Change",
+            "Joriy tarmoq (HEAD) versiyasini qoldirish"
+          ],
+          [
+            "Accept Incoming Change",
+            "Birlashtirilayotgan tarmoq versiyasini qoldirish"
+          ],
+          [
+            "Accept Both Changes",
+            "Ikkala versiyani birining ostiga ikkinchisini qoldirish"
+          ],
+          [
+            "Compare Changes",
+            "Ikki versiyani yonma-yon ko‘rsatish"
+          ]
+        ],
+        "explanation": "Current - joriy tarmoq, Incoming - kiruvchi (birlashtirilayotgan) tarmoq. Both ikkala versiyani qoldiradi va ularni odatda yana qo‘lda tuzatish kerak."
+      },
+      {
+        "type": "input",
+        "question": "feature/footer tarmog‘i allaqachon main ga birlashtirilgan. Buyruqni to‘liq kiriting: bu tarmoqni xavfsiz o‘chirish.",
+        "answers": [
+          "git branch -d feature/footer"
+        ],
+        "case_sensitive": true,
+        "explanation": "-d faqat birlashtirilgan tarmoqni o‘chiradi: agar unda birlashtirilmagan kommitlar bo‘lsa, Git rad etadi (error: the branch ... is not fully merged)."
+      },
+      {
+        "type": "single",
+        "question": "Graf nimani ko‘rsatyapti?\n\n*   f122376 (HEAD -> main) Merge branch 'feature/title'\n|\\\n| * 4018d13 Add portfolio to title\n* | 6d00d19 Add footer\n|/\n* 481f888 Add styles",
+        "options": [
+          "feature/title tarmog‘i hali birlashtirilmagan",
+          "f122376 kommiti - birlashtirish kommiti: uning ikkita ota kommiti bor, 6d00d19 va 4018d13",
+          "4018d13 kommiti o‘chirilgan",
+          "Oldinga o‘tkazish bo‘ldi"
+        ],
+        "answer": 1,
+        "explanation": "Ikki chiziq birlashtirish kommitida qo‘shiladi. Chapdagisi - main tarixi, o‘ngdagisi - feature/title tarmog‘ining kommiti."
+      }
+    ]
+  }
+}

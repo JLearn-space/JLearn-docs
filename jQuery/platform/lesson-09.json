@@ -1,0 +1,299 @@
+{
+  "lesson": 9,
+  "language": "ru",
+  "lesson_title": "AJAX - загрузка данных",
+  "task": {
+    "title": "Каталог курсов с сервера",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Каталог курсов</title>\n</head>\n<body>\n    <main>\n        <h1>Каталог курсов</h1>\n        <button id=\"reload-btn\" type=\"button\">Обновить</button>\n        <p id=\"courses-status\" role=\"status\"></p>\n        <ul id=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "На странице есть кнопка #reload-btn, абзац #courses-status и пустой список #course-list. Сервер по адресу \"data/courses.json\" отдаёт массив курсов вида { title: \"HTML\", lessons: 10 } (в IDE сервер подменён тестовыми данными, код пишется как для настоящего). Напишите функцию loadCourses(): 1) Загрузка: очистите #course-list, запишите в #courses-status текст \"Загрузка...\", уберите у него класс is-error и заблокируйте #reload-btn (.prop(\"disabled\", true)). 2) Вызовите $.getJSON(\"data/courses.json\") и обработайте результат через .done, .fail и .always (не через await). 3) В .done сохраните массив в localStorage под ключом courses через JSON.stringify; если массив пуст - статус \"Курсов пока нет\"; иначе статус - пустая строка, а для каждого курса добавьте в список li с классом course и текстом \"HTML - уроков: 10\", созданный через $(\"<li>\") и .text(). 4) В .fail: статус \"Не удалось загрузить курсы\" и класс is-error. 5) В .always разблокируйте кнопку. 6) Вызовите loadCourses() один раз при запуске и подключите её к клику по #reload-btn через .on(). document.querySelector, innerHTML, .html(), fetch и await не используйте.",
+    "starter_code": "// На странице: кнопка #reload-btn, абзац #courses-status и пустой список #course-list.\n// Сервер по адресу \"data/courses.json\" отдаёт массив (в IDE - тестовые данные):\n// [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }]\n\nfunction loadCourses() {\n    // 1. Загрузка: очистить список, статус \"Загрузка...\", убрать класс is-error,\n    //    заблокировать кнопку: .prop(\"disabled\", true)\n\n    // 2. $.getJSON(\"data/courses.json\")\n    //    .done(...)   - сохранить в localStorage (\"courses\", JSON.stringify);\n    //                   пусто: \"Курсов пока нет\";\n    //                   иначе статус \"\" и li.course с текстом \"HTML - уроков: 10\"\n    //    .fail(...)   - \"Не удалось загрузить курсы\" + класс is-error\n    //    .always(...) - разблокировать кнопку\n}\n\n// 3. Вызвать loadCourses() и подключить её к клику по #reload-btn через .on()\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".click(function",
+      "addEventListener",
+      ".style.",
+      "fetch(",
+      "await ",
+      "XMLHttpRequest"
+    ],
+    "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };",
+    "tests": [
+      {
+        "name": "Запрос идёт по адресу data/courses.json один раз при запуске",
+        "check": "requestedUrl === \"data/courses.json\" && requestCount === 1",
+        "fail": "Вызовите $.getJSON(\"data/courses.json\") внутри loadCourses и вызовите loadCourses() один раз.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Пока ответа нет: статус \"Загрузка...\", кнопка заблокирована, список пуст",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Загрузка...\" && document.querySelector(\"#reload-btn\").disabled === true && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": "До запроса: $status.text(\"Загрузка...\"), $reloadBtn.prop(\"disabled\", true), $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\n$.getJSON = () => $.Deferred().promise();"
+      },
+      {
+        "name": "После загрузки в списке 3 курса",
+        "check": "[...document.querySelectorAll(\"#course-list li\")].length === 3",
+        "fail": "В .done создайте $(\"<li>\") для каждого курса и добавьте в #course-list.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Текст пункта: \"HTML - уроков: 10\", у каждого класс course",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"HTML - уроков: 10\" && [...document.querySelectorAll(\"#course-list li\")][2].textContent === \"JavaScript - уроков: 12\" && [...document.querySelectorAll(\"#course-list li\")].every((li) => li.classList.contains(\"course\"))",
+        "fail": ".addClass(\"course\").text(`${course.title} - уроков: ${course.lessons}`)",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "После успешной загрузки статус пустой, кнопка активна",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"\" && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": "В .done: $status.text(\"\"); в .always: $reloadBtn.prop(\"disabled\", false).",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Пустой массив: \"Курсов пока нет\" и пустой список",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Курсов пока нет\" && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": "Проверьте courses.length === 0 в .done.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([]).promise();"
+      },
+      {
+        "name": "Ошибка: \"Не удалось загрузить курсы\", класс is-error, кнопка снова активна",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Не удалось загрузить курсы\" && document.querySelector(\"#courses-status\").classList.contains(\"is-error\") && [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": "В .fail: $status.text(\"Не удалось загрузить курсы\").addClass(\"is-error\"); разблокировку кнопки пишите в .always - она срабатывает и при ошибке.",
+        "setup": "$.getJSON = () => $.Deferred().reject({ status: 404, statusText: \"Not Found\" }, \"error\", \"Not Found\").promise();"
+      },
+      {
+        "name": "Повторная загрузка не удваивает список",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 3 && requestCount === 2)",
+        "fail": "Подключите кнопку: $reloadBtn.on(\"click\", loadCourses); в начале loadCourses очищайте список: $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Ошибка после успешной загрузки убирает старые курсы",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#courses-status\").textContent === \"Не удалось загрузить курсы\")",
+        "fail": "Очищайте список в начале loadCourses, до запроса.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 1 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "Успех после ошибки убирает класс is-error",
+        "check": "(document.querySelector(\"#reload-btn\").click(), !document.querySelector(\"#courses-status\").classList.contains(\"is-error\"))",
+        "fail": "В начале loadCourses: $status.removeClass(\"is-error\").",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 2 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "Название курса выводится как текст, а не как разметка",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"<b>Rust</b> - уроков: 8\" && document.querySelector(\"#course-list b\") === null",
+        "fail": "Создавайте пункт так: $(\"<li>\").text(...), а не склейкой строки с тегами.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([{ title: \"<b>Rust</b>\", lessons: 8 }]).promise();"
+      },
+      {
+        "name": "Массив сохранён в localStorage под ключом courses",
+        "check": "localStorage.getItem(\"courses\") === JSON.stringify(courses)",
+        "fail": "В .done: localStorage.setItem(\"courses\", JSON.stringify(courses));",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Результат обработан через .done, .fail и .always",
+        "check": "/\\.done\\(/.test(__code) && /\\.fail\\(/.test(__code) && /\\.always\\(/.test(__code)",
+        "fail": "Допишите к $.getJSON(...) цепочку .done(...).fail(...).always(...)."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте селекторы и что loadCourses объявлена до вызова."
+      }
+    ],
+    "hints": [
+      "Начало функции: $list.empty(); $status.text(\"Загрузка...\").removeClass(\"is-error\"); $reloadBtn.prop(\"disabled\", true);",
+      "Цепочка: $.getJSON(\"data/courses.json\").done((courses) => {...}).fail(() => {...}).always(() => {...});",
+      "Пустой массив - это успех, его проверяют в .done: if (courses.length === 0) {...}",
+      "Пункт списка: $(\"<li>\").addClass(\"course\").text(`${course.title} - уроков: ${course.lessons}`).appendTo($list);",
+      "Кнопку разблокируйте в .always - он срабатывает и после ошибки.",
+      "Кнопка: $reloadBtn.on(\"click\", loadCourses); и один вызов loadCourses(); при запуске."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что возвращает $.getJSON(\"data/courses.json\") сразу после вызова?",
+        "options": [
+          "Массив курсов",
+          "Строку JSON",
+          "Объект jqXHR - запрос, ответ на который придёт позже",
+          "undefined, пока нет ответа"
+        ],
+        "answer": 2,
+        "explanation": "Запрос асинхронный: сразу возвращается jqXHR («трек-номер»), а данные приходят позже в .done."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет код?\nconsole.log(\"A\");\n$.getJSON(\"data/courses.json\").done(() => console.log(\"B\"));\nconsole.log(\"C\");",
+        "options": [
+          "A B C",
+          "A C B",
+          "B A C",
+          "A C"
+        ],
+        "answer": 1,
+        "explanation": "Функция из .done вызывается, когда придёт ответ сервера, - после того как выполнится остальной код."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте метод и момент его вызова.",
+        "pairs": [
+          [
+            ".done(fn)",
+            "Запрос выполнен успешно"
+          ],
+          [
+            ".fail(fn)",
+            "Ошибка: 404, 500, нет сети, испорченный JSON"
+          ],
+          [
+            ".always(fn)",
+            "В любом случае после завершения"
+          ],
+          [
+            "await $.getJSON(url)",
+            "Ждёт результата внутри async-функции"
+          ]
+        ],
+        "explanation": "done - успех, fail - ошибка, always - всегда; await работает с jqXHR, потому что у него есть .then."
+      },
+      {
+        "type": "multiple",
+        "question": "При каких ситуациях сработает .fail у $.getJSON?",
+        "options": [
+          "Сервер ответил 404",
+          "Файл содержит JSON с запятой после последнего элемента",
+          "Страница открыта через file://",
+          "Сервер вернул пустой массив []"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "404 и file:// (status 0) - ошибки запроса, испорченный JSON - parsererror. Пустой массив - успешный ответ, его обрабатывают в .done."
+      },
+      {
+        "type": "single",
+        "question": "Где правильно разблокировать кнопку «Обновить» после запроса?",
+        "options": [
+          "Только в .done",
+          "Только в .fail",
+          "В .always",
+          "Сразу после строки с $.getJSON"
+        ],
+        "answer": 2,
+        "explanation": ".always срабатывает и при успехе, и при ошибке - кнопка не останется заблокированной."
+      },
+      {
+        "type": "input",
+        "question": "Какое свойство jqXHR содержит код ответа сервера (например, 404)? Введите имя свойства.",
+        "answers": [
+          "status",
+          ".status",
+          "jqXHR.status"
+        ],
+        "case_sensitive": true,
+        "explanation": "jqXHR.status - число: 200, 404, 500 или 0, если ответа не было."
+      },
+      {
+        "type": "single",
+        "question": "Почему не работает код?\nconst courses = $.getJSON(\"data/courses.json\");\n$(\"#count\").text(courses.length);",
+        "options": [
+          "Нужно писать $.get",
+          "В courses лежит jqXHR, а не массив: данные доступны только в .done или после await",
+          "Нельзя называть переменную courses",
+          "Нужно сначала вызвать JSON.parse"
+        ],
+        "answer": 1,
+        "explanation": "$.getJSON возвращает jqXHR. Код, которому нужны данные, пишут в .done((courses) => {...})."
+      },
+      {
+        "type": "multiple",
+        "question": "Что правда про await с запросом jQuery?",
+        "options": [
+          "const data = await $.getJSON(url) кладёт в data разобранные данные",
+          "При ошибке в catch попадает jqXHR со свойством status",
+          "await можно писать в любой функции",
+          "await работает с jqXHR, потому что у него есть метод .then"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "jqXHR - «thenable», поэтому его можно ждать. Но await разрешён только внутри async-функции."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и назначение.",
+        "pairs": [
+          [
+            "$.getJSON(url)",
+            "Получить и разобрать JSON"
+          ],
+          [
+            "$.post(url, $form.serialize())",
+            "Отправить поля формы на сервер"
+          ],
+          [
+            "$.ajax({ url, cache: false })",
+            "Запрос с настройками, без кэша"
+          ],
+          [
+            "jqXHR.responseURL",
+            "Полный адрес, откуда пришёл ответ (jQuery 4.1)"
+          ]
+        ],
+        "explanation": "$.getJSON и $.post - короткие записи, $.ajax - полная настройка. responseURL добавлен в 4.1."
+      },
+      {
+        "type": "single",
+        "question": "Вы открыли index.html двойным кликом, и $.getJSON попадает в .fail со status 0. Что делать?",
+        "options": [
+          "Заменить $.getJSON на $.ajax",
+          "Открыть страницу через Live Server (http://127.0.0.1:5500)",
+          "Добавить cache: false",
+          "Подключить slim-сборку"
+        ],
+        "answer": 1,
+        "explanation": "Со страниц file:// браузер не разрешает загружать файлы. Нужен адрес http - Live Server или GitHub Pages."
+      },
+      {
+        "type": "single",
+        "question": "Как правильно сохранить массив courses в localStorage?",
+        "options": [
+          "localStorage.setItem(\"courses\", courses)",
+          "localStorage.setItem(\"courses\", JSON.stringify(courses))",
+          "localStorage.courses = courses.text()",
+          "localStorage.setItem(courses)"
+        ],
+        "answer": 1,
+        "explanation": "localStorage хранит только строки. Без JSON.stringify массив превратится в строку \"[object Object],...\"."
+      },
+      {
+        "type": "input",
+        "question": "Какую настройку $.ajax нужно поставить в false, чтобы браузер не отдавал старую копию ответа? Введите имя настройки.",
+        "answers": [
+          "cache"
+        ],
+        "case_sensitive": true,
+        "explanation": "С cache: false jQuery добавляет к адресу параметр _= с текущим временем, и браузер спрашивает сервер заново."
+      }
+    ]
+  }
+}

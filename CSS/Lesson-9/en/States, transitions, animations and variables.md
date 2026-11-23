@@ -338,6 +338,17 @@ flowchart TD
 
 **How to read the diagram.** A response to an action is `transition`, independent motion is `@keyframes`. In both cases - respect the "reduce motion" setting.
 
+### Try to break it
+
+1. In `.btn`, write `var(primary)` instead of `var(--primary)`. The button has lost its background. In DevTools → **Elements** → **Styles** the line is crossed out, with a warning icon next to it: the value is invalid.
+2. Move `transition` from `.btn` to `.btn:hover`. Hover over the button and move the cursor away. On the way in the color changes smoothly, on the way back it jumps.
+3. Remove `content: " *";` from `.required-label::after`. The asterisk is gone: without `content` there is no pseudo-element.
+4. Delete the `.btn:focus-visible` rule and add `.btn:focus { outline: none; }`. Go through the page with the keyboard (Tab). Can you see where the focus is now?
+5. In DevTools → **Rendering**, turn on `prefers-reduced-motion: reduce` and reload the page. The `.hero` block appears at once, without animation. Move `animation` out of the `no-preference` block - the animation comes back even with `reduce`.
+6. In `:root`, change the value of `--primary` to `#b91c1c`. Every element with `var(--primary)` turned red at once - you edited one line.
+
+After each experiment, put the code back.
+
 ### Typical beginner mistakes
 
 | Mistake | How to fix |

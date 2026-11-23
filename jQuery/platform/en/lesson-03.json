@@ -1,0 +1,283 @@
+{
+  "lesson": 3,
+  "language": "en",
+  "lesson_title": "Content and attributes",
+  "task": {
+    "title": "A profile card from the user object",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Student profile</title>\n</head>\n<body>\n    <main>\n        <article class=\"profile\" id=\"profile\" data-max-level=\"10\">\n            <img class=\"profile__avatar\" id=\"avatar\" src=\"img/placeholder.png\" alt=\"\">\n            <h2 class=\"profile__name\" id=\"profile-name\">Student name</h2>\n            <p class=\"profile__level\" id=\"level-text\">Level: ?</p>\n            <a class=\"profile__link\" id=\"profile-link\" href=\"#\">Open profile</a>\n            <label class=\"profile__mentor\">\n                <input type=\"checkbox\" id=\"mentor\"> Group mentor\n            </label>\n            <label class=\"profile__email\">\n                Email: <input type=\"email\" id=\"email\" value=\"\">\n            </label>\n        </article>\n    </main>\n</body>\n</html>",
+    "description": "The platform has defined a user object: id, name, avatar, profileUrl, isMentor, email, level. The page has an article#profile card with the attribute data-max-level=\"10\", and inside it img#avatar, h2#profile-name, p#level-text, the link a#profile-link, the checkbox #mentor and the field #email. Write a function fillProfile(person) that fills the card with data from person: 1) the name - into #profile-name with .text(); 2) give #avatar src = person.avatar and alt = \"Photo: \" + name in one .attr() call with an object; 3) give #profile-link the attribute href = person.profileUrl; 4) tick or untick the #mentor checkbox with .prop(\"checked\", person.isMentor); 5) write person.email into the #email field with .val(); 6) save person.id in the card's data: .data(\"userId\", ...); 7) read the maximum level from data-max-level with .data(\"maxLevel\") and write the text \"Level 3 of 10\" into #level-text, where 3 is person.level; 8) call fillProfile(user). The function must work when called again with a different student. Do not use document.querySelector, innerHTML or .html().",
+    "starter_code": "// The platform has already defined the user object:\n// const user = {\n//     id: 17,\n//     name: \"Anna Karimova\",\n//     avatar: \"img/anna.png\",\n//     profileUrl: \"https://jlearn.space/u/anna\",\n//     isMentor: true,\n//     email: \"anna@example.com\",\n//     level: 3,\n// };\n// On the page: article#profile with data-max-level=\"10\", img#avatar, h2#profile-name,\n// p#level-text, a#profile-link, the #mentor checkbox and the #email field.\n\nfunction fillProfile(person) {\n    // 1. Name - into #profile-name with .text()\n\n    // 2. Avatar: src and alt in one .attr({ ... }) call, alt = \"Photo: \" + name\n\n    // 3. Link #profile-link: attribute href = person.profileUrl\n\n    // 4. Checkbox #mentor: .prop(\"checked\", ...)\n\n    // 5. Field #email: .val(...)\n\n    // 6. Save person.id in the card's data: $(\"#profile\").data(\"userId\", ...)\n\n    // 7. Read maxLevel from data-max-level with .data(\"maxLevel\")\n    //    and write \"Level 3 of 10\" into #level-text\n}\n\n// 8. Call fillProfile(user)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".setAttribute(",
+      ".dataset",
+      ".textContent"
+    ],
+    "setup": "const user = {\n    id: 17,\n    name: \"Anna Karimova\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};",
+    "tests": [
+      {
+        "name": "The name is output to #profile-name",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"Anna Karimova\"",
+        "fail": "$(\"#profile-name\").text(person.name);"
+      },
+      {
+        "name": "A name like \"<b>...\" is output as text, not as markup",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"<b>Hacker</b>\" && document.querySelector(\"#profile-name b\") === null",
+        "fail": "Output the name only with .text(): then the tags are shown as letters and do not run.",
+        "setup": "const user = {\n    id: 17,\n    name: \"<b>Hacker</b>\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};"
+      },
+      {
+        "name": "The avatar has the correct src and alt",
+        "check": "document.querySelector(\"#avatar\").getAttribute(\"src\") === \"img/anna.png\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Photo: Anna Karimova\"",
+        "fail": "$(\"#avatar\").attr({ src: person.avatar, alt: `Photo: ${person.name}` });"
+      },
+      {
+        "name": "src and alt are set in one .attr call with an object",
+        "check": "/\\.attr\\(\\s*\\{/.test(__code)",
+        "fail": "Pass an object to .attr(): .attr({ src: ..., alt: ... })."
+      },
+      {
+        "name": "The link leads to the profile",
+        "check": "document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/anna\"",
+        "fail": "$(\"#profile-link\").attr(\"href\", person.profileUrl);"
+      },
+      {
+        "name": "The \"Mentor\" checkbox is ticked",
+        "check": "document.querySelector(\"#mentor\").checked === true",
+        "fail": "$(\"#mentor\").prop(\"checked\", person.isMentor);"
+      },
+      {
+        "name": "The checkbox updates even after it has been clicked",
+        "check": "(() => { const cb = document.querySelector(\"#mentor\"); cb.click(); fillProfile(user); return cb.checked === true; })()",
+        "fail": "After a click, the attribute no longer controls the checkbox. Change the property: .prop(\"checked\", ...), not .attr()."
+      },
+      {
+        "name": "Calling again with isMentor: false unticks the checkbox",
+        "check": "(() => { fillProfile({ ...user, isMentor: false }); return document.querySelector(\"#mentor\").checked === false; })()",
+        "fail": "Pass person.isMentor to .prop(\"checked\", ...) - true or false."
+      },
+      {
+        "name": "The email field contains the student's address",
+        "check": "document.querySelector(\"#email\").value === \"anna@example.com\"",
+        "fail": "$(\"#email\").val(person.email);"
+      },
+      {
+        "name": "The student's id is saved in .data(\"userId\")",
+        "check": "$(\"#profile\").data(\"userId\") === 17 && /\\.data\\(/.test(__code)",
+        "fail": "$(\"#profile\").data(\"userId\", person.id); - the value stays a number."
+      },
+      {
+        "name": "Level text: \"Level 3 of 10\"",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Level 3 of 10\"",
+        "fail": "const maxLevel = $(\"#profile\").data(\"maxLevel\"); then .text(`Level ${person.level} of ${maxLevel}`)."
+      },
+      {
+        "name": "The maximum level is read from data-max-level",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Level 3 of 12\"",
+        "fail": "Do not type 10 by hand: take the number from $(\"#profile\").data(\"maxLevel\").",
+        "setup": "const user = {\n    id: 17,\n    name: \"Anna Karimova\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};\ndocument.querySelector(\"#profile\").setAttribute(\"data-max-level\", \"12\");"
+      },
+      {
+        "name": "Calling again with a different student rewrites the card",
+        "check": "(() => { const email = document.querySelector(\"#email\"); email.value = \"typed@mail.ru\"; email.dispatchEvent(new Event(\"input\", { bubbles: true })); fillProfile({ id: 5, name: \"Boris\", avatar: \"img/boris.png\", profileUrl: \"https://jlearn.space/u/boris\", isMentor: false, email: \"boris@example.com\", level: 7 }); return document.querySelector(\"#profile-name\").textContent === \"Boris\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Photo: Boris\" && document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/boris\" && email.value === \"boris@example.com\" && $(\"#profile\").data(\"userId\") === 5 && document.querySelector(\"#level-text\").textContent === \"Level 7 of 10\"; })()",
+        "fail": "Inside the function, use the person parameter, not user. Fill the field with .val(): .attr(\"value\") does not change what the user has already typed."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check that the fillProfile function is declared and called, and that the selectors have no typos."
+      }
+    ],
+    "hints": [
+      "Name: $(\"#profile-name\").text(person.name); - tags in the name will show up as letters.",
+      "An object in .attr(): $(\"#avatar\").attr({ src: person.avatar, alt: `Photo: ${person.name}` });",
+      "For a checkbox, use the property, not the attribute: $(\"#mentor\").prop(\"checked\", person.isMentor);",
+      "An input field is filled with .val(person.email).",
+      "data-max-level is read as .data(\"maxLevel\") and becomes a number right away.",
+      "Inside the function, write person everywhere, not user: then the function works for any student."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "A user entered the name <img src=x onerror=alert(1)>. Which call safely outputs it to the page?",
+        "options": [
+          "$(\"#name\").html(userName)",
+          "$(\"#name\").text(userName)",
+          "$(\"#name\").attr(\"html\", userName)",
+          "$(\"#name\").val(userName)"
+        ],
+        "answer": 1,
+        "explanation": ".text() inserts the string as text: the tags are shown as letters and do not run. .html() would parse the string as markup - that is XSS."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"#email\").val() return if the user typed anna@mail.ru into the field and the markup has value=\"\"?",
+        "options": [
+          "\"\" - the attribute value",
+          "\"anna@mail.ru\" - the current value of the field",
+          "undefined",
+          "a jQuery object"
+        ],
+        "answer": 1,
+        "explanation": ".val() reads the value property - what is in the field right now. The value attribute only stores the initial value."
+      },
+      {
+        "type": "single",
+        "question": "A checkbox <input type=\"checkbox\" id=\"agree\">. The user ticked it. What does $(\"#agree\").prop(\"checked\") return?",
+        "options": [
+          "true",
+          "\"checked\"",
+          "undefined",
+          "\"on\""
+        ],
+        "answer": 0,
+        "explanation": ".prop() reads a property of the DOM element - the current state, true or false. .attr(\"checked\") would return undefined: there is no attribute in the markup."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the jQuery method.",
+        "pairs": [
+          [
+            "The current value of an input field",
+            ".val()"
+          ],
+          [
+            "The link address from the markup",
+            ".attr(\"href\")"
+          ],
+          [
+            "Whether a checkbox is ticked",
+            ".prop(\"checked\")"
+          ],
+          [
+            "The number from data-lessons=\"10\"",
+            ".data(\"lessons\")"
+          ]
+        ],
+        "explanation": "Field value - .val(), attribute - .attr(), live state - .prop(), data-* data - .data()."
+      },
+      {
+        "type": "multiple",
+        "question": "Which calls make the #send button inactive?",
+        "options": [
+          "$(\"#send\").prop(\"disabled\", true)",
+          "$(\"#send\").attr(\"disabled\", \"\")",
+          "$(\"#send\").prop(\"disabled\", \"false\")",
+          "$(\"#send\").removeAttr(\"disabled\")"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A button is disabled by the presence of the attribute or by a truthy property. The string \"false\" is not empty, so it is truthy too - a tricky mistake. removeAttr removes the disabled state."
+      },
+      {
+        "type": "single",
+        "question": "<div id=\"c\" data-lessons=\"10\">. What does console.log($(\"#c\").data(\"lessons\") + 1) print?",
+        "options": [
+          "\"101\"",
+          "11",
+          "NaN",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": ".data() turns \"10\" into the number 10, so 10 + 1 = 11. With .attr(\"data-lessons\") you would get a string and the concatenation \"101\"."
+      },
+      {
+        "type": "single",
+        "question": "You ran $(\"#c\").data(\"status\", \"done\"). What will you see on the #c element in DevTools?",
+        "options": [
+          "The attribute data-status=\"done\"",
+          "No data-status attribute: .data() keeps the value in jQuery's memory",
+          "The attribute status=\"done\"",
+          "An error in the console"
+        ],
+        "answer": 1,
+        "explanation": "The .data() setter does not change the HTML. If you need the attribute in the markup (for example, for CSS), use .attr(\"data-status\", \"done\")."
+      },
+      {
+        "type": "input",
+        "question": "Complete the call that removes the title attribute from #photo: $(\"#photo\").______(\"title\"). Enter only the method name.",
+        "answers": [
+          "removeAttr"
+        ],
+        "case_sensitive": true,
+        "explanation": ".removeAttr(\"title\") removes the attribute completely instead of making it empty."
+      },
+      {
+        "type": "multiple",
+        "question": "Which lines give an image both src and alt?",
+        "options": [
+          "$img.attr({ src: \"a.png\", alt: \"Cat\" })",
+          "$img.attr(\"src\", \"a.png\").attr(\"alt\", \"Cat\")",
+          "$img.attr(\"src\", \"a.png\", \"alt\", \"Cat\")",
+          "$img.attr([\"src\", \"a.png\"])"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Several attributes are set with an object or with a chain of setters. .attr() ignores extra arguments."
+      },
+      {
+        "type": "single",
+        "question": "The page has three <p class=\"note\">: \"a\", \"b\", \"c\". What will the second paragraph contain after $(\".note\").text((index, old) => `${index + 1}) ${old}`)?",
+        "options": [
+          "\"1) b\"",
+          "\"2) b\"",
+          "\"2) a\"",
+          "An error: you cannot pass a function to .text()"
+        ],
+        "answer": 1,
+        "explanation": "The function is called for each element: index is the number from zero, old is the current text. For the second paragraph index = 1, old = \"b\"."
+      },
+      {
+        "type": "matching",
+        "question": "Match plain JavaScript with jQuery.",
+        "pairs": [
+          [
+            "el.textContent = s",
+            "$el.text(s)"
+          ],
+          [
+            "el.setAttribute(\"href\", url)",
+            "$el.attr(\"href\", url)"
+          ],
+          [
+            "el.checked = true",
+            "$el.prop(\"checked\", true)"
+          ],
+          [
+            "el.value",
+            "$el.val()"
+          ]
+        ],
+        "explanation": "jQuery does the same thing, but for all found elements at once."
+      },
+      {
+        "type": "input",
+        "question": "<div id=\"u\" data-user-id=\"5\">. Which key name should you pass to .data() if you write in camelCase, as this course does? Enter the name without quotes.",
+        "answers": [
+          "userId"
+        ],
+        "case_sensitive": true,
+        "explanation": "Hyphens turn into camelCase: data-user-id → .data(\"userId\"), like dataset.userId in plain JavaScript."
+      }
+    ]
+  }
+}

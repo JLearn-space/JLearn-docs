@@ -14,7 +14,7 @@
 
 ## Перед началом
 
-Нужны курсы [«HTML: за 10 уроков»](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) и [«CSS: за 10 уроков»](https://github.com/JLearn-space/css): во второй половине курса JavaScript управляет HTML-страницей и её классами CSS, а итоговый проект продолжает сайт из этих курсов.
+Нужны курсы [«HTML: за 10 уроков»](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) и [«CSS: за 10 уроков»](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS): во второй половине курса JavaScript управляет HTML-страницей и её классами CSS, а итоговый проект продолжает сайт из этих курсов.
 
 **Что понадобится:** компьютер, современный браузер (Chrome, Edge или Firefox) и редактор кода. Устанавливать Node.js не обязательно: весь код курса запускается в браузере.
 
@@ -39,7 +39,7 @@
 
 Все три версии - русская, узбекская и английская - строятся по одной программе и одинаковой структуре.
 
-[Карта курса](COURSE_MAP.md) · [Итоговый проект](final-project/README.md) · [Задания IDE и тесты](platform/README.md)
+[Карта курса](COURSE_MAP.md) · [Итоговый проект](final-project/README.md) · [Задания IDE и тесты](platform/README.md) · [Словарь терминов](GLOSSARY.md) · [Шпаргалка](CHEATSHEET.md) · [Источники](REFERENCES.md)
 
 ---
 

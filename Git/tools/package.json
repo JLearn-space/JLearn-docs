@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "description": "Local checker for JLearn Git IDE tasks (no dependencies)",
+  "type": "module"
+}

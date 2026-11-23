@@ -1,6 +1,6 @@
 # Yakuniy loyiha: rejalashtirishdan nashrgacha
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Keyingi kurs: CSS →](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)
 
 > **Oldingi darslar bilan bog‘liqlik:** bugun yangi teglar bo‘lmaydi. 1–9-darslarda o‘rganganlaringizning hammasini bitta saytga yig‘asiz va uni internetda nashr qilasiz.
 
@@ -373,6 +373,17 @@ Asosiy bandlar:
 
 GitHub interfeysi ba’zan o‘zgaradi. Tugmalar nomi boshqacha bo‘lsa, [rasmiy qo‘llanmaga](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) qarang.
 
+### Buzib ko‘ring
+
+Chek-list tekshiruvlari xatolarni ushlashiga ishonch hosil qiling. Har bir buzilishni saytning nusxasida qiling, uni toping va avvalgi holiga qaytaring:
+
+1. Bitta sahifa menyusida `about.html` ni `About.html` ga almashtiring. Windows kompyuterida havola ishlashi mumkin, GitHub Pages da esa 404 ochiladi. Nashr qilingan versiyani tekshirish shuning uchun kerak.
+2. `<main>` dan `id="main"` ni o‘chiring. Tab ni, so‘ng «Asosiy mazmunga o‘tish» havolasida Enter ni bosing. Fokus joyida qoladi: havola hech qayerga olib bormaydi.
+3. Profil rasmidan `alt` ni o‘chiring va sahifani Nu HTML Checker da tekshiring. Xato: `An img element must have an alt attribute, except under certain conditions.`
+4. «Pochta» yozuvidan `for="email"` ni olib tashlang. «Pochta» so‘zini bosing: kursor endi maydonga tushmaydi.
+5. `<h2>Ko‘nikmalarim</h2>` ni `<h4>` ga almashtiring va Lighthouse ni ishga tushiring. Accessibility bo‘limida `Heading elements are not in a sequentially-descending order` paydo bo‘ladi.
+6. «Ism» maydonidan `required` ni o‘chiring va formani bo‘sh ism bilan yuboring. Forma yuborildi, manzil satrida esa `name=&` ko‘rinadi.
+
 ### Nashrdagi tipik xatolar
 
 | Xato | Qanday tuzatish |
@@ -508,4 +519,4 @@ Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish
 
 ---
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Meta-teglar%2C%20SEO%2C%20CSS%20va%20JS%20bilan%20bog%27lanish.md) · [Keyingi kurs: CSS →](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BE%D1%82%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.md) · [EN](../en/Final%20project%20from%20planning%20to%20publication.md) · [UZ](Yakuniy%20loyiha%20rejalashtirishdan%20nashr%20etishgacha.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md)

@@ -140,6 +140,24 @@ if (banner) {
 }
 ```
 
+### To‘g‘ri selektorni qanday topish
+
+Eng ishonchli yo‘l - taxmin qilmasdan, konsolda tekshirish:
+
+1. Sahifani va DevTools → **Console** ni oching.
+2. `document.querySelector(".card")` ni yozing va Enter ni bosing.
+3. Javobda element kelsa, kursorni unga olib boring - brauzer uni sahifada yoritadi. `null` kelsa - selektor noto‘g‘ri.
+
+| Nimani qidiramiz | Selektor | Misol |
+| --- | --- | --- |
+| Teg bo‘yicha | `teg` | `"h1"` |
+| Sinf bo‘yicha | `.sinf` | `".card"` |
+| id bo‘yicha | `#id` | `"#menu"` |
+| Boshqasining ichida | `ota avlod` | `"nav a"` |
+| Atribut bo‘yicha | `[atribut="qiymat"]` | `'[data-id="js"]'` |
+
+Bular CSS kursining 2-darsidagi o‘sha selektorlar. Selektor qancha qisqa va tushunarli bo‘lsa, belgilash o‘zgarganda shuncha kam buziladi. Shuning uchun skriptlar uchun alohida sinflar yoki `data-*` atributlari ochish qulay.
+
 ---
 
 ## Matn: `textContent`
@@ -287,6 +305,27 @@ card.append(heading, info);  // append bir nechta element qabul qiladi
 document.querySelector(".cards").append(card);
 ```
 
+### Daraxt bilan nima bo‘ladi
+
+`append` dan oldin kartochka alohida yashaydi, keyin esa - DOM ning bir qismiga aylanadi:
+
+```mermaid
+flowchart TD
+    subgraph before["append dan oldin"]
+        C1["div.cards"]
+        A1["article.card"] --> H1["h3"]
+        A1 --> P1["p"]
+    end
+    subgraph after["append dan keyin"]
+        C2["div.cards"] --> A2["article.card"]
+        A2 --> H2["h3"]
+        A2 --> P2["p"]
+    end
+    before --> after
+```
+
+**Sxemani qanday o‘qish kerak.** Chapda kartochka xotirada yig‘ilgan, lekin sahifaga bog‘lanmagan - ekranda u yo‘q. O‘ngda u `div.cards` ning bolasiga aylandi va brauzer uni darhol chizdi.
+
 ---
 
 ## Massivni chizish
@@ -323,6 +362,40 @@ flowchart LR
 ```
 
 Nima uchun tozalash kerak? Ma’lumotlar o‘zgarganda (8-dars: filtr, qo‘shish) biz shunchaki `renderCourses` ni yangi massiv bilan yana chaqiramiz. Tozalashsiz eski elementlar qolib, ro‘yxat ikkilanib ketardi.
+
+### `renderCourses` nima qiladi: qadamma-qadam
+
+| Qadam | `course` | Nima yaratildi | Sahifadagi ro‘yxatda nima bor |
+| --- | --- | --- | --- |
+| 0 | - | Ro‘yxat tozalandi | bo‘sh |
+| 1 | `{ title: "HTML", lessons: 10 }` | `<li>HTML - 10 ta dars</li>` | 1 band |
+| 2 | `{ title: "CSS", lessons: 10 }` | `<li>CSS - 10 ta dars</li>` | 2 band |
+| 3 | `{ title: "JavaScript", lessons: 10 }` | `<li>JavaScript - 10 ta dars</li>` | 3 band |
+
+Massivga to‘rtinchi kursni qo‘shing va `renderCourses(courses)` ni yana chaqiring - sahifada takrorlarsiz roppa-rosa to‘rtta band bo‘ladi. 0-qadamdagi tozalashning ma’nosi aynan shu.
+
+### DevTools da nimani ko‘rasiz
+
+**Elements** yorlig‘ini oching va `ul.course-list` ni oching: ichida HTML faylda yo‘q uchta `li` bor. **Sahifaning manba kodini** oching (Ctrl+U) - u yerda ro‘yxat bo‘sh. DOM jonli, fayl esa yo‘q.
+
+### Buzib ko‘ring
+
+1. `container.textContent = "";` qatorini olib tashlang va `renderCourses(courses)` ni ikki marta chaqiring. Nechta band bo‘ldi?
+2. Selektorda oxirgi harfsiz `.course-lis` deb yozing. Konsol qanday xato va qaysi qatorda ko‘rsatadi?
+3. `<head>` dagi `<script>` dan `defer` ni olib tashlang. Nega `querySelector` `null` qaytardi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `.` yoki `#` siz selektor | `null` va keyin `TypeError` | `".card"`, `"#menu"` |
+| `<head>` da `defer` siz skript | Elementlar hali yaratilmagan - `null` | `<script src="..." defer>` |
+| Barcha elementlar kerak joyda `querySelector` | Faqat birinchisi o‘zgaradi | `querySelectorAll` + `for...of` |
+| Foydalanuvchi ma’lumotlari bilan `innerHTML` | XSS teshigi | `textContent` va `createElement` |
+| `element.style.color = ...` | Uslub atributda, CSS ni qo‘llab-quvvatlash qiyin | `classList.add("...")` |
+| `append` unutilgan | Element yaratilgan, lekin ko‘rinmaydi | `parent.append(element)` |
+| `render` da tozalash yo‘q | Ro‘yxat takrorlanadi | Boshida `container.textContent = "";` |
+| `dataset.lessons + 1` | `"101"` - satrlar ulanishi | `Number(dataset.lessons) + 1` |
 
 ---
 

@@ -1,6 +1,6 @@
 # Yakuniy loyiha - to‘liq bezash va nashr
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Holatlar%2C%20o%27tishlar%2C%20animatsiyalar%20va%20o%27zgaruvchilar.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](../en/Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Holatlar%2C%20o%27tishlar%2C%20animatsiyalar%20va%20o%27zgaruvchilar.md) · [Keyingi kurs: JavaScript →](https://github.com/JLearn-space/JLearn-docs/tree/main/JavaScript) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](../en/Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
 
 > **Oldingi darslar bilan bog‘liqlik:** yangi xususiyatlar bo‘lmaydi. HTML kursi yakuniy loyihasidagi saytni olib, uni butunlay bezaysiz: o‘zgaruvchilardan animatsiyalargacha. Keyin esa nashr qilingan versiyani yangilaysiz.
 
@@ -367,6 +367,31 @@ flowchart TD
 
 **Sxemani qanday o‘qish kerak.** Tekshiruvlar beshalasi o‘tguncha takrorlanadi. Nashrdan keyin saytni ommaviy havola orqali yana bir bor tekshiring.
 
+### Buzib ko‘ring
+
+Har bir tajriba 1–5-tekshiruvlardan birini buzadi. Buzilish qanday ko‘rinishini kuzating va kodni qaytaring:
+
+1. `* { box-sizing: border-box; }` ni o‘chiring. `width: 100%` li forma maydonlari kartochkaning o‘ng chetidan chiqib ketadi: kenglikka `padding` va ramka qo‘shildi.
+2. `img { max-width: 100%; }` ni o‘chiring va qurilma rejimida 320px kenglikni tanlang. Gorizontal aylantirish paydo bo‘ldi - 1-tekshiruvdan o‘tilmadi.
+3. `.skip-link:focus` ni `.skip-link:hover` ga almashtiring. Tab ni bosing: fokus o‘tkazib yuborish havolasida, lekin u ko‘rinmaydi - 2-tekshiruvdan o‘tilmadi.
+4. `button` da `var(--primary)` ni `#1e3a8a` ga almashtiring. Tungi mavzuni yoqing (DevTools → **Rendering** → `prefers-color-scheme: dark`). Sahifa rangi o‘zgardi, tugma esa yo‘q.
+5. `transition` ni `no-preference` blokidan tashqariga chiqaring va `prefers-reduced-motion: reduce` ni yoqing. Kartochkalar baribir ravon ko‘tariladi - 4-tekshiruvdan o‘tilmadi.
+6. `input, textarea` dan `font: inherit` ni o‘chiring. Maydonlardagi matn boshqa shriftda va sahifadagidan maydaroq bo‘lib qoldi.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `href="style.css"`, fayl esa `css/` papkasida | Sahifa bezaksiz, Network da `404` | `<link rel="stylesheet" href="css/style.css">` |
+| Ranglar o‘zgaruvchilarsiz, to‘g‘ridan-to‘g‘ri qoidalarda yozilgan | Tungi mavzu sahifani faqat qisman bo‘yaydi | Barcha ranglar - `var(--...)` orqali |
+| `body > header` o‘rniga `header { position: sticky; }` | Maqolalar ichidagi `<header>` lar ham yopishqoq bo‘lib qoladi | `body > header` |
+| `box-sizing: border-box` yo‘q | `width: 100%` li maydonlar kartochkadan kengroq | `* { box-sizing: border-box; }` |
+| Jadvaldagi havolalarda `overflow-wrap: anywhere` yo‘q | Uzun email jadvalni cho‘zadi, 320px da gorizontal aylantirish paydo bo‘ladi | `td a { overflow-wrap: anywhere; }` |
+| Havola va tugmalarda `outline: none` | Klaviatura foydalanuvchisi fokusni ko‘rmaydi; platforma topshiriqni qabul qilmaydi | `outline: 3px solid var(--accent)` bilan `:focus-visible` |
+| `transition` va `animation` `no-preference` dan tashqarida | Harakatni kamaytirishni so‘raganlar ham uni ko‘radi | `@media (prefers-reduced-motion: no-preference)` ichida |
+| `@media (max-width: 600px)`: avval keng ekran | Qoidalar bir-birini bosib ketadi; platforma topshiriqni qabul qilmaydi | Mobile-first: `@media (min-width: 600px)` |
+| Xususiyatda xato: `colr: red;` | DevTools qatorni chizib tashlaydi va `Unknown property name` deb yozadi | Xususiyat nomini tuzating |
+
 ---
 
 ## Nashr: GitHub Pages dagi saytni yangilash
@@ -471,4 +496,4 @@ Savollardan keyin platformada **dars testini** topshiring: 12 ta savol, o‘tish
 
 ---
 
-[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Holatlar%2C%20o%27tishlar%2C%20animatsiyalar%20va%20o%27zgaruvchilar.md) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](../en/Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
+[Mundarija](../../README.md) · [← Orqaga](../../Lesson-9/uz/Holatlar%2C%20o%27tishlar%2C%20animatsiyalar%20va%20o%27zgaruvchilar.md) · [Keyingi kurs: JavaScript →](https://github.com/JLearn-space/JLearn-docs/tree/main/JavaScript) · [Loyihaning boshlang‘ich kodi](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](../en/Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)

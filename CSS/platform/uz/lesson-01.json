@@ -41,41 +41,6 @@
       "Abzatslar o‘lchami: p { font-size: 18px; }",
       "CSS dagi izoh: /* matn */.",
       "Teglarda style=\"\" atributini ishlatmang."
-    ],
-    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>",
-    "wrong_solutions": [
-      {
-        "mistake": "<style> yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <!-- Bu yerga tegni qo‘shing: <style> -->\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>\n"
-      },
-      {
-        "mistake": "uslublar style atributida",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <!-- Bu yerga tegni qo‘shing: <style> -->\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p style=\"font-size: 18px;\">Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>\n"
-      },
-      {
-        "mistake": "h1, h2 guruhi yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "fon yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "px siz o‘lcham",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "izoh yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "CSS o‘rniga HTML izohi",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        <!-- Sahifaning umumiy ko‘rinishi -->\n        body {\n            background-color: #f4f6fb;\n            font-family: Arial, sans-serif;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "font-family yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mening birinchi bezagim</title>\n    <style>\n        /* Sahifaning umumiy ko‘rinishi */\n        body {\n            background-color: #f4f6fb;\n        }\n\n        h1, h2 {\n            color: #1e3a8a;\n        }\n\n        p {\n            font-size: 18px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Veb-dasturlash to‘garagi</h1>\n    <p>Saytlarni noldan yasashni o‘rganamiz.</p>\n    <h2>Dars jadvali</h2>\n    <p>Har chorshanba soat 15:00 da.</p>\n</body>\n</html>"
-      }
     ]
   },
   "test": {

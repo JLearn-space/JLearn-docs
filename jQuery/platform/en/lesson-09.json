@@ -1,0 +1,299 @@
+{
+  "lesson": 9,
+  "language": "en",
+  "lesson_title": "AJAX - loading data",
+  "task": {
+    "title": "Course catalog from the server",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Course catalog</title>\n</head>\n<body>\n    <main>\n        <h1>Course catalog</h1>\n        <button id=\"reload-btn\" type=\"button\">Refresh</button>\n        <p id=\"courses-status\" role=\"status\"></p>\n        <ul id=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "The page has a button #reload-btn, a paragraph #courses-status and an empty list #course-list. The server at \"data/courses.json\" returns an array of courses like { title: \"HTML\", lessons: 10 } (in the IDE the server is replaced with test data; write the code as for a real one). Write the function loadCourses(): 1) Loading: clear #course-list, write the text \"Loading...\" into #courses-status, remove the class is-error from it and disable #reload-btn (.prop(\"disabled\", true)). 2) Call $.getJSON(\"data/courses.json\") and handle the result with .done, .fail and .always (not with await). 3) In .done, save the array in localStorage under the key courses with JSON.stringify; if the array is empty, the status is \"No courses yet\"; otherwise the status is an empty string, and for each course add to the list an li with the class course and the text \"HTML - lessons: 10\", created with $(\"<li>\") and .text(). 4) In .fail: the status \"Could not load the courses\" and the class is-error. 5) In .always, enable the button. 6) Call loadCourses() once at startup and connect it to clicks on #reload-btn with .on(). Do not use document.querySelector, innerHTML, .html(), fetch or await.",
+    "starter_code": "// On the page: a button #reload-btn, a paragraph #courses-status and an empty list #course-list.\n// The server at \"data/courses.json\" returns an array (in the IDE - test data):\n// [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }]\n\nfunction loadCourses() {\n    // 1. Loading: clear the list, status \"Loading...\", remove the class is-error,\n    //    disable the button: .prop(\"disabled\", true)\n\n    // 2. $.getJSON(\"data/courses.json\")\n    //    .done(...)   - save to localStorage (\"courses\", JSON.stringify);\n    //                   empty: \"No courses yet\";\n    //                   otherwise status \"\" and li.course with the text \"HTML - lessons: 10\"\n    //    .fail(...)   - \"Could not load the courses\" + class is-error\n    //    .always(...) - enable the button\n}\n\n// 3. Call loadCourses() and connect it to clicks on #reload-btn with .on()\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".click(function",
+      "addEventListener",
+      ".style.",
+      "fetch(",
+      "await ",
+      "XMLHttpRequest"
+    ],
+    "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };",
+    "tests": [
+      {
+        "name": "The request goes to data/courses.json once at startup",
+        "check": "requestedUrl === \"data/courses.json\" && requestCount === 1",
+        "fail": "Call $.getJSON(\"data/courses.json\") inside loadCourses and call loadCourses() once.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "While there is no response: status \"Loading...\", the button is disabled, the list is empty",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Loading...\" && document.querySelector(\"#reload-btn\").disabled === true && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": "Before the request: $status.text(\"Loading...\"), $reloadBtn.prop(\"disabled\", true), $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\n$.getJSON = () => $.Deferred().promise();"
+      },
+      {
+        "name": "After loading, the list has 3 courses",
+        "check": "[...document.querySelectorAll(\"#course-list li\")].length === 3",
+        "fail": "In .done, create $(\"<li>\") for each course and add it to #course-list.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Item text: \"HTML - lessons: 10\", each item has the class course",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"HTML - lessons: 10\" && [...document.querySelectorAll(\"#course-list li\")][2].textContent === \"JavaScript - lessons: 12\" && [...document.querySelectorAll(\"#course-list li\")].every((li) => li.classList.contains(\"course\"))",
+        "fail": ".addClass(\"course\").text(`${course.title} - lessons: ${course.lessons}`)",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "After a successful load the status is empty and the button is active",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"\" && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": "In .done: $status.text(\"\"); in .always: $reloadBtn.prop(\"disabled\", false).",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Empty array: \"No courses yet\" and an empty list",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"No courses yet\" && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": "Check courses.length === 0 in .done.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([]).promise();"
+      },
+      {
+        "name": "Error: \"Could not load the courses\", class is-error, the button is active again",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Could not load the courses\" && document.querySelector(\"#courses-status\").classList.contains(\"is-error\") && [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": "In .fail: $status.text(\"Could not load the courses\").addClass(\"is-error\"); enable the button in .always - it fires on error too.",
+        "setup": "$.getJSON = () => $.Deferred().reject({ status: 404, statusText: \"Not Found\" }, \"error\", \"Not Found\").promise();"
+      },
+      {
+        "name": "Loading again does not double the list",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 3 && requestCount === 2)",
+        "fail": "Connect the button: $reloadBtn.on(\"click\", loadCourses); clear the list at the start of loadCourses: $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "An error after a successful load removes the old courses",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#courses-status\").textContent === \"Could not load the courses\")",
+        "fail": "Clear the list at the start of loadCourses, before the request.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 1 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "Success after an error removes the class is-error",
+        "check": "(document.querySelector(\"#reload-btn\").click(), !document.querySelector(\"#courses-status\").classList.contains(\"is-error\"))",
+        "fail": "At the start of loadCourses: $status.removeClass(\"is-error\").",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 2 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "The course title is shown as text, not as markup",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"<b>Rust</b> - lessons: 8\" && document.querySelector(\"#course-list b\") === null",
+        "fail": "Create the item like this: $(\"<li>\").text(...), not by gluing a string with tags.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([{ title: \"<b>Rust</b>\", lessons: 8 }]).promise();"
+      },
+      {
+        "name": "The array is saved in localStorage under the key courses",
+        "check": "localStorage.getItem(\"courses\") === JSON.stringify(courses)",
+        "fail": "In .done: localStorage.setItem(\"courses\", JSON.stringify(courses));",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "The result is handled with .done, .fail and .always",
+        "check": "/\\.done\\(/.test(__code) && /\\.fail\\(/.test(__code) && /\\.always\\(/.test(__code)",
+        "fail": "Add the chain .done(...).fail(...).always(...) to $.getJSON(...)."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the selectors and that loadCourses is declared before it is called."
+      }
+    ],
+    "hints": [
+      "Start of the function: $list.empty(); $status.text(\"Loading...\").removeClass(\"is-error\"); $reloadBtn.prop(\"disabled\", true);",
+      "Chain: $.getJSON(\"data/courses.json\").done((courses) => {...}).fail(() => {...}).always(() => {...});",
+      "An empty array is a success; you check it in .done: if (courses.length === 0) {...}",
+      "List item: $(\"<li>\").addClass(\"course\").text(`${course.title} - lessons: ${course.lessons}`).appendTo($list);",
+      "Enable the button in .always - it also fires after an error.",
+      "Button: $reloadBtn.on(\"click\", loadCourses); and one call loadCourses(); at startup."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does $.getJSON(\"data/courses.json\") return right after the call?",
+        "options": [
+          "An array of courses",
+          "A JSON string",
+          "A jqXHR object - a request whose response will come later",
+          "undefined until there is a response"
+        ],
+        "answer": 2,
+        "explanation": "The request is asynchronous: a jqXHR (a \"tracking number\") is returned right away, and the data comes later in .done."
+      },
+      {
+        "type": "single",
+        "question": "What will the code print?\nconsole.log(\"A\");\n$.getJSON(\"data/courses.json\").done(() => console.log(\"B\"));\nconsole.log(\"C\");",
+        "options": [
+          "A B C",
+          "A C B",
+          "B A C",
+          "A C"
+        ],
+        "answer": 1,
+        "explanation": "The function from .done is called when the server response arrives - after the rest of the code has run."
+      },
+      {
+        "type": "matching",
+        "question": "Match the method with the moment it is called.",
+        "pairs": [
+          [
+            ".done(fn)",
+            "The request succeeded"
+          ],
+          [
+            ".fail(fn)",
+            "Error: 404, 500, no network, broken JSON"
+          ],
+          [
+            ".always(fn)",
+            "In any case, after it finishes"
+          ],
+          [
+            "await $.getJSON(url)",
+            "Waits for the result inside an async function"
+          ]
+        ],
+        "explanation": "done is success, fail is error, always is always; await works with jqXHR because it has .then."
+      },
+      {
+        "type": "multiple",
+        "question": "In which situations will .fail of $.getJSON fire?",
+        "options": [
+          "The server answered 404",
+          "The file contains JSON with a comma after the last item",
+          "The page is opened via file://",
+          "The server returned an empty array []"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "404 and file:// (status 0) are request errors, broken JSON is a parsererror. An empty array is a successful response; it is handled in .done."
+      },
+      {
+        "type": "single",
+        "question": "Where is the right place to enable the \"Refresh\" button after a request?",
+        "options": [
+          "Only in .done",
+          "Only in .fail",
+          "In .always",
+          "Right after the line with $.getJSON"
+        ],
+        "answer": 2,
+        "explanation": ".always fires both on success and on error - the button will not stay disabled."
+      },
+      {
+        "type": "input",
+        "question": "Which jqXHR property contains the server response code (for example, 404)? Enter the property name.",
+        "answers": [
+          "status",
+          ".status",
+          "jqXHR.status"
+        ],
+        "case_sensitive": true,
+        "explanation": "jqXHR.status is a number: 200, 404, 500, or 0 if there was no response."
+      },
+      {
+        "type": "single",
+        "question": "Why does this code not work?\nconst courses = $.getJSON(\"data/courses.json\");\n$(\"#count\").text(courses.length);",
+        "options": [
+          "You need to write $.get",
+          "courses holds a jqXHR, not an array: the data is available only in .done or after await",
+          "You cannot name a variable courses",
+          "You need to call JSON.parse first"
+        ],
+        "answer": 1,
+        "explanation": "$.getJSON returns a jqXHR. Code that needs the data is written in .done((courses) => {...})."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about await with a jQuery request?",
+        "options": [
+          "const data = await $.getJSON(url) puts the parsed data into data",
+          "On error, catch receives a jqXHR with the property status",
+          "You can write await in any function",
+          "await works with jqXHR because it has a .then method"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "jqXHR is a \"thenable\", so you can wait for it. But await is allowed only inside an async function."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with its purpose.",
+        "pairs": [
+          [
+            "$.getJSON(url)",
+            "Get and parse JSON"
+          ],
+          [
+            "$.post(url, $form.serialize())",
+            "Send the form fields to the server"
+          ],
+          [
+            "$.ajax({ url, cache: false })",
+            "A request with settings, without the cache"
+          ],
+          [
+            "jqXHR.responseURL",
+            "The full address the response came from (jQuery 4.1)"
+          ]
+        ],
+        "explanation": "$.getJSON and $.post are short forms, $.ajax is the full configuration. responseURL was added in 4.1."
+      },
+      {
+        "type": "single",
+        "question": "You opened index.html with a double click, and $.getJSON goes to .fail with status 0. What should you do?",
+        "options": [
+          "Replace $.getJSON with $.ajax",
+          "Open the page with Live Server (http://127.0.0.1:5500)",
+          "Add cache: false",
+          "Load the slim build"
+        ],
+        "answer": 1,
+        "explanation": "The browser does not allow pages on file:// to load files. You need an http address - Live Server or GitHub Pages."
+      },
+      {
+        "type": "single",
+        "question": "How do you correctly save the array courses in localStorage?",
+        "options": [
+          "localStorage.setItem(\"courses\", courses)",
+          "localStorage.setItem(\"courses\", JSON.stringify(courses))",
+          "localStorage.courses = courses.text()",
+          "localStorage.setItem(courses)"
+        ],
+        "answer": 1,
+        "explanation": "localStorage stores only strings. Without JSON.stringify the array turns into the string \"[object Object],...\"."
+      },
+      {
+        "type": "input",
+        "question": "Which $.ajax setting must be set to false so that the browser does not return an old copy of the response? Enter the setting name.",
+        "answers": [
+          "cache"
+        ],
+        "case_sensitive": true,
+        "explanation": "With cache: false, jQuery adds the parameter _= with the current time to the address, and the browser asks the server again."
+      }
+    ]
+  }
+}

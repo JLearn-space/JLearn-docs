@@ -1,6 +1,6 @@
 # Introduction to JavaScript. First program
 
-[Contents](../../README.md) · [← CSS course](https://github.com/JLearn-space/css) · [Next →](../../Lesson-2/en/Data%20types%20and%20operators.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](../uz/JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
+[Contents](../../README.md) · [← CSS course](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [Next →](../../Lesson-2/en/Data%20types%20and%20operators.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](../uz/JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
 
 > **Link to the HTML and CSS courses:** you built a website and dressed it in styles. But it does not move yet: the button does nothing, the menu does not open, the form does not point out mistakes. Today you will write your first JavaScript program and connect it to your page.
 
@@ -274,6 +274,26 @@ Course rule: **`const` by default**, and `let` only if the value really will cha
 
 > **What about `var`?** It is the old way of declaring from the 1990s. It has unintuitive scope rules, so modern code and this course do not use `var`. You will meet it in old articles - replace it with `let` or `const`.
 
+### How a value changes: step by step
+
+The program runs line by line, and at every moment the box holds **one** value. Let us follow `score`:
+
+```js
+let score = 0;
+score = 10;
+score = score + 5;
+score = score * 2;
+```
+
+| Line | What it does | `score` after the line |
+| --- | --- | --- |
+| `let score = 0;` | Creates the box and puts `0` in | `0` |
+| `score = 10;` | Throws out `0`, puts `10` in | `10` |
+| `score = score + 5;` | Takes `10`, adds `5`, puts the result in | `15` |
+| `score = score * 2;` | Takes `15`, multiplies by `2`, puts the result in | `30` |
+
+The notation `score = score + 5` is read **right to left**: first the right side is calculated with the old value, then the result goes into the box. It is useful to draw such a table on paper whenever you are unsure what will happen.
+
 ### A declaration is written once
 
 ```js
@@ -297,6 +317,12 @@ let lessonsDone = 2;  // SyntaxError: Identifier 'lessonsDone' has already been 
 The course style is **camelCase**: the first word in lower case, each next one starting with a capital letter: `studentName`, `lessonsDone`, `isDarkTheme`. The name should explain the content: `score` is better than `s`, and `lessonsDone` is better than `x`.
 
 > **English words:** variable names are written in English. Other alphabets are technically allowed, but no team does that.
+
+### Try to break it
+
+1. Declare `const city = "Tashkent";` and on the next line write `city = "Bukhara";`. Read the `TypeError` in the console.
+2. Write `console.log(userName);` **before** the line `const userName = "Anna";`. Which error appears, and why does the order of lines matter?
+3. Name a variable `user-name`. What does the console say?
 
 ---
 
@@ -334,6 +360,20 @@ Uncaught ReferenceError: scor is not defined    main.js:4
 3. **Location** - `main.js:4`: file and line.
 
 > **Important:** after the first error the browser stops running the file. If none of your messages appeared in the console, look for an error above, and if the file did not load at all, check the Network tab and the path in `src`.
+
+### What to do when something does not work
+
+```mermaid
+flowchart TD
+    A["The page does not respond"] --> B{"Is there a red line in the console?"}
+    B -->|Yes| C["Read the type, the message and the line number"]
+    C --> D["Open the file at that line and fix it"]
+    B -->|No| E{"Did main.js load?<br>Network: 200 or 404"}
+    E -->|404| F["Check the path in src"]
+    E -->|200| G["Add console.log in the right place<br>and see whether the code got there"]
+```
+
+**How to read the diagram.** Almost any problem is found in three steps: an error in the console, the file loading, a check `console.log`. Always look at the console first.
 
 ---
 
@@ -453,4 +493,4 @@ console.log(siteName, visits); // Web Development Club 2
 
 ---
 
-[Contents](../../README.md) · [← CSS course](https://github.com/JLearn-space/css) · [Next →](../../Lesson-2/en/Data%20types%20and%20operators.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](../uz/JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
+[Contents](../../README.md) · [← CSS course](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [Next →](../../Lesson-2/en/Data%20types%20and%20operators.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](../uz/JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)

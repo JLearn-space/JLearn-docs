@@ -1,0 +1,290 @@
+{
+  "lesson": 2,
+  "language": "en",
+  "lesson_title": "Selectors and DOM traversal",
+  "task": {
+    "title": "Group register",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Group register</title>\n</head>\n<body>\n    <main>\n        <h1>Group JS-101 register</h1>\n        <table id=\"journal\">\n            <thead>\n                <tr><th>Student</th><th>Score</th><th>Mark</th></tr>\n            </thead>\n            <tbody>\n                <tr class=\"student\" data-status=\"active\" data-score=\"87\"><td class=\"student__name\">Anna</td><td class=\"student__score\">87</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"72\"><td class=\"student__name\">Bobur</td><td class=\"student__score\">72</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"left\" data-score=\"99\"><td class=\"student__name\">Timur</td><td class=\"student__score\">99</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"95\"><td class=\"student__name\">Dilnoza</td><td class=\"student__score\">95</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"64\"><td class=\"student__name\">Elena</td><td class=\"student__score\">64</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"left\" data-score=\"58\"><td class=\"student__name\">Farhod</td><td class=\"student__score\">58</td><td class=\"student__note\"></td></tr>\n            </tbody>\n        </table>\n        <p id=\"active-count\"></p>\n        <p id=\"best\"></p>\n        <p id=\"names\"></p>\n    </main>\n</body>\n</html>",
+    "description": "The #journal table has tr.student rows with the attributes data-status (\"active\" or \"left\") and data-score (score); inside are td.student__name, td.student__score and an empty td.student__note. jQuery is already loaded. 1) Save the rows inside #journal with data-status=\"active\" in the constant $active (attribute selector). 2) Write the text \"Active students: 4\" to #active-count, where the number is $active.length. 3) Add the is-left class to the other .student rows (the .not method). 4) Use .each to find the best score among active students: Number(this.dataset.score). 5) Add the is-best class to the row with the best score (in a tie - the first one in the table), write \"best\" to its .student__note, and \"Best result: Dilnoza (95)\" to #best; if there are no active students - \"No active students\". 6) Collect the names of active students into the names array with .map(...).get(), write them to #names separated by a comma and a space, and log the array to the console. Do not use document.querySelector, innerHTML, .html() or for loops.",
+    "starter_code": "// The #journal table has tr.student rows with the attributes\n// data-status (\"active\" or \"left\") and data-score (score).\n// In a row: td.student__name, td.student__score, td.student__note.\n// jQuery is already loaded.\n\n// 1. const $active = ... (rows with data-status=\"active\" inside #journal)\n\n// 2. #active-count: \"Active students: 4\" (the number from $active.length)\n\n// 3. Add the is-left class to the other .student rows (.not)\n\n// 4. Use .each to find the best score among active ones: Number(this.dataset.score)\n\n// 5. The row with the best score (in a tie - the first one): the is-best class,\n//    \"best\" in its .student__note, \"Best result: Name (95)\" in #best.\n//    If there are no active ones - \"No active students\" in #best.\n\n// 6. const names = ... (.map(...).get() - array of active names),\n//    names joined with \", \" in #names, the array in the console\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "getElementsBy",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".style.",
+      "addEventListener",
+      "for (",
+      "for("
+    ],
+    "tests": [
+      {
+        "name": "$active is a jQuery object with 4 active rows",
+        "check": "$active instanceof jQuery && $active.length === 4 && $active.toArray().every((r) => r.tagName === \"TR\" && r.dataset.status === \"active\")",
+        "fail": "const $active = $(\"#journal\").find('tr[data-status=\"active\"]'); - you need the tr rows themselves, not the cells."
+      },
+      {
+        "name": "Counter: \"Active students: 4\"",
+        "check": "document.querySelector(\"#active-count\").textContent === \"Active students: 4\"",
+        "fail": "$(\"#active-count\").text(`Active students: ${$active.length}`);"
+      },
+      {
+        "name": "The is-left class only on students who left",
+        "check": "$(\".is-left\").length === 2 && $(\".is-left\").toArray().every((r) => r.dataset.status === \"left\")",
+        "fail": "$(\"#journal .student\").not($active).addClass(\"is-left\");"
+      },
+      {
+        "name": "The best among active students is Dilnoza, not Timur who left (99)",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Dilnoza\"",
+        "fail": "Look for the maximum only among $active and add the is-best class to the tr row."
+      },
+      {
+        "name": "The best one's mark is \"best\", the others are empty",
+        "check": "[...document.querySelectorAll(\".student__note\")].map((n) => n.textContent).join(\"|\") === \"|||best||\"",
+        "fail": "Find the cell inside the row: $bestRow.find(\".student__note\").text(\"best\");"
+      },
+      {
+        "name": "#best: \"Best result: Dilnoza (95)\"",
+        "check": "document.querySelector(\"#best\").textContent === \"Best result: Dilnoza (95)\"",
+        "fail": "Take the name from the row: $bestRow.find(\".student__name\").text()."
+      },
+      {
+        "name": "Scores are compared as numbers: 100 is greater than 95",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Bobur\" && document.querySelector(\"#best\").textContent === \"Best result: Bobur (100)\"",
+        "fail": "data-score is a string, and \"100\" < \"95\" when comparing strings. Use Number(this.dataset.score).",
+        "setup": "$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Bobur\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Elena\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");"
+      },
+      {
+        "name": "In a tie, the best is the first one in the table",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Bobur\"",
+        "fail": "Take the first of the matching rows: .first().",
+        "setup": "$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Bobur\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Elena\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");"
+      },
+      {
+        "name": "names is an array of active names",
+        "check": "Array.isArray(names) && names.join(\",\") === \"Anna,Bobur,Dilnoza,Elena\"",
+        "fail": "At the end of the chain, .map(...) needs .get(), and inside the function - return $(this).text();"
+      },
+      {
+        "name": "#names: \"Anna, Bobur, Dilnoza, Elena\" and the array in the console",
+        "check": "document.querySelector(\"#names\").textContent === \"Anna, Bobur, Dilnoza, Elena\" && __logs.includes(JSON.stringify(names))",
+        "fail": "$(\"#names\").text(names.join(\", \")); console.log(names);"
+      },
+      {
+        "name": "A new active row is taken into account",
+        "check": "$active.length === 5 && document.querySelector(\"#active-count\").textContent === \"Active students: 5\" && names[4] === \"Zarina\"",
+        "fail": "Do not write numbers and names by hand - take everything from the table.",
+        "setup": "$(\"#journal tbody\").append('<tr class=\"student\" data-status=\"active\" data-score=\"80\"><td class=\"student__name\">Zarina</td><td class=\"student__score\">80</td><td class=\"student__note\"></td></tr>');"
+      },
+      {
+        "name": "With no active students: 0, \"No active students\", an empty array",
+        "check": "$active.length === 0 && document.querySelector(\"#active-count\").textContent === \"Active students: 0\" && document.querySelector(\"#best\").textContent === \"No active students\" && Array.isArray(names) && names.length === 0 && $(\".is-best\").length === 0 && __error === null",
+        "fail": "Check $bestRow.length === 0 before showing the best result.",
+        "setup": "$(\".student\").attr(\"data-status\", \"left\");"
+      },
+      {
+        "name": ".each and .map are used",
+        "check": "/\\.each\\(/.test(__code) && /\\.map\\(/.test(__code) && /\\.get\\(/.test(__code)",
+        "fail": "Iteration - .each(function () { ... }), the list of names - .map(...).get()."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check: inside .each and .map you need a regular function, not an arrow one, if you use this."
+      }
+    ],
+    "hints": [
+      "Attribute selector inside the table: $(\"#journal\").find('tr[data-status=\"active\"]').",
+      "Everything except the active ones: $(\"#journal .student\").not($active).",
+      "Inside .each(function () { ... }), this is the row's DOM element, and this.dataset.score is a string. Turn it into a number: Number(...).",
+      "Find the row with the best score with .filter(function () { return ... === bestScore; }).first(). If there are no active students, its .length is 0.",
+      "The name inside the row: $bestRow.find(\".student__name\").text().",
+      "Array of names: $active.find(\".student__name\").map(function () { return $(this).text(); }).get()."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What will $('li[data-status=\"active\"]') find?",
+        "options": [
+          "All li with the data-status attribute equal to active",
+          "All li with the active class",
+          "The first li with the data-status attribute",
+          "The data-status attribute of all li"
+        ],
+        "answer": 0,
+        "explanation": "The attribute selector [name=\"value\"] selects elements with the exact attribute value."
+      },
+      {
+        "type": "matching",
+        "question": "Match the method with the direction of movement through the tree.",
+        "pairs": [
+          [
+            ".parent()",
+            "One step up - to the parent"
+          ],
+          [
+            ".closest(\".card\")",
+            "Up to the closest matching ancestor (starting with itself)"
+          ],
+          [
+            ".children()",
+            "One step down - direct children"
+          ],
+          [
+            ".find(\".x\")",
+            "Down to any depth"
+          ],
+          [
+            ".siblings()",
+            "Sideways - all siblings"
+          ]
+        ],
+        "explanation": "parent and children - one level, closest and find - any number of levels, siblings - on the same level."
+      },
+      {
+        "type": "single",
+        "question": "How is .filter(\".done\") different from .find(\".done\")?",
+        "options": [
+          "No difference",
+          ".filter keeps only the matching ones out of those already found, .find searches for descendants inside them",
+          ".filter searches for descendants, .find narrows down those found",
+          ".filter returns an array, .find returns a jQuery object"
+        ],
+        "answer": 1,
+        "explanation": "filter narrows the set without searching inside. find goes down to descendants."
+      },
+      {
+        "type": "multiple",
+        "question": "Which code returns a jQuery object with only the second element of the list $items?",
+        "options": [
+          "$items.eq(1)",
+          "$items[1]",
+          "$items.first().next()",
+          "$items.eq(2)"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "eq counts from zero; [1] gives a DOM element, not a jQuery object; eq(2) is the third one."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\".task\").is(\".done\") return?",
+        "options": [
+          "A jQuery object with the finished tasks",
+          "true if at least one task has the done class",
+          "true only if all tasks are done",
+          "The number of tasks with the done class"
+        ],
+        "answer": 1,
+        "explanation": ".is() returns true/false: true if at least one element matches."
+      },
+      {
+        "type": "single",
+        "question": "What is this inside $(\".row\").each(function () { ... })?",
+        "options": [
+          "A jQuery object with all rows",
+          "The current DOM element of the iteration",
+          "The row number",
+          "The window object"
+        ],
+        "answer": 1,
+        "explanation": "this is a DOM element. To call jQuery methods, wrap it: $(this)."
+      },
+      {
+        "type": "input",
+        "question": "Which method do you add after .map(...) to get a regular JavaScript array? Enter the call with a dot, for example .first()",
+        "answers": [
+          ".get()",
+          ".toArray()"
+        ],
+        "case_sensitive": true,
+        "explanation": "In jQuery, .map() returns a jQuery object; .get() without an argument turns it into an array."
+      },
+      {
+        "type": "single",
+        "question": "Why does the code $rows.each(() => { $(this).addClass(\"x\"); }) not work?",
+        "options": [
+          "each does not accept functions",
+          "An arrow function has no this of its own: it is taken from outside, not the current element",
+          "addClass cannot be called inside each",
+          "You need to write this.addClass"
+        ],
+        "answer": 1,
+        "explanation": "For this, use a regular function or the (index, element) parameters."
+      },
+      {
+        "type": "single",
+        "question": "Rows have data-score=\"100\" and data-score=\"95\". What is this.dataset.score > \"95\" for the first row?",
+        "options": [
+          "true",
+          "false",
+          "An error",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "dataset always returns strings, and strings are compared character by character: \"1\" < \"9\". You need Number()."
+      },
+      {
+        "type": "multiple",
+        "question": "Which code is recommended in jQuery 4 instead of positional pseudo-classes?",
+        "options": [
+          "$(\"li\").first()",
+          "$(\"li:first\")",
+          "$(\"li\").eq(2)",
+          "$(\"li:eq(2)\")"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": ":first and :eq() are deprecated; use the methods .first(), .last(), .eq()."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with the type of result.",
+        "pairs": [
+          [
+            "$items.eq(0)",
+            "jQuery object"
+          ],
+          [
+            "$items.get(0)",
+            "DOM element"
+          ],
+          [
+            "$items.map(fn).get()",
+            "Array"
+          ],
+          [
+            "$items.is(\".done\")",
+            "true or false"
+          ]
+        ],
+        "explanation": "eq keeps a jQuery object, get(0) gives an element, get() after map gives an array, is gives a boolean."
+      },
+      {
+        "type": "input",
+        "question": "Which method keeps everything in the $students set EXCEPT the $active elements? Enter the method name without the dot and parentheses.",
+        "answers": [
+          "not"
+        ],
+        "case_sensitive": true,
+        "explanation": "$students.not($active) is the opposite of filter."
+      }
+    ]
+  }
+}

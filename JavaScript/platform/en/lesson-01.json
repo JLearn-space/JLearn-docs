@@ -56,41 +56,6 @@
       "Changing a value is written without let: lessonsDone = 1;",
       "Printing to the console: console.log(\"Student:\", studentName);",
       "End every statement with ;"
-    ],
-    "solution": "// Student card\n\nconst studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\n\n// The first lesson is done\nlessonsDone = 1;\n\nconsole.log(\"Student:\", studentName);\nconsole.log(\"Course:\", courseName);\nconsole.log(\"Lessons done:\", lessonsDone);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "starter code unchanged",
-        "code": "// Student card\n\n// 1. Constant studentName - your name (a string in double quotes)\n"
-      },
-      {
-        "mistake": "var instead of let and const",
-        "code": "var studentName = \"Anna\";\nvar courseName = \"JavaScript\";\nvar lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "the name is declared with let",
-        "code": "let studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "lessonsDone with const - error on change",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nconst lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "the value is not changed",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "a second declaration instead of assignment",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "no console output",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\n"
-      },
-      {
-        "mistake": "the course in lower case",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"javascript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      }
     ]
   },
   "test": {

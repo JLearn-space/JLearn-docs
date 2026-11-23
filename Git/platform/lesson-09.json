@@ -1,0 +1,267 @@
+{
+  "lesson": 9,
+  "language": "ru",
+  "lesson_title": "Командная работа",
+  "task": {
+    "title": "Синхронизация с товарищем по команде",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/site - клоне общего репозитория https://github.com/team/site.git. У вас есть локальный коммит, который ещё не отправлен, а товарищ Aziz уже отправил свой коммит с другим файлом. В notes.md у вас есть незакоммиченная правка. Напишите команды по одной на строке: 1) Посмотрите состояние и попробуйте отправить коммит командой git push - убедитесь, что Git его отклоняет. 2) Отложите незакоммиченную правку командой git stash и посмотрите список stash. 3) Выберите способ объединения: git config pull.rebase false (или ключ --no-rebase / --rebase у git pull) и заберите изменения товарища. 4) Отправьте свои коммиты. 5) Верните отложенную правку (git stash pop) и закоммитьте её с сообщением Update notes. 6) Отправьте коммит и проверьте, что рабочая папка чистая. Не используйте git push --force.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/site. Ваш коммит ещё не отправлен, Aziz уже отправил свой,\n# а в notes.md у вас есть незакоммиченная правка.\n\n# 1. Посмотрите состояние и попробуйте отправить коммит (push будет отклонён)\n\n# 2. Отложите незакоммиченную правку в stash и проверьте список\n\n# 3. Выберите способ объединения (pull.rebase false или ключ --no-rebase / --rebase) и заберите изменения\n\n# 4. Отправьте свои коммиты\n\n# 5. Верните отложенную правку и закоммитьте её с сообщением Update notes\n\n# 6. Отправьте коммит и убедитесь, что рабочая папка чистая\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// ученик клонировал общий репозиторий и сделал локальный коммит (ещё не отправлен)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Team site</h1>\" > index.html\necho \"# Notes\" > notes.md\necho \"- add contacts page\" >> notes.md\ngit add . && git commit -m \"Add home page\"`, { quiet: true });\n// товарищ по команде клонировал, изменил другой файл и отправил push\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\ngit push`, { user: \"aziz\", quiet: true });\n// у ученика ещё есть незакоммиченная правка\nsim.run(`echo \"- add footer\" >> notes.md`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Первый git push был отклонён (вы увидели ошибку)",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git push\") && c.code !== 0)",
+        "fail": "Начните с git push до git pull - убедитесь, что Git отклоняет отправку (fetch first)."
+      },
+      {
+        "name": "Правка отложена командой git stash",
+        "check": "__commands.some((c) => /^git stash( push| -m| -u| save|$)/.test(c.cmd) && c.code === 0)",
+        "fail": "Перед git pull отложите правку: git stash (или git stash push -m \"...\")."
+      },
+      {
+        "name": "На сервере есть коммит товарища Add styles",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add styles\" && c.author === \"Aziz Rakhimov\")",
+        "fail": "Коммит Aziz пропал с сервера - не используйте git push --force. Сначала git pull, потом git push."
+      },
+      {
+        "name": "На сервере есть ваш коммит Add home page",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add home page\")",
+        "fail": "Ваш локальный коммит не попал на сервер: после git pull выполните git push. Не делайте git reset --hard origin/main."
+      },
+      {
+        "name": "На сервере есть коммит Update notes от Anna Karimova",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Update notes\" && c.author === \"Anna Karimova\")",
+        "fail": "Верните правку (git stash pop), закоммитьте: git commit -am \"Update notes\", и отправьте git push."
+      },
+      {
+        "name": "В notes.md на сервере есть отложенная правка",
+        "check": "sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"notes.md\"] === \"# Notes\\n- add contacts page\\n- add footer\\n\"",
+        "fail": "Правка из stash должна вернуться командой git stash pop, а не git stash drop."
+      },
+      {
+        "name": "Локальная main совпадает с origin/main и с сервером",
+        "check": "repo !== null && repo.commit(\"main\") !== null && repo.commit(\"origin/main\") !== null && repo.commit(\"main\").hash === repo.commit(\"origin/main\").hash && repo.commit(\"main\").hash === sim.remote(\"https://github.com/team/site.git\").tip(\"main\")",
+        "fail": "После последнего коммита выполните git push - ветка не должна быть впереди origin/main."
+      },
+      {
+        "name": "Список stash пуст",
+        "check": "repo !== null && repo.stash().length === 0",
+        "fail": "git stash pop возвращает правку и удаляет запись из списка. git stash list должен быть пустым."
+      },
+      {
+        "name": "Рабочая папка чистая, слияние или rebase не остались незаконченными",
+        "check": "repo !== null && repo.branch === \"main\" && repo.state() === null && repo.status().clean",
+        "fail": "В конце git status должна ответить nothing to commit, working tree clean."
+      },
+      {
+        "name": "Файл товарища style.css появился у вас",
+        "check": "sim.read(\"~/site/style.css\") === \"body { margin: 0; }\\n\"",
+        "fail": "Заберите изменения товарища: git pull с выбранным способом объединения."
+      },
+      {
+        "name": "Не использован git push --force",
+        "check": "!__commands.some((c) => /^git push\\b.*(--force|\\s-f\\b)/.test(c.cmd))",
+        "fail": "--force перезаписывает чужие коммиты на сервере. Отклонённый push лечится через git pull."
+      },
+      {
+        "name": "Другие данные: на сервере коммиты обоих участников и правка из stash",
+        "check": "sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add contacts page\") && sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Add about page\") && sim.remote(\"https://github.com/team/site.git\").log(\"main\").some((c) => c.subject === \"Update notes\") && sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"notes.md\"] === \"# Notes\\n- check links\\n- check mobile layout\\n\" && sim.remote(\"https://github.com/team/site.git\").files(\"main\")[\"about.html\"] === \"<h1>About our team</h1>\\n\"",
+        "fail": "Решение должно работать с любыми файлами: верните правку именно из stash (git stash pop), а не набирайте её заново.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// ученик клонировал общий репозиторий и сделал локальный коммит (ещё не отправлен)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Contacts</h1>\" > contacts.html\necho \"# Notes\" > notes.md\necho \"- check links\" >> notes.md\ngit add . && git commit -m \"Add contacts page\"`, { quiet: true });\n// товарищ по команде клонировал, изменил другой файл и отправил push\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>About our team</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\ngit push`, { user: \"aziz\", quiet: true });\n// у ученика ещё есть незакоммиченная правка\nsim.run(`echo \"- check mobile layout\" >> notes.md`, { quiet: true });\n"
+      },
+      {
+        "name": "Другие данные: main синхронизирована, stash пуст, папка чистая",
+        "check": "repo !== null && repo.commit(\"main\") !== null && repo.commit(\"origin/main\") !== null && repo.commit(\"main\").hash === repo.commit(\"origin/main\").hash && repo.commit(\"main\").hash === sim.remote(\"https://github.com/team/site.git\").tip(\"main\") && repo.stash().length === 0 && repo.status().clean",
+        "fail": "Не опирайтесь на конкретные имена файлов: stash, pull, push, stash pop, commit -am, push.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.createRemote(\"https://github.com/team/site.git\", { readme: true });\n// ученик клонировал общий репозиторий и сделал локальный коммит (ещё не отправлен)\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>Contacts</h1>\" > contacts.html\necho \"# Notes\" > notes.md\necho \"- check links\" >> notes.md\ngit add . && git commit -m \"Add contacts page\"`, { quiet: true });\n// товарищ по команде клонировал, изменил другой файл и отправил push\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`git clone https://github.com/team/site.git\ncd site\necho \"<h1>About our team</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\ngit push`, { user: \"aziz\", quiet: true });\n// у ученика ещё есть незакоммиченная правка\nsim.run(`echo \"- check mobile layout\" >> notes.md`, { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах."
+      }
+    ],
+    "hints": [
+      "Отклонённый push с подсказкой fetch first - это нормально: на сервере есть чужой коммит.",
+      "git stash убирает правку в «карман», git stash list показывает его содержимое.",
+      "Без настройки git pull при расхождении ответит fatal: Need to specify how to reconcile divergent branches. Выполните git config pull.rebase false или git pull --no-rebase.",
+      "После git pull - git push, затем git stash pop.",
+      "Правка в уже отслеживаемом файле: git commit -am \"Update notes\", затем git push.",
+      "Проверка: git status - nothing to commit, working tree clean; git stash list - пусто."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Git ответил на push: ! [rejected] main -> main (fetch first). Что это значит?",
+        "options": [
+          "У вас нет прав на репозиторий",
+          "На сервере есть коммиты, которых нет у вас: сначала заберите их",
+          "Ваш коммит повреждён",
+          "Сервер GitHub недоступен"
+        ],
+        "answer": 1,
+        "explanation": "fetch first - «сначала заберите»: кто-то уже отправил коммиты. Нужно git pull, затем снова git push."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте настройку и что делает git pull при расхождении веток.",
+        "pairs": [
+          [
+            "pull.rebase false",
+            "Создаёт коммит слияния (merge)"
+          ],
+          [
+            "pull.rebase true",
+            "Переносит ваши коммиты поверх полученных (rebase)"
+          ],
+          [
+            "pull.ff only",
+            "Только перемотка, иначе отказ с ошибкой"
+          ]
+        ],
+        "explanation": "Без одной из этих настроек (или ключа) git pull при расхождении завершается fatal: Need to specify how to reconcile divergent branches."
+      },
+      {
+        "type": "single",
+        "question": "Ветки разошлись, настройка pull.rebase не задана. Что сделает git pull?",
+        "options": [
+          "Создаст коммит слияния",
+          "Выполнит rebase",
+          "Заберёт коммиты в origin/main, но остановится с fatal: Need to specify how to reconcile divergent branches.",
+          "Удалит ваши коммиты"
+        ],
+        "answer": 2,
+        "explanation": "С Git 2.33 git pull просит явно выбрать способ: merge, rebase или только перемотку."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие команды забирают изменения товарища при расхождении веток без ошибки (дерево чистое)?",
+        "options": [
+          "git pull --no-rebase",
+          "git pull --rebase",
+          "git pull (без настроек)",
+          "git pull --ff-only"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "--no-rebase - слияние, --rebase - перебазирование. --ff-only при расхождении откажет, а pull без настройки потребует выбрать способ."
+      },
+      {
+        "type": "input",
+        "question": "Какой командой отложить незакоммиченные изменения, чтобы рабочая папка стала чистой? Введите команду целиком.",
+        "answers": [
+          "git stash",
+          "git stash push"
+        ],
+        "case_sensitive": true,
+        "explanation": "git stash (то же, что git stash push) убирает изменения в «карман» и очищает рабочую папку."
+      },
+      {
+        "type": "single",
+        "question": "Чем git stash pop отличается от git stash apply?",
+        "options": [
+          "Ничем",
+          "pop возвращает изменения и удаляет запись из списка, apply возвращает и оставляет запись",
+          "pop удаляет изменения без возврата",
+          "apply работает только с новыми файлами"
+        ],
+        "answer": 1,
+        "explanation": "pop = apply + drop. Если при pop возник конфликт, запись остаётся в списке."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте команду и действие.",
+        "pairs": [
+          [
+            "git stash -u",
+            "Отложить и новые (неотслеживаемые) файлы"
+          ],
+          [
+            "git stash list",
+            "Показать отложенные записи"
+          ],
+          [
+            "git stash -m \"текст\"",
+            "Отложить с подписью"
+          ],
+          [
+            "git cherry-pick 7759e6e",
+            "Скопировать один коммит в текущую ветку"
+          ]
+        ],
+        "explanation": "Без -u stash не трогает неотслеживаемые файлы. cherry-pick создаёт копию коммита с новым хешем."
+      },
+      {
+        "type": "single",
+        "question": "Порядок шагов GitHub Flow:",
+        "options": [
+          "main → commit → merge → pull request → ветка",
+          "Ветка → коммиты → push → pull request → ревью → merge → удалить ветку",
+          "push --force → merge → ветка",
+          "Ветка → merge → коммиты → pull request"
+        ],
+        "answer": 1,
+        "explanation": "Работа идёт в короткой ветке, в main она попадает только через pull request после ревью."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про git rebase main, выполненный в ветке feature/menu?",
+        "options": [
+          "Коммиты ветки переносятся поверх main",
+          "У перенесённых коммитов появляются новые хеши",
+          "Коммит слияния создаётся всегда",
+          "Нельзя делать с веткой, которую уже используют другие"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "rebase переписывает историю: новые коммиты с новыми хешами, без коммита слияния. Опубликованные чужие ветки не перебазируют."
+      },
+      {
+        "type": "single",
+        "question": "Что такое pull request?",
+        "options": [
+          "Команда git pull на сервере",
+          "Запрос на слияние ветки, где команда обсуждает и проверяет изменения до merge",
+          "Скачивание чужого репозитория",
+          "Отмена чужого коммита"
+        ],
+        "answer": 1,
+        "explanation": "Pull request - страница на GitHub: изменения ветки, обсуждение, ревью, кнопка Merge pull request."
+      },
+      {
+        "type": "input",
+        "question": "Допишите команду, чтобы git pull в этом репозитории всегда делал слияние: git config pull.rebase ______",
+        "answers": [
+          "false"
+        ],
+        "case_sensitive": true,
+        "explanation": "pull.rebase false - слияние, true - rebase."
+      },
+      {
+        "type": "single",
+        "question": "git pull ответил: error: Your local changes to the following files would be overwritten by merge: notes.md. Что сделать?",
+        "options": [
+          "git push --force",
+          "Отложить правку (git stash) или закоммитить её, затем снова git pull",
+          "Удалить папку .git",
+          "git reset --hard origin/main"
+        ],
+        "answer": 1,
+        "explanation": "Git защищает вашу незакоммиченную правку. Отложите её в stash, заберите изменения и верните через git stash pop."
+      }
+    ]
+  }
+}

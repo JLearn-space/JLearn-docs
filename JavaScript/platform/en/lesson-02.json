@@ -84,41 +84,6 @@
       "A comparison already gives true or false: const isExpensive = total > 100000;",
       "A template string uses backticks: `Total: ${total} UZS`.",
       "The platform runs the code on several orders - a written-in 121500 only works for the first one."
-    ],
-    "solution": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\n\nconsole.log(receipt);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "starter code unchanged",
-        "code": "// 1. quantity - the quantity as a number\n"
-      },
-      {
-        "mistake": "the quantity stayed a string",
-        "code": "const quantity = quantityText;\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "ready-made numbers instead of expressions",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = 135000;\nconst discount = 13500;\nconst total = 121500;\nconst isExpensive = true;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "discount in per cent instead of so'm",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = discountPercent;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": ">= instead of >",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total >= 100000;\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "joining with + instead of a template string",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = \"Total: \" + total + \" UZS\";\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "isExpensive as a string",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = \"true\";\nconst receipt = `Total: ${total} UZS`;\nconsole.log(receipt);\n"
-      },
-      {
-        "mistake": "the receipt is not printed",
-        "code": "const quantity = Number(quantityText);\nconst subtotal = price * quantity;\nconst discount = subtotal * discountPercent / 100;\nconst total = subtotal - discount;\nconst isExpensive = total > 100000;\nconst receipt = `Total: ${total} UZS`;\n"
-      }
     ]
   },
   "test": {

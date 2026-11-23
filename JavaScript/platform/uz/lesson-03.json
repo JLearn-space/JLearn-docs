@@ -106,49 +106,6 @@
       "Ruxsat: const canEnter = age >= 14 && score >= 60;",
       "Ternar operator: shart ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\"",
       "Shablon satr: `Baho: ${grade}. ${status}`"
-    ],
-    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "// 1. let grade\n"
-      },
-      {
-        "mistake": "shartlar tartibi noto‘g‘ri",
-        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "90 chegarasida >= o‘rniga >",
-        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "baho satr ko‘rinishida",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "&& o‘rniga ||",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "yosh > 14",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "ternar o‘rniga if/else",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Ruxsat berildi\";\n} else {\n    status = \"Ruxsat berilmadi\";\n}\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "qat’iy bo‘lmagan solishtirish",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "else if o‘rniga alohida if lar",
-        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\nconsole.log(`Baho: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "chiqarish yo‘q",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Ruxsat berildi\" : \"Ruxsat berilmadi\";\n\n"
-      }
     ]
   },
   "test": {

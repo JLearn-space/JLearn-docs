@@ -1,0 +1,290 @@
+{
+  "lesson": 2,
+  "language": "ru",
+  "lesson_title": "Селекторы и обход DOM",
+  "task": {
+    "title": "Журнал группы",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Журнал группы</title>\n</head>\n<body>\n    <main>\n        <h1>Журнал группы JS-101</h1>\n        <table id=\"journal\">\n            <thead>\n                <tr><th>Ученик</th><th>Баллы</th><th>Отметка</th></tr>\n            </thead>\n            <tbody>\n                <tr class=\"student\" data-status=\"active\" data-score=\"87\"><td class=\"student__name\">Анна</td><td class=\"student__score\">87</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"72\"><td class=\"student__name\">Бобур</td><td class=\"student__score\">72</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"left\" data-score=\"99\"><td class=\"student__name\">Тимур</td><td class=\"student__score\">99</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"95\"><td class=\"student__name\">Дильноза</td><td class=\"student__score\">95</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"active\" data-score=\"64\"><td class=\"student__name\">Елена</td><td class=\"student__score\">64</td><td class=\"student__note\"></td></tr>\n                <tr class=\"student\" data-status=\"left\" data-score=\"58\"><td class=\"student__name\">Фарход</td><td class=\"student__score\">58</td><td class=\"student__note\"></td></tr>\n            </tbody>\n        </table>\n        <p id=\"active-count\"></p>\n        <p id=\"best\"></p>\n        <p id=\"names\"></p>\n    </main>\n</body>\n</html>",
+    "description": "В таблице #journal строки tr.student с атрибутами data-status (\"active\" или \"left\") и data-score (баллы), внутри - td.student__name, td.student__score и пустая td.student__note. jQuery уже подключён. 1) Сохраните в константу $active строки внутри #journal с data-status=\"active\" (атрибутный селектор). 2) Запишите в #active-count текст \"Активных учеников: 4\", где число - $active.length. 3) Остальным строкам .student добавьте класс is-left (метод .not). 4) Через .each найдите лучший балл среди активных учеников: Number(this.dataset.score). 5) Строке с лучшим баллом (при равенстве - первой в таблице) добавьте класс is-best, в её .student__note запишите \"лучший\", в #best - \"Лучший результат: Дильноза (95)\"; если активных учеников нет - \"Активных учеников нет\". 6) Соберите имена активных учеников в массив names через .map(...).get(), запишите в #names через запятую с пробелом и выведите массив в консоль. document.querySelector, innerHTML, .html() и циклы for не используйте.",
+    "starter_code": "// В таблице #journal строки tr.student с атрибутами\n// data-status (\"active\" или \"left\") и data-score (баллы).\n// В строке: td.student__name, td.student__score, td.student__note.\n// jQuery уже подключён.\n\n// 1. const $active = ... (строки с data-status=\"active\" внутри #journal)\n\n// 2. #active-count: \"Активных учеников: 4\" (число из $active.length)\n\n// 3. Остальным строкам .student добавьте класс is-left (.not)\n\n// 4. Через .each найдите лучший балл среди активных: Number(this.dataset.score)\n\n// 5. Строка с лучшим баллом (при равенстве - первая): класс is-best,\n//    в её .student__note - \"лучший\", в #best - \"Лучший результат: Имя (95)\".\n//    Если активных нет - в #best \"Активных учеников нет\".\n\n// 6. const names = ... (.map(...).get() - массив имён активных),\n//    в #names - имена через \", \", массив - в консоль\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "getElementsBy",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".style.",
+      "addEventListener",
+      "for (",
+      "for("
+    ],
+    "tests": [
+      {
+        "name": "$active - jQuery-объект с 4 активными строками",
+        "check": "$active instanceof jQuery && $active.length === 4 && $active.toArray().every((r) => r.tagName === \"TR\" && r.dataset.status === \"active\")",
+        "fail": "const $active = $(\"#journal\").find('tr[data-status=\"active\"]'); - нужны сами строки tr, а не ячейки."
+      },
+      {
+        "name": "Счётчик: \"Активных учеников: 4\"",
+        "check": "document.querySelector(\"#active-count\").textContent === \"Активных учеников: 4\"",
+        "fail": "$(\"#active-count\").text(`Активных учеников: ${$active.length}`);"
+      },
+      {
+        "name": "Класс is-left только у ушедших учеников",
+        "check": "$(\".is-left\").length === 2 && $(\".is-left\").toArray().every((r) => r.dataset.status === \"left\")",
+        "fail": "$(\"#journal .student\").not($active).addClass(\"is-left\");"
+      },
+      {
+        "name": "Лучший среди активных - Дильноза, а не ушедший Тимур (99)",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Дильноза\"",
+        "fail": "Ищите максимум только среди $active и добавьте класс is-best строке tr."
+      },
+      {
+        "name": "В отметке лучшего - \"лучший\", остальные пустые",
+        "check": "[...document.querySelectorAll(\".student__note\")].map((n) => n.textContent).join(\"|\") === \"|||лучший||\"",
+        "fail": "Внутри строки найдите ячейку: $bestRow.find(\".student__note\").text(\"лучший\");"
+      },
+      {
+        "name": "#best: \"Лучший результат: Дильноза (95)\"",
+        "check": "document.querySelector(\"#best\").textContent === \"Лучший результат: Дильноза (95)\"",
+        "fail": "Имя возьмите из строки: $bestRow.find(\".student__name\").text()."
+      },
+      {
+        "name": "Баллы сравниваются как числа: 100 больше 95",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Бобур\" && document.querySelector(\"#best\").textContent === \"Лучший результат: Бобур (100)\"",
+        "fail": "data-score - строка, а \"100\" < \"95\" при сравнении строк. Используйте Number(this.dataset.score).",
+        "setup": "$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Бобур\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Елена\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");"
+      },
+      {
+        "name": "При равенстве баллов лучший - первый в таблице",
+        "check": "$(\".is-best\").length === 1 && $(\".is-best\").find(\".student__name\").text() === \"Бобур\"",
+        "fail": "Из подходящих строк возьмите первую: .first().",
+        "setup": "$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Бобур\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");$(\".student\").filter(function () { return $(this).find(\".student__name\").text() === \"Елена\"; }).attr(\"data-score\", \"100\").find(\".student__score\").text(\"100\");"
+      },
+      {
+        "name": "names - массив имён активных",
+        "check": "Array.isArray(names) && names.join(\",\") === \"Анна,Бобур,Дильноза,Елена\"",
+        "fail": "В конце цепочки .map(...) нужен .get(), а внутри функции - return $(this).text();"
+      },
+      {
+        "name": "#names: \"Анна, Бобур, Дильноза, Елена\" и массив в консоли",
+        "check": "document.querySelector(\"#names\").textContent === \"Анна, Бобур, Дильноза, Елена\" && __logs.includes(JSON.stringify(names))",
+        "fail": "$(\"#names\").text(names.join(\", \")); console.log(names);"
+      },
+      {
+        "name": "Новая активная строка учитывается",
+        "check": "$active.length === 5 && document.querySelector(\"#active-count\").textContent === \"Активных учеников: 5\" && names[4] === \"Зарина\"",
+        "fail": "Не пишите числа и имена вручную - всё берите из таблицы.",
+        "setup": "$(\"#journal tbody\").append('<tr class=\"student\" data-status=\"active\" data-score=\"80\"><td class=\"student__name\">Зарина</td><td class=\"student__score\">80</td><td class=\"student__note\"></td></tr>');"
+      },
+      {
+        "name": "Без активных учеников: 0, \"Активных учеников нет\", пустой массив",
+        "check": "$active.length === 0 && document.querySelector(\"#active-count\").textContent === \"Активных учеников: 0\" && document.querySelector(\"#best\").textContent === \"Активных учеников нет\" && Array.isArray(names) && names.length === 0 && $(\".is-best\").length === 0 && __error === null",
+        "fail": "Проверьте $bestRow.length === 0 до того, как выводить лучший результат.",
+        "setup": "$(\".student\").attr(\"data-status\", \"left\");"
+      },
+      {
+        "name": "Используются .each и .map",
+        "check": "/\\.each\\(/.test(__code) && /\\.map\\(/.test(__code) && /\\.get\\(/.test(__code)",
+        "fail": "Перебор - .each(function () { ... }), список имён - .map(...).get()."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте: внутри .each и .map нужна обычная функция (function), а не стрелочная, если вы используете this."
+      }
+    ],
+    "hints": [
+      "Атрибутный селектор внутри таблицы: $(\"#journal\").find('tr[data-status=\"active\"]').",
+      "Все, кроме активных: $(\"#journal .student\").not($active).",
+      "Внутри .each(function () { ... }) this - DOM-элемент строки, а this.dataset.score - строка. Превратите её в число: Number(...).",
+      "Строку с лучшим баллом найдите через .filter(function () { return ... === bestScore; }).first(). Если активных нет, её .length равна 0.",
+      "Имя внутри строки: $bestRow.find(\".student__name\").text().",
+      "Массив имён: $active.find(\".student__name\").map(function () { return $(this).text(); }).get()."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что найдёт $('li[data-status=\"active\"]')?",
+        "options": [
+          "Все li с атрибутом data-status, равным active",
+          "Все li с классом active",
+          "Первый li с атрибутом data-status",
+          "Атрибут data-status у всех li"
+        ],
+        "answer": 0,
+        "explanation": "Атрибутный селектор [имя=\"значение\"] отбирает элементы с точным значением атрибута."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте метод и направление движения по дереву.",
+        "pairs": [
+          [
+            ".parent()",
+            "Один шаг вверх - к родителю"
+          ],
+          [
+            ".closest(\".card\")",
+            "Вверх до ближайшего подходящего предка (начиная с себя)"
+          ],
+          [
+            ".children()",
+            "Один шаг вниз - прямые дети"
+          ],
+          [
+            ".find(\".x\")",
+            "Вниз на любую глубину"
+          ],
+          [
+            ".siblings()",
+            "В стороны - все соседи"
+          ]
+        ],
+        "explanation": "parent и children - один уровень, closest и find - сколько угодно уровней, siblings - на том же уровне."
+      },
+      {
+        "type": "single",
+        "question": "Чем .filter(\".done\") отличается от .find(\".done\")?",
+        "options": [
+          "Ничем",
+          ".filter оставляет из уже найденных только подходящие, .find ищет внутри них потомков",
+          ".filter ищет потомков, .find отбирает из найденных",
+          ".filter возвращает массив, .find - jQuery-объект"
+        ],
+        "answer": 1,
+        "explanation": "filter сужает набор, ничего не ища внутри. find спускается к потомкам."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи вернут jQuery-объект с одним вторым элементом списка $items?",
+        "options": [
+          "$items.eq(1)",
+          "$items[1]",
+          "$items.first().next()",
+          "$items.eq(2)"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "eq считает с нуля; [1] даёт DOM-элемент, а не jQuery-объект; eq(2) - третий."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\".task\").is(\".done\")?",
+        "options": [
+          "jQuery-объект с выполненными задачами",
+          "true, если хотя бы одна задача имеет класс done",
+          "true, только если все задачи done",
+          "Число задач с классом done"
+        ],
+        "answer": 1,
+        "explanation": ".is() возвращает true/false: true, если хотя бы один элемент подходит."
+      },
+      {
+        "type": "single",
+        "question": "Что такое this внутри $(\".row\").each(function () { ... })?",
+        "options": [
+          "jQuery-объект со всеми строками",
+          "Текущий DOM-элемент перебора",
+          "Номер строки",
+          "Объект window"
+        ],
+        "answer": 1,
+        "explanation": "this - DOM-элемент. Чтобы вызвать методы jQuery, оборачивайте: $(this)."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод нужно дописать после .map(...), чтобы получить обычный массив JavaScript? Введите вызов с точкой, например .first()",
+        "answers": [
+          ".get()",
+          ".toArray()"
+        ],
+        "case_sensitive": true,
+        "explanation": ".map() в jQuery возвращает jQuery-объект; .get() без аргумента превращает его в массив."
+      },
+      {
+        "type": "single",
+        "question": "Почему код $rows.each(() => { $(this).addClass(\"x\"); }) не работает?",
+        "options": [
+          "each не принимает функции",
+          "У стрелочной функции нет своего this: он берётся снаружи, а не текущий элемент",
+          "addClass нельзя вызывать внутри each",
+          "Нужно писать this.addClass"
+        ],
+        "answer": 1,
+        "explanation": "Для this используйте обычную function или параметры (index, element)."
+      },
+      {
+        "type": "single",
+        "question": "Строки data-score=\"100\" и data-score=\"95\". Чему равно this.dataset.score > \"95\" для первой строки?",
+        "options": [
+          "true",
+          "false",
+          "Ошибка",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "dataset всегда возвращает строки, а строки сравниваются посимвольно: \"1\" < \"9\". Нужен Number()."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи рекомендуются в jQuery 4 вместо позиционных псевдоклассов?",
+        "options": [
+          "$(\"li\").first()",
+          "$(\"li:first\")",
+          "$(\"li\").eq(2)",
+          "$(\"li:eq(2)\")"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": ":first и :eq() устарели; используйте методы .first(), .last(), .eq()."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте запись и тип результата.",
+        "pairs": [
+          [
+            "$items.eq(0)",
+            "jQuery-объект"
+          ],
+          [
+            "$items.get(0)",
+            "DOM-элемент"
+          ],
+          [
+            "$items.map(fn).get()",
+            "Массив"
+          ],
+          [
+            "$items.is(\".done\")",
+            "true или false"
+          ]
+        ],
+        "explanation": "eq оставляет jQuery-объект, get(0) - элемент, get() после map - массив, is - логическое значение."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод оставит в наборе $students всё, КРОМЕ элементов $active? Введите имя метода без точки и скобок.",
+        "answers": [
+          "not"
+        ],
+        "case_sensitive": true,
+        "explanation": "$students.not($active) - противоположность filter."
+      }
+    ]
+  }
+}

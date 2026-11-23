@@ -1,0 +1,274 @@
+{
+  "lesson": 3,
+  "language": "en",
+  "lesson_title": "History and changes",
+  "task": {
+    "title": "Bring deleted text back from the history",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the ~/portfolio folder, and Git is configured. The history has several commits by different authors, and one of them deleted part of the text from about.html - its message starts with the word Remove. The number and hash of this commit are not known in advance: find it in the history. Write the commands one per line: 1) View the history with git log and git log --oneline. 2) Find the commit whose message starts with Remove and look at its changes (git show). 3) Print about.html from the commit BEFORE it (git show HEAD~N:about.html). 4) Write this version into about.html (the > sign) and check git status and git diff. 5) Add about.html to the index and check git diff --staged. 6) Make a commit with a message that starts with Restore (for example, Restore team section). 7) Check the history: git log --oneline -n 3.",
+    "starter_code": "# Write commands one per line. Lines starting with # are comments.\n# You are in the ~/portfolio folder, Git is configured, the history already has several commits.\n\n# 1. Project history: detailed and short (--oneline)\n\n# 2. Find the commit whose message starts with Remove and look at its changes\n\n# 3. Show about.html in the commit BEFORE it (HEAD~N:about.html)\n\n# 4. Write this version into about.html and check git status and git diff\n\n# 5. Add the file to the index and check git diff --staged\n\n# 6. A commit with a message that starts with Restore\n\n# 7. Check the result in the history\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About me</h1>\n<p>I am learning web development.</p>\n<h2>Team</h2>\n<ul>\n  <li>Anna Karimova - design</li>\n  <li>Aziz Rakhimov - JavaScript</li>\n</ul>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Aziz Rakhimov\";\nsim.user.config[\"user.email\"] = \"aziz@example.com\";\nsim.run(`echo \"body { font-family: sans-serif; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"\ncat > about.html << 'EOF'\n<h1>About me</h1>\n<p>I am learning web development.</p>\nEOF\ngit commit -am \"Remove team section\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo '<a href=\"about.html\">About</a>' >> index.html\ngit commit -am \"Add link to about page\"\necho \"My first website with Git.\" >> README.md\ngit commit -am \"Update README\"`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes and the > sign in your commands."
+      },
+      {
+        "name": "Exactly one new commit was added",
+        "check": "repo !== null && repo.head() !== null && repo.log().length === 7",
+        "fail": "You need one commit: git add about.html, then git commit -m \"Restore ...\". If Git answered nothing to commit, the file did not change: you took the wrong version."
+      },
+      {
+        "name": "The old commits are unchanged",
+        "check": "repo !== null && repo.head() !== null && repo.log().slice(-6).map((c) => c.subject).join(\"|\") === \"Update README|Add link to about page|Remove team section|Add styles|Add about page|Add home page\"",
+        "fail": "The new commit must go on top of the history; you do not need to touch the old commits."
+      },
+      {
+        "name": "The Team section is back in about.html in the latest commit",
+        "check": "repo !== null && repo.head() !== null && (repo.commit(\"HEAD\").files[\"about.html\"] ?? \"\").includes(\"<h2>Team</h2>\")",
+        "fail": "Take about.html from the commit BEFORE the Remove team section commit: git show HEAD~3:about.html"
+      },
+      {
+        "name": "about.html matches the version before the deletion",
+        "check": "repo !== null && repo.head() !== null && repo.commit(\"HEAD\").files[\"about.html\"] === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })()",
+        "fail": "The file must fully match the old version: git show HEAD~3:about.html > about.html (with the colon and the file name)."
+      },
+      {
+        "name": "The file in the working directory is restored too",
+        "check": "repo !== null && repo.head() !== null && sim.read(\"~/portfolio/about.html\") === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })()",
+        "fail": "Write the old version into about.html with the > sign and check cat about.html."
+      },
+      {
+        "name": "The new commit changes only about.html",
+        "check": "repo !== null && repo.head() !== null && (() => { const a = repo.commit(\"HEAD\").files; const b = repo.commit(\"HEAD~1\").files; const ka = Object.keys(a).sort().join(\",\"); const kb = Object.keys(b).sort().join(\",\"); return ka === kb && Object.keys(b).every((f) => f === \"about.html\" || a[f] === b[f]) && a[\"about.html\"] !== b[\"about.html\"]; })()",
+        "fail": "Add only about.html to the index; do not change other files or create new ones."
+      },
+      {
+        "name": "The commit message starts with Restore",
+        "check": "repo !== null && repo.head() !== null && /^Restore \\S/.test(repo.commit(\"HEAD\").subject) && repo.commit(\"HEAD\").subject.length <= 50",
+        "fail": "Example: git commit -m \"Restore team section\" - in English, up to 50 characters."
+      },
+      {
+        "name": "All changes are committed",
+        "check": "repo !== null && repo.head() !== null && repo.status().clean",
+        "fail": "After the commit, git status should answer nothing to commit, working tree clean."
+      },
+      {
+        "name": "The history was viewed with git log",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git log\") && c.code === 0)",
+        "fail": "Start with git log and git log --oneline: this is how you find the right commit."
+      },
+      {
+        "name": "The changes were viewed with git show or git diff",
+        "check": "__commands.some((c) => (c.cmd.startsWith(\"git show\") || c.cmd.startsWith(\"git diff\")) && c.code === 0)",
+        "fail": "Look at what the commit deleted: git show HEAD~2."
+      },
+      {
+        "name": "Different history: the deleted Skills list is restored",
+        "check": "repo !== null && repo.head() !== null && repo.log().length === 6 && repo.commit(\"HEAD\").files[\"about.html\"] === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })() && repo.commit(\"HEAD\").files[\"about.html\"].includes(\"Skills\")",
+        "fail": "The solution must not depend on specific text or a hash: use HEAD~N:about.html, not echo with ready-made text.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Portfolio</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\n<h2>Skills</h2>\n<p>HTML, CSS, JavaScript, jQuery</p>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Dilnoza Yusupova\";\nsim.user.config[\"user.email\"] = \"dilnoza@example.com\";\nsim.run(`cat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\nEOF\ngit commit -am \"Remove skills list\"\necho \"h1 { color: navy; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo \"<footer>2026</footer>\" >> index.html\ngit commit -am \"Add footer\"`, { quiet: true });\n"
+      },
+      {
+        "name": "Different history: the new Restore commit changes only about.html",
+        "check": "repo !== null && repo.head() !== null && /^Restore \\S/.test(repo.commit(\"HEAD\").subject) && (() => { const a = repo.commit(\"HEAD\").files; const b = repo.commit(\"HEAD~1\").files; const ka = Object.keys(a).sort().join(\",\"); const kb = Object.keys(b).sort().join(\",\"); return ka === kb && Object.keys(b).every((f) => f === \"about.html\" || a[f] === b[f]) && a[\"about.html\"] !== b[\"about.html\"]; })() && repo.status().clean",
+        "fail": "The hashes in the other history are different - refer to commits with HEAD~N.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Portfolio</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\n<h2>Skills</h2>\n<p>HTML, CSS, JavaScript, jQuery</p>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Dilnoza Yusupova\";\nsim.user.config[\"user.email\"] = \"dilnoza@example.com\";\nsim.run(`cat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\nEOF\ngit commit -am \"Remove skills list\"\necho \"h1 { color: navy; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo \"<footer>2026</footer>\" >> index.html\ngit commit -am \"Add footer\"`, { quiet: true });\n"
+      }
+    ],
+    "hints": [
+      "git log --oneline: the top line is HEAD, the next one is HEAD~1, then HEAD~2 and so on.",
+      "The Remove... commit is on the third line, so it is HEAD~2. The old text is in the commit before it: HEAD~3.",
+      "First look at the file without writing it: git show HEAD~3:about.html. If the output contains the deleted text, the version is right.",
+      "Writing to the file: git show HEAD~3:about.html > about.html - the colon and the file name are required.",
+      "Do not type the text by hand and do not use a hash: the check includes another history with different text and different hashes.",
+      "git add about.html, then git commit -m \"Restore team section\"."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What does git log --oneline do?",
+        "options": [
+          "Shows only the latest commit",
+          "Shows the history: one line per commit - the short hash and the message",
+          "Deletes long messages from the history",
+          "Shows the changed lines of each commit"
+        ],
+        "answer": 1,
+        "explanation": "--oneline shrinks each commit to one line: 7 characters of the hash and the first line of the message."
+      },
+      {
+        "type": "matching",
+        "question": "Match the line from the output of git log with its meaning.",
+        "pairs": [
+          [
+            "commit d15527edf406...",
+            "The full hash - the unique name of the commit"
+          ],
+          [
+            "Author: Aziz Rakhimov <aziz@example.com>",
+            "Who made the commit"
+          ],
+          [
+            "Date:   Tue Sep 1 10:04:00 2026 +0500",
+            "When the commit was made"
+          ],
+          [
+            "    Remove team section",
+            "The commit message"
+          ]
+        ],
+        "explanation": "Every commit in git log is a hash, an author, a date and a message."
+      },
+      {
+        "type": "single",
+        "question": "In a real terminal, git log opened a long history, and there is a colon or (END) at the bottom. How do you get back to the command line?",
+        "options": [
+          "Press Ctrl+S",
+          "Press the q key",
+          "Type exit and press Enter",
+          "Close the terminal - there is no other way"
+        ],
+        "answer": 1,
+        "explanation": "Git opens long output in a pager program (less). Space shows the next page, q (quit) exits."
+      },
+      {
+        "type": "multiple",
+        "question": "git log --oneline showed: a1b2c3d (HEAD -> main) Add footer / e4f5a6b Add styles / 9c8d7e6 Add home page. Which of these point to the Add styles commit?",
+        "options": [
+          "HEAD~1",
+          "e4f5a6b",
+          "HEAD~2",
+          "HEAD^"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "HEAD is Add footer, HEAD~1 and HEAD^ are its parent Add styles; e4f5a6b is the short hash of the same commit. HEAD~2 is Add home page."
+      },
+      {
+        "type": "single",
+        "question": "You changed index.html but have not run git add yet. What does git diff --staged show?",
+        "options": [
+          "The changes in index.html",
+          "Nothing: there are no new changes in the index",
+          "A fatal error",
+          "The whole index.html file"
+        ],
+        "answer": 1,
+        "explanation": "--staged compares the index with the latest commit. While the changes are only in the working directory, plain git diff shows them."
+      },
+      {
+        "type": "matching",
+        "question": "Match the line of a unified diff with its meaning.",
+        "pairs": [
+          [
+            "--- a/about.html",
+            "The old version of the file"
+          ],
+          [
+            "+++ b/about.html",
+            "The new version of the file"
+          ],
+          [
+            "@@ -1,7 +1,2 @@",
+            "Where the hunk is: there were 7 lines from line 1, now there are 2 from line 1"
+          ],
+          [
+            "-<h2>Team</h2>",
+            "The line was deleted"
+          ],
+          [
+            "+<h2>Team</h2>",
+            "The line was added"
+          ]
+        ],
+        "explanation": "Minus means deleted, plus means added, lines without a sign are unchanged context."
+      },
+      {
+        "type": "input",
+        "question": "Write the command that prints the content of about.html as it was two commits ago (relative to HEAD).",
+        "answers": [
+          "git show HEAD~2:about.html",
+          "git show HEAD^^:about.html"
+        ],
+        "case_sensitive": true,
+        "explanation": "git show <commit>:<file> prints the file from the given commit and changes nothing in the working directory."
+      },
+      {
+        "type": "single",
+        "question": "How is git show HEAD~2 different from git show HEAD~2:about.html?",
+        "options": [
+          "They are the same",
+          "The first shows the commit (author, date, message and diff), the second shows only the content of the file in that commit",
+          "The first restores the file, the second deletes it",
+          "The second works only in Git 3.0"
+        ],
+        "answer": 1,
+        "explanation": "Without a colon, git show shows the commit itself and its changes; with :file it shows a snapshot of one file."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about a commit hash?",
+        "options": [
+          "It is calculated from the content of the commit, so it is different for different commits",
+          "In commands you can use the short hash - the first 7 characters",
+          "The author of the commit makes it up",
+          "In Git 2.x it is a 40-character SHA-1; in Git 3.0 the default will be a 64-character SHA-256"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "A hash is a commit's \"fingerprint\": Git calculates it itself from the content, author, date and parent."
+      },
+      {
+        "type": "input",
+        "question": "Complete the command to see only the last 3 commits in short form: git log --oneline ___",
+        "answers": [
+          "-n 3",
+          "-3",
+          "-n3",
+          "--max-count=3"
+        ],
+        "case_sensitive": true,
+        "explanation": "-n 3 (or -3) limits the number of commits."
+      },
+      {
+        "type": "single",
+        "question": "Which command shows the difference between the two commits HEAD~3 and HEAD?",
+        "options": [
+          "git diff HEAD~3 HEAD",
+          "git log HEAD~3 HEAD -p --staged",
+          "git show HEAD~3 > HEAD",
+          "git status HEAD~3"
+        ],
+        "answer": 0,
+        "explanation": "git diff A B shows what must change in A to get B: lines with - were in A, lines with + appeared in B."
+      },
+      {
+        "type": "single",
+        "question": "You ran git show HEAD~3:about.html > about.html. What happened?",
+        "options": [
+          "Git made a new commit with the old about.html",
+          "The old version of the file was written into the working directory; Git sees it as a change that still has to be added and committed",
+          "The history went back 3 commits",
+          "The last 3 commits were deleted"
+        ],
+        "answer": 1,
+        "explanation": "The > sign writes the output into a file. The history does not change: next you need git add and git commit."
+      }
+    ]
+  }
+}

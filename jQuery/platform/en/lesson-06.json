@@ -1,0 +1,281 @@
+{
+  "lesson": 6,
+  "language": "en",
+  "lesson_title": "Events",
+  "task": {
+    "title": "A live page: likes, theme, list, counter",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Events in jQuery</title>\n</head>\n<body>\n    <main>\n        <h1>jQuery course</h1>\n\n        <section class=\"likes\">\n            <button type=\"button\" id=\"like-btn\">Like</button>\n            <span id=\"like-count\">0</span>\n        </section>\n\n        <button type=\"button\" id=\"theme-toggle\" aria-pressed=\"false\">Dark theme</button>\n\n        <section class=\"todo\">\n            <h2>Plan for the week</h2>\n            <ul id=\"todo-list\">\n                <li class=\"item\"><span class=\"item__text\">Review selectors</span> <button type=\"button\" class=\"item__delete\">Delete</button></li>\n                <li class=\"item\"><span class=\"item__text\">Complete lesson 6</span> <button type=\"button\" class=\"item__delete\">Delete</button></li>\n                <li class=\"item\"><span class=\"item__text\">Submit the IDE task</span> <button type=\"button\" class=\"item__delete\">Delete</button></li>\n            </ul>\n            <p id=\"items-count\">Items: 3</p>\n        </section>\n\n        <label for=\"comment\">Comment</label>\n        <textarea id=\"comment\" maxlength=\"100\"></textarea>\n        <p id=\"comment-counter\">0 / 100</p>\n    </main>\n</body>\n</html>",
+    "description": "Bring the page to life with jQuery. 1) A click on #like-btn increases the number in #like-count by 1 (the variable let likes = 0 is outside the handler). 2) A click on #theme-toggle toggles the class theme-dark on body and sets the button's aria-pressed to \"true\" or \"false\". 3) Deleting with delegation: one handler $(\"#todo-list\").on(\"click\", \".item__delete\", ...) deletes the whole li.item whose button was clicked and writes \"Items: 2\" into #items-count (the number is how many items are left). Items added after the page loads must be deleted too. 4) When the user types in #comment, #comment-counter shows \"12 / 100\", and if there are more than 90 characters, #comment-counter has the class is-warning. Handlers only through .on(); do not use .click(fn), addEventListener, onclick, innerHTML, .html() or .style.",
+    "starter_code": "// On the page: #like-btn and #like-count, the button #theme-toggle,\n// the list #todo-list with items li.item (.item__text + the button .item__delete),\n// the paragraph #items-count, the field #comment and the paragraph #comment-counter.\n// jQuery is already loaded. Handlers only through .on().\n\n// 1. Likes: let likes = 0; outside the handler, a click on #like-btn -> +1\n\n// 2. Theme: the class theme-dark on body, aria-pressed on the button (\"true\" / \"false\")\n\n// 3. Deleting: ONE handler on #todo-list\n//    $list.on(\"click\", \".item__delete\", function () { ... });\n//    then update #items-count: \"Items: 2\"\n\n// 4. Character counter: the input event, the text \"12 / 100\",\n//    the class is-warning if there are more than 90 characters\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "addEventListener",
+      ".style.",
+      ".click(",
+      ".bind(",
+      ".delegate("
+    ],
+    "tests": [
+      {
+        "name": "One click on \"Like\" → 1",
+        "check": "(() => { document.querySelector(\"#like-btn\").click(); return document.querySelector(\"#like-count\").textContent === \"1\"; })()",
+        "fail": "In the handler, increase likes and write it into #like-count: $likeCount.text(likes);"
+      },
+      {
+        "name": "Three clicks → 3",
+        "check": "(() => { const b = document.querySelector(\"#like-btn\"); b.click(); b.click(); b.click(); return document.querySelector(\"#like-count\").textContent === \"3\"; })()",
+        "fail": "Declare let likes = 0; OUTSIDE the handler, otherwise the count starts over every time."
+      },
+      {
+        "name": "Theme: the first click turns on theme-dark and aria-pressed=\"true\"",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); return document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"true\"; })()",
+        "fail": "$(\"body\").toggleClass(\"theme-dark\"); then $(this).attr(\"aria-pressed\", String(isDark));"
+      },
+      {
+        "name": "Theme: the second click turns it off",
+        "check": "(() => { const b = document.querySelector(\"#theme-toggle\"); b.click(); b.click(); return !document.body.classList.contains(\"theme-dark\") && b.getAttribute(\"aria-pressed\") === \"false\"; })()",
+        "fail": "Use toggleClass, not addClass, and set aria-pressed from the new state."
+      },
+      {
+        "name": "The \"Delete\" button removes the whole item",
+        "check": "(() => { document.querySelectorAll(\".item__delete\")[0].click(); const texts = [...document.querySelectorAll(\"#todo-list .item__text\")].map((s) => s.textContent); return document.querySelectorAll(\"#todo-list .item\").length === 2 && texts[0] === \"Complete lesson 6\" && texts[1] === \"Submit the IDE task\"; })()",
+        "fail": "Delete the item, not the button: $(this).closest(\".item\").remove();"
+      },
+      {
+        "name": "After deleting: \"Items: 2\"",
+        "check": "(() => { document.querySelectorAll(\".item__delete\")[1].click(); return document.querySelector(\"#items-count\").textContent === \"Items: 2\"; })()",
+        "fail": "After remove(), count the items: $list.children(\".item\").length - and write the number into #items-count."
+      },
+      {
+        "name": "An item added after loading is deleted too (delegation)",
+        "check": "(() => { $(\"#todo-list\").append(\"<li class=\\\"item\\\"><span class=\\\"item__text\\\">New item</span> <button type=\\\"button\\\" class=\\\"item__delete\\\">Delete</button></li>\"); const btns = document.querySelectorAll(\".item__delete\"); btns[btns.length - 1].click(); return document.querySelectorAll(\"#todo-list .item\").length === 3 && ![...document.querySelectorAll(\".item__text\")].some((s) => s.textContent === \"New item\"); })()",
+        "fail": "Attach ONE handler with a selector to #todo-list: $list.on(\"click\", \".item__delete\", function () { ... }); - then new items work too."
+      },
+      {
+        "name": "A click on the item text deletes nothing",
+        "check": "(() => { document.querySelectorAll(\".item__text\")[0].click(); document.querySelectorAll(\".item\")[0].click(); return document.querySelectorAll(\"#todo-list .item\").length === 3 && document.querySelector(\"#items-count\").textContent === \"Items: 3\"; })()",
+        "fail": "The second argument of .on() is the selector \".item__delete\": the handler must fire only on the buttons."
+      },
+      {
+        "name": "All items deleted: \"Items: 0\"",
+        "check": "(() => { for (let i = 0; i < 3; i++) { document.querySelector(\".item__delete\").click(); } return document.querySelectorAll(\"#todo-list .item\").length === 0 && document.querySelector(\"#items-count\").textContent === \"Items: 0\" && __error === null; })()",
+        "fail": "Count the items again after each deletion instead of decreasing the number by hand."
+      },
+      {
+        "name": "Character counter: \"JavaScript\" → \"10 / 100\"",
+        "check": "(() => { (() => { const c = document.querySelector(\"#comment\"); c.value = \"JavaScript\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); return document.querySelector(\"#comment-counter\").textContent === \"10 / 100\"; })()",
+        "fail": "The input event: $(\"#comment-counter\").text(`${length} / 100`); where length = $(this).val().length."
+      },
+      {
+        "name": "The counter goes back to \"0 / 100\" when the field is cleared",
+        "check": "(() => { (() => { const c = document.querySelector(\"#comment\"); c.value = \"Hello\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); (() => { const c = document.querySelector(\"#comment\"); c.value = \"\"; c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); return document.querySelector(\"#comment-counter\").textContent === \"0 / 100\"; })()",
+        "fail": "Take the length from the field's current value on every input event."
+      },
+      {
+        "name": "Class is-warning: present at 95 and 98 characters, absent at 5",
+        "check": "(() => { const p = document.querySelector(\"#comment-counter\"); (() => { const c = document.querySelector(\"#comment\"); c.value = \"a\".repeat(95); c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); const a = p.classList.contains(\"is-warning\"); (() => { const c = document.querySelector(\"#comment\"); c.value = \"a\".repeat(98); c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); const b = p.classList.contains(\"is-warning\"); (() => { const c = document.querySelector(\"#comment\"); c.value = \"a\".repeat(5); c.dispatchEvent(new Event(\"input\", { bubbles: true })); })(); const c = p.classList.contains(\"is-warning\"); return a && b && !c; })()",
+        "fail": "Pass the state as the second argument: .toggleClass(\"is-warning\", length > 90). Without it, the class simply toggles on every input."
+      },
+      {
+        "name": "Handlers are attached with .on()",
+        "check": "/\\.on\\(\\s*[\"']click[\"']/.test(__code) && /\\.on\\(\\s*[\"']input[\"']/.test(__code)",
+        "fail": "Subscribe like this: $el.on(\"click\", ...) and $el.on(\"input\", ...)."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Check the selectors and make sure you use $(this) inside handlers, not this.text()."
+      }
+    ],
+    "hints": [
+      "Likes: let likes = 0; outside, and inside the handler likes++ and $likeCount.text(likes);",
+      "Theme: $body.toggleClass(\"theme-dark\"); const isDark = $body.hasClass(\"theme-dark\"); $(this).attr(\"aria-pressed\", String(isDark));",
+      "Delegation: $list.on(\"click\", \".item__delete\", function () { ... }); - inside it, this is the clicked button.",
+      "The button's item: $(this).closest(\".item\").remove(); then $list.children(\".item\").length.",
+      "Do not use an arrow function if you need $(this) inside.",
+      "Counter: $(this).val().length and .toggleClass(\"is-warning\", length > 90)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Which code subscribes a button to clicks in the course style?",
+        "options": [
+          "$(\"#save\").click(function () { ... })",
+          "$(\"#save\").on(\"click\", function () { ... })",
+          "<button onclick=\"save()\">",
+          "$(\"#save\").bind(\"click\", ...)"
+        ],
+        "answer": 1,
+        "explanation": ".on() is the main subscription method. Shortcuts like .click(fn) and .bind() are deprecated."
+      },
+      {
+        "type": "single",
+        "question": "What is this inside the handler $(\".card\").on(\"click\", function () { ... })?",
+        "options": [
+          "A jQuery object with all the cards",
+          "The DOM element of the card that was clicked",
+          "window",
+          "The event object"
+        ],
+        "answer": 1,
+        "explanation": "this is an ordinary DOM element. To call jQuery methods, wrap it: $(this)."
+      },
+      {
+        "type": "single",
+        "question": "Why does nothing get deleted in the handler $list.on(\"click\", \".del\", () => { $(this).closest(\"li\").remove(); })?",
+        "options": [
+          "An arrow function has no this of its own - $(this) is not the button",
+          ".closest does not work in handlers",
+          "You need to write .click instead of .on",
+          "remove() works only with an id"
+        ],
+        "answer": 0,
+        "explanation": "An arrow function takes this from the outside. Use function () { ... } or event.currentTarget."
+      },
+      {
+        "type": "multiple",
+        "question": "What advantages does the delegation $list.on(\"click\", \".item__delete\", fn) give?",
+        "options": [
+          "It works for items added after the page loads",
+          "One handler instead of a handler on each button",
+          "The event stops bubbling",
+          "No button selector is needed"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "The handler is attached to the list, which always exists, and checks which element the event came from."
+      },
+      {
+        "type": "matching",
+        "question": "Match an event object property with its meaning in the delegation $(\"#list\").on(\"click\", \".item__delete\", ...) when an icon inside the button was clicked.",
+        "pairs": [
+          [
+            "event.target",
+            "The icon the cursor hit"
+          ],
+          [
+            "event.currentTarget",
+            "The .item__delete button"
+          ],
+          [
+            "event.delegateTarget",
+            "The #list list"
+          ],
+          [
+            "event.type",
+            "The string \"click\""
+          ]
+        ],
+        "explanation": "target is the deepest element, currentTarget (and this) is the element that matched the selector, delegateTarget is the element .on() is attached to."
+      },
+      {
+        "type": "single",
+        "question": "What does event.preventDefault() do in a click handler on a link?",
+        "options": [
+          "Deletes the link",
+          "Cancels going to the address",
+          "Stops the event from bubbling",
+          "Removes the handler"
+        ],
+        "answer": 1,
+        "explanation": "preventDefault cancels the browser's default action. Bubbling is stopped by stopPropagation."
+      },
+      {
+        "type": "input",
+        "question": "Which method removes a handler attached with .on()? Enter the method name without the dot and brackets.",
+        "answers": [
+          "off"
+        ],
+        "case_sensitive": true,
+        "explanation": "$el.off(\"click\") removes click handlers, and $el.off(\"click.menu\") removes only those from the menu namespace."
+      },
+      {
+        "type": "single",
+        "question": "How many times will the handler $(\"#ok\").one(\"click\", fn) fire if you click the button three times?",
+        "options": [
+          "0",
+          "1",
+          "3",
+          "It depends on the browser"
+        ],
+        "answer": 1,
+        "explanation": ".one() attaches a handler that removes itself after it fires for the first time."
+      },
+      {
+        "type": "multiple",
+        "question": "Which events are suitable for a live character counter in a field?",
+        "options": [
+          "input",
+          "change",
+          "keydown",
+          "click"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "input fires on any change of the value (including pasting with the mouse) - it is the best choice. keydown also fires while typing, but before the value changes, and it does not catch pasting with the mouse; change fires only after leaving the field."
+      },
+      {
+        "type": "single",
+        "question": "What does $(\"#like-btn\").trigger(\"click\") do?",
+        "options": [
+          "Subscribes the button to clicks",
+          "Fires a click from code, and the handlers run",
+          "Removes all click handlers",
+          "Nothing: trigger works only with forms"
+        ],
+        "answer": 1,
+        "explanation": ".trigger() fires an event programmatically - handy for tests and for reusing a handler."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with the result.",
+        "pairs": [
+          [
+            "$menu.on(\"click.menu\", fn)",
+            "A handler in the menu namespace"
+          ],
+          [
+            "$menu.off(\".menu\")",
+            "All handlers of the menu namespace are removed"
+          ],
+          [
+            "return false in a jQuery handler",
+            "preventDefault and stopPropagation at once"
+          ],
+          [
+            "$(document).on(\"keydown\", fn)",
+            "Key presses on the whole page"
+          ]
+        ],
+        "explanation": "A namespace lets you remove only your own handlers without touching other people's."
+      },
+      {
+        "type": "input",
+        "question": "Complete the condition so that the handler closes the window only on Escape: if (event.key === \"...\"). Enter only the value without quotes.",
+        "answers": [
+          "Escape"
+        ],
+        "case_sensitive": true,
+        "explanation": "event.key contains the name of the key: \"Escape\", \"Enter\", \"ArrowUp\"."
+      }
+    ]
+  }
+}

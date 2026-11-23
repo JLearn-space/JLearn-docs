@@ -1,0 +1,286 @@
+{
+  "lesson": 8,
+  "language": "ru",
+  "lesson_title": "Формы",
+  "task": {
+    "title": "Форма записи в кружок",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок программирования</h1>\n        <form id=\"signup-form\" novalidate>\n            <div class=\"field\">\n                <label for=\"name\">Имя</label>\n                <input id=\"name\" name=\"name\" type=\"text\" aria-describedby=\"name-error\">\n                <p id=\"name-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"email\">Email</label>\n                <input id=\"email\" name=\"email\" type=\"email\" aria-describedby=\"email-error\">\n                <p id=\"email-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"age\">Возраст</label>\n                <input id=\"age\" name=\"age\" type=\"number\" aria-describedby=\"age-error\">\n                <p id=\"age-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label for=\"direction\">Направление</label>\n                <select id=\"direction\" name=\"direction\" aria-describedby=\"direction-error\">\n                    <option value=\"\">Выберите направление</option>\n                    <option value=\"web\">Веб-разработка</option>\n                    <option value=\"python\">Python для начинающих</option>\n                    <option value=\"robotics\">Робототехника</option>\n                </select>\n                <p id=\"direction-error\" class=\"error\"></p>\n            </div>\n            <div class=\"field\">\n                <label>\n                    <input id=\"agree\" name=\"agree\" type=\"checkbox\" aria-describedby=\"agree-error\">\n                    Согласен с правилами кружка\n                </label>\n                <p id=\"agree-error\" class=\"error\"></p>\n            </div>\n            <button id=\"submit-btn\" type=\"submit\">Записаться</button>\n        </form>\n        <p id=\"form-message\" role=\"status\"></p>\n    </main>\n</body>\n</html>",
+    "description": "Оживите форму #signup-form с помощью jQuery. Учебный «сервер» sendApplication(data, onSuccess) уже есть: он принимает данные и через секунду вызывает onSuccess. 1) Напишите showError($field, text): текст в элемент ошибки поля (его id - в aria-describedby поля) и aria-invalid=\"true\" полю; clearError($field): пустой текст и без aria-invalid. 2) Напишите validateForm(): проверяет все поля сразу и возвращает true или false. Имя после trim() не пустое (\"Введите имя\") и не короче 2 символов (\"Имя - не короче 2 символов\"); email содержит @ (\"Введите email с символом @\"); возраст - число от 14 до 60 включительно (\"Возраст - число от 14 до 60\"); направление в #direction выбрано (\"Выберите направление\"); флажок #agree отмечен (\"Подтвердите согласие с правилами\"). У верных полей ошибка очищается. 3) Обработчик $form.on(\"submit\", ...): отменяет отправку браузером, очищает #form-message и проверяет форму. 4) Если ошибок нет: блокирует #submit-btn и пишет на нём \"Отправка...\", вызывает sendApplication($form.serializeArray(), функция). В функции: в #form-message текст \"Спасибо, Анна! Вы записаны: Веб-разработка.\" (имя после trim и текст выбранного направления), сброс формы, кнопка снова доступна с текстом \"Записаться\". document.querySelector, innerHTML, .html() и .submit(fn) не используйте.",
+    "starter_code": "// На странице: форма #signup-form с полями #name, #email, #age,\n// списком #direction и флажком #agree. У каждого поля свой элемент ошибки:\n// #name-error, #email-error, #age-error, #direction-error, #agree-error\n// (id ошибки записан в атрибуте aria-describedby поля).\n// Кнопка #submit-btn, сообщение об успехе - #form-message.\n//\n// Учебный «сервер» уже есть:\n// sendApplication(data, onSuccess) - принимает данные и через 1 секунду\n// вызывает функцию onSuccess (как будто сервер ответил «принято»).\n\n// 1. Сохраните jQuery-объекты формы, полей, кнопки и сообщения в константы\n\n// 2. function showError($field, text) - текст в элемент ошибки + aria-invalid=\"true\"\n//    function clearError($field) - пустой текст + убрать aria-invalid\n\n// 3. function validateForm() - проверяет ВСЕ поля и возвращает true / false:\n//    имя после trim() не пустое (\"Введите имя\") и не короче 2 (\"Имя - не короче 2 символов\");\n//    email содержит @ (\"Введите email с символом @\");\n//    возраст - число от 14 до 60 (\"Возраст - число от 14 до 60\");\n//    направление выбрано (\"Выберите направление\");\n//    флажок отмечен (\"Подтвердите согласие с правилами\")\n\n// 4. $form.on(\"submit\", ...): preventDefault, очистить #form-message, проверка;\n//    при успехе - кнопку заблокировать с текстом \"Отправка...\",\n//    sendApplication($form.serializeArray(), функция) и внутри функции:\n//    сообщение \"Спасибо, Анна! Вы записаны: Веб-разработка.\", сброс формы,\n//    кнопка снова доступна с текстом \"Записаться\"\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "onsubmit",
+      "addEventListener",
+      ".style.",
+      ".submit(",
+      ".click(",
+      "textContent",
+      ".setAttribute(",
+      ".checked"
+    ],
+    "setup": "const sentData = [];\nlet pendingCallbacks = [];\nfunction sendApplication(data, onSuccess) {\n    sentData.push(data);\n    pendingCallbacks.push(onSuccess);\n    setTimeout(finishSending, 1000);\n}\nfunction finishSending() {\n    const callbacks = pendingCallbacks;\n    pendingCallbacks = [];\n    callbacks.forEach((callback) => callback());\n}",
+    "tests": [
+      {
+        "name": "Пустая форма: у каждого поля своя ошибка",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return err(\"name\") === \"Введите имя\" && err(\"email\") === \"Введите email с символом @\" && err(\"age\") === \"Возраст - число от 14 до 60\" && err(\"direction\") === \"Выберите направление\" && err(\"agree\") === \"Подтвердите согласие с правилами\"; })()",
+        "fail": "Проверяйте все поля подряд, не выходя после первой ошибки: копите результат в let isValid = true."
+      },
+      {
+        "name": "Пустая форма: у всех полей aria-invalid=\"true\", заявка не отправлена",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => inv(id) === \"true\") && sentData.length === 0 && document.querySelector(\"#submit-btn\").disabled === false; })()",
+        "fail": "showError ставит полю .attr(\"aria-invalid\", \"true\"); при ошибках sendApplication не вызывается."
+      },
+      {
+        "name": "Отправка через .trigger(\"submit\") не перезагружает страницу",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return __error === null && sentData.length === 1; })()",
+        "fail": "В начале обработчика submit вызовите event.preventDefault()."
+      },
+      {
+        "name": "Отправка через dispatchEvent отменена: defaultPrevented",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); const ev = new Event(\"submit\", { bubbles: true, cancelable: true }); document.querySelector(\"#signup-form\").dispatchEvent(ev); return ev.defaultPrevented === true; })()",
+        "fail": "event.preventDefault() нужен и тогда, когда в форме ошибки - вызывайте его первой строкой."
+      },
+      {
+        "name": "Имя из пробелов и имя из одной буквы - ошибка",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"   \", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); const a = err(\"name\") === \"Введите имя\"; $(\"#name\").val(\" А \"); $(\"#signup-form\").trigger(\"submit\"); return a && err(\"name\") === \"Имя - не короче 2 символов\" && inv(\"name\") === \"true\" && err(\"email\") === \"\" && inv(\"email\") === null && sentData.length === 0; })()",
+        "fail": "Сначала const name = $name.val().trim(); потом проверки name === \"\" и name.length < 2."
+      },
+      {
+        "name": "Email без @ - ошибка, остальные поля без ошибок",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna.mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return err(\"email\") === \"Введите email с символом @\" && inv(\"email\") === \"true\" && err(\"name\") === \"\" && err(\"age\") === \"\" && sentData.length === 0; })()",
+        "fail": "Проверка: !$email.val().includes(\"@\")."
+      },
+      {
+        "name": "Возраст: 13, 61 и пустое поле - ошибка; 14 и 60 - нет",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); const res = []; for (const a of [\"13\", \"61\", \"\", \"14\", \"60\"]) { fill(\"Анна\", \"anna@mail.uz\", a, \"web\", false); $(\"#signup-form\").trigger(\"submit\"); res.push(err(\"age\")); } const bad = \"Возраст - число от 14 до 60\"; return res.join(\"|\") === [bad, bad, bad, \"\", \"\"].join(\"|\") && inv(\"age\") === null; })()",
+        "fail": "const age = Number($age.val()); ошибка, если поле пустое, Number.isNaN(age), age < 14 или age > 60. Границы 14 и 60 допустимы."
+      },
+      {
+        "name": "Не выбрано направление и не отмечен флажок - ошибки",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"\", false); document.querySelector(\"#signup-form\").requestSubmit(); return err(\"direction\") === \"Выберите направление\" && err(\"agree\") === \"Подтвердите согласие с правилами\" && inv(\"direction\") === \"true\" && inv(\"agree\") === \"true\" && sentData.length === 0; })()",
+        "fail": "Список: $direction.val() === \"\". Флажок: !$agree.prop(\"checked\") - а не .val(), он всегда \"on\"."
+      },
+      {
+        "name": "Верная форма (requestSubmit): кнопка заблокирована, текст \"Отправка...\"",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").requestSubmit(); return document.querySelector(\"#submit-btn\").disabled === true && document.querySelector(\"#submit-btn\").textContent === \"Отправка...\" && sentData.length === 1 && [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null); })()",
+        "fail": "Перед sendApplication: $submitBtn.prop(\"disabled\", true).text(\"Отправка...\")."
+      },
+      {
+        "name": "В sendApplication переданы данные .serializeArray()",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"python\", true); $(\"#signup-form\").trigger(\"submit\"); const d = sentData[0]; const v = (n) => (d.find((x) => x.name === n) || {}).value; return Array.isArray(d) && v(\"email\") === \"anna@mail.uz\" && v(\"age\") === \"20\" && v(\"direction\") === \"python\" && v(\"agree\") === \"on\"; })()",
+        "fail": "sendApplication($form.serializeArray(), function () { ... });"
+      },
+      {
+        "name": "После ответа «сервера»: сообщение, сброс формы, кнопка доступна",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"web\", true); document.querySelector(\"#signup-form\").dispatchEvent(new Event(\"submit\", { bubbles: true, cancelable: true })); const before = document.querySelector(\"#form-message\").textContent; finishSending(); return before === \"\" && document.querySelector(\"#form-message\").textContent === \"Спасибо, Анна! Вы записаны: Веб-разработка.\" && $(\"#name\").val() === \"\" && $(\"#direction\").val() === \"\" && $(\"#agree\").prop(\"checked\") === false && document.querySelector(\"#submit-btn\").disabled === false && document.querySelector(\"#submit-btn\").textContent === \"Записаться\"; })()",
+        "fail": "Внутри функции для sendApplication: $message.text(...), $form[0].reset(), $submitBtn.prop(\"disabled\", false).text(\"Записаться\")."
+      },
+      {
+        "name": "Исправленные поля теряют ошибку и aria-invalid",
+        "check": "(() => { const fill = (n, e, a, d, c) => { $(\"#name\").val(n); $(\"#email\").val(e); $(\"#age\").val(a); $(\"#direction\").val(d); $(\"#agree\").prop(\"checked\", c); }; const err = (id) => document.querySelector(`#${id}-error`).textContent; const inv = (id) => document.querySelector(`#${id}`).getAttribute(\"aria-invalid\"); fill(\"\", \"\", \"\", \"\", false); $(\"#signup-form\").trigger(\"submit\"); fill(\"Анна\", \"anna@mail.uz\", \"20\", \"web\", true); $(\"#signup-form\").trigger(\"submit\"); return [\"name\", \"email\", \"age\", \"direction\", \"agree\"].every((id) => err(id) === \"\" && inv(id) === null) && sentData.length === 1; })()",
+        "fail": "clearError: .text(\"\") в элементе ошибки и .removeAttr(\"aria-invalid\") у поля - для каждого верного поля."
+      },
+      {
+        "name": "Код использует .on(\"submit\"), .prop(\"checked\") и .serializeArray()",
+        "check": "/\\.on\\(\\s*[\"']submit/.test(__code) && /\\.prop\\(\\s*[\"']checked[\"']\\s*\\)|:checked/.test(__code) && /\\.serializeArray\\(\\)/.test(__code)",
+        "fail": "Обработчик - $form.on(\"submit\", ...), флажок - .prop(\"checked\"), данные - $form.serializeArray()."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте селекторы и что sendApplication вызывается с функцией вторым аргументом."
+      }
+    ],
+    "hints": [
+      "Элемент ошибки поля: $(`#${$field.attr(\"aria-describedby\")}`) - для #name это #name-error.",
+      "Чтобы показать все ошибки сразу, не делайте return после первой: let isValid = true; ... isValid = false; ... return isValid;",
+      "Возраст: const age = Number($age.val()); ошибка, если $age.val() === \"\", Number.isNaN(age), age < 14 или age > 60.",
+      "Флажок: $agree.prop(\"checked\"). Его .val() всегда \"on\", даже когда он не отмечен.",
+      "Текст выбранного направления: $direction.find(\"option:checked\").text(); у jQuery нет .reset() - вызывайте $form[0].reset().",
+      "Имя и направление для сообщения запомните ДО вызова sendApplication: после reset() поля уже пустые."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Почему обработчик вешают на событие submit формы, а не на click кнопки?",
+        "options": [
+          "click у кнопки в jQuery 4 не работает",
+          "submit срабатывает и по кнопке, и по Enter в поле",
+          "submit срабатывает раньше загрузки страницы",
+          "Так короче запись"
+        ],
+        "answer": 1,
+        "explanation": "Форму можно отправить кнопкой или клавишей Enter - submit ловит оба способа."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\"#agree\").val() у флажка <input type=\"checkbox\" id=\"agree\"> без атрибута value, если он НЕ отмечен?",
+        "options": [
+          "false",
+          "\"\"",
+          "\"on\"",
+          "undefined"
+        ],
+        "answer": 2,
+        "explanation": ".val() у флажка - это его value, а не состояние. Без атрибута value это \"on\". Отмечен ли флажок - .prop(\"checked\")."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи узнают, отмечен ли флажок #agree прямо сейчас?",
+        "options": [
+          "$(\"#agree\").prop(\"checked\")",
+          "$(\"#agree\").is(\":checked\")",
+          "$(\"#agree\").attr(\"checked\")",
+          "$(\"#agree\").val()"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": ".prop и :checked читают текущее состояние. attr - исходный атрибут из HTML, val - значение value."
+      },
+      {
+        "type": "single",
+        "question": "Форма: name = Анна, age = 20, флажок agree не отмечен. Что вернёт $form.serializeArray()?",
+        "options": [
+          "[{ name: \"name\", value: \"Анна\" }, { name: \"age\", value: \"20\" }]",
+          "[{ name: \"name\", value: \"Анна\" }, { name: \"age\", value: 20 }, { name: \"agree\", value: false }]",
+          "{ name: \"Анна\", age: \"20\" }",
+          "\"name=Анна&age=20\""
+        ],
+        "answer": 0,
+        "explanation": "serializeArray - массив пар { name, value }, значения - строки, неотмеченный флажок не попадает в результат."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод jQuery превращает форму в строку вида name=%D0%90%D0%BD%D0%BD%D0%B0&age=20? Введите имя метода без точки и скобок.",
+        "answers": [
+          "serialize"
+        ],
+        "case_sensitive": true,
+        "explanation": ".serialize() даёт строку для отправки на сервер (урок 9), .serializeArray() - массив объектов."
+      },
+      {
+        "type": "single",
+        "question": "Что выведет код? const age = $(\"#age\").val(); console.log(typeof age); - пользователь ввёл 25 в поле type=\"number\".",
+        "options": [
+          "number",
+          "string",
+          "undefined",
+          "object"
+        ],
+        "answer": 1,
+        "explanation": "Значение любого поля - строка. Для сравнения превращайте его через Number()."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и запись.",
+        "pairs": [
+          [
+            "Отменить отправку браузером",
+            "event.preventDefault()"
+          ],
+          [
+            "Пометить поле как ошибочное",
+            ".attr(\"aria-invalid\", \"true\")"
+          ],
+          [
+            "Заблокировать кнопку",
+            ".prop(\"disabled\", true)"
+          ],
+          [
+            "Очистить все поля формы",
+            "$form[0].reset()"
+          ]
+        ],
+        "explanation": "У jQuery нет метода .reset(): его вызывают у DOM-элемента формы."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие свойства хорошего сообщения об ошибке в форме?",
+        "options": [
+          "Стоит рядом с полем и говорит, что исправить",
+          "Связано с полем через aria-describedby",
+          "Показывается через alert()",
+          "Исчезает, когда поле исправлено"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "alert мешает и не показывает, какое поле неверно. Ошибка - рядом с полем, связана с ним и пропадает после исправления."
+      },
+      {
+        "type": "single",
+        "question": "Зачем блокировать кнопку отправки, пока заявка отправляется?",
+        "options": [
+          "Чтобы форма не проверялась",
+          "Чтобы пользователь не отправил заявку дважды и видел, что идёт отправка",
+          "Чтобы сработал preventDefault",
+          "Так требует jQuery 4"
+        ],
+        "answer": 1,
+        "explanation": "Нетерпеливый пользователь жмёт кнопку повторно - без блокировки уйдут две заявки."
+      },
+      {
+        "type": "single",
+        "question": "Код: if (name === \"\") { ... return false; } if (!email.includes(\"@\")) { ... }. Пользователь оставил пустыми и имя, и email. Сколько ошибок он увидит?",
+        "options": [
+          "Ни одной",
+          "Одну - у имени",
+          "Две",
+          "Одну - у email"
+        ],
+        "answer": 1,
+        "explanation": "return выходит из функции после первой ошибки. Чтобы показать все ошибки, копите результат в let isValid = true."
+      },
+      {
+        "type": "input",
+        "question": "Какой атрибут формы отключает встроенные подсказки браузера, чтобы ошибки показывал ваш код? Введите имя атрибута.",
+        "answers": [
+          "novalidate"
+        ],
+        "case_sensitive": true,
+        "explanation": "<form novalidate> - проверку и тексты ошибок делает ваш скрипт, одинаково во всех браузерах."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте поле и как узнать, что выбрал пользователь.",
+        "pairs": [
+          [
+            "<input type=\"text\">",
+            ".val() - набранный текст"
+          ],
+          [
+            "<select>",
+            ".val() - value выбранного option"
+          ],
+          [
+            "<input type=\"checkbox\">",
+            ".prop(\"checked\") - true или false"
+          ],
+          [
+            "Текст выбранного пункта списка",
+            ".find(\"option:checked\").text()"
+          ]
+        ],
+        "explanation": "У списка .val() даёт value пункта, а видимую подпись - .text() выбранного option."
+      }
+    ]
+  }
+}

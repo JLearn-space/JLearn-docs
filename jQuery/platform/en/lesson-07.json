@@ -1,0 +1,285 @@
+{
+  "lesson": 7,
+  "language": "en",
+  "lesson_title": "Effects and animation",
+  "task": {
+    "title": "Accordion and pop-up notification",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Questions about the course</title>\n    <style>\n        .faq__answer { display: none; }\n        .toast { display: none; }\n    </style>\n</head>\n<body>\n    <main>\n        <h1>Frequently asked questions</h1>\n        <section class=\"faq\" id=\"faq\">\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">How long is the course?</button>\n                <div class=\"faq__answer\">10 lessons, one a week.</div>\n            </div>\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">Do I need experience?</button>\n                <div class=\"faq__answer\">The HTML, CSS and JavaScript courses are enough.</div>\n            </div>\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">Will there be a certificate?</button>\n                <div class=\"faq__answer\">Yes, after the final project.</div>\n            </div>\n        </section>\n        <button id=\"save-btn\" type=\"button\">Save settings</button>\n        <div id=\"toast\" class=\"toast\" role=\"status\">\n            <p class=\"toast__text\"></p>\n            <button class=\"toast__close\" type=\"button\" aria-label=\"Close\">×</button>\n        </div>\n    </main>\n</body>\n</html>",
+    "description": "The page has a question block #faq (each .faq__item has a .faq__question button with aria-expanded=\"false\" and a hidden answer .faq__answer), a #save-btn button and a hidden notification #toast with .toast__text and a .toast__close button. The platform has already turned off animations ($.fx.off = true) so that the tests see the result right away. 1) If window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches, turn off animations: $.fx.off = true (not allowed without the condition). 2) Accordion: with one delegated handler $(\"#faq\").on(\"click\", \".faq__question\", ...), when a question is clicked, close the other answers with .slideUp() and set aria-expanded=\"false\" on their buttons, and toggle this question's answer with .slideToggle() and write \"true\" or \"false\" to this button's aria-expanded. Take the state from aria-expanded, not from :visible. Questions added after the page loads must also work. 3) Write the function showToast(message): it writes message into .toast__text and shows #toast with .fadeIn(). 4) A click on #save-btn calls showToast(\"Settings saved\"). 5) A click on .toast__close hides #toast with .fadeOut(). Handlers - only with .on(); do not use document.querySelector, innerHTML, .html(), .style or .click(fn).",
+    "starter_code": "// On the page: #faq with .faq__item blocks (each has button.faq__question\n// with aria-expanded=\"false\" and div.faq__answer, hidden with CSS),\n// the #save-btn button and the #toast notification (.toast__text and .toast__close, hidden).\n// The platform has already run $.fx.off = true; - animations are instant.\n// window.matchMedia is available on the platform.\n\n// 1. If the user asks for less motion (prefers-reduced-motion: reduce),\n//    turn off jQuery animations\n\n// 2. Accordion: one delegated handler on #faq for .faq__question\n//    - take the state from aria-expanded\n//    - close the other answers (slideUp), set aria-expanded=\"false\" on their buttons\n//    - this answer - slideToggle, this aria-expanded - \"true\" or \"false\"\n\n// 3. function showToast(message) - text into .toast__text, #toast appears with fadeIn\n\n// 4. Click on #save-btn: showToast(\"Settings saved\")\n\n// 5. Click on .toast__close: #toast disappears with fadeOut\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".style.",
+      ".click(function",
+      "addEventListener"
+    ],
+    "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: false, media: query }; }; $.fx.off = true;",
+    "tests": [
+      {
+        "name": "A click on the first question opens its answer",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[0]).display !== \"none\"; })()",
+        "fail": "In the handler, call .slideToggle() on the answer: $(this).next(\".faq__answer\")."
+      },
+      {
+        "name": "The open question has aria-expanded=\"true\"",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Write the string \"true\" or \"false\" to aria-expanded: .attr(\"aria-expanded\", String(!isOpen))."
+      },
+      {
+        "name": "A second click closes the answer and sets aria-expanded=\"false\"",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[1].click(); document.querySelectorAll(\".faq__question\")[1].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[1]).display === \"none\" && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Take the state from aria-expanded before changing it: if open - close, if closed - open."
+      },
+      {
+        "name": "Opening the second question closes the first one",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.querySelectorAll(\".faq__question\")[1].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[0]).display === \"none\" && getComputedStyle(document.querySelectorAll(\".faq__answer\")[1]).display !== \"none\" && document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"false\" && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Before opening this answer, close the others: .not(...).slideUp() and aria-expanded=\"false\" on their buttons."
+      },
+      {
+        "name": "Until something is clicked, all answers are closed",
+        "check": "[...document.querySelectorAll(\".faq__answer\")].every((a) => getComputedStyle(a).display === \"none\") && [...document.querySelectorAll(\".faq__question\")].every((q) => q.getAttribute(\"aria-expanded\") === \"false\")",
+        "fail": "The code must not open answers on page load - only on click."
+      },
+      {
+        "name": "A question added after loading also works",
+        "check": "(() => { $(\"#faq\").append(\"<div class=\\\"faq__item\\\"><button class=\\\"faq__question\\\" type=\\\"button\\\" aria-expanded=\\\"false\\\">New?</button><div class=\\\"faq__answer\\\">Yes.</div></div>\"); const q = document.querySelectorAll(\".faq__question\")[3]; q.click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[3]).display !== \"none\" && q.getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "You need delegation: $(\"#faq\").on(\"click\", \".faq__question\", ...)."
+      },
+      {
+        "name": "showToast(\"Hello\") shows the notification with this text",
+        "check": "(() => { showToast(\"Hello\"); return getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"Hello\"; })()",
+        "fail": "function showToast(message): .text(message) into .toast__text and .fadeIn() on #toast."
+      },
+      {
+        "name": "Calling showToast again replaces the text",
+        "check": "(() => { showToast(\"First\"); showToast(\"Second\"); return document.querySelector(\".toast__text\").textContent === \"Second\" && getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\"; })()",
+        "fail": "Use .text(message) - it replaces the whole text instead of adding to it."
+      },
+      {
+        "name": "Click on #save-btn: \"Settings saved\"",
+        "check": "(() => { document.querySelector(\"#save-btn\").click(); return getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"Settings saved\"; })()",
+        "fail": "$(\"#save-btn\").on(\"click\", function () { showToast(\"Settings saved\"); });"
+      },
+      {
+        "name": "The close button hides the notification, and it can be shown again",
+        "check": "(() => { showToast(\"A\"); document.querySelector(\".toast__close\").click(); const closed = getComputedStyle(document.querySelector(\"#toast\")).display === \"none\"; showToast(\"B\"); return closed && getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"B\"; })()",
+        "fail": "Click on .toast__close: $(\"#toast\").fadeOut()."
+      },
+      {
+        "name": "With prefers-reduced-motion, animations are turned off",
+        "check": "$.fx.off === true && /prefers-reduced-motion:\\s*reduce/.test(String(window.__mq))",
+        "fail": "if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) { $.fx.off = true; }",
+        "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: true, media: query }; }; $.fx.off = false;"
+      },
+      {
+        "name": "Without prefers-reduced-motion, animations are not turned off",
+        "check": "$.fx.off === false",
+        "fail": "Do not write $.fx.off = true without a condition - turn them off only when matchMedia(...).matches.",
+        "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: false, media: query }; }; $.fx.off = false;"
+      },
+      {
+        "name": "jQuery effects are used",
+        "check": "/\\.slide(Toggle|Down)\\(/.test(__code) && /\\.slideUp\\(/.test(__code) && /\\.fadeIn\\(/.test(__code) && /\\.fadeOut\\(/.test(__code)",
+        "fail": "Answers - .slideToggle() and .slideUp(), the notification - .fadeIn() and .fadeOut()."
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[2].click(); document.querySelector(\"#save-btn\").click(); document.querySelector(\".toast__close\").click(); return __error === null; })()",
+        "fail": "Check the selectors and make sure showToast is declared as a function."
+      }
+    ],
+    "hints": [
+      "Delegation: $(\"#faq\").on(\"click\", \".faq__question\", function () { ... }); inside, $(this) is the clicked button.",
+      "The answer next to the button: $(this).next(\".faq__answer\").",
+      "State: const isOpen = $(this).attr(\"aria-expanded\") === \"true\"; the new value is String(!isOpen).",
+      "The others: $(\"#faq .faq__answer\").not($answer).slideUp(); the same for the buttons with .attr(\"aria-expanded\", \"false\").",
+      "Write .stop(true, true) before an effect - quick clicks will not pile up in the queue.",
+      "showToast: $(\"#toast .toast__text\").text(message); $(\"#toast\").fadeIn();"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "How is $(\"#box\").hide() different from $(\"#box\").fadeOut()?",
+        "options": [
+          "No difference, they are synonyms",
+          "hide() hides it at once, fadeOut() smoothly lowers the opacity and sets display: none at the end",
+          "hide() removes the element from the DOM",
+          "fadeOut() only makes the element transparent, but its space stays taken"
+        ],
+        "answer": 1,
+        "explanation": "Both methods end up setting display: none, but fadeOut does it after a smooth change of opacity (400 ms by default)."
+      },
+      {
+        "type": "single",
+        "question": "What will the code print?\n$(\"#box\").fadeOut(400, function () { console.log(\"B\"); });\nconsole.log(\"A\");",
+        "options": [
+          "A, then B after 400 ms",
+          "B, then A",
+          "Only B",
+          "A and B at the same time"
+        ],
+        "answer": 0,
+        "explanation": "An animation does not stop the program: the next line runs right away, and the completion function is called after the effect ends."
+      },
+      {
+        "type": "multiple",
+        "question": "Which forms set the effect duration correctly?",
+        "options": [
+          ".fadeIn(300)",
+          ".fadeIn(\"slow\")",
+          ".fadeIn(\"300ms\")",
+          ".slideDown(\"fast\")"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "The duration is a number of milliseconds or the words \"fast\" (200) and \"slow\" (600). The string \"300ms\" is not recognized, and jQuery uses the default 400 ms."
+      },
+      {
+        "type": "single",
+        "question": "A user quickly clicked a button with $panel.slideToggle() 10 times. What happens?",
+        "options": [
+          "Only the first click works",
+          "The panel opens and closes 10 times in a row, even after the user has stopped clicking",
+          "jQuery throws an error",
+          "The panel stays in the middle of the animation"
+        ],
+        "answer": 1,
+        "explanation": "Each call joins the fx queue. The cure is .stop(true, true) before the effect."
+      },
+      {
+        "type": "matching",
+        "question": "Match the code with the action.",
+        "pairs": [
+          [
+            ".stop()",
+            "Stop the current animation, the queue continues"
+          ],
+          [
+            ".stop(true)",
+            "Stop the current one and clear the queue"
+          ],
+          [
+            ".stop(true, true)",
+            "Clear the queue and jump to the end of the current animation"
+          ],
+          [
+            ".delay(1000)",
+            "A 1-second pause in the queue"
+          ]
+        ],
+        "explanation": "The first argument of stop clears the queue, the second brings the current animation to its final state."
+      },
+      {
+        "type": "input",
+        "question": "Which property must be set to true to make all jQuery animations instant? Enter the whole expression, for example $.xxx.yyy",
+        "answers": [
+          "$.fx.off",
+          "jQuery.fx.off"
+        ],
+        "case_sensitive": true,
+        "explanation": "$.fx.off = true - effects jump to their final state at once. This is how you respect the prefers-reduced-motion setting."
+      },
+      {
+        "type": "single",
+        "question": "What does the code do?\nif (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) { $.fx.off = true; }",
+        "options": [
+          "Turns off animations on mobile devices",
+          "Turns off jQuery animations if \"reduce motion\" is on in the system",
+          "Makes animations 2 times faster",
+          "Turns animations on if the browser turned them off"
+        ],
+        "answer": 1,
+        "explanation": "matchMedia checks a media query from JavaScript; .matches is true if the user asks for less motion."
+      },
+      {
+        "type": "multiple",
+        "question": "Which properties can you change smoothly with .animate() without plugins?",
+        "options": [
+          "opacity",
+          "height",
+          "background-color",
+          "left"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": ".animate() works only with numeric properties. A color is not a number - it needs a plugin or a CSS transition."
+      },
+      {
+        "type": "single",
+        "question": "Why is it better to take the accordion state from aria-expanded rather than from $answer.is(\":visible\")?",
+        "options": [
+          "is() was removed in jQuery 4",
+          "During the closing animation the answer is still visible, and is(\":visible\") returns true",
+          "aria-expanded is faster",
+          "is() cannot be called in a handler"
+        ],
+        "answer": 1,
+        "explanation": "While slideUp is running, the element is visible. The attribute changes at once and shows the intention, and screen readers also read it."
+      },
+      {
+        "type": "input",
+        "question": "Which method, in one call, shows a hidden block or hides a visible one by smoothly changing its height? Enter the method name without the dot and brackets.",
+        "answers": [
+          "slideToggle"
+        ],
+        "case_sensitive": true,
+        "explanation": "slideToggle chooses slideDown or slideUp based on the current state."
+      },
+      {
+        "type": "matching",
+        "question": "Match the task with the best tool.",
+        "pairs": [
+          [
+            "Highlight a button on hover",
+            "CSS :hover + transition"
+          ],
+          [
+            "Open a menu on click, the animation is described in CSS",
+            "toggleClass + transition"
+          ],
+          [
+            "Smoothly expand a block of unknown height",
+            "slideDown"
+          ],
+          [
+            "Remove an element after it disappears",
+            "fadeOut with a completion function"
+          ]
+        ],
+        "explanation": "Simple transitions belong in CSS, and JavaScript only toggles a class. jQuery is handy where you need auto height or an action after the animation."
+      },
+      {
+        "type": "single",
+        "question": "What will the code print if the page has 3 .card elements?\n$(\".card\").fadeOut(200, function () { console.log(\"done\"); });",
+        "options": [
+          "done once",
+          "done three times",
+          "Nothing",
+          "An error"
+        ],
+        "answer": 1,
+        "explanation": "The completion function is called separately for each element; this inside is the current element."
+      }
+    ]
+  }
+}

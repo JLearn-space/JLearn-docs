@@ -82,41 +82,6 @@
       "Zanjir: list.filter(...).map((student) => student.name)",
       "Qidiruv: list.find((student) => student.name === name)",
       "Yangi massiv: [...list, { name, score }] - { name: name, score: score } ning qisqa yozuvi."
-    ],
-    "solution": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "// 1. getAverage(list)\n"
-      },
-      {
-        "mistake": "bo‘sh massiv tekshirilmagan",
-        "code": "function getAverage(list) {\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": "yaxlitlash yo‘q",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return total / list.length;\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": "list o‘rniga students bo‘yicha hisoblaydi",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = students.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / students.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": "ismlar o‘rniga obyektlar qaytaradi",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": ">= o‘rniga >",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score > 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": "find o‘rniga filter",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.filter((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    return [...list, { name, score }];\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      },
-      {
-        "mistake": "push asl massivni o‘zgartiradi",
-        "code": "function getAverage(list) {\n    if (list.length === 0) {\n        return 0;\n    }\n    const total = list.reduce((sum, student) => sum + student.score, 0);\n    return Math.round(total / list.length);\n}\n\nfunction getExcellentNames(list) {\n    return list\n        .filter((student) => student.score >= 90)\n        .map((student) => student.name);\n}\n\nfunction findStudent(list, name) {\n    return list.find((student) => student.name === name);\n}\n\nfunction addStudent(list, name, score) {\n    list.push({ name, score });\n    return list;\n}\n\nconsole.log(getAverage(students), getExcellentNames(students));\n"
-      }
     ]
   },
   "test": {

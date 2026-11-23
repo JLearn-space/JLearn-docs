@@ -1,0 +1,259 @@
+{
+  "lesson": 4,
+  "language": "uz",
+  "lesson_title": "O‘zgarishlarni bekor qilish",
+  "task": {
+    "title": "To‘rtta xatoni tuzatish",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasidasiz. Repozitoriyda to‘rtta xato bor - har birini mos buyruq bilan tuzating: 1) git status va git log --oneline ni ko‘ring. 2) index.html fayli buzilgan va hali indeksga qo‘shilmagan - uni oxirgi kommitdagi versiyaga qaytaring. 3) passwords.txt fayli tasodifan indeksga qo‘shilgan - uni indeksdan olib tashlang, lekin faylning o‘zini o‘chirmang. 4) Oxirgi kommit xabarida xato bor (contatcs) - yangi kommit yaratmasdan, xabarni Add contacts page ga tuzating. 5) Change colors to neon kommiti allaqachon GitHub’da e’lon qilingan - uni tarixdan o‘chirmasdan git revert buyrug‘i bilan bekor qiling (reset --hard ishlatmang). 6) Natijani tekshiring: git log --oneline va git status.",
+    "starter_code": "# Buyruqlarni har bir qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasidasiz. Avval git status va git log --oneline ni ko‘ring.\n\n# 1. Buzilgan index.html ni oxirgi kommitdagi versiyaga qaytaring\n\n# 2. passwords.txt ni indeksdan olib tashlang (faylning o‘zini o‘chirmang)\n\n# 3. Oxirgi kommit xabaridagi xatoni tuzating: Add contacts page\n\n# 4. E’lon qilingan Change colors to neon kommitini git revert orqali bekor qiling\n\n# 5. Natijani tekshiring: git log --oneline va git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: navy; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"body { color: lime; background: magenta; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<h2>About me</h2>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<h2>Contacts</h2>\" > contacts.html\ngit add . && git commit -m \"Add contatcs page\"\necho \"<h1>Anna Karimova</h1><h1><h1>\" > index.html\necho \"admin: qwerty123\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "index.html kommitdagi versiyaga qaytarilgan",
+        "check": "sim.read(\"~/portfolio/index.html\") === repo.commit(\"HEAD\").files[\"index.html\"] && !repo.status().modified.includes(\"index.html\")",
+        "fail": "git restore index.html faylni oxirgi kommitdagi versiyaga qaytaradi."
+      },
+      {
+        "name": "index.html uchun git restore ishlatilgan",
+        "check": "__commands.some((c) => c.code === 0 && /^git (restore|checkout)\\b/.test(c.cmd) && !c.cmd.includes(\"--staged\") && /(index\\.html|\\s\\.)$/.test(c.cmd))",
+        "fail": "Indeksga qo‘shilmagan buzilgan fayl git restore index.html buyrug‘i bilan qaytariladi."
+      },
+      {
+        "name": "passwords.txt papkada qoldi va indeksda emas",
+        "check": "sim.exists(\"~/portfolio/passwords.txt\") && repo.status().untracked.includes(\"passwords.txt\") && !(\"passwords.txt\" in repo.index())",
+        "fail": "git restore --staged passwords.txt faylni indeksdan olib tashlaydi, lekin diskdan o‘chirmaydi. rm ishlatmang."
+      },
+      {
+        "name": "passwords.txt birorta kommitga tushmagan",
+        "check": "repo.log().every((c) => !(\"passwords.txt\" in c.files))",
+        "fail": "Avval passwords.txt ni indeksdan olib tashlang (2-qadam), shundan keyingina git commit --amend qiling: amend kommitga indeksdagi hamma narsani oladi."
+      },
+      {
+        "name": "Xato yangi kommit bilan emas, amend orqali tuzatilgan",
+        "check": "repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && \"contacts.html\" in repo.log().find((c) => c.subject === \"Add contacts page\").files && repo.commit(repo.log().find((c) => c.subject === \"Add contacts page\").parents[0]).subject === \"Add about page\" && repo.log().every((c) => !/cont[a-z]*cts page/.test(c.subject) || c.subject === \"Add contacts page\")",
+        "fail": "git commit --amend -m \"Add contacts page\" oxirgi kommitni almashtiradi. Xato yozilgan kommit oxirgisi ekan, amend’ni revert’dan oldin qiling."
+      },
+      {
+        "name": "Muvaffaqiyatsiz kommit tarixda qoldi",
+        "check": "repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined",
+        "fail": "E’lon qilingan kommitni tarixdan o‘chirib bo‘lmaydi: git revert yangi bekor qiluvchi kommit qo‘shadi, eskisi esa qoladi."
+      },
+      {
+        "name": "Oxirgi kommit - Revert \"Change colors to neon\"",
+        "check": "repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && repo.commit(\"HEAD~1\").subject === \"Add contacts page\"",
+        "fail": "amend’dan keyin git revert --no-edit HEAD~2 (yoki git revert <Change colors to neon kommiti xeshi>)."
+      },
+      {
+        "name": "style.css yana Add styles kommitidagidek",
+        "check": "sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"] && repo.commit(\"HEAD\").files[\"style.css\"] === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "Aynan Change colors to neon kommitini bekor qiling. Uni git log --oneline da toping."
+      },
+      {
+        "name": "Qolgan ish yo‘qolmagan: 6 ta kommit, about.html va contacts.html joyida",
+        "check": "repo.log().length === 6 && \"about.html\" in repo.commit(\"HEAD\").files && \"contacts.html\" in repo.commit(\"HEAD\").files && sim.exists(\"~/portfolio/about.html\") && sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "5 ta kommit bor edi, amend kommitni almashtiradi (qo‘shmaydi), revert bittasini qo‘shadi: 6 ta bo‘lishi kerak. reset --hard ishlatmang."
+      },
+      {
+        "name": "git reset --hard ishlatilmagan",
+        "check": "!__commands.some((c) => /^git reset\\b/.test(c.cmd) && c.cmd.includes(\"--hard\"))",
+        "fail": "Bu topshiriqda reset --hard kerak emas: u ishni o‘chiradi va tarixni qayta yozadi."
+      },
+      {
+        "name": "Ishchi papka toza, passwords.txt dan tashqari",
+        "check": "repo.status().staged.length === 0 && repo.status().modified.length === 0 && repo.status().deleted.length === 0 && repo.status().untracked.join() === \"passwords.txt\"",
+        "fail": "Oxirida git status faqat Untracked files: passwords.txt ni ko‘rsatishi kerak."
+      },
+      {
+        "name": "Boshqa ma’lumotlar: to‘rtala xato ham tuzatilgan",
+        "check": "repo.status().modified.length === 0 && repo.status().untracked.includes(\"passwords.txt\") && repo.log().every((c) => !(\"passwords.txt\" in c.files)) && repo.log().length === 6 && repo.log().find((c) => c.subject === \"Add contacts page\") !== undefined && repo.log().find((c) => c.subject === \"Change colors to neon\") !== undefined && repo.commit(\"HEAD\").subject === \"Revert \\\"Change colors to neon\\\"\" && sim.read(\"~/portfolio/style.css\") === repo.log().find((c) => c.subject === \"Add styles\").files[\"style.css\"]",
+        "fail": "Yechim xeshlarga bog‘liq bo‘lmasligi kerak: HEAD~2 dan foydalaning yoki xeshni git log --oneline da toping.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Aziz Rakhimov</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"h1 { font-size: 32px; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"h1 { font-size: 120px; }\" > style.css\ngit commit -am \"Change colors to neon\"\necho \"<p>I am a web developer</p>\" > about.html\ngit add . && git commit -m \"Add about page\"\necho \"<p>aziz@example.com</p>\" > contacts.html\ngit add . && git commit -m \"Add contcts page\"\necho \"\" > index.html\necho \"root: 0000\" > passwords.txt\ngit add passwords.txt`, { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "git status dan boshlang: Git buyruqlarni qavs ichida o‘zi aytib beradi - git restore <file> va git restore --staged <file>.",
+      "Tartib muhim: avval git restore --staged passwords.txt, keyin git commit --amend - aks holda parol kommitga tushadi.",
+      "Oxirgi kommit xabari: git commit --amend -m \"Add contacts page\". Bunda kommitlar soni o‘zgarmaydi.",
+      "amend’dan keyin muvaffaqiyatsiz kommit yuqoridan uchinchi, ya’ni HEAD~2. git log --oneline dagi xeshini ham ko‘rsatish mumkin.",
+      "git revert --no-edit HEAD~2 Revert \"Change colors to neon\" kommitini yaratadi va style.css ni qaytaradi."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "git status da index.html fayli Changes not staged for commit bo‘limida ko‘rsatilgan. Siz bu tuzatishlarni tashlab yuborib, oxirgi kommitdagi versiyani qaytarmoqchisiz. Qaysi buyruq?",
+        "options": [
+          "git restore --staged index.html",
+          "git restore index.html",
+          "git revert index.html",
+          "git commit --amend index.html"
+        ],
+        "answer": 1,
+        "explanation": "git restore fayl ishchi papkadagi faylni indeksdagi versiyaga qaytaradi (u esa oxirgi kommit bilan bir xil). Saqlanmagan tuzatishlar bunda yo‘qoladi."
+      },
+      {
+        "type": "single",
+        "question": "git restore --staged passwords.txt git add orqali tasodifan qo‘shilgan yangi fayl bilan nima qiladi?",
+        "options": [
+          "Faylni diskdan o‘chiradi",
+          "Faylni indeksdan olib tashlaydi, fayl papkada Untracked bo‘lib qoladi",
+          "Faylni barcha kommitlardan o‘chiradi",
+          "Bu faylsiz kommit qiladi"
+        ],
+        "answer": 1,
+        "explanation": "--staged faqat indeks bilan ishlaydi: fayl kommitga tayyorlanmay qo‘yadi, lekin diskda qoladi."
+      },
+      {
+        "type": "matching",
+        "question": "Vaziyat va mos buyruqni moslang.",
+        "pairs": [
+          [
+            "Faylni buzdingiz, hali git add qilmadingiz",
+            "git restore fayl"
+          ],
+          [
+            "Indeksga ortiqcha fayl qo‘shdingiz",
+            "git restore --staged fayl"
+          ],
+          [
+            "Oxirgi kommit xabarida xato, u hali e’lon qilinmagan",
+            "git commit --amend -m \"...\""
+          ],
+          [
+            "Allaqachon GitHub’dagi kommitni bekor qilish kerak",
+            "git revert <kommit>"
+          ]
+        ],
+        "explanation": "Xato qanchalik «chuqur» bo‘lsa (ishchi papka → indeks → lokal kommit → e’lon qilingan kommit), shunchalik boshqa buyruq kerak."
+      },
+      {
+        "type": "single",
+        "question": "Nega git revert e’lon qilingan tarix uchun xavfsiz, git reset esa yo‘q?",
+        "options": [
+          "revert tezroq ishlaydi",
+          "revert yangi bekor qiluvchi kommit qo‘shadi va eski kommitlarni o‘zgartirmaydi, reset esa tarmoqni orqaga suradi va kommitlarni «tashlab yuboradi»",
+          "reset repozitoriyni o‘chiradi",
+          "revert fayllarni o‘zgartirmaydi"
+        ],
+        "answer": 1,
+        "explanation": "Jamoadoshlarda e’lon qilingan kommitlar allaqachon bor. revert faqat ustiga kommit qo‘shadi, shuning uchun ularning tarix nusxalari to‘g‘riligicha qoladi."
+      },
+      {
+        "type": "multiple",
+        "question": "git commit --amend haqida nima to‘g‘ri?",
+        "options": [
+          "Oxirgi kommitni boshqa xeshli yangisi bilan almashtiradi",
+          "Kommitga hozir indeksda turgan hamma narsani oladi",
+          "Allaqachon GitHub’ga yuborilgan kommit uchun xavfsiz ishlatish mumkin",
+          "-m bilan oxirgi kommit xabarini o‘zgartiradi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "amend oxirgisi o‘rniga yangi kommit yaratadi (yangi xesh), unga indeksdagilarni qo‘shadi. E’lon qilingan kommitlarni bunday o‘zgartirib bo‘lmaydi."
+      },
+      {
+        "type": "matching",
+        "question": "git reset HEAD~1 rejimini va bekor qilingan kommitdagi o‘zgarishlar bilan nima bo‘lishini moslang.",
+        "pairs": [
+          [
+            "--soft",
+            "Indeksda qoladi (kommitga tayyor)"
+          ],
+          [
+            "--mixed (standart)",
+            "Ishchi papkada qoladi, lekin indeksda emas"
+          ],
+          [
+            "--hard",
+            "Indeksdan ham, ishchi papkadan ham o‘chiriladi"
+          ]
+        ],
+        "explanation": "Uchala rejim ham tarmoqni HEAD~1 ga suradi. Farqi - ular tarmoq ortidan nechta zonani «orqaga qaytaradi»."
+      },
+      {
+        "type": "single",
+        "question": "Git javob berdi:\nHEAD is now at c8a4ab7 Add styles\nKo‘proq ehtimol bilan qaysi buyruq bajarilgan?",
+        "options": [
+          "git revert HEAD",
+          "git reset --hard HEAD~1",
+          "git restore style.css",
+          "git commit --amend"
+        ],
+        "answer": 1,
+        "explanation": "HEAD is now at ... qatori - git reset --hard javobi: tarmoq va fayllar ko‘rsatilgan kommitga o‘tkazildi."
+      },
+      {
+        "type": "input",
+        "question": "git reset --hard dan keyin kerakli kommit yo‘qoldi. Uning xeshini topish uchun HEAD ning barcha surilishlari jurnalini qaysi buyruq ko‘rsatadi? Buyruqni to‘liq kiriting.",
+        "answers": [
+          "git reflog"
+        ],
+        "case_sensitive": true,
+        "explanation": "git reflog - «vaqt mashinasi»: u reset’dan keyin ham HEAD qayerni ko‘rsatganini eslab qoladi."
+      },
+      {
+        "type": "single",
+        "question": "git reflog ko‘rsatyapti:\nc8a4ab7 (HEAD -> main) HEAD@{0}: reset: moving to HEAD~1\nb7886e2 HEAD@{1}: commit: Add about page\nYo‘qolgan Add about page kommitini qanday qaytarish mumkin?",
+        "options": [
+          "git revert HEAD@{1}",
+          "git reset --hard b7886e2",
+          "git restore b7886e2",
+          "git commit --amend b7886e2"
+        ],
+        "answer": 1,
+        "explanation": "reflog’dagi xeshga (yoki HEAD@{1} ga) reset --hard tarmoq va fayllarni shu kommitga qaytaradi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi buyruqlar tarixni qayta yozadi (mavjud kommitlarni o‘zgartiradi yoki olib tashlaydi)?",
+        "options": [
+          "git commit --amend",
+          "git reset --hard HEAD~2",
+          "git revert HEAD",
+          "git restore --staged index.html"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "amend oxirgi kommitni almashtiradi, reset tarmoqni orqaga suradi. revert yangi kommit qo‘shadi, restore esa kommitlarga umuman tegmaydi."
+      },
+      {
+        "type": "input",
+        "question": "8401f68 kommitini muharrirni ochmasdan, yangi kommit bilan bekor qiladigan buyruqni to‘ldiring: git ________ --no-edit 8401f68",
+        "answers": [
+          "revert"
+        ],
+        "case_sensitive": true,
+        "explanation": "git revert --no-edit 8401f68 teskari o‘zgarishlar bilan Revert \"...\" kommitini yaratadi."
+      },
+      {
+        "type": "single",
+        "question": "Siz git reset --soft HEAD~1 ni bajardingiz. git status nimani ko‘rsatadi?",
+        "options": [
+          "nothing to commit, working tree clean",
+          "Bekor qilingan kommit o‘zgarishlarini Changes to be committed bo‘limida",
+          "O‘zgarishlarni Untracked files bo‘limida",
+          "fatal: not a git repository"
+        ],
+        "answer": 1,
+        "explanation": "--soft faqat tarmoqni suradi: kommit o‘zgarishlari indeksda qoladi, ularni darhol qaytadan kommit qilish mumkin."
+      }
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "lesson": 10,
+  "language": "ru",
+  "lesson_title": "Плагины и итоговый проект",
+  "task": {
+    "title": "Плагин $.fn.charCounter",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Запись в кружок</title>\n    <style>\n        .char-counter { color: #555; }\n        .is-over { color: #b00020; font-weight: bold; }\n    </style>\n</head>\n<body>\n    <main>\n        <h1>Запись в кружок</h1>\n        <form id=\"signup-form\">\n            <label for=\"about\">Коротко о себе</label>\n            <textarea id=\"about\" name=\"about\" data-max=\"50\"></textarea>\n            <label for=\"message\">Вопрос преподавателю</label>\n            <textarea id=\"message\" name=\"message\"></textarea>\n            <button type=\"submit\">Отправить</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "description": "На странице форма #signup-form с полями textarea#about (data-max=\"50\") и textarea#message (без data-max). jQuery уже подключён. Напишите плагин $.fn.charCounter(options). 1) Настройки по умолчанию defaults = { max: 100, counterClass: \"char-counter\", overClass: \"is-over\" }; внутри плагина объедините их с options через $.extend({}, defaults, options), не меняя defaults. 2) Перебирайте поля через return this.each(...), чтобы плагин можно было продолжить цепочкой. 3) Если у поля счётчик уже создан (повторный вызов), пропустите поле. 4) Лимит поля - число из data-max, если оно есть, иначе settings.max. 5) Сразу после поля создайте <p> с классом settings.counterClass и aria-live=\"polite\". 6) Текст счётчика \"N / лимит\", где N - число символов; обновляйте его сразу и при каждом событии input; класс settings.overClass - только когда N больше лимита. 7) Вызовите плагин для всех textarea формы #signup-form с { max: 200 }. document.querySelector, innerHTML, .html() и addEventListener не используйте.",
+    "starter_code": "// На странице форма #signup-form с двумя полями:\n// textarea#about (data-max=\"50\") и textarea#message (без data-max).\n// jQuery уже подключён.\n\n(function ($) {\n    // 1. const defaults = { ... }: max 100, counterClass \"char-counter\", overClass \"is-over\"\n\n    $.fn.charCounter = function (options) {\n        // 2. const settings = ... (объедините defaults и options, не меняя defaults)\n\n        // 3. return this.each(function () { ... }), внутри для каждого поля:\n        //    - если счётчик уже создан - return (пропустить поле)\n        //    - лимит: число из data-max, иначе settings.max\n        //    - создать <p> с классом settings.counterClass и aria-live=\"polite\" сразу после поля\n        //    - функция update(): текст \"N / лимит\", класс settings.overClass, если N > лимит\n        //    - update при событии input и сразу при создании\n    };\n})(jQuery);\n\n// 4. Вызовите плагин для всех textarea формы #signup-form с { max: 200 }\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "addEventListener",
+      ".style."
+    ],
+    "tests": [
+      {
+        "name": "Плагин $.fn.charCounter объявлен",
+        "check": "typeof $.fn.charCounter === \"function\"",
+        "fail": "Объявите метод: $.fn.charCounter = function (options) { ... };"
+      },
+      {
+        "name": "После каждого поля формы - p.char-counter с aria-live=\"polite\"",
+        "check": "document.querySelectorAll(\"#signup-form p.char-counter\").length === 2 && [...document.querySelectorAll(\"#signup-form textarea\")].every((t) => t.nextElementSibling && t.nextElementSibling.matches(\"p.char-counter\") && t.nextElementSibling.getAttribute(\"aria-live\") === \"polite\")",
+        "fail": "Создайте $(\"<p>\", { class: settings.counterClass, \"aria-live\": \"polite\" }) и вставьте его через $field.after(...). И не забудьте вызвать плагин для textarea формы."
+      },
+      {
+        "name": "У #about лимит из data-max: \"0 / 50\"",
+        "check": "document.querySelector(\"#about\").nextElementSibling.textContent === \"0 / 50\"",
+        "fail": "data-max у поля важнее options: const max = Number($field.data(\"max\")) || settings.max; и вызовите update() сразу после создания счётчика."
+      },
+      {
+        "name": "У #message лимит из options: \"0 / 200\"",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"",
+        "fail": "Вызов: $(\"#signup-form textarea\").charCounter({ max: 200 }); - у #message нет data-max, поэтому берётся settings.max."
+      },
+      {
+        "name": "Счётчик обновляется при вводе",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; return put(\"Привет\").textContent === \"6 / 50\"; })()",
+        "fail": "Подпишитесь на ввод: $field.on(\"input\", update);"
+      },
+      {
+        "name": "Ровно 50 символов - без is-over, 51 - с is-over, после удаления класс снимается",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; const a = put(\"x\".repeat(50)); const okEqual = a.textContent === \"50 / 50\" && !a.classList.contains(\"is-over\"); const okOver = put(\"x\".repeat(51)).classList.contains(\"is-over\"); const okBack = !put(\"x\".repeat(10)).classList.contains(\"is-over\"); return okEqual && okOver && okBack; })()",
+        "fail": "Класс нужен только при превышении: .toggleClass(settings.overClass, length > max) - строго больше."
+      },
+      {
+        "name": "Без options и data-max лимит 100",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); $t.charCounter(); return $t.next().text() === \"0 / 100\"; })()",
+        "fail": "Настройки по умолчанию: const defaults = { max: 100, ... }; и settings = $.extend({}, defaults, options)."
+      },
+      {
+        "name": "Уже введённый текст учитывается сразу",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"12 / 200\"",
+        "fail": "Вызовите update() один раз сразу после создания счётчика, а не только в обработчике input.",
+        "setup": "document.querySelector(\"#message\").value = \"Здравствуйте\";"
+      },
+      {
+        "name": "Повторный вызов не создаёт второй счётчик",
+        "check": "(() => { $(\"#about\").charCounter(); $(\"#signup-form textarea\").charCounter({ max: 10 }); return document.querySelectorAll(\"p.char-counter\").length === 2 && document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"; })()",
+        "fail": "В начале each: if ($field.data(\"charCounter\")) { return; } и после создания $field.data(\"charCounter\", true);"
+      },
+      {
+        "name": "Плагин возвращает тот же jQuery-объект (цепочка)",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); return $t.charCounter() === $t && $t.charCounter().addClass(\"x\").hasClass(\"x\"); })()",
+        "fail": "Пишите return this.each(function () { ... }); - each возвращает this."
+      },
+      {
+        "name": "Вызов с options не меняет настройки по умолчанию",
+        "check": "(() => { $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 5 }); const $b = $(\"<textarea>\").appendTo(\"main\").charCounter(); return $b.next().text() === \"0 / 100\"; })()",
+        "fail": "Первым аргументом $.extend передайте новый пустой объект: $.extend({}, defaults, options)."
+      },
+      {
+        "name": "Работают настройки counterClass и overClass",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 3, counterClass: \"hint\", overClass: \"too-long\" }); $t.val(\"abcd\").trigger(\"input\"); return $t.next().is(\"p.hint.too-long\"); })()",
+        "fail": "Используйте settings.counterClass при создании <p> и settings.overClass в toggleClass."
+      },
+      {
+        "name": "Настройки объединяются через $.extend, перебор - через this.each",
+        "check": "/\\$\\.extend\\(\\s*\\{\\s*\\}\\s*,/.test(__code) && /this\\.each\\(/.test(__code)",
+        "fail": "const settings = $.extend({}, defaults, options); и return this.each(function () { ... });"
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Внутри each this - DOM-элемент: оберните его, $(this), прежде чем вызывать .val() или .after()."
+      }
+    ],
+    "hints": [
+      "Каркас: $.fn.charCounter = function (options) { const settings = $.extend({}, defaults, options); return this.each(function () { ... }); };",
+      "Внутри each this - DOM-элемент. Сразу оберните его: const $field = $(this);",
+      "Лимит: const max = Number($field.data(\"max\")) || settings.max; - если data-max нет, Number(undefined) даёт NaN, и берётся settings.max.",
+      "Защита от повтора: в начале if ($field.data(\"charCounter\")) { return; }, после создания счётчика $field.data(\"charCounter\", true);",
+      "Обновление: $counter.text(`${length} / ${max}`).toggleClass(settings.overClass, length > max); - вызовите update() сразу и в $field.on(\"input\", update)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое $.fn?",
+        "options": [
+          "Список всех функций на странице",
+          "Объект с методами всех jQuery-объектов: метод, добавленный в $.fn, появляется у любого $(...)",
+          "Функция для создания элементов",
+          "Новая сборка jQuery 4"
+        ],
+        "answer": 1,
+        "explanation": "$.fn - общий «набор инструментов» всех jQuery-объектов. Записали $.fn.charCounter - и можно вызывать $(\"textarea\").charCounter()."
+      },
+      {
+        "type": "single",
+        "question": "Чему равен this внутри $.fn.charCounter = function () { ... }, если вызвать $(\"textarea\").charCounter()?",
+        "options": [
+          "Первому textarea (DOM-элементу)",
+          "jQuery-объекту со всеми найденными textarea",
+          "window",
+          "Объекту настроек"
+        ],
+        "answer": 1,
+        "explanation": "Внутри метода плагина this - тот jQuery-объект, у которого метод вызвали. А внутри this.each(function () {...}) this - уже отдельный DOM-элемент."
+      },
+      {
+        "type": "single",
+        "question": "Зачем плагин заканчивается на return this.each(...)?",
+        "options": [
+          "Чтобы плагин работал быстрее",
+          "Чтобы обработать каждый элемент и вернуть jQuery-объект для цепочки",
+          "Чтобы отменить повторный вызов",
+          "Без return плагин не запустится"
+        ],
+        "answer": 1,
+        "explanation": ".each перебирает элементы и возвращает тот же объект. return передаёт его наружу, поэтому $(\"textarea\").charCounter().addClass(\"x\") работает."
+      },
+      {
+        "type": "single",
+        "question": "const defaults = { max: 100 }; const s = $.extend(defaults, { max: 20 }); Чему теперь равен defaults.max?",
+        "options": [
+          "100",
+          "20",
+          "undefined",
+          "Будет ошибка"
+        ],
+        "answer": 1,
+        "explanation": "$.extend записывает свойства в первый аргумент. Здесь это defaults - настройки по умолчанию испорчены. Правильно: $.extend({}, defaults, options)."
+      },
+      {
+        "type": "input",
+        "question": "Допишите первый аргумент, чтобы настройки по умолчанию не менялись: const settings = $.extend(___, defaults, options);",
+        "answers": [
+          "{}"
+        ],
+        "case_sensitive": true,
+        "explanation": "Пустой объект {} - «чистый лист», в который копируются сначала defaults, потом options. Сам defaults не меняется."
+      },
+      {
+        "type": "single",
+        "question": "В плагине charCounter курса: defaults.max = 100, вызов charCounter({ max: 200 }), у поля data-max=\"50\". Какой лимит у поля?",
+        "options": [
+          "100",
+          "200",
+          "50",
+          "250"
+        ],
+        "answer": 2,
+        "explanation": "Порядок приоритетов: data-max у конкретного поля → options.max → defaults.max. Чем ближе настройка к элементу, тем она важнее."
+      },
+      {
+        "type": "multiple",
+        "question": "Что удалено в jQuery 4 и чем это заменить?",
+        "options": [
+          "$.trim(str) → str.trim()",
+          "$.isArray(x) → Array.isArray(x)",
+          ".on() → .click()",
+          "$.parseJSON(s) → JSON.parse(s)",
+          ".text() → .html()"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "$.trim, $.isArray и $.parseJSON удалены: в браузерах давно есть встроенные замены. .on() и .text() - основные методы, их не удаляли."
+      },
+      {
+        "type": "single",
+        "question": "Для чего подключают jQuery Migrate?",
+        "options": [
+          "Чтобы перенести сайт на другой хостинг",
+          "Чтобы временно вернуть удалённые функции и увидеть в консоли предупреждения о том, что нужно переписать",
+          "Чтобы ускорить jQuery",
+          "Чтобы подключить плагины"
+        ],
+        "answer": 1,
+        "explanation": "Migrate - инструмент перехода: старый код продолжает работать, а консоль показывает каждое устаревшее место. После исправления Migrate убирают."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте jQuery и чистый JavaScript.",
+        "pairs": [
+          [
+            "$(\".card\")",
+            "document.querySelectorAll(\".card\")"
+          ],
+          [
+            "$el.on(\"click\", fn)",
+            "el.addEventListener(\"click\", fn)"
+          ],
+          [
+            "$el.toggleClass(\"x\", flag)",
+            "el.classList.toggle(\"x\", flag)"
+          ],
+          [
+            "$.getJSON(url)",
+            "fetch(url).then((r) => r.json())"
+          ]
+        ],
+        "explanation": "jQuery вызывает те же функции браузера. Зная обе записи, вы читаете и старый, и новый код."
+      },
+      {
+        "type": "single",
+        "question": "В каком порядке подключать файлы итогового проекта?",
+        "options": [
+          "main.js → jquery.char-counter.js → jQuery",
+          "jQuery → jquery.char-counter.js → main.js",
+          "jquery.char-counter.js → jQuery → main.js",
+          "Порядок не важен, у всех есть defer"
+        ],
+        "answer": 1,
+        "explanation": "Плагин записывает метод в $.fn - значит, jQuery уже должен быть. main.js вызывает плагин - значит, плагин должен быть объявлен раньше. Скрипты с defer выполняются в порядке тегов."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие проверки обязательно повторить на опубликованном сайте GitHub Pages?",
+        "options": [
+          "Нет ли 404 для js/ и data/events.json во вкладке Network",
+          "Совпадает ли регистр имён файлов",
+          "Работает ли $.getJSON по относительному пути",
+          "Сколько строк в main.js"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Pages различает регистр, сайт лежит в подпапке репозитория, а кэш может отдать старый скрипт. Число строк кода к приёмке не относится."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод jQuery-объекта перебирает элементы и возвращает тот же объект? Введите имя метода без точки и скобок.",
+        "answers": [
+          "each"
+        ],
+        "case_sensitive": true,
+        "explanation": ".each(function () { ... }) вызывает функцию для каждого элемента и возвращает исходный объект - поэтому return this.each(...) сохраняет цепочку."
+      }
+    ]
+  }
+}

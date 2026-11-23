@@ -1,6 +1,6 @@
 # JavaScript ga kirish. Birinchi dastur
 
-[Mundarija](../../README.md) · [← CSS kursi](https://github.com/JLearn-space/css) · [Keyingi →](../../Lesson-2/uz/Ma'lumot%20turlari%20va%20operatorlar.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](../en/Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
+[Mundarija](../../README.md) · [← CSS kursi](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [Keyingi →](../../Lesson-2/uz/Ma'lumot%20turlari%20va%20operatorlar.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](../en/Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
 
 > **HTML va CSS kurslari bilan bog‘liqlik:** siz sayt qurdingiz va uni stillar bilan kiyintirdingiz. Lekin u hali harakatsiz: tugma hech narsa qilmaydi, menyu ochilmaydi, forma xatoni ko‘rsatmaydi. Bugun JavaScript’da birinchi dasturingizni yozasiz va uni sahifangizga ulaysiz.
 
@@ -274,6 +274,26 @@ Kurs qoidasi: **odatda `const`**, `let` esa faqat qiymat haqiqatan o‘zgarsa. S
 
 > **`var` chi?** Bu 1990-yillardagi eski e’lon usuli. Uning ko‘rinish qoidalari tushunarsiz, shuning uchun zamonaviy kodda va bu kursda `var` ishlatilmaydi. Eski maqolalarda uchratsangiz - `let` yoki `const` ga almashtiring.
 
+### Qiymat qanday o‘zgaradi: qadamma-qadam
+
+Dastur qatorma-qator bajariladi va har bir paytda qutida **bitta** qiymat yotadi. `score` ni kuzatamiz:
+
+```js
+let score = 0;
+score = 10;
+score = score + 5;
+score = score * 2;
+```
+
+| Qator | Nima qiladi | Qatordan keyin `score` |
+| --- | --- | --- |
+| `let score = 0;` | Quti yaratadi va `0` qo‘yadi | `0` |
+| `score = 10;` | `0` ni tashlab, `10` ni qo‘yadi | `10` |
+| `score = score + 5;` | `10` ni oladi, `5` qo‘shadi, natijani qo‘yadi | `15` |
+| `score = score * 2;` | `15` ni oladi, `2` ga ko‘paytiradi, natijani qo‘yadi | `30` |
+
+`score = score + 5` yozuvi **o‘ngdan chapga** o‘qiladi: avval eski qiymat bilan o‘ng qism hisoblanadi, keyin natija qutiga qo‘yiladi. Nima chiqishi tushunarsiz bo‘lganda bunday jadvalni har safar qog‘ozda chizish foydali.
+
 ### E’lon bir marta yoziladi
 
 ```js
@@ -297,6 +317,12 @@ let lessonsDone = 2;  // SyntaxError: Identifier 'lessonsDone' has already been 
 Kurs uslubi - **camelCase** («tuya registri»): birinchi so‘z kichik harf bilan, keyingi har biri - katta harf bilan: `studentName`, `lessonsDone`, `isDarkTheme`. Nom ichidagi narsani tushuntirishi kerak: `s` dan `score` yaxshiroq, `x` dan esa `lessonsDone`.
 
 > **Ingliz so‘zlari:** o‘zgaruvchi nomlari inglizcha so‘zlar bilan yoziladi. Boshqa alifbolar texnik jihatdan mumkin, lekin hech bir jamoada bunday qilinmaydi.
+
+### Buzib ko‘ring
+
+1. `const city = "Toshkent";` ni e’lon qiling, keyingi qatorda esa `city = "Buxoro";` deb yozing. Konsoldagi `TypeError` ni o‘qing.
+2. `const userName = "Anna";` qatoridan **oldin** `console.log(userName);` deb yozing. Qanday xato chiqadi va nega qatorlar tartibi muhim?
+3. O‘zgaruvchini `user-name` deb nomlang. Konsol nima deydi?
 
 ---
 
@@ -334,6 +360,20 @@ Uncaught ReferenceError: scor is not defined    main.js:4
 3. **Joyi** - `main.js:4`: fayl va qator.
 
 > **Muhim:** birinchi xatodan keyin brauzer faylni bajarishni to‘xtatadi. Agar konsolda xabarlaringizdan birortasi ham chiqmagan bo‘lsa, xatoni yuqoriroqdan qidiring, fayl umuman yuklanmagan bo‘lsa - Network bo‘limini va `src` dagi yo‘lni tekshiring.
+
+### Biror narsa ishlamasa nima qilish kerak
+
+```mermaid
+flowchart TD
+    A["Sahifa javob bermayapti"] --> B{"Konsolda qizil qator bormi?"}
+    B -->|Ha| C["Tur, xabar va qator raqamini o‘qing"]
+    C --> D["Faylni shu qatorda ochib, tuzating"]
+    B -->|Yo‘q| E{"main.js fayli yuklandimi?<br>Network: 200 yoki 404"}
+    E -->|404| F["src dagi yo‘lni tekshiring"]
+    E -->|200| G["Kerakli joyga console.log qo‘shing<br>va kod u yerga yetdimi, qarang"]
+```
+
+**Sxemani qanday o‘qish kerak.** Deyarli har qanday muammo uch qadamda topiladi: konsoldagi xato, faylning yuklanishi, nazorat `console.log` i. Avval doim konsolga qarang.
 
 ---
 
@@ -453,4 +493,4 @@ console.log(siteName, visits); // Veb-dasturlash to‘garagi 2
 
 ---
 
-[Mundarija](../../README.md) · [← CSS kursi](https://github.com/JLearn-space/css) · [Keyingi →](../../Lesson-2/uz/Ma'lumot%20turlari%20va%20operatorlar.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](../en/Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)
+[Mundarija](../../README.md) · [← CSS kursi](https://github.com/JLearn-space/JLearn-docs/tree/main/CSS) · [Keyingi →](../../Lesson-2/uz/Ma'lumot%20turlari%20va%20operatorlar.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20JavaScript.%20%D0%9F%D0%B5%D1%80%D0%B2%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.md) · [EN](../en/Introduction%20to%20JavaScript.%20First%20program.md) · [UZ](JavaScript%20ga%20kirish.%20Birinchi%20dastur.md)

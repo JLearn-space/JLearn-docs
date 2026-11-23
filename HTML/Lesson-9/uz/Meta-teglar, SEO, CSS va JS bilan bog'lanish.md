@@ -286,6 +286,16 @@ Bir necha soniyadan keyin 0 dan 100 gacha baho va nimani yaxshilash ro‘yxatini
 
 **Validator va Lighthouse qo‘lda tekshiruvni almashtirmaydi.** 8-darsdagidek sahifani klaviatura bilan o‘ting.
 
+### Buzib ko‘ring
+
+1. `<link>` da yo‘lni `css/styles.css` ga almashtiring (bitta ortiqcha harf). Sahifani yangilang: bezak yo‘qoldi. **Network** yorlig‘ida faylning holati `404`.
+2. Skript bilan ham shunday qiling: `js/main.js` o‘rniga `js/mian.js`. **Console** da «Lesson 9: the deferred script loaded.» qatori yo‘q, lekin qizil qator bor: `Failed to load resource: the server responded with a status of 404 (Not Found)`.
+3. `<script src="js/main.js" defer></script>` ni `<script src="js/main.js" defer />` ga almashtiring. Sahifani yangilang: butun mazmun g‘oyib bo‘ldi. Brauzer `/>` ni `script` ning yopilishi deb hisoblamaydi va hujjatning qolgan qismini skript matni deb qabul qiladi. Validator `Self-closing syntax` so‘zlari bilan boshlanadigan xatoni ko‘rsatadi.
+4. `<html>` dan `lang` atributini o‘chiring va kodni validatorda tekshiring. `Consider adding a lang attribute to the html start tag to declare the language of this document.` ogohlantirishi paydo bo‘ladi.
+5. `<meta name="description">` ni o‘chiring va Lighthouse ni **SEO** belgisi bilan ishga tushiring. Muammolar ro‘yxatida `Document does not have a meta description` paydo bo‘ladi.
+
+Har bir tajribadan keyin kodni avvalgi holiga qaytaring.
+
 ---
 
 ## Mini-topshiriq 2

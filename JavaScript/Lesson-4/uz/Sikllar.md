@@ -20,6 +20,8 @@ Ko‘paytirish jadvalini chiqarish, barcha xaridlar yig‘indisini hisoblash, pa
 - Yig‘indi va sonni hisoblash: to‘plovchi va hisoblagich.
 - Satr belgilarini aylanib chiqish: `for...of`.
 - Cheksiz siklni topish va to‘xtatish.
+- Sikl bajarilishini jadvalda qadamma-qadam kuzatish va ichma-ich sikllar yozish.
+
 
 ---
 
@@ -127,6 +129,32 @@ for (let i = 1; i <= 100; i++) {
 console.log(count); // 1 dan 100 gacha 14 ta son 7 ga bo‘linadi
 ```
 
+### Yig‘uvchi qanday ishlaydi: bajarilish jadvali
+
+Misolni `i <= 5` gacha kichraytiramiz va uni qo‘lda o‘tamiz. Jadvalning har bir qatorida - bitta iteratsiya:
+
+| Iteratsiya | `i` | `i <= 5` sharti | oldin `sum` | `sum += i` | keyin `sum` |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 1 | `true` | 0 | 0 + 1 | 1 |
+| 2 | 2 | `true` | 1 | 1 + 2 | 3 |
+| 3 | 3 | `true` | 3 | 3 + 3 | 6 |
+| 4 | 4 | `true` | 6 | 6 + 4 | 10 |
+| 5 | 5 | `true` | 10 | 10 + 5 | 15 |
+| - | 6 | `false` | 15 | sikl tugadi | 15 |
+
+Oxirgi qatorga e’tibor bering: hisoblagich `6` bo‘lishga ulguradi, shart `false` beradi va tana **bajarilmaydi**. Bunday jadval - istalgan siklni tushunishning asosiy vositasi. Natija hayron qoldirsa - uni qog‘ozda chizing.
+
+Oraliq qiymatlarni chiqarsangiz, xuddi shuni konsolda ham ko‘rish mumkin:
+
+```js
+let sum = 0;
+
+for (let i = 1; i <= 5; i++) {
+    sum += i;
+    console.log(`i = ${i}, sum = ${sum}`);
+}
+```
+
 > **Tipik xato:** `let sum = 0;` ni sikl **ichida** e’lon qilish. Shunda yig‘indi har iteratsiyada nolga tushadi, sikldan keyin esa o‘zgaruvchi mavjud bo‘lmaydi.
 
 Satrlarni ham to‘plash mumkin:
@@ -140,6 +168,31 @@ for (let i = 1; i <= 5; i++) {
 
 console.log(stars); // *****
 ```
+
+### Ichma-ich sikllar
+
+Sikl ichidagi sikl: tashqi siklning **har bir** iteratsiyasida ichkisi **to‘liq** o‘tadi. Jadvallar va to‘rlar shunday quriladi:
+
+```js
+for (let row = 1; row <= 3; row++) {
+    let line = "";
+    for (let col = 1; col <= 3; col++) {
+        line += `${row * col} `;
+    }
+    console.log(line);
+}
+// 1 2 3
+// 2 4 6
+// 3 6 9
+```
+
+| `row` | Ichki `col` sikli | Ichki sikldan keyin `line` |
+| --- | --- | --- |
+| 1 | 1, 2, 3 | `"1 2 3 "` |
+| 2 | 1, 2, 3 | `"2 4 6 "` |
+| 3 | 1, 2, 3 | `"3 6 9 "` |
+
+Ichki sikl tanasi 3 × 3 = 9 marta bajarildi. 1000 qadamli ikki sikl uchun bu allaqachon million qadam - ichma-ichlikdan ongli foydalaning.
 
 ---
 
@@ -210,6 +263,26 @@ while (i <= 5) {
 | Biror narsa sodir bo‘lguncha takrorlash | `while` |
 | Satrning har bir belgisini (keyinroq - massiv elementini) aylanib chiqish | `for...of` |
 
+### `do...while` - kamida bir marta
+
+Oddiy `while` shartni birinchi qadamdan **oldin** tekshiradi va bir marta ham bajarilmasligi mumkin. `do...while` avval tanani bajaradi, tekshiruv esa **keyin**:
+
+```js
+let attempt = 0;
+
+do {
+    attempt++;
+    console.log(`Urinish ${attempt}`);
+} while (attempt < 3);
+```
+
+| Sikl | Shart qachon tekshiriladi | Kamida necha marta bajariladi |
+| --- | --- | --- |
+| `while` | Har bir qadamdan oldin | 0 |
+| `do...while` | Har bir qadamdan keyin | 1 |
+
+Kursda `do...while` kam uchraydi: deyarli doim `for` va `while` yetarli.
+
 ---
 
 ## Cheksiz sikl
@@ -270,6 +343,23 @@ const vowels = "aeiou";
 console.log(vowels.includes("o")); // true
 console.log(vowels.includes("m")); // false
 ```
+
+### Buzib ko‘ring
+
+1. O‘tirib-turish siklida `i <= 5` ni `i < 5` ga almashtiring. Nechta qator chiqadi? Bu «bittaga» xatosi - sikllardagi eng ko‘p uchraydigan xato.
+2. `let sum = 0;` ni sikl ichiga ko‘chiring va sikldan keyin `sum` ni chiqaring. Nega xato yoki noto‘g‘ri son chiqdi?
+3. Summani ikki baravar oshiradigan `while` siklida `<` ni `>` ga almashtiring. Tana kamida bir marta bajariladimi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `i <= 5` o‘rniga `i < 5` | Bitta qadam yo‘qoladi | Hisoblagichning birinchi va oxirgi qiymatini tekshiring |
+| Yig‘uvchi sikl ichida e’lon qilingan | Summa har qadamda nolga tushadi | `let sum = 0;` sikldan **oldin** |
+| `while` da `i++` unutilgan | Cheksiz sikl | Tanada shart o‘zgaruvchisini o‘zgartiring |
+| `for (let i = 1; i <= 5; i--)` | Hisoblagich kamayadi, shart doim `true` | Qadam yo‘nalishi oxiriga olib borishi kerak |
+| `for (...)` dan keyin `;` | Tana sikldan keyin bir marta bajariladi | `{` oldidan `;` siz |
+| Oddiy `for` da `const i` | `i++` da `TypeError` | `for` da hisoblagich - `let`; `for...of` da - `const` |
 
 ---
 

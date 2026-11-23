@@ -87,41 +87,6 @@
       "Declare the accumulator and the counter with let BEFORE the loop.",
       "Going through the word: for (const char of word) { ... }",
       "Vowel check: \"aeiou\".includes(char.toLowerCase())."
-    ],
-    "solution": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "starter code unchanged",
-        "code": "// 1. Multiplication table for n\n"
-      },
-      {
-        "mistake": "the table is always for 5",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "a 9-line table",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "n is not in the range",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "accumulator inside the loop",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "case is not ignored",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "for instead of for...of for the word",
-        "code": "// 1. Multiplication table\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Sum of even numbers from 1 to n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Vowels in the word\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Sum of evens: ${evenSum}, vowels: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "infinite loop",
-        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
-      }
     ]
   },
   "test": {

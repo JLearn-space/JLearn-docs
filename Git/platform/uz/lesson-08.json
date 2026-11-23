@@ -1,0 +1,270 @@
+{
+  "lesson": 8,
+  "language": "uz",
+  "lesson_title": "GitHub va masofaviy repozitoriylar",
+  "task": {
+    "title": "GitHub’dagi portfolio va birovning repozitoriysi",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasida, main tarmog‘idasiz, tarixda 3 ta kommit bor. «GitHub»da bo‘sh https://github.com/anna/portfolio.git repozitoriysi yaratilgan, kursdoshingiz Azizda esa Git bo‘yicha konspektli https://github.com/aziz/notes.git repozitoriysi bor. Buyruqlarni har bir qatorga bittadan yozing: 1) https://github.com/anna/portfolio.git masofaviy repozitoriysini origin nomi bilan ulang va masofaviy repozitoriylar ro‘yxatini tekshiring (git remote -v). 2) main tarmog‘ini GitHub’ga shunday yuboringki, origin/main uning upstream’i bo‘lsin. 3) git status ni bajaring va tarmoq up to date with 'origin/main' ekaniga ishonch hosil qiling. 4) feature/about tarmog‘ini yarating va unga o‘ting, <h1>About me</h1> matnli about.html faylini yarating va uni kommit qiling. 5) feature/about tarmog‘ini origin/feature/about upstream’i bilan GitHub’ga yuboring. 6) Uy papkasiga qayting va https://github.com/aziz/notes.git ni klonlang. 7) notes papkasiga o‘ting, tarixni (git log --oneline) va masofaviy repozitoriylarni ko‘ring. Natijada serverdagi main tarixi siznikiga mos keladi, serverda main va feature/about tarmoqlari bor, ikkala tarmoqda upstream sozlangan, ~/notes da esa Aziz repozitoriysining butun tarixi bilan nusxasi turibdi.",
+    "starter_code": "# Buyruqlarni har bir qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasida, main tarmog‘idasiz, tarixda 3 ta kommit bor.\n# GitHub’da bo‘sh https://github.com/anna/portfolio.git repozitoriysi yaratilgan\n\n# 1. Masofaviy repozitoriyni origin nomi bilan ulang va masofaviylar ro‘yxatini tekshiring\n\n# 2. main ni GitHub’ga yuboring va origin/main ni uning upstream’i qiling\n\n# 3. git status ni tekshiring: tarmoq up to date with 'origin/main' bo‘lishi kerak\n\n# 4. feature/about tarmog‘i, <h1>About me</h1> bilan about.html fayli, kommit\n\n# 5. feature/about ni upstream bilan GitHub’ga yuboring\n\n# 6. Uy papkasiga qayting va https://github.com/aziz/notes.git ni klonlang\n\n# 7. notes ga o‘ting va tarixni ko‘ring\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n",
+    "tests": [
+      {
+        "name": "~/portfolio da anna/portfolio repozitoriysi manzili bilan origin ulangan",
+        "check": "sim.repo(\"~/portfolio\") !== null && JSON.stringify(sim.repo(\"~/portfolio\").remotes()) === JSON.stringify({ origin: \"https://github.com/anna/portfolio.git\" })",
+        "fail": "Masofaviy repozitoriyni ulang: git remote add origin https://github.com/anna/portfolio.git (nomi - origin, manzil - xatosiz). git remote -v ni tekshiring."
+      },
+      {
+        "name": "«GitHub»da aynan ikkita tarmoq: feature/about va main",
+        "check": "sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\"",
+        "fail": "Ikkala tarmoqni yuboring: git push -u origin main va feature/about da turib git push -u origin feature/about."
+      },
+      {
+        "name": "Serverdagi main tarixi lokal tarix bilan mos (barcha kommitlar, o‘sha xeshlar)",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash))",
+        "fail": "Serverdagi main xuddi sizdagidek bo‘lishi kerak. push’dan keyin main da kommit qilmang, about.html ni esa feature/about tarmog‘ida kommit qiling."
+      },
+      {
+        "name": "main o‘zgarmagan: 3 ta boshlang‘ich kommit, about.html unga tushmagan",
+        "check": "sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "about.html sahifasi bilan kommit feature/about tarmog‘ida bo‘lishi kerak: kommitdan oldin uni git switch -c feature/about buyrug‘i bilan yarating."
+      },
+      {
+        "name": "feature/about: main ustida about.html bilan bitta kommit, serverda - o‘sha kommit",
+        "check": "(() => { const c = sim.repo(\"~/portfolio\").commit(\"feature/about\"); return c !== null && c.parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && typeof c.files[\"about.html\"] === \"string\" && c.files[\"about.html\"].includes(\"<h1>About me</h1>\") && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\"); })()",
+        "fail": "feature/about da yangi about.html fayli bilan bitta kommit bo‘lishi (git add about.html ni unutmang) va u serverga yuborilgan bo‘lishi kerak."
+      },
+      {
+        "name": "main ning upstream’i - origin/main",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\"",
+        "fail": "main ni birinchi marta -u kaliti bilan yuboring: git push -u origin main. -u siz tarmoq qayerga yuborilishini eslab qolmaydi."
+      },
+      {
+        "name": "feature/about ning upstream’i - origin/feature/about",
+        "check": "sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\"",
+        "fail": "Yangi tarmoqni ham -u bilan yuboring: git push -u origin feature/about. Shunchaki git push has no upstream branch deb javob beradi."
+      },
+      {
+        "name": "~/portfolio da hamma narsa kommit qilingan",
+        "check": "sim.repo(\"~/portfolio\").status().clean",
+        "fail": "about.html fayli feature/about tarmog‘idagi kommitda bo‘lishi kerak: git add about.html, keyin git commit -m."
+      },
+      {
+        "name": "Yuborishdan keyin git status up to date with 'origin/main' ni ko‘rsatdi",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git status\") && c.out.includes(\"Your branch is up to date with 'origin/main'\"))",
+        "fail": "git push -u origin main dan keyin darhol git status ni bajaring - Git tarmoq origin/main bilan bir xil ekanini aytadi."
+      },
+      {
+        "name": "Masofaviy repozitoriylar ro‘yxati tekshirildi: git remote -v",
+        "check": "__commands.some((c) => c.cmd === \"git remote -v\" && c.out.includes(\"(push)\"))",
+        "fail": "git remote add dan keyin natijani ko‘ring: git remote -v (repozitoriy ichida)."
+      },
+      {
+        "name": "aziz/notes repozitoriysi ~/notes ga klonlangan: aziz tarixi va origin",
+        "check": "sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "Uy papkasiga qayting (cd ~) va git clone https://github.com/aziz/notes.git ni bajaring - ~/notes papkasi paydo bo‘ladi. portfolio ichida klonlash shart emas."
+      },
+      {
+        "name": "Klonlangan repozitoriy tarixi ko‘rildi",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git log\") && c.out.includes(\"Add git commands\") && c.out.includes(\"Add README\"))",
+        "fail": "notes papkasiga o‘ting (cd notes) va tarixni ko‘ring: git log --oneline."
+      },
+      {
+        "name": "Boshqa lokal tarix (5 ta kommit): server unga mos, upstream’lar sozlangan",
+        "check": "JSON.stringify(sim.remote(\"https://github.com/anna/portfolio.git\").log(\"main\").map((c) => c.hash)) === JSON.stringify(sim.repo(\"~/portfolio\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/portfolio\").log(\"main\").length === 5 && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") !== null && sim.remote(\"https://github.com/anna/portfolio.git\").tip(\"feature/about\") === sim.repo(\"~/portfolio\").tip(\"feature/about\") && sim.repo(\"~/portfolio\").commit(\"feature/about\").parents[0] === sim.repo(\"~/portfolio\").tip(\"main\") && sim.remote(\"https://github.com/anna/portfolio.git\").branches().join(\",\") === \"feature/about,main\" && sim.repo(\"~/portfolio\").upstream(\"main\") === \"origin/main\" && sim.repo(\"~/portfolio\").upstream(\"feature/about\") === \"origin/feature/about\" && sim.repo(\"~/notes\") !== null && sim.repo(\"~/notes\").root === \"/home/student/notes\" && sim.repo(\"~/notes\").remotes().origin === \"https://github.com/aziz/notes.git\" && JSON.stringify(sim.repo(\"~/notes\").log().map((c) => c.hash)) === JSON.stringify(sim.remote(\"https://github.com/aziz/notes.git\").log(\"main\").map((c) => c.hash)) && sim.repo(\"~/notes\").log().every((c) => c.author === \"Aziz Rakhimov\")",
+        "fail": "Yechim istalgan tarix uchun ishlashi kerak: sizdagi main ni yuboring va main da kommit yaratmang.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"node_modules/\" > .gitignore\ngit add . && git commit -m \"Add gitignore\"\necho \"h1 { color: teal; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Web developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\nsim.createRemote(\"https://github.com/anna/portfolio.git\");\nsim.createRemote(\"https://github.com/aziz/notes.git\", { writers: [\"aziz\"] });\nsim.addUser(\"aziz\", { name: \"Aziz Rakhimov\", email: \"aziz@example.com\", defaultBranch: \"main\" });\nsim.run(`mkdir notes && cd notes && git init\necho \"# Git notes\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"git status - what is going on\" > git.md\ngit add . && git commit -m \"Add git commands\"\necho \"git log --oneline - short history\" >> git.md\ngit commit -am \"Add git log\"\ngit remote add origin https://github.com/aziz/notes.git\ngit push -u origin main\n`, { user: \"aziz\", quiet: true });\nsim.run(\"cd portfolio\", { quiet: true });\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "echo buyruqlaridagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "Masofaviy repozitoriyni ulash: git remote add origin https://github.com/anna/portfolio.git. Tekshirish: git remote -v.",
+      "Tarmoqni birinchi yuborish - -u kaliti bilan: git push -u origin main. Git branch 'main' set up to track 'origin/main' deb javob beradi.",
+      "Yangi tarmoqni yaratib, unga bitta buyruq bilan o‘ting: git switch -c feature/about. Kommitdan oldin yangi fayl uchun - git add about.html.",
+      "feature/about tarmog‘ini ham -u bilan yuboring: git push -u origin feature/about. Shunchaki git push has no upstream branch deb javob beradi.",
+      "Klonlash loyiha papkasidan emas, uy papkasidan bajariladi: cd ~, keyin git clone https://github.com/aziz/notes.git. Git notes papkasini yaratadi - unga o‘ting (cd notes)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Masofaviy repozitoriy (remote) nima?",
+        "options": [
+          "O‘chirilgan va tiklash mumkin bo‘lgan repozitoriy",
+          "Repozitoriyning boshqa kompyuter yoki serverdagi, masalan GitHub’dagi nusxasi",
+          "Kompyuteringizdagi .git papkasi",
+          "Repozitoriyingiz ichidagi alohida tarmoq"
+        ],
+        "answer": 1,
+        "explanation": "Remote - loyihaning o‘sha tarixi, faqat boshqa joyda: GitHub’da, kompaniya serverida, hamkasbning kompyuterida. Git u bilan push, fetch, pull buyruqlari orqali kommit almashadi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git remote -v\norigin\thttps://github.com/anna/portfolio.git (fetch)\norigin\thttps://github.com/anna/portfolio.git (push)",
+        "options": [
+          "Ikkita masofaviy repozitoriy ulangan",
+          "Bitta origin masofaviy repozitoriysi ulangan, undan ham yuklab olinadi, unga ham yuboriladi",
+          "main tarmog‘i GitHub’ga yuborilgan",
+          "Repozitoriy klonlangan"
+        ],
+        "answer": 1,
+        "explanation": "Ikki marta ko‘rsatilgan bitta origin yozuvi: yuklab olish (fetch) va yuborish (push) manzili. Odatda ular bir xil."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: main tarmog‘ini origin ga yuborish va origin/main ni uning upstream’i qilish (qisqa kalit).",
+        "answers": [
+          "git push -u origin main"
+        ],
+        "case_sensitive": true,
+        "explanation": "-u (--set-upstream) main ↔ origin/main bog‘lanishini eslab qoladi. Keyin shunchaki git push va git pull yozish kifoya."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git push\nfatal: The current branch feature/about has no upstream branch.",
+        "options": [
+          "feature/about tarmog‘i mavjud emas",
+          "Masofaviy repozitoriy ulanmagan",
+          "Tarmoq hali bir marta ham -u bilan yuborilmagan: Git uni qayerga yuborishni bilmaydi",
+          "GitHub’ga kirish huquqi yo‘q"
+        ],
+        "answer": 2,
+        "explanation": "Remote ulangan, lekin tarmoqning upstream’i yo‘q. Yechimni Git o‘zi aytadi: git push --set-upstream origin feature/about (yoki git push -u origin feature/about)."
+      },
+      {
+        "type": "matching",
+        "question": "Git xabarini va sababini moslang.",
+        "pairs": [
+          [
+            "fatal: No configured push destination.",
+            "git remote add bajarilmagan"
+          ],
+          [
+            "error: src refspec master does not match any",
+            "Bunday nomli lokal tarmoq yo‘q"
+          ],
+          [
+            "remote: Repository not found.",
+            "Manzilda xato yoki repozitoriyga kirish huquqi yo‘q"
+          ],
+          [
+            "fatal: Authentication failed",
+            "Token o‘rniga akkaunt paroli kiritilgan yoki token noto‘g‘ri"
+          ]
+        ],
+        "explanation": "Xatoning birinchi qatorini o‘qing: u deyarli har doim muammoni to‘g‘ridan-to‘g‘ri aytadi."
+      },
+      {
+        "type": "single",
+        "question": "Repozitoriyingizdagi origin/main nimani ko‘rsatadi?",
+        "options": [
+          "GitHub’dagi main tarmog‘ining aynan shu soniyadagi holatini",
+          "Git’ingizga ma’lum bo‘lgan serverdagi main ning oxirgi holatini - oxirgi push, fetch yoki pull paytidagi",
+          "Lokal main ingiz nusxasini",
+          "Kommit qilish mumkin bo‘lgan tarmoqni"
+        ],
+        "answer": 1,
+        "explanation": "origin/main - serverning «surati». U faqat server bilan almashishda yangilanadi. Hamkasbingiz kommit yuborsa, uni origin/main da faqat git fetch dan keyin ko‘rasiz."
+      },
+      {
+        "type": "multiple",
+        "question": "HTTPS yoki SSH orqali git push qilishda GitHub’ga nima bilan kirish mumkin?",
+        "options": [
+          "Parol o‘rniga Personal Access Token",
+          "GitHub akkaunti paroli",
+          "Git Credential Manager (brauzer orqali kirish)",
+          "Ochiq qismi GitHub sozlamalariga qo‘shilgan SSH kaliti",
+          "Parolsiz email"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "GitHub 2021-yildan beri Git amallari uchun akkaunt parolini qabul qilmaydi. Token, Git Credential Manager yoki gh auth login orqali kirish, yoki SSH kaliti kerak."
+      },
+      {
+        "type": "single",
+        "question": "git fetch git pull dan nimasi bilan farq qiladi?",
+        "options": [
+          "Hech narsasi bilan, ular sinonim",
+          "fetch yangi kommitlarni yuklab oladi va origin/main ni yangilaydi, lekin fayllaringizga tegmaydi; pull = fetch + joriy tarmoqqa birlashtirish",
+          "fetch kommitlarni yuboradi, pull yuklab oladi",
+          "pull faqat SSH bilan ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "fetch xavfsiz: faqat «nima yangilik borligini ko‘rish». pull esa o‘zgarishlarni darhol tarmog‘ingiz va ishchi papkangizga birlashtiradi."
+      },
+      {
+        "type": "single",
+        "question": "Git nima chiqardi?\n\n$ git status\nOn branch main\nYour branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)",
+        "options": [
+          "Serverda main ingizda yo‘q 1 ta kommit bor; git pull uni oldinga o‘tkazadi",
+          "Sizda 1 ta yuborilmagan kommit bor",
+          "Tarmoqlar ajralgan, konflikt kerak",
+          "Fayl o‘zgartirilgan, lekin kommit qilinmagan"
+        ],
+        "answer": 0,
+        "explanation": "behind - «orqada». Bu xabar git fetch dan keyin, serverda yangi kommitlar paydo bo‘lganda chiqadi. ahead buning teskarisini bildirardi - sizda yuborilmagan kommitlar bor."
+      },
+      {
+        "type": "multiple",
+        "question": "Sizda kommitlari bor lokal loyiha allaqachon mavjud. Siz u uchun GitHub’da repozitoriy yaratyapsiz. Nima to‘g‘ri?",
+        "options": [
+          "Repozitoriyni bo‘sh yaratgan ma’qul: README, .gitignore va litsenziyasiz",
+          "«Add README» ni albatta belgilash kerak, aks holda push ishlamaydi",
+          "Yaratilgandan keyin GitHub git remote add uchun kerakli manzilni ko‘rsatadi",
+          "Yopiq repozitoriyni faqat siz va siz taklif qilganlar ko‘radi"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Agar GitHub README bilan o‘zining birinchi kommitini yaratsa, serverda va sizda ikki xil tarix bo‘ladi va birinchi push rad etiladi. Bo‘sh repozitoriy tarixingizni to‘liq qabul qiladi."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruqni va u nima qilishini moslang.",
+        "pairs": [
+          [
+            "git clone URL",
+            "Repozitoriyni to‘liq yangi papkaga yuklab olish va origin ni ulash"
+          ],
+          [
+            "git fetch",
+            "Yangi kommitlarni yuklab olish, origin/* ni yangilash, fayllarga tegmaslik"
+          ],
+          [
+            "git pull",
+            "Yuklab olish va darhol joriy tarmoqqa birlashtirish"
+          ],
+          [
+            "git push",
+            "O‘z kommitlaringizni serverga yuborish"
+          ]
+        ],
+        "explanation": "clone - boshida bir marta; fetch va pull - boshqalarnikini olish; push - o‘zingiznikini berish."
+      },
+      {
+        "type": "input",
+        "question": "Buyruqni to‘liq kiriting: zamonaviy ed25519 turidagi SSH kalitini yaratish (-C kalitisiz).",
+        "answers": [
+          "ssh-keygen -t ed25519"
+        ],
+        "case_sensitive": true,
+        "explanation": "ssh-keygen juftlik yaratadi: yopiq kalit ~/.ssh/id_ed25519 (hech kimga ko‘rsatmang) va ochiq ~/.ssh/id_ed25519.pub - uni GitHub sozlamalariga qo‘shishadi."
+      }
+    ]
+  }
+}

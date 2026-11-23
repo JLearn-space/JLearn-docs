@@ -1,6 +1,6 @@
 # Введение в CSS. Синтаксис и подключение
 
-[Содержание](../../README.md) · [← Курс HTML](https://github.com/JLearn-space/HTML) · [Вперёд →](../../Lesson-2/ru/%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D1%8B%20%D0%B8%20%D0%BA%D0%B0%D1%81%D0%BA%D0%B0%D0%B4.md) · [RU](%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](../uz/CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
+[Содержание](../../README.md) · [← Курс HTML](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) · [Вперёд →](../../Lesson-2/ru/%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D1%8B%20%D0%B8%20%D0%BA%D0%B0%D1%81%D0%BA%D0%B0%D0%B4.md) · [RU](%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](../uz/CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
 
 > **Связь с курсом HTML:** в курсе «HTML за 10 уроков» вы построили каркас страниц: заголовки, списки, таблицы, формы - без единого цвета. Сегодня начинаем одевать этот каркас.
 
@@ -464,4 +464,4 @@ h1, h2, h3 {
 
 ---
 
-[Содержание](../../README.md) · [← Курс HTML](https://github.com/JLearn-space/HTML) · [Вперёд →](../../Lesson-2/ru/%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D1%8B%20%D0%B8%20%D0%BA%D0%B0%D1%81%D0%BA%D0%B0%D0%B4.md) · [RU](%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](../uz/CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
+[Содержание](../../README.md) · [← Курс HTML](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) · [Вперёд →](../../Lesson-2/ru/%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D1%8B%20%D0%B8%20%D0%BA%D0%B0%D1%81%D0%BA%D0%B0%D0%B4.md) · [RU](%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](../uz/CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)

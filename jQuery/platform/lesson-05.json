@@ -1,0 +1,279 @@
+{
+  "lesson": 5,
+  "language": "ru",
+  "lesson_title": "Создание и удаление элементов",
+  "task": {
+    "title": "Каталог курсов на jQuery",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Курсы JLearn</title>\n</head>\n<body>\n    <main>\n        <h1>Курсы JLearn</h1>\n        <p id=\"course-count\">Загрузка...</p>\n        <ul id=\"course-list\" class=\"course-list\">\n            <li class=\"placeholder\">Загрузка списка...</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "На странице есть абзац #course-count и список #course-list с пунктом-заглушкой \"Загрузка списка...\". Платформа задаёт массив courses из объектов { id, title, lessons, isNew }. jQuery уже подключён. Напишите функцию renderCourses(list): 1) Найдите #course-list и #course-count через $(). 2) Очистите список методом .empty(). 3) Для каждого курса из list создайте пункт $(\"<li>\", { ... }) с классом course, текстом \"HTML (уроков: 10)\" и атрибутом data-id из id. 4) Курсам с isNew: true добавьте класс course--new. 5) Вставьте пункт в список через .append(). 6) В #course-count запишите \"Курсов: N\", где N - длина list. В конце вызовите renderCourses(courses). Повторный вызов не должен задваивать список. document.querySelector, createElement, innerHTML, textContent и .html() не используйте.",
+    "starter_code": "// Платформа задаёт:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// На странице: <p id=\"course-count\"> и <ul id=\"course-list\"> с пунктом-заглушкой \"Загрузка списка...\"\n// jQuery уже подключён.\n\nfunction renderCourses(list) {\n    // 1. Найдите #course-list и #course-count: const $list = ...\n\n    // 2. Очистите список (.empty())\n\n    // 3. Для каждого курса из list создайте $(\"<li>\", { ... }):\n    //    класс course, текст \"HTML (уроков: 10)\", атрибут data-id\n\n    // 4. Если course.isNew - добавьте класс course--new\n\n    // 5. Вставьте пункт в список (.append)\n\n    // 6. Счётчик: \"Курсов: 3\" - по длине list\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "createElement",
+      "textContent",
+      "insertAdjacentHTML",
+      "outerHTML",
+      ".style."
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "На странице 3 пункта li.course",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "Для каждого курса создайте $(\"<li>\", { class: \"course\", ... }) и вставьте в #course-list через .append()."
+      },
+      {
+        "name": "Заглушка \"Загрузка списка...\" удалена",
+        "check": "document.querySelectorAll(\"#course-list > *\").length === 3 && document.querySelector(\"#course-list .placeholder\") === null",
+        "fail": "Перед отрисовкой очистите список: $list.empty();"
+      },
+      {
+        "name": "Тексты: \"HTML (уроков: 10)\", \"CSS (уроков: 10)\", \"JavaScript (уроков: 10)\"",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.textContent).join(\"|\") === \"HTML (уроков: 10)|CSS (уроков: 10)|JavaScript (уроков: 10)\"",
+        "fail": "text: `${course.title} (уроков: ${course.lessons})` - и вставляйте через .append(), чтобы порядок сохранился."
+      },
+      {
+        "name": "У пунктов есть атрибут data-id",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.getAttribute(\"data-id\")).join(\",\") === \"html,css,js\"",
+        "fail": "В объекте настроек: \"data-id\": course.id. Метод .data(\"id\", ...) атрибут в HTML не записывает."
+      },
+      {
+        "name": "Класс course--new только у JavaScript",
+        "check": "(() => { const fresh = document.querySelectorAll(\"#course-list .course--new\"); return fresh.length === 1 && fresh[0].getAttribute(\"data-id\") === \"js\"; })()",
+        "fail": "if (course.isNew) { $item.addClass(\"course--new\"); }"
+      },
+      {
+        "name": "Счётчик: \"Курсов: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Курсов: 3\"",
+        "fail": "$count.text(`Курсов: ${list.length}`);"
+      },
+      {
+        "name": "Другие данные: 4 курса, два новых, \"Курсов: 4\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 4 && document.querySelectorAll(\"#course-list .course--new\").length === 2 && document.querySelectorAll(\"#course-list li.course\")[3].textContent === \"SQL (уроков: 8)\" && document.querySelector(\"#course-count\").textContent === \"Курсов: 4\"",
+        "fail": "Ничего не пишите вручную: число, тексты и классы берутся из массива. В конце вызовите renderCourses(courses).",
+        "setup": "const courses = [\n    { id: \"git\", title: \"Git\", lessons: 6, isNew: true },\n    { id: \"php\", title: \"PHP\", lessons: 12, isNew: false },\n    { id: \"jq\", title: \"jQuery\", lessons: 10, isNew: true },\n    { id: \"sql\", title: \"SQL\", lessons: 8, isNew: false },\n];"
+      },
+      {
+        "name": "Повторный вызов не задваивает список",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); const items = document.querySelectorAll(\"#course-list li.course\"); return items.length === 1 && items[0].textContent === \"Python (уроков: 12)\" && items[0].getAttribute(\"data-id\") === \"py\" && document.querySelector(\"#course-count\").textContent === \"Курсов: 1\"; })()",
+        "fail": "В начале функции очистите список ($list.empty()) и работайте с параметром list, а не с courses."
+      },
+      {
+        "name": "Пустой массив: список пуст, \"Курсов: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelector(\"#course-list\") !== null && document.querySelectorAll(\"#course-list > *\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Курсов: 0\"; })()",
+        "fail": "При пустом массиве цикл не выполнится, но очистка и счётчик должны сработать. Очищайте содержимое через .empty(), а не удаляйте сам список через .remove()."
+      },
+      {
+        "name": "Текст выводится как текст, а не разметка",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Хак</b>\", lessons: 5, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Хак</b> (уроков: 5)\" && li.querySelector(\"b\") === null; })()",
+        "fail": "Не склеивайте HTML-строку с данными. Текст передавайте в ключ text: $(\"<li>\", { text: ... })."
+      },
+      {
+        "name": "renderCourses - функция",
+        "check": "typeof renderCourses === \"function\"",
+        "fail": "Объявите function renderCourses(list) { ... }."
+      },
+      {
+        "name": "Элементы создаются и вставляются средствами jQuery",
+        "check": "/\\$\\(\\s*[\"'`]<li/.test(__code) && /\\.(append|appendTo)\\(/.test(__code)",
+        "fail": "Создание: $(\"<li>\", { ... }); вставка: $list.append($item) или $item.appendTo($list)."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте селекторы #course-list и #course-count и что renderCourses объявлена до вызова или через function."
+      }
+    ],
+    "hints": [
+      "Найдите элементы один раз в начале функции: const $list = $(\"#course-list\"); const $count = $(\"#course-count\");",
+      "Очистка: $list.empty(); - список остаётся, исчезают только пункты.",
+      "Создание: $(\"<li>\", { class: \"course\", text: `${course.title} (уроков: ${course.lessons})`, \"data-id\": course.id }). Ключ \"data-id\" - в кавычках из-за дефиса.",
+      "Новизна: if (course.isNew) { $item.addClass(\"course--new\"); }",
+      "Вставка внутри цикла: $list.append($item);",
+      "Счётчик по параметру: $count.text(`Курсов: ${list.length}`);"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Чем $(\"li\") отличается от $(\"<li>\")?",
+        "options": [
+          "Ничем, это одно и то же",
+          "$(\"li\") ищет пункты на странице, $(\"<li>\") создаёт новый пункт, которого на странице ещё нет",
+          "$(\"<li>\") ищет первый пункт, $(\"li\") - все",
+          "$(\"<li>\") выдаёт ошибку: угловые скобки в селекторе запрещены"
+        ],
+        "answer": 1,
+        "explanation": "Если строка начинается с тега в угловых скобках, jQuery создаёт элемент. Иначе строка - селектор для поиска."
+      },
+      {
+        "type": "single",
+        "question": "Что окажется на странице после выполнения строки $(\"<li>\", { text: \"Новый\" });?",
+        "options": [
+          "Новый пункт в конце первого списка",
+          "Ничего: элемент создан в памяти, но не вставлен",
+          "Новый пункт в начале body",
+          "Ошибка: не указан родитель"
+        ],
+        "answer": 1,
+        "explanation": "Созданный элемент живёт в памяти, пока его не вставят методом .append(), .prepend(), .after(), .before() или .appendTo()."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте метод и место вставки нового элемента относительно $box.",
+        "pairs": [
+          [
+            "$box.append($el)",
+            "Внутрь $box, в конец"
+          ],
+          [
+            "$box.prepend($el)",
+            "Внутрь $box, в начало"
+          ],
+          [
+            "$box.after($el)",
+            "Снаружи, сразу после $box"
+          ],
+          [
+            "$box.before($el)",
+            "Снаружи, перед $box"
+          ]
+        ],
+        "explanation": "append/prepend вставляют внутрь (детьми), after/before - рядом (соседом)."
+      },
+      {
+        "type": "single",
+        "question": "Чем $list.empty() отличается от $list.remove()?",
+        "options": [
+          "Ничем",
+          "empty() удаляет детей, а сам список остаётся; remove() удаляет сам список вместе с детьми",
+          "empty() удаляет только текст, а remove() - только элементы",
+          "remove() работает быстрее, а результат одинаковый"
+        ],
+        "answer": 1,
+        "explanation": "empty() - вынуть всё из коробки, remove() - выбросить коробку целиком."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи добавят новый пункт в конец списка #list?",
+        "options": [
+          "$(\"#list\").append($(\"<li>\", { text: \"A\" }))",
+          "$(\"<li>\", { text: \"A\" }).appendTo(\"#list\")",
+          "$(\"#list\").prepend($(\"<li>\", { text: \"A\" }))",
+          "$(\"#list\").after($(\"<li>\", { text: \"A\" }))"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "append и appendTo делают одно и то же, только с разных сторон. prepend вставит в начало, after - после самого списка, а не внутрь."
+      },
+      {
+        "type": "single",
+        "question": "Функция render() каждый раз делает только $list.append(...) для всех элементов массива. Что будет после трёх вызовов render() с массивом из 4 элементов?",
+        "options": [
+          "4 пункта",
+          "12 пунктов",
+          "3 пункта",
+          "Ошибка"
+        ],
+        "answer": 1,
+        "explanation": "Без $list.empty() в начале каждый вызов дописывает пункты к старым: 4 + 4 + 4 = 12."
+      },
+      {
+        "type": "single",
+        "question": "title = \"<img src=x onerror=alert(1)>\". Какой способ создания пункта безопасен?",
+        "options": [
+          "$(\"<li>\" + title + \"</li>\")",
+          "$(\"<li>\", { text: title })",
+          "$(\"<li>\").html(title)",
+          "$(\"#list\").append(\"<li>\" + title + \"</li>\")"
+        ],
+        "answer": 1,
+        "explanation": "Ключ text работает как .text(): строка выводится буквально. Склеенная HTML-строка и .html() превращают данные в разметку - это XSS."
+      },
+      {
+        "type": "input",
+        "question": "Какой метод удаляет элемент со страницы, но сохраняет его обработчики событий и данные .data(), чтобы потом вставить обратно? Введите имя метода без точки и скобок.",
+        "answers": [
+          "detach"
+        ],
+        "case_sensitive": true,
+        "explanation": ".detach() - «вынуть и отложить». .remove() стирает обработчики и данные."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие утверждения о $(\"<li>\", { class: \"course\", text: \"CSS\", \"data-id\": \"css\" }) верны?",
+        "options": [
+          "У пункта будет класс course",
+          "Текст пункта - CSS",
+          "У пункта будет атрибут data-id=\"css\"",
+          "Пункт сразу появится в конце страницы"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Объект настроек задаёт класс, текст и атрибуты. Вставить пункт на страницу нужно отдельно."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и метод.",
+        "pairs": [
+          [
+            "Сделать копию карточки",
+            ".clone()"
+          ],
+          [
+            "Заменить элемент другим",
+            ".replaceWith()"
+          ],
+          [
+            "Удалить всех детей, оставив родителя",
+            ".empty()"
+          ],
+          [
+            "Удалить элемент навсегда",
+            ".remove()"
+          ]
+        ],
+        "explanation": "clone копирует, replaceWith меняет, empty чистит содержимое, remove убирает элемент целиком."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\"<li>\", { text: \"A\" }).appendTo(\"#list\")?",
+        "options": [
+          "jQuery-объект со списком #list",
+          "jQuery-объект с новым пунктом li",
+          "Строку \"A\"",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "appendTo возвращает вставляемый элемент, поэтому цепочку можно продолжить с ним: .appendTo(\"#list\").addClass(\"x\")."
+      },
+      {
+        "type": "input",
+        "question": "Допишите пропущенный метод, чтобы повторный вызов не задваивал список: function render(list) { $list.____(); for (...) { ... } }. Введите только имя метода.",
+        "answers": [
+          "empty"
+        ],
+        "case_sensitive": true,
+        "explanation": "$list.empty() удаляет старые пункты, и функция каждый раз рисует список с нуля."
+      }
+    ]
+  }
+}

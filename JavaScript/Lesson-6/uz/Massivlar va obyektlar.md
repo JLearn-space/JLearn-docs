@@ -23,6 +23,8 @@ Bu darsdan keyin sinfning o‘rtacha balini hisoblash, mahsulotni nomi bo‘yich
 - Obyektlar massivi bilan ishlash.
 - Ma’lumotlarni `map`, `filter`, `find`, `reduce` metodlari bilan o‘zgartirish.
 - Qiymatlarni destrukturizatsiya bilan ochish va `...` orqali nusxalash.
+- Massivni saralash va qismlarini kesib olish, obyekt xususiyatlarini aylanib chiqish; `map`, `filter` va `reduce` ishini qadamma-qadam kuzatish.
+
 
 ---
 
@@ -80,6 +82,18 @@ const scores = [92, 78, 65, 88];
 const empty = [];
 ```
 
+Massiv «ichidan» qanday ko‘rinadi - raqamlangan kataklar qatori:
+
+```mermaid
+flowchart LR
+    subgraph fruits["const fruits"]
+        A["0<br>olma"] --- B["1<br>banan"] --- C["2<br>nok"]
+    end
+    L["length = 3"] -.-> fruits
+```
+
+**Sxemani qanday o‘qish kerak.** Katakdagi raqam - indeks, uning ostida - qiymat. Indekslar doim noldan ketma-ket boradi, shuning uchun oxirgi indeks uzunlikdan bittaga kam: `3 - 1 = 2`.
+
 ### Massivni aylanib chiqish
 
 4-darsdagi `for...of` massivlar bilan ham ishlaydi:
@@ -112,6 +126,34 @@ console.log(cart.indexOf("kefir"));  // -1 - topilmadi
 ```
 
 > **`const` va massiv:** `const cart = [...]` `cart` ga **boshqa** massiv solishni taqiqlaydi (`cart = []` - xato). Lekin o‘sha massiv ichini o‘zgartirish - `push`, `pop`, `cart[0] = ...` - mumkin. Konstanta - bitta qutiga abadiy yopishtirilgan yorliq, qutini ochishga taqiq emas.
+
+### Yana to‘rtta metod: `slice`, `join`, `sort`, `forEach`
+
+```js
+const days = ["du", "se", "chor", "pay", "ju"];
+
+console.log(days.slice(1, 3));   // ["se", "chor"] - bo‘lak nusxasi, days o‘zgarmaydi
+console.log(days.join(", "));    // "du, se, chor, pay, ju" - massivdan satr
+
+const names = ["Timur", "Anna", "Lola"];
+names.sort();
+console.log(names);              // ["Anna", "Lola", "Timur"] - alifbo bo‘yicha
+
+days.forEach((day, index) => {
+    console.log(`${index + 1}. ${day}`);
+});
+```
+
+| Metod | Nima qiladi | Massivni o‘zgartiradimi? |
+| --- | --- | --- |
+| `slice(start, end)` | Bo‘lakni nusxalaydi, satrlardagidek | Yo‘q |
+| `join(separator)` | Elementlarni satrga ulaydi - `split` ning teskarisi | Yo‘q |
+| `sort()` | Elementlarni saralaydi | **Ha** |
+| `forEach(fn)` | Har bir element uchun funksiyani chaqiradi, hech narsa qaytarmaydi | Yo‘q |
+
+> **Sonlar bilan `sort` tuzog‘i.** Argumentsiz `sort` elementlarni **satr** sifatida solishtiradi: `[10, 9, 100].sort()` `[10, 100, 9]` beradi. Sonlar uchun solishtirish funksiyasini bering: `numbers.sort((a, b) => a - b)` - o‘sish bo‘yicha, `(a, b) => b - a` - kamayish bo‘yicha.
+
+`forEach` va `for...of` bir xil ishni qiladi. Kursda ko‘proq `for...of` ishlatamiz: unda `break` va `continue` ishlaydi.
 
 ---
 
@@ -171,6 +213,39 @@ console.log(course.tags[1]);      // "DOM"
 console.log(course.tags.length);  // 3
 ```
 
+### Obyekt qanday tuzilgan
+
+```mermaid
+flowchart LR
+    S["const student"] --> N["name: «Anna»"]
+    S --> A["age: 15"]
+    S --> I["isActive: true"]
+```
+
+**Sxemani qanday o‘qish kerak.** Massivda kataklar **raqamlar** bilan, obyektda - **nomlar** bilan belgilangan. Bir turdagi qiymatlar tartibi muhim bo‘lsa massiv, bitta narsaning ko‘p turli xususiyati bo‘lsa obyekt tanlanadi.
+
+| | Massiv | Obyekt |
+| --- | --- | --- |
+| Qavslar | `[ ]` | `{ }` |
+| Murojaat | Raqam bo‘yicha: `arr[0]` | Nom bo‘yicha: `obj.name` |
+| Tartib | Muhim | Muhim emas |
+| Misol | Baholar ro‘yxati | O‘quvchi kartochkasi |
+
+### Xususiyatlarni aylanib chiqish: `Object.keys` va `Object.entries`
+
+```js
+const prices = { tea: 5000, coffee: 12000, juice: 9000 };
+
+console.log(Object.keys(prices));    // ["tea", "coffee", "juice"]
+console.log(Object.values(prices));  // [5000, 12000, 9000]
+
+for (const [drink, price] of Object.entries(prices)) {
+    console.log(`${drink}: ${price} so‘m`);
+}
+```
+
+`Object.entries` obyektni `[kalit, qiymat]` juftlari massiviga aylantiradi, kvadrat qavsli `for...of` esa har bir juftni darhol ikki o‘zgaruvchiga ajratadi. Bunday ochish haqida batafsil - «Destrukturizatsiya» bo‘limida.
+
 ---
 
 ## Mini-topshiriq 1
@@ -218,6 +293,24 @@ const prices = [1000, 2500, 400];
 const withTax = prices.map((price) => price * 1.12);
 ```
 
+`map` `students` massivi bo‘ylab qanday o‘tadi - qadamma-qadam:
+
+| Qadam | `student` | Funksiya qaytardi | Qadamdan keyin yangi massiv |
+| --- | --- | --- | --- |
+| 1 | `{ name: "Anna", score: 92 }` | `"Anna"` | `["Anna"]` |
+| 2 | `{ name: "Timur", score: 78 }` | `"Timur"` | `["Anna", "Timur"]` |
+| 3 | `{ name: "Lola", score: 65 }` | `"Lola"` | `["Anna", "Timur", "Lola"]` |
+| 4 | `{ name: "Sardor", score: 95 }` | `"Sardor"` | `["Anna", "Timur", "Lola", "Sardor"]` |
+
+`map` - 4-darsdagi yig‘uvchili o‘sha sikl, faqat bitta qatorda yozilgan. U «kapot ostida» mana nima qiladi:
+
+```js
+const names = [];
+for (const student of students) {
+    names.push(student.name);
+}
+```
+
 ### `filter` - moslarini ajratib olish
 
 Funksiya `true` qaytargan elementlardangina iborat yangi massiv qaytaradi:
@@ -226,6 +319,15 @@ Funksiya `true` qaytargan elementlardangina iborat yangi massiv qaytaradi:
 const excellent = students.filter((student) => student.score >= 90);
 console.log(excellent.length); // 2
 ```
+
+| Qadam | `student.score` | `score >= 90` | Natijaga tushadimi? |
+| --- | --- | --- | --- |
+| 1 | 92 | `true` | Ha - Anna |
+| 2 | 78 | `false` | Yo‘q |
+| 3 | 65 | `false` | Yo‘q |
+| 4 | 95 | `true` | Ha - Sardor |
+
+`filter` ichidagi funksiya `true` yoki `false` qaytarishi kerak - bu «shu elementni qoldiraymi?» degan savol. Natijaga faqat ballar emas, **butun obyektlar** tushadi.
 
 ### `find` - birinchi mosini topish
 
@@ -255,6 +357,30 @@ console.log(total); // 330
 | `sum + student.score` | To‘plovchining yangi qiymati |
 | `0` | To‘plovchining boshlang‘ich qiymati - **doim ko‘rsating** |
 
+`sum` yig‘uvchisi qanday o‘zgaradi:
+
+| Qadam | `sum` (kirishda) | `student.score` | `sum + student.score` |
+| --- | --- | --- | --- |
+| 1 | 0 - boshlang‘ich qiymat | 92 | 92 |
+| 2 | 92 | 78 | 170 |
+| 3 | 170 | 65 | 235 |
+| 4 | 235 | 95 | **330** - natija aynan shu |
+
+```mermaid
+flowchart LR
+    Z["0"] -->|"+ 92"| A["92"] -->|"+ 78"| B["170"] -->|"+ 65"| C["235"] -->|"+ 95"| D["330"]
+```
+
+**Sxemani qanday o‘qish kerak.** Yig‘uvchi massiv bo‘ylab qor uyumidek dumalaydi: har qadamda unga navbatdagi element qo‘shiladi. Funksiya qadamda qaytargan narsa keyingi qadamda `sum` bo‘ladi.
+
+O‘rtacha ball - summa, miqdorga bo‘lingan:
+
+```js
+const average = total / students.length; // 330 / 4 = 82.5
+```
+
+> **Boshlang‘ich qiymatsiz** `reduce` birinchi yig‘uvchi sifatida birinchi elementning o‘zini - `{ name: "Anna", score: 92 }` obyektini oladi va qo‘shish `"[object Object]78..."` satrini beradi. Bo‘sh massivda esa - `TypeError` xatosini. Shuning uchun oxiridagi `0` majburiy.
+
 ### Zanjirlar
 
 Massiv qaytaradigan metodlarni ulash mumkin:
@@ -274,6 +400,22 @@ console.log(topNames); // ["Anna", "Sardor"]
 | `find` | Bitta element yoki `undefined` | O‘zgarmaydi |
 | `reduce` | Bitta qiymat | O‘zgarmaydi |
 | `push` / `pop` | Uzunlik / olib tashlangan element | **O‘zgaradi** |
+
+### Qaysi metodni tanlash
+
+```mermaid
+flowchart TD
+    A["Nima olish kerak?"] --> B{"Shu uzunlikdagi, lekin<br>boshqa qiymatli massiv"}
+    B -->|Ha| M["map"]
+    A --> C{"Elementlarning faqat bir qismi"}
+    C -->|Ha| F["filter"]
+    A --> D{"Bitta element"}
+    D -->|Ha| FI["find"]
+    A --> E{"Barcha elementlardan<br>bitta son yoki satr"}
+    E -->|Ha| R["reduce"]
+```
+
+**Sxemani qanday o‘qish kerak.** «Nima chiqishi kerak» savolidan boshlang - javob metodni ko‘rsatadi. Javoblar bir nechta bo‘lsa (masalan, «a’lochilar ismlari»), metodlarni zanjir bilan ulang: avval `filter`, keyin `map`.
 
 ---
 
@@ -310,6 +452,25 @@ console.log(base.score, updated.score);   // 92 95
 ```
 
 **Nima uchun nusxalash kerak?** Sof funksiya kiruvchi ma’lumotlarni o‘zgartirmaydi. Agar funksiya «o‘quvchi qo‘shishi» kerak bo‘lsa, u yangi `[...students, newStudent]` massivini qaytaradi, asl massiv esa o‘zgarishsiz qoladi. Shunda xatolarni topish osonroq: ma’lumotlar «orqangizdan» o‘zgarmaydi.
+
+### Buzib ko‘ring
+
+1. Uch elementli massiv uchun `fruits[3]` ni chiqaring. Nega xato emas, `undefined`?
+2. `reduce` oxiridagi `0` ni olib tashlang va uni bo‘sh `[]` massivda chaqiring. Xatoni o‘qing.
+3. `[10, 9, 100]` ni argumentsiz `sort()` metodi bilan saralang. Nega tartib «noto‘g‘ri»?
+4. `map` da figurali qavsli va `return` siz strelka yozing: `students.map((s) => { s.name; })`. Massivda nima bo‘ladi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `arr[arr.length]` | `undefined` - bunday indeks yo‘q | Oxirgi element: `arr[arr.length - 1]` |
+| Boshlang‘ich qiymatsiz `reduce` | Bo‘sh massivda xato, obyektlarda g‘alati natija | Doim `reduce(fn, 0)` |
+| `find` dan massiv kutishadi | `find` bitta obyekt yoki `undefined` qaytardi | Bir nechtasi kerak bo‘lsa - `filter` |
+| `map` da `return` siz `{ }` li strelka | `undefined` lardan iborat massiv | `(s) => s.name` |
+| Sonlar uchun `sort()` | Satrlardek saralanadi | `sort((a, b) => a - b)` |
+| Nom `key` o‘zgaruvchisida bo‘lganda `obj.key` | `"key"` nomli xususiyat qidiriladi | `obj[key]` |
+| Massiv funksiya ichida o‘zgartirildi | Ma’lumotlar «orqadan» o‘zgardi | Nusxa qaytaring: `[...arr, x]` |
 
 ---
 

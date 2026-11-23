@@ -20,6 +20,8 @@ Print a multiplication table, add up all purchases, check every letter of a pass
 - Count a sum and a quantity: an accumulator and a counter.
 - Go through the characters of a string: `for...of`.
 - Find and stop an infinite loop.
+- Trace a loop step by step in a table and write nested loops.
+
 
 ---
 
@@ -127,6 +129,32 @@ for (let i = 1; i <= 100; i++) {
 console.log(count); // 14 numbers from 1 to 100 are divisible by 7
 ```
 
+### How an accumulator works: an execution table
+
+Let us shrink the example to `i <= 5` and go through it by hand. Each row of the table is one iteration:
+
+| Iteration | `i` | Condition `i <= 5` | `sum` before | `sum += i` | `sum` after |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 1 | `true` | 0 | 0 + 1 | 1 |
+| 2 | 2 | `true` | 1 | 1 + 2 | 3 |
+| 3 | 3 | `true` | 3 | 3 + 3 | 6 |
+| 4 | 4 | `true` | 6 | 6 + 4 | 10 |
+| 5 | 5 | `true` | 10 | 10 + 5 | 15 |
+| - | 6 | `false` | 15 | loop finished | 15 |
+
+Note the last row: the counter manages to become `6`, the condition gives `false`, and the body does **not run**. Such a table is the main tool for understanding any loop. If a result surprises you - draw it on paper.
+
+You can see the same in the console if you print the intermediate values:
+
+```js
+let sum = 0;
+
+for (let i = 1; i <= 5; i++) {
+    sum += i;
+    console.log(`i = ${i}, sum = ${sum}`);
+}
+```
+
 > **A common mistake:** declaring `let sum = 0;` **inside** the loop. Then the sum resets on every iteration, and after the loop the variable is not available.
 
 You can accumulate strings too:
@@ -140,6 +168,31 @@ for (let i = 1; i <= 5; i++) {
 
 console.log(stars); // *****
 ```
+
+### Nested loops
+
+A loop inside a loop: for **each** iteration of the outer one, the inner one runs **completely**. This is how tables and grids are built:
+
+```js
+for (let row = 1; row <= 3; row++) {
+    let line = "";
+    for (let col = 1; col <= 3; col++) {
+        line += `${row * col} `;
+    }
+    console.log(line);
+}
+// 1 2 3
+// 2 4 6
+// 3 6 9
+```
+
+| `row` | Inner loop `col` | `line` after the inner loop |
+| --- | --- | --- |
+| 1 | 1, 2, 3 | `"1 2 3 "` |
+| 2 | 1, 2, 3 | `"2 4 6 "` |
+| 3 | 1, 2, 3 | `"3 6 9 "` |
+
+The body of the inner loop ran 3 × 3 = 9 times. For two loops of 1000 steps that is already a million steps - use nesting deliberately.
 
 ---
 
@@ -210,6 +263,26 @@ while (i <= 5) {
 | Repeat until something happens | `while` |
 | Go through every character of a string (and later - every array item) | `for...of` |
 
+### `do...while` - at least once
+
+An ordinary `while` checks the condition **before** the first step and may not run even once. `do...while` runs the body first and checks **after**:
+
+```js
+let attempt = 0;
+
+do {
+    attempt++;
+    console.log(`Attempt ${attempt}`);
+} while (attempt < 3);
+```
+
+| Loop | When the condition is checked | Minimum runs |
+| --- | --- | --- |
+| `while` | Before each step | 0 |
+| `do...while` | After each step | 1 |
+
+`do...while` is rare in this course: `for` and `while` are almost always enough.
+
 ---
 
 ## An infinite loop
@@ -270,6 +343,23 @@ const vowels = "aeiou";
 console.log(vowels.includes("o")); // true
 console.log(vowels.includes("m")); // false
 ```
+
+### Try to break it
+
+1. Replace `i <= 5` with `i < 5` in the squats loop. How many lines are printed? This is an "off by one" error - the most common one in loops.
+2. Move `let sum = 0;` inside the loop and print `sum` after the loop. Why did you get an error or a wrong number?
+3. In the `while` loop that doubles the sum, change `<` to `>`. Does the body run even once?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| `i < 5` instead of `i <= 5` | One step is lost | Check the first and last value of the counter |
+| The accumulator declared inside the loop | The sum resets on every step | `let sum = 0;` **before** the loop |
+| Forgot `i++` in `while` | An infinite loop | Change the condition variable in the body |
+| `for (let i = 1; i <= 5; i--)` | The counter decreases, the condition is always `true` | The step must lead toward the end |
+| `;` after `for (...)` | The body runs once after the loop | No `;` before `{` |
+| `const i` in an ordinary `for` | `TypeError` on `i++` | In `for` the counter is `let`; in `for...of` - `const` |
 
 ---
 

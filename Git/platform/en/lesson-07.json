@@ -1,0 +1,265 @@
+{
+  "lesson": 7,
+  "language": "en",
+  "lesson_title": "Merging and conflicts",
+  "task": {
+    "title": "Two branches into main: fast-forward and conflict",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the ~/portfolio folder on the main branch. There are two branches: feature/footer adds footer.html (main has not changed since it was created), and feature/title changes the heading in index.html - the same line that was also changed in main after the split. Write the commands one per line: 1) Look at the history of all branches as a graph. 2) Merge feature/footer into main - it must be a fast-forward (without --no-ff). 3) Merge feature/title - there will be a conflict in index.html. 4) Look at git status and the content of index.html. 5) Resolve the conflict by combining both versions: write index.html with the command cat > index.html << 'EOF' - the first line is <h1>Anna Karimova, web developer - Portfolio</h1>, the second line is <p>Junior web developer</p>, with no conflict markers. 6) Mark the conflict as resolved and finish the merge with a commit (git commit without -m takes the ready message Merge branch 'feature/title'; you can also use -m). 7) Delete both merged branches with the safe command git branch -d. 8) Look at the history graph and make sure that the working directory is clean.",
+    "starter_code": "# Write commands one per line. Lines starting with # are comments.\n# You are in the ~/portfolio folder on the main branch. There are branches feature/footer and feature/title.\n\n# 1. Look at the history of all branches as a graph\n\n# 2. Merge feature/footer into main (it will be a fast-forward)\n\n# 3. Merge feature/title - there will be a conflict in index.html\n\n# 4. Look at git status and the content of index.html\n\n# 5. Write the final index.html with cat > index.html << 'EOF'\n#    line 1: <h1>Anna Karimova, web developer - Portfolio</h1>\n#    line 2: <p>Junior web developer</p>\n\n# 6. Mark the conflict as resolved (git add) and finish the merge with a commit\n\n# 7. Delete both merged branches with git branch -d\n\n# 8. Look at the history graph and git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>2026 Anna Karimova</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\ngit switch main\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "You are on the main branch",
+        "check": "repo !== null && repo.branch === \"main\"",
+        "fail": "You merge into the branch you are on. Do all the merges on main."
+      },
+      {
+        "name": "The latest commit is a merge commit with two parents",
+        "check": "repo.commit(\"HEAD\").parents.length === 2",
+        "fail": "A merge with a conflict ends with a commit: git add index.html, then git commit."
+      },
+      {
+        "name": "feature/title is merged: the second parent is its commit",
+        "check": "repo.commit(repo.commit(\"HEAD\").parents[1]).subject === \"Add portfolio to title\"",
+        "fail": "Run git merge feature/title while on main."
+      },
+      {
+        "name": "feature/footer is merged with a fast-forward: the history has one merge commit",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer\"",
+        "fail": "First feature/footer (a plain git merge without --no-ff - it will be a Fast-forward), and only then feature/title."
+      },
+      {
+        "name": "The merge is finished",
+        "check": "repo.state() === null",
+        "fail": "Git is still in merge mode: after git add, finish it with git commit."
+      },
+      {
+        "name": "No conflict markers are left in index.html",
+        "check": "[sim.read(\"~/portfolio/index.html\"), repo.commit(\"HEAD\").files[\"index.html\"]].every((t) => typeof t === \"string\" && !/^(<<<<<<<|=======|>>>>>>>)/m.test(t))",
+        "fail": "Delete the lines <<<<<<< HEAD, ======= and >>>>>>> feature/title - overwrite the whole file with cat > index.html << 'EOF'."
+      },
+      {
+        "name": "index.html in the merge commit is as in the task",
+        "check": "repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\"",
+        "fail": "Two lines: <h1>Anna Karimova, web developer - Portfolio</h1> and <p>Junior web developer</p>. Check the spaces, the comma and the hyphen."
+      },
+      {
+        "name": "footer.html from the feature/footer branch is in place",
+        "check": "repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>2026 Anna Karimova</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/style.css\"] === \"body { margin: 0; }\\n\"",
+        "fail": "Merge the feature/footer branch: footer.html will appear in main."
+      },
+      {
+        "name": "The history of main contains the commits of both branches",
+        "check": "[\"Add home page\", \"Add styles\", \"Add profession to title\", \"Add footer\", \"Add portfolio to title\"].every((s) => repo.log().some((c) => c.subject === s))",
+        "fail": "Do not cancel the merges or rewrite the history: the commits of both branches must get into main."
+      },
+      {
+        "name": "Both merged branches are deleted",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"main\"])",
+        "fail": "After the merge: git branch -d feature/footer feature/title."
+      },
+      {
+        "name": "The branches are deleted safely: without git branch -D",
+        "check": "sim.commands(\"git branch -D\").length === 0",
+        "fail": "Merged branches are deleted with -d: Git checks that no work is lost. -D is only for branches that are surely not needed."
+      },
+      {
+        "name": "The working directory is clean",
+        "check": "repo.status().clean",
+        "fail": "After the merge commit, git status should answer nothing to commit, working tree clean."
+      },
+      {
+        "name": "Different project: feature/footer has two commits - both merged with a fast-forward, the conflict is resolved",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer styles\" && repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>Contacts: anna@example.com</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/footer.css\"] === \"footer { padding: 20px; }\\n\" && repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\" && JSON.stringify(repo.branches()) === JSON.stringify([\"main\"]) && repo.status().clean",
+        "fail": "The solution must not depend on the content of the branches: merge the branches, do not rewrite their files by hand.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>Contacts: anna@example.com</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\necho \"footer { padding: 20px; }\" > css/footer.css\ngit add css/footer.css && git commit -m \"Add footer styles\"\ngit switch main\n`, { quiet: true });\n"
+      },
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes and the EOF line at the end of cat > ... << 'EOF'."
+      }
+    ],
+    "hints": [
+      "You merge into the current branch: make sure you are on main and run git merge feature/footer. The output should say Fast-forward.",
+      "After git merge feature/title, Git writes CONFLICT (content): Merge conflict in index.html. This is not an error but a question to you.",
+      "cat index.html shows the markers: between <<<<<<< HEAD and ======= is the main version, between ======= and >>>>>>> feature/title is the branch version.",
+      "Overwrite the whole file: cat > index.html << 'EOF', the two needed lines, then the EOF line. There must be no markers in the file.",
+      "Next: git add index.html, git status (All conflicts fixed but you are still merging), git commit.",
+      "Both branches are deleted with one command: git branch -d feature/footer feature/title."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "You are on the main branch and ran git merge feature/menu. What happens?",
+        "options": [
+          "The changes from main are moved into feature/menu",
+          "The changes from feature/menu are moved into the current branch, main",
+          "The branches swap places",
+          "A new branch with both versions is created"
+        ],
+        "answer": 1,
+        "explanation": "git merge always merges the given branch into the current one. The feature/menu branch does not change."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git merge feature/footer\nUpdating 549439a..6d00d19\nFast-forward\n footer.html | 1 +",
+        "options": [
+          "A merge commit with two parents was created",
+          "The main pointer was simply moved forward to the branch commit - no new commit was created",
+          "A conflict happened",
+          "The feature/footer branch was deleted"
+        ],
+        "answer": 1,
+        "explanation": "Fast-forward: main has not changed since the split, so Git simply moves its pointer to the latest commit of the branch."
+      },
+      {
+        "type": "multiple",
+        "question": "When does git merge create a merge commit (Merge branch ...)?",
+        "options": [
+          "If both branches got new commits after the split",
+          "If the --no-ff option is given",
+          "If the branch is ahead of main, main has not changed, and there are no options",
+          "If the branch has only one commit"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "A merge commit is needed when the histories have split, or when it is asked for explicitly with --no-ff. Otherwise Git does a fast-forward."
+      },
+      {
+        "type": "matching",
+        "question": "Match the conflict marker with its meaning.",
+        "pairs": [
+          [
+            "<<<<<<< HEAD",
+            "The start of the current branch's version"
+          ],
+          [
+            "=======",
+            "The border between the two versions"
+          ],
+          [
+            ">>>>>>> feature/title",
+            "The end of the merged branch's version"
+          ]
+        ],
+        "explanation": "Between <<<<<<< and ======= is your version (HEAD), between ======= and >>>>>>> is the version from the branch you are merging."
+      },
+      {
+        "type": "single",
+        "question": "Why did the conflict happen?\n\nCONFLICT (content): Merge conflict in index.html",
+        "options": [
+          "There is an HTML error in index.html",
+          "After the split, both branches changed the same lines of index.html in different ways",
+          "The index.html file was deleted in one of the branches",
+          "The branches were created by different people"
+        ],
+        "answer": 1,
+        "explanation": "Git merges changes in different places of a file by itself. A conflict happens only when one place was changed in both branches and Git does not know which version is right."
+      },
+      {
+        "type": "multiple",
+        "question": "What do you need to do to finish a merge with a conflict?",
+        "options": [
+          "Edit the file: keep the needed text and remove all the markers",
+          "git add the file - mark the conflict as resolved",
+          "git commit - create the merge commit",
+          "git branch -D the branch that caused the conflict"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "The order: fix the file → git add → git commit. You do not need to delete the branch for this - it is deleted with -d after a successful merge."
+      },
+      {
+        "type": "input",
+        "question": "Type the whole command: cancel a merge that caused a conflict and put everything back as it was before git merge.",
+        "answers": [
+          "git merge --abort"
+        ],
+        "case_sensitive": true,
+        "explanation": "git merge --abort returns the working directory and the index to the state before the merge. The branch itself does not go anywhere - you can merge it later."
+      },
+      {
+        "type": "single",
+        "question": "What does this git status output mean?\n\nAll conflicts fixed but you are still merging.\n  (use \"git commit\" to conclude merge)",
+        "options": [
+          "The merge is completely finished",
+          "The conflicts are marked as resolved with git add; you still need to run git commit",
+          "You need to run git merge again",
+          "The merge is cancelled"
+        ],
+        "answer": 1,
+        "explanation": "\"All conflicts are fixed, but you are still in the middle of a merge\" - Git is waiting for git commit, which will create the merge commit."
+      },
+      {
+        "type": "single",
+        "question": "You ran git add index.html without removing the <<<<<<< markers, and then git commit. What happens?",
+        "options": [
+          "Git refuses: there are markers in the file",
+          "The commit is created, and the markers get into the website - the browser shows them as text",
+          "Git removes the markers by itself",
+          "The merge is cancelled"
+        ],
+        "answer": 1,
+        "explanation": "Git does not check the content of the file: git add means \"I have fixed everything\". So before git add, always open the file and check that there are no markers."
+      },
+      {
+        "type": "matching",
+        "question": "Match the VS Code button above a conflict with the result.",
+        "pairs": [
+          [
+            "Accept Current Change",
+            "Keep the version of the current branch (HEAD)"
+          ],
+          [
+            "Accept Incoming Change",
+            "Keep the version of the merged branch"
+          ],
+          [
+            "Accept Both Changes",
+            "Keep both versions, one under the other"
+          ],
+          [
+            "Compare Changes",
+            "Show the two versions side by side"
+          ]
+        ],
+        "explanation": "Current is the current branch, Incoming is the incoming (merged) branch. Both keeps both versions, and usually you still need to fix them by hand."
+      },
+      {
+        "type": "input",
+        "question": "The feature/footer branch is already merged into main. Type the whole command: safely delete this branch.",
+        "answers": [
+          "git branch -d feature/footer"
+        ],
+        "case_sensitive": true,
+        "explanation": "-d deletes only a merged branch: if it has unmerged commits, Git refuses (error: the branch ... is not fully merged)."
+      },
+      {
+        "type": "single",
+        "question": "What does the graph show?\n\n*   f122376 (HEAD -> main) Merge branch 'feature/title'\n|\\\n| * 4018d13 Add portfolio to title\n* | 6d00d19 Add footer\n|/\n* 481f888 Add styles",
+        "options": [
+          "The feature/title branch is not merged yet",
+          "Commit f122376 is a merge commit: it has two parents, 6d00d19 and 4018d13",
+          "Commit 4018d13 is deleted",
+          "A fast-forward happened"
+        ],
+        "answer": 1,
+        "explanation": "Two lines meet in the merge commit. The left one is the history of main, the right one is the commit of the feature/title branch."
+      }
+    ]
+  }
+}

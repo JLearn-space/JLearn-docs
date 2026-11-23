@@ -14,7 +14,7 @@
 
 ## Перед началом
 
-Нужен курс [«HTML: за 10 уроков»](https://github.com/JLearn-space/HTML): итоговый проект CSS оформляет сайт из итогового проекта HTML.
+Нужен курс [«HTML: за 10 уроков»](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML): итоговый проект CSS оформляет сайт из итогового проекта HTML.
 
 **Как проходить урок:** прочитайте объяснение → выполните мини-задания → сделайте задание в IDE на платформе → проект на компьютере → тест урока. Урок засчитывается, когда сданы задание в IDE и тест от 70%.
 
@@ -35,9 +35,9 @@
 | **9** | [Состояния, переходы, анимации и переменные](Lesson-9/ru/%D0%A1%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D1%8F%2C%20%D0%BF%D0%B5%D1%80%D0%B5%D1%85%D0%BE%D0%B4%D1%8B%2C%20%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B8%20%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5.md) | [Holatlar, o‘tishlar, animatsiyalar va o‘zgaruvchilar](Lesson-9/uz/Holatlar%2C%20o%27tishlar%2C%20animatsiyalar%20va%20o%27zgaruvchilar.md) | [States, transitions, animations and variables](Lesson-9/en/States%2C%20transitions%2C%20animations%20and%20variables.md) |
 | **10** | [Итоговый проект - полная стилизация и публикация](Lesson-10/ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) | [Yakuniy loyiha - to‘liq bezash va nashr](Lesson-10/uz/Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md) | [Final project - full styling and publication](Lesson-10/en/Final%20project%20-%20full%20styling%20and%20publication.md) |
 
-Все три версии - русская, узбекская и английская - построены по одной программе и одинаковой структуре. Прежние переводы старой программы сохранены в [`_legacy`](_legacy/README.md).
+Все три версии - русская, узбекская и английская - построены по одной программе и одинаковой структуре.
 
-[Карта курса](COURSE_MAP.md) · [Итоговый проект](final-project/README.md) · [Задания IDE и тесты](platform/README.md)
+[Карта курса](COURSE_MAP.md) · [Итоговый проект](final-project/README.md) · [Задания IDE и тесты](platform/README.md) · [Словарь терминов](GLOSSARY.md) · [Шпаргалка](CHEATSHEET.md) · [Источники](REFERENCES.md)
 
 ---
 

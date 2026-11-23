@@ -215,7 +215,7 @@ To‘r chiziqlari 1 dan raqamlanadi, `-1` esa - oxirgi chiziq. `1 / -1` yozuvi t
 | Qatordagi so‘zlar | Qator kataklari, ustunlar soniga ko‘ra |
 | So‘zning takrorlanishi | Soha bir necha katakka cho‘zilgan |
 | So‘z o‘rniga `.` | Bo‘sh katak |
-| Sohalar - to‘rtburchaklar | «Г» shakliga yo‘l qo‘yilmaydi |
+| Sohalar - to‘rtburchaklar | «L» shakliga yo‘l qo‘yilmaydi |
 
 Sohalar nomlarini o‘zingiz o‘ylab topasiz. `grid-area` **qo‘shtirnoqsiz** yoziladi.
 
@@ -243,7 +243,7 @@ flowchart TD
 | `%` dagi ustunlar va `gap` chetdan chiqadi | `fr` ishlating |
 | Telefonda `repeat(4, 220px)` | `repeat(auto-fit, minmax(220px, 1fr))` |
 | `grid-template-areas` da turli uzunlikdagi qatorlar | Har bir qatorda ustunlar sonicha so‘z |
-| «Г» shaklidagi soha | Faqat to‘rtburchaklar |
+| «L» shaklidagi soha | Faqat to‘rtburchaklar |
 | Qo‘shtirnoqdagi `grid-area: "main"` | Qo‘shtirnoqsiz: `grid-area: main;` |
 | To‘r nevaralarga ta’sir qilishini kutishadi | Faqat to‘g‘ridan-to‘g‘ri bolalar |
 | Bitta qator tugma uchun Grid | Bu yerda Flexbox osonroq |

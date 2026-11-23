@@ -84,6 +84,36 @@ button.addEventListener("click", handleClick()); // mistake: the function is cal
 
 In HTML you can write `<button onclick="...">`. That mixes code with markup - like styles in a `style=""` attribute. Course rule: HTML stays in HTML, handlers go in the JS file with `addEventListener`.
 
+### When the handler runs
+
+It is important to understand the order: `addEventListener` does **not run** the function. It only writes it into a "subscription log". The function itself runs later - every time the user presses the button.
+
+```mermaid
+sequenceDiagram
+    participant S as main.js
+    participant B as Button
+    participant U as User
+    S->>B: addEventListener("click", handleClick)
+    Note over S: The script goes on and finishes
+    U->>B: Click
+    B->>S: Calls handleClick()
+    U->>B: Another click
+    B->>S: handleClick() again
+```
+
+**How to read the diagram.** First the script "subscribes" and finishes its work. Then the page waits. Each click is a new call of the handler. It is the same callback idea as `setTimeout` in Lesson 5: the function is passed now and called later.
+
+### The most needed events
+
+| Event | When it happens | Where it is used |
+| --- | --- | --- |
+| `click` | A press with a mouse, a finger, Enter or Space on a button | Buttons, menus, cards |
+| `input` | Every change of the text in a field | Live search, a character counter |
+| `change` | A field's value is changed and confirmed | `select`, `checkbox`, `radio` |
+| `submit` | A form is sent | Forms - Lesson 9 |
+| `keydown` | A key is pressed | Escape, shortcuts |
+| `focus` / `blur` | A field gets / loses focus | Hints for fields |
+
 ---
 
 ## A click and state
@@ -110,6 +140,17 @@ flowchart LR
 ```
 
 > **A common mistake:** declaring `let likes = 0;` inside the handler. Then every click starts counting from zero, and the page always shows `1`.
+
+### What happens on three clicks
+
+| Event | `likes` before | Action | `likes` after | On the page |
+| --- | --- | --- | --- | --- |
+| Page load | - | `let likes = 0;` | 0 | `0` |
+| Click 1 | 0 | `likes++` | 1 | `1` |
+| Click 2 | 1 | `likes++` | 2 | `2` |
+| Click 3 | 2 | `likes++` | 3 | `3` |
+
+The variable `likes` is created **once** on load, and the handler takes its current value on every click. This is called **state**: data that lives between events.
 
 ---
 
@@ -235,6 +276,20 @@ Why delegation is better:
 
 `closest` is needed because `event.target` is the deepest element: if a button contains a `<span>` or an icon, that is what gets clicked.
 
+### Delegation step by step
+
+Say the delete button contains an icon: `<button class="todo__delete"><span>✕</span></button>`. The user hit exactly the `✕`:
+
+| Step | What happens | Value |
+| --- | --- | --- |
+| 1 | A click on the `span` | `event.target` is the `span`, not the button |
+| 2 | The event bubbles up to `ul.todo-list` | Our single handler fires |
+| 3 | `event.target.closest(".todo__delete")` | The search goes up from the `span` and finds the button |
+| 4 | `button.closest(".todo")` | Up from the button - we find the whole `li.todo` item |
+| 5 | `.remove()` | The item disappears from the page |
+
+If the task text had been clicked, at step 3 `closest` would return `null`, and `return` would stop the handler. That is why the `if (!button)` check is required.
+
 ---
 
 ## Accessibility
@@ -258,6 +313,25 @@ button.setAttribute("aria-expanded", String(isOpen));
 ```
 
 Test every interactive part with the keyboard: Tab - reach it, Enter or Space - press it, Escape - close it.
+
+### Try to break it
+
+1. Pass the handler with parentheses: `button.addEventListener("click", handleClick());`. When did the message appear in the console - on load or on click?
+2. Move `let likes = 0;` inside the handler. What does the counter show after five clicks?
+3. Remove `event.preventDefault()` from the link handler. What does the browser do?
+4. Make a button from a `<div>` and try to press it with the keyboard: Tab, then Enter.
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| `handleClick()` in `addEventListener` | The function ran once on load | Pass the name without parentheses |
+| State inside the handler | The count starts over on every event | `let` outside the handler |
+| `"onclick"` instead of `"click"` | The handler never fires | The event type has no `on` |
+| `event.target` instead of `closest` | You hit the icon inside the button | `event.target.closest(".btn")` |
+| A handler on every new element | New cards after `render` do not react | Delegation on the container |
+| A `<div>` as a button | Does not work from the keyboard or for screen readers | `<button type="button">` |
+| No `aria-expanded` on an expanding button | The screen reader does not know the state | `setAttribute("aria-expanded", String(isOpen))` |
 
 ---
 

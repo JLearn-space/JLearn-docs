@@ -1,0 +1,281 @@
+{
+  "lesson": 4,
+  "language": "uz",
+  "lesson_title": "Klasslar va uslublar",
+  "task": {
+    "title": "Vkladkalar va ombordagi qoldiqlar",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Kurslar do‘koni</title>\n    <style>\n        .is-hidden { display: none; }\n        .tab.is-active { border-bottom: 3px solid #2563eb; }\n        .product.is-low { color: #b91c1c; }\n    </style>\n</head>\n<body>\n    <main>\n        <div class=\"tabs\" role=\"tablist\">\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Tavsif</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Dastur</button>\n            <button class=\"tab\" role=\"tab\" aria-selected=\"false\">Sharhlar</button>\n        </div>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">10 darsda jQuery kursi.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">Selektorlar, klasslar, hodisalar, AJAX.</section>\n        <section class=\"panel is-hidden\" role=\"tabpanel\">«Birinchi darsdanoq tushunarli!»</section>\n\n        <h2>Ombordagi to‘plamlar</h2>\n        <ul id=\"products\">\n            <li class=\"product\" data-stock=\"3\">Daftar</li>\n            <li class=\"product\" data-stock=\"12\">Ruchka</li>\n            <li class=\"product\" data-stock=\"0\">Fleshka</li>\n            <li class=\"product\" data-stock=\"5\">Stikerlar</li>\n            <li class=\"product\" data-stock=\"8\">Bloknot</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada uchta .tab vkladkasi, uchta .panel paneli (hammasida is-hidden klassi) va data-stock atributi - ombordagi qoldig‘i bor li.product mahsulotlar ro‘yxati bor. is-active, is-hidden va is-low klasslari CSS’da allaqachon yozilgan. 1) setActiveTab(index) funksiyasini yozing: barcha .tab lardan is-active klassini oling va ularga aria-selected=\"false\" qo‘ying; index raqamli vkladkaga (.eq orqali) is-active va aria-selected=\"true\" qo‘shing; index raqamli paneldan is-hidden ni olib tashlang, qolganlarining hammasiga qo‘ying - .toggleClass(\"is-hidden\", holat) orqali. 2) markLowStock(limit) funksiyasini yozing: data-stock qiymati limit dan kichik bo‘lgan har bir .product ga is-low klassini qo‘shing, qolganlaridan uni olib tashlang. Mahsulotlarni funksiya ichida qidiring. 3) Oxirida setActiveTab(0) va markLowStock(5) ni chaqiring. Testlar funksiyalarni turli argumentlar bilan ko‘p marta chaqiradi. document.querySelector, classList, .style, innerHTML va .html() dan foydalanmang.",
+    "starter_code": "// Sahifada: .tab vkladkalari (3 ta), .panel panellari (3 ta, hammasida is-hidden klassi)\n// va data-stock atributli li.product mahsulotlar ro‘yxati (ombordagi qoldiq).\n// CSS’da klasslar allaqachon bor: is-active, is-hidden, is-low.\n\n// 1. setActiveTab(index):\n//    - barcha .tab lardan is-active ni olish va ularga aria-selected=\"false\" qo‘yish\n//    - index raqamli vkladkaga (.eq) - is-active klassi va aria-selected=\"true\"\n//    - index raqamli paneldan is-hidden ni olib tashlash, qolganlariga qo‘yish:\n//      .toggleClass(\"is-hidden\", holat)\nfunction setActiveTab(index) {\n\n}\n\n// 2. markLowStock(limit):\n//    - data-stock qiymati limit dan kichik bo‘lgan har bir .product ga - is-low klassi,\n//      qolganlaridan bu klassni olib tashlash\n//    - mahsulotlarni funksiya ichida qidiring\nfunction markLowStock(limit) {\n\n}\n\n// 3. setActiveTab(0) va markLowStock(5) ni chaqiring\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "classList",
+      ".style.",
+      "className"
+    ],
+    "tests": [
+      {
+        "name": "setActiveTab va markLowStock funksiyalari e’lon qilingan",
+        "check": "typeof setActiveTab === \"function\" && typeof markLowStock === \"function\"",
+        "fail": "Ikkala funksiyani ham shartdagi nomlar bilan e’lon qiling: function setActiveTab(index) { ... } va function markLowStock(limit) { ... }."
+      },
+      {
+        "name": "Yuklangandan keyin birinchi vkladka faol va birinchi panel ko‘rinadi",
+        "check": "document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[0].classList.contains(\"is-hidden\") && document.querySelectorAll(\".panel.is-hidden\").length === 2",
+        "fail": "Kod oxirida setActiveTab(0); ni chaqiring"
+      },
+      {
+        "name": "setActiveTab(2): faqat uchinchi vkladka faol",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[2].classList.contains(\"is-active\"))",
+        "fail": "Avval hammasidan $tabs.removeClass(\"is-active\"), keyin $tabs.eq(index).addClass(\"is-active\")."
+      },
+      {
+        "name": "setActiveTab(2): aria-selected=\"true\" faqat uchinchi vkladkada",
+        "check": "(setActiveTab(2), [...document.querySelectorAll(\".tab\")].map((t) => t.getAttribute(\"aria-selected\")).join() === \"false,false,true\")",
+        "fail": "Barcha vkladkalarga .attr(\"aria-selected\", \"false\"), keraklisiga - .attr(\"aria-selected\", \"true\")."
+      },
+      {
+        "name": "setActiveTab(1): faqat ikkinchi panel ko‘rinadi",
+        "check": "(setActiveTab(1), [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"true,false,true\")",
+        "fail": ".panel larni .each orqali aylanib chiqing va $(this).toggleClass(\"is-hidden\", i !== index) ni chaqiring."
+      },
+      {
+        "name": "Ketma-ket bir necha almashtirish: 2, keyin 0",
+        "check": "(setActiveTab(2), setActiveTab(0), document.querySelectorAll(\".tab.is-active\").length === 1 && document.querySelectorAll(\".tab\")[0].classList.contains(\"is-active\") && [...document.querySelectorAll(\".panel\")].map((p) => p.classList.contains(\"is-hidden\")).join() === \"false,true,true\")",
+        "fail": "Har bir chaqiruv avval barcha vkladka va panellardan eski holatni olib tashlashi kerak."
+      },
+      {
+        "name": "Xuddi shu raqam bilan takroriy chaqiruv hech narsani buzmaydi",
+        "check": "(setActiveTab(1), setActiveTab(1), document.querySelectorAll(\".tab\")[1].classList.contains(\"is-active\") && !document.querySelectorAll(\".panel\")[1].classList.contains(\"is-hidden\"))",
+        "fail": "Ikkinchi argumentsiz toggleClass klassni u yoqqa-bu yoqqa almashtiradi. Holatni bering: .toggleClass(\"is-hidden\", i !== index) yoki addClass dan foydalaning."
+      },
+      {
+        "name": "tab va panel klasslari yo‘qolmagan",
+        "check": "(setActiveTab(2), document.querySelectorAll(\".tab\").length === 3 && document.querySelectorAll(\".panel\").length === 3)",
+        "fail": "class atributini .attr(\"class\", ...) orqali qayta yozmang - addClass / removeClass / toggleClass dan foydalaning."
+      },
+      {
+        "name": "markLowStock(5): is-low qoldig‘i 3 va 0 bo‘lgan mahsulotlarda (5 - 5 dan kichik emas)",
+        "check": "[...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false\"",
+        "fail": "Qat’iy taqqoslang: stock < limit. Qoldiqni $(this).data(\"stock\") orqali oling."
+      },
+      {
+        "name": "markLowStock(5) dan keyin markLowStock(10): 3, 0, 5 va 8 belgilangan",
+        "check": "(markLowStock(10), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,true,true\")",
+        "fail": "Funksiya faqat 5 bilan emas, istalgan limit bilan ishlashi kerak."
+      },
+      {
+        "name": "markLowStock(1) ortiqcha belgilarni olib tashlaydi",
+        "check": "(markLowStock(10), markLowStock(1), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"false,false,true,false,false\")",
+        "fail": "Qoldig‘i limit dan kichik bo‘lmagan mahsulotlardan is-low klassini olib tashlash kerak: .toggleClass(\"is-low\", stock < limit)."
+      },
+      {
+        "name": "Yuklangandan keyin qo‘shilgan mahsulot ham tekshiriladi",
+        "check": "($(\"#products\").append(\"<li class=\\\"product\\\" data-stock=\\\"2\\\">Penal</li>\"), markLowStock(5), [...document.querySelectorAll(\".product\")].map((p) => p.classList.contains(\"is-low\")).join() === \"true,false,true,false,false,true\")",
+        "fail": "Mahsulotlarni funksiya ichida qidiring: dastur boshida bir marta emas, har bir chaqiruvda $(\".product\")."
+      },
+      {
+        "name": "Klasslar jQuery metodlari bilan o‘zgartiriladi",
+        "check": "/toggleClass\\(/.test(__code) && /\\.eq\\(/.test(__code)",
+        "fail": "Vkladkani tanlash uchun .eq(index) dan, panellar yoki mahsulotlar uchun .toggleClass(\"nom\", holat) dan foydalaning."
+      },
+      {
+        "name": "Dastur xatosiz bajariladi",
+        "check": "__error === null",
+        "fail": "Metodlar nomlarini va funksiyalar e’lon qilingandan keyin chaqirilishini tekshiring."
+      }
+    ],
+    "hints": [
+      "Vkladkalar: const $tabs = $(\".tab\"); keyin $tabs.removeClass(\"is-active\").attr(\"aria-selected\", \"false\");",
+      "Kerakli vkladka: $tabs.eq(index).addClass(\"is-active\").attr(\"aria-selected\", \"true\");",
+      "Panellar: $(\".panel\").each(function (i) { $(this).toggleClass(\"is-hidden\", i !== index); });",
+      "Qoldiq: $(this).data(\"stock\") - allaqachon son, uni limit bilan taqqoslash mumkin.",
+      "Bitta $(this).toggleClass(\"is-low\", stock < limit) chaqiruvi klassni ham qo‘shadi, ham olib tashlaydi.",
+      "Dastur oxirida ikkala funksiyani ham chaqirishni unutmang."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Kartochkalarda allaqachon card klassi bo‘lsa, $(\".card\").addClass(\"is-new\") nima qiladi?",
+        "options": [
+          "card klassini is-new ga almashtiradi",
+          "is-new ni qo‘shadi, card esa qoladi",
+          "is-new ni faqat birinchi kartochkaga qo‘shadi",
+          "Hech narsa: elementda faqat bitta klass bo‘lishi mumkin"
+        ],
+        "answer": 1,
+        "explanation": "addClass klassni mavjudlariga qo‘shadi, classList.add kabi, va buni barcha topilgan elementlarda qiladi."
+      },
+      {
+        "type": "single",
+        "question": "Ketma-ket ikki chaqiruvdan keyin nima bo‘ladi: $box.toggleClass(\"is-open\"); $box.toggleClass(\"is-open\"); (boshida klass yo‘q edi)?",
+        "options": [
+          "is-open klassi bor",
+          "is-open klassi yo‘q",
+          "Klass ikki marta qo‘shilgan",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Ikkinchi argumentsiz toggleClass almashtiradi: birinchi chaqiruv klassni qo‘shdi, ikkinchisi olib tashladi."
+      },
+      {
+        "type": "single",
+        "question": "$box.toggleClass(\"is-open\", true).toggleClass(\"is-open\", true).hasClass(\"is-open\") natijasi nimaga teng?",
+        "options": [
+          "true",
+          "false",
+          "undefined",
+          "Xato: hasClass ni zanjirga qo‘yib bo‘lmaydi"
+        ],
+        "answer": 0,
+        "explanation": "Ikkinchi argument true bo‘lganda toggleClass necha marta chaqirilmasin, doim klassni qo‘shadi. hasClass - getter, zanjir oxirida turadi va true qaytaradi."
+      },
+      {
+        "type": "input",
+        "question": "Elementda klass bor-yo‘qligiga qarab true yoki false qaytaradigan jQuery metodi qaysi? Metod nomini qavslarsiz kiriting.",
+        "answers": [
+          "hasClass",
+          ".hasClass"
+        ],
+        "case_sensitive": true,
+        "explanation": "$el.hasClass(\"is-active\") - classList.contains ning analogi."
+      },
+      {
+        "type": "multiple",
+        "question": "jQuery 4 da qaysi yozuvlar $panel elementidan is-hidden klassini to‘g‘ri olib tashlaydi?",
+        "options": [
+          "$panel.removeClass(\"is-hidden\")",
+          "$panel.toggleClass(\"is-hidden\", false)",
+          "$panel.toggleClass(false)",
+          "$panel.css(\"is-hidden\", false)"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Klass nomisiz toggleClass(false) jQuery 4 da endi ishlamaydi, css() esa klasslar bilan emas, CSS xususiyatlari bilan ishlaydi."
+      },
+      {
+        "type": "single",
+        "question": "CSS’da #box uchun color: red berilgan bo‘lsa, $(\"#box\").css(\"color\") nimani qaytaradi?",
+        "options": [
+          "\"red\"",
+          "\"rgb(255, 0, 0)\"",
+          "undefined, chunki rang style atributida berilmagan",
+          "Barcha uslublar bilan obyekt"
+        ],
+        "answer": 1,
+        "explanation": "css() getteri brauzer elementga qo‘llagan hisoblangan qiymatni qaytaradi, hatto u CSS faylidan kelgan bo‘lsa ham. Ranglarni brauzer rgb() formatida qaytaradi."
+      },
+      {
+        "type": "single",
+        "question": "jQuery 4 da $(\"#title\").css(\"font-size\", 24) nima qiladi?",
+        "options": [
+          "24px o‘rnatadi",
+          "24em o‘rnatadi",
+          "Hech narsani o‘zgartirmaydi: font-size uchun birliksiz son noto‘g‘ri",
+          "Xato chiqaradi"
+        ],
+        "answer": 2,
+        "explanation": "jQuery 4 da px avtomatik ravishda faqat o‘lchamlar, chekinishlar va joylashuvlarga (width, margin, top...) qo‘shiladi. font-size uchun brauzer 24 qiymatini tashlab yuboradi. Shuning uchun kursda birliklar doim aniq yoziladi: \"24px\"."
+      },
+      {
+        "type": "matching",
+        "question": "Blok uchun metodni va u qaytaradigan qiymatni moslang: width 200px, padding 10px, border 2px, margin 5px (box-sizing: content-box).",
+        "pairs": [
+          [
+            ".width()",
+            "200"
+          ],
+          [
+            ".innerWidth()",
+            "220"
+          ],
+          [
+            ".outerWidth()",
+            "224"
+          ],
+          [
+            ".outerWidth(true)",
+            "234"
+          ]
+        ],
+        "explanation": "width - faqat kontent, inner padding qo‘shadi, outer - yana ramkani, outerWidth(true) - yana margin ni ham."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi hollarda klass emas, .css() o‘rinli?",
+        "options": [
+          "Kodda hisoblangan progress chizig‘i kengligi: 37%",
+          "To‘g‘ri kiritilganda xatoni yashirish",
+          "Kursor koordinatalari bo‘yicha maslahat joylashuvi",
+          "Muddati o‘tgan vazifa uchun qizil rang"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Kodda hisoblanadigan qiymatlar css() orqali beriladi. Oldindan ma’lum holatlar (yashirin, xato, muddati o‘tgan) CSS’dagi klass bilan yoziladi."
+      },
+      {
+        "type": "single",
+        "question": ".offset() va .position() nimasi bilan farq qiladi?",
+        "options": [
+          "Hech nimasi bilan, ular sinonimlar",
+          ".offset() - hujjatga nisbatan koordinatalar, .position() - eng yaqin joylashtirilgan ota-elementga nisbatan",
+          ".offset() kenglikni, .position() - balandlikni qaytaradi",
+          ".offset() faqat rasmlar uchun ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "Ikkalasi ham { top, left } obyektini qaytaradi, lekin har xil boshlang‘ich nuqtalardan hisoblaydi."
+      },
+      {
+        "type": "input",
+        "question": "Sahifani eng yuqoriga aylantiradigan yozuvni to‘ldiring: $(window).______(0). Metod nomini qavslarsiz kiriting.",
+        "answers": [
+          "scrollTop",
+          ".scrollTop"
+        ],
+        "case_sensitive": true,
+        "explanation": "Argumentsiz scrollTop() aylantirishni o‘qiydi, scrollTop(0) - yozadi."
+      },
+      {
+        "type": "matching",
+        "question": "Sof JavaScript va jQuery’dagi kodni moslang.",
+        "pairs": [
+          [
+            "el.classList.add(\"x\")",
+            "$el.addClass(\"x\")"
+          ],
+          [
+            "el.classList.contains(\"x\")",
+            "$el.hasClass(\"x\")"
+          ],
+          [
+            "el.classList.toggle(\"x\", isOn)",
+            "$el.toggleClass(\"x\", isOn)"
+          ],
+          [
+            "el.style.width = \"50%\"",
+            "$el.css(\"width\", \"50%\")"
+          ]
+        ],
+        "explanation": "jQuery xuddi shu ishni qiladi, lekin barcha topilgan elementlarda birdaniga."
+      }
+    ]
+  }
+}

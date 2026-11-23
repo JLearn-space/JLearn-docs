@@ -1,0 +1,278 @@
+{
+  "lesson": 2,
+  "language": "uz",
+  "lesson_title": "Birinchi kommit",
+  "task": {
+    "title": "Portfolio loyihasidagi kommitlar",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Git sozlangan, siz ~/portfolio papkasidasiz: u yerda repozitoriy va README.md fayli bor, kommitlar hali yo‘q. Buyruqlarni har qatorga bittadan yozing: 1) Repozitoriy holatini ko‘ring, README.md ni indeksga qo‘shing va birinchi kommitni qiling. 2) cat > index.html << 'EOF' buyrug‘i bilan bir necha qator HTML’dan iborat index.html ni yarating (oxirgi qator - EOF). 3) echo buyrug‘i bilan bitta CSS qoidali style.css ni yarating. 4) Faqat index.html bo‘lgan kommit qiling. 5) Alohida kommit bilan style.css ni saqlang. 6) README.md ga loyiha tavsifi yozilgan qatorni (>> belgisi bilan) qo‘shing va uni git commit -am buyrug‘i bilan kommit qiling. 7) Ishchi papka toza ekaniga ishonch hosil qiling. Kommit xabarlari - ingliz tilida, buyruq maylida, har bir kommitning o‘z xabari (\"update\" ham emas, \"commit\" ham emas).",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Git sozlangan, siz ~/portfolio papkasidasiz. Unda README.md bor, kommitlar yo‘q.\n\n# 1. Holatni ko‘ring, README.md ni indeksga qo‘shing va birinchi kommitni qiling\n\n# 2. Bir necha qatorli index.html yarating: cat > index.html << 'EOF' ... EOF\n\n# 3. echo buyrug‘i bilan style.css yarating\n\n# 4. Faqat index.html bo‘lgan kommit\n\n# 5. style.css bilan alohida kommit\n\n# 6. README.md ga qator qo‘shing (>>) va git commit -am orqali kommit qiling\n\n# 7. Ishchi papka tozaligini tekshiring\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Portfolio\" > README.md`, { quiet: true });",
+    "tests": [
+      {
+        "name": "Repozitoriyda roppa-rosa 4 ta kommit",
+        "check": "repo !== null && repo.log().length === 4",
+        "fail": "4 ta kommit kerak: README.md, index.html, style.css va README.md tahriri. git log --oneline ni tekshiring: «nothing added to commit» xatosi yo‘qmi."
+      },
+      {
+        "name": "Birinchi kommitda faqat README.md bor",
+        "check": "repo !== null && repo.log().length >= 1 && Object.keys(repo.log().slice().reverse()[0].files).sort().join(\",\") === \"README.md\"",
+        "fail": "Birinchi kommit - index.html va style.css yaratilishidan oldin git add README.md va git commit -m \"...\"."
+      },
+      {
+        "name": "Ikkinchi kommit faqat index.html ni qo‘shdi",
+        "check": "repo !== null && repo.log().length >= 2 && Object.keys(repo.log().slice().reverse()[1].files).sort().join(\",\") === \"README.md,index.html\"",
+        "fail": "Ikkinchi kommitdan oldin indeksga faqat index.html ni qo‘shing: git add . emas, git add index.html."
+      },
+      {
+        "name": "index.html bir necha qatordan iborat",
+        "check": "repo !== null && repo.log().length >= 2 && (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 3",
+        "fail": "index.html ni cat > index.html << 'EOF' buyrug‘i bilan yarating: bir necha qator HTML va oxirida EOF qatori."
+      },
+      {
+        "name": "Uchinchi kommit style.css ni qo‘shdi va boshqa fayllarni o‘zgartirmadi",
+        "check": "repo !== null && repo.log().length >= 3 && Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") === \"README.md,index.html,style.css\" && (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"README.md\"] ?? \"\")",
+        "fail": "Uchinchi kommit: git add style.css, keyin git commit -m \"...\"."
+      },
+      {
+        "name": "style.css bo‘sh emas",
+        "check": "repo !== null && repo.log().length >= 3 && (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\").trim().length > 0",
+        "fail": "Masalan: echo \"body { font-family: sans-serif; }\" > style.css"
+      },
+      {
+        "name": "To‘rtinchi kommit faqat README.md ni o‘zgartirdi",
+        "check": "repo !== null && repo.log().length >= 4 && Object.keys(repo.log().slice().reverse()[3].files).sort().join(\",\") === Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") && (repo.log().slice().reverse()[3].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"style.css\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\") !== (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\")",
+        "fail": "README.md ga qator qo‘shing va git commit -am \"...\" qiling - kommitga faqat o‘zgargan README.md tushadi."
+      },
+      {
+        "name": "Qator README.md ga qo‘shildi, uni almashtirmadi",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith((repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\")) && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "Qo‘shish - ikki belgi bilan: echo \"...\" >> README.md. Bitta > belgisi eski matnni o‘chiradi."
+      },
+      {
+        "name": "Kommit xabarlari mazmunli",
+        "check": "repo !== null && repo.log().length > 0 && repo.log().every((c) => c.subject.trim().length >= 5 && ![\"update\", \"commit\", \"fix\", \"changes\", \"edit\", \"test\", \"asd\"].includes(c.subject.trim().toLowerCase()))",
+        "fail": "Nima qilinganini yozing: \"Add home page\", \"Add styles\". \"update\" va \"commit\" xabarlari hech narsani tushuntirmaydi."
+      },
+      {
+        "name": "Barcha kommitlarning xabarlari turlicha",
+        "check": "repo !== null && new Set(repo.log().map((c) => c.subject.trim())).size === repo.log().length",
+        "fail": "Har bir kommitning o‘z xabari bor - aynan unda nima qilingani haqida."
+      },
+      {
+        "name": "Oxirgi kommit git commit -am buyrug‘i bilan qilingan",
+        "check": "__commands.some((c) => /^git commit\\s.*-a/.test(c.cmd) && c.code === 0)",
+        "fail": "Allaqachon kuzatiladigan README.md tahriri uchun: git commit -am \"Describe project in README\""
+      },
+      {
+        "name": "Oxirida ishchi papka toza",
+        "check": "repo !== null && repo.status().clean",
+        "fail": "Oxirida git status shunday javob berishi kerak: nothing to commit, working tree clean."
+      },
+      {
+        "name": "Boshqa README.md: birinchi kommit boshlang‘ich matnni saqlaydi",
+        "check": "repo !== null && repo.log().length >= 1 && (repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\") === \"# Anna Karimova - works\\n\"",
+        "fail": "Birinchi kommitdan oldin README.md ni qayta yozmang: unda allaqachon matn bor.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "Boshqa README.md: >> dan keyin eski qator saqlandi",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith(\"# Anna Karimova - works\\n\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").length >= 3",
+        "fail": "echo \"...\" >> README.md qatorni oxiriga qo‘shadi. > bilan eski matn yo‘qoladi.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlarni va EOF qatorini tekshiring."
+      }
+    ],
+    "hints": [
+      "Sikl doim bitta: fayllarni o‘zgartirish → git add fayl → git commit -m \"Xabar\".",
+      "Ko‘p qatorli fayl: birinchi qator cat > index.html << 'EOF', keyin HTML qatorlari, oxirgi qator EOF.",
+      "Kommitga faqat index.html tushishi uchun uni nomi bilan qo‘shing: git add index.html. git status -s ni tekshiring: birinchi ustunda A - indeksda, ?? - yo‘q.",
+      "git commit -am yangi fayllarni olmaydi: style.css ni git add orqali qo‘shish kerak.",
+      "Qator qo‘shish: echo \"matn\" >> README.md (ikkita > belgisi).",
+      "Xabarlar misoli: Add README, Add home page, Add styles, Describe project in README."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "git add dan keyin, lekin git commit dan oldin fayl Git’ning qaysi zonasida bo‘ladi?",
+        "options": [
+          "Ishchi papkada va boshqa hech qayerda",
+          "Indeksda (staging area)",
+          "Repozitoriyda, kommitlar tarixida",
+          "GitHub’da"
+        ],
+        "answer": 1,
+        "explanation": "git add fayl suratini indeksga - keyingi kommitning «qutisi»ga soladi. U tarixga git commit dan keyin tushadi."
+      },
+      {
+        "type": "matching",
+        "question": "Fayl holatini va uning tavsifini moslashtiring.",
+        "pairs": [
+          [
+            "untracked",
+            "Yangi fayl, Git hali uni kuzatmaydi"
+          ],
+          [
+            "staged",
+            "O‘zgarishlar indeksga qo‘shilgan va keyingi kommitga kiradi"
+          ],
+          [
+            "committed",
+            "Versiya kommitda saqlangan, o‘zgarishlar yo‘q"
+          ],
+          [
+            "modified",
+            "Kuzatiladigan fayl o‘zgargan, lekin o‘zgarishlar indeksda emas"
+          ]
+        ],
+        "explanation": "Hayot sikli: untracked → (git add) staged → (git commit) committed → (tahrir) modified → (git add) staged..."
+      },
+      {
+        "type": "single",
+        "question": "git status -s «?? style.css» qatorini ko‘rsatyapti. Bu nimani bildiradi?",
+        "options": [
+          "Fayl o‘zgargan va indeksga qo‘shilgan",
+          "Fayl yangi va kuzatilmaydi",
+          "Fayl o‘chirilgan",
+          "Faylda konflikt bor"
+        ],
+        "answer": 1,
+        "explanation": "Ikkita so‘roq belgisi - untracked: Git faylni ko‘radi, lekin u hali bir marta ham git add orqali qo‘shilmagan."
+      },
+      {
+        "type": "matching",
+        "question": "git status -s qatorini va uning ma’nosini moslashtiring.",
+        "pairs": [
+          [
+            "A  index.html",
+            "Yangi fayl indeksga qo‘shilgan"
+          ],
+          [
+            " M README.md",
+            "Fayl o‘zgargan, o‘zgarishlar indeksda emas"
+          ],
+          [
+            "M  README.md",
+            "Fayl o‘zgarishlari indeksga qo‘shilgan"
+          ],
+          [
+            "MM README.md",
+            "O‘zgarishlarning bir qismi indeksda, git add dan keyin fayl yana o‘zgartirilgan"
+          ]
+        ],
+        "explanation": "Chap ustun - indeks, o‘ng ustun - ishchi papka. Probel «bu yerda o‘zgarish yo‘q» degani."
+      },
+      {
+        "type": "multiple",
+        "question": "Kurs qoidalariga ko‘ra qaysi kommit xabarlari yaxshi?",
+        "options": [
+          "Add contact form",
+          "update",
+          "Fix menu on small screens",
+          "Fayllarda nimanidir va yana stillarni o‘zgartirdim",
+          "commit"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Yaxshi xabar - ingliz tilida, buyruq maylida, 50 belgigacha va nima qilinganini aytadi."
+      },
+      {
+        "type": "single",
+        "question": "Papkada yangi about.html fayli (hech qachon qo‘shilmagan) va o‘zgargan README.md bor. git commit -am \"Add about page\" nima qiladi?",
+        "options": [
+          "Ikkala faylni kommit qiladi",
+          "Faqat README.md ni kommit qiladi, about.html untracked bo‘lib qoladi",
+          "Faqat about.html ni kommit qiladi",
+          "Xato beradi va hech narsa qilmaydi"
+        ],
+        "answer": 1,
+        "explanation": "-a faqat allaqachon kuzatiladigan fayllarni qo‘shadi. Yangi faylni avval git add orqali qo‘shish kerak."
+      },
+      {
+        "type": "input",
+        "question": "README.md faylida bitta qator bor. Eskisini o‘chirmasdan yangi qatorni oxiriga qaysi yo‘naltirish belgisi bilan qo‘shish mumkin? Faqat belgini kiriting.",
+        "answers": [
+          ">>"
+        ],
+        "case_sensitive": true,
+        "explanation": "> faylni qayta yozadi, >> oxiriga qo‘shadi."
+      },
+      {
+        "type": "single",
+        "question": "Git git commit -m \"Add styles\" ga shunday javob berdi: «nothing added to commit but untracked files present». Sabab nimada?",
+        "options": [
+          "Kommit xabari juda qisqa",
+          "Indeks bo‘sh: yangi fayl git add orqali qo‘shilmagan",
+          "Repozitoriy yo‘q",
+          "style.css fayli bo‘sh"
+        ],
+        "answer": 1,
+        "explanation": "Kommit faqat indeksdagi narsani oladi. Avval git add style.css."
+      },
+      {
+        "type": "multiple",
+        "question": "git add . buyrug‘i haqida nima to‘g‘ri?",
+        "options": [
+          "Joriy papka va ichki papkalardagi barcha yangi va o‘zgargan fayllarni indeksga qo‘shadi",
+          "Darhol kommit yaratadi",
+          "Nuqta «joriy papka» degani",
+          "Faqat kommitlarda allaqachon bor fayllarni qo‘shadi"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "git add . joriy papkadagi barcha o‘zgarishlarni indeksga qo‘yadi. Kommit alohida buyruq bilan qilinadi."
+      },
+      {
+        "type": "input",
+        "question": "Bir necha qatorli index.html faylini yaratadigan buyruqning birinchi qatorini to‘ldiring (kiritish EOF qatori bilan tugaydi): cat > index.html ________",
+        "answers": [
+          "<< 'EOF'",
+          "<<'EOF'",
+          "<< EOF",
+          "<<EOF"
+        ],
+        "case_sensitive": true,
+        "explanation": "cat > index.html << 'EOF' - EOF qatorigacha bo‘lgan hamma narsa faylga tushadi. EOF atrofidagi qo‘shtirnoqlar terminalga $USER kabi o‘zgaruvchilarni qo‘yishni taqiqlaydi."
+      },
+      {
+        "type": "single",
+        "question": "Git shunday chiqardi: «[main 7154fc6] Add styles / 1 file changed, 1 insertion(+) / create mode 100644 style.css». 7154fc6 nimani bildiradi?",
+        "options": [
+          "Fayldagi qator raqami",
+          "Qisqa xesh - yangi kommit identifikatori",
+          "Fayl hajmi",
+          "Repozitoriy paroli"
+        ],
+        "answer": 1,
+        "explanation": "Har bir kommitning noyob xeshi bor, Git uning birinchi 7 belgisini ko‘rsatadi. Batafsil - 3-darsda."
+      },
+      {
+        "type": "single",
+        "question": "Agar barcha o‘zgarishlarni darhol kommit qilish mumkin bo‘lsa, indeks nimaga kerak?",
+        "options": [
+          "Indeks internetni tezlashtiradi",
+          "Bitta kommitga faqat bitta vazifaga tegishli narsalarni yig‘ish uchun",
+          "Indeks parollarni saqlaydi",
+          "Indekssiz git status ishlamaydi"
+        ],
+        "answer": 1,
+        "explanation": "Indeks - siz faqat keraklisini soladigan quti. Shunday qilib bitta mantiqiy o‘zgarish = bitta kommit."
+      }
+    ]
+  }
+}

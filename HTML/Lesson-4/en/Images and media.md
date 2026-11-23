@@ -393,7 +393,7 @@ Images and video are in place. In lesson 5 we learn to show data in tables: a sc
 
 ```html
 <figure>
-    <img src="images/logo.png" alt="Logo: curly braces and the word «Кружок»" width="200">
+    <img src="images/logo.png" alt="Logo: curly braces and the word Club" width="200">
     <figcaption>Our club logo</figcaption>
 </figure>
 ```

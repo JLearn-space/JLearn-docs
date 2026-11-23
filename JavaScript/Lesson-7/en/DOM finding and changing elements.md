@@ -140,6 +140,24 @@ if (banner) {
 }
 ```
 
+### How to find the right selector
+
+The most reliable way is not to guess but to check in the console:
+
+1. Open the page and DevTools → **Console**.
+2. Type `document.querySelector(".card")` and press Enter.
+3. If an element comes back, hover over it - the browser highlights it on the page. If `null` comes back - the selector is wrong.
+
+| What we look for | Selector | Example |
+| --- | --- | --- |
+| By tag | `tag` | `"h1"` |
+| By class | `.class` | `".card"` |
+| By id | `#id` | `"#menu"` |
+| Inside another | `parent descendant` | `"nav a"` |
+| By attribute | `[attribute="value"]` | `'[data-id="js"]'` |
+
+These are the same selectors as in Lesson 2 of the CSS course. The shorter and clearer the selector, the less often it breaks when the markup changes. That is why it is handy to add separate classes or `data-*` attributes for scripts.
+
 ---
 
 ## Text: `textContent`
@@ -287,6 +305,27 @@ card.append(heading, info);  // append accepts several elements
 document.querySelector(".cards").append(card);
 ```
 
+### What happens to the tree
+
+Before `append` the card lives on its own, after it - it becomes part of the DOM:
+
+```mermaid
+flowchart TD
+    subgraph before["Before append"]
+        C1["div.cards"]
+        A1["article.card"] --> H1["h3"]
+        A1 --> P1["p"]
+    end
+    subgraph after["After append"]
+        C2["div.cards"] --> A2["article.card"]
+        A2 --> H2["h3"]
+        A2 --> P2["p"]
+    end
+    before --> after
+```
+
+**How to read the diagram.** On the left the card is built in memory but not attached to the page - it is not on screen. On the right it has become a child of `div.cards`, and the browser has drawn it at once.
+
 ---
 
 ## Rendering an array
@@ -323,6 +362,40 @@ flowchart LR
 ```
 
 Why clear? When the data changes (lesson 8: filtering, adding), we simply call `renderCourses` again with a new array. Without clearing, the old elements would stay and the list would double.
+
+### What `renderCourses` does: step by step
+
+| Step | `course` | What was created | What is in the list on the page |
+| --- | --- | --- | --- |
+| 0 | - | The list was cleared | empty |
+| 1 | `{ title: "HTML", lessons: 10 }` | `<li>HTML - 10 lessons</li>` | 1 item |
+| 2 | `{ title: "CSS", lessons: 10 }` | `<li>CSS - 10 lessons</li>` | 2 items |
+| 3 | `{ title: "JavaScript", lessons: 10 }` | `<li>JavaScript - 10 lessons</li>` | 3 items |
+
+Add a fourth course to the array and call `renderCourses(courses)` again - the page will show exactly four items, without duplicates. That is the point of clearing at step 0.
+
+### What you will see in DevTools
+
+Open the **Elements** tab and expand `ul.course-list`: inside there are three `li` that are not in the HTML file. Open the **page source** (Ctrl+U) - the list is empty there. The DOM is live, the file is not.
+
+### Try to break it
+
+1. Remove the line `container.textContent = "";` and call `renderCourses(courses)` twice. How many items are there now?
+2. Write `.course-lis` in the selector, without the last letter. Which error does the console show, and on which line?
+3. Remove `defer` from the `<script>` in `<head>`. Why did `querySelector` return `null`?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| A selector without `.` or `#` | `null` and a `TypeError` later | `".card"`, `"#menu"` |
+| A script in `<head>` without `defer` | The elements do not exist yet - `null` | `<script src="..." defer>` |
+| `querySelector` where all elements are needed | Only the first one changes | `querySelectorAll` + `for...of` |
+| `innerHTML` with user data | An XSS hole | `textContent` and `createElement` |
+| `element.style.color = ...` | The style is in an attribute, CSS is hard to maintain | `classList.add("...")` |
+| Forgot `append` | The element is created but not visible | `parent.append(element)` |
+| No clearing in `render` | The list duplicates | `container.textContent = "";` at the start |
+| `dataset.lessons + 1` | `"101"` - strings joined | `Number(dataset.lessons) + 1` |
 
 ---
 

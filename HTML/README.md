@@ -50,13 +50,12 @@
 
 ---
 
-[Открыть издание для чтения / Open reading edition / O‘qish nashri](reading/index.html) · [Карта программы](COURSE_MAP.md) · [Источники / References / Manbalar](REFERENCES.md)
+[Открыть издание для чтения / Open reading edition / O‘qish nashri](reading/index.html) · [Карта программы](COURSE_MAP.md) · [Словарь терминов](GLOSSARY.md) · [Шпаргалка](CHEATSHEET.md) · [Источники / References / Manbalar](REFERENCES.md)
 
 ## Итоговый проект и платформа JLearn
 
 - [Исходный код итогового проекта](final-project/README.md): заготовки, 7 пошаговых снимков сайта, готовый сайт и образцы документов (план, чек-лист, журнал).
 - [Задания IDE и тесты](platform/README.md) на русском, узбекском и английском: для каждого урока задание с правилами серверной проверки и тест на 12 вопросов (4 типа, порог 70%). Проверка: `python3 tools/check_platform_tasks.py`.
-- [Заметки для преподавателя](teacher-notes/Lesson-8-ru.md): тайминг, тонкости и шкала оценки.
 
 ## Структура курса / Course structure
 
@@ -75,9 +74,6 @@
 
 ---
 
-## Проверка прохождения / Learner walkthrough / O‘quv yo‘lini tekshirish
-
-[Результаты прохождения всех языковых версий](NOVICE_REVIEW.md). Проверочные решения вынесены отдельно; открывайте их после своей попытки.
 
 ## Лицензия / License
 

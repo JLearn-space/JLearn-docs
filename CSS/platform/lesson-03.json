@@ -35,41 +35,6 @@
       "Градиент: background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);",
       "Полупрозрачный фон: background-color: rgb(254 226 226 / 70%);",
       "Единицы px в этом задании не используются: только rem."
-    ],
-    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>",
-    "wrong_solutions": [
-      {
-        "mistake": "нет sans-serif",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "h1 в px",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 32px;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет градиента",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-color: #1e3a8a;\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет класса notice в HTML",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p>Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет line-height",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "line-height в px",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6px;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет полупрозрачности",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: #fee2e2;\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      },
-      {
-        "mistake": "стиль в атрибуте",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Кружок</title>\n    <style>\n        body {\n            font-family: \"Inter\", Arial, sans-serif;\n            line-height: 1.6;\n            color: #1f2937;\n        }\n\n        h1 {\n            font-size: 2rem;\n        }\n\n        .site-header {\n            background-image: linear-gradient(135deg, #1e3a8a, #7c3aed);\n            color: white;\n        }\n\n        .notice {\n            background-color: rgb(254 226 226 / 70%);\n        }\n    </style>\n</head>\n<body>\n    <header class=\"site-header\">\n        <h1>Кружок веб-разработки</h1>\n    </header>\n    <main>\n        <p class=\"notice\" style=\"color: red;\">Занятие в среду переносится на четверг.</p>\n        <p>Учимся делать сайты с нуля.</p>\n    </main>\n</body>\n</html>"
-      }
     ]
   },
   "test": {

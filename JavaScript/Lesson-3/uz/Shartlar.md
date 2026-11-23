@@ -163,6 +163,29 @@ console.log(greeting); // Xayrli kech
 
 Agar `let greeting` ni `{ }` blok ichida e’lon qilsangiz, blokdan keyin o‘zgaruvchi mavjud bo‘lmaydi: u faqat o‘z jingalak qavslari ichida yashaydi.
 
+### Tarmoqlar qanday tekshiriladi: qadamma-qadam
+
+Yuqoridagi to‘g‘ri zanjirni va `score = 75` ni olamiz. Brauzer yuqoridan pastga boradi va birinchi `true` da to‘xtaydi:
+
+| Qadam | Tekshiruv | Natija | Nima bo‘ladi |
+| --- | --- | --- | --- |
+| 1 | `75 >= 90` | `false` | Tarmoq o‘tkazib yuboriladi, davom etamiz |
+| 2 | `75 >= 60` | `true` | `Qabul` chiqariladi, qolgan tarmoqlar **tekshirilmaydi** |
+| 3 | `else` | - | Bajarilmaydi: tarmoq allaqachon topilgan |
+
+```mermaid
+flowchart TD
+    A{"score >= 90?"} -->|true| B["A’lo"]
+    A -->|false| C{"score >= 60?"}
+    C -->|true| D["Qabul"]
+    C -->|false| E["Qayta topshirish"]
+    B --> F["Dastur davom etadi"]
+    D --> F
+    E --> F
+```
+
+**Sxemani qanday o‘qish kerak.** Har bir romb - savol. `false` javobi keyingi savolga, `true` javobi - amalga va darhol chiqishga olib boradi. Shuning uchun shartlar tartibi muhim: eng qat’iysi birinchi qo‘yiladi.
+
 ---
 
 ## Mini-topshiriq 1
@@ -207,6 +230,21 @@ if (hour >= 6 && hour <= 11) { ... }
 ```
 
 Matematik `6 <= hour <= 11` yozuvi JavaScript’da ko‘ringanidek **ishlamaydi**: avval `6 <= hour` → `true`, keyin `true <= 11` → istalgan `hour` da `true`.
+
+### Haqiqiylik jadvali
+
+Ikki shart uchun barcha to‘rtta birikma - ularni bir marta yozib chiqish foydali:
+
+| `a` | `b` | `a && b` | `a \|\| b` |
+| --- | --- | --- | --- |
+| `true` | `true` | `true` | `true` |
+| `true` | `false` | `false` | `true` |
+| `false` | `true` | `false` | `true` |
+| `false` | `false` | `false` | `false` |
+
+Eslab qolish oson: `&&` qat’iy - **hammasi** bajarilishi kerak; `||` mehribon - **bittasi** yetarli.
+
+Hayotiy misol: «chipta bor **va** 16 yoshga to‘lgan bo‘lsa, kinozalga kirish» - bu `&&`. «Talaba **yoki** nafaqaxo‘r bo‘lsangiz, chegirma» - bu `||`.
 
 ---
 
@@ -292,6 +330,31 @@ console.log(lesson); // JavaScript
 | `default:` | Hech bir `case` mos kelmasa - `else` kabi |
 
 Kodsiz ketma-ket ikkita `case` - «dush va chor uchun bir xil» deyish usuli. `switch` aniq qiymatlar uchun mos, oraliqlar (`score >= 90`) uchun esa `if/else if` kerak.
+
+### Nimani tanlash: `if`, ternar operator yoki `switch`
+
+| Vaziyat | Vosita | Misol |
+| --- | --- | --- |
+| Oraliqlar va murakkab shartlar | `if / else if / else` | Ball bo‘yicha baho |
+| Ikki qiymatdan birini tanlash | Ternar operator | `"ta mahsulot"` yoki `"mahsulot"` |
+| Bitta qiymat va ko‘p aniq variantlar | `switch` | Hafta kuni, foydalanuvchi roli |
+
+### Buzib ko‘ring
+
+1. `lesson = "JavaScript";` dan keyingi `break` ni olib tashlang va `"chor"` uchun ishga tushiring. `lesson` da qanday qiymat bo‘ladi? Bajarilish keyingi `case` ga «tushib ketdi».
+2. Baholar zanjiridagi ikki tekshiruv o‘rnini almashtiring: avval `>= 60`, keyin `>= 90`. `95` uchun natija qanday bo‘ladi?
+3. `hour = 20` uchun `if (6 <= hour <= 11)` deb yozing. Nega shart `true` bo‘lib chiqdi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `if (x = 5)` | O‘zlashtirish, shart doim rost | `if (x === 5)` |
+| `6 <= hour <= 11` | Doim `true` | `hour >= 6 && hour <= 11` |
+| Yumshoq shart qat’iysidan oldin turibdi | Qat’iy tarmoq hech qachon bajarilmaydi | Qat’iydan yumshoqqa |
+| `let result` `{ }` ichida e’lon qilingan | Blokdan keyin - `ReferenceError` | `let result;` ni `if` dan oldin e’lon qiling |
+| `switch` da `break` yo‘q | Keyingi `case` ham bajariladi | Har bir variant oxirida `break;` |
+| `count = 0` da `if (count)` | Qiymat berilgan bo‘lsa ham tarmoq bajarilmaydi | `if (count !== undefined)` yoki `count >= 0` |
 
 ---
 

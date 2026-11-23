@@ -1,0 +1,278 @@
+{
+  "lesson": 2,
+  "language": "en",
+  "lesson_title": "The first commit",
+  "task": {
+    "title": "Commits in the portfolio project",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "Git is configured, and you are in the ~/portfolio folder: it has a repository and a README.md file, there are no commits yet. Write the commands one per line: 1) Check the state of the repository, add README.md to the index and make the first commit. 2) Create index.html from several lines of HTML with cat > index.html << 'EOF' (the last line is EOF). 3) Create style.css with one CSS rule using echo. 4) Make a commit that contains only index.html. 5) Save style.css in a separate commit. 6) Append a line with a project description to README.md (with >>) and commit it with git commit -am. 7) Make sure the working directory is clean. Commit messages are in English, in the imperative mood, and each commit has its own (not \"update\" and not \"commit\").",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# Git is configured, you are in the ~/portfolio folder. It has README.md and no commits.\n\n# 1. Check the state, add README.md to the index and make the first commit\n\n# 2. Create index.html of several lines: cat > index.html << 'EOF' ... EOF\n\n# 3. Create style.css with echo\n\n# 4. A commit with index.html only\n\n# 5. A separate commit with style.css\n\n# 6. Append a line to README.md (>>) and commit it with git commit -am\n\n# 7. Check that the working directory is clean\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Portfolio\" > README.md`, { quiet: true });",
+    "tests": [
+      {
+        "name": "The repository has exactly 4 commits",
+        "check": "repo !== null && repo.log().length === 4",
+        "fail": "You need 4 commits: README.md, index.html, style.css and the README.md edit. Check git log --oneline: was there a \"nothing added to commit\" error?"
+      },
+      {
+        "name": "The first commit contains only README.md",
+        "check": "repo !== null && repo.log().length >= 1 && Object.keys(repo.log().slice().reverse()[0].files).sort().join(\",\") === \"README.md\"",
+        "fail": "The first commit is git add README.md and git commit -m \"...\" before you create index.html and style.css."
+      },
+      {
+        "name": "The second commit added only index.html",
+        "check": "repo !== null && repo.log().length >= 2 && Object.keys(repo.log().slice().reverse()[1].files).sort().join(\",\") === \"README.md,index.html\"",
+        "fail": "Before the second commit, add only index.html to the index: git add index.html, not git add ."
+      },
+      {
+        "name": "index.html has several lines",
+        "check": "repo !== null && repo.log().length >= 2 && (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 3",
+        "fail": "Create index.html with cat > index.html << 'EOF', several lines of HTML and the EOF line at the end."
+      },
+      {
+        "name": "The third commit added style.css and did not change other files",
+        "check": "repo !== null && repo.log().length >= 3 && Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") === \"README.md,index.html,style.css\" && (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"README.md\"] ?? \"\")",
+        "fail": "The third commit: git add style.css, then git commit -m \"...\"."
+      },
+      {
+        "name": "style.css is not empty",
+        "check": "repo !== null && repo.log().length >= 3 && (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\").trim().length > 0",
+        "fail": "For example: echo \"body { font-family: sans-serif; }\" > style.css"
+      },
+      {
+        "name": "The fourth commit changed only README.md",
+        "check": "repo !== null && repo.log().length >= 4 && Object.keys(repo.log().slice().reverse()[3].files).sort().join(\",\") === Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") && (repo.log().slice().reverse()[3].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"style.css\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\") !== (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\")",
+        "fail": "Append a line to README.md and run git commit -am \"...\" - only the modified README.md will go into the commit."
+      },
+      {
+        "name": "The line was appended to README.md, not replacing it",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith((repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\")) && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "Append with two signs: echo \"...\" >> README.md. A single > erases the old text."
+      },
+      {
+        "name": "Commit messages are meaningful",
+        "check": "repo !== null && repo.log().length > 0 && repo.log().every((c) => c.subject.trim().length >= 5 && ![\"update\", \"commit\", \"fix\", \"changes\", \"edit\", \"test\", \"asd\"].includes(c.subject.trim().toLowerCase()))",
+        "fail": "Write what was done: \"Add home page\", \"Add styles\". The messages \"update\" and \"commit\" explain nothing."
+      },
+      {
+        "name": "All commit messages are different",
+        "check": "repo !== null && new Set(repo.log().map((c) => c.subject.trim())).size === repo.log().length",
+        "fail": "Each commit has its own message - about what was done in that commit."
+      },
+      {
+        "name": "The last commit was made with git commit -am",
+        "check": "__commands.some((c) => /^git commit\\s.*-a/.test(c.cmd) && c.code === 0)",
+        "fail": "For an edit of the already tracked README.md: git commit -am \"Describe project in README\""
+      },
+      {
+        "name": "The working directory is clean at the end",
+        "check": "repo !== null && repo.status().clean",
+        "fail": "At the end git status must answer: nothing to commit, working tree clean."
+      },
+      {
+        "name": "A different README.md: the first commit keeps the original text",
+        "check": "repo !== null && repo.log().length >= 1 && (repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\") === \"# Anna Karimova - works\\n\"",
+        "fail": "Do not overwrite README.md before the first commit: it already has text.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "A different README.md: the old line is kept after >>",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith(\"# Anna Karimova - works\\n\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").length >= 3",
+        "fail": "echo \"...\" >> README.md appends a line to the end. With > the old text is lost.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in the commands and the EOF line."
+      }
+    ],
+    "hints": [
+      "The cycle is always the same: change files → git add file → git commit -m \"Message\".",
+      "A multi-line file: the first line is cat > index.html << 'EOF', then the HTML lines, the last line is EOF.",
+      "To get only index.html into the commit, add it by name: git add index.html. Check git status -s: A in the first column means it is in the index, ?? means it is not.",
+      "git commit -am does not take new files: style.css must be added with git add.",
+      "Append a line: echo \"text\" >> README.md (two > signs).",
+      "Example messages: Add README, Add home page, Add styles, Describe project in README."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "In which area of Git is a file right after git add but before git commit?",
+        "options": [
+          "In the working directory and nowhere else",
+          "In the index (staging area)",
+          "In the repository, in the commit history",
+          "On GitHub"
+        ],
+        "answer": 1,
+        "explanation": "git add puts a snapshot of the file into the index - the \"box\" of the next commit. It gets into the history after git commit."
+      },
+      {
+        "type": "matching",
+        "question": "Match the state of a file with its description.",
+        "pairs": [
+          [
+            "untracked",
+            "A new file that Git is not watching yet"
+          ],
+          [
+            "staged",
+            "The changes are added to the index and will go into the next commit"
+          ],
+          [
+            "committed",
+            "The version is saved in a commit, there are no changes"
+          ],
+          [
+            "modified",
+            "A tracked file has changed, but the changes are not in the index"
+          ]
+        ],
+        "explanation": "The life cycle: untracked → (git add) staged → (git commit) committed → (edit) modified → (git add) staged..."
+      },
+      {
+        "type": "single",
+        "question": "git status -s shows the line \"?? style.css\". What does it mean?",
+        "options": [
+          "The file is changed and added to the index",
+          "The file is new and not tracked",
+          "The file is deleted",
+          "The file has a conflict"
+        ],
+        "answer": 1,
+        "explanation": "Two question marks mean untracked: Git sees the file, but it has never been added with git add."
+      },
+      {
+        "type": "matching",
+        "question": "Match the git status -s line with its meaning.",
+        "pairs": [
+          [
+            "A  index.html",
+            "A new file is added to the index"
+          ],
+          [
+            " M README.md",
+            "The file is changed, the changes are not in the index"
+          ],
+          [
+            "M  README.md",
+            "The file's changes are added to the index"
+          ],
+          [
+            "MM README.md",
+            "Some changes are in the index, the file was changed again after git add"
+          ]
+        ],
+        "explanation": "The left column is the index, the right one is the working directory. A space means \"no changes here\"."
+      },
+      {
+        "type": "multiple",
+        "question": "Which commit messages are good according to the course rules?",
+        "options": [
+          "Add contact form",
+          "update",
+          "Fix menu on small screens",
+          "I changed some stuff in the files and also the styles",
+          "commit"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "A good message is in English, in the imperative mood, up to 50 characters, and says what was done."
+      },
+      {
+        "type": "single",
+        "question": "The folder has a new file about.html (never added) and a modified README.md. What will git commit -am \"Add about page\" do?",
+        "options": [
+          "Commit both files",
+          "Commit only README.md, about.html stays untracked",
+          "Commit only about.html",
+          "Show an error and do nothing"
+        ],
+        "answer": 1,
+        "explanation": "-a adds only files that are already tracked. A new file must be added with git add first."
+      },
+      {
+        "type": "input",
+        "question": "The README.md file has one line. Which redirection sign appends a new line to the end without erasing the old one? Enter only the sign.",
+        "answers": [
+          ">>"
+        ],
+        "case_sensitive": true,
+        "explanation": "> overwrites the file, >> appends to the end."
+      },
+      {
+        "type": "single",
+        "question": "Git answered git commit -m \"Add styles\" with \"nothing added to commit but untracked files present\". What is the reason?",
+        "options": [
+          "The commit message is too short",
+          "The index is empty: the new file was not added with git add",
+          "There is no repository",
+          "The style.css file is empty"
+        ],
+        "answer": 1,
+        "explanation": "A commit takes only what is in the index. First run git add style.css."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about the git add . command?",
+        "options": [
+          "It adds all new and modified files of the current folder and its subfolders to the index",
+          "It creates a commit right away",
+          "The dot means \"the current folder\"",
+          "It adds only files that are already in commits"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "git add . puts all changes in the current folder into the index. The commit is made with a separate command."
+      },
+      {
+        "type": "input",
+        "question": "Complete the first line of the command that creates the index.html file from several lines (the input ends with the EOF line): cat > index.html ________",
+        "answers": [
+          "<< 'EOF'",
+          "<<'EOF'",
+          "<< EOF",
+          "<<EOF"
+        ],
+        "case_sensitive": true,
+        "explanation": "cat > index.html << 'EOF' - everything up to the EOF line goes into the file. The quotes around EOF stop the shell from substituting variables like $USER."
+      },
+      {
+        "type": "single",
+        "question": "Git printed: \"[main 7154fc6] Add styles / 1 file changed, 1 insertion(+) / create mode 100644 style.css\". What does 7154fc6 mean?",
+        "options": [
+          "A line number in the file",
+          "The short hash - the ID of the new commit",
+          "The file size",
+          "The repository password"
+        ],
+        "answer": 1,
+        "explanation": "Every commit has a unique hash, and Git shows its first 7 characters. More in lesson 3."
+      },
+      {
+        "type": "single",
+        "question": "Why do we need the index if we could commit all changes at once?",
+        "options": [
+          "The index speeds up the internet",
+          "To put into one commit only what belongs to one task",
+          "The index stores passwords",
+          "git status does not work without the index"
+        ],
+        "answer": 1,
+        "explanation": "The index is a box where you put only what you need. This way one logical change = one commit."
+      }
+    ]
+  }
+}

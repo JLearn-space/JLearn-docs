@@ -39,41 +39,6 @@
       "<html> da lang atributi bo‘lishi kerak, masalan lang=\"uz\".",
       "<head> da <meta charset=\"UTF-8\"> va <title>Tanishuv</title> kerak.",
       "<body> da roppa-rosa bitta <h1> va kamida ikkita <p>."
-    ],
-    "solution": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>",
-    "wrong_solutions": [
-      {
-        "mistake": "DOCTYPE yo‘q",
-        "code": "<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "lang yo‘q",
-        "code": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "charset yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "title yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "ikkita h1",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <h1>Men birinchi kurs talabasiman va Olmaliqda yashayman.</h1>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "bitta abzats",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "body yo‘q",
-        "code": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n\n</html>"
-      },
-      {
-        "mistake": "deklaratsiya o‘rniga matndagi DOCTYPE",
-        "code": "<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Tanishuv</title>\n</head>\n<body>\n    <h1>Salom! Mening ismim Aziz</h1>\n    <p>&lt;!DOCTYPE html&gt; Men birinchi kurs talabasiman va Olmaliqda yashayman.</p>\n    <p>O‘z birinchi saytimni yasash uchun HTML o‘rganyapman.</p>\n</body>\n</html>"
-      }
     ]
   },
   "test": {

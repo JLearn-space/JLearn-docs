@@ -1,0 +1,279 @@
+{
+  "lesson": 5,
+  "language": "uz",
+  "lesson_title": "Elementlarni yaratish va o‘chirish",
+  "task": {
+    "title": "jQuery’dagi kurslar katalogi",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>JLearn kurslari</title>\n</head>\n<body>\n    <main>\n        <h1>JLearn kurslari</h1>\n        <p id=\"course-count\">Yuklanmoqda...</p>\n        <ul id=\"course-list\" class=\"course-list\">\n            <li class=\"placeholder\">Ro‘yxat yuklanmoqda...</li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada #course-count xatboshisi va \"Ro‘yxat yuklanmoqda...\" o‘rinbosar bandli #course-list ro‘yxati bor. Platforma { id, title, lessons, isNew } obyektlaridan iborat courses massivini beradi. jQuery allaqachon ulangan. renderCourses(list) funksiyasini yozing: 1) #course-list va #course-count ni $() orqali toping. 2) Ro‘yxatni .empty() metodi bilan tozalang. 3) list dagi har bir kurs uchun course klassi, \"HTML (darslar: 10)\" matni va id dan olingan data-id atributi bilan $(\"<li>\", { ... }) bandini yarating. 4) isNew: true bo‘lgan kurslarga course--new klassini qo‘shing. 5) Bandni ro‘yxatga .append() orqali qo‘ying. 6) #course-count ga \"Kurslar: N\" ni yozing, bunda N - list uzunligi. Oxirida renderCourses(courses) ni chaqiring. Qayta chaqiruv ro‘yxatni ikkilantirmasligi kerak. document.querySelector, createElement, innerHTML, textContent va .html() dan foydalanmang.",
+    "starter_code": "// Platforma beradi:\n// const courses = [\n//     { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n//     { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n//     { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n// ];\n// Sahifada: <p id=\"course-count\"> va \"Ro‘yxat yuklanmoqda...\" o‘rinbosar bandli <ul id=\"course-list\">\n// jQuery allaqachon ulangan.\n\nfunction renderCourses(list) {\n    // 1. #course-list va #course-count ni toping: const $list = ...\n\n    // 2. Ro‘yxatni tozalang (.empty())\n\n    // 3. list dagi har bir kurs uchun $(\"<li>\", { ... }) yarating:\n    //    course klassi, \"HTML (darslar: 10)\" matni, data-id atributi\n\n    // 4. Agar course.isNew bo‘lsa - course--new klassini qo‘shing\n\n    // 5. Bandni ro‘yxatga qo‘ying (.append)\n\n    // 6. Hisoblagich: \"Kurslar: 3\" - list uzunligi bo‘yicha\n}\n\nrenderCourses(courses);\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "createElement",
+      "textContent",
+      "insertAdjacentHTML",
+      "outerHTML",
+      ".style."
+    ],
+    "setup": "const courses = [\n    { id: \"html\", title: \"HTML\", lessons: 10, isNew: false },\n    { id: \"css\", title: \"CSS\", lessons: 10, isNew: false },\n    { id: \"js\", title: \"JavaScript\", lessons: 10, isNew: true },\n];",
+    "tests": [
+      {
+        "name": "Sahifada 3 ta li.course bandi",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 3",
+        "fail": "Har bir kurs uchun $(\"<li>\", { class: \"course\", ... }) yarating va uni .append() orqali #course-list ga qo‘ying."
+      },
+      {
+        "name": "\"Ro‘yxat yuklanmoqda...\" o‘rinbosari o‘chirilgan",
+        "check": "document.querySelectorAll(\"#course-list > *\").length === 3 && document.querySelector(\"#course-list .placeholder\") === null",
+        "fail": "Chizishdan oldin ro‘yxatni tozalang: $list.empty();"
+      },
+      {
+        "name": "Matnlar: \"HTML (darslar: 10)\", \"CSS (darslar: 10)\", \"JavaScript (darslar: 10)\"",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.textContent).join(\"|\") === \"HTML (darslar: 10)|CSS (darslar: 10)|JavaScript (darslar: 10)\"",
+        "fail": "text: `${course.title} (darslar: ${course.lessons})` - va tartib saqlanishi uchun .append() orqali qo‘ying."
+      },
+      {
+        "name": "Bandlarda data-id atributi bor",
+        "check": "[...document.querySelectorAll(\"#course-list li.course\")].map((li) => li.getAttribute(\"data-id\")).join(\",\") === \"html,css,js\"",
+        "fail": "Sozlamalar obyektida: \"data-id\": course.id. .data(\"id\", ...) metodi HTML’ga atribut yozmaydi."
+      },
+      {
+        "name": "course--new klassi faqat JavaScript’da",
+        "check": "(() => { const fresh = document.querySelectorAll(\"#course-list .course--new\"); return fresh.length === 1 && fresh[0].getAttribute(\"data-id\") === \"js\"; })()",
+        "fail": "if (course.isNew) { $item.addClass(\"course--new\"); }"
+      },
+      {
+        "name": "Hisoblagich: \"Kurslar: 3\"",
+        "check": "document.querySelector(\"#course-count\").textContent === \"Kurslar: 3\"",
+        "fail": "$count.text(`Kurslar: ${list.length}`);"
+      },
+      {
+        "name": "Boshqa ma’lumotlar: 4 ta kurs, ikkitasi yangi, \"Kurslar: 4\"",
+        "check": "document.querySelectorAll(\"#course-list li.course\").length === 4 && document.querySelectorAll(\"#course-list .course--new\").length === 2 && document.querySelectorAll(\"#course-list li.course\")[3].textContent === \"SQL (darslar: 8)\" && document.querySelector(\"#course-count\").textContent === \"Kurslar: 4\"",
+        "fail": "Hech narsani qo‘lda yozmang: son, matnlar va klasslar massivdan olinadi. Oxirida renderCourses(courses) ni chaqiring.",
+        "setup": "const courses = [\n    { id: \"git\", title: \"Git\", lessons: 6, isNew: true },\n    { id: \"php\", title: \"PHP\", lessons: 12, isNew: false },\n    { id: \"jq\", title: \"jQuery\", lessons: 10, isNew: true },\n    { id: \"sql\", title: \"SQL\", lessons: 8, isNew: false },\n];"
+      },
+      {
+        "name": "Qayta chaqiruv ro‘yxatni ikkilantirmaydi",
+        "check": "(() => { renderCourses([{ id: \"py\", title: \"Python\", lessons: 12, isNew: false }]); const items = document.querySelectorAll(\"#course-list li.course\"); return items.length === 1 && items[0].textContent === \"Python (darslar: 12)\" && items[0].getAttribute(\"data-id\") === \"py\" && document.querySelector(\"#course-count\").textContent === \"Kurslar: 1\"; })()",
+        "fail": "Funksiya boshida ro‘yxatni tozalang ($list.empty()) va courses bilan emas, list parametri bilan ishlang."
+      },
+      {
+        "name": "Bo‘sh massiv: ro‘yxat bo‘sh, \"Kurslar: 0\"",
+        "check": "(() => { renderCourses([]); return document.querySelector(\"#course-list\") !== null && document.querySelectorAll(\"#course-list > *\").length === 0 && document.querySelector(\"#course-count\").textContent === \"Kurslar: 0\"; })()",
+        "fail": "Bo‘sh massivda sikl bajarilmaydi, lekin tozalash va hisoblagich ishlashi kerak. Ichini .empty() orqali tozalang, ro‘yxatning o‘zini .remove() orqali o‘chirmang."
+      },
+      {
+        "name": "Matn belgilash sifatida emas, matn sifatida chiqadi",
+        "check": "(() => { renderCourses([{ id: \"x\", title: \"<b>Xak</b>\", lessons: 5, isNew: false }]); const li = document.querySelectorAll(\"#course-list li.course\")[0]; return li.textContent === \"<b>Xak</b> (darslar: 5)\" && li.querySelector(\"b\") === null; })()",
+        "fail": "Ma’lumotlarni HTML satrga yopishtirmang. Matnni text kalitiga uzating: $(\"<li>\", { text: ... })."
+      },
+      {
+        "name": "renderCourses - funksiya",
+        "check": "typeof renderCourses === \"function\"",
+        "fail": "function renderCourses(list) { ... } ni e’lon qiling."
+      },
+      {
+        "name": "Elementlar jQuery vositalari bilan yaratiladi va qo‘yiladi",
+        "check": "/\\$\\(\\s*[\"'`]<li/.test(__code) && /\\.(append|appendTo)\\(/.test(__code)",
+        "fail": "Yaratish: $(\"<li>\", { ... }); qo‘yish: $list.append($item) yoki $item.appendTo($list)."
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "__error === null",
+        "fail": "#course-list va #course-count selektorlarini va renderCourses chaqiruvdan oldin yoki function orqali e’lon qilinganini tekshiring."
+      }
+    ],
+    "hints": [
+      "Elementlarni funksiya boshida bir marta toping: const $list = $(\"#course-list\"); const $count = $(\"#course-count\");",
+      "Tozalash: $list.empty(); - ro‘yxat qoladi, faqat bandlar yo‘qoladi.",
+      "Yaratish: $(\"<li>\", { class: \"course\", text: `${course.title} (darslar: ${course.lessons})`, \"data-id\": course.id }). \"data-id\" kaliti defis tufayli qo‘shtirnoq ichida.",
+      "Yangilik: if (course.isNew) { $item.addClass(\"course--new\"); }",
+      "Sikl ichida qo‘yish: $list.append($item);",
+      "Parametr bo‘yicha hisoblagich: $count.text(`Kurslar: ${list.length}`);"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "$(\"li\") ning $(\"<li>\") dan farqi nima?",
+        "options": [
+          "Hech qanday farqi yo‘q, bu bir xil narsa",
+          "$(\"li\") sahifadagi bandlarni qidiradi, $(\"<li>\") esa sahifada hali yo‘q yangi band yaratadi",
+          "$(\"<li>\") birinchi bandni qidiradi, $(\"li\") - hammasini",
+          "$(\"<li>\") xato beradi: selektorda burchakli qavslar taqiqlangan"
+        ],
+        "answer": 1,
+        "explanation": "Agar satr burchakli qavsdagi teg bilan boshlansa, jQuery element yaratadi. Aks holda satr - qidirish uchun selektor."
+      },
+      {
+        "type": "single",
+        "question": "$(\"<li>\", { text: \"Yangi\" }); qatori bajarilgandan keyin sahifada nima bo‘ladi?",
+        "options": [
+          "Birinchi ro‘yxat oxirida yangi band",
+          "Hech narsa: element xotirada yaratilgan, lekin qo‘yilmagan",
+          "body boshida yangi band",
+          "Xato: ota element ko‘rsatilmagan"
+        ],
+        "answer": 1,
+        "explanation": "Yaratilgan element .append(), .prepend(), .after(), .before() yoki .appendTo() metodi bilan qo‘yilmaguncha xotirada yashaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Metodni va yangi elementning $box ga nisbatan qo‘yilish joyini moslang.",
+        "pairs": [
+          [
+            "$box.append($el)",
+            "$box ichiga, oxiriga"
+          ],
+          [
+            "$box.prepend($el)",
+            "$box ichiga, boshiga"
+          ],
+          [
+            "$box.after($el)",
+            "Tashqariga, $box dan darhol keyin"
+          ],
+          [
+            "$box.before($el)",
+            "Tashqariga, $box dan oldin"
+          ]
+        ],
+        "explanation": "append/prepend ichiga (bola element qilib) qo‘yadi, after/before - yoniga (qo‘shni qilib)."
+      },
+      {
+        "type": "single",
+        "question": "$list.empty() ning $list.remove() dan farqi nima?",
+        "options": [
+          "Hech qanday farqi yo‘q",
+          "empty() bola elementlarni o‘chiradi, ro‘yxatning o‘zi qoladi; remove() ro‘yxatning o‘zini bola elementlari bilan birga o‘chiradi",
+          "empty() faqat matnni o‘chiradi, remove() esa - faqat elementlarni",
+          "remove() tezroq ishlaydi, natija esa bir xil"
+        ],
+        "answer": 1,
+        "explanation": "empty() - qutidagi hamma narsani olib tashlash, remove() - qutini butunlay tashlab yuborish."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar #list ro‘yxati oxiriga yangi band qo‘shadi?",
+        "options": [
+          "$(\"#list\").append($(\"<li>\", { text: \"A\" }))",
+          "$(\"<li>\", { text: \"A\" }).appendTo(\"#list\")",
+          "$(\"#list\").prepend($(\"<li>\", { text: \"A\" }))",
+          "$(\"#list\").after($(\"<li>\", { text: \"A\" }))"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "append va appendTo bir xil ishni qiladi, faqat turli tomondan. prepend boshiga qo‘yadi, after - ichiga emas, ro‘yxatning o‘zidan keyin."
+      },
+      {
+        "type": "single",
+        "question": "render() funksiyasi har safar massivning barcha elementlari uchun faqat $list.append(...) ni bajaradi. 4 elementli massiv bilan render() uch marta chaqirilgandan keyin nima bo‘ladi?",
+        "options": [
+          "4 ta band",
+          "12 ta band",
+          "3 ta band",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Boshida $list.empty() bo‘lmasa, har bir chaqiruv bandlarni eskilariga qo‘shib yozadi: 4 + 4 + 4 = 12."
+      },
+      {
+        "type": "single",
+        "question": "title = \"<img src=x onerror=alert(1)>\". Bandni yaratishning qaysi usuli xavfsiz?",
+        "options": [
+          "$(\"<li>\" + title + \"</li>\")",
+          "$(\"<li>\", { text: title })",
+          "$(\"<li>\").html(title)",
+          "$(\"#list\").append(\"<li>\" + title + \"</li>\")"
+        ],
+        "answer": 1,
+        "explanation": "text kaliti .text() kabi ishlaydi: satr so‘zma-so‘z chiqadi. Yopishtirilgan HTML satr va .html() ma’lumotlarni belgilashga aylantiradi - bu XSS."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi metod elementni sahifadan o‘chiradi, lekin keyin qaytarib qo‘yish uchun uning hodisa ishlovchilari va .data() ma’lumotlarini saqlab qoladi? Metod nomini nuqta va qavslarsiz kiriting.",
+        "answers": [
+          "detach"
+        ],
+        "case_sensitive": true,
+        "explanation": ".detach() - «olib, chetga qo‘yish». .remove() ishlovchilar va ma’lumotlarni o‘chirib tashlaydi."
+      },
+      {
+        "type": "multiple",
+        "question": "$(\"<li>\", { class: \"course\", text: \"CSS\", \"data-id\": \"css\" }) haqidagi qaysi fikrlar to‘g‘ri?",
+        "options": [
+          "Bandda course klassi bo‘ladi",
+          "Band matni - CSS",
+          "Bandda data-id=\"css\" atributi bo‘ladi",
+          "Band darhol sahifa oxirida paydo bo‘ladi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Sozlamalar obyekti klass, matn va atributlarni beradi. Bandni sahifaga alohida qo‘yish kerak."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifa va metodni moslang.",
+        "pairs": [
+          [
+            "Kartochka nusxasini yaratish",
+            ".clone()"
+          ],
+          [
+            "Elementni boshqasiga almashtirish",
+            ".replaceWith()"
+          ],
+          [
+            "Ota elementni qoldirib, barcha bola elementlarni o‘chirish",
+            ".empty()"
+          ],
+          [
+            "Elementni butunlay o‘chirish",
+            ".remove()"
+          ]
+        ],
+        "explanation": "clone nusxalaydi, replaceWith almashtiradi, empty ichini tozalaydi, remove elementni butunlay olib tashlaydi."
+      },
+      {
+        "type": "single",
+        "question": "$(\"<li>\", { text: \"A\" }).appendTo(\"#list\") nimani qaytaradi?",
+        "options": [
+          "#list ro‘yxati bor jQuery obyektini",
+          "Yangi li bandi bor jQuery obyektini",
+          "\"A\" satrini",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": "appendTo qo‘yilayotgan elementni qaytaradi, shuning uchun zanjirni u bilan davom ettirish mumkin: .appendTo(\"#list\").addClass(\"x\")."
+      },
+      {
+        "type": "input",
+        "question": "Qayta chaqiruv ro‘yxatni ikkilantirmasligi uchun tushib qolgan metodni yozing: function render(list) { $list.____(); for (...) { ... } }. Faqat metod nomini kiriting.",
+        "answers": [
+          "empty"
+        ],
+        "case_sensitive": true,
+        "explanation": "$list.empty() eski bandlarni o‘chiradi va funksiya har safar ro‘yxatni noldan chizadi."
+      }
+    ]
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "lesson": 2,
+  "language": "ru",
+  "lesson_title": "Первый коммит",
+  "task": {
+    "title": "Коммиты в проекте-портфолио",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Git настроен, вы в папке ~/portfolio: там есть репозиторий и файл README.md, коммитов пока нет. Напишите команды по одной на строке: 1) Посмотрите состояние репозитория, добавьте README.md в индекс и сделайте первый коммит. 2) Создайте index.html из нескольких строк HTML командой cat > index.html << 'EOF' (последняя строка - EOF). 3) Создайте style.css с одним CSS-правилом командой echo. 4) Сделайте коммит, в котором есть только index.html. 5) Отдельным коммитом сохраните style.css. 6) Допишите в README.md строку с описанием проекта (знаком >>) и закоммитьте её командой git commit -am. 7) Убедитесь, что рабочая папка чистая. Сообщения коммитов - на английском, в повелительном наклонении, у каждого коммита своё (не \"update\" и не \"commit\").",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Git настроен, вы в папке ~/portfolio. В ней README.md, коммитов нет.\n\n# 1. Посмотрите состояние, добавьте README.md в индекс и сделайте первый коммит\n\n# 2. Создайте index.html из нескольких строк: cat > index.html << 'EOF' ... EOF\n\n# 3. Создайте style.css командой echo\n\n# 4. Коммит только с index.html\n\n# 5. Отдельный коммит со style.css\n\n# 6. Допишите строку в README.md (>>) и закоммитьте через git commit -am\n\n# 7. Проверьте, что рабочая папка чистая\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Portfolio\" > README.md`, { quiet: true });",
+    "tests": [
+      {
+        "name": "В репозитории ровно 4 коммита",
+        "check": "repo !== null && repo.log().length === 4",
+        "fail": "Нужно 4 коммита: README.md, index.html, style.css и правка README.md. Проверьте git log --oneline: нет ли ошибки «nothing added to commit»."
+      },
+      {
+        "name": "Первый коммит содержит только README.md",
+        "check": "repo !== null && repo.log().length >= 1 && Object.keys(repo.log().slice().reverse()[0].files).sort().join(\",\") === \"README.md\"",
+        "fail": "Первый коммит - git add README.md и git commit -m \"...\" до создания index.html и style.css."
+      },
+      {
+        "name": "Второй коммит добавил только index.html",
+        "check": "repo !== null && repo.log().length >= 2 && Object.keys(repo.log().slice().reverse()[1].files).sort().join(\",\") === \"README.md,index.html\"",
+        "fail": "Перед вторым коммитом добавьте в индекс только index.html: git add index.html, а не git add ."
+      },
+      {
+        "name": "index.html состоит из нескольких строк",
+        "check": "repo !== null && repo.log().length >= 2 && (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 3",
+        "fail": "Создайте index.html командой cat > index.html << 'EOF', несколько строк HTML и строка EOF в конце."
+      },
+      {
+        "name": "Третий коммит добавил style.css и не менял другие файлы",
+        "check": "repo !== null && repo.log().length >= 3 && Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") === \"README.md,index.html,style.css\" && (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\") === (repo.log().slice().reverse()[1].files[\"README.md\"] ?? \"\")",
+        "fail": "Третий коммит: git add style.css, затем git commit -m \"...\"."
+      },
+      {
+        "name": "style.css не пустой",
+        "check": "repo !== null && repo.log().length >= 3 && (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\").trim().length > 0",
+        "fail": "Например: echo \"body { font-family: sans-serif; }\" > style.css"
+      },
+      {
+        "name": "Четвёртый коммит изменил только README.md",
+        "check": "repo !== null && repo.log().length >= 4 && Object.keys(repo.log().slice().reverse()[3].files).sort().join(\",\") === Object.keys(repo.log().slice().reverse()[2].files).sort().join(\",\") && (repo.log().slice().reverse()[3].files[\"index.html\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"index.html\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"style.css\"] ?? \"\") === (repo.log().slice().reverse()[2].files[\"style.css\"] ?? \"\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\") !== (repo.log().slice().reverse()[2].files[\"README.md\"] ?? \"\")",
+        "fail": "Допишите строку в README.md и сделайте git commit -am \"...\" - в коммит попадёт только изменённый README.md."
+      },
+      {
+        "name": "Строка дописана в README.md, а не заменила его",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith((repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\")) && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "Дописывать - двумя знаками: echo \"...\" >> README.md. Один знак > стирает старый текст."
+      },
+      {
+        "name": "Сообщения коммитов осмысленные",
+        "check": "repo !== null && repo.log().length > 0 && repo.log().every((c) => c.subject.trim().length >= 5 && ![\"update\", \"commit\", \"fix\", \"changes\", \"edit\", \"test\", \"asd\"].includes(c.subject.trim().toLowerCase()))",
+        "fail": "Пишите, что сделано: \"Add home page\", \"Add styles\". Сообщения \"update\" и \"commit\" ничего не объясняют."
+      },
+      {
+        "name": "Сообщения всех коммитов разные",
+        "check": "repo !== null && new Set(repo.log().map((c) => c.subject.trim())).size === repo.log().length",
+        "fail": "У каждого коммита своё сообщение - о том, что сделано именно в нём."
+      },
+      {
+        "name": "Последний коммит сделан командой git commit -am",
+        "check": "__commands.some((c) => /^git commit\\s.*-a/.test(c.cmd) && c.code === 0)",
+        "fail": "Для правки уже отслеживаемого README.md: git commit -am \"Describe project in README\""
+      },
+      {
+        "name": "Рабочая папка в конце чистая",
+        "check": "repo !== null && repo.status().clean",
+        "fail": "В конце git status должен ответить: nothing to commit, working tree clean."
+      },
+      {
+        "name": "Свой README.md: первый коммит хранит исходный текст",
+        "check": "repo !== null && repo.log().length >= 1 && (repo.log().slice().reverse()[0].files[\"README.md\"] ?? \"\") === \"# Anna Karimova - works\\n\"",
+        "fail": "Не перезаписывайте README.md перед первым коммитом: в нём уже есть текст.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "Свой README.md: старая строка сохранилась после >>",
+        "check": "repo !== null && repo.log().length >= 4 && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").startsWith(\"# Anna Karimova - works\\n\") && (repo.log().slice().reverse()[3].files[\"README.md\"] ?? \"\").split(\"\\n\").length >= 3",
+        "fail": "echo \"...\" >> README.md дописывает строку в конец. С > старый текст пропадёт.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init && echo \"# Anna Karimova - works\" > README.md`, { quiet: true });"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах и строку EOF."
+      }
+    ],
+    "hints": [
+      "Цикл всегда один: изменить файлы → git add файл → git commit -m \"Сообщение\".",
+      "Многострочный файл: первая строка cat > index.html << 'EOF', затем строки HTML, последняя строка EOF.",
+      "Чтобы в коммит попал только index.html, добавляйте его по имени: git add index.html. Проверьте git status -s: A в первой колонке - в индексе, ?? - нет.",
+      "git commit -am не берёт новые файлы: style.css нужно добавить через git add.",
+      "Дописать строку: echo \"текст\" >> README.md (два знака >).",
+      "Примеры сообщений: Add README, Add home page, Add styles, Describe project in README."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "В какой зоне Git находится файл сразу после git add, но до git commit?",
+        "options": [
+          "В рабочей папке и больше нигде",
+          "В индексе (staging area)",
+          "В репозитории, в истории коммитов",
+          "На GitHub"
+        ],
+        "answer": 1,
+        "explanation": "git add кладёт снимок файла в индекс - «коробку» следующего коммита. В историю он попадёт после git commit."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте состояние файла и его описание.",
+        "pairs": [
+          [
+            "untracked",
+            "Новый файл, Git за ним ещё не следит"
+          ],
+          [
+            "staged",
+            "Изменения добавлены в индекс и войдут в следующий коммит"
+          ],
+          [
+            "committed",
+            "Версия сохранена в коммите, изменений нет"
+          ],
+          [
+            "modified",
+            "Отслеживаемый файл изменён, но изменения не в индексе"
+          ]
+        ],
+        "explanation": "Жизненный цикл: untracked → (git add) staged → (git commit) committed → (правка) modified → (git add) staged..."
+      },
+      {
+        "type": "single",
+        "question": "git status -s показывает строку «?? style.css». Что это значит?",
+        "options": [
+          "Файл изменён и добавлен в индекс",
+          "Файл новый и не отслеживается",
+          "Файл удалён",
+          "В файле конфликт"
+        ],
+        "answer": 1,
+        "explanation": "Два вопросительных знака - untracked: Git видит файл, но он ещё ни разу не добавлялся через git add."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте строку git status -s и её смысл.",
+        "pairs": [
+          [
+            "A  index.html",
+            "Новый файл добавлен в индекс"
+          ],
+          [
+            " M README.md",
+            "Файл изменён, изменения не в индексе"
+          ],
+          [
+            "M  README.md",
+            "Изменения файла добавлены в индекс"
+          ],
+          [
+            "MM README.md",
+            "Часть изменений в индексе, после git add файл снова изменили"
+          ]
+        ],
+        "explanation": "Левая колонка - индекс, правая - рабочая папка. Пробел значит «здесь без изменений»."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие сообщения коммитов хорошие по правилам курса?",
+        "options": [
+          "Add contact form",
+          "update",
+          "Fix menu on small screens",
+          "Я поменял кое-что в файлах и ещё стили",
+          "commit"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Хорошее сообщение - на английском, в повелительном наклонении, до 50 символов и говорит, что сделано."
+      },
+      {
+        "type": "single",
+        "question": "В папке новый файл about.html (ни разу не добавлялся) и изменённый README.md. Что сделает git commit -am \"Add about page\"?",
+        "options": [
+          "Закоммитит оба файла",
+          "Закоммитит только README.md, about.html останется untracked",
+          "Закоммитит только about.html",
+          "Выдаст ошибку и ничего не сделает"
+        ],
+        "answer": 1,
+        "explanation": "-a добавляет только уже отслеживаемые файлы. Новый файл нужно сначала добавить через git add."
+      },
+      {
+        "type": "input",
+        "question": "В файле README.md одна строка. Каким знаком перенаправления дописать новую строку в конец, не стирая старую? Введите только знак.",
+        "answers": [
+          ">>"
+        ],
+        "case_sensitive": true,
+        "explanation": "> перезаписывает файл, >> дописывает в конец."
+      },
+      {
+        "type": "single",
+        "question": "Git ответил на git commit -m \"Add styles\": «nothing added to commit but untracked files present». В чём причина?",
+        "options": [
+          "Сообщение коммита слишком короткое",
+          "Индекс пуст: новый файл не добавлен через git add",
+          "Нет репозитория",
+          "Файл style.css пустой"
+        ],
+        "answer": 1,
+        "explanation": "Коммит берёт только то, что лежит в индексе. Сначала git add style.css."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про команду git add . ?",
+        "options": [
+          "Добавляет в индекс все новые и изменённые файлы текущей папки и вложенных папок",
+          "Сразу создаёт коммит",
+          "Точка означает «текущая папка»",
+          "Добавляет только файлы, которые уже есть в коммитах"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "git add . кладёт в индекс все изменения в текущей папке. Коммит делается отдельной командой."
+      },
+      {
+        "type": "input",
+        "question": "Допишите первую строку команды, которая создаёт файл index.html из нескольких строк (ввод заканчивается строкой EOF): cat > index.html ________",
+        "answers": [
+          "<< 'EOF'",
+          "<<'EOF'",
+          "<< EOF",
+          "<<EOF"
+        ],
+        "case_sensitive": true,
+        "explanation": "cat > index.html << 'EOF' - всё до строки EOF попадёт в файл. Кавычки вокруг EOF запрещают оболочке подставлять переменные вроде $USER."
+      },
+      {
+        "type": "single",
+        "question": "Git вывел: «[main 7154fc6] Add styles / 1 file changed, 1 insertion(+) / create mode 100644 style.css». Что значит 7154fc6?",
+        "options": [
+          "Номер строки в файле",
+          "Короткий хеш - идентификатор нового коммита",
+          "Размер файла",
+          "Пароль репозитория"
+        ],
+        "answer": 1,
+        "explanation": "У каждого коммита уникальный хеш, Git показывает первые 7 символов. Подробнее - в уроке 3."
+      },
+      {
+        "type": "single",
+        "question": "Зачем нужен индекс, если можно было бы сразу коммитить все изменения?",
+        "options": [
+          "Индекс ускоряет интернет",
+          "Чтобы собрать в один коммит только то, что относится к одной задаче",
+          "Индекс хранит пароли",
+          "Без индекса не работает git status"
+        ],
+        "answer": 1,
+        "explanation": "Индекс - коробка, в которую вы кладёте только нужное. Так одно логическое изменение = один коммит."
+      }
+    ]
+  }
+}

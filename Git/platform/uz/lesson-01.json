@@ -1,0 +1,259 @@
+{
+  "lesson": 1,
+  "language": "uz",
+  "lesson_title": "Git va terminal bilan tanishuv",
+  "task": {
+    "title": "Birinchi repozitoriy",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "O‘quv terminalida Git hali sozlanmagan, siz uy papkasidasiz. Buyruqlarni har bir qatorga bittadan yozing: 1) Git versiyasini tekshiring. 2) Ism (user.name), email (user.email, @ belgisi bilan) va main asosiy tarmog‘ini (init.defaultBranch) global sozlang. 3) portfolio papkasini yarating, unga o‘ting va repozitoriy yarating. 4) # Portfolio matnli README.md faylini yarating. 5) Repozitoriy holatini git status buyrug‘i bilan ko‘ring.",
+    "starter_code": "# Buyruqlarni har bir qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~ uy papkasidasiz, Git hali sozlanmagan.\n\n# 1. Git versiyasi\n\n# 2. Ism, email va main asosiy tarmog‘i (global)\n\n# 3. portfolio papkasi, unga o‘tish, repozitoriy\n\n# 4. # Portfolio matnli README.md fayli\n\n# 5. Repozitoriy holati\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "",
+    "tests": [
+      {
+        "name": "Git versiyasi tekshirildi",
+        "check": "__commands.some((c) => c.cmd === \"git --version\" && c.code === 0)",
+        "fail": "Birinchi buyruq: git --version"
+      },
+      {
+        "name": "Ism global sozlangan",
+        "check": "typeof sim.user.config[\"user.name\"] === \"string\" && sim.user.config[\"user.name\"].trim().length > 1",
+        "fail": "git config --global user.name \"Ism Familiya\" - agar ismda bo‘sh joy bo‘lsa, uni qo‘shtirnoqqa oling."
+      },
+      {
+        "name": "Email global sozlangan va @ belgisini o‘z ichiga oladi",
+        "check": "(sim.user.config[\"user.email\"] ?? \"\").includes(\"@\")",
+        "fail": "git config --global user.email \"you@example.com\""
+      },
+      {
+        "name": "Standart asosiy tarmoq - main",
+        "check": "sim.user.config[\"init.defaultBranch\"] === \"main\"",
+        "fail": "git config --global init.defaultBranch main"
+      },
+      {
+        "name": "~/portfolio repozitoriysi yaratilgan",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").root === \"/home/student/portfolio\"",
+        "fail": "mkdir portfolio, keyin cd portfolio, keyin git init."
+      },
+      {
+        "name": "Repozitoriy uy papkasida yaratilmagan",
+        "check": "!sim.repos.has(\"/home/student\")",
+        "fail": "git init ni ~ da emas, portfolio papkasi ichida bajaring."
+      },
+      {
+        "name": "Repozitoriy tarmog‘i - main",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").branch === \"main\"",
+        "fail": "Avval init.defaultBranch main sozlamasi, keyin git init."
+      },
+      {
+        "name": "README.md loyiha papkasida yaratilgan",
+        "check": "sim.read(\"~/portfolio/README.md\") !== null",
+        "fail": "echo \"# Portfolio\" > README.md - cd portfolio dan keyin."
+      },
+      {
+        "name": "README.md da # Portfolio matni",
+        "check": "sim.read(\"~/portfolio/README.md\") === \"# Portfolio\\n\"",
+        "fail": "Matn qo‘shtirnoq ichida: echo \"# Portfolio\" > README.md"
+      },
+      {
+        "name": "git status repozitoriy ichida chaqirilgan",
+        "check": "__commands.some((c) => c.cmd === \"git status\" && c.code === 0)",
+        "fail": "git status - oxirgi buyruq, siz allaqachon portfolio papkasidasiz."
+      },
+      {
+        "name": "Hozircha kommitlar yo‘q",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").head() === null",
+        "fail": "Kommitlar - 2-dars mavzusi: bu yerda git add va git commit kerak emas."
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "Versiya: git --version",
+      "Misol: git config --global user.name \"Anna Karimova\" - ism qo‘shtirnoq ichida.",
+      "Tartib muhim: avval init.defaultBranch main, keyin git init.",
+      "mkdir portfolio, cd portfolio, git init - uchta alohida buyruq.",
+      "Fayl: echo \"# Portfolio\" > README.md"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Versiyalarni boshqarish tizimi nima?",
+        "options": [
+          "Loyiha fayllari uchun antivirus",
+          "Fayllar o‘zgarishlari tarixini saqlaydigan va istalgan versiyaga qaytish imkonini beradigan dastur",
+          "Fotosuratlar uchun bulutli disk",
+          "Kod muharriri"
+        ],
+        "answer": 1,
+        "explanation": "Git loyiha suratlarini - kommitlarni saqlaydi, ularni solishtirish va ularga qaytish imkonini beradi."
+      },
+      {
+        "type": "matching",
+        "question": "Tushuncha va tavsifni moslang.",
+        "pairs": [
+          [
+            "Git",
+            "Kompyuterdagi dastur, versiyalar tarixini saqlaydi"
+          ],
+          [
+            "GitHub",
+            "Repozitoriylarni saqlash va jamoada ishlash uchun sayt"
+          ],
+          [
+            "Kommit",
+            "Loyiha fayllarining muallif imzosi bilan surati"
+          ],
+          [
+            "Repozitoriy",
+            "Kommitlar tarixi bilan birga loyiha papkasi"
+          ]
+        ],
+        "explanation": "Git lokal ishlaydi, GitHub - sayt; kommit - surat, repozitoriy - tarixi bilan loyiha."
+      },
+      {
+        "type": "single",
+        "question": "pwd buyrug‘i nimani ko‘rsatadi?",
+        "options": [
+          "Fayllar ro‘yxatini",
+          "Joriy papkani",
+          "Git versiyasini",
+          "Foydalanuvchi parolini"
+        ],
+        "answer": 1,
+        "explanation": "pwd - print working directory: joriy papkaga yo‘l."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi buyruqlar joriy papkani o‘zgartiradi?",
+        "options": [
+          "cd site",
+          "cd ..",
+          "mkdir site",
+          "ls -a"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Papkani faqat cd o‘zgartiradi. mkdir papka yaratadi, lekin unga o‘tmaydi; ls ichidagilarni ko‘rsatadi."
+      },
+      {
+        "type": "single",
+        "question": "index.html faylida 50 qator bor edi. echo \"<h1>Hi</h1>\" > index.html dan keyin nima qoladi?",
+        "options": [
+          "50 qator va oxirida yangi qator",
+          "Bitta <h1>Hi</h1> qatori",
+          "Fayl o‘zgarmaydi",
+          "Xato: fayl allaqachon mavjud"
+        ],
+        "answer": 1,
+        "explanation": "> belgisi fayl ichidagini butunlay almashtiradi."
+      },
+      {
+        "type": "input",
+        "question": "Papka ichidagilarni yashirin fayllar, masalan .git bilan birga qaysi buyruq ko‘rsatadi? Buyruqni to‘liq kiriting.",
+        "answers": [
+          "ls -a",
+          "ls -la",
+          "ls -al"
+        ],
+        "case_sensitive": true,
+        "explanation": "-a (all) kaliti nomi nuqta bilan boshlanadigan fayllarni ko‘rsatadi."
+      },
+      {
+        "type": "single",
+        "question": "git config --global user.name \"Anna\" buyrug‘idagi --global parametri nimani bildiradi?",
+        "options": [
+          "Ismni internetdagi barcha foydalanuvchilar ko‘radi",
+          "Sozlama shu foydalanuvchining barcha repozitoriylarida amal qiladi",
+          "Sozlama faqat joriy repozitoriyda amal qiladi",
+          "Ism GitHub’da saqlanadi"
+        ],
+        "answer": 1,
+        "explanation": "--global - shu kompyuterdagi foydalanuvchining barcha repozitoriylari uchun. Usiz - faqat joriy repozitoriy uchun."
+      },
+      {
+        "type": "input",
+        "question": "Yangi repozitoriylarning asosiy tarmog‘i main deb nomlanishi uchun buyruqni to‘ldiring: git config --global ________ main",
+        "answers": [
+          "init.defaultBranch"
+        ],
+        "case_sensitive": true,
+        "explanation": "git config --global init.defaultBranch main"
+      },
+      {
+        "type": "single",
+        "question": "Git repozitoriyning kommitlar tarixini qayerda saqlaydi?",
+        "options": [
+          "README.md faylida",
+          "Yashirin .git papkasida",
+          "GitHub saytida",
+          "Foydalanuvchining uy papkasida"
+        ],
+        "answer": 1,
+        "explanation": "Repozitoriyning butun tarixi, tarmoqlari va sozlamalari .git papkasida turadi."
+      },
+      {
+        "type": "multiple",
+        "question": "git status haqida nima to‘g‘ri?",
+        "options": [
+          "Joriy tarmoqni ko‘rsatadi",
+          "Yangi va o‘zgargan fayllarni ko‘rsatadi",
+          "O‘zgarishlarni tarixga saqlaydi",
+          "Uni xohlagancha chaqirish mumkin - u hech narsani o‘zgartirmaydi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "git status faqat holatni ko‘rsatadi. O‘zgarishlarni git commit saqlaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Xabar va uning sababini moslang.",
+        "pairs": [
+          [
+            "fatal: not a git repository",
+            "Git buyrug‘i repozitoriydan tashqarida bajarilgan"
+          ],
+          [
+            "Untracked files",
+            "Papkada Git hali kuzatmayotgan fayllar bor"
+          ],
+          [
+            "No commits yet",
+            "Repozitoriyda hozircha kommitlar yo‘q"
+          ],
+          [
+            "bash: cd: sitee: No such file or directory",
+            "Bunday papka yo‘q"
+          ]
+        ],
+        "explanation": "Git va terminal xabarlari nima noto‘g‘ri ketganini ko‘rsatib beradi."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun ~ uy papkasida git init bajarmaslik kerak?",
+        "options": [
+          "Git buni taqiqlaydi",
+          "Git barcha fayllaringizni loyihaning qismi deb hisoblay boshlaydi",
+          "Uy papkasi o‘chib ketadi",
+          "Buyruq juda sekin ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "Bitta loyiha - bitta repozitoriy. Repozitoriy loyiha papkasida yaratiladi."
+      }
+    ]
+  }
+}

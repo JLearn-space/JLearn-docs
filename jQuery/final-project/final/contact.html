@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Контакты - Кружок веб-разработки</title>
+    <meta name="description" content="Запишитесь в кружок веб-разработки.">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-4.1.0.min.js"></script>
+    <script src="js/jquery.char-counter.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="index.html">Кружок</a>
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Меню</button>
+        <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
+            <ul>
+                <li><a href="index.html">Афиша</a></li>
+                <li><a href="contact.html" aria-current="page">Контакты</a></li>
+            </ul>
+        </nav>
+        <button type="button" class="theme-toggle" aria-pressed="false">Тёмная тема</button>
+    </header>
+
+    <main class="container">
+        <h1>Записаться</h1>
+        <p class="note">Форма учебная: данные никуда не отправляются.</p>
+
+        <form id="contact-form" class="form" novalidate>
+            <div class="form__field">
+                <label for="name">Имя</label>
+                <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+                <p id="name-error" class="error" hidden></p>
+            </div>
+            <div class="form__field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error">
+                <p id="email-error" class="error" hidden></p>
+            </div>
+            <div class="form__field">
+                <label for="message">Сообщение</label>
+                <textarea id="message" name="message" data-max="200" aria-describedby="message-error"></textarea>
+                <p id="message-error" class="error" hidden></p>
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+        <p id="form-status" role="status"></p>
+
+        <section class="faq" aria-labelledby="faq-title">
+            <h2 id="faq-title">Частые вопросы</h2>
+            <div class="faq__item">
+                <h3><button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-1">Нужен ли свой ноутбук?</button></h3>
+                <p id="faq-1" class="faq__answer">Желательно. Если ноутбука нет, на занятии выдадут компьютер.</p>
+            </div>
+            <div class="faq__item">
+                <h3><button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-2">Сколько стоят занятия?</button></h3>
+                <p id="faq-2" class="faq__answer">Кружок бесплатный для студентов университета.</p>
+            </div>
+            <div class="faq__item">
+                <h3><button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-3">Можно прийти в середине семестра?</button></h3>
+                <p id="faq-3" class="faq__answer">Да. Начните с курса HTML на jlearn.space - и приходите на ближайшую встречу.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Учебный проект курса «jQuery: за 10 уроков» - JLearn.</p>
+    </footer>
+</body>
+</html>

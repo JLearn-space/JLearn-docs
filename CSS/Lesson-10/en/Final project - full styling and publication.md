@@ -1,6 +1,6 @@
 # Final project - full styling and publication
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/States%2C%20transitions%2C%20animations%20and%20variables.md) · [Project source code](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/States%2C%20transitions%2C%20animations%20and%20variables.md) · [Next course: JavaScript →](https://github.com/JLearn-space/JLearn-docs/tree/main/JavaScript) · [Project source code](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
 
 > **Link to previous lessons:** there are no new properties. You take the site from the HTML course's final project and style it completely: from variables to animations. Then you update the published version.
 
@@ -367,6 +367,31 @@ flowchart TD
 
 **How to read the diagram.** The checks repeat until all five pass. After publishing, check the site once more via the public link.
 
+### Try to break it
+
+Each experiment breaks one of checks 1–5. See what the break looks like, then put the code back:
+
+1. Remove `* { box-sizing: border-box; }`. Form fields with `width: 100%` stick out past the right edge of the card: `padding` and the border were added to the width.
+2. Remove `img { max-width: 100%; }` and pick a width of 320px in device mode. A horizontal scrollbar appears - check 1 fails.
+3. Change `.skip-link:focus` to `.skip-link:hover`. Press Tab: the skip link has focus, but you cannot see it - check 2 fails.
+4. In `button`, change `var(--primary)` to `#1e3a8a`. Turn on the dark theme (DevTools → **Rendering** → `prefers-color-scheme: dark`). The page changed colors, but the button did not.
+5. Move `transition` out of the `no-preference` block and turn on `prefers-reduced-motion: reduce`. The cards still rise smoothly - check 4 fails.
+6. Remove `font: inherit` from `input, textarea`. The text in the fields now has a different font and is smaller than on the page.
+
+### Typical beginner mistakes
+
+| Mistake | What happens | How to fix |
+| --- | --- | --- |
+| `href="style.css"`, but the file is in the `css/` folder | The page has no styling, Network shows `404` | `<link rel="stylesheet" href="css/style.css">` |
+| Colors written straight into rules, not through variables | The dark theme recolors only part of the page | All colors through `var(--...)` |
+| `header { position: sticky; }` instead of `body > header` | Every `<header>` inside articles becomes sticky too | `body > header` |
+| No `box-sizing: border-box` | Fields with `width: 100%` are wider than the card | `* { box-sizing: border-box; }` |
+| No `overflow-wrap: anywhere` on links in the table | A long email stretches the table, and at 320px a horizontal scrollbar appears | `td a { overflow-wrap: anywhere; }` |
+| `outline: none` on links and buttons | Keyboard users cannot see the focus; the platform will not accept the task | `:focus-visible` with `outline: 3px solid var(--accent)` |
+| `transition` and `animation` outside `no-preference` | People who asked for less motion still see it | Inside `@media (prefers-reduced-motion: no-preference)` |
+| `@media (max-width: 600px)`: wide screen first | Rules override each other; the platform will not accept the task | Mobile-first: `@media (min-width: 600px)` |
+| A typo in a property: `colr: red;` | DevTools crosses out the line and says `Unknown property name` | Fix the property name |
+
 ---
 
 ## Publication: updating the site on GitHub Pages
@@ -471,4 +496,4 @@ After the questions, take the **lesson test** on the platform: 12 questions, pas
 
 ---
 
-[Contents](../../README.md) · [← Back](../../Lesson-9/en/States%2C%20transitions%2C%20animations%20and%20variables.md) · [Project source code](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)
+[Contents](../../README.md) · [← Back](../../Lesson-9/en/States%2C%20transitions%2C%20animations%20and%20variables.md) · [Next course: JavaScript →](https://github.com/JLearn-space/JLearn-docs/tree/main/JavaScript) · [Project source code](../../final-project/README.md) · [RU](../ru/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%E2%80%94%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%B8%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F.md) · [EN](Final%20project%20-%20full%20styling%20and%20publication.md) · [UZ](../uz/Yakuniy%20loyiha%20-%20to%27liq%20bezash%20va%20nashr.md)

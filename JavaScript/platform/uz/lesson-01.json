@@ -56,41 +56,6 @@
       "Qiymatni o‘zgartirish let siz yoziladi: lessonsDone = 1;",
       "Konsolga chiqarish: console.log(\"O‘quvchi:\", studentName);",
       "Har bir ko‘rsatma oxirida ; qo‘ying"
-    ],
-    "solution": "// O‘quvchi kartochkasi\n\nconst studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\n\n// Birinchi dars o‘tildi\nlessonsDone = 1;\n\nconsole.log(\"O‘quvchi:\", studentName);\nconsole.log(\"Kurs:\", courseName);\nconsole.log(\"O‘tilgan darslar:\", lessonsDone);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "// O‘quvchi kartochkasi\n\n// 1. studentName konstantasi - ismingiz (qo‘shtirnoqdagi satr)\n"
-      },
-      {
-        "mistake": "let va const o‘rniga var",
-        "code": "var studentName = \"Anna\";\nvar courseName = \"JavaScript\";\nvar lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "ism let orqali e’lon qilingan",
-        "code": "let studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "lessonsDone const orqali - o‘zgartirishda xato",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nconst lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "qiymat o‘zgartirilmagan",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "qiymat berish o‘rniga takroriy e’lon",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      },
-      {
-        "mistake": "konsolga chiqarish yo‘q",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"JavaScript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\n"
-      },
-      {
-        "mistake": "kurs nomi kichik harf bilan",
-        "code": "const studentName = \"Anna\";\nconst courseName = \"javascript\";\nlet lessonsDone = 0;\nlessonsDone = 1;\nconsole.log(studentName, courseName, lessonsDone);\n"
-      }
     ]
   },
   "test": {

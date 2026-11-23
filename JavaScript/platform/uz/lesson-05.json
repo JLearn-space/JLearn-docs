@@ -92,49 +92,6 @@
       "Standart qiymat: function formatPrice(amount, currency = \"so‘m\")",
       "Strelka: const square = (x) => x * x;",
       "Unlilar hisoblagichini funksiya ichida e’lon qiling, aks holda ikkinchi chaqiruv eski hisobni davom ettiradi."
-    ],
-    "solution": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n",
-    "wrong_solutions": [
-      {
-        "mistake": "boshlang‘ich kod o‘zgarishsiz",
-        "code": "// 1. function isEven(number)\n"
-      },
-      {
-        "mistake": "return o‘rniga console.log",
-        "code": "function isEven(number) {\n    console.log(number % 2 === 0);\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "toqlik % 2 === 1 orqali",
-        "code": "function isEven(number) {\n    return number % 2 !== 1;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "isEven function emas, strelka bilan",
-        "code": "const isEven = (number) => number % 2 === 0;\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "tekshirishlar tartibi noto‘g‘ri",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "standart qiymat yo‘q",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency) {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "return siz jingalak qavsli strelka",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => { x * x; };\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "square function e’loni bilan",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nfunction square(x) {\n    return x * x;\n}\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "hisoblagich funksiyadan tashqarida",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nlet count = 0;\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      },
-      {
-        "mistake": "funksiya ichida chiqarish",
-        "code": "function isEven(number) {\n    return number % 2 === 0;\n}\n\nfunction getGrade(score) {\n    if (score >= 90) {\n        return 5;\n    }\n    if (score >= 75) {\n        return 4;\n    }\n    if (score >= 60) {\n        return 3;\n    }\n    return 2;\n}\n\nfunction formatPrice(amount, currency = \"so‘m\") {\n    console.log(amount);\n    return `${amount} ${currency}`;\n}\n\nconst square = (x) => x * x;\n\nfunction countVowels(word) {\n    const vowels = \"aeiou\";\n    let count = 0;\n    for (const char of word) {\n        if (vowels.includes(char.toLowerCase())) {\n            count++;\n        }\n    }\n    return count;\n}\n\nconsole.log(isEven(4), getGrade(87), formatPrice(45000), square(5), countVowels(\"JavaScript\"));\n"
-      }
     ]
   },
   "test": {

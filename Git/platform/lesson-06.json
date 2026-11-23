@@ -1,0 +1,270 @@
+{
+  "lesson": 6,
+  "language": "ru",
+  "lesson_title": "Ветки",
+  "task": {
+    "title": "Три ветки для портфолио",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/portfolio на ветке main, в истории 3 коммита, в заголовке index.html опечатка: Ana вместо Anna. Напишите команды по одной на строке: 1) Посмотрите список веток. 2) Создайте ветку feature/contacts от main и перейдите в неё одной командой. 3) Создайте файл contacts.html с текстом <h1>Contacts</h1> и закоммитьте его. 4) Допишите в contacts.html строку <p>Email: anna@example.com</p> и сделайте второй коммит. 5) Вернитесь на main и создайте ветку fix/titel (именно с опечаткой в имени), перейдя в неё. 6) Перезапишите index.html двумя строками: <h1>Anna Karimova</h1> и <p>Frontend developer</p> - и сделайте коммит. 7) Переименуйте ветку fix/titel в fix/title. 8) Вернитесь на main, создайте ветку experiment, перезапишите style.css строкой body { background: black; } и сделайте коммит. 9) Вернитесь на main и удалите ветку experiment (она не слита - понадобится принудительное удаление). 10) Посмотрите граф всех веток (git log --oneline --graph --all) и git status. В конце вы на main, в репозитории ровно три ветки: main, feature/contacts, fix/title, рабочая папка чистая, а сама main не изменилась.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/portfolio на ветке main, в истории 3 коммита.\n\n# 1. Посмотрите список веток\n\n# 2. Создайте ветку feature/contacts и перейдите в неё\n\n# 3. Коммит 1: файл contacts.html с заголовком <h1>Contacts</h1>\n\n# 4. Коммит 2: допишите в contacts.html строку с email\n\n# 5. Вернитесь на main и создайте ветку fix/titel (с опечаткой!)\n\n# 6. Перезапишите index.html: <h1>Anna Karimova</h1> и <p>Frontend developer</p>, коммит\n\n# 7. Переименуйте ветку fix/titel в fix/title\n\n# 8. С main: ветка experiment, один коммит в style.css\n\n# 9. Вернитесь на main и удалите experiment (она не слита!)\n\n# 10. Посмотрите граф всех веток и git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Ana Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { margin: 0; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<p>Frontend developer</p>\" >> index.html\ngit commit -am \"Add job title\"\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Ветка feature/contacts: ровно 2 новых коммита поверх main",
+        "check": "repo !== null && repo.tip(\"feature/contacts\") !== null && repo.isAncestor(\"main\", \"feature/contacts\") && repo.log(\"feature/contacts\").length === repo.log(\"main\").length + 2",
+        "fail": "Создайте ветку от main (git switch -c feature/contacts), находясь на main, и сделайте в ней ровно два коммита."
+      },
+      {
+        "name": "Оба коммита feature/contacts меняют contacts.html",
+        "check": "(() => { const a = repo.commit(\"feature/contacts\"), b = repo.commit(\"feature/contacts~1\"); return typeof b.files[\"contacts.html\"] === \"string\" && b.files[\"contacts.html\"].includes(\"<h1>Contacts</h1>\") && typeof a.files[\"contacts.html\"] === \"string\" && a.files[\"contacts.html\"] !== b.files[\"contacts.html\"] && a.files[\"contacts.html\"].split(\"\\n\").filter((s) => s.trim()).length >= 2; })()",
+        "fail": "Коммит 1 - новый файл contacts.html с <h1>Contacts</h1> (не забудьте git add). Коммит 2 - дописанная через >> строка с email."
+      },
+      {
+        "name": "Ветка fix/title: один коммит прямо от main с исправленным заголовком",
+        "check": "repo.tip(\"fix/title\") !== null && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<p>Frontend developer</p>\") && repo.commit(\"fix/title\").files[\"index.html\"] !== repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "Перед созданием fix/titel вернитесь на main (git switch main). В ветке - один коммит: index.html с <h1>Anna Karimova</h1> и <p>Frontend developer</p>."
+      },
+      {
+        "name": "Ветка создана как fix/titel и переименована - fix/titel больше нет",
+        "check": "repo.reflog().includes(\"checkout: moving from main to fix/titel\") && !repo.branches().includes(\"fix/titel\")",
+        "fail": "Создайте ветку именно с опечаткой: git switch -c fix/titel. Потом переименуйте её: git branch -m fix/title (не создавайте вторую ветку)."
+      },
+      {
+        "name": "main не изменилась: в ней нет коммитов из других веток",
+        "check": "repo.tip(\"main\") !== null && !repo.isAncestor(\"feature/contacts\", \"main\") && !repo.isAncestor(\"fix/title\", \"main\") && repo.log(\"main\").map((c) => c.subject).join(\"|\") === \"Add job title|Add styles|Add home page\"",
+        "fail": "Коммиты нужно делать в новых ветках, а не на main: git branch только создаёт ветку, переключает git switch (или сразу git switch -c)."
+      },
+      {
+        "name": "В ветке experiment был коммит, и ветка удалена",
+        "check": "(() => { const r = repo.reflog(); const i = r.indexOf(\"checkout: moving from main to experiment\"); return i > 0 && r.slice(0, i).some((m, k) => m.startsWith(\"commit\") && r.slice(k + 1, i).every((x) => !x.startsWith(\"checkout\"))) && !repo.branches().includes(\"experiment\"); })()",
+        "fail": "Создайте experiment от main, сделайте в ней коммит, вернитесь на main и удалите ветку: git branch -d откажется, нужен git branch -D experiment."
+      },
+      {
+        "name": "В репозитории ровно три ветки: main, feature/contacts, fix/title",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"])",
+        "fail": "Посмотрите git branch: лишние ветки удалите, недостающие создайте, опечатку в имени исправьте git branch -m."
+      },
+      {
+        "name": "Вы закончили на ветке main",
+        "check": "repo.branch === \"main\"",
+        "fail": "Последним переключением вернитесь на main: git switch main."
+      },
+      {
+        "name": "Рабочая папка чистая",
+        "check": "repo.status().clean",
+        "fail": "Все изменения должны быть закоммичены в своих ветках: git status на main должна ответить nothing to commit, working tree clean."
+      },
+      {
+        "name": "На main в рабочей папке нет contacts.html, а index.html - версия main",
+        "check": "!sim.exists(\"~/portfolio/contacts.html\") && sim.read(\"~/portfolio/index.html\") === repo.commit(\"main\").files[\"index.html\"]",
+        "fail": "contacts.html появится на main только после слияния (урок 7). Если файл остался - он не был закоммичен в feature/contacts."
+      },
+      {
+        "name": "Выполнен git log --oneline --graph --all",
+        "check": "__commands.some((c) => /^git log\\b/.test(c.cmd) && c.cmd.includes(\"--graph\") && c.cmd.includes(\"--all\"))",
+        "fail": "Посмотрите граф всех веток: git log --oneline --graph --all."
+      },
+      {
+        "name": "Другой проект (4 коммита на main): ветки и main проверены заново",
+        "check": "repo.branch === \"main\" && repo.status().clean && JSON.stringify(repo.branches()) === JSON.stringify([\"feature/contacts\", \"fix/title\", \"main\"]) && repo.log(\"main\").length === 4 && repo.log(\"feature/contacts\").length === 6 && repo.isAncestor(\"main\", \"feature/contacts\") && repo.commit(\"fix/title\").parents[0] === repo.tip(\"main\") && repo.commit(\"fix/title\").files[\"index.html\"].includes(\"<h1>Anna Karimova</h1>\") && !sim.exists(\"~/portfolio/contacts.html\")",
+        "fail": "Решение должно работать для любой истории main: создавайте ветки от main и не меняйте main.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\ngit add . && git commit -m \"Add README\"\necho \"<h1>Anna Karimowa</h1>\" > index.html\necho \"<p>Web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\necho \"body { color: #222; }\" > style.css\ngit add . && git commit -m \"Add styles\"\necho \"<h1>About me</h1>\" > about.html\ngit add . && git commit -m \"Add about page\"\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах echo."
+      }
+    ],
+    "hints": [
+      "Создать ветку и сразу перейти в неё: git switch -c feature/contacts. Просто git branch имя ветку создаёт, но не переключает.",
+      "Новый файл перед первым коммитом нужно добавить: git add contacts.html. Второй коммит можно сделать через git commit -am.",
+      "Каждую новую ветку создавайте с main: сначала git switch main, потом git switch -c имя.",
+      "Переименовать текущую ветку: git branch -m fix/title - выполните это, пока вы на fix/titel.",
+      "git branch -d experiment откажется удалять не слитую ветку (not fully merged). Принудительно: git branch -D experiment. Удалить ветку, на которой вы стоите, нельзя - сначала git switch main."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое ветка в Git?",
+        "options": [
+          "Полная копия всех файлов проекта в отдельной папке",
+          "Подвижный указатель (закладка) на коммит",
+          "Отдельный репозиторий внутри .git",
+          "Список изменённых файлов"
+        ],
+        "answer": 1,
+        "explanation": "Ветка - это просто имя, которое указывает на коммит. Создать ветку - значит записать новую закладку, файлы при этом не копируются."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git branch\n  feature/contacts\n* main\n  fix/title",
+        "options": [
+          "Вы на ветке feature/contacts",
+          "Вы на ветке main, всего три ветки",
+          "Ветка main удалена",
+          "main - единственная ветка с коммитами"
+        ],
+        "answer": 1,
+        "explanation": "Звёздочка * отмечает текущую ветку - ту, на которую указывает HEAD."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: создать ветку feature/menu и сразу перейти на неё (современной командой).",
+        "answers": [
+          "git switch -c feature/menu"
+        ],
+        "case_sensitive": true,
+        "explanation": "git switch -c = git branch feature/menu + git switch feature/menu. Старая форма - git checkout -b feature/menu."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте команду и результат.",
+        "pairs": [
+          [
+            "git branch -d old",
+            "Удалить ветку, если её коммиты уже слиты"
+          ],
+          [
+            "git branch -D old",
+            "Удалить ветку принудительно, даже с не слитыми коммитами"
+          ],
+          [
+            "git branch -m new",
+            "Переименовать текущую ветку"
+          ],
+          [
+            "git switch -",
+            "Вернуться на предыдущую ветку"
+          ]
+        ],
+        "explanation": "-d - безопасное удаление, -D - принудительное, -m - переименование (move), switch - прыгает назад, как cd -."
+      },
+      {
+        "type": "single",
+        "question": "Вы на main. Выполнили git branch feature/blog и сразу сделали коммит. Где окажется коммит?",
+        "options": [
+          "В ветке feature/blog",
+          "В ветке main",
+          "В обеих ветках",
+          "Git выдаст ошибку"
+        ],
+        "answer": 1,
+        "explanation": "git branch только создаёт ветку, но не переключает на неё. HEAD по-прежнему указывает на main, туда и пойдёт коммит."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git branch -d experiment\nerror: the branch 'experiment' is not fully merged\nhint: If you are sure you want to delete it, run 'git branch -D experiment'",
+        "options": [
+          "Ветка удалена",
+          "Ветка не удалена: в ней есть коммиты, которых нет в текущей ветке",
+          "Ветки experiment не существует",
+          "Нужно сначала переключиться на experiment"
+        ],
+        "answer": 1,
+        "explanation": "-d защищает от потери работы. Если коммиты действительно не нужны - git branch -D experiment."
+      },
+      {
+        "type": "multiple",
+        "question": "Вы на feature/contacts, где закоммичен contacts.html. Выполнили git switch main. Что произойдёт?",
+        "options": [
+          "contacts.html исчезнет из рабочей папки",
+          "Коммиты ветки feature/contacts удалятся",
+          "HEAD будет указывать на main",
+          "Файлы в папке станут такими, как в последнем коммите main"
+        ],
+        "answer": [
+          0,
+          2,
+          3
+        ],
+        "explanation": "Переключение меняет файлы в папке под снимок другой ветки. Коммиты feature/contacts остаются в репозитории - вернитесь на ветку, и файл снова появится."
+      },
+      {
+        "type": "single",
+        "question": "Вы изменили style.css (не закоммитили) на main и выполнили git switch feature/contacts. В обеих ветках style.css одинаковый. Что будет?",
+        "options": [
+          "Ошибка: сначала закоммитьте изменения",
+          "Переключение пройдёт, изменение style.css перейдёт вместе с вами",
+          "Изменение пропадёт",
+          "Git автоматически сделает коммит"
+        ],
+        "answer": 1,
+        "explanation": "Незакоммиченные изменения принадлежат рабочей папке, а не ветке. Если файл в ветках одинаковый, Git переносит изменения. Ошибка would be overwritten бывает, когда файл в ветках различается."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git status\nHEAD detached at c0adb88",
+        "options": [
+          "Репозиторий повреждён",
+          "HEAD указывает прямо на коммит, а не на ветку",
+          "Ветка c0adb88 создана",
+          "Коммит c0adb88 удалён"
+        ],
+        "answer": 1,
+        "explanation": "Отделённый HEAD - вы смотрите старый коммит. Вернуться: git switch main; сохранить сделанные здесь коммиты: git switch -c новая-ветка."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие имена веток хорошие по общепринятым правилам?",
+        "options": [
+          "feature/contact-form",
+          "fix/header-typo",
+          "Новая ветка",
+          "my branch",
+          "feature/dark-theme"
+        ],
+        "answer": [
+          0,
+          1,
+          4
+        ],
+        "explanation": "Латиница, строчные буквы, дефисы вместо пробелов, префикс feature/ или fix/. Пробелы Git вообще не принимает: is not a valid branch name."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте старую команду git checkout и современную.",
+        "pairs": [
+          [
+            "git checkout main",
+            "git switch main"
+          ],
+          [
+            "git checkout -b feature/x",
+            "git switch -c feature/x"
+          ],
+          [
+            "git checkout c0adb88",
+            "git switch --detach c0adb88"
+          ],
+          [
+            "git checkout -- index.html",
+            "git restore index.html"
+          ]
+        ],
+        "explanation": "checkout умеет всё сразу, поэтому его разделили на switch (ветки) и restore (файлы). Старую форму вы встретите в чужих инструкциях."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: показать в одну строку историю всех веток с графом.",
+        "answers": [
+          "git log --oneline --graph --all",
+          "git log --oneline --all --graph",
+          "git log --graph --oneline --all",
+          "git log --graph --all --oneline",
+          "git log --all --oneline --graph",
+          "git log --all --graph --oneline"
+        ],
+        "case_sensitive": true,
+        "explanation": "--all - все ветки, а не только текущая; --graph - линии веток слева; --oneline - коммит в одну строку."
+      }
+    ]
+  }
+}

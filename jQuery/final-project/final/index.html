@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Афиша - Кружок веб-разработки</title>
+    <meta name="description" content="Расписание занятий кружка веб-разработки: HTML, CSS, JavaScript и jQuery.">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-4.1.0.min.js"></script>
+    <script src="js/jquery.char-counter.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="index.html">Кружок</a>
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Меню</button>
+        <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
+            <ul>
+                <li><a href="index.html" aria-current="page">Афиша</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+            </ul>
+        </nav>
+        <button type="button" class="theme-toggle" aria-pressed="false">Тёмная тема</button>
+    </header>
+
+    <main class="container">
+        <h1>Афиша занятий</h1>
+        <p>Выберите направление, чтобы увидеть ближайшие встречи.</p>
+
+        <div class="filters" role="group" aria-label="Фильтр по категории">
+            <button type="button" data-filter="all" aria-pressed="true">Все</button>
+            <button type="button" data-filter="html" aria-pressed="false">HTML</button>
+            <button type="button" data-filter="css" aria-pressed="false">CSS</button>
+            <button type="button" data-filter="js" aria-pressed="false">JavaScript</button>
+        </div>
+
+        <p id="events-status" role="status"></p>
+        <div id="events" class="events">
+            <noscript>Для фильтра и списка занятий включите JavaScript. Расписание можно уточнить на странице контактов.</noscript>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>Учебный проект курса «jQuery: за 10 уроков» - JLearn.</p>
+    </footer>
+</body>
+</html>

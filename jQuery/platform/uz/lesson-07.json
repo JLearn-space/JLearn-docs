@@ -1,0 +1,285 @@
+{
+  "lesson": 7,
+  "language": "uz",
+  "lesson_title": "Effektlar va animatsiya",
+  "task": {
+    "title": "Akkordeon va qalqib chiquvchi bildirishnoma",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Kurs haqida savollar</title>\n    <style>\n        .faq__answer { display: none; }\n        .toast { display: none; }\n    </style>\n</head>\n<body>\n    <main>\n        <h1>Ko‘p beriladigan savollar</h1>\n        <section class=\"faq\" id=\"faq\">\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">Kurs qancha davom etadi?</button>\n                <div class=\"faq__answer\">10 dars, haftasiga bittadan.</div>\n            </div>\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">Tajriba kerakmi?</button>\n                <div class=\"faq__answer\">HTML, CSS va JavaScript kurslari yetarli.</div>\n            </div>\n            <div class=\"faq__item\">\n                <button class=\"faq__question\" type=\"button\" aria-expanded=\"false\">Sertifikat beriladimi?</button>\n                <div class=\"faq__answer\">Ha, yakuniy loyihadan keyin.</div>\n            </div>\n        </section>\n        <button id=\"save-btn\" type=\"button\">Sozlamalarni saqlash</button>\n        <div id=\"toast\" class=\"toast\" role=\"status\">\n            <p class=\"toast__text\"></p>\n            <button class=\"toast__close\" type=\"button\" aria-label=\"Yopish\">×</button>\n        </div>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada #faq savollar bloki (har bir .faq__item da aria-expanded=\"false\" li .faq__question tugmasi va yashirin .faq__answer javobi), #save-btn tugmasi va .toast__text hamda .toast__close tugmasi bo‘lgan yashirin #toast bildirishnomasi bor. Testlar natijani darhol ko‘rishi uchun platforma animatsiyalarni allaqachon o‘chirgan ($.fx.off = true). 1) Agar window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches bo‘lsa, animatsiyalarni o‘chiring: $.fx.off = true (shartsiz - mumkin emas). 2) Akkordeon: bitta delegatsiyalangan $(\"#faq\").on(\"click\", \".faq__question\", ...) ishlovchisi bilan savolni bosganda qolgan javoblarni .slideUp() orqali yoping va ularning tugmalariga aria-expanded=\"false\" qo‘ying, o‘z javobingizni esa .slideToggle() orqali almashtiring va o‘z tugmangizga aria-expanded ni \"true\" yoki \"false\" qilib yozing. Holatni :visible dan emas, aria-expanded dan oling. Yuklangandan keyin qo‘shilgan savollar ham ishlashi kerak. 3) showToast(message) funksiyasini yozing: message ni .toast__text ga yozadi va #toast ni .fadeIn() orqali ko‘rsatadi. 4) #save-btn ni bosish showToast(\"Sozlamalar saqlandi\") ni chaqiradi. 5) .toast__close ni bosish #toast ni .fadeOut() orqali yashiradi. Ishlovchilar - faqat .on() orqali; document.querySelector, innerHTML, .html(), .style va .click(fn) dan foydalanmang.",
+    "starter_code": "// Sahifada: .faq__item bloklari bor #faq (ichida button.faq__question\n// aria-expanded=\"false\" bilan va CSS orqali yashirilgan div.faq__answer),\n// #save-btn tugmasi va #toast bildirishnomasi (.toast__text va .toast__close, yashirin).\n// Platforma $.fx.off = true; ni allaqachon bajargan - animatsiyalar bir zumda.\n// Platformada window.matchMedia bor.\n\n// 1. Agar foydalanuvchi kamroq harakat so‘rasa (prefers-reduced-motion: reduce),\n//    jQuery animatsiyalarini o‘chiring\n\n// 2. Akkordeon: #faq da .faq__question uchun bitta delegatsiyalangan ishlovchi\n//    - holatni aria-expanded dan oling\n//    - qolgan javoblarni yopish (slideUp), ularning tugmalariga aria-expanded=\"false\"\n//    - o‘z javobi - slideToggle, o‘z aria-expanded i - \"true\" yoki \"false\"\n\n// 3. function showToast(message) - matn .toast__text ga, #toast fadeIn orqali paydo bo‘ladi\n\n// 4. #save-btn ni bosish: showToast(\"Sozlamalar saqlandi\")\n\n// 5. .toast__close ni bosish: #toast fadeOut orqali yo‘qoladi\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".style.",
+      ".click(function",
+      "addEventListener"
+    ],
+    "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: false, media: query }; }; $.fx.off = true;",
+    "tests": [
+      {
+        "name": "Birinchi savolni bosish uning javobini ochadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[0]).display !== \"none\"; })()",
+        "fail": "Ishlovchida javob uchun .slideToggle() ni chaqiring: $(this).next(\".faq__answer\")."
+      },
+      {
+        "name": "Ochiq savolda aria-expanded=\"true\"",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); return document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "aria-expanded ga \"true\" yoki \"false\" satrini yozing: .attr(\"aria-expanded\", String(!isOpen))."
+      },
+      {
+        "name": "Takroriy bosish javobni yopadi va aria-expanded=\"false\" qo‘yadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[1].click(); document.querySelectorAll(\".faq__question\")[1].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[1]).display === \"none\" && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"false\"; })()",
+        "fail": "Holatni o‘zgartirishdan oldin aria-expanded dan oling: ochiq bo‘lsa - yoping, yopiq bo‘lsa - oching."
+      },
+      {
+        "name": "Ikkinchi savolni ochish birinchisini yopadi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[0].click(); document.querySelectorAll(\".faq__question\")[1].click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[0]).display === \"none\" && getComputedStyle(document.querySelectorAll(\".faq__answer\")[1]).display !== \"none\" && document.querySelectorAll(\".faq__question\")[0].getAttribute(\"aria-expanded\") === \"false\" && document.querySelectorAll(\".faq__question\")[1].getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "O‘z javobingizni ochishdan oldin qolganlarini yoping: .not(...).slideUp() va ularning tugmalariga aria-expanded=\"false\"."
+      },
+      {
+        "name": "Hech narsa bosilmaguncha barcha javoblar yopiq",
+        "check": "[...document.querySelectorAll(\".faq__answer\")].every((a) => getComputedStyle(a).display === \"none\") && [...document.querySelectorAll(\".faq__question\")].every((q) => q.getAttribute(\"aria-expanded\") === \"false\")",
+        "fail": "Kod javoblarni yuklanishda ochmasligi kerak - faqat bosilganda."
+      },
+      {
+        "name": "Yuklangandan keyin qo‘shilgan savol ham ishlaydi",
+        "check": "(() => { $(\"#faq\").append(\"<div class=\\\"faq__item\\\"><button class=\\\"faq__question\\\" type=\\\"button\\\" aria-expanded=\\\"false\\\">Yangimi?</button><div class=\\\"faq__answer\\\">Ha.</div></div>\"); const q = document.querySelectorAll(\".faq__question\")[3]; q.click(); return getComputedStyle(document.querySelectorAll(\".faq__answer\")[3]).display !== \"none\" && q.getAttribute(\"aria-expanded\") === \"true\"; })()",
+        "fail": "Delegatsiya kerak: $(\"#faq\").on(\"click\", \".faq__question\", ...)."
+      },
+      {
+        "name": "showToast(\"Salom\") shu matnli bildirishnomani ko‘rsatadi",
+        "check": "(() => { showToast(\"Salom\"); return getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"Salom\"; })()",
+        "fail": "function showToast(message): .toast__text ga .text(message) va #toast da .fadeIn()."
+      },
+      {
+        "name": "showToast ni qayta chaqirish matnni almashtiradi",
+        "check": "(() => { showToast(\"Birinchi\"); showToast(\"Ikkinchi\"); return document.querySelector(\".toast__text\").textContent === \"Ikkinchi\" && getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\"; })()",
+        "fail": ".text(message) dan foydalaning - u matnni qo‘shib yozmaydi, butunlay almashtiradi."
+      },
+      {
+        "name": "#save-btn ni bosish: \"Sozlamalar saqlandi\"",
+        "check": "(() => { document.querySelector(\"#save-btn\").click(); return getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"Sozlamalar saqlandi\"; })()",
+        "fail": "$(\"#save-btn\").on(\"click\", function () { showToast(\"Sozlamalar saqlandi\"); });"
+      },
+      {
+        "name": "Yopish tugmasi bildirishnomani yashiradi va uni yana ko‘rsatish mumkin",
+        "check": "(() => { showToast(\"A\"); document.querySelector(\".toast__close\").click(); const closed = getComputedStyle(document.querySelector(\"#toast\")).display === \"none\"; showToast(\"B\"); return closed && getComputedStyle(document.querySelector(\"#toast\")).display !== \"none\" && document.querySelector(\".toast__text\").textContent === \"B\"; })()",
+        "fail": ".toast__close ni bosish: $(\"#toast\").fadeOut()."
+      },
+      {
+        "name": "prefers-reduced-motion bo‘lsa, animatsiyalar o‘chirilgan",
+        "check": "$.fx.off === true && /prefers-reduced-motion:\\s*reduce/.test(String(window.__mq))",
+        "fail": "if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) { $.fx.off = true; }",
+        "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: true, media: query }; }; $.fx.off = false;"
+      },
+      {
+        "name": "prefers-reduced-motion bo‘lmasa, animatsiyalar o‘chirilmaydi",
+        "check": "$.fx.off === false",
+        "fail": "$.fx.off = true ni shartsiz yozmang - faqat matchMedia(...).matches bo‘yicha o‘chiring.",
+        "setup": "window.matchMedia = (query) => { window.__mq = query; return { matches: false, media: query }; }; $.fx.off = false;"
+      },
+      {
+        "name": "jQuery effektlari ishlatilgan",
+        "check": "/\\.slide(Toggle|Down)\\(/.test(__code) && /\\.slideUp\\(/.test(__code) && /\\.fadeIn\\(/.test(__code) && /\\.fadeOut\\(/.test(__code)",
+        "fail": "Javoblar - .slideToggle() va .slideUp(), bildirishnoma - .fadeIn() va .fadeOut()."
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "(() => { document.querySelectorAll(\".faq__question\")[2].click(); document.querySelector(\"#save-btn\").click(); document.querySelector(\".toast__close\").click(); return __error === null; })()",
+        "fail": "Selektorlarni va showToast funksiya sifatida e’lon qilinganini tekshiring."
+      }
+    ],
+    "hints": [
+      "Delegatsiya: $(\"#faq\").on(\"click\", \".faq__question\", function () { ... }); ichida $(this) - bosilgan tugma.",
+      "Tugma yonidagi javob: $(this).next(\".faq__answer\").",
+      "Holat: const isOpen = $(this).attr(\"aria-expanded\") === \"true\"; yangi qiymat - String(!isOpen).",
+      "Qolganlari: $(\"#faq .faq__answer\").not($answer).slideUp(); tugmalar uchun ham xuddi shunday, .attr(\"aria-expanded\", \"false\") bilan.",
+      "Effektdan oldin .stop(true, true) yozing - tez bosishlar navbatda yig‘ilib qolmaydi.",
+      "showToast: $(\"#toast .toast__text\").text(message); $(\"#toast\").fadeIn();"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "$(\"#box\").hide() $(\"#box\").fadeOut() dan nimasi bilan farq qiladi?",
+        "options": [
+          "Hech narsasi bilan, bular sinonimlar",
+          "hide() darhol yashiradi, fadeOut() - shaffoflikni silliq kamaytirib, oxirida display: none qo‘yadi",
+          "hide() elementni DOM’dan o‘chiradi",
+          "fadeOut() elementni faqat shaffof qiladi, lekin joy band bo‘lib qoladi"
+        ],
+        "answer": 1,
+        "explanation": "Ikkala metod ham oxir-oqibat display: none qo‘yadi, lekin fadeOut buni opacity silliq o‘zgargandan keyin qiladi (standart bo‘yicha 400 ms)."
+      },
+      {
+        "type": "single",
+        "question": "Kod nimani chiqaradi?\n$(\"#box\").fadeOut(400, function () { console.log(\"B\"); });\nconsole.log(\"A\");",
+        "options": [
+          "A, keyin 400 ms dan so‘ng B",
+          "B, keyin A",
+          "Faqat B",
+          "A va B bir vaqtda"
+        ],
+        "answer": 0,
+        "explanation": "Animatsiya dasturni to‘xtatmaydi: keyingi qator darhol bajariladi, yakunlash funksiyasi esa effekt tugagandan keyin chaqiriladi."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi yozuvlar effekt davomiyligini to‘g‘ri beradi?",
+        "options": [
+          ".fadeIn(300)",
+          ".fadeIn(\"slow\")",
+          ".fadeIn(\"300ms\")",
+          ".slideDown(\"fast\")"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Davomiylik - millisekundlar soni yoki \"fast\" (200) va \"slow\" (600) so‘zlari. \"300ms\" satri tanilmaydi va jQuery standart 400 ms ni oladi."
+      },
+      {
+        "type": "single",
+        "question": "Foydalanuvchi $panel.slideToggle() li tugmani 10 marta tez bosdi. Nima bo‘ladi?",
+        "options": [
+          "Faqat birinchi bosish ishlaydi",
+          "Panel foydalanuvchi bosishni to‘xtatgandan keyin ham ketma-ket 10 marta ochilib-yopiladi",
+          "jQuery xato beradi",
+          "Panel animatsiya o‘rtasida qoladi"
+        ],
+        "answer": 1,
+        "explanation": "Har bir chaqiruv fx navbatiga turadi. Effektdan oldin .stop(true, true) bilan davolanadi."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuv va amalni moslang.",
+        "pairs": [
+          [
+            ".stop()",
+            "Joriy animatsiyani to‘xtatish, navbat davom etadi"
+          ],
+          [
+            ".stop(true)",
+            "Joriysini to‘xtatish va navbatni tozalash"
+          ],
+          [
+            ".stop(true, true)",
+            "Navbatni tozalash va joriy animatsiya oxiriga darhol o‘tish"
+          ],
+          [
+            ".delay(1000)",
+            "Navbatda 1 soniyalik pauza"
+          ]
+        ],
+        "explanation": "stop ning birinchi argumenti - navbatni tozalash, ikkinchisi - joriy animatsiyani yakuniy holatga yetkazish."
+      },
+      {
+        "type": "input",
+        "question": "Barcha jQuery animatsiyalari bir zumda bajarilishi uchun qaysi xususiyatni true ga o‘rnatish kerak? Yozuvni to‘liq kiriting, masalan $.xxx.yyy",
+        "answers": [
+          "$.fx.off",
+          "jQuery.fx.off"
+        ],
+        "case_sensitive": true,
+        "explanation": "$.fx.off = true - effektlar darhol yakuniy holatga o‘tadi. prefers-reduced-motion sozlamasi shunday hurmat qilinadi."
+      },
+      {
+        "type": "single",
+        "question": "Kod nima qiladi?\nif (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) { $.fx.off = true; }",
+        "options": [
+          "Mobil qurilmalarda animatsiyalarni o‘chiradi",
+          "Tizimda «harakatni kamaytirish» yoqilgan bo‘lsa, jQuery animatsiyalarini o‘chiradi",
+          "Animatsiyalarni 2 baravar tezlashtiradi",
+          "Brauzer o‘chirgan bo‘lsa, animatsiyalarni yoqadi"
+        ],
+        "answer": 1,
+        "explanation": "matchMedia media so‘rovni JavaScript’dan tekshiradi, foydalanuvchi kamroq harakat so‘rasa .matches - true."
+      },
+      {
+        "type": "multiple",
+        "question": "Plaginsiz .animate() orqali qaysi xususiyatlarni silliq o‘zgartirish mumkin?",
+        "options": [
+          "opacity",
+          "height",
+          "background-color",
+          "left"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": ".animate() faqat sonli xususiyatlar bilan ishlaydi. Rang - son emas, unga plagin yoki CSS o‘tishi kerak."
+      },
+      {
+        "type": "single",
+        "question": "Nima uchun akkordeonda holatni $answer.is(\":visible\") dan emas, aria-expanded dan olgan yaxshiroq?",
+        "options": [
+          "is() jQuery 4 da olib tashlangan",
+          "Yopilish animatsiyasi vaqtida javob hali ko‘rinib turadi va is(\":visible\") true qaytaradi",
+          "aria-expanded tezroq ishlaydi",
+          "is() ni ishlovchida chaqirib bo‘lmaydi"
+        ],
+        "answer": 1,
+        "explanation": "slideUp ketayotganda element ko‘rinib turadi. Atribut darhol o‘zgaradi va niyatni aks ettiradi, buning ustiga uni ekran o‘quvchi dasturlar o‘qiydi."
+      },
+      {
+        "type": "input",
+        "question": "Qaysi metod bitta chaqiruv bilan, balandlikni silliq o‘zgartirib, yashirin blokni ko‘rsatadi yoki ko‘rinib turganini yashiradi? Metod nomini nuqta va qavslarsiz kiriting.",
+        "answers": [
+          "slideToggle"
+        ],
+        "case_sensitive": true,
+        "explanation": "slideToggle joriy holatga qarab slideDown yoki slideUp ni tanlaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Vazifa va eng yaxshi vositani moslang.",
+        "pairs": [
+          [
+            "Sichqoncha ustiga kelganda tugmani ajratib ko‘rsatish",
+            "CSS :hover + transition"
+          ],
+          [
+            "Menyuni bosganda ochish, animatsiya CSS’da yozilgan",
+            "toggleClass + transition"
+          ],
+          [
+            "Noma’lum balandlikdagi blokni silliq ochish",
+            "slideDown"
+          ],
+          [
+            "Element yo‘qolgandan keyin uni o‘chirish",
+            "Yakunlash funksiyali fadeOut"
+          ]
+        ],
+        "explanation": "Oddiy o‘tishlar - CSS’da, JavaScript faqat klassni almashtiradi. jQuery auto balandlik yoki animatsiyadan keyingi amal kerak bo‘lgan joyda qulay."
+      },
+      {
+        "type": "single",
+        "question": "Sahifada 3 ta .card elementi bo‘lsa, kod nimani chiqaradi?\n$(\".card\").fadeOut(200, function () { console.log(\"done\"); });",
+        "options": [
+          "done bir marta",
+          "done uch marta",
+          "Hech narsa",
+          "Xato"
+        ],
+        "answer": 1,
+        "explanation": "Yakunlash funksiyasi har bir element uchun alohida chaqiriladi, ichidagi this - joriy element."
+      }
+    ]
+  }
+}

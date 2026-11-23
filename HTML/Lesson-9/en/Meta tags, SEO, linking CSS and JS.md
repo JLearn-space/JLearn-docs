@@ -286,6 +286,16 @@ In a few seconds you get a score from 0 to 100 and a list of what to improve: no
 
 **The validator and Lighthouse do not replace a manual check.** Go through the page with the keyboard, as in Lesson 8.
 
+### Try to break it
+
+1. In `<link>`, change the path to `css/styles.css` (one extra letter). Reload the page: the styling is gone. On the **Network** tab the file has status `404`.
+2. Do the same with the script: `js/mian.js` instead of `js/main.js`. The **Console** has no "Lesson 9: the deferred script loaded." line, but it has a red one: `Failed to load resource: the server responded with a status of 404 (Not Found)`.
+3. Replace `<script src="js/main.js" defer></script>` with `<script src="js/main.js" defer />`. Reload the page: all the content has disappeared. The browser does not treat `/>` as the end of `script` and takes the rest of the document as script text. The validator shows an error that starts with `Self-closing syntax`.
+4. Remove the `lang` attribute from `<html>` and check the code in the validator. You will see the warning `Consider adding a lang attribute to the html start tag to declare the language of this document.`
+5. Remove `<meta name="description">` and run Lighthouse with **SEO** checked. The list of problems will include `Document does not have a meta description`.
+
+After each experiment, put the code back.
+
 ---
 
 ## Mini-task 2

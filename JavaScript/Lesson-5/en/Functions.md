@@ -115,6 +115,20 @@ If an argument is not passed, the parameter is `undefined`:
 greet(); // Hello, undefined!
 ```
 
+### What happens on a call: step by step
+
+Let us take `introduce("Anna", "Tashkent");` the way the browser runs it:
+
+| Step | What the browser does | Values |
+| --- | --- | --- |
+| 1 | Finds the function `introduce` | - |
+| 2 | Creates the parameters and puts the arguments into them in order | `name = "Anna"`, `city = "Tashkent"` |
+| 3 | Runs the function body | Prints `Anna from Tashkent` |
+| 4 | Removes the parameters: the function has ended | `name` and `city` no longer exist |
+| 5 | Returns to the line after the call | The program goes on |
+
+On the next call everything starts again with new values. Parameters do not remember the previous call.
+
 ---
 
 ## `return` - giving back a result
@@ -183,6 +197,39 @@ console.log(getDeliveryCost(50000));  // 15000
 
 No `else` is needed here: if the first condition fired, execution never reaches the second `return`.
 
+### A function calls a function
+
+A big task is built from small functions, like a dish from prepared ingredients:
+
+```js
+function getSubtotal(price, quantity) {
+    return price * quantity;
+}
+
+function getDeliveryCost(total) {
+    if (total >= 100000) {
+        return 0;
+    }
+    return 15000;
+}
+
+function getOrderTotal(price, quantity) {
+    const subtotal = getSubtotal(price, quantity);
+    return subtotal + getDeliveryCost(subtotal);
+}
+
+console.log(getOrderTotal(30000, 2)); // 75000
+```
+
+| Step | Call | Result |
+| --- | --- | --- |
+| 1 | `getOrderTotal(30000, 2)` starts | - |
+| 2 | `getSubtotal(30000, 2)` | `60000` |
+| 3 | `getDeliveryCost(60000)` | `15000` - the sum is below 100000 |
+| 4 | `60000 + 15000` | `getOrderTotal` returns `75000` |
+
+Each function does **one** job and is named after that job. If the delivery rule changes, only `getDeliveryCost` changes.
+
 ---
 
 ## Mini-task 1
@@ -241,6 +288,47 @@ const getDiscount = (total, percent) => {
 > **Note:** with curly braces `return` is required. `const f = (x) => { x * 2 };` returns `undefined`.
 
 The course uses both forms: `function` for the main named functions and arrows for short calculations. Arrow functions will be especially useful in lessons 6–8: they are passed into other functions.
+
+### A function is a value too
+
+A function can be put into a variable - you already did that with an arrow. That means it can be **passed to another function** as an argument. Such a passed function is called a **callback**: "here is an instruction, call it when the time comes".
+
+```js
+function repeat(times, action) {
+    for (let i = 1; i <= times; i++) {
+        action(i);
+    }
+}
+
+repeat(3, (n) => console.log(`Step ${n}`));
+// Step 1
+// Step 2
+// Step 3
+```
+
+Here `action` is a parameter that holds a function. `action(i)` calls it.
+
+A built-in example is `setTimeout`: "run the function after N milliseconds":
+
+```js
+console.log("Order accepted");
+
+setTimeout(() => {
+    console.log("Order ready");
+}, 2000);
+
+console.log("Waiting...");
+// Order accepted
+// Waiting...
+// Order ready  ← after 2 seconds
+```
+
+Note the order: `setTimeout` does **not stop** the program. It remembers the function and goes on, and calls the function later. This idea will be needed three times: array methods in Lesson 6, events in Lesson 8 and server requests in Lesson 9.
+
+| Notation | What we pass |
+| --- | --- |
+| `setTimeout(showMessage, 1000)` | The function itself - correct |
+| `setTimeout(showMessage(), 1000)` | The result of a call: the function runs **immediately** - a mistake |
 
 ---
 
@@ -309,6 +397,24 @@ Pure functions are easy to check: call with arguments - compare the result. That
 ### Function names
 
 A function is an action, so its name starts with a **verb**: `getTotal`, `formatPrice`, `calculateDiscount`, `showMessage`. Functions that answer "yes or no" start with `is`, `has`, `can`: `isEven`, `hasDiscount`, `canEnter`.
+
+### Try to break it
+
+1. Remove `return` from `getTotal` and print `getTotal(45000, 3)`. What did the function return?
+2. Call `introduce("Anna")` with one argument. What ends up in `city`?
+3. Pass `showMessage()` with parentheses to `setTimeout`. Why did the message appear at once?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| A call without parentheses: `sayHello;` | Nothing happens | `sayHello();` |
+| No `return` in a calculating function | The call gives `undefined` | `return result;` |
+| `console.log` instead of `return` | The value is visible in the console but does not reach the program | Return the value, print it outside |
+| Code after `return` | It never runs | Put `return` last |
+| Arguments in the wrong order | The values are mixed up | Argument order = parameter order |
+| An arrow with `{ }` and no `return` | `undefined` | `(x) => x * 2` or `(x) => { return x * 2; }` |
+| A variable from a function used outside | `ReferenceError` | Return it with `return` |
 
 ---
 

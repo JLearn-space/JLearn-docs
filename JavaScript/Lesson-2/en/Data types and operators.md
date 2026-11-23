@@ -23,6 +23,8 @@ If you mix up a type, the program does not crash - it quietly calculates the wro
 - Use the `length` property and the string methods `toUpperCase`, `toLowerCase`, `trim`, `includes`.
 - Convert a string to a number with `Number()` and understand what `NaN` is.
 - Compare values strictly: `===`, `!==`, `<`, `>`.
+- Round and get random numbers with `Math`, cut and replace text with `slice`, `split`, `replace`.
+
 
 ---
 
@@ -64,6 +66,38 @@ Every value has a **type** - the kind of data that determines what you can do wi
 | `null` | "There is deliberately no value" | `let winner = null;` |
 
 > **Important:** `42` and `"42"` are different values. The first is a number you can calculate with. The second is text of two characters.
+
+**In simple terms:** a variable is a box, and the type is the label on the box saying "what is inside". A number can be multiplied, text can be joined, a "yes/no" can be checked. Mix up the label - and the program does the wrong action.
+
+```mermaid
+mindmap
+  root((Value))
+    number
+      42
+      3.5
+      -10
+    string
+      "Anna"
+      "42"
+    boolean
+      true
+      false
+    undefined
+      not set yet
+    null
+      empty on purpose
+```
+
+**How to read the diagram.** Any value in a program belongs to one of five types. Note: `"42"` is in the `string` branch, even though it looks like a number.
+
+### How to tell `undefined` from `null`
+
+| | `undefined` | `null` |
+| --- | --- | --- |
+| Who sets it | JavaScript itself | The programmer, by hand |
+| Meaning | "Nothing has been put in yet" | "Empty on purpose" |
+| Example | `let city;` | `let winner = null;` - no winner yet |
+| `typeof` | `"undefined"` | `"object"` (a historical bug) |
 
 ### The `typeof` operator
 
@@ -134,6 +168,37 @@ console.log(Math.round(0.1 * 3 * 100) / 100); // 0.3
 
 A computer stores fractions in binary, so `0.1 + 0.2` is slightly more than `0.3`. For money it is convenient to count in whole units (so'm, cents) and round with `Math.round()`.
 
+### Useful `Math` functions
+
+`Math` is a built-in set of math functions:
+
+| Notation | Result | What it does |
+| --- | --- | --- |
+| `Math.round(4.5)` | `5` | Rounds to the nearest integer |
+| `Math.floor(4.9)` | `4` | Rounds down |
+| `Math.ceil(4.1)` | `5` | Rounds up |
+| `Math.max(3, 9, 5)` | `9` | The largest of the numbers |
+| `Math.min(3, 9, 5)` | `3` | The smallest of the numbers |
+| `Math.random()` | e.g. `0.7312` | A random number from 0 (inclusive) to 1 (exclusive) |
+
+A random integer from 1 to 6 - rolling a die:
+
+```js
+const dice = Math.floor(Math.random() * 6) + 1;
+console.log(dice); // new every time: 1, 2, 3, 4, 5 or 6
+```
+
+How it works step by step:
+
+| Step | Expression | Range of values |
+| --- | --- | --- |
+| 1 | `Math.random()` | from 0 to 0.999... |
+| 2 | `* 6` | from 0 to 5.999... |
+| 3 | `Math.floor(...)` | integers 0, 1, 2, 3, 4, 5 |
+| 4 | `+ 1` | integers 1, 2, 3, 4, 5, 6 |
+
+To show a price with two decimal places there is the `toFixed` method: `(12.5).toFixed(2)` gives the string `"12.50"`. Note - a **string**, not a number.
+
 ---
 
 ## Strings
@@ -187,6 +252,39 @@ console.log(name);    // "  anna "
 name = name.trim();   // saved
 console.log(name);    // "anna"
 ```
+
+### Three more methods: `slice`, `split`, `replace`
+
+```js
+const email = "anna@example.com";
+
+console.log(email.slice(0, 4));         // "anna" - characters 0 to 3
+console.log(email.slice(-3));           // "com" - the last three
+console.log(email.split("@"));          // ["anna", "example.com"]
+console.log(email.replace("anna", "timur")); // "timur@example.com"
+```
+
+| Method | What it does | Example |
+| --- | --- | --- |
+| `slice(start, end)` | Cuts out a piece from `start` to `end` (`end` not included) | `"Hello".slice(0, 3)` → `"Hel"` |
+| `split(separator)` | Cuts the string into parts and returns an **array** | `"a,b,c".split(",")` → `["a", "b", "c"]` |
+| `replace(old, new)` | Replaces the **first** occurrence | `"2-2".replace("-", "+")` → `"2+2"` |
+| `replaceAll(old, new)` | Replaces all occurrences | `"2-2-2".replaceAll("-", "+")` → `"2+2+2"` |
+
+How character numbers work:
+
+| Character | `J` | `a` | `v` | `a` |
+| --- | --- | --- | --- | --- |
+| Index | 0 | 1 | 2 | 3 |
+| From the end | -4 | -3 | -2 | -1 |
+
+We cover arrays in detail in Lesson 6. For now it is enough to know: `split` turns one string into a list of pieces.
+
+### Try to break it
+
+1. Write `console.log(word.length())` with parentheses. What error does the console show? `length` is a property, not a method.
+2. Replace the backticks of a template string with ordinary quotes: `"Total: ${total}"`. What is printed?
+3. Call `"JS".toUppercase()` with a lowercase `c`. JavaScript is case-sensitive: there is no method with that name.
 
 ---
 
@@ -266,6 +364,29 @@ console.log(5 === "5");  // false - different types
 ```
 
 Course rule: **only `===` and `!==`**. If the types may differ, convert the value explicitly with `Number()` first.
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| `"45000" + 5000` | `"450005000"` - joined | `Number("45000") + 5000` |
+| `Number("12px")` | `NaN` | Remove the units or use `parseInt("12px")` → `12` |
+| `name.trim();` without assigning | The string did not change | `name = name.trim();` |
+| `0.1 + 0.2 === 0.3` | `false` | Round, or count in whole units |
+| `if (age = 18)` instead of a comparison | An assignment, not a check | `age === 18` |
+| `5 == "5"` | `true`, although the types differ | `5 === Number("5")` |
+| `const count = 0; count++;` | `TypeError` - a constant cannot change | `let count = 0;` |
+
+### How to check yourself in the console
+
+Not sure which type you got? Print the value and the type at once:
+
+```js
+const value = "5" * 2;
+console.log(value, typeof value); // 10 "number"
+```
+
+This way you catch joining or `NaN` in a second, before the error travels further through the program.
 
 ---
 

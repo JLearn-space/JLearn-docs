@@ -84,6 +84,36 @@ button.addEventListener("click", handleClick()); // xato: funksiya darhol chaqir
 
 HTML da `<button onclick="...">` deb yozish mumkin. Bunda kod belgilash bilan aralashadi - `style=""` atributidagi stillar kabi. Kurs qoidasi: HTML - HTML da, ishlov beruvchilar - JS faylda `addEventListener` orqali.
 
+### Ishlovchi qachon bajariladi
+
+Tartibni tushunish muhim: `addEventListener` funksiyani **ishga tushirmaydi**. U faqat uni «obunalar jurnaliga» yozib qo‘yadi. Funksiyaning o‘zi keyinroq bajariladi - foydalanuvchi tugmani har bosganida.
+
+```mermaid
+sequenceDiagram
+    participant S as main.js
+    participant B as Tugma
+    participant U as Foydalanuvchi
+    S->>B: addEventListener("click", handleClick)
+    Note over S: Skript davom etadi va tugaydi
+    U->>B: Bosish
+    B->>S: handleClick() ni chaqiradi
+    U->>B: Yana bosish
+    B->>S: Yana handleClick()
+```
+
+**Sxemani qanday o‘qish kerak.** Avval skript «obuna bo‘ladi» va ishini tugatadi. Keyin sahifa kutadi. Har bir bosish - ishlovchining yangi chaqiruvi. Bu 5-darsdagi `setTimeout` dagi kolbekning o‘sha g‘oyasi: funksiya hozir beriladi, keyin chaqiriladi.
+
+### Eng kerakli hodisalar
+
+| Hodisa | Qachon sodir bo‘ladi | Qayerda ishlatiladi |
+| --- | --- | --- |
+| `click` | Sichqoncha, barmoq bilan bosish, tugmada Enter yoki probel | Tugmalar, menyu, kartochkalar |
+| `input` | Maydondagi matnning har bir o‘zgarishi | «Darhol» qidiruv, belgilar hisoblagichi |
+| `change` | Maydon qiymati o‘zgartirildi va tasdiqlandi | `select`, `checkbox`, `radio` |
+| `submit` | Formani yuborish | Formalar - 9-dars |
+| `keydown` | Tugmachani bosish | Escape, tezkor tugmalar |
+| `focus` / `blur` | Maydon fokusni oldi / yo‘qotdi | Maydonlarga maslahatlar |
+
 ---
 
 ## Bosish va holat
@@ -110,6 +140,17 @@ flowchart LR
 ```
 
 > **Tipik xato:** `let likes = 0;` ni ishlov beruvchi ichida e’lon qilish. Shunda har bosishda hisob noldan boshlanadi va sahifada doim `1` turadi.
+
+### Uch marta bosilganda nima bo‘ladi
+
+| Hodisa | oldin `likes` | Amal | keyin `likes` | Sahifada |
+| --- | --- | --- | --- | --- |
+| Sahifa yuklanishi | - | `let likes = 0;` | 0 | `0` |
+| 1-bosish | 0 | `likes++` | 1 | `1` |
+| 2-bosish | 1 | `likes++` | 2 | `2` |
+| 3-bosish | 2 | `likes++` | 3 | `3` |
+
+`likes` o‘zgaruvchisi yuklanishda **bir marta** yaratilgan, ishlovchi esa har bosishda uning joriy qiymatini oladi. Buni **holat** deyishadi: hodisalar orasida yashaydigan ma’lumotlar.
 
 ---
 
@@ -235,6 +276,20 @@ Delegatsiya nima uchun yaxshiroq:
 
 `closest` kerak, chunki `event.target` - eng chuqur element: agar tugma ichida `<span>` yoki belgi bo‘lsa, aynan ular bosiladi.
 
+### Delegatsiya qadamma-qadam
+
+O‘chirish tugmasi ichida belgi bor deylik: `<button class="todo__delete"><span>✕</span></button>`. Foydalanuvchi aynan `✕` ga bosdi:
+
+| Qadam | Nima bo‘ladi | Qiymat |
+| --- | --- | --- |
+| 1 | `span` ga bosish | `event.target` - tugma emas, `span` |
+| 2 | Hodisa `ul.todo-list` gacha suzib chiqadi | Yagona ishlovchimiz ishlaydi |
+| 3 | `event.target.closest(".todo__delete")` | Qidiruv `span` dan yuqoriga boradi va tugmani topadi |
+| 4 | `button.closest(".todo")` | Tugmadan yuqoriga - butun `li.todo` bandini topamiz |
+| 5 | `.remove()` | Band sahifadan yo‘qoladi |
+
+Agar vazifa matniga bosilganda edi, 3-qadamda `closest` `null` qaytarardi va `return` ishlovchini to‘xtatardi. Shuning uchun `if (!button)` tekshiruvi majburiy.
+
 ---
 
 ## Qulaylik
@@ -258,6 +313,25 @@ button.setAttribute("aria-expanded", String(isOpen));
 ```
 
 Har bir interaktiv qismni klaviatura bilan tekshiring: Tab - yetib borish, Enter yoki bo‘sh joy - bosish, Escape - yopish.
+
+### Buzib ko‘ring
+
+1. Ishlovchini qavslar bilan bering: `button.addEventListener("click", handleClick());`. Konsolda xabar qachon paydo bo‘ldi - yuklanishdami yoki bosishdami?
+2. `let likes = 0;` ni ishlovchi ichiga ko‘chiring. Besh marta bosishdan keyin hisoblagich nimani ko‘rsatadi?
+3. Havola ishlovchisidan `event.preventDefault()` ni olib tashlang. Brauzer nima qiladi?
+4. Tugmani `<div>` dan yasang va uni klaviatura bilan bosishga urinib ko‘ring: Tab, keyin Enter.
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| `addEventListener` da `handleClick()` | Funksiya yuklanishda bir marta bajarildi | Nomni qavssiz bering |
+| Holat ishlovchi ichida | Hisob har hodisada qaytadan boshlanadi | `let` ishlovchidan tashqarida |
+| `"click"` o‘rniga `"onclick"` | Ishlovchi hech qachon ishlamaydi | Hodisa turi `on` siz |
+| `closest` o‘rniga `event.target` | Tugma ichidagi belgiga tushishadi | `event.target.closest(".btn")` |
+| Har bir yangi elementda ishlovchi | `render` dan keyingi yangi kartochkalar javob bermaydi | Konteynerda delegatsiya |
+| Tugma sifatida `<div>` | Klaviaturadan va ekran o‘quvchilar uchun ishlamaydi | `<button type="button">` |
+| Ochiladigan tugmada `aria-expanded` yo‘q | Ekran o‘quvchi holatni bilmaydi | `setAttribute("aria-expanded", String(isOpen))` |
 
 ---
 

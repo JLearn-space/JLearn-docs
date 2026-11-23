@@ -87,41 +87,6 @@
       "Накопитель и счётчик объявляйте через let ДО цикла.",
       "Перебор слова: for (const char of word) { ... }",
       "Проверка гласной: \"aeiou\".includes(char.toLowerCase())."
-    ],
-    "solution": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "стартовый код без изменений",
-        "code": "// 1. Таблица умножения для n\n"
-      },
-      {
-        "mistake": "таблица всегда для 5",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`5 x ${i} = ${5 * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "таблица на 9 строк",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i < 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "n не входит в диапазон",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i < n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "накопитель внутри цикла",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum;\nfor (let i = 1; i <= n; i++) {\n    evenSum = 0;\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "регистр не учитывается",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (const char of word) {\n    if (vowels.includes(char)) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "for вместо for...of для слова",
-        "code": "// 1. Таблица умножения\nfor (let i = 1; i <= 10; i++) {\n    console.log(`${n} x ${i} = ${n * i}`);\n}\n\n// 2. Сумма чётных чисел от 1 до n\nlet evenSum = 0;\nfor (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n\n// 3. Гласные в слове\nconst vowels = \"aeiou\";\nlet vowelCount = 0;\nfor (let k = 0; k < word.length; k++) {\n    const char = word[k];\n    if (vowels.includes(char.toLowerCase())) {\n        vowelCount++;\n    }\n}\n\nconsole.log(`Сумма чётных: ${evenSum}, гласных: ${vowelCount}`);\n"
-      },
-      {
-        "mistake": "бесконечный цикл",
-        "code": "let evenSum = 0;\nlet i = 1;\nwhile (i <= n) {\n    if (i % 2 === 0) {\n        evenSum += i;\n    }\n}\n"
-      }
     ]
   },
   "test": {

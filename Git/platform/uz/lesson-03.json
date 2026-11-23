@@ -1,0 +1,274 @@
+{
+  "lesson": 3,
+  "language": "uz",
+  "lesson_title": "Tarix va o‘zgarishlar",
+  "task": {
+    "title": "O‘chirilgan matnni tarixdan qaytarish",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Siz ~/portfolio papkasidasiz, Git sozlangan. Tarixda turli mualliflarning bir nechta kommiti bor va ulardan biri about.html dan matnning bir qismini o‘chirgan - uning xabari Remove so‘zi bilan boshlanadi. Bu kommitning raqami va xeshi oldindan noma’lum: uni tarixdan toping. Buyruqlarni har qatorga bittadan yozing: 1) Tarixni git log va git log --oneline buyruqlari bilan ko‘ring. 2) Xabari Remove bilan boshlanadigan kommitni toping va uning o‘zgarishlarini ko‘ring (git show). 3) about.html ni undan OLDINGI kommitdan chiqaring (git show HEAD~N:about.html). 4) Bu versiyani about.html ga yozing (> belgisi) va git status hamda git diff ni tekshiring. 5) about.html ni indeksga qo‘shing va git diff --staged ni tekshiring. 6) Xabari Restore bilan boshlanadigan kommit qiling (masalan, Restore team section). 7) Tarixni tekshiring: git log --oneline -n 3.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz ~/portfolio papkasidasiz, Git sozlangan, tarixda allaqachon bir nechta kommit bor.\n\n# 1. Loyiha tarixi: batafsil va qisqa (--oneline)\n\n# 2. Xabari Remove bilan boshlanadigan kommitni toping va uning o‘zgarishlarini ko‘ring\n\n# 3. about.html ni undan OLDINGI kommitda ko‘rsating (HEAD~N:about.html)\n\n# 4. Bu versiyani about.html ga yozing va git status hamda git diff ni tekshiring\n\n# 5. Faylni indeksga qo‘shing va git diff --staged ni tekshiring\n\n# 6. Xabari Restore bilan boshlanadigan kommit\n\n# 7. Natijani tarixda tekshiring\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"# Portfolio\" > README.md\necho \"<h1>Anna Karimova</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About me</h1>\n<p>I am learning web development.</p>\n<h2>Team</h2>\n<ul>\n  <li>Anna Karimova - design</li>\n  <li>Aziz Rakhimov - JavaScript</li>\n</ul>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Aziz Rakhimov\";\nsim.user.config[\"user.email\"] = \"aziz@example.com\";\nsim.run(`echo \"body { font-family: sans-serif; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"\ncat > about.html << 'EOF'\n<h1>About me</h1>\n<p>I am learning web development.</p>\nEOF\ngit commit -am \"Remove team section\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo '<a href=\"about.html\">About</a>' >> index.html\ngit commit -am \"Add link to about page\"\necho \"My first website with Git.\" >> README.md\ngit commit -am \"Update README\"`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlar va > belgisini tekshiring."
+      },
+      {
+        "name": "Roppa-rosa bitta yangi kommit qo‘shildi",
+        "check": "repo !== null && repo.head() !== null && repo.log().length === 7",
+        "fail": "Bitta kommit kerak: git add about.html, keyin git commit -m \"Restore ...\". Agar Git nothing to commit deb javob bergan bo‘lsa - fayl o‘zgarmagan: siz noto‘g‘ri versiyani oldingiz."
+      },
+      {
+        "name": "Eski kommitlar o‘zgarmagan",
+        "check": "repo !== null && repo.head() !== null && repo.log().slice(-6).map((c) => c.subject).join(\"|\") === \"Update README|Add link to about page|Remove team section|Add styles|Add about page|Add home page\"",
+        "fail": "Yangi kommit tarix ustiga qo‘shilishi kerak, eski kommitlarga tegish shart emas."
+      },
+      {
+        "name": "Oxirgi kommitdagi about.html ga Team bo‘limi qaytdi",
+        "check": "repo !== null && repo.head() !== null && (repo.commit(\"HEAD\").files[\"about.html\"] ?? \"\").includes(\"<h2>Team</h2>\")",
+        "fail": "about.html ni Remove team section kommitidan OLDINGI kommitdan oling: git show HEAD~3:about.html"
+      },
+      {
+        "name": "about.html o‘chirishdan oldingi versiya bilan mos keladi",
+        "check": "repo !== null && repo.head() !== null && repo.commit(\"HEAD\").files[\"about.html\"] === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })()",
+        "fail": "Fayl eski versiya bilan to‘liq mos kelishi kerak: git show HEAD~3:about.html > about.html (ikki nuqta va fayl nomi bilan)."
+      },
+      {
+        "name": "Ishchi papkadagi fayl ham tiklandi",
+        "check": "repo !== null && repo.head() !== null && sim.read(\"~/portfolio/about.html\") === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })()",
+        "fail": "Eski versiyani about.html ga > belgisi bilan yozing va cat about.html ni tekshiring."
+      },
+      {
+        "name": "Yangi kommit faqat about.html ni o‘zgartiradi",
+        "check": "repo !== null && repo.head() !== null && (() => { const a = repo.commit(\"HEAD\").files; const b = repo.commit(\"HEAD~1\").files; const ka = Object.keys(a).sort().join(\",\"); const kb = Object.keys(b).sort().join(\",\"); return ka === kb && Object.keys(b).every((f) => f === \"about.html\" || a[f] === b[f]) && a[\"about.html\"] !== b[\"about.html\"]; })()",
+        "fail": "Indeksga faqat about.html ni qo‘shing, boshqa fayllarni o‘zgartirmang va yangilarini yaratmang."
+      },
+      {
+        "name": "Kommit xabari Restore bilan boshlanadi",
+        "check": "repo !== null && repo.head() !== null && /^Restore \\S/.test(repo.commit(\"HEAD\").subject) && repo.commit(\"HEAD\").subject.length <= 50",
+        "fail": "Misol: git commit -m \"Restore team section\" - ingliz tilida, 50 belgigacha."
+      },
+      {
+        "name": "Barcha o‘zgarishlar kommit qilingan",
+        "check": "repo !== null && repo.head() !== null && repo.status().clean",
+        "fail": "Kommitdan keyin git status nothing to commit, working tree clean deb javob berishi kerak."
+      },
+      {
+        "name": "Tarix git log buyrug‘i bilan ko‘rildi",
+        "check": "__commands.some((c) => c.cmd.startsWith(\"git log\") && c.code === 0)",
+        "fail": "git log va git log --oneline dan boshlang: shunda kerakli kommitni topasiz."
+      },
+      {
+        "name": "O‘zgarishlar git show yoki git diff orqali ko‘rildi",
+        "check": "__commands.some((c) => (c.cmd.startsWith(\"git show\") || c.cmd.startsWith(\"git diff\")) && c.code === 0)",
+        "fail": "Kommit nimani o‘chirganini ko‘ring: git show HEAD~2."
+      },
+      {
+        "name": "Boshqa tarix: o‘chirilgan Skills ro‘yxati tiklandi",
+        "check": "repo !== null && repo.head() !== null && repo.log().length === 6 && repo.commit(\"HEAD\").files[\"about.html\"] === (() => { const r = repo.log().find((c) => c.subject.startsWith(\"Remove\")); return r ? repo.commit(r.parents[0]).files[\"about.html\"] : undefined; })() && repo.commit(\"HEAD\").files[\"about.html\"].includes(\"Skills\")",
+        "fail": "Yechim aniq matn yoki xeshga bog‘liq bo‘lmasligi kerak: tayyor matnli echo emas, HEAD~N:about.html dan foydalaning.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Portfolio</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\n<h2>Skills</h2>\n<p>HTML, CSS, JavaScript, jQuery</p>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Dilnoza Yusupova\";\nsim.user.config[\"user.email\"] = \"dilnoza@example.com\";\nsim.run(`cat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\nEOF\ngit commit -am \"Remove skills list\"\necho \"h1 { color: navy; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo \"<footer>2026</footer>\" >> index.html\ngit commit -am \"Add footer\"`, { quiet: true });\n"
+      },
+      {
+        "name": "Boshqa tarix: yangi Restore kommiti faqat about.html ni o‘zgartiradi",
+        "check": "repo !== null && repo.head() !== null && /^Restore \\S/.test(repo.commit(\"HEAD\").subject) && (() => { const a = repo.commit(\"HEAD\").files; const b = repo.commit(\"HEAD~1\").files; const ka = Object.keys(a).sort().join(\",\"); const kb = Object.keys(b).sort().join(\",\"); return ka === kb && Object.keys(b).every((f) => f === \"about.html\" || a[f] === b[f]) && a[\"about.html\"] !== b[\"about.html\"]; })() && repo.status().clean",
+        "fail": "Boshqa tarixda xeshlar boshqacha - kommitlarga HEAD~N orqali murojaat qiling.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Portfolio</h1>\" > index.html\ngit add . && git commit -m \"Add home page\"\ncat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\n<h2>Skills</h2>\n<p>HTML, CSS, JavaScript, jQuery</p>\nEOF\ngit add about.html && git commit -m \"Add about page\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Dilnoza Yusupova\";\nsim.user.config[\"user.email\"] = \"dilnoza@example.com\";\nsim.run(`cat > about.html << 'EOF'\n<h1>About</h1>\n<p>Frontend student.</p>\nEOF\ngit commit -am \"Remove skills list\"\necho \"h1 { color: navy; }\" > style.css\ngit add style.css && git commit -m \"Add styles\"`, { quiet: true });\nsim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.run(`echo \"<footer>2026</footer>\" >> index.html\ngit commit -am \"Add footer\"`, { quiet: true });\n"
+      }
+    ],
+    "hints": [
+      "git log --oneline: eng yuqoridagi qator - HEAD, keyingisi - HEAD~1, keyin HEAD~2 va hokazo.",
+      "Remove... kommiti uchinchi qatorda turibdi, demak bu HEAD~2. Eski matn undan oldingi kommitda: HEAD~3.",
+      "Avval faylni yozmasdan ko‘ring: git show HEAD~3:about.html. Agar chiqishda o‘chirilgan matn bo‘lsa - versiya to‘g‘ri.",
+      "Faylga yozish: git show HEAD~3:about.html > about.html - ikki nuqta va fayl nomi majburiy.",
+      "Matnni qo‘lda yozmang va xeshdan foydalanmang: tekshiruvda boshqa matnli va boshqa xeshli boshqa tarix bor.",
+      "git add about.html, keyin git commit -m \"Restore team section\"."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "git log --oneline nima qiladi?",
+        "options": [
+          "Faqat oxirgi kommitni ko‘rsatadi",
+          "Tarixni ko‘rsatadi: har bir kommitga bitta qator - qisqa xesh va xabar",
+          "Tarixdan uzun xabarlarni o‘chiradi",
+          "Har bir kommitning o‘zgargan qatorlarini ko‘rsatadi"
+        ],
+        "answer": 1,
+        "explanation": "--oneline har bir kommitni bitta qatorga qisqartiradi: xeshning 7 belgisi va xabarning birinchi qatori."
+      },
+      {
+        "type": "matching",
+        "question": "git log chiqishidagi qatorni va uning ma’nosini moslang.",
+        "pairs": [
+          [
+            "commit d15527edf406...",
+            "To‘liq xesh - kommitning noyob nomi"
+          ],
+          [
+            "Author: Aziz Rakhimov <aziz@example.com>",
+            "Kommitni kim qilgan"
+          ],
+          [
+            "Date:   Tue Sep 1 10:04:00 2026 +0500",
+            "Kommit qachon qilingan"
+          ],
+          [
+            "    Remove team section",
+            "Kommit xabari"
+          ]
+        ],
+        "explanation": "git log dagi har bir kommit - bu xesh, muallif, sana va xabar."
+      },
+      {
+        "type": "single",
+        "question": "Haqiqiy terminalda git log uzun tarixni ochdi, pastda ikki nuqta yoki (END) turibdi. Buyruq qatoriga qanday qaytish mumkin?",
+        "options": [
+          "Ctrl+S ni bosish",
+          "q tugmasini bosish",
+          "exit ni terib Enter bosish",
+          "Terminalni yopish - boshqa yo‘l yo‘q"
+        ],
+        "answer": 1,
+        "explanation": "Uzun chiqishni Git sahifalab ko‘rish dasturida (less) ochadi. Probel - keyingi sahifa, q (quit) - chiqish."
+      },
+      {
+        "type": "multiple",
+        "question": "git log --oneline quyidagini ko‘rsatdi: a1b2c3d (HEAD -> main) Add footer / e4f5a6b Add styles / 9c8d7e6 Add home page. Qaysi yozuvlar Add styles kommitini ko‘rsatadi?",
+        "options": [
+          "HEAD~1",
+          "e4f5a6b",
+          "HEAD~2",
+          "HEAD^"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "HEAD - Add footer, HEAD~1 va HEAD^ - uning ota kommiti Add styles; e4f5a6b - o‘sha kommitning qisqa xeshi. HEAD~2 - Add home page."
+      },
+      {
+        "type": "single",
+        "question": "Siz index.html ni o‘zgartirdingiz, lekin hali git add ni bajarmadingiz. git diff --staged nimani ko‘rsatadi?",
+        "options": [
+          "index.html dagi o‘zgarishlarni",
+          "Hech narsa: indeksda yangi o‘zgarishlar yo‘q",
+          "fatal xatosini",
+          "Butun index.html faylini"
+        ],
+        "answer": 1,
+        "explanation": "--staged indeksni oxirgi kommit bilan solishtiradi. O‘zgarishlar faqat ishchi papkada ekan, ularni oddiy git diff ko‘rsatadi."
+      },
+      {
+        "type": "matching",
+        "question": "Unified diff qatorini va uning ma’nosini moslang.",
+        "pairs": [
+          [
+            "--- a/about.html",
+            "Faylning eski versiyasi"
+          ],
+          [
+            "+++ b/about.html",
+            "Faylning yangi versiyasi"
+          ],
+          [
+            "@@ -1,7 +1,2 @@",
+            "Bo‘lak qayerda: 1-qatordan 7 qator edi, 1-qatordan 2 qator bo‘ldi"
+          ],
+          [
+            "-<h2>Team</h2>",
+            "Qator o‘chirilgan"
+          ],
+          [
+            "+<h2>Team</h2>",
+            "Qator qo‘shilgan"
+          ]
+        ],
+        "explanation": "Minus - o‘chirilgan, plyus - qo‘shilgan, belgisiz qatorlar - o‘zgarishsiz kontekst."
+      },
+      {
+        "type": "input",
+        "question": "about.html faylining mazmunini ikki kommit oldin (HEAD ga nisbatan) qanday bo‘lgan bo‘lsa, shunday chiqaradigan buyruqni yozing.",
+        "answers": [
+          "git show HEAD~2:about.html",
+          "git show HEAD^^:about.html"
+        ],
+        "case_sensitive": true,
+        "explanation": "git show <kommit>:<fayl> faylni kerakli kommitdan chiqaradi va ishchi papkada hech narsani o‘zgartirmaydi."
+      },
+      {
+        "type": "single",
+        "question": "git show HEAD~2 git show HEAD~2:about.html dan nimasi bilan farq qiladi?",
+        "options": [
+          "Hech narsasi bilan",
+          "Birinchisi kommitni ko‘rsatadi (muallif, sana, xabar va diff), ikkinchisi - faqat shu kommitdagi fayl mazmunini",
+          "Birinchisi faylni tiklaydi, ikkinchisi o‘chiradi",
+          "Ikkinchisi faqat Git 3.0 da ishlaydi"
+        ],
+        "answer": 1,
+        "explanation": "Ikki nuqtasiz git show kommitning o‘zini va uning o‘zgarishlarini ko‘rsatadi, :fayl bilan esa bitta faylning suratini."
+      },
+      {
+        "type": "multiple",
+        "question": "Kommit xeshi haqida nima to‘g‘ri?",
+        "options": [
+          "U kommit mazmunidan hisoblanadi, shuning uchun turli kommitlarda turlicha",
+          "Buyruqlarda qisqa xeshdan - birinchi 7 belgidan foydalanish mumkin",
+          "Uni kommit muallifi o‘ylab topadi",
+          "Git 2.x da bu 40 belgili SHA-1, Git 3.0 da sukut bo‘yicha 64 belgili SHA-256 bo‘ladi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Xesh - kommitning «barmoq izi»: Git uni mazmun, muallif, sana va ota kommitdan o‘zi hisoblaydi."
+      },
+      {
+        "type": "input",
+        "question": "Faqat oxirgi 3 ta kommitni qisqa ko‘rinishda ko‘rish uchun buyruqni to‘ldiring: git log --oneline ___",
+        "answers": [
+          "-n 3",
+          "-3",
+          "-n3",
+          "--max-count=3"
+        ],
+        "case_sensitive": true,
+        "explanation": "-n 3 (yoki -3) kommitlar sonini cheklaydi."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi buyruq HEAD~3 va HEAD kommitlari orasidagi farqni ko‘rsatadi?",
+        "options": [
+          "git diff HEAD~3 HEAD",
+          "git log HEAD~3 HEAD -p --staged",
+          "git show HEAD~3 > HEAD",
+          "git status HEAD~3"
+        ],
+        "answer": 0,
+        "explanation": "git diff A B B ni olish uchun A da nimani o‘zgartirish kerakligini ko‘rsatadi: - li qatorlar A da bor edi, + li qatorlar B da paydo bo‘ldi."
+      },
+      {
+        "type": "single",
+        "question": "Siz git show HEAD~3:about.html > about.html ni bajardingiz. Nima bo‘ldi?",
+        "options": [
+          "Git eski about.html bilan yangi kommit qildi",
+          "Faylning eski versiyasi ishchi papkaga yozildi; Git buni hali qo‘shish va kommit qilish kerak bo‘lgan o‘zgarish sifatida ko‘radi",
+          "Tarix 3 kommit orqaga qaytdi",
+          "Oxirgi 3 ta kommit o‘chirildi"
+        ],
+        "answer": 1,
+        "explanation": "> belgisi chiqishni faylga yozadi. Tarix o‘zgarmaydi: keyin git add va git commit kerak."
+      }
+    ]
+  }
+}

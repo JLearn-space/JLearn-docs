@@ -23,6 +23,8 @@ After this lesson you will be able to calculate a class's average score, find a 
 - Work with an array of objects.
 - Transform data with the methods `map`, `filter`, `find`, `reduce`.
 - Unpack values with destructuring and copy with `...`.
+- Sort and slice arrays, go through an object's properties; trace how `map`, `filter` and `reduce` work step by step.
+
 
 ---
 
@@ -80,6 +82,18 @@ const scores = [92, 78, 65, 88];
 const empty = [];
 ```
 
+What an array looks like "inside" - a row of numbered cells:
+
+```mermaid
+flowchart LR
+    subgraph fruits["const fruits"]
+        A["0<br>apple"] --- B["1<br>banana"] --- C["2<br>pear"]
+    end
+    L["length = 3"] -.-> fruits
+```
+
+**How to read the diagram.** The number in a cell is the index, below it is the value. Indexes always go in a row from zero, so the last index is one less than the length: `3 - 1 = 2`.
+
 ### Going through an array
 
 `for...of` from lesson 4 works with arrays too:
@@ -112,6 +126,34 @@ console.log(cart.indexOf("kefir"));  // -1 - not found
 ```
 
 > **`const` and an array:** `const cart = [...]` forbids putting **another** array into `cart` (`cart = []` is an error). But changing the contents of the same array - `push`, `pop`, `cart[0] = ...` - is allowed. A constant is a label stuck to one box forever, not a ban on opening the box.
+
+### Four more methods: `slice`, `join`, `sort`, `forEach`
+
+```js
+const days = ["mon", "tue", "wed", "thu", "fri"];
+
+console.log(days.slice(1, 3));   // ["tue", "wed"] - a copy of a piece, days does not change
+console.log(days.join(", "));    // "mon, tue, wed, thu, fri" - an array into a string
+
+const names = ["Timur", "Anna", "Lola"];
+names.sort();
+console.log(names);              // ["Anna", "Lola", "Timur"] - alphabetically
+
+days.forEach((day, index) => {
+    console.log(`${index + 1}. ${day}`);
+});
+```
+
+| Method | What it does | Changes the array? |
+| --- | --- | --- |
+| `slice(start, end)` | Copies a piece, as with strings | No |
+| `join(separator)` | Joins the elements into a string - the opposite of `split` | No |
+| `sort()` | Sorts the elements | **Yes** |
+| `forEach(fn)` | Calls the function for each element, returns nothing | No |
+
+> **The `sort` trap with numbers.** Without an argument, `sort` compares elements as **strings**: `[10, 9, 100].sort()` gives `[10, 100, 9]`. For numbers, pass a compare function: `numbers.sort((a, b) => a - b)` - ascending, `(a, b) => b - a` - descending.
+
+`forEach` and `for...of` do the same thing. In this course we use `for...of` more often: `break` and `continue` work in it.
 
 ---
 
@@ -171,6 +213,39 @@ console.log(course.tags[1]);      // "DOM"
 console.log(course.tags.length);  // 3
 ```
 
+### How an object is built
+
+```mermaid
+flowchart LR
+    S["const student"] --> N["name: «Anna»"]
+    S --> A["age: 15"]
+    S --> I["isActive: true"]
+```
+
+**How to read the diagram.** In an array the cells are labelled with **numbers**, in an object - with **names**. Choose an array when the order of values of the same kind matters, and an object when one thing has many different properties.
+
+| | Array | Object |
+| --- | --- | --- |
+| Brackets | `[ ]` | `{ }` |
+| Access | By number: `arr[0]` | By name: `obj.name` |
+| Order | Matters | Does not matter |
+| Example | A list of grades | A student card |
+
+### Going through properties: `Object.keys` and `Object.entries`
+
+```js
+const prices = { tea: 5000, coffee: 12000, juice: 9000 };
+
+console.log(Object.keys(prices));    // ["tea", "coffee", "juice"]
+console.log(Object.values(prices));  // [5000, 12000, 9000]
+
+for (const [drink, price] of Object.entries(prices)) {
+    console.log(`${drink}: ${price} sum`);
+}
+```
+
+`Object.entries` turns an object into an array of `[key, value]` pairs, and `for...of` with square brackets splits each pair into two variables at once. More on this unpacking in the "Destructuring" section.
+
 ---
 
 ## Mini-task 1
@@ -218,6 +293,24 @@ const prices = [1000, 2500, 400];
 const withTax = prices.map((price) => price * 1.12);
 ```
 
+How `map` goes through the `students` array - step by step:
+
+| Step | `student` | The function returned | New array after the step |
+| --- | --- | --- | --- |
+| 1 | `{ name: "Anna", score: 92 }` | `"Anna"` | `["Anna"]` |
+| 2 | `{ name: "Timur", score: 78 }` | `"Timur"` | `["Anna", "Timur"]` |
+| 3 | `{ name: "Lola", score: 65 }` | `"Lola"` | `["Anna", "Timur", "Lola"]` |
+| 4 | `{ name: "Sardor", score: 95 }` | `"Sardor"` | `["Anna", "Timur", "Lola", "Sardor"]` |
+
+`map` is the same loop with an accumulator from Lesson 4, just written in one line. This is what it does "under the hood":
+
+```js
+const names = [];
+for (const student of students) {
+    names.push(student.name);
+}
+```
+
 ### `filter` - select the matching ones
 
 Returns a new array with only the items for which the function returned `true`:
@@ -226,6 +319,15 @@ Returns a new array with only the items for which the function returned `true`:
 const excellent = students.filter((student) => student.score >= 90);
 console.log(excellent.length); // 2
 ```
+
+| Step | `student.score` | `score >= 90` | Goes into the result? |
+| --- | --- | --- | --- |
+| 1 | 92 | `true` | Yes - Anna |
+| 2 | 78 | `false` | No |
+| 3 | 65 | `false` | No |
+| 4 | 95 | `true` | Yes - Sardor |
+
+The function inside `filter` must return `true` or `false` - it is the question "keep this element?". **Whole objects** go into the result, not just the scores.
 
 ### `find` - find the first match
 
@@ -255,6 +357,30 @@ console.log(total); // 330
 | `sum + student.score` | The new accumulator value |
 | `0` | The initial accumulator value - **always set it** |
 
+How the accumulator `sum` changes:
+
+| Step | `sum` (coming in) | `student.score` | `sum + student.score` |
+| --- | --- | --- | --- |
+| 1 | 0 - the initial value | 92 | 92 |
+| 2 | 92 | 78 | 170 |
+| 3 | 170 | 65 | 235 |
+| 4 | 235 | 95 | **330** - this is the result |
+
+```mermaid
+flowchart LR
+    Z["0"] -->|"+ 92"| A["92"] -->|"+ 78"| B["170"] -->|"+ 65"| C["235"] -->|"+ 95"| D["330"]
+```
+
+**How to read the diagram.** The accumulator rolls along the array like a snowball: at each step the next element is added to it. What the function returned at a step becomes `sum` at the next one.
+
+The average is the sum divided by the count:
+
+```js
+const average = total / students.length; // 330 / 4 = 82.5
+```
+
+> **Without an initial value** `reduce` takes the first element itself as the first accumulator - the object `{ name: "Anna", score: 92 }` - and the addition gives the string `"[object Object]78..."`. On an empty array it throws a `TypeError`. That is why the `0` at the end is required.
+
 ### Chains
 
 Methods that return an array can be chained:
@@ -274,6 +400,22 @@ console.log(topNames); // ["Anna", "Sardor"]
 | `find` | One item or `undefined` | Unchanged |
 | `reduce` | One value | Unchanged |
 | `push` / `pop` | The length / the removed item | **Changed** |
+
+### Which method to choose
+
+```mermaid
+flowchart TD
+    A["What do you need to get?"] --> B{"An array of the same length,<br>but with other values"}
+    B -->|Yes| M["map"]
+    A --> C{"Only some of the elements"}
+    C -->|Yes| F["filter"]
+    A --> D{"One element"}
+    D -->|Yes| FI["find"]
+    A --> E{"One number or string<br>from all the elements"}
+    E -->|Yes| R["reduce"]
+```
+
+**How to read the diagram.** Start with the question "what should come out" - the answer points to the method. If there are several answers (for example, "the names of top students"), chain the methods: `filter` first, then `map`.
 
 ---
 
@@ -310,6 +452,25 @@ console.log(base.score, updated.score);   // 92 95
 ```
 
 **Why copy?** A pure function does not change its input. If a function should "add a student", it returns a new array `[...students, newStudent]` and the original stays the same. This makes bugs easier to find: data does not change "behind your back".
+
+### Try to break it
+
+1. Print `fruits[3]` for an array of three elements. Why is it `undefined` and not an error?
+2. Remove the `0` at the end of `reduce` and call it on an empty array `[]`. Read the error.
+3. Sort `[10, 9, 100]` with `sort()` without an argument. Why is the order "wrong"?
+4. Write an arrow with curly braces and no `return` in `map`: `students.map((s) => { s.name; })`. What ends up in the array?
+
+### Typical beginner mistakes
+
+| Mistake | What you get | How to fix |
+| --- | --- | --- |
+| `arr[arr.length]` | `undefined` - there is no such index | The last element: `arr[arr.length - 1]` |
+| `reduce` without an initial value | An error on an empty array, a strange result with objects | Always `reduce(fn, 0)` |
+| Expecting an array from `find` | `find` returned one object or `undefined` | Need several - `filter` |
+| An arrow with `{ }` in `map` without `return` | An array of `undefined` | `(s) => s.name` |
+| `sort()` for numbers | Sorted as strings | `sort((a, b) => a - b)` |
+| `obj.key` when the name is in the variable `key` | It looks for a property named `"key"` | `obj[key]` |
+| Changed the array inside a function | The data changed "behind your back" | Return a copy: `[...arr, x]` |
 
 ---
 

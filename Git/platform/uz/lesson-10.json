@@ -1,0 +1,267 @@
+{
+  "lesson": 10,
+  "language": "uz",
+  "lesson_title": "Teglar, relizlar va yakuniy loyiha",
+  "task": {
+    "title": "Loyihaning to‘liq sikli",
+    "language": "shell",
+    "environment": "git",
+    "lang": "uz",
+    "description": "Git allaqachon sozlangan, siz uy papkasidasiz. ~/my-site papkasida saytingiz (index.html, css/style.css, js/main.js), shuningdek node_modules/ papkasi va maxfiy kalitli .env fayli bor - lekin repozitoriy yo‘q. «GitHub»da bo‘sh https://github.com/anna/my-site.git repozitoriysi yaratilgan. Buyruqlarni har qatorga bittadan yozing: 1) my-site ga o‘ting va repozitoriy yarating. 2) node_modules/ va .env qatorli .gitignore yarating va git status -s ni tekshiring. 3) Saytning barcha fayllari bilan birinchi kommitni qiling: Add site files. 4) feature/contacts tarmog‘ini yarating, unda - <h1>Contacts</h1> matnli contacts.html fayli va Add contacts page kommiti. 5) main ga qayting, tarmoqni birlashtiring (--no-ff bilan yoki oldinga o‘tkazish bilan) va uni o‘chiring. 6) log --oneline --graph --all uchun global lg aliasini sozlang va tarixni git lg buyrug‘i bilan ko‘ring. 7) Masofaviy repozitoriyni origin sifatida ulang va main ni upstream bilan yuboring. 8) Xabarli annotatsiyali v1.0 tegini yarating, uni serverga yuboring va git status ni tekshiring. Natijada serverda - tarixingizga ega main tarmog‘i va oxirgi kommitdagi v1.0 tegi, node_modules va .env esa hech bir kommitga tushmagan.",
+    "starter_code": "# Buyruqlarni har qatorga bittadan yozing. # bilan boshlangan qatorlar - izohlar.\n# Siz uy papkasidasiz. ~/my-site da sayt, shuningdek node_modules/ va .env bor, repozitoriy yo‘q.\n\n# 1. my-site ga o‘ting va repozitoriy yarating\n\n# 2. node_modules/ va .env qatorli .gitignore yarating, git status -s ni tekshiring\n\n# 3. Saytning barcha fayllari bilan birinchi kommit: Add site files\n\n# 4. feature/contacts tarmog‘i: <h1>Contacts</h1> matnli contacts.html fayli, Add contacts page kommiti\n\n# 5. main ga qayting, tarmoqni birlashtiring va uni o‘chiring\n\n# 6. log --oneline --graph --all uchun lg aliasi (global) va git lg ni chaqirish\n\n# 7. origin ni ulang, main ni upstream bilan yuboring\n\n# 8. Annotatsiyali v1.0 tegi va uni serverga yuborish, git status ni tekshirish\n",
+    "timeout_ms": 3000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// uy papkasida - o‘quvchining sayti: sayt fayllari, node_modules/ va .env, repozitoriy yo‘q\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/lodash\ncd my-site\necho \"<h1>My site</h1>\" > index.html\necho \"body { margin: 0; }\" > css/style.css\necho \"console.log('Hello');\" > js/main.js\necho \"module.exports = {};\" > node_modules/lodash/index.js\necho \"API_KEY=secret123\" > .env\ncd ~`, { quiet: true });\n// «GitHub»da bo‘sh repozitoriy yaratilgan\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n",
+    "tests": [
+      {
+        "name": "Repozitoriy ~/my-site da yaratilgan, node_modules/ va .env li .gitignore bor",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const c = R.commit(\"main\"); return Boolean(c && c.files[\".gitignore\"] !== undefined && R.isIgnored(\"node_modules/x.js\") && R.isIgnored(\".env\")); })()",
+        "fail": "Repozitoriyni ~/my-site ichida yarating (cd my-site, keyin git init), node_modules/ va .env qatorli .gitignore ni esa kommit qiling."
+      },
+      {
+        "name": "node_modules va .env hech bir kommitga tushmagan (sizda ham, serverda ham)",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const bad = (c) => Object.keys(c.files).some((p) => p.startsWith(\"node_modules/\") || p === \".env\"); return R.log(\"main\").length > 0 && !R.log(\"main\").some(bad) && !S.log(\"main\").some(bad); })()",
+        "fail": ".gitignore ni git add . dan OLDIN yaratish kerak - aks holda node_modules va .env birinchi kommitga tushadi."
+      },
+      {
+        "name": "Birinchi kommitda index.html, css/style.css, js/main.js sayt fayllari bor",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const log = R.log(\"main\"); const root = log[log.length - 1]; return Boolean(root && root.parents.length === 0 && root.files[\"index.html\"] && root.files[\"css/style.css\"] && root.files[\"js/main.js\"]); })()",
+        "fail": "Birinchi kommitga saytning barcha fayllarini qo‘shing: git add . (.gitignore yaratilgandan keyin)."
+      },
+      {
+        "name": "Kontaktlar ustidagi ish feature/contacts tarmog‘ida bo‘lgan",
+        "check": "__commands.some((c) => /^git (switch -c|switch --create|checkout -b|branch) feature\\/contacts\\b/.test(c.cmd) && c.code === 0)",
+        "fail": "Tarmoqni git switch -c feature/contacts buyrug‘i bilan yarating va contacts.html ni unda kommit qiling."
+      },
+      {
+        "name": "<h1>Contacts</h1> matnli contacts.html main da va serverda bor",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const c = R.commit(\"main\"); return Boolean(c && c.files[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\" && S.files(\"main\")[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\" && R.log(\"main\").some((x) => x.subject === \"Add contacts page\")); })()",
+        "fail": "Tarmoqni main ga birlashtiring: git switch main, keyin git merge feature/contacts (yoki --no-ff)."
+      },
+      {
+        "name": "feature/contacts tarmog‘i o‘chirilgan",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return !R.branches().includes(\"feature/contacts\") && !S.branches().includes(\"feature/contacts\"); })()",
+        "fail": "Birlashtirgandan keyin tarmoqni o‘chiring: git branch -d feature/contacts."
+      },
+      {
+        "name": "Global lg aliasi sozlangan va ishlatilgan",
+        "check": "(sim.user.config[\"alias.lg\"] || \"\").trim().replace(/\\s+/g, \" \") === \"log --oneline --graph --all\" && __commands.some((c) => /^git lg\\b/.test(c.cmd) && c.code === 0)",
+        "fail": "git config --global alias.lg \"log --oneline --graph --all\" ni (qo‘shtirnoq bilan) bajaring, keyin git lg."
+      },
+      {
+        "name": "Serverdagi main lokal main bilan bir xil, upstream - origin/main",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return R.remotes().origin === \"https://github.com/anna/my-site.git\" && R.commit(\"main\") !== null && S.tip(\"main\") === R.commit(\"main\").hash && R.upstream(\"main\") === \"origin/main\"; })()",
+        "fail": "Serverni ulang (git remote add origin ...) va tarmoqni yuboring: git push -u origin main."
+      },
+      {
+        "name": "v1.0 tegi serverda bor va oxirgi kommitga (HEAD) ishora qiladi",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const t = S.s.tags[\"v1.0\"]; const h = R.commit(\"HEAD\"); return Boolean(t && h && t.hash === h.hash && t.hash === S.tip(\"main\") && R.tag(\"v1.0\") && R.tag(\"v1.0\").hash === h.hash); })()",
+        "fail": "Tegni oxirida, hammasi birlashtirilganda yarating: git tag -a v1.0 -m \"...\". Teglar o‘z-o‘zidan yuborilmaydi - git push --tags yoki git push origin v1.0."
+      },
+      {
+        "name": "v1.0 tegi annotatsiyali (xabarli)",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const t = S.s.tags[\"v1.0\"]; const l = R.tag(\"v1.0\"); return Boolean(t && t.message && t.message.trim() && l && l.message && l.message.trim()); })()",
+        "fail": "Yengil git tag v1.0 tegi muallif va xabarni saqlamaydi. git tag -a v1.0 -m \"First release\" kerak."
+      },
+      {
+        "name": "Siz main dasiz, ishchi papka toza",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; return R.branch === \"main\" && R.state() === null && R.status().clean; })()",
+        "fail": "Oxirida git status nothing to commit, working tree clean deb javob berishi kerak."
+      },
+      {
+        "name": "Saytning boshqa fayllari: barcha fayllar serverda, sirlar yo‘q, v1.0 tegi HEAD da",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; const f = S.files(\"main\"); if (!(f[\"index.html\"] === \"<h1>Anna Karimova</h1>\\n\" && f[\"about.html\"] === \"<h1>About me</h1>\\n\" && f[\"css/style.css\"] === \"h1 { color: teal; }\\n\" && f[\"js/main.js\"] === \"alert('Welcome');\\n\" && f[\"contacts.html\"] === \"<h1>Contacts</h1>\\n\")) return false; const bad = (c) => Object.keys(c.files).some((p) => p.startsWith(\"node_modules/\") || p === \".env\"); if (!(R.log(\"main\").length > 0 && !R.log(\"main\").some(bad) && !S.log(\"main\").some(bad))) return false; const t = S.s.tags[\"v1.0\"]; const h = R.commit(\"HEAD\"); return Boolean(t && h && t.hash === h.hash && t.hash === S.tip(\"main\") && R.tag(\"v1.0\") && R.tag(\"v1.0\").hash === h.hash); })()",
+        "fail": "Yechim istalgan sayt bilan ishlashi kerak: fayllarni nomlari bo‘yicha emas, git add . orqali qo‘shing.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// uy papkasida - o‘quvchining sayti: sayt fayllari, node_modules/ va .env, repozitoriy yo‘q\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/jquery\ncd my-site\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<h1>About me</h1>\" > about.html\necho \"h1 { color: teal; }\" > css/style.css\necho \"alert('Welcome');\" > js/main.js\necho \"module.exports = {};\" > node_modules/jquery/jquery.js\necho \"TOKEN=abc999\" > .env\ncd ~`, { quiet: true });\n// «GitHub»da bo‘sh repozitoriy yaratilgan\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n"
+      },
+      {
+        "name": "Saytning boshqa fayllari: teg annotatsiyali, tarmoq yo‘q, papka toza",
+        "check": "(() => { const R = sim.repo(\"~/my-site\"); const S = sim.remote(\"https://github.com/anna/my-site.git\"); if (!R || R.root !== \"/home/student/my-site\") return false; if (R.branches().includes(\"feature/contacts\") || !R.status().clean) return false; const t = S.s.tags[\"v1.0\"]; const l = R.tag(\"v1.0\"); return Boolean(t && t.message && t.message.trim() && l && l.message && l.message.trim()); })()",
+        "fail": "Aniq fayl nomlariga tayanmang: .gitignore, git add ., tarmoq, merge, -a teg, push --tags.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\n// uy papkasida - o‘quvchining sayti: sayt fayllari, node_modules/ va .env, repozitoriy yo‘q\nsim.run(`mkdir -p my-site/css my-site/js my-site/node_modules/jquery\ncd my-site\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<h1>About me</h1>\" > about.html\necho \"h1 { color: teal; }\" > css/style.css\necho \"alert('Welcome');\" > js/main.js\necho \"module.exports = {};\" > node_modules/jquery/jquery.js\necho \"TOKEN=abc999\" > .env\ncd ~`, { quiet: true });\n// «GitHub»da bo‘sh repozitoriy yaratilgan\nsim.createRemote(\"https://github.com/anna/my-site.git\");\n"
+      },
+      {
+        "name": "Ssenariy ichki xatolarsiz bajarildi",
+        "check": "__error === null",
+        "fail": "Buyruqlardagi qo‘shtirnoqlarni tekshiring."
+      }
+    ],
+    "hints": [
+      "Tartib muhim: avval .gitignore, keyin git add . - shunda node_modules/ va .env kommitga tushmaydi. git status -s ni tekshiring: ular u yerda bo‘lmasligi kerak.",
+      "Tarmoq: git switch -c feature/contacts, fayl echo orqali, git add, git commit. Birlashtirish - main dan: git switch main, git merge feature/contacts.",
+      "Birlashtirilgan tarmoq git branch -d feature/contacts buyrug‘i bilan o‘chiriladi.",
+      "Probelli alias qiymatini qo‘shtirnoqqa oling: git config --global alias.lg \"log --oneline --graph --all\".",
+      "Tegni oxirida, hammasi birlashtirilganda qo‘ying: git tag -a v1.0 -m \"First release\".",
+      "Oddiy git push teglarni yubormaydi: git push --tags (yoki git push origin v1.0)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Loyihada teglar nima uchun kerak?",
+        "options": [
+          "Ish uchun yangi tarmoq yaratish uchun",
+          "Muhim kommitni, masalan v1.0 versiyasini, abadiy belgilab qo‘yish uchun",
+          "Fayllarni Git’dan yashirish uchun",
+          "Ikki tarmoqni birlashtirish uchun"
+        ],
+        "answer": 1,
+        "explanation": "Teg - kommitdagi doimiy «yorliq». Tarmoqdan farqli ravishda u yangi kommitlarda siljimaydi."
+      },
+      {
+        "type": "matching",
+        "question": "Buyruq va amalni moslashtiring.",
+        "pairs": [
+          [
+            "git tag",
+            "Teglar ro‘yxatini ko‘rsatish"
+          ],
+          [
+            "git tag -a v1.0 -m \"First release\"",
+            "HEAD da annotatsiyali teg yaratish"
+          ],
+          [
+            "git tag -d v0.1",
+            "Tegni o‘z kompyuteringizda o‘chirish"
+          ],
+          [
+            "git push origin v1.0",
+            "Serverga bitta tegni yuborish"
+          ]
+        ],
+        "explanation": "Teg yaratish va o‘chirish lokal ishlaydi, serverga teg faqat push orqali tushadi."
+      },
+      {
+        "type": "multiple",
+        "question": "Annotatsiyali teg yengil tegdan nimasi bilan farq qiladi?",
+        "options": [
+          "Teg muallifini (Tagger) va sanani saqlaydi",
+          "Xabarni saqlaydi",
+          "Yangi kommitlarda oldinga siljiydi",
+          "git tag -a buyrug‘i bilan yaratiladi"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Yengil teg - kommitning shunchaki nomi. Annotatsiyali teg - muallif, sana va xabarga ega alohida obyekt. Hech bir teg siljimaydi."
+      },
+      {
+        "type": "single",
+        "question": "Siz git tag -a v1.0 -m \"First release\" va git push ni bajardingiz. GitHub’da teg yo‘q. Nima uchun?",
+        "options": [
+          "Teg buzilgan",
+          "git push teglarni yubormaydi - git push --tags yoki git push origin v1.0 kerak",
+          "GitHub annotatsiyali teglarni qo‘llab-quvvatlamaydi",
+          "Avval tarmoqni o‘chirish kerak"
+        ],
+        "answer": 1,
+        "explanation": "Teglar alohida yuboriladi: git push --tags (hammasi) yoki git push origin v1.0 (bittasi)."
+      },
+      {
+        "type": "single",
+        "question": "git show v1.0 tag v1.0, Tagger: Anna Karimova ..., First release qatorlari bilan boshlanadi. Bu nimani bildiradi?",
+        "options": [
+          "v1.0 - tarmoq",
+          "v1.0 - yengil teg",
+          "v1.0 - First release xabarli annotatsiyali teg",
+          "Kommit First release deb ataladi"
+        ],
+        "answer": 2,
+        "explanation": "tag/Tagger/xabar bloki faqat annotatsiyali tegda bo‘ladi. Pastda teg ishora qilayotgan kommitning o‘zi keladi."
+      },
+      {
+        "type": "matching",
+        "question": "Versiya 1.4.2 edi. Semantik versiyalash bo‘yicha o‘zgarish va yangi versiyani moslashtiring.",
+        "pairs": [
+          [
+            "Sahifadagi imlo xatosi tuzatildi",
+            "1.4.3"
+          ],
+          [
+            "Blog sahifasi qo‘shildi, eskisi ishlaydi",
+            "1.5.0"
+          ],
+          [
+            "Sayt butunlay qayta yasaldi, eski havolalar ishlamaydi",
+            "2.0.0"
+          ]
+        ],
+        "explanation": "MAJOR.MINOR.PATCH: PATCH - tuzatishlar, MINOR - hech narsani buzmaydigan yangi imkoniyatlar, MAJOR - mos kelmaydigan o‘zgarishlar. Bunda kichik sonlar nolga tushadi."
+      },
+      {
+        "type": "input",
+        "question": "Log qatori: 75d1cf9 (HEAD -> main, tag: v1.0, origin/main) Merge branch 'feature/contacts'. Teg qanday nomlanadi? Faqat nomini kiriting.",
+        "answers": [
+          "v1.0"
+        ],
+        "case_sensitive": true,
+        "explanation": "Qavslarda Git kommit yorliqlarini ko‘rsatadi: tag: v1.0 - teg, origin/main - serverdagi tarmoq."
+      },
+      {
+        "type": "input",
+        "question": "git st buyrug‘i git status ni bajarishi uchun buyruqni to‘ldiring: git config --global ______ status",
+        "answers": [
+          "alias.st"
+        ],
+        "case_sensitive": true,
+        "explanation": "Aliaslar alias.<nom> sozlamalarida saqlanadi. Agar buyruqda probellar bo‘lsa, qiymat qo‘shtirnoqqa olinadi."
+      },
+      {
+        "type": "single",
+        "question": "GitHub’dagi reliz nima?",
+        "options": [
+          "main tarmog‘ining o‘zi",
+          "Teg asosidagi versiya sahifasi: nomi, o‘zgarishlar tavsifi va yuklab olish uchun fayllar",
+          "git release buyrug‘i",
+          "Repozitoriyning boshqa foydalanuvchidagi nusxasi"
+        ],
+        "answer": 1,
+        "explanation": "Reliz saytda (Releases → Draft a new release) teg ustidan yaratiladi. Git relizlar haqida bilmaydi - bu GitHub funksiyasi."
+      },
+      {
+        "type": "multiple",
+        "question": "Sayt main tarmog‘idan GitHub Pages orqali ochilishi uchun nima kerak?",
+        "options": [
+          "Tarmoq ildizida index.html bor",
+          "Settings → Pages da Deploy from a branch manbasi, main tarmog‘i, / (root) papkasi tanlangan",
+          "v1.0 tegini yaratish",
+          "O‘zgarishlar git push orqali GitHub’ga yuborilgan"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Pages tanlangan tarmoqda GitHub’da turgan narsani e’lon qiladi. Pages uchun teg kerak emas."
+      },
+      {
+        "type": "single",
+        "question": "GitHub’dagi login - anna, repozitoriy - my-site. Sayt GitHub Pages’da qaysi manzilda ochiladi?",
+        "options": [
+          "https://github.com/anna/my-site",
+          "https://anna.github.io/my-site/",
+          "https://my-site.github.io/anna/",
+          "https://pages.github.com/anna"
+        ],
+        "answer": 1,
+        "explanation": "Pages’dagi loyiha manzili: https://<login>.github.io/<repozitoriy>/. github.com/anna/my-site - sayt emas, kod sahifasi."
+      },
+      {
+        "type": "single",
+        "question": "Siz v1.0 tegini noto‘g‘ri kommitda yaratdingiz, lekin uni hali yubormadingiz. Nima qilish kerak?",
+        "options": [
+          "Repozitoriyni o‘chirish",
+          "git tag -d v1.0, keyin tegni kerakli kommitda qaytadan yaratish",
+          "git reset --hard",
+          "Hech narsa: teg o‘zi yangi kommitga ko‘chadi"
+        ],
+        "answer": 1,
+        "explanation": "Yuborilmagan tegni bemalol o‘chirib, qaytadan yaratish mumkin. Yuborilgan tegni qayta yozmagan ma’qul: uni boshqalar allaqachon yuklab olgan bo‘lishi mumkin."
+      }
+    ]
+  }
+}

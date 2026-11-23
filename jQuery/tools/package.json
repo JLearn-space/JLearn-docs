@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "description": "Local checker for JLearn jQuery IDE tasks; not student assignments",
+  "type": "module",
+  "dependencies": {
+    "jquery": "4.1.0",
+    "jsdom": "26.1.0"
+  }
+}

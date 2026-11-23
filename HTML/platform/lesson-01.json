@@ -39,41 +39,6 @@
       "У <html> должен быть атрибут lang, например lang=\"ru\".",
       "В <head> нужны <meta charset=\"UTF-8\"> и <title>Знакомство</title>.",
       "В <body> ровно один <h1> и минимум два <p>."
-    ],
-    "solution": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>",
-    "wrong_solutions": [
-      {
-        "mistake": "нет DOCTYPE",
-        "code": "<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет lang",
-        "code": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет charset",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет title",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "два h1",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <h1>Я студент первого курса и живу в Алмалыке.</h1>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "один абзац",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n</body>\n</html>"
-      },
-      {
-        "mistake": "нет body",
-        "code": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n\n</html>"
-      },
-      {
-        "mistake": "DOCTYPE в тексте вместо декларации",
-        "code": "<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Знакомство</title>\n</head>\n<body>\n    <h1>Привет! Меня зовут Азиз</h1>\n    <p>&lt;!DOCTYPE html&gt; Я студент первого курса и живу в Алмалыке.</p>\n    <p>Я изучаю HTML, чтобы сделать свой первый сайт.</p>\n</body>\n</html>"
-      }
     ]
   },
   "test": {

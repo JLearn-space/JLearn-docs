@@ -1,0 +1,265 @@
+{
+  "lesson": 7,
+  "language": "ru",
+  "lesson_title": "Слияние и конфликты",
+  "task": {
+    "title": "Две ветки в main: перемотка и конфликт",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "Вы в папке ~/portfolio на ветке main. Есть две ветки: feature/footer добавляет footer.html (main после её создания не менялась), а feature/title меняет заголовок в index.html - ту же строку, которую после ответвления изменили и в main. Напишите команды по одной на строке: 1) Посмотрите историю всех веток в виде графа. 2) Влейте feature/footer в main - должна произойти перемотка вперёд (без --no-ff). 3) Влейте feature/title - возникнет конфликт в index.html. 4) Посмотрите git status и содержимое index.html. 5) Разрешите конфликт, объединив оба варианта: запишите index.html командой cat > index.html << 'EOF' - первая строка <h1>Anna Karimova, web developer - Portfolio</h1>, вторая строка <p>Junior web developer</p>, без маркеров конфликта. 6) Отметьте конфликт решённым и завершите слияние коммитом (git commit без -m возьмёт готовое сообщение Merge branch 'feature/title', можно и с -m). 7) Удалите обе влитые ветки безопасной командой git branch -d. 8) Посмотрите граф истории и убедитесь, что рабочая папка чистая.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в папке ~/portfolio на ветке main. Есть ветки feature/footer и feature/title.\n\n# 1. Посмотрите историю всех веток в виде графа\n\n# 2. Влейте feature/footer в main (будет перемотка вперёд)\n\n# 3. Влейте feature/title - возникнет конфликт в index.html\n\n# 4. Посмотрите git status и содержимое index.html\n\n# 5. Запишите итоговый index.html через cat > index.html << 'EOF'\n#    1-я строка: <h1>Anna Karimova, web developer - Portfolio</h1>\n#    2-я строка: <p>Junior web developer</p>\n\n# 6. Отметьте конфликт решённым (git add) и завершите слияние коммитом\n\n# 7. Удалите обе влитые ветки командой git branch -d\n\n# 8. Посмотрите граф истории и git status\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>2026 Anna Karimova</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\ngit switch main\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "Вы на ветке main",
+        "check": "repo !== null && repo.branch === \"main\"",
+        "fail": "Сливают в ту ветку, на которой стоят. Все слияния выполняйте на main."
+      },
+      {
+        "name": "Последний коммит - коммит слияния с двумя родителями",
+        "check": "repo.commit(\"HEAD\").parents.length === 2",
+        "fail": "Слияние с конфликтом завершается коммитом: git add index.html, затем git commit."
+      },
+      {
+        "name": "Влита ветка feature/title: второй родитель - её коммит",
+        "check": "repo.commit(repo.commit(\"HEAD\").parents[1]).subject === \"Add portfolio to title\"",
+        "fail": "Выполните git merge feature/title, находясь на main."
+      },
+      {
+        "name": "feature/footer влита перемоткой вперёд: в истории один коммит слияния",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer\"",
+        "fail": "Сначала feature/footer (обычный git merge без --no-ff - будет Fast-forward), и только потом feature/title."
+      },
+      {
+        "name": "Слияние завершено",
+        "check": "repo.state() === null",
+        "fail": "Git всё ещё в режиме слияния: после git add завершите его командой git commit."
+      },
+      {
+        "name": "В index.html не осталось маркеров конфликта",
+        "check": "[sim.read(\"~/portfolio/index.html\"), repo.commit(\"HEAD\").files[\"index.html\"]].every((t) => typeof t === \"string\" && !/^(<<<<<<<|=======|>>>>>>>)/m.test(t))",
+        "fail": "Удалите строки <<<<<<< HEAD, ======= и >>>>>>> feature/title - перезапишите файл целиком через cat > index.html << 'EOF'."
+      },
+      {
+        "name": "index.html в коммите слияния - как в условии",
+        "check": "repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\"",
+        "fail": "Две строки: <h1>Anna Karimova, web developer - Portfolio</h1> и <p>Junior web developer</p>. Проверьте пробелы, запятую и дефис."
+      },
+      {
+        "name": "footer.html из ветки feature/footer на месте",
+        "check": "repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>2026 Anna Karimova</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/style.css\"] === \"body { margin: 0; }\\n\"",
+        "fail": "Влейте ветку feature/footer: footer.html появится в main."
+      },
+      {
+        "name": "История main содержит коммиты обеих веток",
+        "check": "[\"Add home page\", \"Add styles\", \"Add profession to title\", \"Add footer\", \"Add portfolio to title\"].every((s) => repo.log().some((c) => c.subject === s))",
+        "fail": "Не отменяйте слияния и не переписывайте историю: в main должны попасть коммиты обеих веток."
+      },
+      {
+        "name": "Обе влитые ветки удалены",
+        "check": "JSON.stringify(repo.branches()) === JSON.stringify([\"main\"])",
+        "fail": "После слияния: git branch -d feature/footer feature/title."
+      },
+      {
+        "name": "Ветки удалены безопасно: без git branch -D",
+        "check": "sim.commands(\"git branch -D\").length === 0",
+        "fail": "Влитые ветки удаляют через -d: Git проверит, что работа не потеряется. -D - только для веток, которые точно не нужны."
+      },
+      {
+        "name": "Рабочая папка чистая",
+        "check": "repo.status().clean",
+        "fail": "После коммита слияния git status должна ответить nothing to commit, working tree clean."
+      },
+      {
+        "name": "Другой проект: в feature/footer два коммита - оба влиты перемоткой, конфликт решён",
+        "check": "repo.log().filter((c) => c.parents.length > 1).length === 1 && repo.commit(repo.commit(\"HEAD\").parents[0]).subject === \"Add footer styles\" && repo.commit(\"HEAD\").files[\"footer.html\"] === \"<footer>Contacts: anna@example.com</footer>\\n\" && repo.commit(\"HEAD\").files[\"css/footer.css\"] === \"footer { padding: 20px; }\\n\" && repo.commit(\"HEAD\").files[\"index.html\"] === \"<h1>Anna Karimova, web developer - Portfolio</h1>\\n<p>Junior web developer</p>\\n\" && JSON.stringify(repo.branches()) === JSON.stringify([\"main\"]) && repo.status().clean",
+        "fail": "Решение не должно зависеть от содержимого веток: сливайте ветки, а не переписывайте их файлы вручную.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit add . && git commit -m \"Add home page\"\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add styles\"\ngit switch -c feature/title\necho \"<h1>Anna Karimova - Portfolio</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add portfolio to title\"\ngit switch main\necho \"<h1>Anna Karimova, web developer</h1>\" > index.html\necho \"<p>Junior web developer</p>\" >> index.html\ngit commit -am \"Add profession to title\"\ngit switch -c feature/footer\necho \"<footer>Contacts: anna@example.com</footer>\" > footer.html\ngit add footer.html && git commit -m \"Add footer\"\necho \"footer { padding: 20px; }\" > css/footer.css\ngit add css/footer.css && git commit -m \"Add footer styles\"\ngit switch main\n`, { quiet: true });\n"
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки и строку EOF в конце cat > ... << 'EOF'."
+      }
+    ],
+    "hints": [
+      "Сливают в текущую ветку: убедитесь, что вы на main, и выполните git merge feature/footer. В ответе должно быть Fast-forward.",
+      "После git merge feature/title Git напишет CONFLICT (content): Merge conflict in index.html. Это не ошибка, а вопрос к вам.",
+      "cat index.html покажет маркеры: между <<<<<<< HEAD и ======= - версия main, между ======= и >>>>>>> feature/title - версия ветки.",
+      "Перезапишите файл целиком: cat > index.html << 'EOF', две нужные строки, затем строка EOF. Маркеров в файле быть не должно.",
+      "Дальше: git add index.html, git status (All conflicts fixed but you are still merging), git commit.",
+      "Обе ветки удаляются одной командой: git branch -d feature/footer feature/title."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Вы на ветке main и выполнили git merge feature/menu. Что происходит?",
+        "options": [
+          "Изменения из main переносятся в feature/menu",
+          "Изменения из feature/menu переносятся в текущую ветку main",
+          "Ветки меняются местами",
+          "Создаётся новая ветка с обеими версиями"
+        ],
+        "answer": 1,
+        "explanation": "git merge всегда вливает указанную ветку в текущую. Ветка feature/menu при этом не меняется."
+      },
+      {
+        "type": "single",
+        "question": "Что вывел Git?\n\n$ git merge feature/footer\nUpdating 549439a..6d00d19\nFast-forward\n footer.html | 1 +",
+        "options": [
+          "Создан коммит слияния с двумя родителями",
+          "Указатель main просто передвинут вперёд на коммит ветки - новый коммит не создан",
+          "Произошёл конфликт",
+          "Ветка feature/footer удалена"
+        ],
+        "answer": 1,
+        "explanation": "Fast-forward (перемотка вперёд): main не менялась после ответвления, поэтому Git просто переносит её указатель на последний коммит ветки."
+      },
+      {
+        "type": "multiple",
+        "question": "Когда при git merge появится коммит слияния (Merge branch ...)?",
+        "options": [
+          "Если после ответвления в обеих ветках появились новые коммиты",
+          "Если указать ключ --no-ff",
+          "Если ветка впереди main, а main не менялась, и ключей нет",
+          "Если в ветке всего один коммит"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Коммит слияния нужен, когда истории разошлись, или когда его просят явно ключом --no-ff. Иначе Git делает перемотку вперёд."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте маркер конфликта и его смысл.",
+        "pairs": [
+          [
+            "<<<<<<< HEAD",
+            "Начало версии из текущей ветки"
+          ],
+          [
+            "=======",
+            "Граница между двумя версиями"
+          ],
+          [
+            ">>>>>>> feature/title",
+            "Конец версии из вливаемой ветки"
+          ]
+        ],
+        "explanation": "Между <<<<<<< и ======= - ваша версия (HEAD), между ======= и >>>>>>> - версия из ветки, которую вы вливаете."
+      },
+      {
+        "type": "single",
+        "question": "Почему возник конфликт?\n\nCONFLICT (content): Merge conflict in index.html",
+        "options": [
+          "В index.html есть ошибка HTML",
+          "Обе ветки после ответвления изменили одни и те же строки index.html по-разному",
+          "Файл index.html удалён в одной из веток",
+          "Ветки созданы разными людьми"
+        ],
+        "answer": 1,
+        "explanation": "Git сам объединяет изменения в разных местах файла. Конфликт - только когда одно место изменено в обеих ветках, и Git не знает, какой вариант правильный."
+      },
+      {
+        "type": "multiple",
+        "question": "Что нужно сделать, чтобы завершить слияние с конфликтом?",
+        "options": [
+          "Отредактировать файл: оставить нужный текст и убрать все маркеры",
+          "git add файл - отметить конфликт решённым",
+          "git commit - создать коммит слияния",
+          "git branch -D ветку, с которой конфликт"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Порядок: исправить файл → git add → git commit. Удалять ветку для этого не нужно - её удаляют после успешного слияния через -d."
+      },
+      {
+        "type": "input",
+        "question": "Введите команду целиком: отменить слияние, в котором возник конфликт, и вернуть всё как было до git merge.",
+        "answers": [
+          "git merge --abort"
+        ],
+        "case_sensitive": true,
+        "explanation": "git merge --abort возвращает рабочую папку и индекс к состоянию до слияния. Сама ветка никуда не денется - слить её можно позже."
+      },
+      {
+        "type": "single",
+        "question": "Что означает этот ответ git status?\n\nAll conflicts fixed but you are still merging.\n  (use \"git commit\" to conclude merge)",
+        "options": [
+          "Слияние полностью завершено",
+          "Конфликты отмечены решёнными через git add, осталось сделать git commit",
+          "Нужно снова выполнить git merge",
+          "Слияние отменено"
+        ],
+        "answer": 1,
+        "explanation": "«Все конфликты исправлены, но вы всё ещё в процессе слияния» - Git ждёт git commit, который создаст коммит слияния."
+      },
+      {
+        "type": "single",
+        "question": "Вы выполнили git add index.html, не удалив маркеры <<<<<<<, и git commit. Что будет?",
+        "options": [
+          "Git откажется: в файле маркеры",
+          "Коммит создастся, и маркеры попадут в сайт - браузер покажет их как текст",
+          "Git сам удалит маркеры",
+          "Слияние отменится"
+        ],
+        "answer": 1,
+        "explanation": "Git не проверяет содержимое файла: git add означает «я всё исправил». Поэтому перед git add обязательно откройте файл и проверьте, что маркеров нет."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте кнопку VS Code над конфликтом и результат.",
+        "pairs": [
+          [
+            "Accept Current Change",
+            "Оставить версию текущей ветки (HEAD)"
+          ],
+          [
+            "Accept Incoming Change",
+            "Оставить версию вливаемой ветки"
+          ],
+          [
+            "Accept Both Changes",
+            "Оставить обе версии одну под другой"
+          ],
+          [
+            "Compare Changes",
+            "Показать две версии рядом"
+          ]
+        ],
+        "explanation": "Current - текущая ветка, Incoming - входящая (вливаемая). Both оставляет обе версии, и их обычно нужно ещё подправить вручную."
+      },
+      {
+        "type": "input",
+        "question": "Ветка feature/footer уже влита в main. Введите команду целиком: безопасно удалить эту ветку.",
+        "answers": [
+          "git branch -d feature/footer"
+        ],
+        "case_sensitive": true,
+        "explanation": "-d удаляет только влитую ветку: если в ней есть невлитые коммиты, Git откажется (error: the branch ... is not fully merged)."
+      },
+      {
+        "type": "single",
+        "question": "Что показывает граф?\n\n*   f122376 (HEAD -> main) Merge branch 'feature/title'\n|\\\n| * 4018d13 Add portfolio to title\n* | 6d00d19 Add footer\n|/\n* 481f888 Add styles",
+        "options": [
+          "Ветка feature/title ещё не влита",
+          "Коммит f122376 - коммит слияния: у него два родителя, 6d00d19 и 4018d13",
+          "Коммит 4018d13 удалён",
+          "Произошла перемотка вперёд"
+        ],
+        "answer": 1,
+        "explanation": "Две линии сходятся в коммите слияния. Левая - история main, правая - коммит ветки feature/title."
+      }
+    ]
+  }
+}

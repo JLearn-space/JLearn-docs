@@ -1,0 +1,259 @@
+{
+  "lesson": 1,
+  "language": "en",
+  "lesson_title": "Getting to know Git and the terminal",
+  "task": {
+    "title": "The first repository",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "In the learning terminal, Git is not configured yet, and you are in your home folder. Write the commands one per line: 1) Check the Git version. 2) Globally set your name (user.name), email (user.email, with the @ symbol) and the main branch main (init.defaultBranch). 3) Create a folder portfolio, go into it and create a repository. 4) Create a file README.md with the text # Portfolio. 5) Look at the state of the repository with git status.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in the home folder ~, Git is not configured yet.\n\n# 1. Git version\n\n# 2. Name, email and the main branch main (globally)\n\n# 3. Folder portfolio, go into it, repository\n\n# 4. File README.md with the text # Portfolio\n\n# 5. State of the repository\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "",
+    "tests": [
+      {
+        "name": "The Git version is checked",
+        "check": "__commands.some((c) => c.cmd === \"git --version\" && c.code === 0)",
+        "fail": "The first command: git --version"
+      },
+      {
+        "name": "The name is set globally",
+        "check": "typeof sim.user.config[\"user.name\"] === \"string\" && sim.user.config[\"user.name\"].trim().length > 1",
+        "fail": "git config --global user.name \"First Last\" - put the name in quotes if it has a space."
+      },
+      {
+        "name": "The email is set globally and contains @",
+        "check": "(sim.user.config[\"user.email\"] ?? \"\").includes(\"@\")",
+        "fail": "git config --global user.email \"you@example.com\""
+      },
+      {
+        "name": "The default main branch is main",
+        "check": "sim.user.config[\"init.defaultBranch\"] === \"main\"",
+        "fail": "git config --global init.defaultBranch main"
+      },
+      {
+        "name": "The repository ~/portfolio is created",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").root === \"/home/student/portfolio\"",
+        "fail": "mkdir portfolio, then cd portfolio, then git init."
+      },
+      {
+        "name": "The repository is not created in the home folder",
+        "check": "!sim.repos.has(\"/home/student\")",
+        "fail": "Run git init inside the portfolio folder, not in ~."
+      },
+      {
+        "name": "The repository branch is main",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").branch === \"main\"",
+        "fail": "First the setting init.defaultBranch main, then git init."
+      },
+      {
+        "name": "README.md is created in the project folder",
+        "check": "sim.read(\"~/portfolio/README.md\") !== null",
+        "fail": "echo \"# Portfolio\" > README.md - after cd portfolio."
+      },
+      {
+        "name": "README.md contains the text # Portfolio",
+        "check": "sim.read(\"~/portfolio/README.md\") === \"# Portfolio\\n\"",
+        "fail": "Put the text in quotes: echo \"# Portfolio\" > README.md"
+      },
+      {
+        "name": "git status is run inside the repository",
+        "check": "__commands.some((c) => c.cmd === \"git status\" && c.code === 0)",
+        "fail": "git status goes last, when you are already in the portfolio folder."
+      },
+      {
+        "name": "There are no commits yet",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").head() === null",
+        "fail": "Commits are the topic of lesson 2: you don't need git add and git commit here."
+      },
+      {
+        "name": "The script runs without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes in your commands."
+      }
+    ],
+    "hints": [
+      "Version: git --version",
+      "Example: git config --global user.name \"Anna Karimova\" - the name goes in quotes.",
+      "The order matters: first init.defaultBranch main, then git init.",
+      "mkdir portfolio, cd portfolio, git init - three separate commands.",
+      "File: echo \"# Portfolio\" > README.md"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is a version control system?",
+        "options": [
+          "An antivirus for project files",
+          "A program that stores the history of changes to files and lets you go back to any version",
+          "A cloud drive for photos",
+          "A code editor"
+        ],
+        "answer": 1,
+        "explanation": "Git stores snapshots of the project - commits - and lets you compare them and go back to them."
+      },
+      {
+        "type": "matching",
+        "question": "Match each term with its description.",
+        "pairs": [
+          [
+            "Git",
+            "A program on your computer that stores the version history"
+          ],
+          [
+            "GitHub",
+            "A website for storing repositories and working in teams"
+          ],
+          [
+            "Commit",
+            "A snapshot of project files with the author's signature"
+          ],
+          [
+            "Repository",
+            "A project folder together with its commit history"
+          ]
+        ],
+        "explanation": "Git works locally, GitHub is a website; a commit is a snapshot, a repository is a project with its history."
+      },
+      {
+        "type": "single",
+        "question": "What does the pwd command show?",
+        "options": [
+          "A list of files",
+          "The current folder",
+          "The Git version",
+          "The user's password"
+        ],
+        "answer": 1,
+        "explanation": "pwd stands for print working directory: the path to the current folder."
+      },
+      {
+        "type": "multiple",
+        "question": "Which commands change the current folder?",
+        "options": [
+          "cd site",
+          "cd ..",
+          "mkdir site",
+          "ls -a"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Only cd changes the folder. mkdir creates a folder but doesn't go into it; ls shows the contents."
+      },
+      {
+        "type": "single",
+        "question": "The file index.html had 50 lines. What is left after echo \"<h1>Hi</h1>\" > index.html?",
+        "options": [
+          "50 lines and a new line at the end",
+          "One line: <h1>Hi</h1>",
+          "The file doesn't change",
+          "An error: the file already exists"
+        ],
+        "answer": 1,
+        "explanation": "The > sign replaces the whole contents of the file."
+      },
+      {
+        "type": "input",
+        "question": "Which command shows the contents of a folder including hidden files such as .git? Type the whole command.",
+        "answers": [
+          "ls -a",
+          "ls -la",
+          "ls -al"
+        ],
+        "case_sensitive": true,
+        "explanation": "The -a (all) option shows files whose names start with a dot."
+      },
+      {
+        "type": "single",
+        "question": "What does the --global option mean in git config --global user.name \"Anna\"?",
+        "options": [
+          "Everyone on the internet will see the name",
+          "The setting applies to all repositories of this user",
+          "The setting applies only to the current repository",
+          "The name will be saved on GitHub"
+        ],
+        "answer": 1,
+        "explanation": "--global means for all repositories of the user on this computer. Without it, only for the current repository."
+      },
+      {
+        "type": "input",
+        "question": "Complete the command so that the main branch of new repositories is called main: git config --global ________ main",
+        "answers": [
+          "init.defaultBranch"
+        ],
+        "case_sensitive": true,
+        "explanation": "git config --global init.defaultBranch main"
+      },
+      {
+        "type": "single",
+        "question": "Where does Git store the commit history of a repository?",
+        "options": [
+          "In the README.md file",
+          "In the hidden .git folder",
+          "On the GitHub website",
+          "In the user's home folder"
+        ],
+        "answer": 1,
+        "explanation": "The whole history, the branches and the settings of the repository are in the .git folder."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about git status?",
+        "options": [
+          "It shows the current branch",
+          "It shows new and changed files",
+          "It saves changes to the history",
+          "You can run it as many times as you like - it doesn't change anything"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "git status only shows the state. git commit is what saves changes."
+      },
+      {
+        "type": "matching",
+        "question": "Match each message with its cause.",
+        "pairs": [
+          [
+            "fatal: not a git repository",
+            "A Git command was run outside a repository"
+          ],
+          [
+            "Untracked files",
+            "The folder has files that Git doesn't track yet"
+          ],
+          [
+            "No commits yet",
+            "The repository has no commits yet"
+          ],
+          [
+            "bash: cd: sitee: No such file or directory",
+            "There is no such folder"
+          ]
+        ],
+        "explanation": "Git and terminal messages tell you what went wrong."
+      },
+      {
+        "type": "single",
+        "question": "Why shouldn't you run git init in your home folder ~?",
+        "options": [
+          "Git doesn't allow it",
+          "Git will treat all your files as part of the project",
+          "Your home folder will be deleted",
+          "The command will run very slowly"
+        ],
+        "answer": 1,
+        "explanation": "One project - one repository. You create a repository in the project folder."
+      }
+    ]
+  }
+}

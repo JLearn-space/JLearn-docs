@@ -1,0 +1,259 @@
+{
+  "lesson": 1,
+  "language": "ru",
+  "lesson_title": "Знакомство с Git и терминалом",
+  "task": {
+    "title": "Первый репозиторий",
+    "language": "shell",
+    "environment": "git",
+    "lang": "ru",
+    "description": "В учебном терминале Git ещё не настроен, вы в домашней папке. Напишите команды по одной на строке: 1) Проверьте версию Git. 2) Глобально настройте имя (user.name), email (user.email, с символом @) и основную ветку main (init.defaultBranch). 3) Создайте папку portfolio, перейдите в неё и создайте репозиторий. 4) Создайте файл README.md с текстом # Portfolio. 5) Посмотрите состояние репозитория командой git status.",
+    "starter_code": "# Команды пишите по одной на строке. Строки с # - комментарии.\n# Вы в домашней папке ~, Git ещё не настроен.\n\n# 1. Версия Git\n\n# 2. Имя, email и основная ветка main (глобально)\n\n# 3. Папка portfolio, переход в неё, репозиторий\n\n# 4. Файл README.md с текстом # Portfolio\n\n# 5. Состояние репозитория\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "",
+    "tests": [
+      {
+        "name": "Проверена версия Git",
+        "check": "__commands.some((c) => c.cmd === \"git --version\" && c.code === 0)",
+        "fail": "Первая команда: git --version"
+      },
+      {
+        "name": "Имя задано глобально",
+        "check": "typeof sim.user.config[\"user.name\"] === \"string\" && sim.user.config[\"user.name\"].trim().length > 1",
+        "fail": "git config --global user.name \"Имя Фамилия\" - имя в кавычках, если в нём есть пробел."
+      },
+      {
+        "name": "Email задан глобально и содержит @",
+        "check": "(sim.user.config[\"user.email\"] ?? \"\").includes(\"@\")",
+        "fail": "git config --global user.email \"you@example.com\""
+      },
+      {
+        "name": "Основная ветка по умолчанию - main",
+        "check": "sim.user.config[\"init.defaultBranch\"] === \"main\"",
+        "fail": "git config --global init.defaultBranch main"
+      },
+      {
+        "name": "Создан репозиторий ~/portfolio",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").root === \"/home/student/portfolio\"",
+        "fail": "mkdir portfolio, затем cd portfolio, затем git init."
+      },
+      {
+        "name": "Репозиторий не создан в домашней папке",
+        "check": "!sim.repos.has(\"/home/student\")",
+        "fail": "git init выполняйте внутри папки portfolio, а не в ~."
+      },
+      {
+        "name": "Ветка репозитория - main",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").branch === \"main\"",
+        "fail": "Сначала настройка init.defaultBranch main, потом git init."
+      },
+      {
+        "name": "README.md создан в папке проекта",
+        "check": "sim.read(\"~/portfolio/README.md\") !== null",
+        "fail": "echo \"# Portfolio\" > README.md - после cd portfolio."
+      },
+      {
+        "name": "В README.md текст # Portfolio",
+        "check": "sim.read(\"~/portfolio/README.md\") === \"# Portfolio\\n\"",
+        "fail": "Текст в кавычках: echo \"# Portfolio\" > README.md"
+      },
+      {
+        "name": "git status вызвана внутри репозитория",
+        "check": "__commands.some((c) => c.cmd === \"git status\" && c.code === 0)",
+        "fail": "git status - последней командой, когда вы уже в папке portfolio."
+      },
+      {
+        "name": "Коммитов пока нет",
+        "check": "sim.repo(\"~/portfolio\") !== null && sim.repo(\"~/portfolio\").head() === null",
+        "fail": "Коммиты - тема урока 2: здесь git add и git commit не нужны."
+      },
+      {
+        "name": "Сценарий выполнен без внутренних ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте кавычки в командах."
+      }
+    ],
+    "hints": [
+      "Версия: git --version",
+      "Пример: git config --global user.name \"Anna Karimova\" - имя в кавычках.",
+      "Порядок важен: сначала init.defaultBranch main, потом git init.",
+      "mkdir portfolio, cd portfolio, git init - три отдельные команды.",
+      "Файл: echo \"# Portfolio\" > README.md"
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Что такое система контроля версий?",
+        "options": [
+          "Антивирус для файлов проекта",
+          "Программа, которая хранит историю изменений файлов и позволяет вернуться к любой версии",
+          "Облачный диск для фотографий",
+          "Редактор кода"
+        ],
+        "answer": 1,
+        "explanation": "Git хранит снимки проекта - коммиты - и позволяет сравнивать их и возвращаться к ним."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте понятие и описание.",
+        "pairs": [
+          [
+            "Git",
+            "Программа на компьютере, хранит историю версий"
+          ],
+          [
+            "GitHub",
+            "Сайт для хранения репозиториев и командной работы"
+          ],
+          [
+            "Коммит",
+            "Снимок файлов проекта с подписью автора"
+          ],
+          [
+            "Репозиторий",
+            "Папка проекта вместе с историей коммитов"
+          ]
+        ],
+        "explanation": "Git работает локально, GitHub - сайт; коммит - снимок, репозиторий - проект с историей."
+      },
+      {
+        "type": "single",
+        "question": "Что покажет команда pwd?",
+        "options": [
+          "Список файлов",
+          "Текущую папку",
+          "Версию Git",
+          "Пароль пользователя"
+        ],
+        "answer": 1,
+        "explanation": "pwd - print working directory: путь к текущей папке."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие команды меняют текущую папку?",
+        "options": [
+          "cd site",
+          "cd ..",
+          "mkdir site",
+          "ls -a"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Папку меняет только cd. mkdir создаёт папку, но не переходит в неё; ls показывает содержимое."
+      },
+      {
+        "type": "single",
+        "question": "В файле index.html было 50 строк. Что останется после echo \"<h1>Hi</h1>\" > index.html?",
+        "options": [
+          "50 строк и новая строка в конце",
+          "Одна строка <h1>Hi</h1>",
+          "Файл не изменится",
+          "Ошибка: файл уже существует"
+        ],
+        "answer": 1,
+        "explanation": "Знак > заменяет содержимое файла целиком."
+      },
+      {
+        "type": "input",
+        "question": "Какой командой посмотреть содержимое папки вместе со скрытыми файлами, например .git? Введите команду целиком.",
+        "answers": [
+          "ls -a",
+          "ls -la",
+          "ls -al"
+        ],
+        "case_sensitive": true,
+        "explanation": "Ключ -a (all) показывает файлы, имена которых начинаются с точки."
+      },
+      {
+        "type": "single",
+        "question": "Что означает параметр --global в git config --global user.name \"Anna\"?",
+        "options": [
+          "Имя увидят все пользователи интернета",
+          "Настройка действует во всех репозиториях этого пользователя",
+          "Настройка действует только в текущем репозитории",
+          "Имя сохранится на GitHub"
+        ],
+        "answer": 1,
+        "explanation": "--global - для всех репозиториев пользователя на этом компьютере. Без него - только для текущего репозитория."
+      },
+      {
+        "type": "input",
+        "question": "Допишите команду, чтобы основная ветка новых репозиториев называлась main: git config --global ________ main",
+        "answers": [
+          "init.defaultBranch"
+        ],
+        "case_sensitive": true,
+        "explanation": "git config --global init.defaultBranch main"
+      },
+      {
+        "type": "single",
+        "question": "Где Git хранит историю коммитов репозитория?",
+        "options": [
+          "В файле README.md",
+          "В скрытой папке .git",
+          "На сайте GitHub",
+          "В домашней папке пользователя"
+        ],
+        "answer": 1,
+        "explanation": "Вся история, ветки и настройки репозитория лежат в папке .git."
+      },
+      {
+        "type": "multiple",
+        "question": "Что верно про git status?",
+        "options": [
+          "Показывает текущую ветку",
+          "Показывает новые и изменённые файлы",
+          "Сохраняет изменения в историю",
+          "Её можно вызывать сколько угодно раз - она ничего не меняет"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "git status только показывает состояние. Сохраняет изменения git commit."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте сообщение и причину.",
+        "pairs": [
+          [
+            "fatal: not a git repository",
+            "Команда Git выполнена вне репозитория"
+          ],
+          [
+            "Untracked files",
+            "В папке есть файлы, за которыми Git ещё не следит"
+          ],
+          [
+            "No commits yet",
+            "В репозитории пока нет коммитов"
+          ],
+          [
+            "bash: cd: sitee: No such file or directory",
+            "Такой папки нет"
+          ]
+        ],
+        "explanation": "Сообщения Git и терминала подсказывают, что пошло не так."
+      },
+      {
+        "type": "single",
+        "question": "Почему не стоит выполнять git init в домашней папке ~?",
+        "options": [
+          "Git запрещает это делать",
+          "Git начнёт считать частью проекта все ваши файлы",
+          "Домашняя папка удалится",
+          "Команда сработает очень медленно"
+        ],
+        "answer": 1,
+        "explanation": "Один проект - один репозиторий. Репозиторий создают в папке проекта."
+      }
+    ]
+  }
+}

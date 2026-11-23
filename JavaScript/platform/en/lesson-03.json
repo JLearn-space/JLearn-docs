@@ -106,49 +106,6 @@
       "Admission: const canEnter = age >= 14 && score >= 60;",
       "Ternary operator: condition ? \"Admitted\" : \"Not admitted\"",
       "Template string: `Grade: ${grade}. ${status}`"
-    ],
-    "solution": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n",
-    "wrong_solutions": [
-      {
-        "mistake": "starter code unchanged",
-        "code": "// 1. let grade\n"
-      },
-      {
-        "mistake": "wrong order of conditions",
-        "code": "let grade;\n\nif (score >= 60) {\n    grade = 3;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 90) {\n    grade = 5;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "> instead of >= at the 90 boundary",
-        "code": "let grade;\n\nif (score > 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "grade as a string",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = \"5\";\n} else if (score >= 75) {\n    grade = \"4\";\n} else if (score >= 60) {\n    grade = \"3\";\n} else {\n    grade = \"2\";\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "|| instead of &&",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 || score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "age > 14",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age > 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "if/else instead of a ternary",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nlet status;\nif (canEnter) {\n    status = \"Admitted\";\n} else {\n    status = \"Not admitted\";\n}\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "loose comparison",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter == true ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "separate ifs instead of else if",
-        "code": "let grade = 2;\n\nif (score >= 60) {\n    grade = 3;\n}\nif (score >= 75) {\n    grade = 4;\n}\nif (score >= 90) {\n    grade = 5;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\nconsole.log(`Grade: ${grade}. ${status}`);\n"
-      },
-      {
-        "mistake": "no output",
-        "code": "let grade;\n\nif (score >= 90) {\n    grade = 5;\n} else if (score >= 75) {\n    grade = 4;\n} else if (score >= 60) {\n    grade = 3;\n} else {\n    grade = 2;\n}\n\nconst canEnter = age >= 14 && score >= 60;\nconst status = canEnter ? \"Admitted\" : \"Not admitted\";\n\n"
-      }
     ]
   },
   "test": {

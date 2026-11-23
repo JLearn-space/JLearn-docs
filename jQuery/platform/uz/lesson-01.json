@@ -1,0 +1,268 @@
+{
+  "lesson": 1,
+  "language": "uz",
+  "lesson_title": "jQuery bilan tanishuv",
+  "task": {
+    "title": "jQuery’dagi birinchi sahifa",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>jQuery kursi</title>\n</head>\n<body>\n    <main>\n        <h1 id=\"course-title\">Kurs</h1>\n        <p id=\"lesson-count\">Yuklanmoqda...</p>\n        <ul class=\"lessons\">\n            <li class=\"lesson\"><span class=\"lesson__name\">jQuery bilan tanishuv</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Selektorlar va DOM bo‘ylab harakat</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Kontent va atributlar</span> - <span class=\"lesson__status\">?</span></li>\n            <li class=\"lesson\"><span class=\"lesson__name\">Klasslar va uslublar</span> - <span class=\"lesson__status\">?</span></li>\n        </ul>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada #course-title sarlavhasi, #lesson-count xatboshisi va ichida .lesson__name va .lesson__status bo‘lgan li.lesson darslar ro‘yxati bor. jQuery allaqachon ulangan. 1) #course-title ga \"jQuery 10 darsda\" matnini yozing va o‘sha zanjirda is-ready klassini qo‘shing. 2) Darslar sonini .length orqali lessonCount konstantasiga saqlang. 3) #lesson-count ga \"Sahifadagi darslar: 4\" matnini yozing, bunda son - lessonCount. 4) Bitta chaqiruv bilan barcha .lesson__status larga \"boshlanmagan\" matnini yozing. 5) Sarlavha matnini titleText konstantasiga o‘qing va uni konsolga chiqaring. document.querySelector, innerHTML va .html() dan foydalanmang.",
+    "starter_code": "// Sahifada: h1#course-title, p#lesson-count va li.lesson ro‘yxati,\n// har bir dars ichida - .lesson__name va .lesson__status.\n// jQuery allaqachon ulangan: darhol $(...) yozish mumkin.\n\n// 1. Sarlavha: \"jQuery 10 darsda\" matni va is-ready klassi bitta zanjirda\n\n// 2. const lessonCount = ... (darslar soni .length orqali)\n\n// 3. #lesson-count: \"Sahifadagi darslar: 4\"\n\n// 4. Barcha .lesson__status: \"boshlanmagan\" - bitta chaqiruv bilan\n\n// 5. const titleText = ... va konsolga chiqarish\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick"
+    ],
+    "tests": [
+      {
+        "name": "Sarlavha: \"jQuery 10 darsda\"",
+        "check": "document.querySelector(\"#course-title\").textContent === \"jQuery 10 darsda\"",
+        "fail": "$(\"#course-title\").text(\"jQuery 10 darsda\");"
+      },
+      {
+        "name": "Sarlavhada is-ready klassi bor",
+        "check": "document.querySelector(\"#course-title\").classList.contains(\"is-ready\")",
+        "fail": "Zanjirga .addClass(\"is-ready\") ni qo‘shing."
+      },
+      {
+        "name": "Sarlavha matni va klassi bitta zanjirda berilgan",
+        "check": "/\\.text\\([^;()]+\\)\\s*\\.addClass\\(|\\.addClass\\([^;()]+\\)\\s*\\.text\\(/.test(__code)",
+        "fail": "Darhol .text(\"jQuery 10 darsda\") dan keyin .addClass(\"is-ready\") ni yozing."
+      },
+      {
+        "name": "lessonCount 4 ga teng",
+        "check": "lessonCount === 4",
+        "fail": "const lessonCount = $(\".lesson\").length;"
+      },
+      {
+        "name": "Hisoblagich: \"Sahifadagi darslar: 4\"",
+        "check": "document.querySelector(\"#lesson-count\").textContent === \"Sahifadagi darslar: 4\"",
+        "fail": "$(\"#lesson-count\").text(`Sahifadagi darslar: ${lessonCount}`);"
+      },
+      {
+        "name": "Beshta darsli sahifada lessonCount 5 ga teng",
+        "check": "lessonCount === 5 && document.querySelector(\"#lesson-count\").textContent === \"Sahifadagi darslar: 5\"",
+        "fail": "Sonni qo‘lda yozmang - uni $(\".lesson\").length dan oling.",
+        "setup": "$(\".lessons\").append(\"<li class=\\\"lesson\\\"><span class=\\\"lesson__name\\\">Elementlarni yaratish</span> - <span class=\\\"lesson__status\\\">?</span></li>\");"
+      },
+      {
+        "name": "Barcha darslarning holati \"boshlanmagan\"",
+        "check": "[...document.querySelectorAll(\".lesson__status\")].every((s) => s.textContent === \"boshlanmagan\")",
+        "fail": "$(\".lesson__status\").text(\"boshlanmagan\"); - bitta chaqiruv barcha elementlarni o‘zgartiradi."
+      },
+      {
+        "name": "Dars nomlari o‘zgarmagan",
+        "check": "document.querySelectorAll(\".lesson__name\")[0].textContent === \"jQuery bilan tanishuv\"",
+        "fail": "Butun .lesson ni emas, faqat .lesson__status ni o‘zgartiring."
+      },
+      {
+        "name": "titleText - sarlavha matni",
+        "check": "titleText === \"jQuery 10 darsda\"",
+        "fail": "Matnni o‘zgartirgandan keyin o‘qing: const titleText = $(\"#course-title\").text();"
+      },
+      {
+        "name": "titleText konsolga chiqarilgan",
+        "check": "__logs.includes(\"jQuery 10 darsda\")",
+        "fail": "console.log(titleText);"
+      },
+      {
+        "name": "Kod jQuery’da yozilgan",
+        "check": "/\\.length/.test(__code) && !/textContent|getElementsBy|\\.forEach|for\\s*\\(/.test(__code)",
+        "fail": "Sikllar va textContent’siz: $(\".lesson\").length va $(\".lesson__status\").text(...)."
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "__error === null",
+        "fail": "Selektorlarni va .text() getteri zanjir o‘rtasida turmaganini tekshiring."
+      }
+    ],
+    "hints": [
+      "Zanjir: $(\"#course-title\").text(\"...\").addClass(\"is-ready\");",
+      "Elementlar soni: $(\".lesson\").length.",
+      "Shablon satr: `Sahifadagi darslar: ${lessonCount}`.",
+      "Bitta $(\".lesson__status\").text(\"boshlanmagan\") chaqiruvi barcha holatlarni o‘zgartiradi.",
+      "titleText ni sarlavhani o‘zgartirgandan keyin o‘qing."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "jQuery nima?",
+        "options": [
+          "JavaScript o‘rniga alohida dasturlash tili",
+          "Sahifa bilan ishlash uchun tayyor funksiyalarga ega JavaScript kutubxonasi",
+          "Brauzer kengaytmasi",
+          "HTML’ning yangi versiyasi"
+        ],
+        "answer": 1,
+        "explanation": "jQuery - oddiy .js fayl. Ichida u sof JavaScript ishlatadigan o‘sha DOM funksiyalarini chaqiradi."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi ulash tartibi to‘g‘ri?",
+        "options": [
+          "Avval main.js, keyin jQuery",
+          "Avval jQuery, keyin main.js",
+          "Tartib muhim emas",
+          "jQuery body oxirida main.js dan keyin ulanadi"
+        ],
+        "answer": 1,
+        "explanation": "Skriptlar tartib bilan bajariladi: jQuery yuklanmagan bo‘lsa, main.js da $ funksiyasi bo‘lmaydi."
+      },
+      {
+        "type": "single",
+        "question": "Sahifada birorta ham kartochka bo‘lmasa, $(\".card\") nimani qaytaradi?",
+        "options": [
+          "null",
+          "undefined",
+          "length 0 bo‘lgan bo‘sh jQuery obyekti",
+          "Xato"
+        ],
+        "answer": 2,
+        "explanation": "$() doim jQuery obyektini qaytaradi. Tekshiruv: $(\".card\").length === 0."
+      },
+      {
+        "type": "input",
+        "question": "jQuery obyektining qaysi xususiyati nechta element topilganini ko‘rsatadi?",
+        "answers": [
+          "length",
+          ".length"
+        ],
+        "case_sensitive": true,
+        "explanation": "$(\".item\").length - topilgan elementlar soni."
+      },
+      {
+        "type": "single",
+        "question": "Sahifada 3 ta .status elementi bo‘lsa, $(\".status\").text(\"Tayyor\") nima qiladi?",
+        "options": [
+          "Faqat birinchisini o‘zgartiradi",
+          "Uchalasini ham o‘zgartiradi",
+          "Faqat oxirgisini o‘zgartiradi",
+          "Xato beradi: sikl kerak"
+        ],
+        "answer": 1,
+        "explanation": "Yashirin aylanib chiqish: setter topilgan har bir elementga qo‘llanadi."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuv va natijani moslang.",
+        "pairs": [
+          [
+            "$(\"#title\").text()",
+            "Matnli satr"
+          ],
+          [
+            "$(\"#title\").text(\"Salom\")",
+            "jQuery obyekti"
+          ],
+          [
+            "$(\"#title\").length",
+            "Son"
+          ],
+          [
+            "$(\"#title\")[0]",
+            "DOM elementi"
+          ]
+        ],
+        "explanation": "Getter qiymatni qaytaradi, setter - zanjir uchun jQuery obyektini, [0] - DOM elementini."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi zanjirlar xatosiz ishlaydi?",
+        "options": [
+          "$(\"h1\").text(\"A\").addClass(\"b\")",
+          "$(\"h1\").text().addClass(\"b\")",
+          "$(\"h1\").addClass(\"b\").text(\"A\")",
+          "$(\"h1\").length.text(\"A\")"
+        ],
+        "answer": [
+          0,
+          2
+        ],
+        "explanation": "Zanjirni setterdan keyin davom ettirish mumkin. .text() getteri satr qaytaradi, length - son."
+      },
+      {
+        "type": "single",
+        "question": "$(\"#msg\").text(\"<b>Salom</b>\") dan keyin foydalanuvchi nimani ko‘radi?",
+        "options": [
+          "Qalin Salom so‘zini",
+          "So‘zma-so‘z <b>Salom</b>",
+          "Bo‘sh elementni",
+          "Konsolda xatoni"
+        ],
+        "answer": 1,
+        "explanation": ".text() satrni belgilash sifatida emas, matn sifatida qo‘yadi - textContent kabi."
+      },
+      {
+        "type": "single",
+        "question": "Qaysi yozuv kodni DOM qurilgandan keyin ishga tushiradi va jQuery 4 da tavsiya etiladi?",
+        "options": [
+          "$(document).ready(function () { ... })",
+          "$(function () { ... })",
+          "window.jQuery = function () { ... }",
+          "$.start(function () { ... })"
+        ],
+        "answer": 1,
+        "explanation": "$(function) - tavsiya etilgan yozuv; $(document).ready eskirgan."
+      },
+      {
+        "type": "multiple",
+        "question": "jQuery’ning slim yig‘masida nima yo‘q?",
+        "options": [
+          "Animatsiya effektlari",
+          "AJAX",
+          "$ funksiyasi",
+          ".text() metodi"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Slim effektlar va AJAX hisobiga yengillashtirilgan. Kursda to‘liq yig‘ma ishlatiladi."
+      },
+      {
+        "type": "input",
+        "question": "Ulangan jQuery versiyasini bilish uchun konsolga nima kiritish kerak? Ifodani to‘liq kiriting.",
+        "answers": [
+          "jQuery.fn.jquery",
+          "$.fn.jquery"
+        ],
+        "case_sensitive": true,
+        "explanation": "jQuery.fn.jquery versiya satrini qaytaradi, masalan \"4.1.0\"."
+      },
+      {
+        "type": "matching",
+        "question": "Sof JavaScript va jQuery’dagi kodni moslang.",
+        "pairs": [
+          [
+            "document.querySelectorAll(\".card\")",
+            "$(\".card\")"
+          ],
+          [
+            "title.textContent = \"A\"",
+            "$title.text(\"A\")"
+          ],
+          [
+            "title.classList.add(\"x\")",
+            "$title.addClass(\"x\")"
+          ],
+          [
+            "$title[0]",
+            "jQuery obyektidan DOM elementi"
+          ]
+        ],
+        "explanation": "jQuery brauzerning DOM funksiyalari qiladigan ishni qiladi, lekin qisqaroq."
+      }
+    ]
+  }
+}

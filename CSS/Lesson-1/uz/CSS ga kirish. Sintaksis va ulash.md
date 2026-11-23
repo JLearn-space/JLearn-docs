@@ -1,6 +1,6 @@
 # CSS ga kirish. Sintaksis va ulash
 
-[Mundarija](../../README.md) · [← HTML kursi](https://github.com/JLearn-space/HTML) · [Keyingi →](../../Lesson-2/uz/Selektorlar%20va%20kaskad.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
+[Mundarija](../../README.md) · [← HTML kursi](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) · [Keyingi →](../../Lesson-2/uz/Selektorlar%20va%20kaskad.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
 
 > **HTML kursi bilan bog‘liqlik:** «10 darsda HTML» kursida sahifalar karkasini qurdingiz: sarlavhalar, ro‘yxatlar, jadvallar, formalar - bitta ham rangsiz. Bugun shu karkasni kiyintirishni boshlaymiz.
 
@@ -464,4 +464,4 @@ h1, h2, h3 {
 
 ---
 
-[Mundarija](../../README.md) · [← HTML kursi](https://github.com/JLearn-space/HTML) · [Keyingi →](../../Lesson-2/uz/Selektorlar%20va%20kaskad.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)
+[Mundarija](../../README.md) · [← HTML kursi](https://github.com/JLearn-space/JLearn-docs/tree/main/HTML) · [Keyingi →](../../Lesson-2/uz/Selektorlar%20va%20kaskad.md) · [RU](../ru/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20CSS.%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.md) · [EN](../en/Introduction%20to%20CSS.%20Syntax%20and%20linking.md) · [UZ](CSS%20ga%20kirish.%20Sintaksis%20va%20ulash.md)

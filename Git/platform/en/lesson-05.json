@@ -1,0 +1,270 @@
+{
+  "lesson": 5,
+  "language": "en",
+  "lesson_title": "Ignoring files and keeping the project tidy",
+  "task": {
+    "title": "Tidying up the portfolio",
+    "language": "shell",
+    "environment": "git",
+    "lang": "en",
+    "description": "You are in the ~/portfolio folder. The history already has 3 commits, and one of them has config.env with a database password committed by mistake. Some rubbish is lying next to it: node_modules/, dist/, debug.log, .DS_Store. Write the commands one per line: 1) Check the state of the repository. 2) Create a .gitignore that hides node_modules/, dist/, all *.log files, the secret files .env and config.env, and .DS_Store in any folder. 3) Stop tracking config.env so that the file stays on disk. 4) Create README.md: the first line is the heading # Portfolio, below it a line with a project description. 5) Rename about.htm to about.html with Git. 6) Add .gitignore and README.md to the index and make a commit. 7) Make sure the working directory is clean. Do not change the earlier commits.",
+    "starter_code": "# Write the commands one per line. Lines starting with # are comments.\n# You are in the ~/portfolio folder. config.env with a password is already in the history,\n# and node_modules/, dist/, debug.log, .DS_Store are lying next to it.\n\n# 1. Check the state of the repository\n\n# 2. Create .gitignore: node_modules/, dist/, *.log, .env, config.env, .DS_Store\n\n# 3. Stop tracking config.env (the file must stay on disk)\n\n# 4. Create README.md: a # heading and a description line\n\n# 5. Rename about.htm to about.html with Git\n\n# 6. Add .gitignore and README.md to the index and make a commit\n\n# 7. Make sure the working directory is clean\n",
+    "timeout_ms": 2000,
+    "forbidden": [],
+    "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=qwerty123\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\nmkdir -p node_modules/lodash && echo \"module.exports = {};\" > node_modules/lodash/index.js\necho \"Error: cannot connect to database\" > debug.log\nmkdir dist && echo \"body{margin:0}\" > dist/style.min.css\necho \"mac\" > .DS_Store\n`, { quiet: true });\n",
+    "tests": [
+      {
+        "name": "The .gitignore file is in the last commit",
+        "check": "repo !== null && repo.commit(\"HEAD\").files[\".gitignore\"] !== undefined",
+        "fail": "Add .gitignore to the index (git add .gitignore) and commit it - the rules must be stored in the repository."
+      },
+      {
+        "name": "The node_modules/ dependencies and the dist/ build are ignored",
+        "check": "repo.isIgnored(\"node_modules/lodash/index.js\") && repo.isIgnored(\"src/node_modules/x.js\") && repo.isIgnored(\"dist/style.min.css\") && repo.isIgnored(\"dist/js/app.js\")",
+        "fail": "Two lines in .gitignore: node_modules/ and dist/ - with a slash at the end and without typos."
+      },
+      {
+        "name": "All .log files are ignored",
+        "check": "repo.isIgnored(\"debug.log\") && repo.isIgnored(\"logs/error.log\")",
+        "fail": "The *.log pattern - the asterisk stands for any name."
+      },
+      {
+        "name": "Secrets are ignored: config.env and .env",
+        "check": "repo.isIgnored(\"config.env\") && repo.isIgnored(\".env\")",
+        "fail": "Add two lines to .gitignore: .env and config.env."
+      },
+      {
+        "name": ".DS_Store is ignored in any folder",
+        "check": "repo.isIgnored(\".DS_Store\") && repo.isIgnored(\"css/.DS_Store\")",
+        "fail": "The line .DS_Store without a slash at the start - then the pattern works in all folders."
+      },
+      {
+        "name": "The needed files are not ignored",
+        "check": "[\"index.html\", \"about.html\", \"css/style.css\", \"README.md\", \".gitignore\"].every((p) => !repo.isIgnored(p))",
+        "fail": "The pattern is too broad: check that .gitignore has no lines like * or *.html."
+      },
+      {
+        "name": "config.env is no longer tracked, but stays on disk",
+        "check": "repo.commit(\"HEAD\").files[\"config.env\"] === undefined && repo.index()[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=qwerty123\\n\"",
+        "fail": "You need git rm --cached config.env: without --cached Git deletes the file itself from disk too."
+      },
+      {
+        "name": "The rubbish did not get into the commit",
+        "check": "Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"node_modules/\") && !p.startsWith(\"dist/\") && !p.endsWith(\".log\") && !p.endsWith(\".DS_Store\"))",
+        "fail": "First .gitignore, then git add. If the rubbish is already in the index - git rm -r --cached folder."
+      },
+      {
+        "name": "README.md is committed: a heading and a description",
+        "check": "typeof repo.commit(\"HEAD\").files[\"README.md\"] === \"string\" && repo.commit(\"HEAD\").files[\"README.md\"].startsWith(\"# \") && repo.commit(\"HEAD\").files[\"README.md\"].split(\"\\n\").filter((s) => s.trim()).length >= 2",
+        "fail": "README.md: the first line is a heading like # Portfolio, below it at least one line of description. Use cat > README.md << 'EOF'."
+      },
+      {
+        "name": "about.htm is renamed to about.html",
+        "check": "repo.commit(\"HEAD\").files[\"about.htm\"] === undefined && repo.commit(\"HEAD\").files[\"about.html\"] === \"<h1>About me</h1>\\n\"",
+        "fail": "git mv about.htm about.html, then a commit."
+      },
+      {
+        "name": "The history is not rewritten: the old commits are in place",
+        "check": "[\"Add home page\", \"Add database config\", \"Add about page\"].every((s) => repo.log().some((c) => c.subject === s)) && repo.log().length >= 4",
+        "fail": "Do not delete or change earlier commits: make changes with a new commit on top."
+      },
+      {
+        "name": "The working directory is clean",
+        "check": "repo.status().clean",
+        "fail": "After the commit git status must answer: nothing to commit, working tree clean. Everything needed is in the commit, the rubbish is in .gitignore."
+      },
+      {
+        "name": "A different project: .env, logs/error.log and other rubbish are hidden, the working directory is clean",
+        "check": "repo.isIgnored(\".env\") && repo.isIgnored(\"logs/error.log\") && repo.status().clean && repo.commit(\"HEAD\").files[\"config.env\"] === undefined && sim.read(\"~/portfolio/config.env\") === \"DB_USER=anna\\nDB_PASSWORD=Secret-2026\\n\" && Object.keys(repo.commit(\"HEAD\").files).every((p) => !p.startsWith(\"logs/\") && p !== \".env\" && !p.endsWith(\".DS_Store\"))",
+        "fail": "The rules must work for any project: *.log catches logs in any folder, .env is a secrets file.",
+        "setup": "sim.user.config[\"user.name\"] = \"Anna Karimova\";\nsim.user.config[\"user.email\"] = \"anna@example.com\";\nsim.user.config[\"init.defaultBranch\"] = \"main\";\nsim.run(`mkdir portfolio && cd portfolio && git init\necho \"<h1>Anna Karimova</h1>\" > index.html\nmkdir css && echo \"body { margin: 0; }\" > css/style.css\ngit add . && git commit -m \"Add home page\"\necho \"DB_USER=anna\" > config.env\necho \"DB_PASSWORD=Secret-2026\" >> config.env\ngit add . && git commit -m \"Add database config\"\necho \"<h1>About me</h1>\" > about.htm\ngit add about.htm && git commit -m \"Add about page\"\necho \"API_KEY=sk-test-123\" > .env\nmkdir logs && echo \"500 Internal Server Error\" > logs/error.log\nmkdir -p node_modules/react && echo \"react\" > node_modules/react/index.js\nmkdir dist && echo \"console.log(1)\" > dist/bundle.js\necho \"mac\" > css/.DS_Store\n`, { quiet: true });\n"
+      },
+      {
+        "name": "The script ran without internal errors",
+        "check": "__error === null",
+        "fail": "Check the quotes and the EOF line at the end of cat > ... << 'EOF'."
+      }
+    ],
+    "hints": [
+      "A multi-line file: cat > .gitignore << 'EOF', then the pattern lines, the last line is EOF.",
+      "Folders take a slash at the end: node_modules/ and dist/. All logs: *.log.",
+      ".gitignore does not hide a file that is already in the repository: git rm --cached config.env.",
+      "Renaming: git mv about.htm about.html - Git adds it to the index right away.",
+      "Before the commit, look at git status: the list should have new file: .gitignore, new file: README.md, deleted: config.env and renamed: about.htm -> about.html."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Why do we need the .gitignore file?",
+        "options": [
+          "It deletes unneeded files from disk",
+          "It lists files that Git should not notice among untracked files",
+          "It hides files from other users of the computer",
+          "It encrypts passwords in the repository"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore does not delete or encrypt anything: Git just stops showing such files in Untracked files and does not add them with git add ."
+      },
+      {
+        "type": "matching",
+        "question": "Match the .gitignore pattern with what it ignores.",
+        "pairs": [
+          [
+            "*.log",
+            "All files with the .log extension in any folder"
+          ],
+          [
+            "build/",
+            "The build folder and everything inside it"
+          ],
+          [
+            "/todo.txt",
+            "Only todo.txt in the project root"
+          ],
+          [
+            "!keep.log",
+            "An exception: do not ignore keep.log after all"
+          ]
+        ],
+        "explanation": "* means any characters, / at the end means only a folder, / at the start means from the root, ! is an exception to the rules above."
+      },
+      {
+        "type": "multiple",
+        "question": "What should NOT be stored in Git?",
+        "options": [
+          "The .env file with API keys",
+          "The node_modules/ folder",
+          "README.md",
+          "The dist/ folder with the build",
+          "The .gitignore file"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "Secrets, dependencies and build results are not stored in Git. README.md and .gitignore are part of the project, they are committed."
+      },
+      {
+        "type": "single",
+        "question": "config.env is already committed. You added the line config.env to .gitignore and changed the file. What will git status show?",
+        "options": [
+          "Nothing: the file is ignored now",
+          "modified:   config.env - Git keeps watching the file",
+          "deleted:    config.env",
+          "An error: a file in .gitignore cannot be changed"
+        ],
+        "answer": 1,
+        "explanation": ".gitignore affects only untracked files. A file that is already in the repository must be untracked: git rm --cached config.env."
+      },
+      {
+        "type": "input",
+        "question": "Enter the full command: stop tracking the config.env file in Git, but keep it on disk.",
+        "answers": [
+          "git rm --cached config.env"
+        ],
+        "case_sensitive": true,
+        "explanation": "--cached means remove only from the index. After the commit the file is no longer tracked, but it stays on disk."
+      },
+      {
+        "type": "single",
+        "question": "A password got into a commit that is already pushed to GitHub. You ran git rm --cached and made a new commit. What else is a must?",
+        "options": [
+          "Nothing: the password is removed from Git",
+          "Change the password - the old commit with it stays in the history",
+          "Delete the .gitignore file",
+          "Run git add -f config.env"
+        ],
+        "answer": 1,
+        "explanation": "A new commit does not change old ones: git show on the old commit will show the password. A leaked secret is considered compromised - it is changed."
+      },
+      {
+        "type": "single",
+        "question": "What did Git print?\n\n$ git add debug.log\nThe following paths are ignored by one of your .gitignore files:\ndebug.log\nhint: Use -f if you really want to add them.",
+        "options": [
+          "The file is added to the index",
+          "The file is not added: it matches a .gitignore rule",
+          "The file is deleted",
+          "debug.log does not exist"
+        ],
+        "answer": 1,
+        "explanation": "Git refused to add an ignored file and suggested the -f option in case you really need it."
+      },
+      {
+        "type": "multiple",
+        "question": "What is true about git mv about.htm about.html?",
+        "options": [
+          "It renames the file on disk",
+          "It adds the rename to the index right away",
+          "git status will show renamed:    about.htm -> about.html",
+          "It creates a commit automatically"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "git mv = mv + git add for both names. You still have to make the commit yourself."
+      },
+      {
+        "type": "matching",
+        "question": "Match the command with the result.",
+        "pairs": [
+          [
+            "git rm file.txt",
+            "Delete the file from disk and from the index"
+          ],
+          [
+            "git rm --cached file.txt",
+            "Remove from the index, keep on disk"
+          ],
+          [
+            "git mv a.txt b.txt",
+            "Rename and prepare for the commit right away"
+          ],
+          [
+            "git rm -r --cached dist",
+            "Stop tracking a whole folder"
+          ]
+        ],
+        "explanation": "rm deletes, --cached keeps the file on disk, -r is needed for folders, mv renames."
+      },
+      {
+        "type": "single",
+        "question": "You created an empty images folder and ran git status. What will Git answer?",
+        "options": [
+          "Untracked files: images/",
+          "nothing to commit, working tree clean",
+          "fatal: empty directory",
+          "new file: images"
+        ],
+        "answer": 1,
+        "explanation": "Git stores only files, it does not see empty folders. To keep a folder, people put an empty .gitkeep file into it."
+      },
+      {
+        "type": "input",
+        "question": "What is the usual name of the empty file that is put into a folder so that Git keeps it in the repository? Enter the file name.",
+        "answers": [
+          ".gitkeep"
+        ],
+        "case_sensitive": true,
+        "explanation": ".gitkeep is an agreement among developers, not a Git command: any file would do, but everyone understands this name."
+      },
+      {
+        "type": "single",
+        "question": ".gitignore has the lines logs/ and !logs/important.log. Will logs/important.log be tracked?",
+        "options": [
+          "Yes, ! always cancels ignoring",
+          "No: if a folder is ignored as a whole, files inside it cannot be brought back with !",
+          "Yes, but only after git add -f",
+          "Git will report an error in .gitignore"
+        ],
+        "answer": 1,
+        "explanation": "Git does not look into an ignored folder. You need to ignore the contents (logs/*) and then add the exception !logs/important.log."
+      }
+    ]
+  }
+}

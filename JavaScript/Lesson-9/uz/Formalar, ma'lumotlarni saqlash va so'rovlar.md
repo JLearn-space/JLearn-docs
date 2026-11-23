@@ -50,6 +50,8 @@ Javoblar - dars oxirida.
 | `localStorage` | Brauzer xotirasi |
 | JSON | Massivni satrga va orqaga |
 | `try` / `catch` | Xato sahifani buzmaydi |
+| Asinxronlik | Nega dastur javobni kutadi |
+
 | `fetch` va `async` / `await` | Fayl yoki serverdan ma’lumot |
 | Uch holat | Yuklanmoqda, xato, bo‘sh |
 | Mini-topshiriq 2 | Mavzuni eslab qolish |
@@ -145,6 +147,33 @@ input[aria-invalid="true"] {
 
 > **Brauzerdagi tekshiruv - qulaylik uchun, himoya uchun emas.** Istalgan odam JavaScript’ni o‘chirishi yoki formani chetlab so‘rov yuborishi mumkin. Ma’lumotlarni haqiqiy tekshirish doim serverda takrorlanadi.
 
+### Tekshiruv qanday ishlaydi: sxema
+
+```mermaid
+flowchart TD
+    A["Foydalanuvchi «Obuna bo‘lish» ni bosdi"] --> B["preventDefault: sahifa qayta yuklanmaydi"]
+    B --> C["value ni o‘qish va bo‘shliqlarni olib tashlash: trim"]
+    C --> D{"Maydon bo‘shmi?"}
+    D -->|Ha| E["showError: «Email kiriting»<br>va return"]
+    D -->|Yo‘q| F{"@ belgisi bormi?"}
+    F -->|Yo‘q| G["showError: «Manzilda @ belgisi bo‘lishi kerak»<br>va return"]
+    F -->|Ha| H["clearError, yuborish, reset"]
+```
+
+**Sxemani qanday o‘qish kerak.** Tekshiruvlar navbat bilan boradi, xuddi 3-darsdagi `if` zanjiri kabi. Topilgan birinchi xato ko‘rsatiladi va ishlovchi darhol `return` orqali chiqadi. Yuborishga faqat xatosiz forma yetib boradi.
+
+### Ko‘p uchraydigan tekshiruvlar
+
+| Nimani tekshiramiz | Shart | Xabar |
+| --- | --- | --- |
+| Maydon to‘ldirilgan | `value.trim() === ""` | «Ismni kiriting» |
+| Minimal uzunlik | `value.trim().length < 2` | «Ism - kamida 2 harf» |
+| Oraliqdagi son | `age < 7 \|\| age > 99`, bu yerda `age = Number(input.value)` | «Yosh - 7 dan 99 gacha» |
+| Umuman son ekanmi | `Number.isNaN(age)` | «Yoshni raqamlarda kiriting» |
+| Belgi qo‘yilgan | `!checkbox.checked` | «Roziligingizni tasdiqlang» |
+
+Maydon qiymati - `<input type="number">` da ham **doim satr**. Son bilan solishtirishdan oldin uni `Number()` orqali aylantiring - 2-dars.
+
 ---
 
 ## Mini-topshiriq 1
@@ -173,6 +202,33 @@ Omborni ko‘rish: DevTools → **Application** → **Local Storage**.
 | Sahifadagi istalgan skriptga ko‘rinadi | Parollar, tokenlar, karta ma’lumotlarini **hech qachon** saqlamang |
 | Brauzerga bog‘langan | Boshqa qurilmada ma’lumotlar yo‘q |
 
+### Odatiy stsenariy: sozlamani eslab qolish
+
+Deyarli doim `localStorage` bitta sxema bo‘yicha ishlatiladi - **yuklanishda o‘qish, o‘zgarishda yozish**:
+
+```mermaid
+flowchart LR
+    A["Sahifa yuklandi"] --> B["getItem: saqlangani bormi?"]
+    B --> C["Sahifaga qo‘llash"]
+    D["Foydalanuvchi nimanidir o‘zgartirdi"] --> E["Sahifani yangilash"]
+    E --> F["setItem: saqlash"]
+```
+
+Tashriflar hisoblagichi misoli. Esda tuting: xotiradan satr yoki `null` keladi.
+
+```js
+const saved = localStorage.getItem("visits");     // "3" yoki null
+const visits = saved === null ? 1 : Number(saved) + 1;
+localStorage.setItem("visits", String(visits));
+console.log(`Siz bu yerda ${visits}-marta`);
+```
+
+| Sahifa ochilishi | `saved` | `visits` | Nima yozildi |
+| --- | --- | --- | --- |
+| Birinchi | `null` | 1 | `"1"` |
+| Ikkinchi | `"1"` | 2 | `"2"` |
+| Uchinchi | `"2"` | 3 | `"3"` |
+
 ---
 
 ## JSON
@@ -196,6 +252,27 @@ console.log(saved[0]);                // "Darsni o‘qish"
 | `JSON.parse(text)` | Satr → massiv / obyekt |
 
 JSON formati JavaScript’dan qat’iyroq: kalitlar va satrlar faqat qo‘sh qo‘shtirnoqda, oxirida vergul yo‘q, izohlar yo‘q. Serverlardan ma’lumotlar ham JSON da keladi.
+
+### Ma’lumotlarning borish va qaytish yo‘li
+
+```mermaid
+flowchart LR
+    A["Dasturdagi massiv<br>[«Darsni o‘qish»]"] -->|"JSON.stringify"| B["Satr<br>'[«Darsni o‘qish»]'"]
+    B -->|"setItem"| C["localStorage"]
+    C -->|"getItem"| D["Satr"]
+    D -->|"JSON.parse"| E["Yana massiv"]
+```
+
+**Sxemani qanday o‘qish kerak.** Xotirada ma’lumotlar faqat satr sifatida yotadi. Shuning uchun yozishdan oldin massiv satrga «o‘raladi», o‘qishdan keyin esa qayta «ochiladi».
+
+| JavaScript obyekti | JSON |
+| --- | --- |
+| `{ name: "Anna" }` - kalit qo‘shtirnoqsiz bo‘lishi mumkin | `{ "name": "Anna" }` - kalit **faqat** qo‘sh qo‘shtirnoqda |
+| `'matn'` - yakka qo‘shtirnoq mumkin | Faqat `"matn"` |
+| Oxirgi elementdan keyin vergul mumkin | Mumkin emas |
+| Funksiyalar va `undefined` saqlash mumkin | Mumkin emas: ular yo‘qoladi |
+
+Ko‘p uchraydigan xato - `JSON.parse` ni unutib, satr bilan massivdek ishlash: `saved[0]` birinchi vazifani emas, birinchi **belgi** `"["` ni beradi.
 
 ---
 
@@ -227,6 +304,52 @@ O‘z xatongizni `throw` buyrug‘i bilan «otish» mumkin - quyida kerak bo‘l
 ```js
 throw new Error("Server xato bilan javob berdi");
 ```
+
+---
+
+## Asinxronlik: nega dastur kutadi
+
+Shu paytgacha har bir qator bir zumda bajarilardi. Serverga so‘rov - boshqa gap: javob 50 millisekunddan, 5 soniyadan keyin kelishi yoki umuman kelmasligi mumkin. Agar brauzer turib kutganda, sahifa «muzlab» qolardi: tugmalar bosilmaydi, aylantirish ishlamaydi.
+
+**Oddiy qilib aytganda:** promis - kafedagi peyjer. Siz buyurtma berasiz, sizga peyjer berishadi va **kassa oldida ushlab turishmaydi**: o‘tirib, gaplashib, telefonga qarab turish mumkin. Buyurtma tayyor bo‘lganda peyjer titraydi - va siz taomni olasiz. Taom tugab qolgan bo‘lsa, peyjer buni ham bildiradi.
+
+| Kafeda | JavaScript da |
+| --- | --- |
+| Buyurtma berish | `fetch(url)` ni chaqirish |
+| Peyjer olish | **Promis** olish (Promise - «va’da») |
+| O‘z ishlari bilan band bo‘lish | Brauzer qolgan kodni bajaradi va bosishlarga javob beradi |
+| Peyjer ishladi: buyurtma tayyor | Promis **bajarildi** - javob keldi |
+| Peyjer ishladi: taom yo‘q | Promis **rad etildi** - tarmoq xatosi |
+| Borib olish | `await` - natijani olish |
+
+Promisning uchta holati bor:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Kutish: fetch(url)
+    Kutish --> Bajarildi: javob keldi
+    Kutish --> RadEtildi: tarmoq yo‘q
+    Bajarildi --> [*]: await response ni qaytaradi
+    RadEtildi --> [*]: await xato tashlaydi → catch
+```
+
+**Sxemani qanday o‘qish kerak.** `fetch` chaqirilgandan so‘ng darhol promis «kutishda». Keyin u ikki yakuniy holatdan biriga o‘tadi va boshqa o‘zgarmaydi. `await` aynan shu o‘tishni kutadi.
+
+### Bajarilish tartibi
+
+5-darsdagi `setTimeout` dagi o‘sha effekt - kod so‘rov joyida **to‘xtamaydi**:
+
+```js
+console.log("1. Yuklashni boshlaymiz");
+
+fetch("data/courses.json").then(() => {
+    console.log("3. Javob keldi");
+});
+
+console.log("2. Kod davom etadi");
+```
+
+Konsolda `1`, `2`, `3` bo‘ladi - qatorlar tartibida emas. `.then(...)` yozuvi - «promis bajarilganda funksiyani chaqir» deyishning eski usuli. Kursda tushunarliroq `await` dan foydalanamiz: u asinxron kodni oddiy koddek yuqoridan pastga yozish imkonini beradi.
 
 ---
 
@@ -263,6 +386,33 @@ loadCourses();
 ```
 
 > **`fetch` `file://` bilan ishlamaydi.** Sahifani ikki marta bosib ochsangiz, brauzer so‘rovni bloklaydi. Mahalliy server ishga tushiring: VS Code’da - **Live Server** kengaytmasi («Go Live» tugmasi). GitHub Pages’da hammasi o‘zi ishlaydi.
+
+### `loadCourses` ichida nima bo‘ladi: qadamma-qadam
+
+| Qadam | Qator | Nima bo‘ladi | Sahifaning qolgan qismi nima qiladi |
+| --- | --- | --- | --- |
+| 1 | `loadCourses();` | Funksiya ishni boshladi | - |
+| 2 | `await fetch(...)` | So‘rov ketdi, funksiya **pauzaga qo‘yildi** | Ishlaydi: bosishlar, aylantirish, boshqa kod |
+| 3 | Javob keldi | Funksiya davom etadi, `response` da - javob obyekti | - |
+| 4 | `await response.json()` | Javob tanasi o‘qiladi va massivga aylanadi | Yana ishlaydi |
+| 5 | `console.log(courses)` | Massiv tayyor | - |
+
+Pauza **faqat** shu funksiyaga tegishli. Shuning uchun `await` faqat `async` belgili funksiya ichida ruxsat etilgan: brauzer qaysi funksiyani to‘xtatib turish mumkinligini bilishi kerak.
+
+### `response` da nima bor
+
+| Xususiyat yoki metod | Qiymat misoli | Nima uchun |
+| --- | --- | --- |
+| `response.ok` | `true` | Tez tekshiruv: hammasi yaxshi |
+| `response.status` | `200`, `404`, `500` | Javobning aniq kodi |
+| `await response.json()` | Massiv yoki obyekt | JSON dagi ma’lumotlar |
+| `await response.text()` | Satr | Oddiy matn kelsa |
+
+| Kod | Ma’nosi | Foydalanuvchiga nima deyish |
+| --- | --- | --- |
+| `200` | Hammasi joyida | Ma’lumotlarni ko‘rsatish |
+| `404` | Manzil topilmadi | «Ma’lumotlar topilmadi» |
+| `500` | Serverdagi xato | «Xizmat vaqtincha ishlamayapti» |
 
 ---
 
@@ -310,6 +460,29 @@ flowchart TD
 `fetch` o‘zi faqat tarmoq muammosida xato chiqaradi. `404` javobi - bu «xatoli javob muvaffaqiyatli olindi», shuning uchun `response.ok` ni qo‘lda tekshiramiz va `catch` ga tushish uchun `throw` bilan xato chiqaramiz.
 
 Holat elementiga `role="status"` atributini qo‘shing - ekran o‘qish dasturi «Yuklanmoqda...» va xato xabarini e’lon qiladi.
+
+### Buzib ko‘ring
+
+1. `submit` ishlovchisidan `event.preventDefault()` ni olib tashlang. Sahifa va konsoldagi chiqish bilan nima bo‘ladi?
+2. Massivni `JSON.stringify` siz saqlang: `localStorage.setItem("todos", todos)`. Application da nima yozilganiga qarang.
+3. `fetch` oldidagi `await` ni olib tashlang va `response` ni chiqaring. Javob o‘rniga nimani ko‘rdingiz?
+4. Manzilni `data/coursess.json` ga o‘zgartiring. Sahifa uch holatdan qaysi birini ko‘rsatdi va javobning `status` i qanday?
+5. DevTools → **Network** da **Offline** rejimini tanlang va sahifani yangilang. `catch` ishladimi?
+
+### Yangi o‘rganuvchilarning tipik xatolari
+
+| Xato | Nima bo‘ladi | Qanday tuzatish |
+| --- | --- | --- |
+| Ishlovchi formada emas, tugmada | Maydondagi Enter formani yubormaydi | `form.addEventListener("submit", ...)` |
+| `preventDefault()` yo‘q | Sahifa qayta yuklanadi, ma’lumotlar yo‘qoladi | Ishlovchining birinchi qatori |
+| `trim()` siz `input.value` | Bo‘shliqlar bo‘shlik tekshiruvidan o‘tib ketadi | `input.value.trim()` |
+| Maydondagi son `Number()` siz | Solishtirish va qo‘shish satrlar bilandek | `Number(input.value)` |
+| Massiv bilan `setItem("todos", todos)` | `"a,b"` satri yozildi, tuzilma yo‘qoldi | `JSON.stringify(todos)` |
+| `JSON.parse` siz `getItem` | Satr bilan massivdek ishlaymiz | `try / catch` ichida `JSON.parse(...)` |
+| `response.ok` tekshiruvi yo‘q | `404` javobi muvaffaqiyat deb hisoblanadi | `if (!response.ok) throw new Error(...)` |
+| Oddiy funksiyada `await` | `SyntaxError` | `async function ...` |
+| Sahifa `file://` sifatida ochilgan | `fetch` bloklangan | Live Server yoki GitHub Pages |
+| `localStorage` da parol yoki token | Sahifadagi istalgan skript uni o‘qiydi | Sirlarni brauzerda saqlamang |
 
 ---
 

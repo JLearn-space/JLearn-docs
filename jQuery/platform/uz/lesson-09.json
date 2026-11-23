@@ -1,0 +1,299 @@
+{
+  "lesson": 9,
+  "language": "uz",
+  "lesson_title": "AJAX - ma’lumotlarni yuklash",
+  "task": {
+    "title": "Serverdan kurslar katalogi",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"uz\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Kurslar katalogi</title>\n</head>\n<body>\n    <main>\n        <h1>Kurslar katalogi</h1>\n        <button id=\"reload-btn\" type=\"button\">Yangilash</button>\n        <p id=\"courses-status\" role=\"status\"></p>\n        <ul id=\"course-list\"></ul>\n    </main>\n</body>\n</html>",
+    "description": "Sahifada #reload-btn tugmasi, #courses-status xatboshisi va bo‘sh #course-list ro‘yxati bor. \"data/courses.json\" manzilidagi server { title: \"HTML\", lessons: 10 } ko‘rinishidagi kurslar massivini beradi (IDE’da server test ma’lumotlari bilan almashtirilgan, kod haqiqiy server uchun yoziladi). loadCourses() funksiyasini yozing: 1) Yuklanish: #course-list ni tozalang, #courses-status ga \"Yuklanmoqda...\" matnini yozing, undan is-error klassini olib tashlang va #reload-btn ni bloklang (.prop(\"disabled\", true)). 2) $.getJSON(\"data/courses.json\") ni chaqiring va natijani .done, .fail va .always orqali qayta ishlang (await orqali emas). 3) .done da massivni JSON.stringify orqali localStorage ga courses kaliti ostida saqlang; massiv bo‘sh bo‘lsa - holat \"Hozircha kurslar yo‘q\"; aks holda holat - bo‘sh satr, har bir kurs uchun esa ro‘yxatga $(\"<li>\") va .text() orqali yaratilgan, course klassli va \"HTML - darslar: 10\" matnli li qo‘shing. 4) .fail da: holat \"Kurslarni yuklab bo‘lmadi\" va is-error klassi. 5) .always da tugmani blokdan chiqaring. 6) loadCourses() ni ishga tushganda bir marta chaqiring va uni .on() orqali #reload-btn ni bosishga ulang. document.querySelector, innerHTML, .html(), fetch va await dan foydalanmang.",
+    "starter_code": "// Sahifada: #reload-btn tugmasi, #courses-status xatboshisi va bo‘sh #course-list ro‘yxati.\n// \"data/courses.json\" manzilidagi server massiv beradi (IDE’da - test ma’lumotlari):\n// [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }]\n\nfunction loadCourses() {\n    // 1. Yuklanish: ro‘yxatni tozalash, holat \"Yuklanmoqda...\", is-error klassini olib tashlash,\n    //    tugmani bloklash: .prop(\"disabled\", true)\n\n    // 2. $.getJSON(\"data/courses.json\")\n    //    .done(...)   - localStorage ga saqlash (\"courses\", JSON.stringify);\n    //                   bo‘sh: \"Hozircha kurslar yo‘q\";\n    //                   aks holda holat \"\" va \"HTML - darslar: 10\" matnli li.course\n    //    .fail(...)   - \"Kurslarni yuklab bo‘lmadi\" + is-error klassi\n    //    .always(...) - tugmani blokdan chiqarish\n}\n\n// 3. loadCourses() ni chaqirish va uni .on() orqali #reload-btn ni bosishga ulash\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".click(function",
+      "addEventListener",
+      ".style.",
+      "fetch(",
+      "await ",
+      "XMLHttpRequest"
+    ],
+    "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };",
+    "tests": [
+      {
+        "name": "So‘rov ishga tushganda bir marta data/courses.json manziliga ketadi",
+        "check": "requestedUrl === \"data/courses.json\" && requestCount === 1",
+        "fail": "loadCourses ichida $.getJSON(\"data/courses.json\") ni chaqiring va loadCourses() ni bir marta chaqiring.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Javob hali yo‘q: holat \"Yuklanmoqda...\", tugma bloklangan, ro‘yxat bo‘sh",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Yuklanmoqda...\" && document.querySelector(\"#reload-btn\").disabled === true && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": "So‘rovdan oldin: $status.text(\"Yuklanmoqda...\"), $reloadBtn.prop(\"disabled\", true), $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\n$.getJSON = () => $.Deferred().promise();"
+      },
+      {
+        "name": "Yuklangandan keyin ro‘yxatda 3 ta kurs",
+        "check": "[...document.querySelectorAll(\"#course-list li\")].length === 3",
+        "fail": ".done da har bir kurs uchun $(\"<li>\") yarating va #course-list ga qo‘shing.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Band matni: \"HTML - darslar: 10\", har birida course klassi",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"HTML - darslar: 10\" && [...document.querySelectorAll(\"#course-list li\")][2].textContent === \"JavaScript - darslar: 12\" && [...document.querySelectorAll(\"#course-list li\")].every((li) => li.classList.contains(\"course\"))",
+        "fail": ".addClass(\"course\").text(`${course.title} - darslar: ${course.lessons}`)",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Muvaffaqiyatli yuklashdan keyin holat bo‘sh, tugma faol",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"\" && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": ".done da: $status.text(\"\"); .always da: $reloadBtn.prop(\"disabled\", false).",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Bo‘sh massiv: \"Hozircha kurslar yo‘q\" va bo‘sh ro‘yxat",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Hozircha kurslar yo‘q\" && [...document.querySelectorAll(\"#course-list li\")].length === 0",
+        "fail": ".done da courses.length === 0 ni tekshiring.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([]).promise();"
+      },
+      {
+        "name": "Xato: \"Kurslarni yuklab bo‘lmadi\", is-error klassi, tugma yana faol",
+        "check": "document.querySelector(\"#courses-status\").textContent === \"Kurslarni yuklab bo‘lmadi\" && document.querySelector(\"#courses-status\").classList.contains(\"is-error\") && [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#reload-btn\").disabled === false",
+        "fail": ".fail da: $status.text(\"Kurslarni yuklab bo‘lmadi\").addClass(\"is-error\"); tugmani blokdan chiqarishni .always da yozing - u xatoda ham ishlaydi.",
+        "setup": "$.getJSON = () => $.Deferred().reject({ status: 404, statusText: \"Not Found\" }, \"error\", \"Not Found\").promise();"
+      },
+      {
+        "name": "Qayta yuklash ro‘yxatni ikki baravar ko‘paytirmaydi",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 3 && requestCount === 2)",
+        "fail": "Tugmani ulang: $reloadBtn.on(\"click\", loadCourses); loadCourses boshida ro‘yxatni tozalang: $list.empty().",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Muvaffaqiyatli yuklashdan keyingi xato eski kurslarni olib tashlaydi",
+        "check": "(document.querySelector(\"#reload-btn\").click(), [...document.querySelectorAll(\"#course-list li\")].length === 0 && document.querySelector(\"#courses-status\").textContent === \"Kurslarni yuklab bo‘lmadi\")",
+        "fail": "Ro‘yxatni loadCourses boshida, so‘rovdan oldin tozalang.",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 1 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "Xatodan keyingi muvaffaqiyat is-error klassini olib tashlaydi",
+        "check": "(document.querySelector(\"#reload-btn\").click(), !document.querySelector(\"#courses-status\").classList.contains(\"is-error\"))",
+        "fail": "loadCourses boshida: $status.removeClass(\"is-error\").",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet calls = 0;\n$.getJSON = () => { calls += 1; return calls === 2 ? $.Deferred().resolve(courses).promise() : $.Deferred().reject({ status: 0 }, \"error\", \"\").promise(); };"
+      },
+      {
+        "name": "Kurs nomi belgilash sifatida emas, matn sifatida chiqariladi",
+        "check": "[...document.querySelectorAll(\"#course-list li\")][0].textContent === \"<b>Rust</b> - darslar: 8\" && document.querySelector(\"#course-list b\") === null",
+        "fail": "Bandni shunday yarating: $(\"<li>\").text(...), teglar bilan satr yopishtirib emas.",
+        "setup": "$.getJSON = () => $.Deferred().resolve([{ title: \"<b>Rust</b>\", lessons: 8 }]).promise();"
+      },
+      {
+        "name": "Massiv localStorage ga courses kaliti ostida saqlangan",
+        "check": "localStorage.getItem(\"courses\") === JSON.stringify(courses)",
+        "fail": ".done da: localStorage.setItem(\"courses\", JSON.stringify(courses));",
+        "setup": "const courses = [{ title: \"HTML\", lessons: 10 }, { title: \"CSS\", lessons: 10 }, { title: \"JavaScript\", lessons: 12 }];\nlet requestedUrl = null;\nlet requestCount = 0;\n$.getJSON = (url) => { requestedUrl = url; requestCount += 1; return $.Deferred().resolve(courses).promise(); };"
+      },
+      {
+        "name": "Natija .done, .fail va .always orqali qayta ishlangan",
+        "check": "/\\.done\\(/.test(__code) && /\\.fail\\(/.test(__code) && /\\.always\\(/.test(__code)",
+        "fail": "$.getJSON(...) ga .done(...).fail(...).always(...) zanjirini qo‘shing."
+      },
+      {
+        "name": "Dastur xatolarsiz bajariladi",
+        "check": "__error === null",
+        "fail": "Selektorlarni va loadCourses chaqiruvdan oldin e’lon qilinganini tekshiring."
+      }
+    ],
+    "hints": [
+      "Funksiya boshi: $list.empty(); $status.text(\"Yuklanmoqda...\").removeClass(\"is-error\"); $reloadBtn.prop(\"disabled\", true);",
+      "Zanjir: $.getJSON(\"data/courses.json\").done((courses) => {...}).fail(() => {...}).always(() => {...});",
+      "Bo‘sh massiv - bu muvaffaqiyat, u .done da tekshiriladi: if (courses.length === 0) {...}",
+      "Ro‘yxat bandi: $(\"<li>\").addClass(\"course\").text(`${course.title} - darslar: ${course.lessons}`).appendTo($list);",
+      "Tugmani .always da blokdan chiqaring - u xatodan keyin ham ishlaydi.",
+      "Tugma: $reloadBtn.on(\"click\", loadCourses); va ishga tushganda bitta loadCourses(); chaqiruvi."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "$.getJSON(\"data/courses.json\") chaqirilgandan keyin darhol nimani qaytaradi?",
+        "options": [
+          "Kurslar massivini",
+          "JSON satrini",
+          "jqXHR obyektini - javobi keyinroq keladigan so‘rovni",
+          "Javob bo‘lmaguncha undefined"
+        ],
+        "answer": 2,
+        "explanation": "So‘rov asinxron: darhol jqXHR («trek-raqam») qaytadi, ma’lumotlar esa keyinroq .done da keladi."
+      },
+      {
+        "type": "single",
+        "question": "Kod nimani chiqaradi?\nconsole.log(\"A\");\n$.getJSON(\"data/courses.json\").done(() => console.log(\"B\"));\nconsole.log(\"C\");",
+        "options": [
+          "A B C",
+          "A C B",
+          "B A C",
+          "A C"
+        ],
+        "answer": 1,
+        "explanation": ".done dagi funksiya server javobi kelganda - qolgan kod bajarilgandan keyin chaqiriladi."
+      },
+      {
+        "type": "matching",
+        "question": "Metod va u chaqiriladigan paytni moslang.",
+        "pairs": [
+          [
+            ".done(fn)",
+            "So‘rov muvaffaqiyatli bajarildi"
+          ],
+          [
+            ".fail(fn)",
+            "Xato: 404, 500, tarmoq yo‘q, buzilgan JSON"
+          ],
+          [
+            ".always(fn)",
+            "Har qanday holatda, tugagandan keyin"
+          ],
+          [
+            "await $.getJSON(url)",
+            "async funksiya ichida natijani kutadi"
+          ]
+        ],
+        "explanation": "done - muvaffaqiyat, fail - xato, always - doim; await jqXHR bilan ishlaydi, chunki unda .then bor."
+      },
+      {
+        "type": "multiple",
+        "question": "Qaysi holatlarda $.getJSON ning .fail i ishlaydi?",
+        "options": [
+          "Server 404 bilan javob berdi",
+          "Faylda oxirgi elementdan keyin vergulli JSON bor",
+          "Sahifa file:// orqali ochilgan",
+          "Server bo‘sh massiv [] qaytardi"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "404 va file:// (status 0) - so‘rov xatolari, buzilgan JSON - parsererror. Bo‘sh massiv - muvaffaqiyatli javob, u .done da qayta ishlanadi."
+      },
+      {
+        "type": "single",
+        "question": "So‘rovdan keyin «Yangilash» tugmasini qayerda blokdan chiqarish to‘g‘ri?",
+        "options": [
+          "Faqat .done da",
+          "Faqat .fail da",
+          ".always da",
+          "$.getJSON qatoridan darhol keyin"
+        ],
+        "answer": 2,
+        "explanation": ".always muvaffaqiyatda ham, xatoda ham ishlaydi - tugma bloklangan holda qolmaydi."
+      },
+      {
+        "type": "input",
+        "question": "jqXHR ning qaysi xususiyatida server javobining kodi (masalan, 404) bor? Xususiyat nomini kiriting.",
+        "answers": [
+          "status",
+          ".status",
+          "jqXHR.status"
+        ],
+        "case_sensitive": true,
+        "explanation": "jqXHR.status - son: 200, 404, 500 yoki javob bo‘lmagan bo‘lsa 0."
+      },
+      {
+        "type": "single",
+        "question": "Kod nima uchun ishlamaydi?\nconst courses = $.getJSON(\"data/courses.json\");\n$(\"#count\").text(courses.length);",
+        "options": [
+          "$.get yozish kerak",
+          "courses da massiv emas, jqXHR turibdi: ma’lumotlar faqat .done da yoki await dan keyin mavjud",
+          "O‘zgaruvchini courses deb nomlash mumkin emas",
+          "Avval JSON.parse ni chaqirish kerak"
+        ],
+        "answer": 1,
+        "explanation": "$.getJSON jqXHR qaytaradi. Ma’lumotlar kerak bo‘lgan kod .done((courses) => {...}) ichida yoziladi."
+      },
+      {
+        "type": "multiple",
+        "question": "jQuery so‘rovi bilan await haqida nima to‘g‘ri?",
+        "options": [
+          "const data = await $.getJSON(url) data ga tahlil qilingan ma’lumotlarni qo‘yadi",
+          "Xatoda catch ga status xususiyatli jqXHR tushadi",
+          "await ni istalgan funksiyada yozish mumkin",
+          "await jqXHR bilan ishlaydi, chunki unda .then metodi bor"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "jqXHR - «thenable», shuning uchun uni kutish mumkin. Lekin await faqat async funksiya ichida ruxsat etilgan."
+      },
+      {
+        "type": "matching",
+        "question": "Yozuv va vazifasini moslang.",
+        "pairs": [
+          [
+            "$.getJSON(url)",
+            "JSON olish va tahlil qilish"
+          ],
+          [
+            "$.post(url, $form.serialize())",
+            "Forma maydonlarini serverga yuborish"
+          ],
+          [
+            "$.ajax({ url, cache: false })",
+            "Sozlamali, keshsiz so‘rov"
+          ],
+          [
+            "jqXHR.responseURL",
+            "Javob kelgan to‘liq manzil (jQuery 4.1)"
+          ]
+        ],
+        "explanation": "$.getJSON va $.post - qisqa yozuvlar, $.ajax - to‘liq sozlash. responseURL 4.1 da qo‘shilgan."
+      },
+      {
+        "type": "single",
+        "question": "Siz index.html ni ikki marta bosib ochdingiz va $.getJSON status 0 bilan .fail ga tushyapti. Nima qilish kerak?",
+        "options": [
+          "$.getJSON ni $.ajax ga almashtirish",
+          "Sahifani Live Server orqali ochish (http://127.0.0.1:5500)",
+          "cache: false qo‘shish",
+          "Slim yig‘mani ulash"
+        ],
+        "answer": 1,
+        "explanation": "file:// sahifalaridan brauzer fayllarni yuklashga ruxsat bermaydi. http manzil kerak - Live Server yoki GitHub Pages."
+      },
+      {
+        "type": "single",
+        "question": "courses massivini localStorage ga qanday to‘g‘ri saqlash kerak?",
+        "options": [
+          "localStorage.setItem(\"courses\", courses)",
+          "localStorage.setItem(\"courses\", JSON.stringify(courses))",
+          "localStorage.courses = courses.text()",
+          "localStorage.setItem(courses)"
+        ],
+        "answer": 1,
+        "explanation": "localStorage faqat satrlarni saqlaydi. JSON.stringify’siz massiv \"[object Object],...\" satriga aylanadi."
+      },
+      {
+        "type": "input",
+        "question": "Brauzer javobning eski nusxasini bermasligi uchun $.ajax ning qaysi sozlamasini false qilish kerak? Sozlama nomini kiriting.",
+        "answers": [
+          "cache"
+        ],
+        "case_sensitive": true,
+        "explanation": "cache: false bilan jQuery manzilga joriy vaqtli _= parametrini qo‘shadi va brauzer serverdan qaytadan so‘raydi."
+      }
+    ]
+  }
+}

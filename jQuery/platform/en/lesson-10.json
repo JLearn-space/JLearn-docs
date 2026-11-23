@@ -1,0 +1,270 @@
+{
+  "lesson": 10,
+  "language": "en",
+  "lesson_title": "Plugins and final project",
+  "task": {
+    "title": "The $.fn.charCounter plugin",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Club sign-up</title>\n    <style>\n        .char-counter { color: #555; }\n        .is-over { color: #b00020; font-weight: bold; }\n    </style>\n</head>\n<body>\n    <main>\n        <h1>Club sign-up</h1>\n        <form id=\"signup-form\">\n            <label for=\"about\">A few words about yourself</label>\n            <textarea id=\"about\" name=\"about\" data-max=\"50\"></textarea>\n            <label for=\"message\">A question for the teacher</label>\n            <textarea id=\"message\" name=\"message\"></textarea>\n            <button type=\"submit\">Send</button>\n        </form>\n    </main>\n</body>\n</html>",
+    "description": "The page has a form #signup-form with the fields textarea#about (data-max=\"50\") and textarea#message (without data-max). jQuery is already loaded. Write a plugin $.fn.charCounter(options). 1) Default settings defaults = { max: 100, counterClass: \"char-counter\", overClass: \"is-over\" }; inside the plugin, merge them with options using $.extend({}, defaults, options), without changing defaults. 2) Go through the fields with return this.each(...) so that the plugin can be continued with a chain. 3) If the field already has a counter (a repeated call), skip the field. 4) The field's limit is the number from data-max if there is one, otherwise settings.max. 5) Right after the field, create a <p> with the class settings.counterClass and aria-live=\"polite\". 6) The counter text is \"N / limit\", where N is the number of characters; update it right away and on every input event; the class settings.overClass - only when N is greater than the limit. 7) Call the plugin for all textarea elements of the form #signup-form with { max: 200 }. Do not use document.querySelector, innerHTML, .html() or addEventListener.",
+    "starter_code": "// The page has a form #signup-form with two fields:\n// textarea#about (data-max=\"50\") and textarea#message (without data-max).\n// jQuery is already loaded.\n\n(function ($) {\n    // 1. const defaults = { ... }: max 100, counterClass \"char-counter\", overClass \"is-over\"\n\n    $.fn.charCounter = function (options) {\n        // 2. const settings = ... (merge defaults and options without changing defaults)\n\n        // 3. return this.each(function () { ... }), inside, for each field:\n        //    - if the counter already exists - return (skip the field)\n        //    - limit: the number from data-max, otherwise settings.max\n        //    - create a <p> with the class settings.counterClass and aria-live=\"polite\" right after the field\n        //    - function update(): text \"N / limit\", class settings.overClass if N > limit\n        //    - update on the input event and right after creation\n    };\n})(jQuery);\n\n// 4. Call the plugin for all textarea elements of the form #signup-form with { max: 200 }\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      "addEventListener",
+      ".style."
+    ],
+    "tests": [
+      {
+        "name": "The $.fn.charCounter plugin is declared",
+        "check": "typeof $.fn.charCounter === \"function\"",
+        "fail": "Declare the method: $.fn.charCounter = function (options) { ... };"
+      },
+      {
+        "name": "After each form field - p.char-counter with aria-live=\"polite\"",
+        "check": "document.querySelectorAll(\"#signup-form p.char-counter\").length === 2 && [...document.querySelectorAll(\"#signup-form textarea\")].every((t) => t.nextElementSibling && t.nextElementSibling.matches(\"p.char-counter\") && t.nextElementSibling.getAttribute(\"aria-live\") === \"polite\")",
+        "fail": "Create $(\"<p>\", { class: settings.counterClass, \"aria-live\": \"polite\" }) and insert it with $field.after(...). And do not forget to call the plugin for the form's textarea elements."
+      },
+      {
+        "name": "#about has the limit from data-max: \"0 / 50\"",
+        "check": "document.querySelector(\"#about\").nextElementSibling.textContent === \"0 / 50\"",
+        "fail": "data-max on the field is more important than options: const max = Number($field.data(\"max\")) || settings.max; and call update() right after creating the counter."
+      },
+      {
+        "name": "#message has the limit from options: \"0 / 200\"",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"",
+        "fail": "The call: $(\"#signup-form textarea\").charCounter({ max: 200 }); - #message has no data-max, so settings.max is used."
+      },
+      {
+        "name": "The counter updates on input",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; return put(\"Hello!\").textContent === \"6 / 50\"; })()",
+        "fail": "Listen to input: $field.on(\"input\", update);"
+      },
+      {
+        "name": "Exactly 50 characters - no is-over, 51 - with is-over, the class is removed after deleting",
+        "check": "(() => { const f = document.querySelector(\"#about\"); const put = (v) => { f.value = v; f.dispatchEvent(new Event(\"input\", { bubbles: true })); return f.nextElementSibling; }; const a = put(\"x\".repeat(50)); const okEqual = a.textContent === \"50 / 50\" && !a.classList.contains(\"is-over\"); const okOver = put(\"x\".repeat(51)).classList.contains(\"is-over\"); const okBack = !put(\"x\".repeat(10)).classList.contains(\"is-over\"); return okEqual && okOver && okBack; })()",
+        "fail": "The class is needed only when the limit is exceeded: .toggleClass(settings.overClass, length > max) - strictly greater."
+      },
+      {
+        "name": "Without options and data-max the limit is 100",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); $t.charCounter(); return $t.next().text() === \"0 / 100\"; })()",
+        "fail": "Default settings: const defaults = { max: 100, ... }; and settings = $.extend({}, defaults, options)."
+      },
+      {
+        "name": "Text that is already entered is counted right away",
+        "check": "document.querySelector(\"#message\").nextElementSibling.textContent === \"12 / 200\"",
+        "fail": "Call update() once right after creating the counter, not only in the input handler.",
+        "setup": "document.querySelector(\"#message\").value = \"Good morning\";"
+      },
+      {
+        "name": "A repeated call does not create a second counter",
+        "check": "(() => { $(\"#about\").charCounter(); $(\"#signup-form textarea\").charCounter({ max: 10 }); return document.querySelectorAll(\"p.char-counter\").length === 2 && document.querySelector(\"#message\").nextElementSibling.textContent === \"0 / 200\"; })()",
+        "fail": "At the start of each: if ($field.data(\"charCounter\")) { return; } and after creating the counter $field.data(\"charCounter\", true);"
+      },
+      {
+        "name": "The plugin returns the same jQuery object (chain)",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\"); return $t.charCounter() === $t && $t.charCounter().addClass(\"x\").hasClass(\"x\"); })()",
+        "fail": "Write return this.each(function () { ... }); - each returns this."
+      },
+      {
+        "name": "A call with options does not change the default settings",
+        "check": "(() => { $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 5 }); const $b = $(\"<textarea>\").appendTo(\"main\").charCounter(); return $b.next().text() === \"0 / 100\"; })()",
+        "fail": "Pass a new empty object as the first argument of $.extend: $.extend({}, defaults, options)."
+      },
+      {
+        "name": "The counterClass and overClass settings work",
+        "check": "(() => { const $t = $(\"<textarea>\").appendTo(\"main\").charCounter({ max: 3, counterClass: \"hint\", overClass: \"too-long\" }); $t.val(\"abcd\").trigger(\"input\"); return $t.next().is(\"p.hint.too-long\"); })()",
+        "fail": "Use settings.counterClass when creating the <p> and settings.overClass in toggleClass."
+      },
+      {
+        "name": "Settings are merged with $.extend, iteration uses this.each",
+        "check": "/\\$\\.extend\\(\\s*\\{\\s*\\}\\s*,/.test(__code) && /this\\.each\\(/.test(__code)",
+        "fail": "const settings = $.extend({}, defaults, options); and return this.each(function () { ... });"
+      },
+      {
+        "name": "The program runs without errors",
+        "check": "__error === null",
+        "fail": "Inside each, this is a DOM element: wrap it, $(this), before calling .val() or .after()."
+      }
+    ],
+    "hints": [
+      "Skeleton: $.fn.charCounter = function (options) { const settings = $.extend({}, defaults, options); return this.each(function () { ... }); };",
+      "Inside each, this is a DOM element. Wrap it right away: const $field = $(this);",
+      "Limit: const max = Number($field.data(\"max\")) || settings.max; - if there is no data-max, Number(undefined) gives NaN, and settings.max is used.",
+      "Protection from repeated calls: at the start if ($field.data(\"charCounter\")) { return; }, after creating the counter $field.data(\"charCounter\", true);",
+      "Update: $counter.text(`${length} / ${max}`).toggleClass(settings.overClass, length > max); - call update() right away and in $field.on(\"input\", update)."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "What is $.fn?",
+        "options": [
+          "A list of all functions on the page",
+          "An object with the methods of all jQuery objects: a method added to $.fn appears on any $(...)",
+          "A function for creating elements",
+          "A new build of jQuery 4"
+        ],
+        "answer": 1,
+        "explanation": "$.fn is the shared \"toolbox\" of all jQuery objects. Once you write $.fn.charCounter, you can call $(\"textarea\").charCounter()."
+      },
+      {
+        "type": "single",
+        "question": "What is this inside $.fn.charCounter = function () { ... } if you call $(\"textarea\").charCounter()?",
+        "options": [
+          "The first textarea (a DOM element)",
+          "A jQuery object with all the textarea elements found",
+          "window",
+          "The settings object"
+        ],
+        "answer": 1,
+        "explanation": "Inside a plugin method, this is the jQuery object the method was called on. Inside this.each(function () {...}), this is a single DOM element."
+      },
+      {
+        "type": "single",
+        "question": "Why does a plugin end with return this.each(...)?",
+        "options": [
+          "To make the plugin faster",
+          "To process each element and return the jQuery object for chaining",
+          "To cancel a repeated call",
+          "Without return the plugin will not run"
+        ],
+        "answer": 1,
+        "explanation": ".each goes through the elements and returns the same object. return passes it out, so $(\"textarea\").charCounter().addClass(\"x\") works."
+      },
+      {
+        "type": "single",
+        "question": "const defaults = { max: 100 }; const s = $.extend(defaults, { max: 20 }); What is defaults.max now?",
+        "options": [
+          "100",
+          "20",
+          "undefined",
+          "There will be an error"
+        ],
+        "answer": 1,
+        "explanation": "$.extend writes properties into the first argument. Here it is defaults - the default settings are spoiled. The correct way: $.extend({}, defaults, options)."
+      },
+      {
+        "type": "input",
+        "question": "Fill in the first argument so that the default settings do not change: const settings = $.extend(___, defaults, options);",
+        "answers": [
+          "{}"
+        ],
+        "case_sensitive": true,
+        "explanation": "The empty object {} is a \"blank sheet\": first defaults is copied into it, then options. defaults itself does not change."
+      },
+      {
+        "type": "single",
+        "question": "In the course's charCounter plugin: defaults.max = 100, the call is charCounter({ max: 200 }), and the field has data-max=\"50\". What is the field's limit?",
+        "options": [
+          "100",
+          "200",
+          "50",
+          "250"
+        ],
+        "answer": 2,
+        "explanation": "The priority order: data-max on the specific field → options.max → defaults.max. The closer a setting is to the element, the more important it is."
+      },
+      {
+        "type": "multiple",
+        "question": "What was removed in jQuery 4, and what replaces it?",
+        "options": [
+          "$.trim(str) → str.trim()",
+          "$.isArray(x) → Array.isArray(x)",
+          ".on() → .click()",
+          "$.parseJSON(s) → JSON.parse(s)",
+          ".text() → .html()"
+        ],
+        "answer": [
+          0,
+          1,
+          3
+        ],
+        "explanation": "$.trim, $.isArray and $.parseJSON were removed: browsers have had built-in replacements for a long time. .on() and .text() are core methods; they were not removed."
+      },
+      {
+        "type": "single",
+        "question": "Why do you add jQuery Migrate?",
+        "options": [
+          "To move the site to another hosting",
+          "To bring back removed functions for a while and see warnings in the console about what needs to be rewritten",
+          "To make jQuery faster",
+          "To add plugins"
+        ],
+        "answer": 1,
+        "explanation": "Migrate is a transition tool: old code keeps working, and the console shows every outdated place. After the fixes, Migrate is removed."
+      },
+      {
+        "type": "matching",
+        "question": "Match jQuery with plain JavaScript.",
+        "pairs": [
+          [
+            "$(\".card\")",
+            "document.querySelectorAll(\".card\")"
+          ],
+          [
+            "$el.on(\"click\", fn)",
+            "el.addEventListener(\"click\", fn)"
+          ],
+          [
+            "$el.toggleClass(\"x\", flag)",
+            "el.classList.toggle(\"x\", flag)"
+          ],
+          [
+            "$.getJSON(url)",
+            "fetch(url).then((r) => r.json())"
+          ]
+        ],
+        "explanation": "jQuery calls the same browser functions. If you know both forms, you can read both old and new code."
+      },
+      {
+        "type": "single",
+        "question": "In what order do you load the files of the final project?",
+        "options": [
+          "main.js → jquery.char-counter.js → jQuery",
+          "jQuery → jquery.char-counter.js → main.js",
+          "jquery.char-counter.js → jQuery → main.js",
+          "The order does not matter, they all have defer"
+        ],
+        "answer": 1,
+        "explanation": "The plugin writes a method into $.fn - so jQuery must already be there. main.js calls the plugin - so the plugin must be declared earlier. Scripts with defer run in the order of the tags."
+      },
+      {
+        "type": "multiple",
+        "question": "Which checks must you repeat on the published GitHub Pages site?",
+        "options": [
+          "Whether there are 404s for js/ and data/events.json in the Network tab",
+          "Whether the letter case of file names matches",
+          "Whether $.getJSON works with a relative path",
+          "How many lines main.js has"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Pages is case-sensitive, the site is in a subfolder of the repository, and the cache may serve an old script. The number of lines of code has nothing to do with acceptance."
+      },
+      {
+        "type": "input",
+        "question": "Which method of a jQuery object goes through the elements and returns the same object? Enter the method name without a dot and brackets.",
+        "answers": [
+          "each"
+        ],
+        "case_sensitive": true,
+        "explanation": ".each(function () { ... }) calls the function for each element and returns the original object - that is why return this.each(...) keeps the chain."
+      }
+    ]
+  }
+}

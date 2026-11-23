@@ -1,0 +1,283 @@
+{
+  "lesson": 3,
+  "language": "ru",
+  "lesson_title": "Содержимое и атрибуты",
+  "task": {
+    "title": "Карточка профиля из объекта user",
+    "language": "javascript",
+    "environment": "dom",
+    "libraries": [
+      "jquery"
+    ],
+    "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Профиль ученика</title>\n</head>\n<body>\n    <main>\n        <article class=\"profile\" id=\"profile\" data-max-level=\"10\">\n            <img class=\"profile__avatar\" id=\"avatar\" src=\"img/placeholder.png\" alt=\"\">\n            <h2 class=\"profile__name\" id=\"profile-name\">Имя ученика</h2>\n            <p class=\"profile__level\" id=\"level-text\">Уровень: ?</p>\n            <a class=\"profile__link\" id=\"profile-link\" href=\"#\">Открыть профиль</a>\n            <label class=\"profile__mentor\">\n                <input type=\"checkbox\" id=\"mentor\"> Наставник группы\n            </label>\n            <label class=\"profile__email\">\n                Почта: <input type=\"email\" id=\"email\" value=\"\">\n            </label>\n        </article>\n    </main>\n</body>\n</html>",
+    "description": "Платформа задала объект user: id, name, avatar, profileUrl, isMentor, email, level. На странице - карточка article#profile с атрибутом data-max-level=\"10\", внутри img#avatar, h2#profile-name, p#level-text, ссылка a#profile-link, флажок #mentor и поле #email. Напишите функцию fillProfile(person), которая заполняет карточку данными из person: 1) имя - в #profile-name через .text(); 2) у #avatar задайте src = person.avatar и alt = \"Фото: \" + имя одним вызовом .attr() с объектом; 3) у #profile-link задайте атрибут href = person.profileUrl; 4) отметьте или снимите флажок #mentor через .prop(\"checked\", person.isMentor); 5) запишите person.email в поле #email через .val(); 6) сохраните person.id в данные карточки: .data(\"userId\", ...); 7) прочитайте максимальный уровень из data-max-level через .data(\"maxLevel\") и запишите в #level-text текст \"Уровень 3 из 10\", где 3 - person.level; 8) вызовите fillProfile(user). Функция должна работать при повторном вызове с другим учеником. document.querySelector, innerHTML и .html() не используйте.",
+    "starter_code": "// Объект user уже задан платформой:\n// const user = {\n//     id: 17,\n//     name: \"Анна Каримова\",\n//     avatar: \"img/anna.png\",\n//     profileUrl: \"https://jlearn.space/u/anna\",\n//     isMentor: true,\n//     email: \"anna@example.com\",\n//     level: 3,\n// };\n// На странице: article#profile с data-max-level=\"10\", img#avatar, h2#profile-name,\n// p#level-text, a#profile-link, флажок #mentor и поле #email.\n\nfunction fillProfile(person) {\n    // 1. Имя - в #profile-name через .text()\n\n    // 2. Аватар: src и alt одним вызовом .attr({ ... }), alt = \"Фото: \" + имя\n\n    // 3. Ссылка #profile-link: атрибут href = person.profileUrl\n\n    // 4. Флажок #mentor: .prop(\"checked\", ...)\n\n    // 5. Поле #email: .val(...)\n\n    // 6. Сохраните person.id в данные карточки: $(\"#profile\").data(\"userId\", ...)\n\n    // 7. Прочитайте maxLevel из data-max-level через .data(\"maxLevel\")\n    //    и запишите в #level-text \"Уровень 3 из 10\"\n}\n\n// 8. Вызовите fillProfile(user)\n",
+    "timeout_ms": 2000,
+    "forbidden": [
+      "var ",
+      "document.querySelector",
+      "getElementById",
+      "innerHTML",
+      ".html(",
+      "onclick",
+      ".setAttribute(",
+      ".dataset",
+      ".textContent"
+    ],
+    "setup": "const user = {\n    id: 17,\n    name: \"Анна Каримова\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};",
+    "tests": [
+      {
+        "name": "Имя выведено в #profile-name",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"Анна Каримова\"",
+        "fail": "$(\"#profile-name\").text(person.name);"
+      },
+      {
+        "name": "Имя вида \"<b>...\" выводится как текст, а не как разметка",
+        "check": "document.querySelector(\"#profile-name\").textContent === \"<b>Хакер</b>\" && document.querySelector(\"#profile-name b\") === null",
+        "fail": "Имя выводите только через .text(): так теги показываются буквами и не выполняются.",
+        "setup": "const user = {\n    id: 17,\n    name: \"<b>Хакер</b>\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};"
+      },
+      {
+        "name": "У аватара правильные src и alt",
+        "check": "document.querySelector(\"#avatar\").getAttribute(\"src\") === \"img/anna.png\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Фото: Анна Каримова\"",
+        "fail": "$(\"#avatar\").attr({ src: person.avatar, alt: `Фото: ${person.name}` });"
+      },
+      {
+        "name": "src и alt заданы одним вызовом .attr с объектом",
+        "check": "/\\.attr\\(\\s*\\{/.test(__code)",
+        "fail": "Передайте в .attr() объект: .attr({ src: ..., alt: ... })."
+      },
+      {
+        "name": "Ссылка ведёт на профиль",
+        "check": "document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/anna\"",
+        "fail": "$(\"#profile-link\").attr(\"href\", person.profileUrl);"
+      },
+      {
+        "name": "Флажок «Наставник» отмечен",
+        "check": "document.querySelector(\"#mentor\").checked === true",
+        "fail": "$(\"#mentor\").prop(\"checked\", person.isMentor);"
+      },
+      {
+        "name": "Флажок обновляется и после того, как по нему щёлкнули",
+        "check": "(() => { const cb = document.querySelector(\"#mentor\"); cb.click(); fillProfile(user); return cb.checked === true; })()",
+        "fail": "После щелчка атрибут уже не управляет флажком. Меняйте свойство: .prop(\"checked\", ...), а не .attr()."
+      },
+      {
+        "name": "Повторный вызов с isMentor: false снимает флажок",
+        "check": "(() => { fillProfile({ ...user, isMentor: false }); return document.querySelector(\"#mentor\").checked === false; })()",
+        "fail": "Передавайте в .prop(\"checked\", ...) значение person.isMentor - true или false."
+      },
+      {
+        "name": "В поле почты - адрес ученика",
+        "check": "document.querySelector(\"#email\").value === \"anna@example.com\"",
+        "fail": "$(\"#email\").val(person.email);"
+      },
+      {
+        "name": "id ученика сохранён в .data(\"userId\")",
+        "check": "$(\"#profile\").data(\"userId\") === 17 && /\\.data\\(/.test(__code)",
+        "fail": "$(\"#profile\").data(\"userId\", person.id); - значение остаётся числом."
+      },
+      {
+        "name": "Текст уровня: \"Уровень 3 из 10\"",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Уровень 3 из 10\"",
+        "fail": "const maxLevel = $(\"#profile\").data(\"maxLevel\"); затем .text(`Уровень ${person.level} из ${maxLevel}`)."
+      },
+      {
+        "name": "Максимальный уровень читается из data-max-level",
+        "check": "document.querySelector(\"#level-text\").textContent === \"Уровень 3 из 12\"",
+        "fail": "Не пишите 10 вручную: берите число из $(\"#profile\").data(\"maxLevel\").",
+        "setup": "const user = {\n    id: 17,\n    name: \"Анна Каримова\",\n    avatar: \"img/anna.png\",\n    profileUrl: \"https://jlearn.space/u/anna\",\n    isMentor: true,\n    email: \"anna@example.com\",\n    level: 3,\n};\ndocument.querySelector(\"#profile\").setAttribute(\"data-max-level\", \"12\");"
+      },
+      {
+        "name": "Повторный вызов с другим учеником перезаписывает карточку",
+        "check": "(() => { const email = document.querySelector(\"#email\"); email.value = \"typed@mail.ru\"; email.dispatchEvent(new Event(\"input\", { bubbles: true })); fillProfile({ id: 5, name: \"Борис\", avatar: \"img/boris.png\", profileUrl: \"https://jlearn.space/u/boris\", isMentor: false, email: \"boris@example.com\", level: 7 }); return document.querySelector(\"#profile-name\").textContent === \"Борис\" && document.querySelector(\"#avatar\").getAttribute(\"alt\") === \"Фото: Борис\" && document.querySelector(\"#profile-link\").getAttribute(\"href\") === \"https://jlearn.space/u/boris\" && email.value === \"boris@example.com\" && $(\"#profile\").data(\"userId\") === 5 && document.querySelector(\"#level-text\").textContent === \"Уровень 7 из 10\"; })()",
+        "fail": "Внутри функции используйте параметр person, а не user. Поле заполняйте через .val(): .attr(\"value\") не меняет то, что уже ввёл пользователь."
+      },
+      {
+        "name": "Программа выполняется без ошибок",
+        "check": "__error === null",
+        "fail": "Проверьте, что функция fillProfile объявлена и вызвана, а селекторы написаны без опечаток."
+      }
+    ],
+    "hints": [
+      "Имя: $(\"#profile-name\").text(person.name); - теги в имени покажутся буквами.",
+      "Объект в .attr(): $(\"#avatar\").attr({ src: person.avatar, alt: `Фото: ${person.name}` });",
+      "Для флажка - свойство, а не атрибут: $(\"#mentor\").prop(\"checked\", person.isMentor);",
+      "Поле ввода заполняется через .val(person.email).",
+      "data-max-level читается как .data(\"maxLevel\") и сразу становится числом.",
+      "Внутри функции везде пишите person, а не user: тогда функция подойдёт для любого ученика."
+    ]
+  },
+  "test": {
+    "pass_percent": 70,
+    "questions": [
+      {
+        "type": "single",
+        "question": "Пользователь ввёл имя <img src=x onerror=alert(1)>. Каким вызовом безопасно вывести его на страницу?",
+        "options": [
+          "$(\"#name\").html(userName)",
+          "$(\"#name\").text(userName)",
+          "$(\"#name\").attr(\"html\", userName)",
+          "$(\"#name\").val(userName)"
+        ],
+        "answer": 1,
+        "explanation": ".text() вставляет строку как текст: теги показываются буквами и не выполняются. .html() разобрал бы строку как разметку - это XSS."
+      },
+      {
+        "type": "single",
+        "question": "Что вернёт $(\"#email\").val(), если пользователь ввёл в поле anna@mail.ru, а в разметке value=\"\"?",
+        "options": [
+          "\"\" - значение атрибута",
+          "\"anna@mail.ru\" - текущее значение поля",
+          "undefined",
+          "jQuery-объект"
+        ],
+        "answer": 1,
+        "explanation": ".val() читает свойство value - то, что сейчас в поле. Атрибут value хранит только начальное значение."
+      },
+      {
+        "type": "single",
+        "question": "Флажок <input type=\"checkbox\" id=\"agree\">. Пользователь отметил его. Что вернёт $(\"#agree\").prop(\"checked\")?",
+        "options": [
+          "true",
+          "\"checked\"",
+          "undefined",
+          "\"on\""
+        ],
+        "answer": 0,
+        "explanation": ".prop() читает свойство DOM-элемента - текущее состояние true или false. .attr(\"checked\") вернул бы undefined: атрибута в разметке нет."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте задачу и метод jQuery.",
+        "pairs": [
+          [
+            "Текущее значение поля ввода",
+            ".val()"
+          ],
+          [
+            "Адрес ссылки из разметки",
+            ".attr(\"href\")"
+          ],
+          [
+            "Отмечен ли флажок",
+            ".prop(\"checked\")"
+          ],
+          [
+            "Число из data-lessons=\"10\"",
+            ".data(\"lessons\")"
+          ]
+        ],
+        "explanation": "Значение поля - .val(), атрибут - .attr(), живое состояние - .prop(), данные data-* - .data()."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие вызовы сделают кнопку #send неактивной?",
+        "options": [
+          "$(\"#send\").prop(\"disabled\", true)",
+          "$(\"#send\").attr(\"disabled\", \"\")",
+          "$(\"#send\").prop(\"disabled\", \"false\")",
+          "$(\"#send\").removeAttr(\"disabled\")"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "Блокирует наличие атрибута или истинное свойство. Строка \"false\" непустая, поэтому тоже истинна - коварная ошибка. removeAttr снимает блокировку."
+      },
+      {
+        "type": "single",
+        "question": "<div id=\"c\" data-lessons=\"10\">. Что выведет console.log($(\"#c\").data(\"lessons\") + 1)?",
+        "options": [
+          "\"101\"",
+          "11",
+          "NaN",
+          "undefined"
+        ],
+        "answer": 1,
+        "explanation": ".data() превращает \"10\" в число 10, поэтому 10 + 1 = 11. Через .attr(\"data-lessons\") была бы строка и склейка \"101\"."
+      },
+      {
+        "type": "single",
+        "question": "Выполнили $(\"#c\").data(\"status\", \"done\"). Что увидите в DevTools у элемента #c?",
+        "options": [
+          "Атрибут data-status=\"done\"",
+          "Атрибута data-status нет: .data() хранит значение в памяти jQuery",
+          "Атрибут status=\"done\"",
+          "Ошибку в консоли"
+        ],
+        "answer": 1,
+        "explanation": "Сеттер .data() не меняет HTML. Если атрибут нужен в разметке (например, для CSS), используйте .attr(\"data-status\", \"done\")."
+      },
+      {
+        "type": "input",
+        "question": "Допишите вызов, который удаляет у #photo атрибут title: $(\"#photo\").______(\"title\"). Введите только имя метода.",
+        "answers": [
+          "removeAttr"
+        ],
+        "case_sensitive": true,
+        "explanation": ".removeAttr(\"title\") удаляет атрибут целиком, а не делает его пустым."
+      },
+      {
+        "type": "multiple",
+        "question": "Какие записи задают картинке и src, и alt?",
+        "options": [
+          "$img.attr({ src: \"a.png\", alt: \"Кот\" })",
+          "$img.attr(\"src\", \"a.png\").attr(\"alt\", \"Кот\")",
+          "$img.attr(\"src\", \"a.png\", \"alt\", \"Кот\")",
+          "$img.attr([\"src\", \"a.png\"])"
+        ],
+        "answer": [
+          0,
+          1
+        ],
+        "explanation": "Несколько атрибутов задают объектом или цепочкой сеттеров. Лишние аргументы .attr() игнорирует."
+      },
+      {
+        "type": "single",
+        "question": "На странице три <p class=\"note\">: \"a\", \"b\", \"c\". Что окажется во втором абзаце после $(\".note\").text((index, old) => `${index + 1}) ${old}`)?",
+        "options": [
+          "\"1) b\"",
+          "\"2) b\"",
+          "\"2) a\"",
+          "Ошибка: в .text() нельзя передать функцию"
+        ],
+        "answer": 1,
+        "explanation": "Функция вызывается для каждого элемента: index - номер с нуля, old - текущий текст. Для второго абзаца index = 1, old = \"b\"."
+      },
+      {
+        "type": "matching",
+        "question": "Сопоставьте чистый JavaScript и jQuery.",
+        "pairs": [
+          [
+            "el.textContent = s",
+            "$el.text(s)"
+          ],
+          [
+            "el.setAttribute(\"href\", url)",
+            "$el.attr(\"href\", url)"
+          ],
+          [
+            "el.checked = true",
+            "$el.prop(\"checked\", true)"
+          ],
+          [
+            "el.value",
+            "$el.val()"
+          ]
+        ],
+        "explanation": "jQuery делает то же самое, но сразу для всех найденных элементов."
+      },
+      {
+        "type": "input",
+        "question": "<div id=\"u\" data-user-id=\"5\">. Какое имя ключа передать в .data(), если писать в camelCase, как принято в курсе? Введите имя без кавычек.",
+        "answers": [
+          "userId"
+        ],
+        "case_sensitive": true,
+        "explanation": "Дефисы превращаются в camelCase: data-user-id → .data(\"userId\"), как dataset.userId в чистом JavaScript."
+      }
+    ]
+  }
+}
